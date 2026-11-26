@@ -14,7 +14,7 @@ test("home page sections are in the old order", { skip }, () => {
     'section_homepage_hero"',
     'data-section="trust-bar"',
     'data-section="partners"',
-    'section_philosophy"',
+    'data-section="philosophy"',
     'data-section="impact"',
     'section_programs-overview"',
     'section_founding-story"',
@@ -71,7 +71,7 @@ test("every image is an optimized asset; the hero and team photo are eager", { s
   const eager = imgs.filter((i) => /loading="eager"/.test(i));
   assert.equal(eager.length, 2, "two eager images");
   assert.ok(eager.some((i) => /header26_image/.test(i)), "hero is eager");
-  assert.ok(eager.some((i) => /team-image/.test(i)), "team photo is eager");
+  assert.ok(eager.some((i) => /alt="Đội ngũ PiMA"/.test(i)), "team photo is eager");
 });
 
 test("internal links use the new routes", { skip }, () => {
