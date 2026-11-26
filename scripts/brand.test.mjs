@@ -61,6 +61,15 @@ test("every --token named in docs/brand.md exists in tokens.css", () => {
   assert.deepEqual(named.filter((name) => !declared.has(name)), []);
 });
 
+test("CLAUDE.md's Building UI section starts by sending agents to docs/brand.md", () => {
+  const claude = readFileSync(join(root, "CLAUDE.md"), "utf8");
+  const section = claude.split(/^## Building UI\n+/m)[1] ?? "";
+  assert.equal(
+    section.split("\n")[0],
+    "- Before any UI work (a new section or component, or a style change), read `docs/brand.md`.",
+  );
+});
+
 test("src/assets/logo/ holds the ten brand logo files", () => {
   const expected = ["horizontal", "stacked"]
     .flatMap((shape) => ["green", "darkgreen", "lime", "black", "white"].map((c) => `pima-logo-${shape}-${c}.png`))

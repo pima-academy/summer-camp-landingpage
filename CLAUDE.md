@@ -7,6 +7,7 @@
 
 ## Building UI
 
+- Before any UI work (a new section or component, or a style change), read `docs/brand.md`.
 - Every design value (colour, font family, weight, size, line height, radius, shadow) comes from `src/styles/tokens.css` as `var(--…)`; `scripts/guardrail.test.mjs` fails on a literal anywhere else.
 - Primitives (`src/components/`): `Section` (the frame of every section: `name`, `width`, `spacing`, `animate`, `id`), `Button` (`href`, `variant`), `Kicker` (the green uppercase line above a heading, a `<p>`), `BrandName` ("PiMA" inside uppercased text). See them all at `/catalogue/` in `npm run dev` (dev only, `src/pages/catalogue/[...path].astro`). A new primitive needs a pattern repeated in 2+ places **and** carrying a brand rule; mark it with a `Primitive:` header comment and add it to the catalogue (`scripts/catalogue.test.mjs` checks).
 - Where files go (ADR 0005): a page file in `src/pages/` is `BaseLayout` + SEO data + its ordered sections. A section used by one page lives in `src/sections/<route-slug>/` (`home` for `/`), one used by 2+ pages in `src/sections/`, both with their `.ts` data files next to them. Primitives and widgets in `src/components/`; `BaseLayout`, `Nav`, `Footer` in `src/layouts/`.
