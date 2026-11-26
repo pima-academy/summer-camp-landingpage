@@ -5,7 +5,7 @@ import assert from "node:assert/strict";
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { root } from "./test-lib.mjs";
-import { parseCss } from "./guardrail-lib.mjs";
+import { parseCss, tokenNames } from "./guardrail-lib.mjs";
 
 const tokensCss = readFileSync(join(root, "src/styles/tokens.css"), "utf8");
 
@@ -40,6 +40,25 @@ test("tokens.css holds the PiMA palette", () => {
   for (const [name, value] of Object.entries(palette)) {
     assert.equal(tokens[name]?.toLowerCase(), value, name);
   }
+});
+
+/** The `--token` names a Markdown text mentions, in order of first mention. */
+const docTokens = (md) => [...new Set(md.match(/(?<![\w-])--[a-z][a-z0-9]*(?:-[a-z0-9]+)*/g) ?? [])];
+
+test("docTokens finds each --token once and skips dashes", () => {
+  assert.deepEqual(docTokens("Use `--pima-green` -- or --gray-1, then `--pima-green` again."), [
+    "--pima-green",
+    "--gray-1",
+  ]);
+});
+
+test("every --token named in docs/brand.md exists in tokens.css", () => {
+  const path = join(root, "docs/brand.md");
+  assert.ok(existsSync(path), "docs/brand.md is missing");
+  const named = docTokens(readFileSync(path, "utf8"));
+  assert.ok(named.length > 0, "docs/brand.md names no token");
+  const declared = tokenNames(tokensCss);
+  assert.deepEqual(named.filter((name) => !declared.has(name)), []);
 });
 
 test("src/assets/logo/ holds the ten brand logo files", () => {

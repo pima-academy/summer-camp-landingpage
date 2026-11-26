@@ -45,6 +45,7 @@
   --font-family-base: "Nunito Sans", sans-serif;
 
   /* Font weights. Headings by level; other text by today's weight. */
+  --font-weight-black: 900;
   --font-weight-bold: 700;
   --font-weight-button: 400;
   --font-weight-extrabold: 800;
@@ -195,7 +196,8 @@
   --color-focus-outline: #50b448;
   --color-focus-ring: #4d65ff;
 
-  /* Corner radii. */
+  /* Corner radii. `--radius` is the brand's one radius; brand alignment moves the others to it. */
+  --radius: 12px;
   --radius-card: 1.25rem;
   --radius-card-small: 12px;
   --radius-circle: 100%;
