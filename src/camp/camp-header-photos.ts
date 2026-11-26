@@ -1,6 +1,6 @@
 // Header photo collage of the 2025/2026 camp pages (old `section_header76`), for
 // CampHeaderPhotos. Each column is two `.header76_image-list`s of three photos; the
-// marquee repeats them. `node`/`imgNode` are the old Webflow element ids (see lib/w-node).
+// marquee repeats them. `node`/`imgNode` are the old Webflow element ids (see w-node.ts).
 import type { ImageMetadata } from "astro";
 
 import campPhoto1 from "../assets/images/trai-he-pima-1.avif";

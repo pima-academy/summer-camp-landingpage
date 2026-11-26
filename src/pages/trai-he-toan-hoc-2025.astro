@@ -1,17 +1,18 @@
 ---
+// FROZEN (#60): do not edit. Renders from src/camp/ only; see src/camp/README.md.
 // trai-he-toan-hoc-2025 (old site/trai-he-toan-hoc-2025.html), camp chrome.
 import { Image } from "astro:assets";
-import BaseLayout from "../layouts/BaseLayout.astro";
-import CampHeaderPhotos from "../components/CampHeaderPhotos.astro";
-import CampMentors from "../components/CampMentors.astro";
-import CampTeamPhoto from "../components/CampTeamPhoto.astro";
-import MentorLogos from "../components/MentorLogos.astro";
-import VideoLightbox from "../components/VideoLightbox.astro";
-import { campHeaderPhotos2025 } from "../components/camp-header-photos";
-import { advisors, organizers } from "../components/camp-mentors";
-import { mentorLogos2025 } from "../components/mentor-logos";
+import CampLayout from "../camp/CampLayout.astro";
+import CampHeaderPhotos from "../camp/CampHeaderPhotos.astro";
+import CampMentors from "../camp/CampMentors.astro";
+import CampTeamPhoto from "../camp/CampTeamPhoto.astro";
+import MentorLogos from "../camp/MentorLogos.astro";
+import VideoLightbox from "../camp/VideoLightbox.astro";
+import { campHeaderPhotos2025 } from "../camp/camp-header-photos";
+import { advisors, organizers } from "../camp/camp-mentors";
+import { mentorLogos2025 } from "../camp/mentor-logos";
 import { contact, social } from "../data/site";
-import { campPageIds } from "../lib/w-node";
+import { campPageIds } from "../camp/w-node";
 
 import logo from "../assets/images/logo-horizontal.png";
 import groupPhoto from "../assets/images/481775555-1135445305045604-7304032333989245886-n.avif";
@@ -27,11 +28,10 @@ import phoneIcon from "../assets/images/phone-telephone.png";
 const applyHref = "https://qual.pimavn.com/apply";
 ---
 
-<BaseLayout
+<CampLayout
   title="Tuyển sinh trại hè toán học PiMA 2025"
   description="Trại hè Toán học và Ứng dụng PiMA 2025 với chủ đề Toán học trong các Mô hình Tạo sinh: nội dung chương trình, quyền lợi, thông tin hai trại TP.HCM và Hà Nội, quy trình tuyển sinh, ban tổ chức, kinh phí và thông tin liên hệ."
   hero={groupPhoto}
-  chrome="camp"
 >
   <section data-animate="fade-up">
     <div class="div-block-13">
@@ -498,5 +498,5 @@ const applyHref = "https://qual.pimavn.com/apply";
       </div>
     </div>
   </section>
-</BaseLayout>
+</CampLayout>
 
