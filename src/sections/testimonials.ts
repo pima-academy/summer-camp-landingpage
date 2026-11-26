@@ -1,6 +1,4 @@
 // Cards of the `Testimonials` section, in the old site's order.
-// `nameClass` / `roleClass` carry the one-off Webflow classes some cards had
-// (`bold-text-*` on a <strong> around the name, `text-block-10` on the role).
 import type { ImageMetadata } from "astro";
 import avatar2 from "../assets/images/artboard-2-4x.avif";
 import avatar3 from "../assets/images/artboard-3-4x.avif";
@@ -15,8 +13,12 @@ export interface Testimonial {
   /** Role lines, rendered with <br> between them. */
   role: string[];
   avatar: ImageMetadata;
-  nameClass?: "bold-text-3" | "bold-text-4" | "bold-text-5";
-  roleClass?: "text-block-10";
+  /**
+   * A one-off look three cards had on the old site (it wrapped the name in a <strong> with
+   * its own class): "bold" 700 instead of 600, "bolder" the browser's bolder <strong>,
+   * "bolder-accent" the same in the accent green. Kept until the redesign (#46).
+   */
+  nameLook?: "bold" | "bolder" | "bolder-accent";
 }
 
 export const testimonials: Testimonial[] = [
@@ -33,7 +35,7 @@ export const testimonials: Testimonial[] = [
     name: "Nguyễn Mạc Nam Trung",
     role: ["Trại sinh PIMA 2019", "Học viên thạc sĩ Toán học, ĐH Paris Cité, Pháp"],
     avatar: avatar5,
-    nameClass: "bold-text-3",
+    nameLook: "bold",
   },
   {
     quote:
@@ -48,8 +50,7 @@ export const testimonials: Testimonial[] = [
     name: "Vòng Vĩnh Toàn",
     role: ["Trại sinh PiMA 2021", "SV năm ba ngành Khoa học Máy tính, Trường ĐH Khoa học tự nhiên, ĐHQG-HCM"],
     avatar: avatar6,
-    nameClass: "bold-text-5",
-    roleClass: "text-block-10",
+    nameLook: "bolder-accent",
   },
   {
     quote:
@@ -64,6 +65,6 @@ export const testimonials: Testimonial[] = [
     name: "Hoàng Ngọc Dung",
     role: ["Trại sinh PIMA 2023", "SV năm hai ngành Hệ thống nhúng và IoT, Trường ĐH Sư phạm Kỹ thuật, TPHCM"],
     avatar: avatar7,
-    nameClass: "bold-text-4",
+    nameLook: "bolder",
   },
 ];

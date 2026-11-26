@@ -20,7 +20,7 @@ test("home page sections are in the old order", { skip }, () => {
     'section_founding-story"',
     'section_milestone"',
     'section_team"',
-    'section_testimonials"',
+    'data-section="testimonials"',
     'section_summer-camp"',
     'section_press"',
     'section_contact-form"',
