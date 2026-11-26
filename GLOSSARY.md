@@ -19,3 +19,11 @@ _Avoid_: improvement, polish
 **Redesign**:
 Any change to brand colour, typography or layout, or any new visual style or component. Out of scope for the rebuild; deferred to a separate effort.
 _Avoid_: design tweak, cleanup
+
+**Contact form**:
+The form on several pages through which a visitor sends PiMA their name, contact details and a message.
+_Avoid_: email form, registration form, sign-up form
+
+**Submission**:
+One message a visitor sends through the contact form.
+_Avoid_: lead, response, entry
