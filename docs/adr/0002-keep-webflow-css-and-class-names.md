@@ -1,3 +1,7 @@
+---
+status: superseded by ADR-0004
+---
+
 # Keep the Webflow CSS and class names
 
 The rebuild carries the old site's stylesheets (`normalize.css`, `webflow.css`, `pima-website.webflow.css`) over as global CSS, with dead rules pruned once in the repo, and keeps every class name, including the Webflow component classes (`w-nav`, `w-dropdown`, `w-slider`, …) and the state classes `webflow.js` used to toggle (`w--open`, `w--current`, `w-active`, …). Small vanilla scripts replace `webflow.js` and set those same state classes, so the CSS stays untouched. Rewriting the styles would mean rebuilding the look rule by rule with no visible gain, and every slip would be a redesign; keeping them makes "keep the design" close to free. A reader seeing `w--open` in a site with no Webflow should know it is deliberate.
