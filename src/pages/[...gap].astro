@@ -1,0 +1,41 @@
+---
+/*
+  Dev-only route for gap pages: pages of the old site that exist only as empty
+  shells until their content arrives (see ContentGap.astro).
+
+  Every `src/gap-pages/<slug>.astro` (or `<slug>/index.astro`) is served at
+  `/<slug>/` in `npm run dev`, inside BaseLayout and a page-level gap marker.
+  A gap page holds only the sections that go inside <main>.
+
+  The production build gets no paths, so no gap page is built or listed in the
+  sitemap. `import.meta.env.DEV` is replaced at build time, so the glob below is
+  dropped from the production bundle together with the gap pages' imports.
+*/
+import type { AstroComponentFactory } from "astro/runtime/server/index.js";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ContentGap from "../components/ContentGap.astro";
+
+export async function getStaticPaths() {
+  if (!import.meta.env.DEV) return [];
+  const pages = import.meta.glob<{ default: AstroComponentFactory }>("../gap-pages/**/*.astro", {
+    eager: true,
+  });
+  return Object.entries(pages).map(([file, mod]) => {
+    const slug = file.replace(/^\.\.\/gap-pages\//, "").replace(/(\/index)?\.astro$/, "");
+    return { params: { gap: slug }, props: { slug, Page: mod.default } };
+  });
+}
+
+interface Props {
+  slug: string;
+  Page: AstroComponentFactory;
+}
+
+const { slug, Page } = Astro.props;
+---
+
+<BaseLayout title={`Content gap: ${slug}`} description={`Gap page /${slug}/ (dev only).`}>
+  <ContentGap name={`page /${slug}/`} page>
+    <Page />
+  </ContentGap>
+</BaseLayout>
