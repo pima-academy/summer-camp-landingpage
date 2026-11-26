@@ -13,7 +13,9 @@ Requires Node 24 LTS (see `.nvmrc`).
 npm ci                            # install exact versions from package-lock.json
 npm run dev                       # dev server at http://localhost:4321 (gap pages visible)
 npm run build && npm run preview  # production build in dist/, served locally
-npm run shots                     # old/new screenshots at 390/820/1440 px (added by #17)
+npx playwright install chromium   # once, before the first npm run shots
+npm run shots                     # build, then old/new screenshots at 390/820/1440 px into shots/
+npm run shots -- lien-he index    # only these pages (add --no-build to reuse dist/)
 ```
 
 Pull requests into `dev` run `npm ci && npm run build` in CI (`.github/workflows/build.yml`). Nothing is deployed from it.
