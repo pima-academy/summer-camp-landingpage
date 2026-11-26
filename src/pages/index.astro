@@ -1,12 +1,306 @@
 ---
-// Minimal page to see the frame; replaced by the home page ticket (#31).
+// Home page (/), rebuilt from site/index.html. Shared sections are components;
+// the hero, founding story and press sections are one-off markup.
+import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import BrandName from "../components/BrandName.astro";
+import ContactSection from "../components/ContactSection.astro";
+import ContentGap from "../components/ContentGap.astro";
+import Impact from "../components/Impact.astro";
+import Milestone from "../components/Milestone.astro";
+import Partners from "../components/Partners.astro";
+import Philosophy from "../components/Philosophy.astro";
+import ProgramsOverview from "../components/ProgramsOverview.astro";
+import Slider from "../components/Slider.astro";
+import SummerCamp from "../components/SummerCamp.astro";
+import Team from "../components/Team.astro";
+import Testimonials from "../components/Testimonials.astro";
+import TrustBar from "../components/TrustBar.astro";
+import { fluidWidths } from "../lib/image-widths";
+import hero from "../assets/images/hero-image-homepage.png";
+import founder from "../assets/images/pima-founder.png";
+import placeholder from "../assets/images/placeholder-image-landscape.svg";
+import pressTuoiTre from "../assets/images/press-logo-06.png";
+import pressDanTri from "../assets/images/press-logo-08.avif";
+import pressCafeF from "../assets/images/cafef-plf.avif";
+import pressMucTim from "../assets/images/press-logo-09.png";
+import pressHoaHocTro from "../assets/images/press-logo-02.png";
+
+const press = [
+  {
+    quote:
+      "Một trại hè được cựu thí sinh Olympic toán học quốc tế (IMO) và các học sinh giỏi toán quốc gia tổ chức tám năm qua dành cho những học sinh say mê toán học.",
+    href: "https://tuoitre.vn/trai-he-dac-biet-cua-nhung-co-cau-tro-me-toan-20240802090941345.htm",
+    logo: pressTuoiTre,
+    alt: "Tuổi Trẻ",
+  },
+  {
+    quote:
+      "Chương trình nhằm giới thiệu toán ứng dụng hiện đại trên đại học cho các bạn học sinh THPT và rèn luyện những kỹ năng mềm khác như làm việc nhóm, nghiên cứu, lập trình. Đến nay, nhiều trại sinh của PiMA đã rất thành đạt, hiện đang làm cho các công ty công nghệ hàng đầu hoặc là nghiên cứu sinh ở các đại học lớn trên thế giới.",
+    href: "https://dantri.com.vn/giao-duc/tot-nghiep-thu-khoa-o-my-tien-si-ve-nuoc-day-hoc-theo-de-an-tien-ty-20240615075023833.htm",
+    logo: pressDanTri,
+    alt: "Dân trí",
+  },
+  {
+    quote:
+      "Đây là tầm nhìn chiến lược của một nhà khoa học trẻ yêu quê hương muốn gắn bó và phục vụ những gì tốt đẹp nhất cho đất nước bằng tài năng và sự cống hiến của mình.",
+    href: "https://cafef.vn/tien-si-29-tuoi-tot-nghiep-dai-hoc-top-7-the-gioi-ve-viet-nam-lam-viec-188240728085841472.chn",
+    logo: pressCafeF,
+    alt: "CafeF",
+  },
+  {
+    quote:
+      "Chính vì những điều nho nhỏ, đáng yêu như thế, PiMA ngày càng được các bạn teen yêu thích và đón chờ nhiều hơn nữa.",
+    href: "https://muctim.tuoitre.vn/nhung-sac-mau-cua-pima-57737.htm",
+    logo: pressMucTim,
+    alt: "Mực Tím",
+  },
+  {
+    quote:
+      "Trại Hè PiMA được nhiều bạn teen yêu thích vì “hô biến” Toán học từ công thức trở thành những bài ứng dụng thực tế hấp dẫn qua các dự án nhóm.",
+    href: "https://hoahoctro.tienphong.vn/con-bao-trai-he-dang-do-bo-cung-len-ke-hoach-danh-bay-sau-luoi-post1210491.tpo",
+    logo: pressHoaHocTro,
+    alt: "Hoa Học Trò",
+  },
+];
 ---
 
 <BaseLayout
-  title="PiMA Academy - Trang chủ"
-  description="Học viện Toán học và Ứng dụng PiMA: khóa học và trại hè toán học."
+  title="PiMA Academy - Học viện Toán học và Ứng dụng"
+  description="PiMA Academy phát triển giáo dục toán học và ứng dụng tại Việt Nam: trại hè toán học, khóa học và cộng đồng tài năng STEM trẻ, cùng mentor từ các đại học hàng đầu."
+  hero={hero}
 >
-  <div class="text-style-allcaps">Học viện Toán học và Ứng dụng <BrandName /></div>
+  <div data-animate="fade-up" class="section_homepage_hero">
+    <div class="padding-global">
+      <div class="container-large">
+        <div class="padding-section-medium">
+          <div class="header26_component">
+            <div class="margin-bottom margin-xxlarge">
+              <div class="text-align-center">
+                <div class="max-width-large align-center">
+                  <h4 class="h4-heading text-style-green"><BrandName /> ACADEMY</h4>
+                  <div class="margin-bottom margin-small">
+                    <h1 class="heading-style-h2">Khám phá những biên giới mới của toán học và ứng dụng</h1>
+                  </div>
+                  <p class="text-size-medium text-align-center">
+                    Biến đam mê toán học thành hành trình chinh phục trí tuệ nhân tạo, khoa học dữ liệu và công nghệ tương
+                    lai cùng cộng đồng tài năng Việt Nam.
+                  </p>
+                  <div class="margin-top">
+                    <div class="button-group is-center">
+                      <a href="#programs" class="button w-button">Tìm hiểu thêm</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="header26_image-wrapper">
+              <Image
+                src={hero}
+                alt="Học viên và giảng viên PiMA trong lớp học và các buổi thuyết trình"
+                widths={fluidWidths(hero)}
+                sizes="(max-width: 1155px) 90vw, 1040px"
+                loading="eager"
+                class="header26_image"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <TrustBar />
+  <Partners />
+  <Philosophy />
+  <Impact />
+  <ProgramsOverview />
+  <ContentGap name="index: Sự kiện sắp tới">
+    <div data-animate="fade-up" class="section_upcoming-events">
+      <div class="text-align-center">
+        <div class="max-width-large align-center">
+          <div class="spacer-medium"></div>
+          <div class="margin-bottom margin-small">
+            <h2 class="heading-3">Sự kiện sắp tới</h2>
+          </div>
+        </div>
+      </div>
+      <div class="padding-global">
+        <div class="container-medium custom">
+          <div class="padding-section-small">
+            <div class="w-dyn-list">
+              <div role="list" class="w-dyn-items w-row">
+                <div role="listitem" class="w-dyn-item w-col w-col-6">
+                  <div class="card_event">
+                    <div id="w-node-_1e84c3a1-95da-1690-92de-b89ce7c2beb9-13e6b780" class="event-card-image">
+                      <div class="div-block-5">
+                        <div class="text-block-3 w-dyn-bind-empty"></div>
+                      </div>
+                      <Image src={placeholder} alt="" class="card-row4_image w-dyn-bind-empty" />
+                    </div>
+                    <div class="card-row4_card-content">
+                      <div class="card-row4_card-content-top">
+                        <div class="margin-bottom margin-small">
+                          <h3 class="text-style-bold w-dyn-bind-empty"></h3>
+                        </div>
+                        <p class="paragraph-2 w-dyn-bind-empty"></p>
+                        <div class="spacer-small"></div>
+                      </div>
+                      <div class="margin-top margin-medium is-right">
+                        <div class="button-group">
+                          <a href="#" class="button is-link is-icon is-green w-inline-block">
+                            <div>Xem thêm</div>
+                            <div class="icon-embed-xxsmall w-embed">
+                              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M6 3L11 8L6 13" stroke="CurrentColor" stroke-width="1.5"></path>
+                              </svg>
+                            </div>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="w-dyn-empty">
+                <div>No items found.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ContentGap>
+  <div data-animate="fade-up" class="section_founding-story">
+    <div class="padding-global">
+      <div class="container-medium custom">
+        <div class="padding-section-medium">
+          <div class="founding-story_content-wrapper">
+            <div id="w-node-ebee951b-8b82-305e-e9f3-6200d35dcfce-13e6b780" class="founding-story_content_left">
+              <div class="text-align-left">
+                <div class="max-width-large align-center">
+                  <h4 class="text-style-lime text-style-allcaps">Câu chuyện nhà sáng lập</h4>
+                  <div class="margin-bottom margin-small">
+                    <h3 class="heading-3 text-style-white">Các chương trình của chúng tôi</h3>
+                    <div class="spacer-small"></div>
+                  </div>
+                  <p class="text-size-medium text-style-white">
+                    Từ các trường đại học danh tiếng đến doanh nghiệp công nghệ và viện nghiên cứu, PiMA tự hào đồng hành
+                    cùng những đối tác có chung sứ mệnh: nâng cao chất lượng giáo dục và ứng dụng Toán học vào thực tiễn.
+                  </p>
+                  <div class="spacer-small"></div>
+                  <div class="button-group">
+                    <a href="/ve-chung-toi/" target="_blank" class="button is-lime w-button">Câu chuyện về PiMA</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="founding-story_content_right">
+              <div class="founding-story_image-wrapper">
+                <Image src={founder} alt="Nhà sáng lập PiMA" width={257} densities={[1, 2]} class="image-7" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <Milestone />
+  <Team />
+  <TrustBar />
+  <Testimonials />
+  <SummerCamp />
+  <div data-animate="fade-up" class="section_press">
+    <div class="padding-global">
+      <div class="container-medium">
+        <div class="padding-section-small">
+          <h2 class="heading-3 text-align-center text-size-large">Báo chí nói về PiMA</h2>
+          <Slider
+            class="course-testimonial"
+            maskClass="testimonial7_mask"
+            navClass="testimonial7_slide-nav"
+            arrows="centre"
+            autoplay={5000}
+            infinite
+            label="Báo chí nói về PiMA"
+          >
+            {
+              press.map((item) => (
+                <div class="testimonial7_slide w-slide">
+                  <div class="testimonial7_content">
+                    <h3 class="heading-style-h5">"{item.quote}"</h3>
+                    <div class="margin-top margin-medium align-center">
+                      <div class="testimonial7_client">
+                        <div class="margin-bottom margin-xsmall">
+                          <a href={item.href} target="_blank" class="w-inline-block">
+                            <div class="testimonial7_client-image-wrapper">
+                              <Image
+                                src={item.logo}
+                                alt={item.alt}
+                                width={96}
+                                densities={[1, 2]}
+                                class="testimonial7_client-image"
+                              />
+                            </div>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))
+            }
+          </Slider>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ContactSection />
+  <ContentGap name="index: Thông tin mới nhất">
+    <div data-animate="fade-up" class="section_news">
+      <div class="padding-global">
+        <div class="container-medium">
+          <div class="padding-section-medium">
+            <h2 class="heading-3 text-align-center text-size-large">Thông tin mới nhất</h2>
+            <div class="spacer-medium"></div>
+            <div class="blog36_component">
+              <div class="w-dyn-list">
+                <div role="list" class="w-dyn-items w-row">
+                  <div role="listitem" class="w-dyn-item w-col w-col-4">
+                    <div class="card_event">
+                      <a href="#" class="w-inline-block">
+                        <div id="w-node-_5becf38a-6d66-1628-3ebc-c69472f0075f-13e6b780" class="card-row4_image-wrapper">
+                          <div class="div-block-5">
+                            <div class="text-block-4 w-dyn-bind-empty"></div>
+                          </div>
+                          <div class="card-row4_image-wrapper">
+                            <Image src={placeholder} alt="" class="card-row4_image w-dyn-bind-empty" />
+                          </div>
+                        </div>
+                      </a>
+                      <div class="card-row4_card-content">
+                        <div class="card-row4_card-content-top">
+                          <div class="margin-bottom margin-small">
+                            <h3 class="heading-style-h5 is-custom w-dyn-bind-empty"></h3>
+                          </div>
+                          <p class="paragraph-2 w-dyn-bind-empty"></p>
+                          <div class="spacer-small"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="w-dyn-empty">
+                  <div>No items found.</div>
+                </div>
+              </div>
+              <div class="spacer-medium"></div>
+              <div class="button-group is-center">
+                <a href="/su-kien-blog/" target="_blank" class="button is-lime is-black w-button">Tất cả tin tức</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ContentGap>
 </BaseLayout>

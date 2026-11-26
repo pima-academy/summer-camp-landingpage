@@ -22,13 +22,15 @@ test("home page head has title, description and canonical", { skip }, () => {
   assert.match(html, /<link rel="canonical" href="https:\/\/pimavn\.com\/">/);
 });
 
-test("home page has Open Graph tags with an absolute 1200 px image", { skip }, () => {
+test("home page has Open Graph tags with an absolute image at most 1200 px wide", { skip }, () => {
   assert.ok(meta("property", "og:title"));
   assert.ok(meta("property", "og:description"));
   assert.equal(meta("property", "og:url"), "https://pimavn.com/");
   const image = meta("property", "og:image");
   assert.match(image ?? "", /^https:\/\/pimavn\.com\/_astro\/.+\.(png|jpg)$/);
-  assert.equal(meta("property", "og:image:width"), "1200");
+  // 1200 px, or the source width when the hero is narrower (Astro never upscales).
+  const width = Number(meta("property", "og:image:width"));
+  assert.ok(width > 0 && width <= 1200, `og:image:width ${width}`);
   const file = join(dist, new URL(image).pathname);
   assert.ok(existsSync(file), `og:image file ${file} exists`);
 });
