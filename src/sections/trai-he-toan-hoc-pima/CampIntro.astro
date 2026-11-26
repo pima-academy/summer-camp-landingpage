@@ -1,0 +1,163 @@
+---
+/*
+  CampIntro: "Định hướng học thuật, phát triển toàn diện", the camp's goals (two items with
+  an icon) next to a square photo. Used by trai-he-toan-hoc-pima (old `section_camp-intro`).
+  Its heading and lead repeat in CampActivity, as on the old page (content work, spec #15).
+  Fades up on scroll.
+*/
+import { Image } from "astro:assets";
+import Section from "../../components/Section.astro";
+import { fluidWidths } from "../../lib/image-widths";
+import introPhoto from "../../assets/images/38823662-1069309959900702-110915413000323072-n.avif";
+---
+
+<Section name="camp-intro" spacing="small" animate>
+  <div class="layout">
+    <div>
+      <h2 class="title">Định hướng học thuật, phát triển toàn diện</h2>
+      <p class="lead">
+        Trại hè PiMA là chương trình trại hè hàng năm về Toán học và ứng dụng, diễn ra trong 2 tuần dưới hình thức học
+        tập và sinh hoạt tập trung. Chương trình hỗ trợ toàn bộ chi phí học tập và sinh hoạt, dành cho học sinh THPT
+        trên toàn quốc ứng tuyển tham gia, với mục tiêu:
+      </p>
+      <div class="goals">
+        <div class="goal">
+          <div class="icon-box">
+            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="100%" viewBox="0 0 24 24">
+              <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
+                <path
+                  d="M21 7.353v9.294a.6.6 0 0 1-.309.525l-8.4 4.666a.6.6 0 0 1-.582 0l-8.4-4.666A.6.6 0 0 1 3 16.647V7.353a.6.6 0 0 1 .309-.524l8.4-4.667a.6.6 0 0 1 .582 0l8.4 4.667a.6.6 0 0 1 .309.524Z"
+                ></path>
+                <path d="m3.528 7.294l8.18 4.544a.6.6 0 0 0 .583 0l8.209-4.56M12 21v-9"></path>
+              </g>
+            </svg>
+          </div>
+          <div>
+            <h3 class="goal-title">Kiến thức nền tảng &amp; ứng dụng</h3>
+            <p>
+              Trang bị kiến thức nền tảng về Toán học cao cấp và các mô hình ứng dụng thực tiễn trong khoa học và công
+              nghệ.
+            </p>
+          </div>
+        </div>
+        <div class="goal">
+          <div class="icon-box">
+            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="100%" viewBox="0 0 24 24">
+              <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5">
+                <path d="M4 19V5a2 2 0 0 1 2-2h13.4a.6.6 0 0 1 .6.6v13.114M6 17h14M6 21h14"></path>
+                <path stroke-linejoin="round" d="M6 21a2 2 0 1 1 0-4"></path>
+                <path d="M9 7h6"></path>
+              </g>
+            </svg>
+          </div>
+          <div>
+            <h3 class="goal-title">Tư duy nghiên cứu &amp; hợp tác học thuật</h3>
+            <p>
+              Phát triển tư duy nghiên cứu và kỹ năng làm việc nhóm thông qua các dự án học thuật mang tính ứng dụng
+              cao.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="photo">
+      <Image
+        src={introPhoto}
+        alt="Trại sinh và mentor tại trại hè PiMA"
+        widths={fluidWidths(introPhoto)}
+        sizes="(max-width: 767px) 90vw, (max-width: 1120px) 42vw, 472px"
+        class="photo-img"
+      />
+    </div>
+  </div>
+</Section>
+
+<style>
+  /* Text column and photo side by side, photo centred on the text. */
+  .layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    grid-auto-columns: 1fr;
+    column-gap: 5rem;
+    row-gap: 4rem;
+    align-items: center;
+  }
+
+  .title {
+    text-align: left;
+    font-size: var(--font-size-heading-style-h3);
+    font-weight: var(--font-weight-heading-style);
+    line-height: var(--line-height-heading-style-h3);
+  }
+
+  .lead {
+    margin-bottom: 1rem;
+    color: var(--color-text-strong);
+    text-align: left;
+  }
+
+  .goals {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    grid-auto-columns: 1fr;
+    gap: 1.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .goal {
+    display: flex;
+    flex-direction: column;
+    align-self: start;
+  }
+
+  .icon-box {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-self: flex-start;
+    width: 2.5rem;
+    height: 2.5rem;
+    color: var(--color-text-accent);
+  }
+
+  .goal-title {
+    font-size: var(--font-size-heading-style-h6);
+    font-weight: var(--font-weight-heading-style);
+    line-height: var(--line-height-heading-style-h6);
+  }
+
+  .photo {
+    overflow: hidden;
+  }
+
+  .photo-img {
+    aspect-ratio: 1;
+    object-fit: cover;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    overflow: clip;
+  }
+
+  @media screen and (max-width: 991px) {
+    .layout {
+      column-gap: 3rem;
+    }
+
+    .goals {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .layout {
+      grid-template-columns: 1fr;
+      row-gap: 3rem;
+    }
+  }
+</style>
