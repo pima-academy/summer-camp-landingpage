@@ -2,7 +2,7 @@
 // logo files, and the CLAUDE.md line that sends every agent to the doc before UI work.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { root } from "./test-lib.mjs";
 import { parseCss } from "./guardrail-lib.mjs";
@@ -40,4 +40,12 @@ test("tokens.css holds the PiMA palette", () => {
   for (const [name, value] of Object.entries(palette)) {
     assert.equal(tokens[name]?.toLowerCase(), value, name);
   }
+});
+
+test("src/assets/logo/ holds the ten brand logo files", () => {
+  const expected = ["horizontal", "stacked"]
+    .flatMap((shape) => ["green", "darkgreen", "lime", "black", "white"].map((c) => `pima-logo-${shape}-${c}.png`))
+    .sort();
+  const dir = join(root, "src/assets/logo");
+  assert.deepEqual(existsSync(dir) ? readdirSync(dir).sort() : [], expected);
 });
