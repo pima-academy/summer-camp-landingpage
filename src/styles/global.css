@@ -1,8 +1,9 @@
 /*
- * Site-wide CSS entry, imported once by BaseLayout. Order matters: the fonts,
- * then the three Webflow stylesheets in the old site's load order, then the
- * decorative animations.
+ * Site-wide CSS entry, imported once by BaseLayout. Order matters: the design
+ * tokens, the fonts, then the three Webflow stylesheets in the old site's load
+ * order, then the decorative animations.
  */
+@import "./tokens.css";
 @import "./fonts.css";
 @import "./normalize.css";
 @import "./webflow.css";

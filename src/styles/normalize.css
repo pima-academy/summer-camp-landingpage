@@ -5,7 +5,7 @@
  *    without disabling user zoom.
  */
 html {
-  font-family: sans-serif;
+  font-family: var(--font-family-wf-normalize);
   /* 1 */
   -ms-text-size-adjust: 100%;
   /* 2 */
@@ -79,7 +79,7 @@ a:hover {
  */
 b,
 strong {
-  font-weight: bold;
+  font-weight: var(--font-weight-wf-strong);
 }
 /**
  * Address styling not present in Safari and Chrome.
@@ -89,7 +89,7 @@ strong {
  * contexts in Firefox 4+, Safari, and Chrome.
  */
 h1 {
-  font-size: 2em;
+  font-size: var(--font-size-wf-normalize-h1);
   margin: 0.67em 0;
 }
 /**
@@ -198,7 +198,7 @@ input::-moz-focus-inner {
  * the UA stylesheet.
  */
 input {
-  line-height: normal;
+  line-height: var(--line-height-wf-normalize-input);
 }
 /**
  * It's recommended that you don't attempt to style these elements.

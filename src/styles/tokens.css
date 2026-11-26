@@ -1,0 +1,302 @@
+/*
+ * Design tokens: the only place design values live (ADR 0004). Colours, font families, weights,
+ * sizes, line heights, radii and shadows are written here once, named by role, and used everywhere
+ * else as var(--…). scripts/guardrail.test.mjs fails on a literal value outside this file.
+ *
+ * Values are today's values, off-brand ones included; brand alignment changes them here. Two
+ * values that look alike stay two tokens until then. Spacing stays literal for now.
+ *
+ * Breakpoints (desktop-first, max-width; custom properties do not work in @media, so they are
+ * written as literals wherever they are used):
+ *   991px  tablet and below
+ *   767px  mobile landscape and below
+ *   479px  mobile portrait
+ */
+
+:root {
+  /* Font families. Nunito Sans is the only site font. */
+  --font-family-base: "Nunito Sans", sans-serif;
+
+  /* Font weights. Headings by level; other text by today's weight. */
+  --font-weight-bold: 700;
+  --font-weight-button: 400;
+  --font-weight-extrabold: 800;
+  --font-weight-h1: 400;
+  --font-weight-h2: 700;
+  --font-weight-h2-heading: 400;
+  --font-weight-h4: 400;
+  --font-weight-h4-heading: 400;
+  --font-weight-h5: 400;
+  --font-weight-h5-heading: 400;
+  --font-weight-heading-style: 700;
+  --font-weight-heading-style-h5: 500;
+  --font-weight-light: 300;
+  --font-weight-medium: 500;
+  --font-weight-regular: 400;
+  --font-weight-semibold: 600;
+
+  /* Font sizes. Sizes that change per breakpoint are redeclared in the media queries at the end. */
+  --font-size-accordion-title: 1.5rem;
+  --font-size-big-number: 2.6rem;
+  --font-size-blog-card-title: 16px;
+  --font-size-blog-event-heading: 16px;
+  --font-size-body: 1rem;
+  --font-size-button: 1rem;
+  --font-size-camp-stat: 4rem;
+  --font-size-caption: 14px;
+  --font-size-course-card-title: 18px;
+  --font-size-course-feature-title: 1.2rem;
+  --font-size-course-mentor-name: 16px;
+  --font-size-course-mentor-title: 14px;
+  --font-size-course-step-number: 3.8rem;
+  --font-size-course-testimonial: 16px;
+  --font-size-doc-text: 1rem;
+  --font-size-footer-credit: .875rem;
+  --font-size-h1: 4.21rem;
+  --font-size-h2: 2.37rem;
+  --font-size-h2-heading: 2.37rem;
+  --font-size-h4: 1.33rem;
+  --font-size-h4-heading: 1.33rem;
+  --font-size-h5: 1rem;
+  --font-size-h5-heading: 1rem;
+  --font-size-heading-style-h1: 4rem;
+  --font-size-heading-style-h2: 3rem;
+  --font-size-heading-style-h3: 2rem;
+  --font-size-heading-style-h4: 1.5rem;
+  --font-size-heading-style-h5: 16px;
+  --font-size-heading-style-h6: 1rem;
+  --font-size-input: 1rem;
+  --font-size-kicker: 1.33rem;
+  --font-size-nav: 1rem;
+  --font-size-nav-link-menu: 1.13rem;
+  --font-size-paragraph-sm: .88rem;
+  --font-size-slider-arrow: 1.25rem;
+  --font-size-slider-nav: .5rem;
+  --font-size-tag: .75rem;
+  --font-size-testimonial-role: 1rem;
+  --font-size-text-large: 1.5rem;
+  --font-size-text-regular: 1rem;
+  --font-size-text-small: .875rem;
+  --font-size-trust-bar: 14px;
+
+  /* Line heights. */
+  --line-height-accordion-title: 1.4;
+  --line-height-blog-card-title: 22px;
+  --line-height-body: 1.6rem;
+  --line-height-button: 1.2;
+  --line-height-button-link: 1;
+  --line-height-h1: 1.04em;
+  --line-height-h2: 1.04em;
+  --line-height-h2-heading: 1.04em;
+  --line-height-h4: 1.3em;
+  --line-height-h4-heading: 1.3em;
+  --line-height-h5: 1.3em;
+  --line-height-h5-heading: 1.3em;
+  --line-height-heading-style-h1: 1.1;
+  --line-height-heading-style-h2: 1.2;
+  --line-height-heading-style-h3: 1.2;
+  --line-height-heading-style-h4: 1.4;
+  --line-height-heading-style-h5: 1.5;
+  --line-height-heading-style-h6: 1.5;
+  --line-height-input: 1.3;
+  --line-height-paragraph-sm: 1.6em;
+
+  /* Text colours. */
+  --color-text: #262628;
+  --color-text-accent: #50b448;
+  --color-text-accent-alt: #05aa53;
+  --color-text-accent-alt-hover: #05aa5399;
+  --color-text-dark: #1f242f;
+  --color-text-dark-green: #2b5314;
+  --color-text-inverse: white;
+  --color-text-lime: #d4e889;
+  --color-text-muted: #333741;
+  --color-text-on-dark-hover: #fafafa;
+  --color-text-on-dark-muted: #cecfd2;
+  --color-text-on-inverse-hover: #09ce6599;
+  --color-text-pale-lime: #e6f2bc;
+  --color-text-placeholder: #26262833;
+  --color-text-secondary: #85888e;
+  --color-text-social-hover: #0c111d;
+  --color-text-strong: black;
+  --color-text-subheading: #61646c;
+
+  /* Link colours. */
+  --color-link: #50b448;
+  --color-link-hover: #4ca30d;
+
+  /* Icon colours (social icons keep their platform colours). */
+  --color-icon-facebook: #1877f2;
+  --color-icon-linkedin: #0a66c2;
+  --color-icon-on-inverse: #09ce65;
+  --color-icon-youtube: red;
+
+  /* Background colours of sections, cards and panels. */
+  --color-background: #fff;
+  --color-background-accent: #50b448;
+  --color-background-avatar: #f7f7f7;
+  --color-background-dark: #3b3b3b;
+  --color-background-dark-green: #2b5314;
+  --color-background-founding-story: #326212;
+  --color-background-highlight-card: #fafef5;
+  --color-background-lime: #d4e889;
+  --color-background-lime-faint: #f7fbeb;
+  --color-background-lime-light: #e6f2bc;
+  --color-background-lime-pale: #f2f8db;
+  --color-background-lime-soft: #d9eb99;
+  --color-background-muted: #f0f1f1;
+  --color-background-surface: #f5f5f6;
+  --color-background-surface-light: #fafafa;
+
+  /* Button fills. */
+  --color-button: #50b448;
+  --color-button-black: black;
+  --color-button-dark-green: #2b5314;
+  --color-button-hover: #4ca30d;
+  --color-button-lime: #d4e889;
+
+  /* Overlays. */
+  --color-video-overlay: #00000080;
+
+  /* Border colours. */
+  --color-border-card: #26262833;
+  --color-border-footer: #61646c;
+  --color-border-highlight-card: #d0f8ab;
+  --color-border-input: #262628;
+  --color-border-lime: #d4e889;
+  --color-border-social: #cecfd2;
+  --color-border-strong: #000;
+  --color-border-subtle: #ececed;
+  --color-border-textarea: #85888e;
+
+  /* Focus outlines. */
+  --color-focus-outline: #50b448;
+  --color-focus-ring: #4d65ff;
+
+  /* Corner radii. */
+  --radius-card: 1.25rem;
+  --radius-card-small: 12px;
+  --radius-circle: 100%;
+  --radius-course-cover-mobile: 8px;
+  --radius-gallery-image: 16px;
+  --radius-image: 1.25rem;
+  --radius-input: .75rem;
+  --radius-lightbox-image: 19px;
+  --radius-nav-menu: .5rem;
+  --radius-panel: 20px;
+  --radius-pill: 100rem;
+  --radius-pill-form: 99px;
+  --radius-slider-arrow: .25rem;
+
+  /* Shadows. */
+  --shadow-card: 0 0 0 1px #26262833;
+  --shadow-dropdown: 0 4px 8px #0000001a;
+  --shadow-dropdown-open: 0 6px 8px -4px #0000001a;
+
+  /* The dev-only content-gap marker (ContentGap.astro); never in the production build. */
+  --color-content-gap: #e5007e;
+  --color-content-gap-label: #fff;
+  --font-content-gap-label: 700 11px/1.3 monospace;
+  --font-size-content-gap-label-inline: 10px;
+  --font-size-content-gap-label-page: 14px;
+
+  /*
+   * Webflow defaults: values only the old Webflow runtime CSS (webflow.css, normalize.css and the
+   * w-* rules of pima-website.webflow.css) uses. They go with those files (#73).
+   */
+  /* Webflow font families. */
+  --font-family-wf-body: Arial, sans-serif;
+  --font-family-wf-icons: 'webflow-icons';
+  --font-family-wf-lightbox: "Helvetica Neue", Helvetica, Ubuntu, "Segoe UI", Verdana, sans-serif;
+  --font-family-wf-normalize: sans-serif;
+  /* Webflow font weights. */
+  --font-weight-wf-heading: bold;
+  --font-weight-wf-icon: normal;
+  --font-weight-wf-label: bold;
+  --font-weight-wf-lightbox: 300;
+  --font-weight-wf-strong: bold;
+  /* Webflow font sizes. */
+  --font-size-wf-body: 14px;
+  --font-size-wf-h1: 38px;
+  --font-size-wf-h2: 32px;
+  --font-size-wf-h3: 24px;
+  --font-size-wf-h4: 18px;
+  --font-size-wf-h5: 14px;
+  --font-size-wf-input: 14px;
+  --font-size-wf-lightbox: 17px;
+  --font-size-wf-nav-button: 24px;
+  --font-size-wf-normalize-h1: 2em;
+  --font-size-wf-pagination: 14px;
+  --font-size-wf-slider-arrow: 40px;
+  /* Webflow line heights. */
+  --line-height-wf-body: 20px;
+  --line-height-wf-h1: 44px;
+  --line-height-wf-h2: 36px;
+  --line-height-wf-h3: 30px;
+  --line-height-wf-h4: 24px;
+  --line-height-wf-h5: 20px;
+  --line-height-wf-icon: 1;
+  --line-height-wf-input: 1.42857143;
+  --line-height-wf-lightbox: 1.2;
+  --line-height-wf-lightbox-strip: 0;
+  --line-height-wf-normalize-input: normal;
+  /* Webflow colours. */
+  --color-wf-background-dark: #222;
+  --color-wf-background-placeholder: #dddddd;
+  --color-wf-border: #ccc;
+  --color-wf-button: #3898EC;
+  --color-wf-focus: #3898EC;
+  --color-wf-form-error: #ffdede;
+  --color-wf-lightbox-backdrop: rgba(0, 0, 0, 0.9);
+  --color-wf-lightbox-caption: rgba(0, 0, 0, 0.4);
+  --color-wf-nav-link-current: #0082f3;
+  --color-wf-nav-open: #C8C8C8;
+  --color-wf-slider-dot: rgba(255, 255, 255, 0.4);
+  --color-wf-slider-dot-invert: rgba(34, 34, 34, 0.4);
+  --color-wf-spinner: rgba(0, 0, 0, 0.4);
+  --color-wf-spinner-head: #fff;
+  --color-wf-text: #222222;
+  --color-wf-text-body: #333;
+  --color-wf-text-placeholder: #999;
+  /* Webflow radii. */
+  --radius-wf-pagination: 2px;
+  --radius-wf-spinner: 50%;
+  /* Webflow shadows. */
+  --shadow-wf-slider-dot-focus: 0px 0px 0px 2px #fff;
+}
+
+@media screen and (max-width: 991px) {
+  :root {
+    --font-size-h1: 3.37rem;
+    --font-size-h2: 1.89rem;
+    --font-size-h2-heading: 1.89rem;
+    --font-size-h4: 1.2rem;
+    --font-size-h4-heading: 1.2rem;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  :root {
+    --font-size-accordion-title: 1.25rem;
+    --font-size-h1: 2.15rem;
+    --font-size-h2: 1.21rem;
+    --font-size-h2-heading: 1.52rem;
+    --font-size-h4: .97rem;
+    --font-size-h4-heading: 1.08rem;
+    --font-size-heading-style-h1: 2.5rem;
+    --font-size-heading-style-h2: 2rem;
+    --font-size-heading-style-h3: 1.5rem;
+    --font-size-heading-style-h4: 1rem;
+    --font-size-heading-style-h5: .875rem;
+    --font-size-heading-style-h6: .75rem;
+    --font-size-text-large: 1.25rem;
+  }
+}
+
+@media screen and (max-width: 479px) {
+  :root {
+    --font-size-h2-heading: 1.21rem;
+    --font-size-h4-heading: .97rem;
+    --font-size-heading-style-h6: 14px;
+  }
+}
