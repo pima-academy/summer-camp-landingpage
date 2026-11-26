@@ -112,6 +112,10 @@
   --space-28: 7rem;
   --space-32: 8rem;
 
+  /* Layout. In-page anchors (the footer's "Về PiMA" links, #programs) land below the fixed
+     site nav (about 4.5 rem tall at every width): base.css's scroll-padding-top. */
+  --scroll-offset-nav: var(--space-20);
+
   /*
    * Colour roles. Each points at a brand palette colour; docs/brand.md lists the pairs that pass
    * WCAG AA. The text, heading, accent, link and focus roles are the light-tone values: Section's

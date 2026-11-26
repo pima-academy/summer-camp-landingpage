@@ -12,8 +12,10 @@
   box-sizing: border-box;
 }
 
+/* In-page anchors land below the fixed site nav. */
 html {
   height: 100%;
+  scroll-padding-top: var(--scroll-offset-nav);
   -webkit-text-size-adjust: 100%;
 }
 
