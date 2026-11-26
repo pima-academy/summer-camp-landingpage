@@ -89,7 +89,8 @@ async function settle(page) {
     for (const img of document.querySelectorAll('img[loading="lazy"]')) img.loading = "eager";
     for (let i = 0; i < 200; i++) {
       const before = window.scrollY;
-      window.scrollBy(0, Math.round(window.innerHeight * 0.7));
+      // "instant": the new site has `html { scroll-behavior: smooth }`.
+      window.scrollBy({ top: Math.round(window.innerHeight * 0.7), behavior: "instant" });
       await pause(150);
       if (window.scrollY === before) break;
     }
@@ -107,7 +108,7 @@ async function settle(page) {
       pause(15000),
     ]);
     await pause(1500); // fade-ups run 1000 ms
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: "instant" });
     await pause(500);
   });
   await page.evaluate(() => document.fonts.ready);
