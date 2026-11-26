@@ -107,7 +107,6 @@
   --color-text-footer: var(--gray-4);
   --color-text-footer-heading: var(--pima-green);
   --color-text-footer-hover: var(--white);
-  --color-icon-footer: var(--pima-green);
 
   /* Links. */
   --color-link: var(--pima-dark-green);
@@ -119,6 +118,18 @@
      to text does not, so it may be PiMA Green on white. */
   --color-icon-control: var(--pima-dark-green);
   --color-icon-decorative: var(--pima-green);
+  /* Icon circles (contact and social icons, `<Icon circle>`): circle fill and glyph by
+     background. The white pair is the default (also on surface); the pale-lime and dark-green
+     tones (Section) and the footer re-point both. */
+  --color-icon-circle: var(--black);
+  --color-icon-circle-glyph: var(--white);
+  --color-icon-circle-on-pale-lime: var(--pima-dark-green);
+  --color-icon-circle-glyph-on-pale-lime: var(--pima-pale-lime);
+  --color-icon-circle-on-dark: var(--pima-pale-lime);
+  --color-icon-circle-glyph-on-dark: var(--pima-dark-green);
+  --color-icon-circle-footer: var(--pima-green);
+  --color-icon-circle-glyph-footer: var(--black);
+  --color-icon-circle-footer-hover: var(--white);
 
   /* Backgrounds: the four section tones, the footer, and green fills. */
   --color-background: var(--white);

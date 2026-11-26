@@ -37,6 +37,7 @@
   "Hiện mục k / n") has aria-current="true".
 */
 import type { HTMLAttributes } from "astro/types";
+import Icon from "./Icon.astro";
 
 interface Props extends HTMLAttributes<"div"> {
   /** Slide width, gutters and arrow and dot placement (see above). */
@@ -69,22 +70,10 @@ const { layout, arrowStyle = "filled", autoplay, infinite = false, label, class:
     <slot />
   </div>
   <div class="arrow prev" data-style={arrowStyle}>
-    <div class="glyph">
-      <svg width="100%" height="100%" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M3.31066 8.75001L9.03033 14.4697L7.96967 15.5303L0.439339 8.00001L7.96967 0.469676L9.03033 1.53034L3.31066 7.25001L15.5 7.25L15.5 8.75L3.31066 8.75001Z"
-          fill="currentColor"></path>
-      </svg>
-    </div>
+    <Icon name="arrow-left" size="24" />
   </div>
   <div class="arrow next" data-style={arrowStyle}>
-    <div class="glyph">
-      <svg width="100%" height="100%" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M12.6893 7.25L6.96967 1.53033L8.03033 0.469666L15.5607 8L8.03033 15.5303L6.96967 14.4697L12.6893 8.75H0.5V7.25H12.6893Z"
-          fill="currentColor"></path>
-      </svg>
-    </div>
+    <Icon name="arrow-right" size="24" />
   </div>
   <div class="dots"></div>
 </div>
@@ -200,7 +189,7 @@ const { layout, arrowStyle = "filled", autoplay, infinite = false, label, class:
     height: 2.5rem;
     border-radius: var(--radius);
     background-color: var(--color-background);
-    color: color-mix(in srgb, currentColor 70%, transparent);
+    color: var(--color-icon-control);
     transition-property: color, background-color;
     transition-duration: 0.2s, 0.2s;
     transition-timing-function: ease, ease;
@@ -249,15 +238,6 @@ const { layout, arrowStyle = "filled", autoplay, infinite = false, label, class:
   [data-layout="wide"] > .next {
     left: 4rem;
     right: auto;
-  }
-
-  .glyph {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 1rem;
-    height: 1rem;
   }
 
   .dots {

@@ -3,11 +3,8 @@
 // Used by index, ve-chung-toi, khoa-hoc, trai-he-toan-hoc-pima and the gap pages
 // detail-course and detail-blog-event (old `section_contact-form`). Facebook and email stay
 // plain text here, as on the old site; facts come from site.ts. Fades up on scroll.
-import { Image } from "astro:assets";
-import fbIcon from "../assets/images/fb.png";
-import mailIcon from "../assets/images/mail.png";
-import mapPinIcon from "../assets/images/map-pin.png";
 import ContactForm from "../components/ContactForm.astro";
+import Icon from "../components/Icon.astro";
 import Section from "../components/Section.astro";
 import { contact, social } from "../data/site";
 ---
@@ -17,14 +14,14 @@ import { contact, social } from "../data/site";
     <h3 class="head">Liên hệ với PiMA</h3>
     <div class="info">
       <div>
-        <div class="icon-cell"><Image src={fbIcon} alt="" width={24} /></div>
+        <div class="icon-cell"><Icon name="brand-facebook-filled" size="40" circle /></div>
         <div>
           <div class="label">Facebook</div>
           <div>{social.facebook.display}</div>
         </div>
       </div>
       <div>
-        <div class="icon-cell"><Image src={mailIcon} alt="" width={24} /></div>
+        <div class="icon-cell"><Icon name="mail-filled" size="40" circle /></div>
         <div>
           <div class="label">Email</div>
           <div>{contact.email}</div>
@@ -32,7 +29,7 @@ import { contact, social } from "../data/site";
       </div>
       {/* Unlike the two cells above, the old address cell had its icon spacing on the whole cell. */}
       <div class="icon-cell">
-        <Image src={mapPinIcon} alt="" width={24} />
+        <Icon name="map-pin-filled" size="40" circle />
         <div class="label">Địa chỉ</div>
         <div>{contact.address}</div>
       </div>
