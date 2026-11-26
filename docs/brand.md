@@ -162,7 +162,7 @@ Prefer the green logo; where the background is not green, prefer black or white.
 
 ### Keep the logo intact
 
-- Set the width only; the height follows (`height: auto`). The logo keeps its proportions: no stretching, rotating or skewing.
+- Set the width only; the height follows (`height: auto`). The logo keeps its proportions: no stretching, rotating or skewing. The rule is about the source and the result: the component passes only `width` to Astro's `Image`, which also writes the matching `height` attribute (the file's own aspect ratio, so the browser reserves the space), and base CSS's `height: auto` keeps the drawn logo undistorted. That emitted `height` is intended.
 - Use the five colours only, flat: no other colour, gradient, shadow or outline.
 - On a photo, place it over a calm, even area or inside a colour block, never over a busy area.
 - Keep symbol and wordmark together, and show the wordmark as the image, never retyped as text. The favicon and app icon are the one exception: the symbol alone.
