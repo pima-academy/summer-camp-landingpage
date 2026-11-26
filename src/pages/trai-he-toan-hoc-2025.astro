@@ -164,7 +164,7 @@ const applyHref = "https://qual.pimavn.com/apply";
                 { cls: "header76_image-list-left", lists: headerLeft },
                 { cls: "header76_image-list-right", lists: headerRight },
               ].map((column) => (
-                <Marquee direction="y" class={column.cls} duration={30}>
+                <Marquee direction="y" class={column.cls} duration={60}>
                   {column.lists.map((list) => (
                     <div id={list.id} class="header76_image-list">
                       {list.photos.map((p) => (
@@ -556,7 +556,7 @@ const applyHref = "https://qual.pimavn.com/apply";
                 <div class="spacer-medium"></div>
               </div>
             </div>
-            <Marquee class="logo3_component" duration={30}>
+            <Marquee class="logo3_component" duration={60}>
               {
                 logoLists.map((list) => (
                   <div class="logo3_list">
