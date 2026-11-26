@@ -20,13 +20,15 @@ test("404 page has a Vietnamese title and is noindex", { skip }, () => {
   assert.doesNotMatch(html, /property="og:url"/);
 });
 
-test("404 page has the site chrome, one heading, one line and a button home", { skip }, () => {
+test("404 page has the site chrome and one section: a heading, one line and a button home", { skip }, () => {
   assert.match(html, /<header\b[^>]*>[\s\S]*<nav\b[^>]*id="nav-menu"/, "nav");
   assert.match(html, /<footer\b/, "footer");
+  const sections = [...main.matchAll(/<section\b[^>]*data-section="([^"]+)"/g)].map((m) => m[1]);
+  assert.deepEqual(sections, ["not-found"]);
   const headings = [...main.matchAll(/<h[1-6][\s>]/g)];
   assert.equal(headings.length, 1, "one heading in <main>");
   assert.match(main, /<h1[^>]*>Không tìm thấy trang<\/h1>/);
-  assert.match(main, /<a href="\/" class="button[^"]*"[^>]*>[^<]+<\/a>/);
+  assert.match(main, /<a href="\/"[^>]*data-variant="dark-green"[^>]*>Về trang chủ<\/a>/);
   assert.doesNotMatch(main, /<img/, "no illustration");
   assert.doesNotMatch(html, /Page Not Found|doesn&#x27;t exist/);
 });
