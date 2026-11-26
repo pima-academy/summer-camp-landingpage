@@ -229,3 +229,11 @@ const ids = isSite
     </div>
   </div>
 </footer>
+
+<style>
+  /* The old icons had a width attribute only, so the map pin (width 58/31, 24 px source)
+     shrinks with its flex row and keeps its aspect ratio. <Image> also sets height: let it follow. */
+  .footer_icon-wrapper :global(img) {
+    height: auto;
+  }
+</style>
