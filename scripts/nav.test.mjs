@@ -183,3 +183,14 @@ test("with JS off the desktop nav links are plain links", { skip }, async () => 
   await page.waitForURL(/\/ve-chung-toi\/$/);
   await page.context().close();
 });
+
+test("with JS off the dropdown links show on hover and focus", { skip }, async () => {
+  const page = await open({ width: 1440, javaScriptEnabled: false });
+  assert.equal(await page.isVisible(list), false);
+  await page.hover(toggle);
+  assert.equal(await page.isVisible(`${list} a[href="/khoa-hoc/"]`), true, "hover");
+  await page.mouse.move(10, 600);
+  await page.focus(toggle);
+  assert.equal(await page.isVisible(`${list} a[href="/khoa-hoc/"]`), true, "focus");
+  await page.context().close();
+});

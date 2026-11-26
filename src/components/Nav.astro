@@ -372,3 +372,10 @@ const isGap = (item: Link) => item.href === "/su-kien-blog/";
 
   document.querySelectorAll<HTMLElement>(".w-nav").forEach(initNavbar);
 </script>
+
+<style>
+  /* Without JS (no `js-ready` on <html>) the dropdown links still show on hover and focus. */
+  :global(html:not(.js-ready)) .w-dropdown:is(:hover, :focus-within) > .w-dropdown-list {
+    display: block;
+  }
+</style>
