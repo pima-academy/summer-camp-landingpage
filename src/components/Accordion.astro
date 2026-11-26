@@ -24,6 +24,7 @@
 </div>
 
 <style>
+  /* The panel's title button (rendered by AccordionPanel): reset to look like the old <div>. */
   .layout351_content :global(.layout351_column) {
     appearance: none;
     background: transparent;
@@ -46,30 +47,36 @@
 
   /* overflow: hidden on the panel would clip an outside focus ring. */
   .layout351_content :global(.layout351_column:focus-visible) {
-    outline: 0.125rem solid #4d65ff;
+    outline: 0.125rem solid var(--color-focus-ring);
     outline-offset: -0.25rem;
   }
 
+  /* breakpoint-exception: desktop only (the complement of 991 px), where panels open sideways. */
   @media screen and (min-width: 992px) {
+    /* Panels (AccordionPanel) widen when opened. */
     .layout351_content :global(.layout351_accordion) {
       transition: width 500ms ease;
     }
 
+    /* Without JS (no `js-ready` on <html>) every panel shows, stacked. */
     :global(html:not(.js-ready)) .layout351_content {
       flex-direction: column;
       height: auto;
     }
 
+    /* Without JS, each stacked panel takes the full width. */
     :global(html:not(.js-ready)) .layout351_content :global(.layout351_accordion) {
       width: 100%;
     }
   }
 
   @media screen and (max-width: 991px) {
+    /* Panel bodies (AccordionPanel) slide open in height. */
     .layout351_content :global(.layout351_column-content) {
       transition: height 500ms ease;
     }
 
+    /* With JS, closed panel bodies collapse; without it every panel stays open. */
     :global(html.js-ready)
       .layout351_content
       :global(.layout351_accordion:not(.active) .layout351_column-content) {
@@ -78,6 +85,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
+    /* No width or height animation of the panels (AccordionPanel). */
     .layout351_content :global(.layout351_accordion),
     .layout351_content :global(.layout351_column-content) {
       transition: none;
