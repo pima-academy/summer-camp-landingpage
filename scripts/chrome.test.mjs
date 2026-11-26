@@ -30,6 +30,11 @@ test("nav comes before <main> and lists the site links", { skip }, () => {
   }
 });
 
+test("the Sự kiện & Blog content gap is not in the production nav", { skip }, () => {
+  assert.doesNotMatch(nav, /su-kien-blog|Sự kiện/);
+  assert.equal((nav.match(/<li class="nav-menu-list-item"/g) ?? []).length, 4);
+});
+
 test("only the home links are current on the home page", { skip }, () => {
   const current = anchors(nav).filter((a) => /aria-current="page"/.test(a));
   assert.ok(current.length >= 1);

@@ -6,6 +6,7 @@ import { Image } from "astro:assets";
 import logo from "../assets/images/logo-horizontal.png";
 import { navItems, type Link } from "../data/site";
 import { isCurrent } from "../lib/current-link";
+import ContentGap from "./ContentGap.astro";
 
 const { pathname } = Astro.url;
 const current = (href: string) => isCurrent(href, pathname);
@@ -71,17 +72,18 @@ const isGap = (item: Link) => item.href === "/su-kien-blog/";
                   </div>
                 </li>
               ) : isGap(item) ? (
-                // TODO(#22): wrap this item in an inline <ContentGap name="nav: Sự kiện & Blog">
-                // with an empty fallback (production renders nothing) once ContentGap exists.
-                <li class="nav-menu-list-item">
-                  <a
-                    href={item.href}
-                    class:list={linkClass("nav-link nav-link-on-inverse w-inline-block", item.href)}
-                    aria-current={aria(item.href)}
-                  >
-                    <div class="text-style-secondary">{item.label}</div>
-                  </a>
-                </li>
+                // Inline gap, no fallback: production renders no <li> at all.
+                <ContentGap name="nav: Sự kiện & Blog" inline>
+                  <li class="nav-menu-list-item">
+                    <a
+                      href={item.href}
+                      class:list={linkClass("nav-link nav-link-on-inverse w-inline-block", item.href)}
+                      aria-current={aria(item.href)}
+                    >
+                      <div class="text-style-secondary">{item.label}</div>
+                    </a>
+                  </li>
+                </ContentGap>
               ) : (
                 <li class="nav-menu-list-item">
                   <a
