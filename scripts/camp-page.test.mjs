@@ -2,7 +2,7 @@
 // Needs a fresh `npm run build`; skipped when dist/ is missing.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { distSkip as skip, readBuilt } from "./test-lib.mjs";
+import { distSkip as skip, mainOf, readBuilt } from "./test-lib.mjs";
 
 const html = readBuilt("trai-he-toan-hoc-pima/index.html");
 
@@ -14,29 +14,31 @@ test("camp page is built with its own title and description", { skip }, () => {
 });
 
 test("camp page has its sections in the old order", { skip }, () => {
-  // Section files are found by data-section; the page's own sections (#69) still by class.
   const order = [
-    'data-section="page-header"',
-    'class="section_camp-intro"',
-    'data-section="impact"',
-    'data-section="trust-bar"',
-    'class="section_camp-activity"',
-    'data-section="partners"',
-    'class="section_camp-history"',
-    'data-section="testimonials"',
-    'data-section="summer-camp"',
-    'data-section="contact-section"',
-  ].map((s) => [s, html.indexOf(s)]);
-  for (const [s, i] of order) assert.ok(i >= 0, `${s} present`);
-  const idx = order.map(([, i]) => i);
-  assert.deepEqual([...idx].sort((a, b) => a - b), idx, "sections in old order");
-  assert.equal(html.match(/data-section="trust-bar"/g)?.length, 2, "two trust bars");
-  // Testimonials, the second trust bar, SummerCamp and the contact section sit inside
-  // section_camp-history, as on the old page: the <section> opened there is still open.
-  const history = html.slice(html.indexOf('class="section_camp-history"'));
-  const beforeContact = history.slice(0, history.indexOf('data-section="contact-section"'));
-  const depth = (s) => (s.match(/<section\b/g)?.length ?? 0) - (s.match(/<\/section>/g)?.length ?? 0);
-  assert.equal(depth("<section " + beforeContact), 2, "camp history still open at the contact section");
+    "page-header",
+    "camp-intro",
+    "impact",
+    "trust-bar",
+    "camp-activity",
+    "partners",
+    "camp-history",
+    "testimonials",
+    "trust-bar",
+    "summer-camp",
+    "contact-section",
+  ];
+  const found = [...html.matchAll(/data-section="([^"]+)"/g)].map((m) => m[1]);
+  assert.deepEqual(found, order);
+});
+
+test("camp page markup carries no Webflow or utility class and no w-node id", { skip }, () => {
+  const main = mainOf(html);
+  assert.doesNotMatch(main, /id="w-node-/);
+  const classes = new Set([...main.matchAll(/class="([^"]*)"/g)].flatMap((m) => m[1].split(/\s+/)));
+  const webflow = [...classes].filter((c) =>
+    /^(w-|layout\d|section_|padding-|container-|margin-|spacer-|heading-style-|text-style-|text-size-|text-block-|icon-embed-|iconify|content-item-|camp-detail-link)/.test(c),
+  );
+  assert.deepEqual(webflow, []);
 });
 
 test("both 'Định hướng học thuật' blocks stay", { skip }, () => {
@@ -66,8 +68,8 @@ test("camp page loads no third-party script or font and no Webflow leftovers", {
   assert.doesNotMatch(html, /data-w-id|data-wf-|translate3d\(0, 50px/);
 });
 
-test("faded-up sections carry data-animate", { skip }, () => {
-  for (const cls of ["section_camp-intro", "section_camp-activity", "section_camp-history"]) {
-    assert.match(html, new RegExp(`<[a-z]+[^>]*data-animate="fade-up"[^>]*class="${cls}"|<[a-z]+[^>]*class="${cls}"[^>]*data-animate="fade-up"`), cls);
+test("the page's own sections fade up", { skip }, () => {
+  for (const name of ["camp-intro", "camp-activity", "camp-history"]) {
+    assert.match(html, new RegExp(`<section[^>]*data-section="${name}"[^>]*data-animate="fade-up"`), name);
   }
 });
