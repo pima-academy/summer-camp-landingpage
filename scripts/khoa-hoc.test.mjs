@@ -3,7 +3,9 @@
 // Needs a fresh `npm run build`; skipped when dist/ is missing.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { distSkip as skip, mainOf, readBuilt } from "./test-lib.mjs";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+import { distSkip as skip, mainOf, readBuilt, root } from "./test-lib.mjs";
 
 const html = readBuilt("khoa-hoc/index.html");
 const main = mainOf(html);
@@ -18,23 +20,29 @@ test("khoa-hoc renders header, intro, trust bar and contact form in the old orde
   const order = [
     'data-section="page-header"',
     ">Khóa học</h1>",
-    'class="section_header64"',
+    'data-section="intro"',
     "Khóa học Toán ứng dụng tại PiMA được thiết kế",
     'data-section="trust-bar"',
-    'id="contact-form"',
+    'data-section="contact-section"',
   ].map((s) => main.indexOf(s));
   assert.ok(order.every((i) => i >= 0), `all sections present: ${order}`);
   assert.deepEqual([...order].sort((a, b) => a - b), order, "sections in order");
 });
 
 test("khoa-hoc intro fades up like the other sections", { skip }, () => {
-  assert.match(main, /<header[^>]*(data-animate="fade-up"[^>]*class="section_header64"|class="section_header64"[^>]*data-animate="fade-up")/);
+  assert.match(main, /<section data-section="intro" data-animate="fade-up"/);
 });
 
 test("khoa-hoc hides the CMS course list in production", { skip }, () => {
-  assert.doesNotMatch(main, /section_programs-overview/);
+  assert.doesNotMatch(main, /data-section="course-list"/);
   assert.doesNotMatch(main, /Danh sách các khóa học/);
   assert.doesNotMatch(main, /No items found/);
+});
+
+test("the khoa-hoc page file is only its sections: no class, no w-node id", () => {
+  const page = readFileSync(join(root, "src/pages/khoa-hoc.astro"), "utf8").replace(/^---[\s\S]*?\n---\n/, "");
+  assert.doesNotMatch(page, /\sclass(:list)?=/);
+  assert.doesNotMatch(page, /w-node-/);
 });
 
 test("khoa-hoc shows the unified address only", { skip }, () => {
