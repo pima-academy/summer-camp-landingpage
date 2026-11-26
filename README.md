@@ -16,10 +16,10 @@ npm run dev         # dev server; also serves the content gap pages, framed with
 npm run build       # production build into dist/ (CI runs `npm ci && npm run build`, .github/workflows/build.yml)
 npm run preview     # serve dist/ locally
 npm test            # unit and build checks (scripts/*.test.mjs); some need a fresh build
-npm run shots       # build, then screenshot old (site/) and new (dist/) pages at 390/820/1440 into shots/
+npm run shots       # screenshot origin/dev (base) and the working tree (head) at 390/820/1440, diff them into shots/
 ```
 
-`npm run shots -- index lien-he` shoots only the pages named (old file names); `--no-build` reuses `dist/`. Playwright's Chromium is needed once: `npx playwright install chromium`.
+`npm run shots` builds the base ref in a temporary git worktree and the working tree, then writes `shots/<page>-<width>-base.png`, `-head.png` and `-diff.png` and prints the share of differing pixels per page and width. `--base <ref>` compares against another ref; `npm run shots -- index lien-he` shoots only the pages named; `--no-build` reuses the working tree's `dist/` (the base is always built). Playwright's Chromium is needed once: `npx playwright install chromium`.
 
 ## Layout
 
