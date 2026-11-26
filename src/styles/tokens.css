@@ -211,8 +211,8 @@
   --color-focus-ring: var(--pima-dark-green);
   --color-focus-ring-on-dark: var(--pima-pale-lime);
 
-  /* Corner radii. One radius for buttons, cards, panels, inputs, photos and videos; circles for
-     icon circles, avatars and dots. Full-width bands and rules have square corners. */
+  /* Corner radii. One radius for buttons, cards, panels, inputs, photos (avatars too) and videos;
+     circles only for icon circles and dots. Full-width bands, rules and logos are square. */
   --radius: 12px;
   --radius-circle: 100%;
 

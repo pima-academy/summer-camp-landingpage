@@ -173,11 +173,11 @@ const mentorGroups = [
         <div class="partner-grid">
           <ContentGap name="detail-course: partner image lightbox" inline>
             <a href="#" class="cover-box">
-              <div class="cover-frame"><Image src={partner} alt="" widths={fluidWidths(partner)} sizes={partnerSizes} class="partner-img" hidden /></div>
+              <div class="cover-frame"><Image src={partner} alt="" widths={fluidWidths(partner)} sizes={partnerSizes} class="partner-img" data-logo hidden /></div>
             </a>
             <Fragment slot="fallback">
               <div class="cover-box">
-                <div class="cover-frame"><Image src={partner} alt="" widths={fluidWidths(partner)} sizes={partnerSizes} class="partner-img" hidden /></div>
+                <div class="cover-frame"><Image src={partner} alt="" widths={fluidWidths(partner)} sizes={partnerSizes} class="partner-img" data-logo hidden /></div>
               </div>
             </Fragment>
           </ContentGap>
@@ -365,7 +365,7 @@ const mentorGroups = [
     min-height: 4rem;
     margin-bottom: var(--space-2);
     overflow: clip;
-    border-radius: var(--radius-circle);
+    border-radius: var(--radius);
     object-fit: cover;
   }
 
@@ -465,7 +465,7 @@ const mentorGroups = [
     height: 5rem;
     min-height: 5rem;
     overflow: clip;
-    border-radius: var(--radius-circle);
+    border-radius: var(--radius);
     object-fit: cover;
   }
 

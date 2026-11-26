@@ -19,7 +19,7 @@ import { pressQuotes } from "./press";
             <div class="source">
               <div class="client">
                 <a href={item.href} target="_blank" class="logo-link">
-                  <Image src={item.logo} alt={item.alt} width={96} densities={[1, 2]} class="logo-img" />
+                  <Image src={item.logo} alt={item.alt} width={96} densities={[1, 2]} class="logo-img" data-logo />
                 </a>
               </div>
             </div>
@@ -69,6 +69,7 @@ import { pressQuotes } from "./press";
     max-width: 100%;
   }
 
+  /* A logo: square corners (base CSS, data-logo) and the whole of it in its box, never cropped. */
   .logo-img {
     display: block;
     width: 6rem;
@@ -76,7 +77,6 @@ import { pressQuotes } from "./press";
     max-width: 100%;
     height: 3rem;
     min-height: 4rem;
-    border-radius: var(--radius-circle);
-    object-fit: cover;
+    object-fit: contain;
   }
 </style>

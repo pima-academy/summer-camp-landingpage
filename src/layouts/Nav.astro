@@ -24,7 +24,7 @@ const isGap = (item: Link) => item.href === "/su-kien-blog/";
     <div class="left">
       <a href="/" class="logo-link" aria-current={current("/")} aria-label="PiMA, trang chủ">
         <div class="logo-box">
-          <Image src={logo} alt="" width={132} densities={[1, 2]} class="logo-image" />
+          <Image src={logo} alt="" width={132} densities={[1, 2]} data-logo />
         </div>
       </a>
     </div>
@@ -360,11 +360,6 @@ const isGap = (item: Link) => item.href === "/su-kien-blog/";
   .logo-box {
     display: block;
     flex: 1;
-  }
-
-  /* Brand logo: width only (the attribute), never rounded (docs/brand.md). */
-  .logo-image {
-    border-radius: 0;
   }
 
   .menu {

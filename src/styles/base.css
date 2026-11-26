@@ -127,6 +127,12 @@ img {
   overflow: visible;
 }
 
+/* Logos (PiMA's, partners', newspapers', universities') are never rounded or clipped: the
+   <img> of a logo carries `data-logo`. */
+img[data-logo] {
+  border-radius: 0;
+}
+
 /* Form controls take the surrounding type; components style the rest. */
 label {
   display: block;

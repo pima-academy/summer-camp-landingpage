@@ -120,10 +120,11 @@ The footer is a `--black` band: column headings `--pima-green`, text and links `
 
 ## Shapes
 
-- One corner radius, `--radius`, for buttons, cards, panels, inputs, tags, menus and every photo and video. Base CSS gives every `img` `--radius`. No other radius token exists.
+- One corner radius, `--radius`, for buttons, cards, panels, inputs, tags, menus and every photo and video, portraits and avatars included. Base CSS gives every `img` `--radius`.
 - Square corners for full-width bands (sections, the marquee, the footer), rules and dividers (the kicker rule too), chart bars and legend swatches.
-- Circles (`--radius-circle`) for icon circles and avatars.
-- Logos are never rounded: base CSS rounds every `img`, so a logo sets `border-radius: 0`.
+- The only other radius token, `--radius-circle`, is for shapes that are not photos: icon circles, the timeline's and the marquee's dots, the slider's dots and arrows.
+- Logos (PiMA's, partners', newspapers', universities') are never rounded or cropped: the logo's `img` carries `data-logo`, which base CSS keeps square, and a logo in a fixed box takes `object-fit: contain`.
+- `scripts/radius.test.mjs` checks every aligned page: `--radius` or a circle on any rounded element, `--radius` on every photo, square logos.
 
 ## Logo
 
