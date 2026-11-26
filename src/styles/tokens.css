@@ -51,6 +51,7 @@
   --font-size-course-step-number: 3.8rem;
   --font-size-course-testimonial: 16px;
   --font-size-doc-text: 1rem;
+  --font-size-field: 14px;
   --font-size-footer-credit: .875rem;
   --font-size-h1: 4.21rem;
   --font-size-h2: 2.37rem;
@@ -84,6 +85,7 @@
   --line-height-body: 1.6rem;
   --line-height-button: 1.2;
   --line-height-button-link: 1;
+  --line-height-field: 1.42857143;
   --line-height-h1: 1.04em;
   --line-height-h2: 1.04em;
   --line-height-h2-heading: 1.04em;
@@ -107,6 +109,8 @@
   --color-text-accent-alt-hover: #05aa5399;
   --color-text-dark: #1f242f;
   --color-text-dark-green: #2b5314;
+  --color-text-field: #333;
+  --color-text-field-placeholder: #999;
   --color-text-inverse: white;
   --color-text-lime: #d4e889;
   --color-text-muted: #333741;
@@ -136,6 +140,7 @@
   --color-background-avatar: #f7f7f7;
   --color-background-dark: #3b3b3b;
   --color-background-dark-green: #2b5314;
+  --color-background-form-error: #ffdede;
   --color-background-founding-story: #326212;
   --color-background-highlight-card: #fafef5;
   --color-background-lime: #d4e889;
@@ -161,6 +166,8 @@
 
   /* Border colours. */
   --color-border-card: #26262833;
+  --color-border-field: #ccc;
+  --color-border-field-focus: #3898EC;
   --color-border-footer: #61646c;
   --color-border-highlight-card: #d0f8ab;
   --color-border-input: #262628;
@@ -224,7 +231,6 @@
   --font-size-wf-h3: 24px;
   --font-size-wf-h4: 18px;
   --font-size-wf-h5: 14px;
-  --font-size-wf-input: 14px;
   --font-size-wf-lightbox: 17px;
   --font-size-wf-nav-button: 24px;
   --font-size-wf-normalize-h1: 2em;
@@ -237,7 +243,6 @@
   --line-height-wf-h4: 24px;
   --line-height-wf-h5: 20px;
   --line-height-wf-icon: 1;
-  --line-height-wf-input: 1.42857143;
   --line-height-wf-lightbox: 1.2;
   --line-height-wf-lightbox-strip: 0;
   --line-height-wf-normalize-input: normal;
@@ -246,8 +251,6 @@
   --color-wf-background-placeholder: #dddddd;
   --color-wf-border: #ccc;
   --color-wf-button: #3898EC;
-  --color-wf-focus: #3898EC;
-  --color-wf-form-error: #ffdede;
   --color-wf-lightbox-backdrop: rgba(0, 0, 0, 0.9);
   --color-wf-lightbox-caption: rgba(0, 0, 0, 0.4);
   --color-wf-nav-link-current: #0082f3;
@@ -256,7 +259,6 @@
   --color-wf-spinner-head: #fff;
   --color-wf-text: #222222;
   --color-wf-text-body: #333;
-  --color-wf-text-placeholder: #999;
   /* Webflow radii. */
   --radius-wf-pagination: 2px;
   --radius-wf-spinner: 50%;
