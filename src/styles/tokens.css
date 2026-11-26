@@ -289,3 +289,9 @@
     --font-size-heading-style-h6: 14px;
   }
 }
+
+/* khoa-hoc (#68): tokens added by the khoa-hoc page refactor. */
+:root {
+  /* The "No items found." box of the dev-only course list (was Webflow's .w-dyn-empty). */
+  --color-background-course-list-empty: #dddddd;
+}

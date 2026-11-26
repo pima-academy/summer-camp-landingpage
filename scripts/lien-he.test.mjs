@@ -1,6 +1,6 @@
-// Checks the built lien-he page in headless Chromium: the social pills stay inside
-// their card at every width (old site: "Youtube" overflowed at 820 px and the page
-// scrolled sideways), and the contact facts come from site.ts.
+// Checks the built lien-he page in headless Chromium: its sections in the old order, the
+// social pills stay inside their card at every width (old site: "Youtube" overflowed at
+// 820 px and the page scrolled sideways), and the contact facts come from site.ts.
 // Needs a fresh `npm run build`; skipped when dist/ is missing.
 import { test, before, after } from "node:test";
 import assert from "node:assert/strict";
@@ -28,12 +28,23 @@ async function open(width) {
   return page;
 }
 
+test("lien-he renders contact facts, social links, trust bar and message form in the old order", { skip }, async () => {
+  const page = await open(1440);
+  const names = await page.locator("main [data-section]").evaluateAll((els) => els.map((e) => e.dataset.section));
+  assert.deepEqual(names, ["contact-facts", "social-links", "trust-bar", "message-form"]);
+  assert.equal(await page.locator('[data-section="message-form"]').getAttribute("id"), "contact-form");
+  assert.equal(await page.locator('[data-section="message-form"] [data-contact-form]').count(), 1);
+  await page.close();
+});
+
 test("the social pills stay inside their card and the page never scrolls sideways", { skip }, async () => {
   for (const width of [320, 390, 479, 480, 500, 520, 559, 560, 600, 700, 768, 820, 900, 991, 992, 1024, 1100, 1440, 1920]) {
     const page = await open(width);
     const m = await page.evaluate(() => {
-      const card = document.querySelector(".contact-social-component").getBoundingClientRect();
-      const pills = [...document.querySelectorAll(".button-social")].map((e) => {
+      // The card is the box around the heading and the pills.
+      const section = document.querySelector('[data-section="social-links"]');
+      const card = section.querySelector("h2").parentElement.getBoundingClientRect();
+      const pills = [...section.querySelectorAll("a")].map((e) => {
         const b = e.getBoundingClientRect();
         return { text: e.textContent.trim(), left: b.left, right: b.right };
       });
@@ -50,11 +61,11 @@ test("the social pills stay inside their card and the page never scrolls sideway
 
 test("contact facts and social links", { skip }, async () => {
   const page = await open(1440);
-  const text = await page.locator(".section-contact-info").innerText();
+  const text = await page.locator('[data-section="contact-facts"]').innerText();
   assert.match(text, /fb\.com\/pima\.academy\.vn/);
   assert.match(text, /contact@pimavn\.com/);
   assert.match(text, /35 Văn Chung, Phường Tân Bình, Thành phố Hồ Chí Minh, Việt Nam/);
-  const hrefs = await page.locator(".button-social").evaluateAll((as) => as.map((a) => a.getAttribute("href")));
+  const hrefs = await page.locator('[data-section="social-links"] a').evaluateAll((as) => as.map((a) => a.getAttribute("href")));
   assert.deepEqual(hrefs, [
     "https://www.facebook.com/pima.academy.vn",
     "https://www.linkedin.com/company/pima-academy",
