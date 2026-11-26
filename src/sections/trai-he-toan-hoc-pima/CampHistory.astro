@@ -1,0 +1,133 @@
+---
+/*
+  CampHistory: "Hành trình học thuật qua các mùa trại", a sticky intro next to a stack of
+  sticky cards, one per past camp (camp-topics.ts). Used by trai-he-toan-hoc-pima (old
+  `section_camp-history`). Each card's "Xem chi tiết" link has no target yet, so it is an
+  inline content gap; production shows plain text. Fades up on scroll.
+*/
+import ContentGap from "../../components/ContentGap.astro";
+import Section from "../../components/Section.astro";
+import { campTopics } from "./camp-topics";
+---
+
+<Section name="camp-history" spacing="large" animate>
+  <div class="layout">
+    <div class="intro">
+      <div class="crumb">
+        <div class="tagline">Các chủ đề trại hè</div>
+      </div>
+      <h2 class="title">Hành trình học thuật qua các mùa trại</h2>
+      <p class="lead">
+        Mỗi trại hè PiMA mang một chủ đề riêng, xoay quanh các lĩnh vực Toán học hiện đại và ứng dụng thực tiễn. Từ tối
+        ưu hóa, học máy đến khoa học dữ liệu và sinh học tính toán, chương trình giúp học sinh khám phá chiều sâu của Toán
+        học và các hướng nghiên cứu liên ngành.
+      </p>
+    </div>
+    <div>
+      {
+        campTopics.map((c) => (
+          <div class="camp">
+            <h3 class="year">{c.year}</h3>
+            <p>{c.topic}</p>
+            <ContentGap name={`trai-he-toan-hoc-pima: Xem chi tiết ${c.year}`} inline>
+              <a href="#" class="more">
+                Xem chi tiết &gt;
+              </a>
+              <Fragment slot="fallback">
+                <span class="more">Xem chi tiết &gt;</span>
+              </Fragment>
+            </ContentGap>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</Section>
+
+<style>
+  .layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    grid-auto-columns: 1fr;
+    column-gap: 5rem;
+    row-gap: 4rem;
+    align-items: start;
+  }
+
+  /* The intro stays in view while the cards scroll past (desktop and tablet). */
+  .intro {
+    position: sticky;
+    top: 30%;
+  }
+
+  .crumb {
+    margin-bottom: 0.5rem;
+  }
+
+  .tagline {
+    display: inline-block;
+    color: var(--color-text-accent);
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+  }
+
+  .title {
+    font-size: var(--font-size-heading-style-h2);
+    font-weight: var(--font-weight-heading-style);
+    line-height: var(--line-height-heading-style-h2);
+  }
+
+  .lead {
+    margin-bottom: 1rem;
+    color: var(--color-text-strong);
+    text-align: left;
+  }
+
+  /* Sticky cards: each one stops under the previous as the column scrolls. */
+  .camp {
+    position: sticky;
+    top: 30%;
+    margin-bottom: 2rem;
+    padding: 0.125rem 2rem 1rem;
+    border: 1px solid var(--color-border-highlight-card);
+    border-radius: var(--radius-card-small);
+    background-color: var(--color-background-highlight-card);
+  }
+
+  .camp:last-child {
+    top: 36%;
+    padding-top: 0;
+    padding-bottom: 2rem;
+  }
+
+  .year {
+    margin-bottom: 0.5rem;
+    color: var(--color-text-accent);
+    font-size: var(--font-size-heading-style-h5);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-heading-style-h5);
+  }
+
+  .more {
+    color: var(--color-text-strong);
+    font-weight: var(--font-weight-bold);
+  }
+
+  @media screen and (max-width: 991px) {
+    .layout {
+      column-gap: 3rem;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .layout {
+      grid-template-columns: 1fr;
+      row-gap: 3rem;
+    }
+
+    .intro {
+      position: static;
+    }
+  }
+</style>
