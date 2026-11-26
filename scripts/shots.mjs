@@ -85,6 +85,8 @@ async function settle(page) {
   await page.evaluate(() => document.fonts.ready);
   await page.evaluate(async () => {
     const pause = (ms) => new Promise((ok) => setTimeout(ok, ms));
+    // Lazy images off the scroll path (hidden slides) would otherwise never load.
+    for (const img of document.querySelectorAll('img[loading="lazy"]')) img.loading = "eager";
     for (let i = 0; i < 200; i++) {
       const before = window.scrollY;
       window.scrollBy(0, Math.round(window.innerHeight * 0.7));
