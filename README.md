@@ -1,6 +1,6 @@
 # pimavn.com
 
-The PiMA Academy website, rebuilt on [Astro](https://astro.build) from the old Webflow export. Same look as the old site, with the obvious defects fixed ([spec #15](https://github.com/pima-academy/summer-camp-landingpage/issues/15)). Decisions are recorded in `docs/adr/`; terms are defined in `GLOSSARY.md`.
+The PiMA Academy website, rebuilt on [Astro](https://astro.build) from the old Webflow export. Same look as the old site, with the obvious defects fixed ([spec #15](https://github.com/pima-academy/summer-camp-landingpage/issues/15)). Decisions are recorded in `docs/adr/`; terms are defined in `GLOSSARY.md`; the brand guidelines for the web are in `docs/brand.md`.
 
 **`site/` is the old site** (the Webflow export). pimavn.com still serves it through GitHub Pages (`.github/workflows/pages.yml`) until the switch-over, a separate effort that deploys the rebuild and then deletes `site/`. Until then, treat `site/` as read-only: it is the reference for "keep the design".
 
@@ -33,6 +33,7 @@ src/
   components/       Nav, Footer, shared sections, scripted parts (Slider, Accordion, ...), ContentGap
   data/site.ts      site-wide facts: contact details, social links, nav and footer links, form endpoint
   assets/images/    every image used in markup (rendered with astro:assets as WebP)
+  assets/logo/      the ten brand logo files (see docs/brand.md)
   styles/           global CSS: fonts.css, tokens.css (every design value), base.css, animations.css
 public/             favicon, webclip, robots.txt
 apps-script/        Code.gs, the contact form backend (Google Apps Script)
