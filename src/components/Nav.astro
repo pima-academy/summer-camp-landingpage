@@ -1,7 +1,8 @@
 ---
 // Site header: the old Webflow nav markup and classes, links from site.ts.
 // The active link (`w--current` + `aria-current="page"`) is computed at build time.
-// Collapse/dropdown behaviour is a separate script (#23); without it the mobile menu stays closed.
+// Collapse and dropdown behaviour: the <script> below (replaces webflow.js's navbar and
+// dropdown modules). Without JS the desktop links still work; the mobile menu stays closed.
 import { Image } from "astro:assets";
 import logo from "../assets/images/logo-horizontal.png";
 import { navItems, type Link } from "../data/site";
@@ -41,18 +42,29 @@ const isGap = (item: Link) => item.href === "/su-kien-blog/";
       </a>
     </div>
     <div class="nav-right">
-      <nav role="navigation" class="nav-menu w-nav-menu">
+      <nav role="navigation" id="nav-menu" class="nav-menu w-nav-menu">
         <ul role="list" class="nav-menu-list w-list-unstyled">
           {
-            navItems.map((item) =>
+            navItems.map((item, i) =>
               "items" in item ? (
                 <li class="nav-menu-list-item">
                   <div data-delay="0" data-hover="true" class="nav-menu-dropdown w-dropdown">
-                    <div class="nav-link nav-link-on-inverse w-dropdown-toggle">
+                    <div
+                      id={`nav-dropdown-toggle-${i}`}
+                      role="button"
+                      tabindex="0"
+                      aria-controls={`nav-dropdown-list-${i}`}
+                      aria-expanded="false"
+                      class="nav-link nav-link-on-inverse w-dropdown-toggle"
+                    >
                       <div class="text-style-secondary">{item.label}</div>
-                      <div class="nav-caret secondary-color w-icon-dropdown-toggle" />
+                      <div class="nav-caret secondary-color w-icon-dropdown-toggle" aria-hidden="true" />
                     </div>
-                    <div class="nav-menu-dropdown-list w-dropdown-list">
+                    <div
+                      id={`nav-dropdown-list-${i}`}
+                      aria-labelledby={`nav-dropdown-toggle-${i}`}
+                      class="nav-menu-dropdown-list w-dropdown-list"
+                    >
                       <div class="nav-menu-dropdown-list-wrapper">
                         <ul role="list" class="flex-vertical utility-margin-bottom-0 w-list-unstyled">
                           {item.items.map((sub) => (
@@ -100,9 +112,16 @@ const isGap = (item: Link) => item.href === "/su-kien-blog/";
         </ul>
       </nav>
     </div>
-    <div class="nav-mobile-menu-button w-nav-button">
+    <div
+      role="button"
+      tabindex="0"
+      aria-label="Menu"
+      aria-controls="nav-menu"
+      aria-expanded="false"
+      class="nav-mobile-menu-button w-nav-button"
+    >
       <div class="icon icon-on-inverse">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
           <g
             stroke-linecap="square"
             stroke-linejoin="miter"
@@ -121,3 +140,235 @@ const isGap = (item: Link) => item.href === "/su-kien-blog/";
     </div>
   </div>
 </div>
+
+<script>
+  // Replaces webflow.js's navbar and dropdown modules: same state classes and
+  // attributes, so the Webflow CSS is untouched.
+  //
+  // Navbar (collapsed at <= 991 px by CSS): the button toggles `w--open`; the open menu
+  // gets `data-nav-menu-open`, moves into a `.w-nav-overlay` under the nav and slides down
+  // (data-duration, data-easing / data-easing2). The page behind does not scroll while open.
+  //
+  // Dropdown: `w--open` on toggle and list. Opens on mouse hover (data-hover="true"), on
+  // keyboard focus and on click/tap; closes on leave, outside click/tap, focus leaving and Esc.
+  // The list wrapper animates like the old IX2 interaction: open 300 ms (translateY -1rem -> 0
+  // and fade in), close 200 ms.
+
+  const OPEN = "w--open";
+  const reducedMotion = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  type Dropdown = { close: (immediate?: boolean) => void };
+
+  function initDropdown(el: HTMLElement): Dropdown {
+    const toggle = el.querySelector<HTMLElement>(":scope > .w-dropdown-toggle")!;
+    const list = el.querySelector<HTMLElement>(":scope > .w-dropdown-list")!;
+    const panel = list.querySelector<HTMLElement>(".nav-menu-dropdown-list-wrapper") ?? list;
+    const links = () => [...list.querySelectorAll<HTMLElement>("a")];
+    const hover = el.dataset.hover === "true";
+    let isOpen = false;
+    let hovering = false;
+    let skipFocusOpen = false;
+    let anim: Animation | undefined;
+
+    const setClasses = (on: boolean) => {
+      toggle.classList.toggle(OPEN, on);
+      list.classList.toggle(OPEN, on);
+    };
+
+    function open() {
+      if (isOpen) return;
+      isOpen = true;
+      anim?.cancel();
+      setClasses(true);
+      toggle.setAttribute("aria-expanded", "true");
+      if (reducedMotion()) return;
+      anim = panel.animate(
+        [
+          { transform: "translateY(-1rem)", opacity: 0 },
+          { transform: "none", opacity: 1 },
+        ],
+        { duration: 300, easing: "ease-in-out" },
+      );
+    }
+
+    function close(immediate = false) {
+      if (!isOpen) return;
+      isOpen = false;
+      toggle.setAttribute("aria-expanded", "false");
+      anim?.cancel();
+      if (immediate || reducedMotion()) return setClasses(false);
+      const closing = panel.animate(
+        [
+          { transform: "none", opacity: 1 },
+          { transform: "translateY(-1rem)", opacity: 0 },
+        ],
+        { duration: 200, easing: "ease-out", fill: "forwards" },
+      );
+      anim = closing;
+      closing.onfinish = () => {
+        setClasses(false);
+        closing.cancel();
+      };
+    }
+
+    const containsFocus = () => el.contains(document.activeElement);
+
+    toggle.addEventListener("pointerenter", (e) => {
+      if (!hover || e.pointerType !== "mouse") return;
+      hovering = true;
+      open();
+    });
+    el.addEventListener("pointerleave", (e) => {
+      if (e.pointerType !== "mouse") return;
+      hovering = false;
+      if (!links().includes(document.activeElement as HTMLElement)) close();
+    });
+    toggle.addEventListener("click", () => (isOpen ? close() : open()));
+    toggle.addEventListener("focus", () => {
+      if (skipFocusOpen) return void (skipFocusOpen = false);
+      if (toggle.matches(":focus-visible")) open();
+    });
+    el.addEventListener("focusout", (e) => {
+      if (!hovering && !el.contains(e.relatedTarget as Node | null)) close();
+    });
+    document.addEventListener("click", (e) => {
+      if (isOpen && !el.contains(e.target as Node)) close();
+    });
+    el.addEventListener("keydown", (e) => {
+      const items = links();
+      const i = items.indexOf(document.activeElement as HTMLElement);
+      if (e.target === toggle && (e.key === "Enter" || e.key === " ")) {
+        e.preventDefault();
+        isOpen ? close() : open();
+      } else if (e.key === "Escape" && isOpen) {
+        e.stopPropagation();
+        hovering = false;
+        close();
+        skipFocusOpen = true;
+        toggle.focus();
+      } else if (isOpen && (e.key === "ArrowDown" || e.key === "ArrowUp")) {
+        e.preventDefault();
+        const next = e.key === "ArrowDown" ? Math.min(items.length - 1, i + 1) : i - 1;
+        (next < 0 ? toggle : items[next]).focus();
+      }
+    });
+
+    return { close };
+  }
+
+  function initNavbar(nav: HTMLElement) {
+    const menu = nav.querySelector<HTMLElement>(".w-nav-menu");
+    const button = nav.querySelector<HTMLElement>(".w-nav-button");
+    if (!menu || !button) return;
+    const home = { parent: menu.parentElement!, next: menu.nextSibling };
+    const dropdowns = [...menu.querySelectorAll<HTMLElement>(".w-dropdown")].map(initDropdown);
+    const duration = Number(nav.dataset.duration ?? 400);
+    const easingIn = nav.dataset.easing || "ease";
+    const easingOut = nav.dataset.easing2 || "ease";
+    const navClasses: [string, string][] = [
+      [".w-nav-link", "w--nav-link-open"],
+      [".w-dropdown", "w--nav-dropdown-open"],
+      [".w-dropdown-toggle", "w--nav-dropdown-toggle-open"],
+      [".w-dropdown-list", "w--nav-dropdown-list-open"],
+    ];
+    const overlay = document.createElement("div");
+    overlay.className = "w-nav-overlay";
+    overlay.id = "w-nav-overlay-0";
+    nav.append(overlay);
+
+    let isOpen = false;
+    let anim: Animation | undefined;
+
+    const collapsed = () => getComputedStyle(button).display !== "none";
+    const sizeOverlay = () => {
+      overlay.style.height = `${Math.max(0, innerHeight - nav.getBoundingClientRect().bottom)}px`;
+    };
+    // Slide distance as in webflow.js: nav height + menu height, so the menu starts out of view.
+    const offscreen = () => `translateY(${-(nav.offsetHeight + menu.offsetHeight)}px)`;
+
+    function lockScroll(on: boolean) {
+      const root = document.documentElement;
+      const gap = innerWidth - root.clientWidth;
+      root.style.overflow = on ? "hidden" : "";
+      document.body.style.paddingRight = on && gap > 0 ? `${gap}px` : "";
+    }
+
+    function setOpenState(on: boolean) {
+      if (on) menu!.setAttribute("data-nav-menu-open", "");
+      else menu!.removeAttribute("data-nav-menu-open");
+      for (const [selector, cls] of navClasses) {
+        menu!.querySelectorAll(selector).forEach((n) => n.classList.toggle(cls, on));
+      }
+    }
+
+    function open() {
+      if (isOpen) return;
+      isOpen = true;
+      anim?.cancel();
+      setOpenState(true);
+      button!.classList.add(OPEN);
+      button!.setAttribute("aria-expanded", "true");
+      lockScroll(true);
+      overlay.style.display = "block";
+      sizeOverlay();
+      overlay.append(menu!);
+      if (reducedMotion() || duration <= 0) return;
+      anim = menu!.animate([{ transform: offscreen() }, { transform: "none" }], { duration, easing: easingIn });
+    }
+
+    function cleanup() {
+      setOpenState(false);
+      home.parent.insertBefore(menu!, home.next);
+      overlay.removeAttribute("style");
+      lockScroll(false);
+    }
+
+    function close(immediate = false) {
+      if (!isOpen) return;
+      isOpen = false;
+      anim?.cancel();
+      button!.classList.remove(OPEN);
+      button!.setAttribute("aria-expanded", "false");
+      dropdowns.forEach((d) => d.close(true));
+      if (immediate || reducedMotion() || duration <= 0) return cleanup();
+      const closing = menu!.animate([{ transform: "none" }, { transform: offscreen() }], {
+        duration,
+        easing: easingOut,
+        fill: "forwards",
+      });
+      anim = closing;
+      closing.onfinish = () => {
+        cleanup();
+        closing.cancel();
+      };
+    }
+
+    button.addEventListener("click", () => (isOpen ? close() : open()));
+    button.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        isOpen ? close() : open();
+      }
+    });
+    nav.addEventListener("keydown", (e) => {
+      if (e.key !== "Escape" || !isOpen) return;
+      close();
+      button.focus();
+    });
+    document.addEventListener("click", (e) => {
+      const t = e.target as Node;
+      if (isOpen && !menu.contains(t) && !button.contains(t)) close();
+    });
+    menu.addEventListener("click", (e) => {
+      const a = (e.target as Element).closest("a");
+      if (isOpen && a?.getAttribute("href")?.startsWith("#")) close();
+    });
+    addEventListener("resize", () => {
+      if (!isOpen) return;
+      if (!collapsed()) close(true);
+      else sizeOverlay();
+    });
+  }
+
+  document.querySelectorAll<HTMLElement>(".w-nav").forEach(initNavbar);
+</script>
