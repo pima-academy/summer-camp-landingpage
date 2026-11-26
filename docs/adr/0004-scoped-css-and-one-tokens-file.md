@@ -13,7 +13,7 @@ ADR 0002 kept the Webflow stylesheets and class names because that made "keep th
 
 ## Migration
 
-The refactor changes nothing visible, and every step is checked against screenshots of the rebuild.
+The refactor aims to change nothing visible. Small drift is acceptable, since a redesign follows; broken behaviour is not. Each PR compares screenshots of its base branch and its head with `npm run shots` to catch large regressions, and `npm test` runs in CI.
 
 1. **Tokens in place**: create `tokens.css` from the inventory, replace every colour, weight, size, line height, radius and shadow in `pima-website.webflow.css` and `webflow.css` with `var(--…)`, and delete the `--ai-gen-…` and `--_color---…` variables.
 2. **One part per PR**: the shared components first (Nav, Footer, ContactForm, Impact…, since one change covers many pages), then each page's inline sections, then the gap pages and the 2025/2026 camp pages. Migrating a part removes its old classes and `w-node` ids from the markup, so the old global rules stop matching it and no specificity contest arises. Old rules that no longer match anything are deleted in the same PR, and tests that asserted the old class names are changed in it too.
