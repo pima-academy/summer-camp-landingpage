@@ -51,3 +51,26 @@ test("gap pages are only reachable through the dev route", () => {
     );
   }
 });
+
+// Asset files imported by gap pages and by nothing else under src/.
+const assetImports = (files) =>
+  new Set(
+    files.flatMap((f) =>
+      [...readFileSync(f, "utf8").matchAll(/from\s+["'][^"']*\/assets\/[^"']*?([^/"']+)\.\w+["']/g)].map((m) => m[1]),
+    ),
+  );
+const srcFiles = walk(join(root, "src")).filter((f) => /\.(astro|ts|mjs|js)$/.test(f));
+const usedOutsideGaps = assetImports(srcFiles.filter((f) => !f.startsWith(gapPages)));
+const gapOnlyAssets = [...assetImports(srcFiles.filter((f) => f.startsWith(gapPages)))].filter(
+  (name) => !usedOutsideGaps.has(name),
+);
+
+test("the gap-only asset scan finds the detail-course images", () => {
+  assert.ok(gapOnlyAssets.includes("blank-avatar"), `expected blank-avatar in ${gapOnlyAssets}`);
+});
+
+test("no asset imported only by gap pages is emitted to dist", { skip }, () => {
+  // Built names are `<name>.<hash>[_<variant>].<ext>`.
+  const leaked = readdirSync(join(dist, "_astro")).filter((f) => gapOnlyAssets.includes(f.split(".")[0]));
+  assert.deepEqual(leaked, []);
+});
