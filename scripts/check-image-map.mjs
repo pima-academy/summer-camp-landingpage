@@ -1,6 +1,11 @@
 // Verifies the image migration (issue #19) against the old Webflow markup in site/.
 // Run: node scripts/check-image-map.mjs. Exits non-zero on any failure.
 // Deleted together with scripts/image-map.json in the switch-over cleanup.
+// Out of date since spec #56: the refactor and brand alignment deleted or replaced files the
+// map points at (favicon.png, webclip.png, logo-horizontal.avif, logo-1-green.svg, ellipse.svg,
+// fb.png) and added og-fallback.png, so this check no longer passes. It is kept, unrun, as the
+// record of the #19 migration until the switch-over cleanup deletes it; image-map.json is not a
+// list of the current assets.
 import { readFileSync, readdirSync, existsSync } from "node:fs";
 import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
