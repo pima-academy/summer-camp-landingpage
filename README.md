@@ -1,45 +1,47 @@
-# PiMA Summer Camp Landing Page
+# pimavn.com
 
-The repo holds two versions of pimavn.com:
+The PiMA Academy website, rebuilt on [Astro](https://astro.build) from the old Webflow export. Same look as the old site, with the obvious defects fixed ([spec #15](https://github.com/pima-academy/summer-camp-landingpage/issues/15)). Decisions are recorded in `docs/adr/`; terms are defined in `GLOSSARY.md`.
 
-- **Old site** (`site/`): the Webflow export that pimavn.com serves today.
-- **Rebuild** (repo root): the same site rebuilt on Astro, checked locally only until the switch-over.
+**`site/` is the old site** (the Webflow export). pimavn.com still serves it through GitHub Pages (`.github/workflows/pages.yml`) until the switch-over, a separate effort that deploys the rebuild and then deletes `site/`. Until then, treat `site/` as read-only: it is the reference for "keep the design".
 
-## Rebuild (Astro)
+## Requirements
 
-Requires Node 24 LTS (see `.nvmrc`).
+Node 24 (`.nvmrc`) and npm.
 
-```bash
-npm ci                            # install exact versions from package-lock.json
-npm run dev                       # dev server at http://localhost:4321 (gap pages visible)
-npm run build && npm run preview  # production build in dist/, served locally
-npx playwright install chromium   # once, before the first npm run shots
-npm run shots                     # build, then old/new screenshots at 390/820/1440 px into shots/
-npm run shots -- lien-he index    # only these pages (add --no-build to reuse dist/)
-```
-
-Pull requests into `dev` run `npm ci && npm run build` in CI (`.github/workflows/build.yml`). Nothing is deployed from it.
-
-## Old site (Webflow export)
-
-Static site exported from Webflow, deployed to GitHub Pages.
-
-### Structure
-
-```
-site/            # Everything published to GitHub Pages
-  index.html     # Home page
-  *.html         # Other pages
-  css/ js/ images/
-.github/workflows/pages.yml   # Deploys site/ on every push to main
-```
-
-### Local preview
+## Commands
 
 ```bash
-python3 -m http.server -d site 8000
+npm ci              # install exactly what package-lock.json pins
+npm run dev         # dev server; also serves the content gap pages, framed with "CONTENT GAP" labels
+npm run build       # production build into dist/ (CI runs `npm ci && npm run build`, .github/workflows/build.yml)
+npm run preview     # serve dist/ locally
+npm test            # unit and build checks (scripts/*.test.mjs); some need a fresh build
+npm run shots       # build, then screenshot old (site/) and new (dist/) pages at 390/820/1440 into shots/
 ```
 
-### Updating from a new Webflow export
+`npm run shots -- index lien-he` shoots only the pages named (old file names); `--no-build` reuses `dist/`. Playwright's Chromium is needed once: `npx playwright install chromium`.
 
-Unzip the export and replace the contents of `site/` (keep `site/.nojekyll`), then commit and push to `main`.
+## Layout
+
+```
+src/
+  pages/            published routes, 404.astro, [...gap].astro (gap pages, dev only)
+  gap-pages/        pages whose content does not exist yet (served in dev only)
+  layouts/          BaseLayout: head, metadata, Nav, <main>, Footer
+  components/       Nav, Footer, shared sections, scripted parts (Slider, Accordion, ...), ContentGap
+  data/site.ts      site-wide facts: contact details, social links, nav and footer links, form endpoint
+  assets/images/    every image used in markup (rendered with astro:assets as WebP)
+  styles/           the old Webflow CSS (pruned) and animations.css
+public/             favicon, webclip, robots.txt
+apps-script/        Code.gs, the contact form backend (Google Apps Script)
+scripts/            tests and the screenshot script
+site/               the old site, kept until the switch-over
+```
+
+## Content gaps
+
+A section, link or page that is empty only because its content does not exist yet is wrapped in `<ContentGap>`: hidden in the production build, framed in `npm run dev`. `grep -r "<ContentGap" src` lists them; [issue #42](https://github.com/pima-academy/summer-camp-landingpage/issues/42) tracks them. Whoever adds the content removes the wrapper in the same commit.
+
+## Contact form
+
+The form posts to a Google Apps Script web app (`apps-script/Code.gs`) that appends a row to a Sheet. The endpoint is `contactFormEndpoint` in `src/data/site.ts`; it stays empty until the script is deployed ([issue #30](https://github.com/pima-academy/summer-camp-landingpage/issues/30)). Test the form only against a mocked endpoint (`scripts/contact-form.test.mjs`), never the real one.
