@@ -1,137 +1,245 @@
 ---
 /*
-  Team: "Đội ngũ của PiMA" section (old `section_team`), shared by index and
-  ve-chung-toi. No props. The "Đội ngũ" CMS list is a content gap; the activity
-  slider autoplays every 6 s, infinite.
+  Team: "Đội ngũ của PiMA" section, the team intro, the experts' activity slider (6 s
+  autoplay, infinite; slides in team-activities.ts) and a link to the story. Used by
+  index and ve-chung-toi (old `section_team`). The team member list was an empty CMS
+  list on the old site: it is a content gap. Fades up on scroll.
 */
 import { Image } from "astro:assets";
-import placeholder from "../assets/images/6191a88a1c0e39463c2bf022-placeholder-image.svg";
+import BrandName from "../components/BrandName.astro";
+import Button from "../components/Button.astro";
+import ContentGap from "../components/ContentGap.astro";
+import Kicker from "../components/Kicker.astro";
+import Section from "../components/Section.astro";
+import Slider from "../components/Slider.astro";
 import { isCurrent } from "../lib/current-link";
 import { fluidWidths } from "../lib/image-widths";
-import BrandName from "../components/BrandName.astro";
-import ContentGap from "../components/ContentGap.astro";
-import Slider from "../components/Slider.astro";
 import { teamActivities } from "./team-activities";
 
 const storyHref = "/ve-chung-toi/";
 const storyCurrent = isCurrent(storyHref, Astro.url.pathname);
 ---
 
-<div class="section_team" data-animate="fade-up">
-  <div class="padding-global">
-    <div class="container-medium custom">
-      <div class="padding-section-medium">
-        <div class="text-align-center">
-          <div class="max-width-large align-center">
-            <h4 class="text-style-green text-style-allcaps is-no-margin">Đội ngũ của <BrandName /></h4>
-            <div class="spacer-small"></div>
-            <div class="margin-bottom margin-small">
-              <h2 class="heading-3">Kết nối tài năng Việt Nam toàn cầu</h2>
-            </div>
-            <div class="spacer-small"></div>
-            <p class="text-size-medium text-align-center">
-              Từ năm 2016 đến nay, nhiều chuyên gia đến từ các tổ chức giáo dục và các công ty công nghệ hàng đầu Việt
-              Nam cũng như thế giới đã đồng hành cùng PiMA với vai trò người hướng dẫn, diễn giả khách mời, cố vấn chuyên
-              môn và đơn vị bảo trợ.
-            </p>
-            <div class="spacer-medium"></div>
-          </div>
-        </div>
-        <ContentGap name="Team: Đội ngũ CMS list">
-          <div class="w-dyn-list">
-            <div role="list" class="collection-list w-dyn-items">
-              <div role="listitem" class="collection-item w-dyn-item">
-                <div class="team5_item">
-                  <div class="margin-bottom margin-small">
-                    <div class="team5_image-wrapper">
-                      <Image src={placeholder} width={104} height={104} alt="" class="w-dyn-bind-empty" />
-                    </div>
-                    <div class="spacer-small"></div>
-                  </div>
-                  <div class="margin-bottom margin-xsmall">
-                    <div class="team5_title-wrapper">
-                      <div class="team-bod-name w-dyn-bind-empty"></div>
-                      <div class="text-block-15 w-dyn-bind-empty"></div>
-                    </div>
-                  </div>
-                  <p class="w-dyn-bind-empty"></p>
-                </div>
-              </div>
-            </div>
-            <div class="w-dyn-empty">
-              <div>No items found.</div>
-            </div>
-          </div>
-        </ContentGap>
-        <div class="spacer-xlarge"></div>
-        <div class="expert_content-wrapper">
-          <div class="gallery25_component">
-            <div id="w-node-_7a8f42d0-7ca3-538e-01e1-8f500e24da06-0e24d9e3" class="gallery25_content-left">
-              <div class="gallery25_heading-wrapper">
-                <div class="icon-embed-medium w-embed">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    aria-hidden="true"
-                    role="img"
-                    class="iconify iconify--heroicons"
-                    width="100%"
-                    height="100%"
-                    preserveAspectRatio="xMidYMid meet"
-                    viewBox="0 0 24 24"
-                  >
-                    <g fill="currentColor">
-                      <path
-                        d="M11.7 2.805a.75.75 0 0 1 .6 0A60.65 60.65 0 0 1 22.83 8.72a.75.75 0 0 1-.231 1.337a49.949 49.949 0 0 0-9.902 3.912l-.003.002l-.34.18a.75.75 0 0 1-.707 0A50.009 50.009 0 0 0 7.5 12.174v-.224a.36.36 0 0 1 .172-.311a54.614 54.614 0 0 1 4.653-2.52a.75.75 0 0 0-.65-1.352a56.129 56.129 0 0 0-4.78 2.589a1.858 1.858 0 0 0-.859 1.228a49.803 49.803 0 0 0-4.634-1.527a.75.75 0 0 1-.231-1.337A60.653 60.653 0 0 1 11.7 2.805Z"
-                      ></path>
-                      <path
-                        d="M13.06 15.473a48.45 48.45 0 0 1 7.666-3.282a61.14 61.14 0 0 1 .255 4.285a.75.75 0 0 1-.46.71a47.878 47.878 0 0 0-8.105 4.342a.75.75 0 0 1-.832 0a47.877 47.877 0 0 0-8.104-4.342a.75.75 0 0 1-.461-.71c.035-1.442.121-2.87.255-4.286A48.4 48.4 0 0 1 6 13.18v1.27a1.5 1.5 0 0 0-.14 2.508c-.09.38-.222.753-.397 1.11c.452.213.901.434 1.346.661a6.729 6.729 0 0 0 .551-1.608a1.5 1.5 0 0 0 .14-2.67v-.645a48.549 48.549 0 0 1 3.44 1.668a2.25 2.25 0 0 0 2.12 0Z"
-                      ></path>
-                      <path
-                        d="M4.462 19.462c.42-.419.753-.89 1-1.394c.453.213.902.434 1.347.661a6.743 6.743 0 0 1-1.286 1.794a.75.75 0 1 1-1.06-1.06Z"
-                      ></path>
-                    </g>
-                  </svg>
-                </div>
-                <div class="margin-bottom margin-xsmall">
-                  <h3>Các chuyên gia đồng hành</h3>
-                </div>
-                <p class="text-size-medium">
-                  Từ năm 2016 đến nay, nhiều chuyên gia đến từ các tổ chức giáo dục và các công ty công nghệ hàng đầu Việt
-                  Nam cũng như thế giới đã đồng hành cùng PiMA với vai trò người hướng dẫn, diễn giả khách mời, cố vấn
-                  chuyên môn và đơn vị bảo trợ.
-                </p>
-              </div>
-            </div>
-            <Slider layout="wide" autoplay={6000} infinite label="Các chuyên gia đồng hành">
-              {
-                teamActivities.map(({ image, alt, caption }) => (
-                  <div>
-                    <div class="gallery25_image-wrapper">
-                      <Image
-                        src={image}
-                        alt={alt}
-                        widths={fluidWidths(image)}
-                        sizes="(max-width: 479px) 71vw, (max-width: 991px) 37vw, 378px"
-                        class="gallery25_image"
-                      />
-                    </div>
-                    <div class="expert-image-caption">{caption}</div>
-                  </div>
-                ))
-              }
-            </Slider>
-          </div>
-        </div>
-        <div class="spacer-medium"></div>
-        <div class="button-group is-center">
-          <a
-            href={storyHref}
-            target="_blank"
-            class:list={["button is-lime is-black w-button", { "w--current": storyCurrent }]}
-            aria-current={storyCurrent ? "page" : undefined}>Câu chuyện về PiMA</a
+<Section name="team" spacing="medium" animate>
+  <div class="intro">
+    <Kicker flush>Đội ngũ của <BrandName /></Kicker>
+    <h2 class="title">Kết nối tài năng Việt Nam toàn cầu</h2>
+    <p class="lead">
+      Từ năm 2016 đến nay, nhiều chuyên gia đến từ các tổ chức giáo dục và các công ty công nghệ hàng đầu Việt Nam cũng
+      như thế giới đã đồng hành cùng PiMA với vai trò người hướng dẫn, diễn giả khách mời, cố vấn chuyên môn và đơn vị
+      bảo trợ.
+    </p>
+  </div>
+  <ContentGap name="Team: Đội ngũ CMS list">
+    {/* One empty member card (photo, name, role, bio once the content exists) and the CMS "empty" note. */}
+    <div class="members">
+      <div class="member"></div>
+    </div>
+    <div class="empty">No items found.</div>
+  </ContentGap>
+  <div class="experts">
+    <div class="experts-text">
+      <div class="heading">
+        <div class="icon-box">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+            role="img"
+            width="100%"
+            height="100%"
+            preserveAspectRatio="xMidYMid meet"
+            viewBox="0 0 24 24"
           >
+            <g fill="currentColor">
+              <path
+                d="M11.7 2.805a.75.75 0 0 1 .6 0A60.65 60.65 0 0 1 22.83 8.72a.75.75 0 0 1-.231 1.337a49.949 49.949 0 0 0-9.902 3.912l-.003.002l-.34.18a.75.75 0 0 1-.707 0A50.009 50.009 0 0 0 7.5 12.174v-.224a.36.36 0 0 1 .172-.311a54.614 54.614 0 0 1 4.653-2.52a.75.75 0 0 0-.65-1.352a56.129 56.129 0 0 0-4.78 2.589a1.858 1.858 0 0 0-.859 1.228a49.803 49.803 0 0 0-4.634-1.527a.75.75 0 0 1-.231-1.337A60.653 60.653 0 0 1 11.7 2.805Z"
+              ></path>
+              <path
+                d="M13.06 15.473a48.45 48.45 0 0 1 7.666-3.282a61.14 61.14 0 0 1 .255 4.285a.75.75 0 0 1-.46.71a47.878 47.878 0 0 0-8.105 4.342a.75.75 0 0 1-.832 0a47.877 47.877 0 0 0-8.104-4.342a.75.75 0 0 1-.461-.71c.035-1.442.121-2.87.255-4.286A48.4 48.4 0 0 1 6 13.18v1.27a1.5 1.5 0 0 0-.14 2.508c-.09.38-.222.753-.397 1.11c.452.213.901.434 1.346.661a6.729 6.729 0 0 0 .551-1.608a1.5 1.5 0 0 0 .14-2.67v-.645a48.549 48.549 0 0 1 3.44 1.668a2.25 2.25 0 0 0 2.12 0Z"
+              ></path>
+              <path
+                d="M4.462 19.462c.42-.419.753-.89 1-1.394c.453.213.902.434 1.347.661a6.743 6.743 0 0 1-1.286 1.794a.75.75 0 1 1-1.06-1.06Z"
+              ></path>
+            </g>
+          </svg>
         </div>
+        <h3>Các chuyên gia đồng hành</h3>
+        <p class="lead">
+          Từ năm 2016 đến nay, nhiều chuyên gia đến từ các tổ chức giáo dục và các công ty công nghệ hàng đầu Việt Nam cũng
+          như thế giới đã đồng hành cùng PiMA với vai trò người hướng dẫn, diễn giả khách mời, cố vấn chuyên môn và đơn vị
+          bảo trợ.
+        </p>
       </div>
     </div>
+    <Slider layout="wide" autoplay={6000} infinite label="Các chuyên gia đồng hành">
+      {
+        teamActivities.map(({ image, alt, caption }) => (
+          <div>
+            <div class="shot">
+              <Image
+                src={image}
+                alt={alt}
+                widths={fluidWidths(image)}
+                sizes="(max-width: 479px) 71vw, (max-width: 991px) 37vw, 378px"
+                class="shot-img"
+              />
+            </div>
+            <div class="caption">{caption}</div>
+          </div>
+        ))
+      }
+    </Slider>
   </div>
-</div>
+  <div class="actions">
+    <Button href={storyHref} variant="black" target="_blank" aria-current={storyCurrent ? "page" : undefined}>
+      Câu chuyện về PiMA
+    </Button>
+  </div>
+</Section>
+
+<style>
+  .intro {
+    width: 100%;
+    max-width: 56rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 2rem;
+    text-align: center;
+  }
+
+  /* 1rem above and below the heading (the old spacers). */
+  .title {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .lead {
+    margin-bottom: 1rem;
+    color: var(--color-text-strong);
+  }
+
+  /* Content gap (dev only): the old empty CMS list. */
+  .members {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .member {
+    padding: 2.6rem 1rem 1.6rem;
+    border-radius: var(--radius-panel);
+    background-color: var(--color-background-muted);
+  }
+
+  .empty {
+    padding: 10px;
+  }
+
+  .experts {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding-top: 4rem;
+  }
+
+  .experts-text {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .heading {
+    width: 100%;
+    max-width: 35rem;
+    margin-right: 5rem;
+    margin-bottom: 6rem;
+    margin-left: 0;
+  }
+
+  .icon-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 3rem;
+    height: 3rem;
+    color: var(--color-text-accent);
+  }
+
+  .shot {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .shot-img {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    overflow: clip;
+    border-radius: var(--radius-gallery-image);
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+  }
+
+  .caption {
+    margin-top: 0.25rem;
+    font-weight: var(--font-weight-regular);
+  }
+
+  /* The old spacer (2rem) above the button. */
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    padding-top: 2rem;
+  }
+
+  @media screen and (max-width: 991px) {
+    .intro {
+      padding-bottom: 1.5rem;
+    }
+
+    .experts {
+      grid-template-columns: 1fr;
+      gap: 4rem;
+      padding-top: 3rem;
+    }
+
+    .experts-text {
+      justify-content: flex-start;
+    }
+
+    .heading {
+      margin-right: 5%;
+      margin-bottom: 0;
+      margin-left: 5%;
+    }
+
+    .actions {
+      padding-top: 1.5rem;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .intro {
+      padding-bottom: 1.25rem;
+    }
+
+    .experts {
+      gap: 3rem;
+      padding-top: 2rem;
+    }
+
+    .actions {
+      padding-top: 1.25rem;
+    }
+  }
+
+  @media screen and (max-width: 479px) {
+    .actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+</style>
