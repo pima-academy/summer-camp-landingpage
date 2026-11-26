@@ -150,6 +150,7 @@ import contactIllustration from "../assets/images/frame-28135.avif";
      the mobile layout uses. Just above 480 px the card is too narrow even for one pill, so
      its side padding shrinks there (still 4rem from ~560 px up, so no visible change
      elsewhere). Mobile (<= 479) and desktop (>= 992) are unchanged. */
+  /* breakpoint-exception: the 480–991 px band of the defect fix above. */
   @media screen and (min-width: 480px) and (max-width: 991px) {
     .contact-social-component {
       padding-left: clamp(0px, calc((100% - 10rem) / 2), 4rem);
@@ -167,6 +168,7 @@ import contactIllustration from "../assets/images/frame-28135.avif";
      than the viewport (the unbreakable "fb.com/pima.academy.vn" sets its minimum), so the
      page scrolled sideways. In that band the facts stack in one column, as at <= 479 px.
      40 px of margin above the measured 519 px covers font metric differences. */
+  /* breakpoint-exception: the 480–559 px band of the defect fix above. */
   @media screen and (min-width: 480px) and (max-width: 559px) {
     .form_info {
       flex-flow: column;
