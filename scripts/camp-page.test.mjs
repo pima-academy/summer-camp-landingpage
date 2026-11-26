@@ -14,28 +14,29 @@ test("camp page is built with its own title and description", { skip }, () => {
 });
 
 test("camp page has its sections in the old order", { skip }, () => {
+  // Section files are found by data-section; the page's own sections (#69) still by class.
   const order = [
-    'class="section_camp-header"',
+    'data-section="page-header"',
     'class="section_camp-intro"',
-    'class="section_impact"',
-    'class="section_trust-bar_dark-green"',
+    'data-section="impact"',
+    'data-section="trust-bar"',
     'class="section_camp-activity"',
-    'class="section_partners"',
+    'data-section="partners"',
     'class="section_camp-history"',
-    'class="section_testimonials"',
-    'class="section_summer-camp"',
-    'id="contact-form"',
+    'data-section="testimonials"',
+    'data-section="summer-camp"',
+    'data-section="contact-section"',
   ].map((s) => [s, html.indexOf(s)]);
   for (const [s, i] of order) assert.ok(i >= 0, `${s} present`);
   const idx = order.map(([, i]) => i);
   assert.deepEqual([...idx].sort((a, b) => a - b), idx, "sections in old order");
-  assert.equal(html.match(/class="section_trust-bar_dark-green"/g)?.length, 2, "two trust bars");
+  assert.equal(html.match(/data-section="trust-bar"/g)?.length, 2, "two trust bars");
   // Testimonials, the second trust bar, SummerCamp and the contact section sit inside
-  // section_camp-history, as on the old page.
+  // section_camp-history, as on the old page: the <section> opened there is still open.
   const history = html.slice(html.indexOf('class="section_camp-history"'));
-  const beforeContact = history.slice(0, history.indexOf('id="contact-form"'));
-  assert.doesNotMatch(beforeContact, /<\/section>/, "camp history still open at the contact section");
-  assert.match(history.slice(beforeContact.length), /<\/section>/, "camp history closes after it");
+  const beforeContact = history.slice(0, history.indexOf('data-section="contact-section"'));
+  const depth = (s) => (s.match(/<section\b/g)?.length ?? 0) - (s.match(/<\/section>/g)?.length ?? 0);
+  assert.equal(depth("<section " + beforeContact), 2, "camp history still open at the contact section");
 });
 
 test("both 'Định hướng học thuật' blocks stay", { skip }, () => {
