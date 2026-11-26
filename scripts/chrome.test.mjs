@@ -112,10 +112,11 @@ test("footer shows address, build year and PiMA in headings", { skip }, () => {
 
 // Every class the old Webflow stylesheets define a rule for (while they exist), plus any
 // `w-…`/`w--…` runtime class.
+const webflowFiles = ["normalize.css", "webflow.css", "pima-website.webflow.css"]
+  .map((f) => join(root, "src/styles", f))
+  .filter(existsSync);
 const webflowClasses = new Set(
-  ["normalize.css", "webflow.css", "pima-website.webflow.css"]
-    .map((f) => join(root, "src/styles", f))
-    .filter(existsSync)
+  webflowFiles
     .flatMap((f) => [...readFileSync(f, "utf8").replace(/\/\*[\s\S]*?\*\//g, "").matchAll(/\.(-?[_a-zA-Z][\w-]*)/g)])
     .map((m) => m[1]),
 );
@@ -123,7 +124,7 @@ const classesIn = (markup) =>
   [...markup.matchAll(/\sclass="([^"]*)"/g)].flatMap((m) => m[1].split(/\s+/)).filter(Boolean);
 
 test("nav and footer markup carry no Webflow class on any site page", { skip }, () => {
-  assert.ok(webflowClasses.has("w-nav"), "reads the Webflow class list");
+  assert.ok(webflowFiles.length === 0 || webflowClasses.size > 0, "reads the Webflow class list");
   for (const path of sitePages) {
     const page = readBuilt(path);
     for (const [part, markup] of [
