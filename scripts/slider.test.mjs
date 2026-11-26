@@ -163,3 +163,53 @@ for (const { path, name } of INSTANCES) {
     await page.context().close();
   });
 }
+
+/** Focuses the last focusable element before the slider, so the next Tab enters it. */
+const focusBefore = (slider) =>
+  slider.evaluate((root) => {
+    const all = [...document.querySelectorAll('a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"])')];
+    const before = all.filter((el) => root.compareDocumentPosition(el) & Node.DOCUMENT_POSITION_PRECEDING);
+    for (const el of before.reverse()) {
+      el.focus();
+      if (document.activeElement === el) return;
+    }
+    throw new Error("nothing focusable before the slider");
+  });
+
+/** Presses Tab (at most `max` times) until `target` has focus. */
+async function tabTo(page, target, what, max = 10) {
+  for (let i = 0; i < max; i++) {
+    await page.keyboard.press("Tab");
+    if (await target.evaluate((el) => el === document.activeElement)) return;
+  }
+  assert.fail(`${what} not reached with Tab`);
+}
+
+for (const { path, name } of INSTANCES) {
+  test(`${path} "${name}": arrows and dots are reachable with Tab and work with Enter and Space`, { skip }, async () => {
+    const page = await open(path);
+    const slider = sliderNamed(page, name);
+    await focusBefore(slider);
+
+    await tabTo(page, prevArrow(slider), "previous arrow");
+    await tabTo(page, nextArrow(slider), "next arrow", 1);
+    await page.keyboard.press("Enter");
+    await expectAt(slider, 1, "Enter on next");
+    await page.keyboard.press(" ");
+    await expectAt(slider, 2, "Space on next");
+    await page.keyboard.press("Shift+Tab");
+    await page.keyboard.press("Enter");
+    await expectAt(slider, 1, "Enter on previous");
+
+    await page.keyboard.press("Tab");
+    await tabTo(page, dotsOf(slider).nth(1), "current dot", 1);
+    await page.keyboard.press("ArrowRight");
+    await page.keyboard.press("Enter");
+    await expectAt(slider, 2, "Enter on the next dot");
+    await page.keyboard.press("ArrowLeft");
+    await page.keyboard.press("ArrowLeft");
+    await page.keyboard.press(" ");
+    await expectAt(slider, 0, "Space on the first dot");
+    await page.context().close();
+  });
+}
