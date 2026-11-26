@@ -65,13 +65,6 @@ const widths = [
 </dialog>
 
 <style>
-  /* The old <img> had no width/height attributes, so the stylesheet's
-     `aspect-ratio: auto` + `width: 100%` kept the photo's own ratio. <Image>
-     adds the attributes; without this the height attribute wins from 992 px up. */
-  .layout11_lightbox :global(img) {
-    height: auto;
-  }
-
   /* Mirrors the Webflow lightbox overlay of the old site (webflow.css
      .w-lightbox-*): 90% black backdrop fading in over 300 ms, the video at
      940 px max centred in the viewport (96vw x 96vh from 768 px up), close x

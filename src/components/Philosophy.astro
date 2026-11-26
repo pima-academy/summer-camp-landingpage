@@ -45,11 +45,3 @@ import { fluidWidths } from "../lib/image-widths";
     </div>
   </div>
 </div>
-
-<style>
-  /* The old <img> had no size attributes; <Image> sets the source's width/height. When the
-     CSS shrinks the width, let the height follow (aspect ratio) as before. */
-  .team-image-wrapper :global(img) {
-    height: auto;
-  }
-</style>
