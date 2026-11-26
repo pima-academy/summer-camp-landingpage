@@ -41,7 +41,7 @@ Secondary colours, for charts, tables and infographics only (a category, a metri
 
 - Every text pair meets WCAG AA: 4.5:1, or 3:1 for large text (24 px and up, or 18.66 px and up at bold).
 - An icon that is a control's only label (hamburger, slider arrows, lightbox close, dropdown caret) meets 3:1 against its background.
-- Check the ratio of any pair outside the table below before using it.
+- Check the ratio of any pair outside the table below before using it. `scripts/contrast.test.mjs` checks every text pair of every aligned page at 390 and 1440 px.
 
 ### Text pairs that pass
 
@@ -60,7 +60,7 @@ PiMA Green appears as a fill: buttons, kicker rules, the timeline, the logo, dec
 
 ## Sections, buttons and footer
 
-`Section` takes a `tone`, which sets the background and the passing text colours on it. A section whose background is none of these takes the nearest one.
+`Section` takes a `tone`, which sets the background and the passing text colours on it. A section whose background is none of these takes the nearest one. A section never sets its own background; a card inside a section that needs a dark background takes the `dark-green` tone with `data-tone="dark-green"` (the founder card).
 
 | `tone` | Background | Text | Used for |
 |---|---|---|---|
@@ -73,7 +73,7 @@ PiMA Green appears as a fill: buttons, kicker rules, the timeline, the logo, dec
 
 | `variant` | Look | On |
 |---|---|---|
-| `primary` | `--pima-green` fill, `--black` text | `white`, `surface`, `pale-lime` |
+| `primary` | `--pima-green` fill, `--black` text; `--pima-dark-green` fill, `--white` text on hover | `white`, `surface`, `pale-lime` |
 | `secondary` | `--black` fill, `--white` text | `white`, `surface`, `pale-lime` |
 | `on-dark` | `--pima-pale-lime` fill, `--black` text | `dark-green` |
 | `link` | text with a chevron icon, in the surrounding text colour | any tone |
