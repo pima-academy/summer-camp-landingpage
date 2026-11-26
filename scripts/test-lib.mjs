@@ -9,10 +9,18 @@ export const root = fileURLToPath(new URL("../", import.meta.url));
 export const dist = join(root, "dist") + sep;
 
 /**
- * `skip` option for tests that read the build: false when dist/ has been built,
- * else the reason shown by `node --test`.
+ * `skip` option for tests that need the build: false when `built`, else `reason`
+ * (shown by `node --test`). In CI (`CI` set, as on GitHub Actions) a missing build
+ * throws instead, so the test file fails rather than skipping silently.
  */
-export const distSkip = existsSync(join(dist, "index.html")) ? false : "dist/ missing: run `npm run build` first";
+export function buildSkip(built, reason, env = process.env) {
+  if (built) return false;
+  if (env.CI) throw new Error(`${reason} (CI never skips build-dependent tests)`);
+  return reason;
+}
+
+/** `skip` option for tests that read dist/: see buildSkip. */
+export const distSkip = buildSkip(existsSync(join(dist, "index.html")), "dist/ missing: run `npm run build` first");
 
 /** Every file under `dir`, recursively ([] when `dir` does not exist). */
 export function walk(dir) {

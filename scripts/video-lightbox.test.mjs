@@ -5,10 +5,10 @@ import { test, before, after } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { relative } from "node:path";
-import { builtHtmlFiles, dist, serveDist } from "./test-lib.mjs";
+import { buildSkip, builtHtmlFiles, dist, serveDist } from "./test-lib.mjs";
 
 const pages = builtHtmlFiles().filter((f) => readFileSync(f, "utf8").includes("data-video-lightbox"));
-const skip = pages.length ? false : "no built page uses VideoLightbox: run `npm run build` first";
+const skip = buildSkip(pages.length > 0, "no built page uses VideoLightbox: run `npm run build` first");
 
 let server, origin, browser;
 
