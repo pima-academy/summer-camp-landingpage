@@ -2,8 +2,6 @@
 // TrustBar: dark green band with the four claims looping right to left, 20 s per period.
 // Used by index (twice), ve-chung-toi, khoa-hoc, lien-he and trai-he-toan-hoc-pima (old
 // `section_trust-bar_dark-green`). Fades up on scroll.
-import { Image } from "astro:assets";
-import ellipse from "../assets/images/ellipse.svg";
 import Marquee from "../components/Marquee.astro";
 import Section from "../components/Section.astro";
 
@@ -23,7 +21,7 @@ const claims = [
         claims.map((claim) => (
           <>
             <div class="claim">{claim}</div>
-            <Image src={ellipse} alt="" width={8} class="dot" />
+            <span class="dot" aria-hidden="true"></span>
           </>
         ))
       }
@@ -53,10 +51,14 @@ const claims = [
     text-transform: uppercase;
   }
 
-  /* The old ellipse <img> had no height attribute and stretched to the text's line box with
-     the dot centred; Astro sets height="8", so centre the 8 px box instead (same position). */
+  /* The 8 px separator dot between claims, in the accent colour (Pale Lime on dark green). */
   .dot {
+    flex: none;
     align-self: center;
+    width: 8px;
+    height: 8px;
+    border-radius: var(--radius-circle);
+    background-color: var(--color-text-accent);
   }
 
   @media screen and (max-width: 479px) {
