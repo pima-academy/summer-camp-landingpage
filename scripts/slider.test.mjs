@@ -51,8 +51,8 @@ after(async () => {
 });
 
 /** Opens a page at 1440 px with every off-site request aborted. */
-async function open(path, { reducedMotion = "no-preference", fakeClock = false } = {}) {
-  const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, reducedMotion });
+async function open(path, { reducedMotion = "no-preference", fakeClock = false, hasTouch = false } = {}) {
+  const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, reducedMotion, hasTouch });
   const page = await context.newPage();
   await page.route("**/*", (route) => (route.request().url().startsWith(origin) ? route.continue() : route.abort()));
   if (fakeClock) await page.clock.install();
@@ -131,6 +131,35 @@ for (const { path, name, autoplay, infinite } of INSTANCES) {
     await expectAt(slider, n - 1, "last dot");
     await dotsOf(slider).nth(0).click();
     await expectAt(slider, 0, "first dot");
+    await page.context().close();
+  });
+}
+
+/** A one-finger horizontal drag of `dx` px across the middle of the slider's mask. */
+async function swipe(page, slider, dx) {
+  await maskOf(slider).scrollIntoViewIfNeeded();
+  const box = await maskOf(slider).boundingBox();
+  const y = Math.round(box.y + box.height / 2);
+  const x0 = Math.round(box.x + box.width / 2 - dx / 2);
+  const cdp = await page.context().newCDPSession(page);
+  const touch = (type, x) =>
+    cdp.send("Input.dispatchTouchEvent", { type, touchPoints: type === "touchEnd" ? [] : [{ x, y }] });
+  await touch("touchStart", x0);
+  for (let i = 1; i <= 5; i++) await touch("touchMove", x0 + (dx * i) / 5);
+  await touch("touchEnd");
+  await cdp.detach();
+}
+
+for (const { path, name } of INSTANCES) {
+  test(`${path} "${name}": a touch swipe moves one slide`, { skip }, async () => {
+    const page = await open(path, { hasTouch: true });
+    const slider = sliderNamed(page, name);
+    await swipe(page, slider, -200);
+    await expectAt(slider, 1, "swipe left");
+    await swipe(page, slider, -200);
+    await expectAt(slider, 2, "swipe left again");
+    await swipe(page, slider, 200);
+    await expectAt(slider, 1, "swipe right");
     await page.context().close();
   });
 }
