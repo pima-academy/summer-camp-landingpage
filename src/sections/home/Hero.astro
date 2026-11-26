@@ -77,15 +77,20 @@ import { fluidWidths } from "../../lib/image-widths";
     object-fit: none;
   }
 
+  /* Defect fix: at ≤ 991 px the section's top padding is shorter than the 72 px fixed nav, so
+     the kicker sat under the nav (the old eyebrow was hidden there). Push the intro down until
+     the kicker clears the nav by 16-24 px. */
   @media screen and (max-width: 991px) {
     .intro {
       margin-bottom: 4rem;
+      padding-top: 2rem;
     }
   }
 
   @media screen and (max-width: 767px) {
     .intro {
       margin-bottom: 3rem;
+      padding-top: 2.5rem;
     }
   }
 
