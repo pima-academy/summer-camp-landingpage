@@ -1,0 +1,42 @@
+---
+/*
+  Primitive: Kicker, the short green uppercase line right above a section heading
+  ("ĐỐI TÁC CỦA PiMA", "TÁC ĐỘNG"). Renders a <p>, not a heading, so the page's
+  heading outline stays correct. Put <BrandName /> inside for "PiMA".
+
+  Today's look, copied from the old `<h5 class="text-style-green text-style-allcaps">`:
+  accent green, semibold, uppercase, `--font-size-kicker`, with the old h5 margins
+  (10px above, 0.7em below). `flush` drops both margins (old `is-no-margin`), for a
+  kicker whose spacing comes from its parent.
+
+    <Kicker>đối tác của <BrandName /></Kicker>
+    <Kicker flush>trại hè toán học</Kicker>
+*/
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"p"> {
+  /** No top or bottom margin. */
+  flush?: boolean;
+}
+
+const { flush = false, class: className, ...attrs } = Astro.props;
+---
+
+<p class:list={["kicker", className]} data-flush={flush ? "" : undefined} {...attrs}><slot /></p>
+
+<style>
+  .kicker {
+    margin-top: 10px;
+    margin-bottom: 0.7em;
+    color: var(--color-text-accent);
+    font-size: var(--font-size-kicker);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-h5);
+    text-transform: uppercase;
+  }
+
+  .kicker[data-flush] {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+</style>

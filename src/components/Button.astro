@@ -1,0 +1,140 @@
+---
+/*
+  Primitive: Button, a link styled as a button (a call to action: "Tìm hiểu thêm",
+  "Câu chuyện về PiMA"). Use it for every button-looking link; never restyle an <a>
+  as a button in a section's CSS.
+
+  Variants (today's looks, copied from the old `.button` classes):
+    default     PiMA green pill, white text, darker green on hover      (old `button`)
+    lime        lime pill, black text                                    (old `button is-lime`)
+    dark-green  dark green pill, white text                              (old `button is-dark-green`)
+    black       black pill, white text                                   (old `button is-lime is-black`)
+    link        bold text and a green chevron, no pill; text colour      (old `button is-link is-icon is-green`)
+                comes from the parent
+
+  Any other attribute (`target`, `class`, `id`, …) goes on the <a>. Brand alignment
+  renames the variants by role (primary, secondary, on-dark, link).
+
+    <Button href="/ve-chung-toi/" variant="lime" target="_blank">Câu chuyện về PiMA</Button>
+*/
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"a"> {
+  href: string;
+  variant?: "default" | "lime" | "dark-green" | "black" | "link";
+}
+
+const { href, variant = "default", class: className, ...attrs } = Astro.props;
+---
+
+<a href={href} class:list={["btn", className]} data-variant={variant} {...attrs}>
+  {
+    variant === "link" ? (
+      <>
+        <span>
+          <slot />
+        </span>
+        <span class="chevron" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="1.5" />
+          </svg>
+        </span>
+      </>
+    ) : (
+      <slot />
+    )
+  }
+</a>
+
+<style>
+  .btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5em;
+    padding: 1em 1.5em;
+    border: 0 solid transparent;
+    border-radius: var(--radius-pill);
+    background-color: var(--color-button);
+    background-image: none;
+    box-shadow: none;
+    color: var(--color-text-inverse);
+    font-size: var(--font-size-button);
+    font-weight: var(--font-weight-button);
+    line-height: var(--line-height-button);
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      border-color 0.2s,
+      color 0.2s,
+      background-color 0.2s cubic-bezier(0.165, 0.84, 0.44, 1),
+      box-shadow 0.2s;
+  }
+
+  .btn:hover {
+    color: var(--color-text-inverse);
+  }
+
+  .btn[data-variant="default"]:hover {
+    background-color: var(--color-button-hover);
+  }
+
+  .btn:focus {
+    outline: 2px solid var(--color-focus-outline);
+    outline-offset: 2px;
+  }
+
+  .btn[data-variant="lime"],
+  .btn[data-variant="lime"]:hover {
+    background-color: var(--color-button-lime);
+    color: var(--color-text-strong);
+  }
+
+  .btn[data-variant="dark-green"] {
+    background-color: var(--color-button-dark-green);
+  }
+
+  .btn[data-variant="black"] {
+    background-color: var(--color-button-black);
+  }
+
+  .btn[data-variant="link"],
+  .btn[data-variant="link"]:hover {
+    display: flex;
+    gap: 1rem;
+    padding: 0.25rem 0;
+    border-style: none;
+    background-color: transparent;
+    color: inherit;
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-button-link);
+  }
+
+  .btn[data-variant="link"]:focus {
+    outline-style: none;
+  }
+
+  .chevron {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 1rem;
+    min-width: 1rem;
+    height: 1rem;
+    min-height: 1rem;
+    margin-top: 0.25rem;
+    color: var(--color-text-accent);
+  }
+
+  @media screen and (max-width: 479px) {
+    .btn {
+      white-space: nowrap;
+    }
+
+    .btn[data-variant="link"] {
+      justify-content: flex-start;
+    }
+  }
+</style>
