@@ -148,6 +148,8 @@ Prefer the green logo; where the background is not green, prefer black or white.
 | Favicon (32 and 48 px) and `apple-touch-icon` (180 px, on white) | the symbol alone, cropped from `pima-logo-stacked-green.png` | |
 | og:image fallback for pages without a hero | 1200 × 630, `pima-logo-horizontal-green.png` centred on white | |
 
+`scripts/make-icons.mjs` makes the favicon, the app icon and the og:image fallback from these files; run it again after a logo file changes.
+
 ### Keep the logo intact
 
 - Set the width only; the height follows (`height: auto`). The logo keeps its proportions: no stretching, rotating or skewing.

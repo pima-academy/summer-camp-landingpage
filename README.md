@@ -35,7 +35,7 @@ src/
   assets/images/    every image used in markup (rendered with astro:assets as WebP)
   assets/logo/      the ten brand logo files (see docs/brand.md)
   styles/           global CSS: fonts.css, tokens.css (every design value), base.css, animations.css
-public/             favicon, webclip, robots.txt
+public/             favicon and apple-touch-icon (from scripts/make-icons.mjs), robots.txt
 apps-script/        Code.gs, the contact form backend (Google Apps Script)
 scripts/            tests and the screenshot script
 site/               the old site, kept until the switch-over

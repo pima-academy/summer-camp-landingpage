@@ -70,7 +70,7 @@ test("nav logo link has an aria-label and a fixed-size image", { skip }, () => {
   const logo = between(nav, '<a href="/"', "</a>");
   assert.match(logo, /aria-label="[^"]+"/);
   assert.match(logo, /<img[^>]*srcset="[^"]* 1x, [^"]* 2x"/);
-  assert.match(logo, /<img[^>]*width="117"[^>]*height="40"/);
+  assert.match(logo, /<img[^>]*width="132"[^>]*height="45"/);
 });
 
 test("footer comes after <main>", { skip }, () => {

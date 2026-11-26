@@ -3,7 +3,7 @@
 // contact column from site.ts, the copyright line. The current page's link gets
 // `aria-current="page"`. The 2025/2026 camp pages have their own, frozen src/camp/CampFooter.astro.
 import { Image } from "astro:assets";
-import logo from "../assets/images/logo-1-green.svg";
+import logo from "../assets/logo/pima-logo-stacked-green.png";
 import fbIcon from "../assets/images/fb.png";
 import mailIcon from "../assets/images/mail.png";
 import mapPinIcon from "../assets/images/map-pin.png";
@@ -25,7 +25,7 @@ const headingParts = (heading: string) => heading.split(/pima/i);
     <div class="top">
       <div class="brand">
         <a href="/" class="logo-link" aria-current={current("/")} aria-label="PiMA, trang chủ">
-          <Image src={logo} alt="" width={96} class="logo-image" />
+          <Image src={logo} alt="" width={80} densities={[1, 2]} class="logo-image" />
         </a>
         <div class="name">Học viện Toán học và<br />Ứng dụng <BrandName /></div>
       </div>
@@ -143,8 +143,8 @@ const headingParts = (heading: string) => heading.split(/pima/i);
     text-decoration: none;
   }
 
+  /* Brand logo: width only (the attribute), never rounded (docs/brand.md). */
   .logo-image {
-    height: 8rem;
     border-radius: 0;
   }
 

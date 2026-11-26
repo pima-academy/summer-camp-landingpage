@@ -6,7 +6,7 @@
 // in sync (it replaced webflow.js's navbar and dropdown modules). Without JS the desktop links
 // still work, the dropdown shows on hover and focus, and the mobile menu stays closed.
 import { Image } from "astro:assets";
-import logo from "../assets/images/logo-horizontal.png";
+import logo from "../assets/logo/pima-logo-horizontal-green.png";
 import ContentGap from "../components/ContentGap.astro";
 import { navItems, type Link } from "../data/site";
 import { isCurrent } from "../lib/current-link";
@@ -23,7 +23,7 @@ const isGap = (item: Link) => item.href === "/su-kien-blog/";
     <div class="left">
       <a href="/" class="logo-link" aria-current={current("/")} aria-label="PiMA, trang chủ">
         <div class="logo-box">
-          <Image src={logo} alt="" width={117} densities={[1, 2]} class="logo-image" />
+          <Image src={logo} alt="" width={132} densities={[1, 2]} class="logo-image" />
         </div>
       </a>
     </div>
@@ -376,7 +376,6 @@ const isGap = (item: Link) => item.href === "/su-kien-blog/";
     align-items: center;
     gap: 0.5rem;
     max-width: 100%;
-    height: 2.5rem;
     color: inherit;
     text-decoration: none;
   }
@@ -388,12 +387,11 @@ const isGap = (item: Link) => item.href === "/su-kien-blog/";
   .logo-box {
     display: block;
     flex: 1;
-    aspect-ratio: 1;
-    height: 100%;
   }
 
+  /* Brand logo: width only (the attribute), never rounded (docs/brand.md). */
   .logo-image {
-    height: 2.5rem;
+    border-radius: 0;
   }
 
   .menu {
