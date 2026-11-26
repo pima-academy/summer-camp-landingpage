@@ -12,6 +12,10 @@ _Avoid_: legacy site, current site, baseline
 The new code-only version of pimavn.com that replaces the old site, visually equivalent to it.
 _Avoid_: new site, redesign, migration (for the result)
 
+**Switch-over**:
+The single moment pimavn.com stops serving the old site and starts serving the rebuild, for every page at once. Before it, visitors only ever see the old site.
+_Avoid_: launch, go-live, cutover, migration (for the moment)
+
 **Defect fix**:
 A change that removes something broken or superfluous from the old site. It may change what a page looks like, but it never changes brand colour, typography or layout.
 _Avoid_: improvement, polish
