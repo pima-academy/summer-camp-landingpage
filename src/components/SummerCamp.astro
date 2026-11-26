@@ -7,14 +7,13 @@
 */
 import { Image } from "astro:assets";
 import { isCurrent } from "../lib/current-link";
+import { fluidWidths } from "../lib/image-widths";
 import ContentGap from "./ContentGap.astro";
 import Slider from "./Slider.astro";
 import { summerCampPhotos } from "./summer-camp-photos";
 
 const campHref = "/trai-he-toan-hoc-pima/";
 const campCurrent = isCurrent(campHref, Astro.url.pathname);
-// Fluid widths capped at the source width, which is included when under 2000 px.
-const widths = (w: number) => [...[500, 800, 1080, 1600, 2000].filter((x) => x < w), ...(w <= 2000 ? [w] : [])];
 const sizes = "(max-width: 479px) 39vw, (max-width: 991px) 26vw, 309px";
 ---
 
@@ -55,13 +54,13 @@ const sizes = "(max-width: 479px) 39vw, (max-width: 991px) 26vw, 309px";
                     <ContentGap name="SummerCamp: photo lightbox" inline>
                       <a href="#" class="gallery22_lightbox-link w-inline-block w-lightbox">
                         <div class="gallery22_image-wrapper">
-                          <Image src={image} alt={alt} widths={widths(image.width)} sizes={sizes} class="gallery22_image" />
+                          <Image src={image} alt={alt} widths={fluidWidths(image)} sizes={sizes} class="gallery22_image" />
                         </div>
                       </a>
                       {/* Same box as the link (inline-block, full width), so the slide keeps its height. */}
                       <div slot="fallback" class="gallery22_lightbox-link w-inline-block">
                         <div class="gallery22_image-wrapper">
-                          <Image src={image} alt={alt} widths={widths(image.width)} sizes={sizes} class="gallery22_image" />
+                          <Image src={image} alt={alt} widths={fluidWidths(image)} sizes={sizes} class="gallery22_image" />
                         </div>
                       </div>
                     </ContentGap>

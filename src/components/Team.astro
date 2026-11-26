@@ -7,6 +7,7 @@
 import { Image } from "astro:assets";
 import placeholder from "../assets/images/6191a88a1c0e39463c2bf022-placeholder-image.svg";
 import { isCurrent } from "../lib/current-link";
+import { fluidWidths } from "../lib/image-widths";
 import BrandName from "./BrandName.astro";
 import ContentGap from "./ContentGap.astro";
 import Slider from "./Slider.astro";
@@ -14,8 +15,6 @@ import { teamActivities } from "./team-activities";
 
 const storyHref = "/ve-chung-toi/";
 const storyCurrent = isCurrent(storyHref, Astro.url.pathname);
-// Fluid widths capped at the source width, which is included when under 2000 px.
-const widths = (w: number) => [...[500, 800, 1080, 1600, 2000].filter((x) => x < w), ...(w <= 2000 ? [w] : [])];
 ---
 
 <div class="section_team" data-animate="fade-up">
@@ -119,7 +118,7 @@ const widths = (w: number) => [...[500, 800, 1080, 1600, 2000].filter((x) => x <
                       <Image
                         src={image}
                         alt={alt}
-                        widths={widths(image.width)}
+                        widths={fluidWidths(image)}
                         sizes="(max-width: 479px) 71vw, (max-width: 991px) 37vw, 378px"
                         class="gallery25_image"
                       />
