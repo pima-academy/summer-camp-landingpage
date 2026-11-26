@@ -1,6 +1,6 @@
 ---
-// Accordion: the ve-chung-toi "Xuất phát điểm / Tầm nhìn / Sứ mệnh" panels
-// (`.layout351_*` markup, replaces Webflow interactions a-27/a-28).
+// Widget: Accordion, the ve-chung-toi "Xuất phát điểm / Tầm nhìn / Sứ mệnh" panels
+// (replaces the old `.layout351_*` markup and Webflow interactions a-27/a-28).
 //
 //   <Accordion>
 //     <AccordionPanel number="01" title="Xuất phát điểm" open>…</AccordionPanel>
@@ -8,87 +8,45 @@
 //     <AccordionPanel number="03" title="Sứ mệnh">…</AccordionPanel>
 //   </Accordion>
 //
-// One panel is always open (`.active` on `.layout351_accordion` and its
-// `.layout351_column-content`); clicking a closed panel's button opens it and
-// closes the others, clicking the open one does nothing.
+// One panel is always open: its button has `aria-expanded="true"` (AccordionPanel styles
+// the panel from it). Clicking a closed panel's button opens it and closes the others;
+// clicking the open one does nothing. Closed bodies are `inert`.
 // - ≥ 992 px: the open panel is 100% wide, the others 5rem (CSS width transition).
-// - ≤ 991 px: the open panel's content has auto height, the others 0 (the
+// - ≤ 991 px: the open panel's body has auto height, the others 0 (the
 //   script animates between pixel heights, then hands back to CSS).
 // - 500 ms ease both ways; no transition with prefers-reduced-motion.
 // - Without JS (`html` lacks `js-ready`) every panel's text is shown: stacked
-//   open panels on desktop, all contents expanded below 992 px.
+//   open panels on desktop, all bodies expanded below 992 px.
 ---
 
-<div class="layout351_content" data-accordion>
+<div class="accordion" data-accordion>
   <slot />
 </div>
 
 <style>
-  /* The panel's title button (rendered by AccordionPanel): reset to look like the old <div>. */
-  .layout351_content :global(.layout351_column) {
-    appearance: none;
-    background: transparent;
-    border: 0;
-    padding-left: 0;
-    padding-right: 0;
-    margin: 0;
-    color: inherit;
-    font: inherit;
-    letter-spacing: inherit;
-    text-align: inherit;
-  }
-
-  /* The old column title was an <h3>: keep its margins on the <span>
-     (a flex item, so already block-level; ≤ 991 px hides it). */
-  .layout351_content :global(.layout351_column-vertical-text) {
-    margin-top: 20px;
-    margin-bottom: 10px;
-  }
-
-  /* overflow: hidden on the panel would clip an outside focus ring. */
-  .layout351_content :global(.layout351_column:focus-visible) {
-    outline: 0.125rem solid var(--color-focus-ring);
-    outline-offset: -0.25rem;
+  .accordion {
+    display: flex;
+    width: 100%;
+    height: 90vh;
+    overflow: hidden;
+    border: 1px solid var(--color-border-lime);
+    border-radius: var(--radius-panel);
   }
 
   /* breakpoint-exception: desktop only (the complement of 991 px), where panels open sideways. */
   @media screen and (min-width: 992px) {
-    /* Panels (AccordionPanel) widen when opened. */
-    .layout351_content :global(.layout351_accordion) {
-      transition: width 500ms ease;
-    }
-
     /* Without JS (no `js-ready` on <html>) every panel shows, stacked. */
-    :global(html:not(.js-ready)) .layout351_content {
+    :global(html:not(.js-ready)) .accordion {
       flex-direction: column;
       height: auto;
-    }
-
-    /* Without JS, each stacked panel takes the full width. */
-    :global(html:not(.js-ready)) .layout351_content :global(.layout351_accordion) {
-      width: 100%;
     }
   }
 
   @media screen and (max-width: 991px) {
-    /* Panel bodies (AccordionPanel) slide open in height. */
-    .layout351_content :global(.layout351_column-content) {
-      transition: height 500ms ease;
-    }
-
-    /* With JS, closed panel bodies collapse; without it every panel stays open. */
-    :global(html.js-ready)
-      .layout351_content
-      :global(.layout351_accordion:not(.active) .layout351_column-content) {
-      height: 0;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    /* No width or height animation of the panels (AccordionPanel). */
-    .layout351_content :global(.layout351_accordion),
-    .layout351_content :global(.layout351_column-content) {
-      transition: none;
+    .accordion {
+      flex-direction: column;
+      height: auto;
+      border-color: var(--color-border-subtle);
     }
   }
 </style>
@@ -98,24 +56,21 @@
 
   for (const root of document.querySelectorAll<HTMLElement>("[data-accordion]")) {
     const panels = [...root.querySelectorAll<HTMLElement>(":scope > [data-accordion-panel]")];
-    const parts = panels.map((panel) => ({
-      panel,
-      button: panel.querySelector<HTMLButtonElement>(".layout351_column")!,
-      content: panel.querySelector<HTMLElement>(".layout351_column-content")!,
-    }));
+    const parts = panels.map((panel) => {
+      const button = panel.querySelector<HTMLButtonElement>(":scope > button[aria-controls]")!;
+      return { button, content: document.getElementById(button.getAttribute("aria-controls")!)! };
+    });
     const timers = new Map<HTMLElement, number>();
+    const isOpen = (p: (typeof parts)[number]) => p.button.getAttribute("aria-expanded") === "true";
 
     const setOpen = (open: (typeof parts)[number]) => {
-      // Start heights, read before any class change (only matter below 992 px,
+      // Start heights, read before any state change (only matter below 992 px,
       // where height is what animates; above, the CSS width transition runs).
       const start = parts.map(({ content }) => content.getBoundingClientRect().height);
 
       for (const p of parts) {
-        const isOpen = p === open;
-        p.panel.classList.toggle("active", isOpen);
-        p.content.classList.toggle("active", isOpen);
-        p.button.setAttribute("aria-expanded", String(isOpen));
-        p.content.inert = !isOpen;
+        p.button.setAttribute("aria-expanded", String(p === open));
+        p.content.inert = p !== open;
       }
 
       const animate =
@@ -144,9 +99,9 @@
     };
 
     for (const p of parts) {
-      p.content.inert = !p.panel.classList.contains("active");
+      p.content.inert = !isOpen(p);
       p.button.addEventListener("click", () => {
-        if (!p.panel.classList.contains("active")) setOpen(p);
+        if (!isOpen(p)) setOpen(p);
       });
     }
   }

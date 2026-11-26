@@ -1,8 +1,9 @@
 ---
-// One panel of <Accordion> (ve-chung-toi "Xuất phát điểm / Tầm nhìn / Sứ mệnh").
-// Only valid as a direct child of <Accordion>; the script and styles live there.
+// Widget: one panel of <Accordion> (ve-chung-toi "Xuất phát điểm / Tầm nhìn / Sứ mệnh").
+// Only valid as a direct child of <Accordion>, whose script opens and closes it.
 //   <AccordionPanel number="01" title="Xuất phát điểm" open>…content…</AccordionPanel>
-// The default slot is the panel text, rendered inside `.layout351_content-wrapper`.
+// The default slot is the panel text. State: `aria-expanded` on the panel's button (the
+// script keeps it in sync); the panel and its body are styled from it.
 interface Props {
   /** Label shown at the top of the column ("01"). */
   number: string;
@@ -16,26 +17,185 @@ const { number, title, open = false } = Astro.props;
 const id = `accordion-panel-${Math.random().toString(36).slice(2, 10)}`;
 ---
 
-<div class:list={["layout351_accordion", { active: open }]} data-accordion-panel>
+<div class="panel" data-accordion-panel>
   <button
     type="button"
-    class="layout351_column"
+    class="tab"
     id={`${id}-button`}
     aria-expanded={open ? "true" : "false"}
     aria-controls={id}
     aria-label={title}
   >
-    <span class="layout351_column-text">{number}</span>
-    <span class="layout351_column-vertical-text">{title}</span>
+    <span class="number">{number}</span>
+    <span class="title">{title}</span>
   </button>
-  <div
-    class:list={["layout351_column-content", { active: open }]}
-    id={id}
-    role="region"
-    aria-labelledby={`${id}-button`}
-  >
-    <div class="layout351_content-wrapper">
+  <div class="body" id={id} role="region" aria-labelledby={`${id}-button`}>
+    <div class="inner">
       <slot />
     </div>
   </div>
 </div>
+
+<style>
+  /* Closed: a 5rem column with the vertical title; open: the full width. */
+  .panel {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 5rem;
+    min-width: 5rem;
+    height: 90vh;
+    overflow: hidden;
+    border: 1px solid var(--color-border-lime);
+  }
+
+  .panel:has(> .tab[aria-expanded="true"]) {
+    width: 100%;
+    border-color: var(--color-border-subtle);
+  }
+
+  /* The title button, reset to look like a plain column. */
+  .tab {
+    appearance: none;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 5rem;
+    min-width: 5rem;
+    height: 90vh;
+    margin: 0;
+    padding: 2rem 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    letter-spacing: inherit;
+    text-align: inherit;
+    cursor: pointer;
+  }
+
+  /* overflow: hidden on the panel would clip an outside focus ring. */
+  .tab:focus-visible {
+    outline: 0.125rem solid var(--color-focus-ring);
+    outline-offset: -0.25rem;
+  }
+
+  .number {
+    white-space: nowrap;
+    font-size: var(--font-size-accordion-title);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-accordion-title);
+  }
+
+  .title {
+    margin: 20px auto 10px;
+    font-size: var(--font-size-accordion-title);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-accordion-title);
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+
+  .body {
+    min-width: 200vw;
+    height: 100%;
+    overflow: auto;
+  }
+
+  .inner {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    width: 40rem;
+    height: 100%;
+    padding: 4rem 3rem;
+  }
+
+  /* breakpoint-exception: desktop only (the complement of 991 px), where panels open sideways. */
+  @media screen and (min-width: 992px) {
+    .panel {
+      transition: width 500ms ease;
+    }
+
+    /* Without JS (no `js-ready` on <html>) every panel shows, stacked at full width. */
+    :global(html:not(.js-ready)) .panel {
+      width: 100%;
+    }
+  }
+
+  /* Below 992 px the panels stack; the open one's body has its height, the others none. */
+  @media screen and (max-width: 991px) {
+    .panel {
+      flex-direction: column;
+      width: 100%;
+      min-width: auto;
+      height: auto;
+      border-color: var(--color-border-subtle);
+    }
+
+    .tab {
+      flex-direction: row;
+      justify-content: center;
+      width: 100%;
+      min-width: 100%;
+      height: 5rem;
+    }
+
+    .number {
+      position: absolute;
+      left: 2.5rem;
+    }
+
+    .title {
+      display: none;
+    }
+
+    .body {
+      width: 100%;
+      min-width: auto;
+      height: auto;
+      overflow: hidden;
+      transition: height 500ms ease;
+    }
+
+    /* With JS, closed panel bodies collapse; without it every panel stays open. */
+    :global(html.js-ready) .tab[aria-expanded="false"] + .body {
+      height: 0;
+    }
+
+    .inner {
+      width: auto;
+      padding: 0.5rem 2.5rem 2rem;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .tab {
+      height: 4rem;
+    }
+
+    .number {
+      left: 1.5rem;
+    }
+
+    .inner {
+      padding: 1rem 1.5rem 2rem;
+    }
+  }
+
+  @media screen and (max-width: 479px) {
+    .inner {
+      padding: 0 1rem 1rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    /* No width or height animation. */
+    .panel,
+    .body {
+      transition: none;
+    }
+  }
+</style>
