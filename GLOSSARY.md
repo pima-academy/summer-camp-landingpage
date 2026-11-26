@@ -20,6 +20,10 @@ _Avoid_: improvement, polish
 Any change to brand colour, typography or layout, or any new visual style or component. Out of scope for the rebuild; deferred to a separate effort.
 _Avoid_: design tweak, cleanup
 
+**Content gap**:
+A component, section or page of the old site that is empty or broken only because its content does not exist yet. The rebuild keeps it, out of visitors' sight, so it can be filled later.
+_Avoid_: placeholder, stub, empty section
+
 **Contact form**:
 The form on several pages through which a visitor sends PiMA their name, contact details and a message.
 _Avoid_: email form, registration form, sign-up form
