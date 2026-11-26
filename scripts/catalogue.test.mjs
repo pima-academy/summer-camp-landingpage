@@ -4,13 +4,11 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
+import { headerComment } from "./astro-file.mjs";
 import { dist, distSkip, root } from "./test-lib.mjs";
 
 const components = join(root, "src/components");
 const cataloguePage = join(root, "src/pages/catalogue/[...path].astro");
-
-/** The header comment of an .astro file: the first comment in its frontmatter. */
-const headerComment = (text) => text.match(/^---\s*\n\s*(\/\*[\s\S]*?\*\/|(?:\/\/.*\n)+)/)?.[1] ?? "";
 
 /** Component names whose header comment starts with "Primitive:". */
 const primitives = readdirSync(components)

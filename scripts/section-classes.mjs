@@ -1,5 +1,6 @@
 // The "class names are local to their file" rule of ADR 0004, applied to section files.
 // Used by scripts/sections.test.mjs. Not a test file itself (no `.test.` in the name).
+import { markup, styleBlocks } from "./astro-file.mjs";
 import { parseCss } from "./guardrail-lib.mjs";
 
 /** The class names a CSS text's selectors name (`.a .b:hover` → a, b). */
@@ -16,7 +17,7 @@ export function selectorClasses(css) {
 
 /** The class names a .astro template sets: `class="…"`, and string literals in `class={…}` / `class:list={…}`. */
 export function markupClasses(text) {
-  const template = text.replace(/^---[\s\S]*?\n---/, "").replace(/<style\b[\s\S]*?<\/style>/g, "");
+  const template = markup(text);
   const names = new Set();
   for (const m of template.matchAll(/\bclass="([^"]*)"/g)) m[1].split(/\s+/).filter(Boolean).forEach((c) => names.add(c));
   for (const m of template.matchAll(/\bclass(?::list)?=\{([^}]*)\}/g))
@@ -34,7 +35,9 @@ export function markupClasses(text) {
  * `globalClasses` is the set of class names the global stylesheets style.
  */
 export function sectionClassProblems(path, text, globalClasses) {
-  const styles = [...text.matchAll(/<style\b[^>]*>([\s\S]*?)<\/style>/g)].map((m) => m[1]).join("\n");
+  const styles = styleBlocks(text)
+    .map((s) => s.css)
+    .join("\n");
   const own = selectorClasses(styles);
   const problems = [];
   for (const c of markupClasses(text)) if (!own.has(c)) problems.push(`${path}: class "${c}" is not styled in this file`);
