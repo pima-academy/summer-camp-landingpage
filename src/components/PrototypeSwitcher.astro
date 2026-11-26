@@ -33,13 +33,14 @@
     "0": { name: "Hiện tại", summary: "Giao diện hôm nay, để so sánh" },
     A: { name: "Nền trắng, nút xanh", summary: "Heading đen viết thường · nút PiMA Green chữ đen · bo 8px · footer đen" },
     B: { name: "Dark Green dẫn dắt", summary: "Heading Dark Green · nút pill Dark Green · vạch xanh trên kicker · bo 20px" },
+    D: { name: "Đã chọn", summary: "Heading Dark Green · kicker có vạch xanh · nút PiMA Green chữ đen · bo 12px · footer đen" },
     C: { name: "Đen + lưới", summary: "Hero nền lưới như bìa guideline · heading UPPERCASE gạch xanh · bo 12px" },
   };
   const keys = Object.keys(VARIANTS);
   const bar = document.getElementById("proto-switcher")!;
 
   function current() {
-    return new URLSearchParams(location.search).get("variant") ?? "A";
+    return new URLSearchParams(location.search).get("variant") ?? "D";
   }
   function render() {
     const v = current();

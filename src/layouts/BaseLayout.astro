@@ -66,10 +66,10 @@ const ogImage = new URL(og.src, site).href;
     <script is:inline>
       document.documentElement.classList.add("js-ready");
     </script>
-    {/* PROTOTYPE #51: brand-alignment variant on the home page only (?variant=A|B|C, 0 = today). */}
+    {/* PROTOTYPE #51: brand-alignment variant on the home page only (?variant=A|B|C|D, 0 = today, D = chosen). */}
     <script is:inline>
       if (location.pathname === "/") {
-        const v = new URLSearchParams(location.search).get("variant") ?? "A";
+        const v = new URLSearchParams(location.search).get("variant") ?? "D";
         if (v !== "0") document.documentElement.dataset.brand = v;
       }
     </script>

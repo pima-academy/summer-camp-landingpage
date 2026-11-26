@@ -83,6 +83,28 @@ html[data-brand="C"] {
     linear-gradient(90deg, var(--dg) 1px, transparent 1px) 0 0 / 44px 44px, var(--ink);
 }
 
+/* ---------- variant D: the chosen mix (user, #51) ----------
+   B's Dark Green headings and kicker rule, A's PiMA Green button with black text,
+   sentence case, 12px radius, black footer, Pale Lime testimonials, no grid. */
+html[data-brand="D"] {
+  --fs-h1: 48px; --fs-h1-m: 32px;
+  --fs-h2: 36px; --fs-h2-m: 26px;
+  --fs-h3: 22px; --fs-h3-m: 19px;
+  --fs-kicker: 14px; --fs-body: 16px; --lh-body: 1.6;
+  --h-case: none; --h-weight: 800; --h1-weight: 800;
+  --h-color: var(--dg); --kicker-color: var(--ink); --num-color: var(--dg);
+  --btn-bg: var(--g); --btn-fg: var(--ink); --btn-radius: 12px;
+  --btn2-bg: var(--ink); --btn2-fg: #fff;
+  --r-card: 12px; --r-photo: 12px; --r-input: 12px;
+  --bg-trust: var(--dg); --fg-trust: #fff; --fs-trust: 15px;
+  --bg-philo: var(--lime);
+  --bg-founding: var(--dg);
+  --bg-milestone: var(--surface);
+  --bg-testi: var(--lime);
+  --bg-contact: var(--lime);
+  --bg-footer: var(--ink); --fg-footer-kicker: var(--g); --fg-footer: var(--hair);
+}
+
 /* ---------- logos ---------- */
 .proto-logo { display: none; }
 html[data-brand] .proto-old-logo { display: none !important; }
@@ -91,6 +113,7 @@ html[data-brand] .proto-logo-green,
 html[data-brand] .proto-logo-white { width: 80px; height: auto; border-radius: 0 !important; }
 html[data-brand="A"] .proto-logo-green,
 html[data-brand="C"] .proto-logo-green,
+html[data-brand="D"] .proto-logo-green,
 html[data-brand="B"] .proto-logo-white { display: block; }
 
 /* ---------- type ---------- */
@@ -124,10 +147,12 @@ html[data-brand] .section_founding-story .text-style-lime { color: var(--lime) !
 html[data-brand] .footer .text-style-green { color: var(--fg-footer-kicker) !important; }
 
 /* B: a short PiMA Green rule over each kicker (green as a fill, not text) */
-html[data-brand="B"] main :is(.text-style-green.text-style-allcaps, .h4-heading.text-style-green, .text-style-lime.text-style-allcaps)::before {
+html[data-brand="B"] main :is(.text-style-green.text-style-allcaps, .h4-heading.text-style-green, .text-style-lime.text-style-allcaps)::before,
+html[data-brand="D"] main :is(.text-style-green.text-style-allcaps, .h4-heading.text-style-green, .text-style-lime.text-style-allcaps)::before {
   content: ""; display: block; width: 40px; height: 4px; border-radius: 2px; background: var(--g); margin: 0 auto 12px;
 }
-html[data-brand="B"] :is(.section_impact, .section_founding-story) :is(.text-style-allcaps)::before { margin-left: 0; }
+html[data-brand="B"] :is(.section_impact, .section_founding-story) :is(.text-style-allcaps)::before,
+html[data-brand="D"] :is(.section_impact, .section_founding-story) :is(.text-style-allcaps)::before { margin-left: 0; }
 
 /* C: a PiMA Green underline under each section heading */
 html[data-brand="C"] main h2::after {
