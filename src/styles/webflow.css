@@ -43,6 +43,9 @@ img {
   max-width: 100%;
   vertical-align: middle;
   display: inline-block;
+  /* Astro <Image> writes width/height attributes; keep the aspect ratio
+     when CSS constrains only the width, as the old attribute-less markup did. */
+  height: auto;
 }
 .w-inline-block {
   max-width: 100%;
