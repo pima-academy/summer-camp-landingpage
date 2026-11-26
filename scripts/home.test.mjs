@@ -16,7 +16,7 @@ test("home page sections are in the old order", { skip }, () => {
     'data-section="partners"',
     'data-section="philosophy"',
     'data-section="impact"',
-    'section_programs-overview"',
+    'data-section="programs-overview"',
     'section_founding-story"',
     'section_milestone"',
     'section_team"',
