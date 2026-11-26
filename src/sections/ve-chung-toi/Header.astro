@@ -3,13 +3,14 @@
 // breadcrumb. Used by ve-chung-toi only (old `section_about-header`); carries the footer
 // anchor "Giới thiệu". Fades up on scroll.
 import BrandName from "../../components/BrandName.astro";
+import Kicker from "../../components/Kicker.astro";
 import Section from "../../components/Section.astro";
 import { aboutAnchors } from "../../data/site";
 ---
 
 <Section name="header" width="large" spacing="none" tone="dark-green" animate id={aboutAnchors.intro}>
   <div class="inner">
-    <div class="crumb"><BrandName /> academy &gt; giới thiệu</div>
+    <div class="crumb"><Kicker flush><BrandName /> academy &gt; giới thiệu</Kicker></div>
     <h1 class="title">Về chúng tôi</h1>
   </div>
 </Section>
@@ -24,14 +25,10 @@ import { aboutAnchors } from "../../data/site";
 
   .crumb {
     margin-bottom: 0.5rem;
-    color: var(--color-text-accent);
-    font-weight: var(--font-weight-semibold);
-    text-transform: uppercase;
   }
 
   .title {
     color: var(--color-text-heading);
-    font-weight: var(--font-weight-bold);
   }
 
   @media screen and (max-width: 991px) {

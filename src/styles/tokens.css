@@ -5,8 +5,7 @@
  *
  * The brand palette comes first. Every colour role after it points at a palette token
  * (scripts/brand.test.mjs checks); only the dev-only content-gap marker keeps its own colour.
- * Type and radius roles still carry the refactor's values until their brand alignment. Spacing
- * stays literal for now.
+ * Spacing stays literal for now.
  *
  * Breakpoints (desktop-first, max-width; custom properties do not work in @media, so they are
  * written as literals wherever they are used):
@@ -45,84 +44,49 @@
   /* Font families. Nunito Sans is the only site font. */
   --font-family-base: "Nunito Sans", sans-serif;
 
-  /* Font weights. Headings by level; other text by today's weight. */
-  --font-weight-black: 900;
-  --font-weight-bold: 700;
-  --font-weight-button: 400;
-  --font-weight-extrabold: 800;
-  --font-weight-h1: 400;
-  --font-weight-h2: 700;
-  --font-weight-h3: 700;
-  --font-weight-h4: 400;
-  --font-weight-h5: 400;
-  --font-weight-heading-style: 700;
-  --font-weight-heading-style-h5: 500;
-  --font-weight-label: 700;
-  --font-weight-light: 300;
-  --font-weight-medium: 500;
+  /*
+   * Type (docs/brand.md, Typography). Five weights, each with a face in fonts.css. Roles: h1–h3,
+   * body, kicker, marquee, big numbers, small text. Every other heading level or size uses the
+   * nearest role. Sizes that change per breakpoint are redeclared in the media queries at the end.
+   */
   --font-weight-regular: 400;
   --font-weight-semibold: 600;
-  --font-weight-strong: 700;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+  --font-weight-black: 900;
+  --font-weight-h1: var(--font-weight-extrabold);
+  --font-weight-h2: var(--font-weight-extrabold);
+  --font-weight-h3: var(--font-weight-extrabold);
 
-  /* Font sizes. Sizes that change per breakpoint are redeclared in the media queries at the end. */
-  --font-size-accordion-title: 1.5rem;
+  /* Font sizes. */
+  --font-size-h1: 48px;
+  --font-size-h2: 36px;
+  --font-size-h3: 22px;
+  --font-size-body: 16px;
+  /* Captions, form fields, tags, pagination, the footer credit. */
+  --font-size-small: 14px;
+  --font-size-kicker: 14px;
+  --font-size-marquee: 15px;
   --font-size-big-number: 2.6rem;
-  --font-size-blog-card-title: 16px;
-  --font-size-blog-event-heading: 16px;
-  --font-size-body: 1rem;
-  --font-size-button: 1rem;
-  --font-size-caption: 14px;
-  --font-size-course-feature-title: 1.2rem;
-  --font-size-course-mentor-name: 16px;
-  --font-size-course-mentor-title: 14px;
-  --font-size-course-step-number: 3.8rem;
-  --font-size-course-testimonial: 16px;
-  --font-size-doc-text: 1rem;
-  --font-size-field: 14px;
-  --font-size-footer-credit: .875rem;
-  --font-size-h1: 4.21rem;
-  --font-size-h2: 2.37rem;
-  --font-size-h3: 24px;
-  --font-size-h4: 1.33rem;
-  --font-size-h4-heading: 1.33rem;
-  --font-size-h5: 1rem;
-  --font-size-heading-style-h1: 4rem;
-  --font-size-heading-style-h2: 3rem;
-  --font-size-heading-style-h3: 2rem;
-  --font-size-heading-style-h4: 1.5rem;
-  --font-size-heading-style-h5: 16px;
-  --font-size-heading-style-h6: 1rem;
-  --font-size-kicker: 1.33rem;
-  --font-size-nav: 1rem;
-  --font-size-nav-link-menu: 1.13rem;
-  --font-size-pagination: 14px;
+  /* Nav links in the open mobile menu. */
+  --font-size-nav-menu: 1.13rem;
+  /* The slider dots are 1em boxes; this sets their size, not text. */
   --font-size-slider-nav: .5rem;
-  --font-size-tag: .75rem;
-  --font-size-text-large: 1.5rem;
-  --font-size-text-regular: 1rem;
-  --font-size-text-small: .875rem;
-  --font-size-trust-bar: 14px;
 
-  /* Line heights. */
-  --line-height-accordion-title: 1.4;
-  --line-height-blog-card-title: 22px;
-  --line-height-body: 1.6rem;
+  /* Line heights. Headings stay at 1.1 or more for stacked Vietnamese diacritics. */
+  --line-height-h1: 1.15;
+  --line-height-h2: 1.2;
+  --line-height-h3: 1.3;
+  --line-height-body: 1.6;
+  --line-height-kicker: 1.4;
   --line-height-button: 1.2;
   --line-height-button-link: 1;
   --line-height-field: 1.42857143;
   --line-height-form-control: normal;
-  --line-height-h1: 1.04em;
-  --line-height-h2: 1.04em;
-  --line-height-h3: 30px;
-  --line-height-h4: 1.3em;
-  --line-height-h4-heading: 1.3em;
-  --line-height-h5: 1.3em;
-  --line-height-heading-style-h1: 1.1;
-  --line-height-heading-style-h2: 1.2;
-  --line-height-heading-style-h3: 1.2;
-  --line-height-heading-style-h4: 1.4;
-  --line-height-heading-style-h5: 1.5;
-  --line-height-heading-style-h6: 1.5;
+
+  /* Letter spacing of uppercase labels. */
+  --letter-spacing-kicker: 0.08em;
+  --letter-spacing-marquee: 0.03em;
 
   /*
    * Colour roles. Each points at a brand palette colour; docs/brand.md lists the pairs that pass
@@ -193,19 +157,10 @@
   --color-focus-ring: var(--pima-dark-green);
   --color-focus-ring-on-dark: var(--pima-pale-lime);
 
-  /* Corner radii. `--radius` is the brand's one radius; brand alignment moves the others to it. */
+  /* Corner radii. One radius for buttons, cards, panels, inputs, photos and videos; circles for
+     icon circles, avatars and dots. Full-width bands and rules have square corners. */
   --radius: 12px;
-  --radius-card: 1.25rem;
-  --radius-card-small: 12px;
   --radius-circle: 100%;
-  --radius-course-cover-mobile: 8px;
-  --radius-gallery-image: 16px;
-  --radius-image: 1.25rem;
-  --radius-nav-menu: .5rem;
-  --radius-panel: 20px;
-  --radius-pill: 100rem;
-  --radius-pill-form: 99px;
-  --radius-slider-arrow: .25rem;
 
   /* Shadows. */
   --shadow-dropdown: 0 4px 8px color-mix(in srgb, var(--black) 10%, transparent);
@@ -219,35 +174,10 @@
   --font-size-content-gap-label-page: 14px;
 }
 
-@media screen and (max-width: 991px) {
-  :root {
-    --font-size-h1: 3.37rem;
-    --font-size-h2: 1.89rem;
-    --font-size-h4: 1.2rem;
-    --font-size-h4-heading: 1.2rem;
-  }
-}
-
 @media screen and (max-width: 767px) {
   :root {
-    --font-size-accordion-title: 1.25rem;
-    --font-size-h1: 2.15rem;
-    --font-size-h2: 1.21rem;
-    --font-size-h4: .97rem;
-    --font-size-h4-heading: 1.08rem;
-    --font-size-heading-style-h1: 2.5rem;
-    --font-size-heading-style-h2: 2rem;
-    --font-size-heading-style-h3: 1.5rem;
-    --font-size-heading-style-h4: 1rem;
-    --font-size-heading-style-h5: .875rem;
-    --font-size-heading-style-h6: .75rem;
-    --font-size-text-large: 1.25rem;
-  }
-}
-
-@media screen and (max-width: 479px) {
-  :root {
-    --font-size-h4-heading: .97rem;
-    --font-size-heading-style-h6: 14px;
+    --font-size-h1: 32px;
+    --font-size-h2: 26px;
+    --font-size-h3: 19px;
   }
 }

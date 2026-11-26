@@ -2,6 +2,7 @@
 // Hero: the 2024 camp's title band (breadcrumb and h1 at the bottom of a 28rem green band
 // under a dark overlay). Used by chi-tiet-trai-he (old `section_camp-detail_hero`).
 import BrandName from "../../components/BrandName.astro";
+import Kicker from "../../components/Kicker.astro";
 import Section from "../../components/Section.astro";
 ---
 
@@ -9,7 +10,7 @@ import Section from "../../components/Section.astro";
   <div class="bottom">
     <div class="inner">
       <div class="lead">
-        <p class="crumb"><BrandName /> academy &gt; chương trình &gt; trại hè 2024</p>
+        <div class="crumb"><Kicker flush><BrandName /> academy &gt; chương trình &gt; trại hè 2024</Kicker></div>
         <h1 class="title">Quy hoạch Tuyến tính- Linear Programming</h1>
       </div>
     </div>
@@ -54,16 +55,11 @@ import Section from "../../components/Section.astro";
 
   .crumb {
     margin-bottom: 1rem;
-    color: var(--color-text-accent);
     text-align: left;
-    text-transform: uppercase;
   }
 
   .title {
     color: var(--color-text-heading);
-    font-size: var(--font-size-heading-style-h1);
-    font-weight: var(--font-weight-heading-style);
-    line-height: var(--line-height-heading-style-h1);
   }
 
   .backdrop {

@@ -6,6 +6,7 @@
   inline content gap; production shows plain text. Fades up on scroll.
 */
 import ContentGap from "../../components/ContentGap.astro";
+import Kicker from "../../components/Kicker.astro";
 import Section from "../../components/Section.astro";
 import { campTopics } from "./camp-topics";
 ---
@@ -14,9 +15,9 @@ import { campTopics } from "./camp-topics";
   <div class="layout">
     <div class="intro">
       <div class="crumb">
-        <div class="tagline">Các chủ đề trại hè</div>
+        <Kicker flush>Các chủ đề trại hè</Kicker>
       </div>
-      <h2 class="title">Hành trình học thuật qua các mùa trại</h2>
+      <h2>Hành trình học thuật qua các mùa trại</h2>
       <p class="lead">
         Mỗi trại hè PiMA mang một chủ đề riêng, xoay quanh các lĩnh vực Toán học hiện đại và ứng dụng thực tiễn. Từ tối
         ưu hóa, học máy đến khoa học dữ liệu và sinh học tính toán, chương trình giúp học sinh khám phá chiều sâu của Toán
@@ -65,19 +66,6 @@ import { campTopics } from "./camp-topics";
     margin-bottom: 0.5rem;
   }
 
-  .tagline {
-    display: inline-block;
-    color: var(--color-text-accent);
-    font-weight: var(--font-weight-semibold);
-    text-transform: uppercase;
-  }
-
-  .title {
-    font-size: var(--font-size-heading-style-h2);
-    font-weight: var(--font-weight-heading-style);
-    line-height: var(--line-height-heading-style-h2);
-  }
-
   .lead {
     margin-bottom: 1rem;
     color: var(--color-text);
@@ -91,7 +79,7 @@ import { campTopics } from "./camp-topics";
     margin-bottom: 2rem;
     padding: 0.125rem 2rem 1rem;
     border: 1px solid var(--color-border-accent);
-    border-radius: var(--radius-card-small);
+    border-radius: var(--radius);
     background-color: var(--color-background);
   }
 
@@ -104,9 +92,10 @@ import { campTopics } from "./camp-topics";
   .year {
     margin-bottom: 0.5rem;
     color: var(--color-text-accent);
-    font-size: var(--font-size-heading-style-h5);
-    font-weight: var(--font-weight-bold);
-    line-height: var(--line-height-heading-style-h5);
+    font-size: var(--font-size-body);
+    font-weight: var(--font-weight-extrabold);
+    line-height: var(--line-height-body);
+    font-variant-numeric: tabular-nums;
   }
 
   .more {

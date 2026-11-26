@@ -336,7 +336,7 @@ const isGap = (item: Link) => item.href === "/su-kien-blog/";
     align-items: flex-start;
     width: 100%;
     color: var(--color-text-on-dark);
-    font-size: var(--font-size-nav);
+    font-size: var(--font-size-body);
     background-color: var(--color-background);
   }
 
@@ -349,8 +349,8 @@ const isGap = (item: Link) => item.href === "/su-kien-blog/";
     margin-left: auto;
     margin-right: auto;
     padding: 0.75rem 1rem;
-    border-bottom-left-radius: var(--radius-card);
-    border-bottom-right-radius: var(--radius-card);
+    border-bottom-left-radius: var(--radius);
+    border-bottom-right-radius: var(--radius);
   }
 
   .left,
@@ -425,9 +425,10 @@ const isGap = (item: Link) => item.href === "/su-kien-blog/";
     gap: 0.5rem;
     max-width: 100%;
     padding: 0.5em 0.75em;
-    border-radius: var(--radius-pill);
+    border-radius: var(--radius);
     color: color-mix(in srgb, currentColor 75%, transparent);
     background-color: color-mix(in srgb, currentColor 0%, transparent);
+    font-weight: var(--font-weight-semibold);
     white-space: nowrap;
     word-break: keep-all;
     text-decoration: none;
@@ -435,7 +436,6 @@ const isGap = (item: Link) => item.href === "/su-kien-blog/";
 
   .link:hover {
     color: inherit;
-    font-weight: var(--font-weight-semibold);
   }
 
   .link[aria-current="page"] {
@@ -486,7 +486,7 @@ const isGap = (item: Link) => item.href === "/su-kien-blog/";
   }
 
   .panel {
-    border-radius: var(--radius-card);
+    border-radius: var(--radius);
     background-color: var(--color-background);
     box-shadow: var(--shadow-dropdown);
   }
@@ -510,7 +510,7 @@ const isGap = (item: Link) => item.href === "/su-kien-blog/";
     max-width: 100%;
     padding: 0.75em 1em;
     color: var(--color-text);
-    font-weight: var(--font-weight-regular);
+    font-weight: var(--font-weight-semibold);
     text-decoration: none;
     transition: color 0.2s;
   }
@@ -565,7 +565,7 @@ const isGap = (item: Link) => item.href === "/su-kien-blog/";
       max-height: calc(100dvh - 10rem);
       padding: 1rem;
       overflow: auto;
-      border-radius: var(--radius-nav-menu);
+      border-radius: var(--radius);
       background-color: var(--color-background);
       box-shadow: var(--shadow-dropdown);
     }
@@ -588,7 +588,7 @@ const isGap = (item: Link) => item.href === "/su-kien-blog/";
     .link,
     .sub-link {
       justify-content: space-between;
-      font-size: var(--font-size-nav-link-menu);
+      font-size: var(--font-size-nav-menu);
     }
 
     .link:hover {
@@ -606,7 +606,7 @@ const isGap = (item: Link) => item.href === "/su-kien-blog/";
 
     .dropdown-list {
       position: relative;
-      border-radius: var(--radius-card);
+      border-radius: var(--radius);
     }
 
     .panel {

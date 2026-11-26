@@ -13,12 +13,6 @@ export interface Testimonial {
   /** Role lines, rendered with <br> between them. */
   role: string[];
   avatar: ImageMetadata;
-  /**
-   * A one-off look three cards had on the old site (it wrapped the name in a <strong> with
-   * its own class): "bold" 700 instead of 600, "bolder" the browser's bolder <strong>,
-   * "bolder-accent" the same in the accent green. Kept until the redesign (#46).
-   */
-  nameLook?: "bold" | "bolder" | "bolder-accent";
 }
 
 export const testimonials: Testimonial[] = [
@@ -35,7 +29,6 @@ export const testimonials: Testimonial[] = [
     name: "Nguyễn Mạc Nam Trung",
     role: ["Trại sinh PIMA 2019", "Học viên thạc sĩ Toán học, ĐH Paris Cité, Pháp"],
     avatar: avatar5,
-    nameLook: "bold",
   },
   {
     quote:
@@ -50,7 +43,6 @@ export const testimonials: Testimonial[] = [
     name: "Vòng Vĩnh Toàn",
     role: ["Trại sinh PiMA 2021", "SV năm ba ngành Khoa học Máy tính, Trường ĐH Khoa học tự nhiên, ĐHQG-HCM"],
     avatar: avatar6,
-    nameLook: "bolder-accent",
   },
   {
     quote:
@@ -65,6 +57,5 @@ export const testimonials: Testimonial[] = [
     name: "Hoàng Ngọc Dung",
     role: ["Trại sinh PIMA 2023", "SV năm hai ngành Hệ thống nhúng và IoT, Trường ĐH Sư phạm Kỹ thuật, TPHCM"],
     avatar: avatar7,
-    nameLook: "bolder",
   },
 ];

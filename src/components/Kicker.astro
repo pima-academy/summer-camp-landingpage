@@ -4,11 +4,12 @@
   ("ĐỐI TÁC CỦA PiMA", "TÁC ĐỘNG"). Renders a <p>, not a heading, so the page's
   heading outline stays correct. Put <BrandName /> inside for "PiMA".
 
-  Brand look (docs/brand.md, Typography): text in the text colour (black, white on the
-  dark-green tone) under a 40 × 4 px PiMA Green rule. The rule sits alone on the first
-  line box, so the parent's `text-align` places it: left over left-aligned text, centred
-  over centred text, with 12px between rule and text. Margins are the old h5 ones (10px above, 0.7em below); `flush`
-  drops both (old `is-no-margin`), for a kicker whose spacing comes from its parent.
+  Brand look (docs/brand.md, Typography): 14 px extrabold uppercase, letter-spaced, in the
+  text colour (black, white on the dark-green tone), under a 40 × 4 px PiMA Green rule. The
+  rule sits alone on the first line box, so the parent's `text-align` places it: left over
+  left-aligned text, centred over centred text, with 12px between rule and text. Margins are
+  the old h5 ones (10px above, 0.7em below); `flush` drops both (old `is-no-margin`), for a
+  kicker whose spacing comes from its parent.
 
     <Kicker>đối tác của <BrandName /></Kicker>
     <Kicker flush>trại hè toán học</Kicker>
@@ -33,8 +34,9 @@ const { flush = false, class: className, ...attrs } = Astro.props;
     margin-bottom: 0.7em;
     color: var(--color-text);
     font-size: var(--font-size-kicker);
-    font-weight: var(--font-weight-semibold);
-    line-height: var(--line-height-h5);
+    font-weight: var(--font-weight-extrabold);
+    line-height: var(--line-height-kicker);
+    letter-spacing: var(--letter-spacing-kicker);
     text-transform: uppercase;
   }
 

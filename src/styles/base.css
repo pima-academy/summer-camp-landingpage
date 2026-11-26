@@ -32,7 +32,8 @@ body {
 }
 
 /* Headings. Sizes per breakpoint are redeclared in tokens.css. h6 keeps the browser's look.
-   h1 and h2 take the heading colour (Dark Green, white on the dark-green tone); h3–h6 the text colour. */
+   h1 and h2 take the heading colour (Dark Green, white on the dark-green tone); h3–h6 the text colour.
+   The brand has three heading roles: h4 takes the h3 role, h5 is a bold body-size label. */
 h1,
 h2 {
   color: var(--color-text-heading);
@@ -67,18 +68,18 @@ h3 {
 h4 {
   margin-top: 10px;
   margin-bottom: 0.5em;
-  font-size: var(--font-size-h4);
-  font-weight: var(--font-weight-h4);
-  line-height: var(--line-height-h4);
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-h3);
+  line-height: var(--line-height-h3);
   letter-spacing: -0.01em;
 }
 
 h5 {
   margin-top: 10px;
   margin-bottom: 0.7em;
-  font-size: var(--font-size-h5);
-  font-weight: var(--font-weight-h5);
-  line-height: var(--line-height-h5);
+  font-size: var(--font-size-body);
+  font-weight: var(--font-weight-bold);
+  line-height: var(--line-height-h3);
   letter-spacing: 0;
 }
 
@@ -94,7 +95,7 @@ ul {
 
 b,
 strong {
-  font-weight: var(--font-weight-strong);
+  font-weight: var(--font-weight-bold);
 }
 
 a {
@@ -120,7 +121,7 @@ img {
   max-width: 100%;
   height: auto;
   vertical-align: middle;
-  border-radius: var(--radius-image);
+  border-radius: var(--radius);
   overflow: visible;
 }
 
@@ -128,7 +129,7 @@ img {
 label {
   display: block;
   margin-bottom: 5px;
-  font-weight: var(--font-weight-label);
+  font-weight: var(--font-weight-bold);
 }
 
 button,

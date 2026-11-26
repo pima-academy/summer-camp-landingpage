@@ -6,6 +6,7 @@ import { Image } from "astro:assets";
 import hero from "../../assets/images/hero-image-homepage.png";
 import BrandName from "../../components/BrandName.astro";
 import Button from "../../components/Button.astro";
+import Kicker from "../../components/Kicker.astro";
 import Section from "../../components/Section.astro";
 import { fluidWidths } from "../../lib/image-widths";
 ---
@@ -13,9 +14,8 @@ import { fluidWidths } from "../../lib/image-widths";
 <Section name="hero" width="large" spacing="medium" animate>
   <div class="layout">
     <div class="intro">
-      <!-- Not a Kicker: bigger, bold and responsive (old `h4-heading text-style-green`). -->
-      <p class="eyebrow"><BrandName /> ACADEMY</p>
-      <h1 class="title">Khám phá những biên giới mới của toán học và ứng dụng</h1>
+      <Kicker flush><BrandName /> ACADEMY</Kicker>
+      <h1>Khám phá những biên giới mới của toán học và ứng dụng</h1>
       <p class="lead">
         Biến đam mê toán học thành hành trình chinh phục trí tuệ nhân tạo, khoa học dữ liệu và công nghệ tương lai cùng
         cộng đồng tài năng Việt Nam.
@@ -49,22 +49,6 @@ import { fluidWidths } from "../../lib/image-widths";
     max-width: 56rem;
     margin-bottom: 5rem;
     text-align: center;
-  }
-
-  .eyebrow {
-    margin-top: 0;
-    margin-bottom: 0.5em;
-    color: var(--color-text-accent);
-    font-size: var(--font-size-h4-heading);
-    font-weight: var(--font-weight-bold);
-    line-height: var(--line-height-h4-heading);
-    letter-spacing: -0.01em;
-  }
-
-  .title {
-    font-size: var(--font-size-heading-style-h2);
-    font-weight: var(--font-weight-heading-style);
-    line-height: var(--line-height-heading-style-h2);
   }
 
   .lead {
