@@ -1,0 +1,145 @@
+---
+// Accordion: the ve-chung-toi "Xuất phát điểm / Tầm nhìn / Sứ mệnh" panels
+// (`.layout351_*` markup, replaces Webflow interactions a-27/a-28).
+//
+//   <Accordion>
+//     <AccordionPanel number="01" title="Xuất phát điểm" open>…</AccordionPanel>
+//     <AccordionPanel number="02" title="Tầm nhìn">…</AccordionPanel>
+//     <AccordionPanel number="03" title="Sứ mệnh">…</AccordionPanel>
+//   </Accordion>
+//
+// One panel is always open (`.active` on `.layout351_accordion` and its
+// `.layout351_column-content`); clicking a closed panel's button opens it and
+// closes the others, clicking the open one does nothing.
+// - ≥ 992 px: the open panel is 100% wide, the others 5rem (CSS width transition).
+// - ≤ 991 px: the open panel's content has auto height, the others 0 (the
+//   script animates between pixel heights, then hands back to CSS).
+// - 500 ms ease both ways; no transition with prefers-reduced-motion.
+// - Without JS (`html` lacks `js-ready`) every panel's text is shown: stacked
+//   open panels on desktop, all contents expanded below 992 px.
+---
+
+<div class="layout351_content" data-accordion>
+  <slot />
+</div>
+
+<style>
+  .layout351_content :global(.layout351_column) {
+    appearance: none;
+    background: transparent;
+    border: 0;
+    padding-left: 0;
+    padding-right: 0;
+    margin: 0;
+    color: inherit;
+    font: inherit;
+    letter-spacing: inherit;
+    text-align: inherit;
+  }
+
+  /* The old column title was an <h3>: keep its margins on the <span>
+     (a flex item, so already block-level; ≤ 991 px hides it). */
+  .layout351_content :global(.layout351_column-vertical-text) {
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  /* overflow: hidden on the panel would clip an outside focus ring. */
+  .layout351_content :global(.layout351_column:focus-visible) {
+    outline: 0.125rem solid #4d65ff;
+    outline-offset: -0.25rem;
+  }
+
+  @media screen and (min-width: 992px) {
+    .layout351_content :global(.layout351_accordion) {
+      transition: width 500ms ease;
+    }
+
+    :global(html:not(.js-ready)) .layout351_content {
+      flex-direction: column;
+      height: auto;
+    }
+
+    :global(html:not(.js-ready)) .layout351_content :global(.layout351_accordion) {
+      width: 100%;
+    }
+  }
+
+  @media screen and (max-width: 991px) {
+    .layout351_content :global(.layout351_column-content) {
+      transition: height 500ms ease;
+    }
+
+    :global(html.js-ready)
+      .layout351_content
+      :global(.layout351_accordion:not(.active) .layout351_column-content) {
+      height: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .layout351_content :global(.layout351_accordion),
+    .layout351_content :global(.layout351_column-content) {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  const DURATION = 500;
+
+  for (const root of document.querySelectorAll<HTMLElement>("[data-accordion]")) {
+    const panels = [...root.querySelectorAll<HTMLElement>(":scope > [data-accordion-panel]")];
+    const parts = panels.map((panel) => ({
+      panel,
+      button: panel.querySelector<HTMLButtonElement>(".layout351_column")!,
+      content: panel.querySelector<HTMLElement>(".layout351_column-content")!,
+    }));
+    const timers = new Map<HTMLElement, number>();
+
+    const setOpen = (open: (typeof parts)[number]) => {
+      // Start heights, read before any class change (only matter below 992 px,
+      // where height is what animates; above, the CSS width transition runs).
+      const start = parts.map(({ content }) => content.getBoundingClientRect().height);
+
+      for (const p of parts) {
+        const isOpen = p === open;
+        p.panel.classList.toggle("active", isOpen);
+        p.content.classList.toggle("active", isOpen);
+        p.button.setAttribute("aria-expanded", String(isOpen));
+        p.content.inert = !isOpen;
+      }
+
+      const animate =
+        matchMedia("(max-width: 991px)").matches &&
+        !matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (!animate) return;
+
+      parts.forEach(({ content }, i) => {
+        clearTimeout(timers.get(content));
+        content.style.transition = "none";
+        content.style.height = `${start[i]}px`;
+      });
+      void root.offsetHeight;
+      for (const p of parts) {
+        const { content } = p;
+        content.style.transition = "";
+        content.style.height = p === open ? `${content.scrollHeight}px` : "0px";
+        // Hand back to CSS (auto / 0) once the transition is over.
+        timers.set(
+          content,
+          window.setTimeout(() => {
+            content.style.height = "";
+          }, DURATION + 50),
+        );
+      }
+    };
+
+    for (const p of parts) {
+      p.content.inert = !p.panel.classList.contains("active");
+      p.button.addEventListener("click", () => {
+        if (!p.panel.classList.contains("active")) setOpen(p);
+      });
+    }
+  }
+</script>
