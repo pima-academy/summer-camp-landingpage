@@ -33,10 +33,13 @@ async function open({ width, hasTouch = false, javaScriptEnabled = true }) {
   return page;
 }
 
-const button = ".w-nav-button";
-const menu = ".w-nav-menu";
-const toggle = ".w-dropdown-toggle";
-const list = ".w-dropdown-list";
+// Found by ARIA wiring, not by class: the menu button controls #nav-menu, the
+// "Chương trình" toggle controls its list.
+const button = '[aria-controls="nav-menu"]';
+const menu = "#nav-menu";
+const toggle = '[aria-controls^="nav-dropdown-list-"]';
+const list = '[id^="nav-dropdown-list-"]';
+const box = (page, selector) => page.locator(selector).boundingBox();
 const settle = (page) => page.waitForTimeout(500);
 
 for (const width of [390, 820]) {
@@ -48,9 +51,10 @@ for (const width of [390, 820]) {
     await page.click(button);
     await settle(page);
     assert.equal(await page.isVisible(menu), true, "menu shown");
-    assert.match(await page.getAttribute(button, "class"), /\bw--open\b/);
     assert.equal(await page.getAttribute(button, "aria-expanded"), "true");
-    assert.equal(await page.locator(".w-nav-overlay [data-nav-menu-open]").count(), 1, "menu inside overlay");
+    const header = await box(page, "header");
+    const shown = await box(page, menu);
+    assert.ok(Math.abs(shown.y - (header.y + header.height)) <= 1, "menu drops down right under the header");
     const navLink = page.locator(`${menu} a[href="/ve-chung-toi/"]`);
     assert.equal(await navLink.isVisible(), true, "links reachable");
 
@@ -62,9 +66,7 @@ for (const width of [390, 820]) {
     await page.click(button);
     await settle(page);
     assert.equal(await page.isVisible(menu), false, "menu closed");
-    assert.doesNotMatch(await page.getAttribute(button, "class"), /\bw--open\b/);
     assert.equal(await page.getAttribute(button, "aria-expanded"), "false");
-    assert.equal(await page.locator(".nav-right > .w-nav-menu").count(), 1, "menu back in place");
 
     await page.mouse.wheel(0, 1000);
     await page.waitForTimeout(200);
@@ -72,6 +74,21 @@ for (const width of [390, 820]) {
     await page.context().close();
   });
 }
+
+test("a menu opened on mobile is back in the header bar at desktop width", { skip }, async () => {
+  const page = await open({ width: 390 });
+  await page.click(button);
+  await settle(page);
+  await page.setViewportSize({ width: 1440, height: 800 });
+  await settle(page);
+  assert.equal(await page.getAttribute(button, "aria-expanded"), "false", "resizing closes it");
+  assert.equal(await page.isVisible(button), false, "no hamburger on desktop");
+  const header = await box(page, "header");
+  const link = await box(page, `${menu} a[href="/ve-chung-toi/"]`);
+  assert.ok(link && link.y >= header.y && link.y + link.height <= header.y + header.height, "links inline in the bar");
+  assert.equal(await page.evaluate(() => document.documentElement.style.overflow), "", "scroll unlocked");
+  await page.context().close();
+});
 
 test("the hamburger works from the keyboard and Esc closes the menu", { skip }, async () => {
   const page = await open({ width: 390 });
@@ -104,8 +121,6 @@ test("on desktop the dropdown opens on hover and closes on leave", { skip }, asy
   await page.hover(toggle);
   await settle(page);
   assert.equal(await page.isVisible(list), true);
-  assert.match(await page.getAttribute(toggle, "class"), /\bw--open\b/);
-  assert.match(await page.getAttribute(list, "class"), /\bw--open\b/);
   assert.equal(await page.getAttribute(toggle, "aria-expanded"), "true");
   await page.hover(`${list} a[href="/khoa-hoc/"]`);
   assert.equal(await page.isVisible(list), true, "stays open while moving into the list");
@@ -127,7 +142,7 @@ test("on desktop the dropdown opens on keyboard focus and Esc closes it", { skip
   await page.keyboard.press("Escape");
   await settle(page);
   assert.equal(await page.isVisible(list), false);
-  assert.equal(await page.evaluate(() => document.activeElement.matches(".w-dropdown-toggle")), true, "focus back on toggle");
+  assert.equal(await page.evaluate(() => document.activeElement.matches('[aria-controls^="nav-dropdown-list-"]')), true, "focus back on toggle");
   await page.keyboard.press("Enter");
   await settle(page);
   assert.equal(await page.isVisible(list), true, "Enter reopens");

@@ -31,8 +31,8 @@ function mediaBlocks(sheet, query) {
 }
 
 test("nav and site footer fade up", { skip }, () => {
-  assert.match(html, /<div class="nav inverse-nav"[^>]*data-animate="fade-up"/);
-  assert.match(html, /<footer class="footer"[^>]*data-animate="fade-up"/);
+  assert.match(html, /<header\b[^>]*data-animate="fade-up"/);
+  assert.match(html, /<footer\b[^>]*data-animate="fade-up"/);
 });
 
 test("the page runs the animation script", { skip }, () => {
