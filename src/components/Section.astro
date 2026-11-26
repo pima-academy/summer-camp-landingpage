@@ -3,13 +3,13 @@
   Primitive: Section, the outer frame of every section (a full-width band of a page).
   Every file in src/sections/ renders its content through it.
 
-  Renders <section data-section="<name>"> with the page gutter (5 % each side), a
+  Renders <section data-section="<name>"> with the page gutter (--gutter-page each side), a
   centred content column of the given `width` and the vertical padding of the given
   `spacing`. It replaces the old `padding-global > container-* > padding-section-*`
   wrapper and reproduces its values:
 
-    width   small 48rem | medium 64rem (default) | large 80rem max width
-            (medium adds --space-4 side padding at ≤ 767 px, none at ≤ 479 px)
+    width   small --width-small | medium --width-medium (default) | large --width-large
+            max width (medium adds --gutter-medium side padding: --space-4 at ≤ 767 px only)
     spacing none 0 | small --space-12 (--space-8 ≤ 767) | medium --space-20 (--space-16
             ≤ 991, --space-12 ≤ 767) (default) | large --space-28 (--space-24 ≤ 991,
             --space-16 ≤ 767), top and bottom
@@ -109,8 +109,8 @@ const {
   }
 
   .band {
-    padding-left: 5%;
-    padding-right: 5%;
+    padding-left: var(--gutter-page);
+    padding-right: var(--gutter-page);
   }
 
   .column {
@@ -120,15 +120,17 @@ const {
   }
 
   .column[data-width="small"] {
-    max-width: 48rem;
+    max-width: var(--width-small);
   }
 
   .column[data-width="medium"] {
-    max-width: 64rem;
+    max-width: var(--width-medium);
+    padding-left: var(--gutter-medium);
+    padding-right: var(--gutter-medium);
   }
 
   .column[data-width="large"] {
-    max-width: 80rem;
+    max-width: var(--width-large);
   }
 
   .column[data-spacing="small"] {
@@ -159,11 +161,6 @@ const {
   }
 
   @media screen and (max-width: 767px) {
-    .column[data-width="medium"] {
-      padding-left: var(--space-4);
-      padding-right: var(--space-4);
-    }
-
     .column[data-spacing="small"] {
       padding-top: var(--space-8);
       padding-bottom: var(--space-8);
@@ -177,13 +174,6 @@ const {
     .column[data-spacing="large"] {
       padding-top: var(--space-16);
       padding-bottom: var(--space-16);
-    }
-  }
-
-  @media screen and (max-width: 479px) {
-    .column[data-width="medium"] {
-      padding-left: 0;
-      padding-right: 0;
     }
   }
 </style>

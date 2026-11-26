@@ -90,8 +90,8 @@ const headingParts = (heading: string) => heading.split(/pima/i);
 
 <style>
   footer {
-    padding-left: 5%;
-    padding-right: 5%;
+    padding-left: var(--gutter-page);
+    padding-right: var(--gutter-page);
     /* Icon circles on black: PiMA Green circle, black glyph. */
     --color-icon-circle: var(--color-icon-circle-footer);
     --color-icon-circle-glyph: var(--color-icon-circle-glyph-footer);
@@ -101,7 +101,7 @@ const headingParts = (heading: string) => heading.split(/pima/i);
 
   .inner {
     width: 100%;
-    max-width: 80rem;
+    max-width: var(--width-large);
     margin-left: auto;
     margin-right: auto;
     padding-top: var(--space-20);
