@@ -1,6 +1,6 @@
 ---
 // FounderStory: "Câu chuyện của nhà sáng lập", the founders' photo (sticky on desktop) next
-// to a six-step timeline whose dots darken as they scroll past (`data-timeline-dot`, see
+// to a six-step timeline whose dots turn PiMA Green as they scroll past (`data-timeline-dot`, see
 // src/lib/animate.ts). Used by ve-chung-toi only (old `section_about-timeline` /
 // `timeline1_*`); carries the footer anchor "Câu chuyện nhà sáng lập". Fades up on scroll.
 import { Image } from "astro:assets";
@@ -152,13 +152,20 @@ const timeline = [
     margin-left: calc(-1 * var(--space-32));
   }
 
+  /* Idle grey until the page scrolls to it, then PiMA Green: src/lib/animate.ts sets
+     --timeline-dot-progress (0 to 1). Without the script the dot stays green. */
   .dot {
+    --timeline-dot-progress: 1;
     z-index: 2;
     width: 0.9375rem;
     height: 0.9375rem;
     margin-top: var(--space-8);
     border-radius: var(--radius-circle);
-    background-color: var(--color-background-accent);
+    background-color: color-mix(
+      in srgb,
+      var(--color-background-accent) calc(var(--timeline-dot-progress) * 100%),
+      var(--color-background-timeline-dot-idle)
+    );
   }
 
   @media screen and (max-width: 991px) {

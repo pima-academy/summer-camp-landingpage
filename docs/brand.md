@@ -115,7 +115,7 @@ The footer is a `--black` band: column headings `--pima-green`, text and links `
 - Every margin, padding, gap and offset used as spacing is a step of the spacing scale: `--space-1`, `--space-2`, `--space-3`, `--space-4`, `--space-5`, `--space-6`, `--space-8`, `--space-10`, `--space-12`, `--space-16`, `--space-20`, `--space-24`, `--space-28`, `--space-32`. A step's number is its size in 4 px units, so `--space-4` is 16 px. Fewer, regular steps keep the rhythm of the page even.
 - A value between two steps takes the nearest one, the larger on a tie. Negative spacing is `calc(-1 * var(--space-32))` and the like.
 - `0`, `auto`, percentages (the 5 % page gutter) and layout widths (`max-width` of a column) are not spacing.
-- A section's vertical padding comes from `Section`'s `spacing`; a kicker brings its own margins (`--space-3` above and below, `--space-3` between rule and text).
+- A section's vertical padding comes from `Section`'s `spacing`; a kicker brings its own margins (`--space-3` above and below, `--space-3` between rule and text); `<Kicker flush>` drops the margins above and below when its parent sets the spacing.
 - Letter spacing is a type value: `--letter-spacing-heading` (h1, h2, h4), `--letter-spacing-kicker`, `--letter-spacing-marquee`, `--letter-spacing-tag`.
 
 ## Shapes

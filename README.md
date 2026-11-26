@@ -1,8 +1,8 @@
 # pimavn.com
 
-The PiMA Academy website, rebuilt on [Astro](https://astro.build) from the old Webflow export. Same look as the old site, with the obvious defects fixed ([spec #15](https://github.com/pima-academy/summer-camp-landingpage/issues/15)). Decisions are recorded in `docs/adr/`; terms are defined in `GLOSSARY.md`; the brand guidelines for the web are in `docs/brand.md`.
+The PiMA Academy website, rebuilt on [Astro](https://astro.build) from the old Webflow export ([spec #15](https://github.com/pima-academy/summer-camp-landingpage/issues/15)), then restructured into section files with scoped CSS and brought in line with PiMA's brand guidelines ([spec #56](https://github.com/pima-academy/summer-camp-landingpage/issues/56)). No Webflow CSS or class names remain outside the two frozen camp pages (`src/camp/`). Decisions are recorded in `docs/adr/`; terms are defined in `GLOSSARY.md`; the brand guidelines for the web are in `docs/brand.md`; how to build UI is in `CLAUDE.md` ("Building UI").
 
-**`site/` is the old site** (the Webflow export). pimavn.com still serves it through GitHub Pages (`.github/workflows/pages.yml`) until the switch-over, a separate effort that deploys the rebuild and then deletes `site/`. Until then, treat `site/` as read-only: it is the reference for "keep the design".
+**`site/` is the old site** (the Webflow export). pimavn.com still serves it through GitHub Pages (`.github/workflows/pages.yml`) until the switch-over, a separate effort that deploys the rebuild and then deletes `site/`. Until then, treat `site/` as read-only: an archive, no longer the reference for the look (`docs/brand.md` is).
 
 ## Requirements
 
@@ -27,17 +27,24 @@ CI (`.github/workflows/build.yml`, on PRs into `dev`) runs `npm ci`, `npm run bu
 
 ```
 src/
-  pages/            published routes, 404.astro, [...gap].astro (gap pages, dev only)
+  pages/            routes: each page file is BaseLayout + SEO data + its ordered sections;
+                    404.astro, [...gap].astro (gap pages) and catalogue/ (every primitive), both dev only
+  sections/         sections used by 2+ pages, with their .ts data files
+  sections/<slug>/  sections used by one page (home for /)
+  components/       primitives (Section, Button, Kicker, BrandName, Icon) and widgets (Slider, Marquee,
+                    Accordion, ContactForm, ContentGap)
+  layouts/          BaseLayout, Head, Nav, Footer
+  lib/              page scripts: scroll animations, current link, slider steps, image widths
   gap-pages/        pages whose content does not exist yet (served in dev only)
-  layouts/          BaseLayout: head, metadata, Nav, <main>, Footer
-  components/       Nav, Footer, shared sections, scripted parts (Slider, Accordion, ...), ContentGap
+  camp/             the frozen 2025/2026 camp pages' layout, components and old CSS (do not edit)
   data/site.ts      site-wide facts: contact details, social links, nav and footer links, form endpoint
   assets/images/    every image used in markup (rendered with astro:assets as WebP)
+  assets/icons/     the Tabler SVGs drawn by Icon
   assets/logo/      the ten brand logo files (see docs/brand.md)
   styles/           global CSS: fonts.css, tokens.css (every design value), base.css, animations.css
-public/             favicon and apple-touch-icon (from scripts/make-icons.mjs), robots.txt
+public/             favicons and apple-touch-icon (from scripts/make-icons.mjs), robots.txt
 apps-script/        Code.gs, the contact form backend (Google Apps Script)
-scripts/            tests and the screenshot script
+scripts/            tests, the screenshot script, make-icons.mjs, the one-off image migration scripts
 site/               the old site, kept until the switch-over
 ```
 
