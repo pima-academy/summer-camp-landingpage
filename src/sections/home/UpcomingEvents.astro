@@ -1,0 +1,112 @@
+---
+// UpcomingEvents: "Sự kiện sắp tới", the events list as the old site left it: one empty event
+// card (only its "Xem thêm" link shows) and the "No items found." line. Used by index only
+// (old `section_upcoming-events`), inside a ContentGap, so it never reaches the build.
+// The old card's date tag, image, title and summary were empty CMS fields; they come back
+// with the content. Fades up on scroll.
+import Button from "../../components/Button.astro";
+import Section from "../../components/Section.astro";
+---
+
+<Section name="upcoming-events" width="medium" spacing="none" animate>
+  <div class="head">
+    <h2 class="heading">Sự kiện sắp tới</h2>
+  </div>
+  <div class="events">
+    <div role="list">
+      <div role="listitem" class="event">
+        <div class="event-body">
+          <div class="more">
+            <Button href="#" variant="link">Xem thêm</Button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="empty">No items found.</div>
+  </div>
+</Section>
+
+<style>
+  .head {
+    padding-top: 2rem;
+    text-align: center;
+  }
+
+  .heading {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .events {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  /* Half of the row (old Webflow grid column `w-col-6`). */
+  .event {
+    width: 50%;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  /* The card's padding plus the old 1rem spacer under the (empty) text. */
+  .event-body {
+    padding: 1.25rem 0.5rem 1rem;
+  }
+
+  .more {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    color: var(--color-text-dark-green);
+  }
+
+  .empty {
+    padding: 10px;
+    background-color: var(--color-background-empty-list);
+  }
+
+  @media screen and (max-width: 991px) {
+    .head {
+      padding-top: 1.5rem;
+    }
+
+    .event-body {
+      padding: 3rem 2rem 2rem;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .head {
+      padding-top: 1.25rem;
+    }
+
+    .events {
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+    }
+
+    .event {
+      width: 100%;
+    }
+
+    .event-body {
+      padding: 2.5rem 1.5rem 1.5rem;
+    }
+  }
+
+  @media screen and (max-width: 479px) {
+    .event {
+      margin-bottom: 1rem;
+    }
+
+    .event-body {
+      padding: 1.125rem 0 0.5rem;
+    }
+
+    .more {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+</style>
