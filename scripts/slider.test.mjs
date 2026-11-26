@@ -50,12 +50,22 @@ after(async () => {
   server?.close();
 });
 
-/** Opens a page at 1440 px with every off-site request aborted. */
+/**
+ * Opens a page at 1440 px with every off-site request aborted. With `fakeClock`
+ * the page's timers run only on `page.clock.runFor`: clock.install() alone leaves
+ * the fake clock flowing in real time, so a slow load would already eat into the
+ * autoplay delay before the test starts counting. Pausing it before `goto` makes
+ * the page scripts start on a stopped clock.
+ */
 async function open(path, { reducedMotion = "no-preference", fakeClock = false, hasTouch = false } = {}) {
   const context = await browser.newContext({ viewport: { width: 1440, height: 900 }, reducedMotion, hasTouch });
   const page = await context.newPage();
   await page.route("**/*", (route) => (route.request().url().startsWith(origin) ? route.continue() : route.abort()));
-  if (fakeClock) await page.clock.install();
+  if (fakeClock) {
+    const now = Date.now();
+    await page.clock.install({ time: now });
+    await page.clock.pauseAt(now);
+  }
   await page.goto(origin + path, { waitUntil: "load" });
   return page;
 }
