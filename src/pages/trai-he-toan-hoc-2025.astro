@@ -1,0 +1,502 @@
+---
+// trai-he-toan-hoc-2025 (old site/trai-he-toan-hoc-2025.html), camp chrome.
+import { Image } from "astro:assets";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import CampHeaderPhotos from "../components/CampHeaderPhotos.astro";
+import CampMentors from "../components/CampMentors.astro";
+import CampTeamPhoto from "../components/CampTeamPhoto.astro";
+import MentorLogos from "../components/MentorLogos.astro";
+import VideoLightbox from "../components/VideoLightbox.astro";
+import { campHeaderPhotos2025 } from "../components/camp-header-photos";
+import { advisors, organizers } from "../components/camp-mentors";
+import { mentorLogos2025 } from "../components/mentor-logos";
+import { contact, social } from "../data/site";
+import { campPageIds } from "../lib/w-node";
+
+import logo from "../assets/images/logo-horizontal.png";
+import groupPhoto from "../assets/images/481775555-1135445305045604-7304032333989245886-n.avif";
+import videoThumb from "../assets/images/503130863-1201891305067670-4173964297695478867-n.jpg";
+import bookOpen from "../assets/images/book-open.png";
+import ovalLoveTwo from "../assets/images/oval-love-two.png";
+import gift from "../assets/images/gift.png";
+import mapDraw from "../assets/images/map-draw.png";
+import facebookIcon from "../assets/images/facebook.png";
+import mailIcon from "../assets/images/mail-1.png";
+import phoneIcon from "../assets/images/phone-telephone.png";
+
+const applyHref = "https://qual.pimavn.com/apply";
+---
+
+<BaseLayout
+  title="Tuyển sinh trại hè toán học PiMA 2025"
+  description="Trại hè Toán học và Ứng dụng PiMA 2025 với chủ đề Toán học trong các Mô hình Tạo sinh: nội dung chương trình, quyền lợi, thông tin hai trại TP.HCM và Hà Nội, quy trình tuyển sinh, ban tổ chức, kinh phí và thông tin liên hệ."
+  hero={groupPhoto}
+  chrome="camp"
+>
+  <section data-animate="fade-up">
+    <div class="div-block-13">
+      <Image src={logo} alt="Logo PiMA" width={139} densities={[1, 2]} />
+    </div>
+  </section>
+  <section data-animate="fade-up">
+    <header class="section_header76">
+      <div class="w-layout-grid header76_component">
+        <div id="w-node-_218a4f3f-1ec3-6b02-c6e7-6cfff48ef3a7-57c668ac" class="header76_content-left">
+          <div class="margin-bottom margin-small">
+            <h1 class="heading-style-h1">Trại hè PiMA 2025</h1>
+          </div>
+          <p class="text-size-medium">
+            <strong>Trại hè Toán học và Ứng dụng 2025 </strong>mang đến chủ đề <em
+              >Toán học trong các Mô hình Tạo sinh - The Mathematics of Generative Models</em
+            >&nbsp; – khám phá nền tảng Toán học đằng sau Trí tuệ Nhân tạo.&nbsp;&nbsp;
+          </p>
+          <div class="margin-top margin-medium">
+            <div class="button-group-3">
+              <a href={applyHref} target="_blank" class="button w-button">Đăng ký ngay</a>
+            </div>
+          </div>
+        </div>
+        <div class="header76_content-right">
+          <CampHeaderPhotos columns={campHeaderPhotos2025} page={campPageIds[2025]} />
+        </div>
+      </div>
+    </header>
+  </section>
+  <section data-animate="fade-up" class="section background-lime">
+    <div class="container">
+      <div class="w-layout-grid grid-layout desktop-1-column grid-gap-md">
+        <div
+          id="w-node-_0e5e29ba-f675-1e16-1118-9d5b1e06e5b0-1e06e5ad"
+          class="w-layout-grid grid-layout mobile-landscape-1-column grid-gap-xxl w-node-_9d4ddbc8-91f2-2d90-6d0c-8db4e5a2eb3c-57c668ac"
+        >
+          <div id="w-node-_04ace8f3-da46-7be6-0ce5-fd2512ae1821-57c668ac" class="div-block-8">
+            <div class="text-style-green">Trại hè Toán học &amp; Ứng dụng PiMA 2025</div>
+            <h2 class="utility-margin-bottom-0">Toán học trong <br />Mô hình <br />Tạo sinh<br /></h2>
+            <div class="spacer-tiny"></div>
+            <h3 class="utility-margin-bottom-0">The Mathematics of Generative Models</h3>
+          </div>
+          <p id="w-node-_9d4ddbc8-91f2-2d90-6d0c-8db4e5a2eb3b-57c668ac" class="utility-margin-bottom-0">
+            Toán học trong các Mô hình Tạo sinh (The Mathematics of Generative Models) là một chủ đề nằm ở giao điểm
+            giữa Toán học, Khoa học Dữ liệu và Trí tuệ Nhân tạo. Mô hình tạo sinh là những hệ thống có khả năng <em
+              >học</em
+            > từ dữ liệu đã có để tạo ra dữ liệu mới theo yêu cầu của người dùng. Ví dụ điển hình là ChatGPT (tạo văn
+            bản ngôn ngữ tự nhiên) và DALL-E (tạo hình ảnh từ văn bản).<br /><br />Đằng sau sức mạnh của các mô hình
+            này là hệ thống các công cụ toán học và kỹ thuật lập trình sâu sắc. Những kiến thức đó được tích hợp để xử
+            lý dữ liệu và huấn luyện mô hình. Qua đó, các kiến thức như đại số tuyến tính, vi tích phân và xác suất
+            thống kê chính là nền tảng tạo nên trí tuệ của những hệ thống hiện đại này.&nbsp;
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section data-animate="fade-up">
+    <section class="section_layout11">
+      <div class="padding-global">
+        <div class="container-large">
+          <div class="padding-section-large">
+            <div class="layout11_component">
+              <div class="w-layout-grid layout11_content">
+                <div class="layout11_content-left">
+                  <div class="margin-bottom margin-small">
+                    <h2>Nội dung chương trình</h2>
+                    <div class="spacer-medium"></div>
+                  </div>
+                  <div class="w-layout-grid layout11_item-list">
+                    <div class="layout11_item">
+                      <div class="text-block-6">1</div>
+                      <p>Tiếp thu các kiến thức về đại số tuyến tính, xác suất thống kê và học sâu</p>
+                    </div>
+                    <div class="layout11_item">
+                      <div class="text-block-6">2</div>
+                      <p>Học được các kỹ năng cơ bản về lập trình với Python và soạn thảo văn bản với LaTeX</p>
+                    </div>
+                    <div class="layout11_item">
+                      <div class="text-block-6">3</div>
+                      <p>
+                        Tìm hiểu cách ứng dụng các kiến thức trên vào việc khám phá các khía cạnh khác nhau của mô hình
+                        tạo sinh và ứng dụng của mô hình trong thực tế
+                      </p>
+                    </div>
+                    <div class="layout11_item">
+                      <div class="text-block-6">4</div>
+                      <p>
+                        Vận dụng các kiến thức và kĩ năng để hoàn thành một đề tài nhóm dưới sự hỗ trợ của các mentor
+                        đến từ các trường đại học lớn trong và ngoài nước.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <VideoLightbox
+                  videoId="8DKLYsikxTs"
+                  image={videoThumb}
+                  id="w-node-_64e8d45c-0150-2a2d-6940-55dbfd058f0c-57c668ac"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </section>
+  <section data-animate="fade-up" class="section">
+    <div
+      id="w-node-_04dc07b0-f222-1bb7-4b12-908691ce82ea-2a414fb1"
+      class="container small-container w-node-c220ef7e-c1c3-9e83-ac41-23d9bf317d23-57c668ac"
+    >
+      <div class="utility-text-align-center">
+        <h2 class="h2-heading">Quyền lợi tham gia trại hè</h2>
+      </div>
+    </div>
+    <div
+      id="w-node-_02b78139-80fa-2cba-6098-37d1454eba65-2a414fb1"
+      class="container utility-margin-top-3rem w-node-c220ef7e-c1c3-9e83-ac41-23d9bf317d5a-57c668ac"
+    >
+      <div class="w-layout-grid grid-layout desktop-6-column grid-gap-xs">
+        <div
+          id="w-node-b656e859-eb9e-4959-df50-f95e5c680050-2a414fb1"
+          data-animate="fade-up"
+          class="card w-node-c220ef7e-c1c3-9e83-ac41-23d9bf317d39-57c668ac"
+        >
+          <div class="card-body">
+            <div class="icon utility-margin-bottom-1rem">
+              <Image src={bookOpen} alt="" width={32} densities={[1, 2]} />
+            </div>
+            <h3
+              id="w-node-b656e859-eb9e-4959-df50-f95e5c680056-2a414fb1"
+              class="h4-heading w-node-c220ef7e-c1c3-9e83-ac41-23d9bf317d35-57c668ac"
+            >
+              Trải nghiệm Toán cao cấp
+            </h3>
+            <p class="paragraph-sm utility-margin-bottom-0">
+              Được tiếp xúc với kiến thức Toán cao cấp và trải nghiệm nghiên cứu ứng dụng thực tế của Toán-Tin học
+              trong các lĩnh vực hiện đại.
+            </p>
+          </div>
+        </div>
+        <div
+          id="w-node-_869e264c-f799-a82a-1ddf-808b44fc9ad1-2a414fb1"
+          data-animate="fade-up"
+          class="card w-node-c220ef7e-c1c3-9e83-ac41-23d9bf317d42-57c668ac"
+        >
+          <div class="card-body">
+            <div class="icon utility-margin-bottom-1rem">
+              <Image src={ovalLoveTwo} alt="" width={32} densities={[1, 2]} />
+            </div>
+            <h3
+              id="w-node-_869e264c-f799-a82a-1ddf-808b44fc9ad7-2a414fb1"
+              class="h4-heading w-node-c220ef7e-c1c3-9e83-ac41-23d9bf317d3e-57c668ac"
+            >
+              Môi trường học thuật tự do và thân thiện
+            </h3>
+            <p class="paragraph-sm utility-margin-bottom-0">
+              Tham gia vào không gian học tập mở, khuyến khích sự sáng tạo và trao đổi ý tưởng trong bầu không khí thân
+              thiện.
+            </p>
+          </div>
+        </div>
+        <div
+          id="w-node-cae319d3-de70-7079-ad73-7d5936dec8b1-2a414fb1"
+          data-animate="fade-up"
+          class="card w-node-c220ef7e-c1c3-9e83-ac41-23d9bf317d2d-57c668ac"
+        >
+          <div class="card-body">
+            <div class="icon utility-margin-bottom-1rem">
+              <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M19.25 12C19.25 16.0041 16.0041 19.25 12 19.25C7.99594 19.25 4.75 16.0041 4.75 12C4.75 7.99594 7.99594 4.75 12 4.75C16.0041 4.75 19.25 7.99594 19.25 12Z"
+                  stroke="currentColor"
+                  stroke-width="1.5"></path>
+                <path d="M9 12L11 14L15.5 9.5" stroke="currentColor" stroke-width="1.5"></path>
+              </svg>
+            </div>
+            <h3
+              id="w-node-_1aedaacb-c587-c73e-a604-bc772a414fc0-2a414fb1"
+              class="h4-heading w-node-c220ef7e-c1c3-9e83-ac41-23d9bf317d29-57c668ac"
+            >
+              Học bổng tham gia
+            </h3>
+            <p class="paragraph-sm utility-margin-bottom-0">
+              Cơ hội nhận học bổng bán phần và toàn phần cho những đơn tuyển xuất sắc.
+            </p>
+          </div>
+        </div>
+        <div
+          id="w-node-_7d499eac-006a-4908-53fa-ff8a0ad9ccbc-2a414fb1"
+          data-animate="fade-up"
+          class="card w-node-c220ef7e-c1c3-9e83-ac41-23d9bf317d4f-57c668ac"
+        >
+          <div class="card-body">
+            <div class="icon utility-margin-bottom-1rem">
+              <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M19 12C15.134 12 12 15.134 12 19C12 15.134 8.86599 12 5 12C8.86599 12 12 8.86599 12 5C12 8.86599 15.134 12 19 12Z"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  stroke-linejoin="round"></path>
+                <path d="M8 16L5.5 18.5" stroke="currentColor" stroke-width="1.5"></path>
+                <path d="M8 8L5.5 5.5" stroke="currentColor" stroke-width="1.5"></path>
+                <path d="M16 16L18.5 18.5" stroke="currentColor" stroke-width="1.5"></path>
+                <path d="M16 8L18.5 5.5" stroke="currentColor" stroke-width="1.5"></path>
+              </svg>
+            </div>
+            <h3
+              id="w-node-_7d499eac-006a-4908-53fa-ff8a0ad9ccc2-2a414fb1"
+              class="h4-heading w-node-c220ef7e-c1c3-9e83-ac41-23d9bf317d4b-57c668ac"
+            >
+              Kết nối cộng đồng
+            </h3>
+            <p class="paragraph-sm utility-margin-bottom-0">
+              Học hỏi và giao lưu với những người cùng đam mê, bao gồm các trại sinh và mentor có thành tích xuất sắc
+              trong học tập và nghiên cứu.
+            </p>
+          </div>
+        </div>
+        <div
+          id="w-node-_19737996-af67-e768-0345-0074e48dc4bf-2a414fb1"
+          data-animate="fade-up"
+          class="card w-node-c220ef7e-c1c3-9e83-ac41-23d9bf317d58-57c668ac"
+        >
+          <div class="card-body">
+            <div class="icon utility-margin-bottom-1rem">
+              <Image src={gift} alt="" width={32} densities={[1, 2]} />
+            </div>
+            <h3
+              id="w-node-_19737996-af67-e768-0345-0074e48dc4c5-2a414fb1"
+              class="h4-heading w-node-c220ef7e-c1c3-9e83-ac41-23d9bf317d54-57c668ac"
+            >
+              Chứng nhận và quà tặng
+            </h3>
+            <p class="paragraph-sm utility-margin-bottom-0">
+              Nhận giấy chứng nhận hoàn thành chương trình cùng các phần quà lưu niệm đặc biệt từ PiMA.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="div-block-11">
+      <div class="spacer-medium"></div>
+      <a href={applyHref} target="_blank" class="button w-button">Ứng tuyển ngay</a>
+    </div>
+  </section>
+  <section data-animate="fade-up" class="section">
+    <h2 class="text-align-center">Thông tin trại hè</h2>
+    <div class="spacer-medium"></div>
+    <div class="container">
+      <div class="w-layout-grid grid-layout mobile-landscape-1-column grid-gap-md">
+        <div data-animate="fade-up" class="card">
+          <div class="card-body">
+            <div class="icon-large utility-margin-bottom-1rem">
+              <Image src={mapDraw} alt="" width={48} densities={[1, 2]} />
+            </div>
+            <h3
+              id="w-node-_759f40b0-fb3f-61f8-3a22-d20a8e576345-8e57633c"
+              class="heading-5 w-node-_57d99341-2303-08a8-4557-3f87fc113861-57c668ac"
+            >
+              <strong>Trại TP.HCM</strong>
+            </h3>
+            <p class="utility-margin-bottom-0">
+              Thời gian dự kiến: từ 02/08/2025 đến 09/08/2025<br />Hình thức: Trực tiếp<br />Địa điểm: Đại học Khoa
+              học Tự nhiên, ĐHQG-HCM cơ sở Nguyễn Văn Cừ<br />Địa chỉ: 227 Đ. Nguyễn Văn Cừ, Phường 4, Quận 5, Thành
+              phố Hồ Chí Minh
+            </p>
+          </div>
+        </div>
+        <div data-animate="fade-up" class="card">
+          <div class="card-body">
+            <div class="icon-large utility-margin-bottom-1rem">
+              <Image src={mapDraw} alt="" width={48} densities={[1, 2]} />
+            </div>
+            <h3
+              id="w-node-_1876b5ee-a32d-2be0-c333-06dec3a0cd23-8e57633c"
+              class="w-node-_57d99341-2303-08a8-4557-3f87fc11386d-57c668ac"
+            >
+              <strong>Trại Hà Nội</strong>
+            </h3>
+            <p class="utility-margin-bottom-0">
+              Thời gian dự kiến: từ 11/08/2025 đến 18/08/2025<br />Hình thức: Trực tiếp<br />Địa điểm: Viện Nghiên
+              cứu cao cấp về Toán - VIASM<br />Địa chỉ: 161 P. Huỳnh Thúc Kháng, Láng Hạ, Đống Đa, Hà Nội
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section data-animate="fade-up" class="section-2 background-gray">
+    <div class="padding-global">
+      <div class="container-medium">
+        <div class="padding-section-small">
+          <div class="spacer-large"></div>
+          <div class="div-block-10">
+            <h3>Quy trình &nbsp;<br />tuyển sinh &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h3>
+            <p class="paragraph-5">
+              Đối tượng: Học sinh Trung học Phổ thông (năm học 2024-2025) trong và ngoài nước<br />Số lượng tuyển: 48
+              bạn (mỗi địa điểm 24 bạn) <br />Quá trình tuyển sinh bao gồm 2 vòng: vòng hồ sơ đơn tuyển và vòng phỏng
+              vấn<br /><strong>Hạn chót nộp đơn: 23:59 ngày 15 tháng 06 năm 2025 (GMT +7)</strong>
+            </p>
+          </div>
+          <div class="spacer-large"></div>
+          <div class="timeline20_component">
+            <div class="timeline20_content">
+              <div class="timeline20_list">
+                <div id="w-node-cd6782ab-5778-b7d2-bc67-a3a5fde55776-57c668ac" class="timeline20_item">
+                  <div class="timeline20_empty-space"></div>
+                  <div class="timeline20_progress-wrapper">
+                    <div class="timeline20_circle"></div>
+                    <div class="timeline20_progress-line"></div>
+                  </div>
+                  <div class="timeline20_item-content">
+                    <div class="margin-bottom margin-xxsmall">
+                      <h3 class="heading-style-h5">26/05 - 17/06</h3>
+                    </div>
+                    <p>Hoàn thành đơn <br />ứng tuyển</p>
+                  </div>
+                </div>
+                <div id="w-node-cd6782ab-5778-b7d2-bc67-a3a5fde55781-57c668ac" class="timeline20_item">
+                  <div id="w-node-cd6782ab-5778-b7d2-bc67-a3a5fde55782-57c668ac" class="timeline20_item-content">
+                    <div class="margin-bottom margin-xxsmall">
+                      <h3 class="heading-style-h5">09/06 - 17/06</h3>
+                    </div>
+                    <p>Hoàn thành đề <br />tuyển sinh</p>
+                  </div>
+                  <div id="w-node-cd6782ab-5778-b7d2-bc67-a3a5fde55788-57c668ac" class="timeline20_progress-wrapper">
+                    <div class="timeline20_circle"></div>
+                    <div class="timeline20_progress-line"></div>
+                  </div>
+                  <div class="timeline20_empty-space"></div>
+                </div>
+                <div id="w-node-cd6782ab-5778-b7d2-bc67-a3a5fde5578c-57c668ac" class="timeline20_item">
+                  <div class="timeline20_empty-space"></div>
+                  <div class="timeline20_progress-wrapper">
+                    <div class="timeline20_circle"></div>
+                    <div class="timeline20_progress-line"></div>
+                  </div>
+                  <div class="timeline20_item-content">
+                    <div class="margin-bottom margin-xxsmall">
+                      <h3 class="heading-style-h5">18/06</h3>
+                    </div>
+                    <p>Thông báo kết quả vòng đơn</p>
+                  </div>
+                </div>
+                <div id="w-node-cd6782ab-5778-b7d2-bc67-a3a5fde55797-57c668ac" class="timeline20_item">
+                  <div id="w-node-cd6782ab-5778-b7d2-bc67-a3a5fde55798-57c668ac" class="timeline20_item-content">
+                    <div class="margin-bottom margin-xxsmall">
+                      <h3 class="heading-style-h5">21/06 - 30/06</h3>
+                    </div>
+                    <p>Vòng phỏng vấn</p>
+                  </div>
+                  <div id="w-node-cd6782ab-5778-b7d2-bc67-a3a5fde5579e-57c668ac" class="timeline20_progress-wrapper">
+                    <div class="timeline20_circle"></div>
+                    <div class="timeline20_progress-line"></div>
+                  </div>
+                  <div class="timeline20_empty-space"></div>
+                </div>
+                <div id="w-node-cd6782ab-5778-b7d2-bc67-a3a5fde557a2-57c668ac" class="timeline20_item">
+                  <div class="timeline20_empty-space"></div>
+                  <div class="timeline20_progress-wrapper">
+                    <div class="timeline20_circle"></div>
+                    <div class="timeline20_progress-line hide-mobile-landscape"></div>
+                  </div>
+                  <div class="timeline20_item-content">
+                    <div class="margin-bottom margin-xxsmall">
+                      <h3 class="heading-style-h5">03/07</h3>
+                    </div>
+                    <p>BTC thông báo kết quả tuyển sinh</p>
+                  </div>
+                </div>
+              </div>
+              <div class="timeline20_fade-overlay-right"></div>
+            </div>
+          </div>
+          <div class="spacer-medium"></div>
+          <div class="div-block-11">
+            <a href={applyHref} target="_blank" class="button w-button">Ứng tuyển ngay</a>
+          </div>
+          <div class="spacer-large"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <CampMentors heading="Ban tổ chức" mentors={organizers} />
+  <CampMentors heading="Cố vấn chuyên môn" mentors={advisors} />
+  <MentorLogos lists={mentorLogos2025} page={campPageIds[2025]} />
+  <section data-animate="fade-up">
+    <header class="section_header61 text-color-white">
+      <div class="padding-global">
+        <div class="container-large">
+          <div class="padding-section-medium">
+            <div class="header61_component">
+              <div class="w-layout-grid header61_content">
+                <div class="header49_content-left">
+                  <h2 class="heading-style-h3">Kinh phí <br />tham gia &nbsp;&nbsp;&nbsp;</h2>
+                </div>
+                <div class="header49_content-right">
+                  <p class="text-size-medium">
+                    Chi phí tham dự là 8 000 000 VNĐ (đã tài trợ hoàn toàn học phí và chưa bao gồm chi phí di chuyển
+                    đến, rời trại) <br />PiMA sẽ xét cấp học bổng với các mức khác nhau tùy vào hoàn cảnh, và sẽ nỗ lực
+                    hỗ trợ tối đa trong khả năng để nhiều bạn có cơ hội tham gia.<br />Quá trình đánh giá không bị ảnh
+                    hưởng bởi yếu tố tài chính của học sinh.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+  </section>
+  <section data-animate="fade-up" class="section">
+    <div class="container">
+      <div class="w-layout-grid grid-layout mobile-landscape-1-column grid-gap-lg">
+        <div
+          id="w-node-_79e71f8a-57be-8d53-8fd1-c0c0ae2bb607-ae2bb604"
+          class="w-node-bb1be076-9118-35bd-b6b4-d95e2ab1cf07-57c668ac"
+        >
+          <h2 class="heading-6">Thông tin liên hệ</h2>
+        </div>
+        <ul
+          id="w-node-_79e71f8a-57be-8d53-8fd1-c0c0ae2bb60e-ae2bb604"
+          role="list"
+          class="flex-horizontal flex-vertical flex-gap-sm utility-margin-bottom-0 w-node-bb1be076-9118-35bd-b6b4-d95e2ab1cf26-57c668ac w-list-unstyled"
+        >
+          <li class="flex-horizontal flex-gap-xs utility-margin-bottom-0">
+            <div class="icon-large icon-container">
+              <Image src={facebookIcon} alt="" width={48} densities={[1, 2]} />
+            </div>
+            <div>
+              <h3 class="h5-heading utility-margin-bottom-0"><strong>Fanpage</strong></h3>
+              <div class="utility-display-block">
+                <a href={social.facebook.href} target="_blank" class="text-link secondary-text-link"
+                  ><strong class="bold-text">PiMA - Projects in Mathematics and Applications </strong><br /></a
+                >
+              </div>
+            </div>
+          </li>
+          <li class="flex-horizontal flex-gap-xs utility-margin-bottom-0">
+            <div class="icon-large icon-container">
+              <Image src={mailIcon} alt="" width={48} densities={[1, 2]} />
+            </div>
+            <div>
+              <h3 class="h5-heading utility-margin-bottom-0"><strong>Email</strong></h3>
+              <div>
+                <a href={contact.emailHref}>{contact.email}</a>
+              </div>
+            </div>
+          </li>
+          <li class="flex-horizontal flex-gap-xs utility-margin-bottom-0">
+            <div class="icon-large icon-container">
+              <Image src={phoneIcon} alt="" width={48} densities={[1, 2]} />
+            </div>
+            <div>
+              <h3 class="h5-heading utility-margin-bottom-0"><strong>Hotline</strong></h3>
+              <div>
+                Về tham dự trại hè: 0339 333 303 (Thanh Thảo)<br />Về quá trình tuyển sinh: 0941 909 775 (Quân Phùng)
+              </div>
+            </div>
+          </li>
+        </ul>
+        <CampTeamPhoto alt="Đội ngũ PiMA" page={campPageIds[2025]} />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+

@@ -1,0 +1,41 @@
+---
+// One panel of <Accordion> (ve-chung-toi "Xuất phát điểm / Tầm nhìn / Sứ mệnh").
+// Only valid as a direct child of <Accordion>; the script and styles live there.
+//   <AccordionPanel number="01" title="Xuất phát điểm" open>…content…</AccordionPanel>
+// The default slot is the panel text, rendered inside `.layout351_content-wrapper`.
+interface Props {
+  /** Label shown at the top of the column ("01"). */
+  number: string;
+  /** Vertical column title; also the button's accessible name. */
+  title: string;
+  /** The panel open at start (exactly one per accordion, normally the first). */
+  open?: boolean;
+}
+
+const { number, title, open = false } = Astro.props;
+const id = `accordion-panel-${Math.random().toString(36).slice(2, 10)}`;
+---
+
+<div class:list={["layout351_accordion", { active: open }]} data-accordion-panel>
+  <button
+    type="button"
+    class="layout351_column"
+    id={`${id}-button`}
+    aria-expanded={open ? "true" : "false"}
+    aria-controls={id}
+    aria-label={title}
+  >
+    <span class="layout351_column-text">{number}</span>
+    <span class="layout351_column-vertical-text">{title}</span>
+  </button>
+  <div
+    class:list={["layout351_column-content", { active: open }]}
+    id={id}
+    role="region"
+    aria-labelledby={`${id}-button`}
+  >
+    <div class="layout351_content-wrapper">
+      <slot />
+    </div>
+  </div>
+</div>

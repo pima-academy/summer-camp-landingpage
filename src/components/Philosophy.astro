@@ -1,0 +1,47 @@
+---
+// "Học viên chính là động lực và trọng tâm" section (old `section_philosophy`, identical
+// on index and ve-chung-toi). The button is a plain link on every page (old ve-chung-toi
+// only had `w--current` on it because webflow.js added it). Fades up on scroll.
+import { Image } from "astro:assets";
+import team from "../assets/images/pima-team.png";
+import { fluidWidths } from "../lib/image-widths";
+---
+
+<div data-animate="fade-up" class="section_philosophy">
+  <div class="padding-global">
+    <div class="container-large">
+      <div class="content-wrapper">
+        <div class="spacer-large"></div>
+        <div class="text-align-center">
+          <div class="max-width-large align-center">
+            <div class="margin-bottom margin-small">
+              <h2>Học viên chính là động lực và trọng tâm</h2>
+            </div>
+            <p class="text-size-medium text-align-center">
+              PiMA (Projects in Mathematics and Applications) được thành lập với sứ mệnh phát triển giáo dục toán học và
+              ứng dụng tại Việt Nam. Thông qua các chương trình giảng dạy tiên tiến, lấy người học làm trung tâm, PiMA không
+              chỉ giúp người học hiểu sâu hơn về toán mà còn trang bị kỹ năng vận dụng toán học vào thực tiễn.
+            </p>
+            <div class="spacer-small"></div>
+            <div class="margin-top">
+              <div class="button-group is-center">
+                <a href="/ve-chung-toi/" class="button is-dark-green w-button">Câu chuyện về PiMA</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="spacer-medium"></div>
+        <div class="team-image-wrapper">
+          <Image
+            src={team}
+            alt="Đội ngũ PiMA"
+            widths={fluidWidths(team)}
+            sizes="(max-width: 1135px) 90vw, 1022px"
+            loading="eager"
+            class="team-image"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

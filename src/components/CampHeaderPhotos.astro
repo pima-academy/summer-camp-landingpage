@@ -1,0 +1,60 @@
+---
+// Header photo collage of the 2025/2026 camp pages: the `.header76_images-layout` of
+// `section_header76`, two columns scrolling upwards. A decorative collage (alt="" as on
+// the old pages).
+//   import { campHeaderPhotos2025 } from "../components/camp-header-photos";
+//   <CampHeaderPhotos columns={campHeaderPhotos2025} page={campPageIds[2025]} />
+// Marquee: one period = the old content once (both lists); 60 s per period keeps the old
+// IX2 pace (it moved half of that per 30 s).
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+import { fluidWidths } from "../lib/image-widths";
+import { wNodeId } from "../lib/w-node";
+import type { CampHeaderPhotoColumns } from "./camp-header-photos";
+import Marquee from "./Marquee.astro";
+
+interface Props {
+  columns: CampHeaderPhotoColumns;
+  /** Webflow page id the old `w-node-*` ids end with. */
+  page: string;
+}
+
+const { columns, page } = Astro.props;
+
+// Each photo is `object-fit: cover` in a 5:6 box that is calc(45vw - 8px) wide up to 991 px
+// and calc(22.5vw - 8px) from 992 px (167.5 / 361 / 316 px at 390 / 820 / 1440), so a
+// landscape photo is drawn wider than its box: `sizes` is the box width times
+// 1.2 × the photo's aspect ratio (at least 1).
+const coverSizes = (img: ImageMetadata) => {
+  const k = Math.max(1, (1.2 * img.width) / img.height).toFixed(2);
+  return `(max-width: 991px) calc((45vw - 8px) * ${k}), calc((22.5vw - 8px) * ${k})`;
+};
+---
+
+<div class="header76_images-layout">
+  {
+    [
+      { class: "header76_image-list-left", lists: columns.left },
+      { class: "header76_image-list-right", lists: columns.right },
+    ].map((column) => (
+      <Marquee direction="y" class={column.class} duration={60}>
+        {column.lists.map((list) => (
+          <div id={wNodeId(list.node, page)} class="header76_image-list">
+            {list.photos.map((p) => (
+              <div id={wNodeId(p.node, page)} class="header76_image-wrapper">
+                <Image
+                  id={p.imgNode && wNodeId(p.imgNode, page)}
+                  src={p.image}
+                  alt=""
+                  widths={fluidWidths(p.image)}
+                  sizes={coverSizes(p.image)}
+                  class="header76_image"
+                />
+              </div>
+            ))}
+          </div>
+        ))}
+      </Marquee>
+    ))
+  }
+</div>

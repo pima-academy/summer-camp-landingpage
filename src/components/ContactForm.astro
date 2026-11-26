@@ -1,0 +1,191 @@
+---
+// Contact form: the old Webflow form markup and classes (`.w-form` with the form,
+// `w-form-done` and `w-form-fail`), wired to the Apps Script endpoint in site.ts.
+// variant "section": the form inside ContactSection (index, ve-chung-toi, khoa-hoc,
+//   trai-he-toan-hoc-pima). variant "lien-he": lien-he's form (single-line
+//   "Nội dung", all inputs `text-field-2`, its own grid ids).
+// The `w-node-*` ids are kept: the stylesheet places the grid cells by id.
+// Backend contract: apps-script/Code.gs.
+import { contact, contactFormEndpoint } from "../data/site";
+
+interface Props {
+  variant?: "section" | "lien-he";
+}
+
+const { variant = "section" } = Astro.props;
+const isSection = variant === "section";
+
+const ids = isSection
+  ? {
+      wrapper: "w-node-_0c2083cd-c1e4-c88d-7bf8-7019325b2151-adea4c64",
+      message: "w-node-bb4fa373-4e4b-10e0-80c6-55b4ef84a4ff-adea4c64",
+    }
+  : { wrapper: undefined, message: "w-node-bcb64683-ee7c-3592-b5e7-bb0599fe1232-190d9eeb" };
+
+// The section form alternates the two text-field classes as the old markup did.
+const fieldClass = (sectionClass: "text-field" | "text-field-2") =>
+  `${isSection ? sectionClass : "text-field-2"} w-input`;
+---
+
+<div id={ids.wrapper} class="w-form" data-contact-form>
+  {/* action + method: without JS the browser posts straight to the Apps Script. */}
+  <form action={contactFormEndpoint || undefined} method="post">
+    <input type="hidden" name="page" value={Astro.url.pathname} />
+    <div class="div-block-17">
+      <div class="form-text-field-wrapper">
+        <label for="contact-name">Họ và tên (*)</label><input
+          class={fieldClass("text-field")}
+          maxlength="256"
+          name="name"
+          placeholder="Nhập họ và tên của bạn"
+          type="text"
+          id="contact-name"
+          autocomplete="name"
+          required
+        />
+      </div>
+      <div class="form-text-field-wrapper">
+        <label for="contact-email">Email (*)</label><input
+          class={fieldClass("text-field-2")}
+          maxlength="256"
+          name="email"
+          placeholder="Nhập email của bạn"
+          type="email"
+          id="contact-email"
+          autocomplete="email"
+          required
+        />
+      </div>
+      <div class="form-text-field-wrapper">
+        <label for="contact-phone">Số điện thoại</label><input
+          class={fieldClass("text-field")}
+          maxlength="256"
+          name="phone"
+          placeholder="Nhập số điện thoại của bạn"
+          type="tel"
+          id="contact-phone"
+          autocomplete="tel"
+        />
+      </div>
+      <div class="form-text-field-wrapper">
+        <label for="contact-organization">Đơn vị/Tổ chức</label><input
+          class={fieldClass("text-field-2")}
+          maxlength="256"
+          name="organization"
+          placeholder="Nhập tên đơn vị công tác"
+          type="text"
+          id="contact-organization"
+          autocomplete="organization"
+        />
+      </div>
+      <div id={ids.message} class="form-text-field-wrapper">
+        <label for="contact-message">Nội dung liên hệ (*)</label>{
+          isSection ? (
+            <textarea
+              required
+              placeholder="Nhập nội dung"
+              maxlength="5000"
+              id="contact-message"
+              name="message"
+              class="textarea-2 w-input"
+            />
+          ) : (
+            <input
+              class="text-field-2 w-input"
+              maxlength="256"
+              name="message"
+              placeholder="Nhập nội dung lời nhắn"
+              type="text"
+              id="contact-message"
+              required
+            />
+          )
+        }
+      </div>
+    </div>
+    {/* Honeypot: hidden from people and screen readers; Code.gs drops any submission that fills it. */}
+    <div class="contact-form-honeypot" aria-hidden="true">
+      <label>Website <input type="text" name="website" tabindex="-1" autocomplete="off" /></label>
+    </div>
+    <div class="form-button">
+      <input type="submit" data-wait="Đang gửi…" class="submit-button w-button" value="Gửi yêu cầu" />
+    </div>
+  </form>
+  <div class="success-message w-form-done" role="status">
+    <div>Lời nhắn của bạn đã được gửi đi!</div>
+  </div>
+  <div class="w-form-fail" role="alert">
+    <div>
+      Chưa gửi được lời nhắn. Bạn vui lòng thử lại, hoặc liên hệ PiMA qua email <a href={contact.emailHref}
+        >{contact.email}</a
+      > hoặc số điện thoại <a href={contact.phoneHref} class="contact-form-nowrap">{contact.phone}</a>.
+    </div>
+  </div>
+</div>
+
+<style>
+  .contact-form-nowrap {
+    white-space: nowrap;
+  }
+
+  .contact-form-honeypot {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+</style>
+
+<script>
+  // Sends the form as a CORS simple request (POST, form-urlencoded, no custom
+  // headers) to the form's `action` (site.ts endpoint) and shows Webflow's states:
+  // "Đang gửi…" on the button while sending, `w-form-done` on success (form
+  // hidden), `w-form-fail` on any error or an empty endpoint (form and values
+  // kept). Native validation runs first: `submit` fires only when valid.
+  const TIMEOUT_MS = 30000;
+
+  async function send(endpoint: string, body: URLSearchParams): Promise<boolean> {
+    if (!endpoint) return false;
+    try {
+      const response = await fetch(endpoint, { method: "POST", body, signal: AbortSignal.timeout(TIMEOUT_MS) });
+      if (!response.ok) return false;
+      const result = await response.json();
+      return result?.ok === true;
+    } catch {
+      return false;
+    }
+  }
+
+  for (const wrapper of document.querySelectorAll<HTMLElement>("[data-contact-form]")) {
+    const form = wrapper.querySelector("form")!;
+    const button = form.querySelector<HTMLInputElement>('input[type="submit"]')!;
+    const done = wrapper.querySelector<HTMLElement>(".w-form-done")!;
+    const fail = wrapper.querySelector<HTMLElement>(".w-form-fail")!;
+    const label = button.value;
+    let sending = false;
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      // A flag, not `disabled`: a disabled button would change its look while sending.
+      if (sending) return;
+      sending = true;
+      fail.style.display = "";
+      button.value = button.dataset.wait ?? label;
+
+      const body = new URLSearchParams(new FormData(form) as unknown as Record<string, string>);
+      body.set("page", location.pathname);
+      const ok = await send(form.getAttribute("action") ?? "", body);
+
+      sending = false;
+      button.value = label;
+      if (ok) {
+        form.style.display = "none";
+        done.style.display = "block";
+      } else {
+        fail.style.display = "block";
+      }
+    });
+  }
+</script>

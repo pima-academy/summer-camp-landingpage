@@ -1,0 +1,51 @@
+---
+// "Các chương trình của chúng tôi" section (old `section_programs-overview`, identical on
+// index and ve-chung-toi). id="programs" is the target of index's in-page "#programs" link.
+// Fades up on scroll.
+import { Image } from "astro:assets";
+import campBanner from "../assets/images/trai-he-toan-hoc.png";
+import courseBanner from "../assets/images/khoa-hoc-toan-mo-hinh.png";
+import { fluidWidths } from "../lib/image-widths";
+import BrandName from "./BrandName.astro";
+
+const sizes = "(max-width: 991px) 45vw, 440px";
+---
+
+<div id="programs" data-animate="fade-up" class="section_programs-overview">
+  <div class="padding-global">
+    <div class="container-medium">
+      <div class="padding-section-small">
+        <div class="text-align-center">
+          <div class="max-width-large align-center">
+            <h5 class="text-style-green text-style-allcaps is-no-margin"><BrandName /> academy</h5>
+            <div class="margin-bottom margin-small">
+              <h2 class="heading-3">Các chương trình của chúng tôi</h2>
+              <div class="spacer-small"></div>
+            </div>
+            <p class="text-size-medium">
+              Từ các trường đại học danh tiếng đến doanh nghiệp công nghệ và viện nghiên cứu, PiMA tự hào đồng hành cùng
+              những đối tác có chung sứ mệnh: nâng cao chất lượng giáo dục và ứng dụng Toán học vào thực tiễn.
+            </p>
+          </div>
+        </div>
+        <div class="spacer-medium"></div>
+        <div class="text-align-center">
+          <div class="max-width-large align-center">
+            <div class="programs-list-wrapper">
+              <div class="program-banner-wrapper">
+                <a href="/trai-he-toan-hoc-pima/" class="w-inline-block">
+                  <Image src={campBanner} alt="Trại hè Toán học" widths={fluidWidths(campBanner)} sizes={sizes} />
+                </a>
+              </div>
+              <div class="program-banner-wrapper">
+                <a href="/khoa-hoc/" class="w-inline-block">
+                  <Image src={courseBanner} alt="Khóa học Toán Mô Hình" widths={fluidWidths(courseBanner)} sizes={sizes} />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

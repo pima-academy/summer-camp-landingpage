@@ -2,5 +2,13 @@
 *.zip
 .DS_Store
 
+# Astro
+node_modules/
+dist/
+.astro/
+
+# npm run shots output
+shots/
+
 # Personal Claude Code settings
 .claude/settings.local.json
