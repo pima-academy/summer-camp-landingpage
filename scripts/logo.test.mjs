@@ -4,11 +4,11 @@
 // Needs a fresh `npm run build`; skipped when dist/ is missing.
 import { test, before, after } from "node:test";
 import assert from "node:assert/strict";
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { chromium } from "playwright";
 import { PNG } from "pngjs";
-import { dist, distSkip as skip, readBuilt, serveDist } from "./test-lib.mjs";
+import { dist, distSkip as skip, readBuilt, root, serveDist, walk } from "./test-lib.mjs";
 
 const html = readBuilt("index.html");
 const between = (start, end) => {
@@ -129,4 +129,30 @@ test("the old favicon.png and webclip.png are gone", { skip }, () => {
   assert.doesNotMatch(head, /favicon\.png|webclip\.png/);
   assert.equal(existsSync(join(dist, "favicon.png")), false);
   assert.equal(existsSync(join(dist, "webclip.png")), false);
+});
+
+test("an old PiMA logo export is left only while something imports it (the camp pages)", () => {
+  const images = join(root, "src/assets/images");
+  const old = readdirSync(images).filter((f) => /^logo-(1|horizontal)[.-]/.test(f));
+  const sources = walk(join(root, "src"))
+    .filter((f) => /\.(astro|ts|mjs|css)$/.test(f))
+    .map((f) => readFileSync(f, "utf8"))
+    .join("\n");
+  const unused = old.filter((f) => !sources.includes(`assets/images/${f}"`));
+  assert.deepEqual(unused, []);
+});
+
+test("pages without a hero share the 1200 × 630 og:image: the horizontal logo on white", { skip }, () => {
+  const page = readBuilt("lien-he/index.html");
+  const meta = (name) => page.match(new RegExp(`<meta property="${name}" content="([^"]*)"`))?.[1];
+  assert.equal(meta("og:image:width"), "1200");
+  assert.equal(meta("og:image:height"), "630");
+  const img = png(new URL(meta("og:image")).pathname);
+  assert.ok(img, "og:image built as a PNG");
+  assert.deepEqual([img.width, img.height], [1200, 630]);
+  for (const [x, y] of [[0, 0], [1199, 0], [0, 629], [1199, 629]]) assert.deepEqual(pixel(img, x, y), [255, 255, 255, 255]);
+  // The logo 600 px wide (205 px tall) in the centre, so a centred square crop keeps it whole.
+  const art = ink(img);
+  assert.deepEqual(art.box, [300, 213, 899, 417]);
+  assert.ok(art.green > 0.4, `PiMA Green (${art.green})`);
 });
