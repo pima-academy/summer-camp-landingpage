@@ -16,7 +16,7 @@ test("each 'Về PiMA' footer anchor sits on its section", { skip }, () => {
     "gioi-thieu": byClass("section_about-header"),
     "tam-nhin-su-menh": byClass("about-feature"),
     "doi-tac-mang-luoi-nhan-tai": /data-section="partners"/,
-    "cac-tac-dong-tich-cuc": byClass("section_impact"),
+    "cac-tac-dong-tich-cuc": /data-section="impact"/,
     "cau-chuyen-nha-sang-lap": byClass("section_about-timeline"),
     "ke-hoach-tuong-lai": byClass("section_about-plan"),
   };

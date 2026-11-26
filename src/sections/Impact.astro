@@ -1,9 +1,10 @@
 ---
-// "Tác động" section (old `section_impact`, identical on index, ve-chung-toi and
-// trai-he-toan-hoc-pima): impact report link + highlight numbers. Fades up on scroll.
-// The `w-node-*` ids are kept: the stylesheet places the grid cells by id.
+// Impact: "Tác động" section, the impact report link and six highlight numbers. Used by
+// index, ve-chung-toi and trai-he-toan-hoc-pima (old `section_impact`). Fades up on scroll.
 import { Image } from "astro:assets";
 import report from "../assets/images/pima-impact-report.png";
+import Kicker from "../components/Kicker.astro";
+import Section from "../components/Section.astro";
 import { fluidWidths } from "../lib/image-widths";
 
 interface Props {
@@ -12,56 +13,92 @@ interface Props {
 }
 
 const { id = "tac-dong" } = Astro.props;
+
+const numbers = [
+  { value: "1000+", label: "Người tham gia" },
+  { value: "9", label: "Trại hè Toán học và Ứng dụng" },
+  { value: "50+", label: "Dự án học thuật của học sinh được hoàn thành" },
+  { value: "80+", label: "Bài giảng về Toán cao cấp và Ứng dụng" },
+  { value: "6", label: "Workshop tại các trường THPT trọng điểm tại TP.HCM" },
+  { value: "200+", label: "Trại sinh THPT tài năng được tuyển chọn" },
+];
 ---
 
-<div id={id} data-animate="fade-up" class="section_impact">
-  <div class="padding-global">
-    <div class="container-medium">
-      <div class="padding-section-medium">
-        <div class="impact_content-wrapper">
-          <div id="w-node-_2295c943-ebf5-0ead-92f0-947c3edad9a6-3edad9a1" class="impact_content-left">
-            <h5 class="text-style-allcaps text-style-green">tác động</h5>
-            <h2 class="heading-2">Những con số<br />nổi bật</h2>
-            <div class="spacer-small"></div>
-            <div class="impact-report_image-wrapper">
-              <a href="https://issuu.com/pimavn/docs/pima_impact_report_2016-2024_vietnamese_version_" class="w-inline-block">
-                <Image
-                  src={report}
-                  alt="Báo cáo tác động PiMA 2016–2024"
-                  widths={fluidWidths(report)}
-                  sizes="(max-width: 479px) 100vw, (max-width: 991px) 30vw, 331px"
-                />
-              </a>
-            </div>
-          </div>
-          <div id="w-node-_2295c943-ebf5-0ead-92f0-947c3edad9ae-3edad9a1" class="impact_content-right">
-            <div class="impact_highlight-numbers">
-              <h4 class="text-style-h4">1000+</h4>
-              <div>Người tham gia</div>
-            </div>
-            <div class="impact_highlight-numbers">
-              <h4 class="text-style-h4">9</h4>
-              <div>Trại hè Toán học và Ứng dụng</div>
-            </div>
-            <div class="impact_highlight-numbers">
-              <h4 class="text-style-h4">50+</h4>
-              <div>Dự án học thuật của học sinh được hoàn thành</div>
-            </div>
-            <div class="impact_highlight-numbers">
-              <h4 class="text-style-h4">80+</h4>
-              <div>Bài giảng về Toán cao cấp và Ứng dụng</div>
-            </div>
-            <div class="impact_highlight-numbers">
-              <h4 class="text-style-h4">6</h4>
-              <div>Workshop tại các trường THPT trọng điểm tại TP.HCM</div>
-            </div>
-            <div class="impact_highlight-numbers">
-              <h4 class="text-style-h4">200+</h4>
-              <div>Trại sinh THPT tài năng được tuyển chọn</div>
-            </div>
-          </div>
-        </div>
+<Section name="impact" spacing="medium" animate id={id}>
+  <div class="layout">
+    <div>
+      <Kicker>tác động</Kicker>
+      <h2 class="title">Những con số<br />nổi bật</h2>
+      <div class="report">
+        <a href="https://issuu.com/pimavn/docs/pima_impact_report_2016-2024_vietnamese_version_" class="report-link">
+          <Image
+            src={report}
+            alt="Báo cáo tác động PiMA 2016–2024"
+            widths={fluidWidths(report)}
+            sizes="(max-width: 479px) 100vw, (max-width: 991px) 30vw, 331px"
+          />
+        </a>
       </div>
     </div>
+    <div class="numbers">
+      {
+        numbers.map(({ value, label }) => (
+          <div>
+            <h4 class="value">{value}</h4>
+            <div>{label}</div>
+          </div>
+        ))
+      }
+    </div>
   </div>
-</div>
+</Section>
+
+<style>
+  .layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+
+  .title {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  /* 1rem gap under the heading (the old spacer). */
+  .report {
+    padding-top: 1rem;
+  }
+
+  .report-link {
+    display: inline-block;
+    max-width: 100%;
+  }
+
+  .numbers {
+    display: grid;
+    grid-column: span 2;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    padding-left: 4rem;
+  }
+
+  .value {
+    margin-top: 0;
+    margin-bottom: 0;
+    color: var(--color-text-accent);
+    font-size: var(--font-size-big-number);
+    font-weight: var(--font-weight-bold);
+  }
+
+  @media screen and (max-width: 479px) {
+    .layout {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .numbers {
+      padding-left: 0;
+    }
+  }
+</style>
