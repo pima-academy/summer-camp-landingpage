@@ -23,17 +23,17 @@
   --font-weight-extrabold: 800;
   --font-weight-h1: 400;
   --font-weight-h2: 700;
-  --font-weight-h2-heading: 400;
+  --font-weight-h3: 700;
   --font-weight-h4: 400;
-  --font-weight-h4-heading: 400;
   --font-weight-h5: 400;
-  --font-weight-h5-heading: 400;
   --font-weight-heading-style: 700;
   --font-weight-heading-style-h5: 500;
+  --font-weight-label: 700;
   --font-weight-light: 300;
   --font-weight-medium: 500;
   --font-weight-regular: 400;
   --font-weight-semibold: 600;
+  --font-weight-strong: 700;
 
   /* Font sizes. Sizes that change per breakpoint are redeclared in the media queries at the end. */
   --font-size-accordion-title: 1.5rem;
@@ -42,9 +42,7 @@
   --font-size-blog-event-heading: 16px;
   --font-size-body: 1rem;
   --font-size-button: 1rem;
-  --font-size-camp-stat: 4rem;
   --font-size-caption: 14px;
-  --font-size-course-card-title: 18px;
   --font-size-course-feature-title: 1.2rem;
   --font-size-course-mentor-name: 16px;
   --font-size-course-mentor-title: 14px;
@@ -55,22 +53,20 @@
   --font-size-footer-credit: .875rem;
   --font-size-h1: 4.21rem;
   --font-size-h2: 2.37rem;
-  --font-size-h2-heading: 2.37rem;
+  --font-size-h3: 24px;
   --font-size-h4: 1.33rem;
   --font-size-h4-heading: 1.33rem;
   --font-size-h5: 1rem;
-  --font-size-h5-heading: 1rem;
   --font-size-heading-style-h1: 4rem;
   --font-size-heading-style-h2: 3rem;
   --font-size-heading-style-h3: 2rem;
   --font-size-heading-style-h4: 1.5rem;
   --font-size-heading-style-h5: 16px;
   --font-size-heading-style-h6: 1rem;
-  --font-size-input: 1rem;
   --font-size-kicker: 1.33rem;
   --font-size-nav: 1rem;
   --font-size-nav-link-menu: 1.13rem;
-  --font-size-paragraph-sm: .88rem;
+  --font-size-pagination: 14px;
   --font-size-slider-nav: .5rem;
   --font-size-tag: .75rem;
   --font-size-text-large: 1.5rem;
@@ -85,27 +81,24 @@
   --line-height-button: 1.2;
   --line-height-button-link: 1;
   --line-height-field: 1.42857143;
+  --line-height-form-control: normal;
   --line-height-h1: 1.04em;
   --line-height-h2: 1.04em;
-  --line-height-h2-heading: 1.04em;
+  --line-height-h3: 30px;
   --line-height-h4: 1.3em;
   --line-height-h4-heading: 1.3em;
   --line-height-h5: 1.3em;
-  --line-height-h5-heading: 1.3em;
   --line-height-heading-style-h1: 1.1;
   --line-height-heading-style-h2: 1.2;
   --line-height-heading-style-h3: 1.2;
   --line-height-heading-style-h4: 1.4;
   --line-height-heading-style-h5: 1.5;
   --line-height-heading-style-h6: 1.5;
-  --line-height-input: 1.3;
-  --line-height-paragraph-sm: 1.6em;
 
   /* Text colours. */
   --color-text: #262628;
   --color-text-accent: #50b448;
   --color-text-accent-alt: #05aa53;
-  --color-text-accent-alt-hover: #05aa5399;
   --color-text-dark: #1f242f;
   --color-text-dark-green: #2b5314;
   --color-text-field: #333;
@@ -115,8 +108,7 @@
   --color-text-muted: #333741;
   --color-text-on-dark-hover: #fafafa;
   --color-text-on-dark-muted: #cecfd2;
-  --color-text-pale-lime: #e6f2bc;
-  --color-text-placeholder: #26262833;
+  --color-text-pagination: #333;
   --color-text-secondary: #85888e;
   --color-text-social-hover: #0c111d;
   --color-text-strong: black;
@@ -135,9 +127,10 @@
   /* Background colours of sections, cards and panels. */
   --color-background: #fff;
   --color-background-accent: #50b448;
-  --color-background-avatar: #f7f7f7;
   --color-background-dark: #3b3b3b;
   --color-background-dark-green: #2b5314;
+  /* The "No items found." box of a dev-only empty list (old `.w-dyn-empty`). */
+  --color-background-empty-list: #dddddd;
   --color-background-form-error: #ffdede;
   --color-background-founding-story: #326212;
   --color-background-highlight-card: #fafef5;
@@ -145,7 +138,6 @@
   --color-background-lime-faint: #f7fbeb;
   --color-background-lime-light: #e6f2bc;
   --color-background-lime-pale: #f2f8db;
-  --color-background-lime-soft: #d9eb99;
   --color-background-muted: #f0f1f1;
   --color-background-slider-dot: rgba(34, 34, 34, 0.4);
   --color-background-slider-dot-current: #222;
@@ -163,17 +155,14 @@
   --color-video-overlay: #00000080;
 
   /* Border colours. */
-  --color-border-card: #26262833;
   --color-border-field: #ccc;
   --color-border-field-focus: #3898EC;
   --color-border-footer: #61646c;
   --color-border-highlight-card: #d0f8ab;
-  --color-border-input: #262628;
   --color-border-lime: #d4e889;
+  --color-border-pagination: #ccc;
   --color-border-social: #cecfd2;
-  --color-border-strong: #000;
   --color-border-subtle: #ececed;
-  --color-border-textarea: #85888e;
 
   /* Focus outlines. */
   --color-focus-outline: #50b448;
@@ -186,8 +175,6 @@
   --radius-course-cover-mobile: 8px;
   --radius-gallery-image: 16px;
   --radius-image: 1.25rem;
-  --radius-input: .75rem;
-  --radius-lightbox-image: 19px;
   --radius-nav-menu: .5rem;
   --radius-panel: 20px;
   --radius-pill: 100rem;
@@ -195,7 +182,6 @@
   --radius-slider-arrow: .25rem;
 
   /* Shadows. */
-  --shadow-card: 0 0 0 1px #26262833;
   --shadow-dropdown: 0 4px 8px #0000001a;
   --shadow-slider-dot-focus: 0px 0px 0px 2px #fff;
 
@@ -205,68 +191,12 @@
   --font-content-gap-label: 700 11px/1.3 monospace;
   --font-size-content-gap-label-inline: 10px;
   --font-size-content-gap-label-page: 14px;
-
-  /*
-   * Webflow defaults: values only the old Webflow runtime CSS (webflow.css, normalize.css and the
-   * w-* rules of pima-website.webflow.css) uses. They go with those files (#73).
-   */
-  /* Webflow font families. */
-  --font-family-wf-body: Arial, sans-serif;
-  --font-family-wf-lightbox: "Helvetica Neue", Helvetica, Ubuntu, "Segoe UI", Verdana, sans-serif;
-  --font-family-wf-normalize: sans-serif;
-  /* Webflow font weights. */
-  --font-weight-wf-heading: bold;
-  --font-weight-wf-label: bold;
-  --font-weight-wf-lightbox: 300;
-  --font-weight-wf-strong: bold;
-  /* Webflow font sizes. */
-  --font-size-wf-body: 14px;
-  --font-size-wf-h1: 38px;
-  --font-size-wf-h2: 32px;
-  --font-size-wf-h3: 24px;
-  --font-size-wf-h4: 18px;
-  --font-size-wf-h5: 14px;
-  --font-size-wf-lightbox: 17px;
-  --font-size-wf-normalize-h1: 2em;
-  --font-size-wf-pagination: 14px;
-  /* Webflow line heights. */
-  --line-height-wf-body: 20px;
-  --line-height-wf-h1: 44px;
-  --line-height-wf-h2: 36px;
-  --line-height-wf-h3: 30px;
-  --line-height-wf-h4: 24px;
-  --line-height-wf-h5: 20px;
-  --line-height-wf-lightbox: 1.2;
-  --line-height-wf-lightbox-strip: 0;
-  --line-height-wf-normalize-input: normal;
-  /* Webflow colours. */
-  --color-wf-background-dark: #222;
-  --color-wf-background-placeholder: #dddddd;
-  --color-wf-border: #ccc;
-  --color-wf-button: #3898EC;
-  --color-wf-lightbox-backdrop: rgba(0, 0, 0, 0.9);
-  --color-wf-lightbox-caption: rgba(0, 0, 0, 0.4);
-  --color-wf-spinner: rgba(0, 0, 0, 0.4);
-  --color-wf-spinner-head: #fff;
-  --color-wf-text-body: #333;
-  /* Webflow radii. */
-  --radius-wf-pagination: 2px;
-  --radius-wf-spinner: 50%;
-}
-
-/* #72 (404 + gap pages): the empty CMS list box and the post pagination of the gap pages. */
-:root {
-  --color-background-cms-empty: #dddddd;
-  --color-text-pagination: #333;
-  --color-border-pagination: #ccc;
-  --font-size-pagination: 14px;
 }
 
 @media screen and (max-width: 991px) {
   :root {
     --font-size-h1: 3.37rem;
     --font-size-h2: 1.89rem;
-    --font-size-h2-heading: 1.89rem;
     --font-size-h4: 1.2rem;
     --font-size-h4-heading: 1.2rem;
   }
@@ -277,7 +207,6 @@
     --font-size-accordion-title: 1.25rem;
     --font-size-h1: 2.15rem;
     --font-size-h2: 1.21rem;
-    --font-size-h2-heading: 1.52rem;
     --font-size-h4: .97rem;
     --font-size-h4-heading: 1.08rem;
     --font-size-heading-style-h1: 2.5rem;
@@ -292,20 +221,7 @@
 
 @media screen and (max-width: 479px) {
   :root {
-    --font-size-h2-heading: 1.21rem;
     --font-size-h4-heading: .97rem;
     --font-size-heading-style-h6: 14px;
   }
-}
-
-/* khoa-hoc (#68): tokens added by the khoa-hoc page refactor. */
-:root {
-  /* The "No items found." box of the dev-only course list (was Webflow's .w-dyn-empty). */
-  --color-background-course-list-empty: #dddddd;
-}
-
-/* home (#66): tokens used only by the home page sections (src/sections/home/). */
-:root {
-  /* Background of the "No items found." line in the dev-only content gaps (old `.w-dyn-empty`). */
-  --color-background-empty-list: #dddddd;
 }

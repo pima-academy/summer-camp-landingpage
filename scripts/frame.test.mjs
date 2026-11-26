@@ -42,15 +42,16 @@ test("home page loads favicon, webclip and one site stylesheet", { skip }, () =>
     .filter((css) => css.includes("@font-face"));
   assert.equal(sheets.length, 1, `one site stylesheet, got ${sheets.length}`);
   const css = sheets[0];
-  // Old order: fonts, normalize, webflow, pima-website.
+  // global.css order: fonts, tokens, base, animations.
   const order = [
     css.indexOf("@font-face"),
-    css.indexOf("-webkit-text-size-adjust"), // normalize
-    css.indexOf(".w-inline-block"), // webflow.css
-    css.indexOf(".padding-global"), // pima-website.webflow.css
+    css.indexOf("--font-family-base:"), // tokens.css
+    css.indexOf("-webkit-text-size-adjust"), // base.css
+    css.indexOf("@keyframes marquee-x"), // animations.css
   ];
   assert.ok(order.every((i) => i >= 0), `all sheets present: ${order}`);
-  assert.deepEqual([...order].sort((a, b) => a - b), order, "sheets in old order");
+  assert.deepEqual([...order].sort((a, b) => a - b), order, "sheets in order");
+  assert.doesNotMatch(css, /\.w-[a-z]|\.padding-global|#w-node-/, "no Webflow rule");
 });
 
 test("home page has one <main> and the js-ready script", { skip }, () => {
