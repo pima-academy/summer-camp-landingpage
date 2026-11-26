@@ -1066,7 +1066,6 @@ a:hover {
 }
 
 img {
-  aspect-ratio: auto;
   border-radius: var(--ai-gen-82921b10-4b39-48f0-b346-808cf4903d29-1746881340164---image--image-radius);
   max-width: 100%;
   display: inline-block;
@@ -1629,7 +1628,6 @@ img {
 
 .header26_image {
   box-sizing: border-box;
-  aspect-ratio: auto;
   object-fit: none;
   width: 100%;
   max-width: 100%;
@@ -2190,7 +2188,6 @@ img {
 }
 
 .testimonial7_client-image {
-  aspect-ratio: auto;
   object-fit: cover;
   border-radius: 100%;
   width: 6rem;
@@ -2494,7 +2491,6 @@ img {
 .header76_image {
   z-index: 0;
   box-sizing: border-box;
-  aspect-ratio: auto;
   vertical-align: baseline;
   object-fit: cover;
   width: 100%;
@@ -2660,7 +2656,6 @@ img {
 }
 
 .layout11_lightbox-image {
-  aspect-ratio: auto;
   object-fit: cover;
   border-radius: 19px;
   flex: 0 auto;
@@ -2783,7 +2778,6 @@ img {
 
 .layout131_image {
   box-sizing: border-box;
-  aspect-ratio: auto;
   object-fit: cover;
   width: 100%;
   max-width: 100%;
