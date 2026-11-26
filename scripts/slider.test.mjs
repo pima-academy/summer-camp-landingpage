@@ -109,7 +109,7 @@ test("lists every slider on / and chi-tiet-trai-he", { skip }, async () => {
   }
 });
 
-for (const { path, name, autoplay, infinite } of INSTANCES) {
+for (const { path, name, infinite } of INSTANCES) {
   const where = `${path} "${name}"`;
 
   test(`${where}: arrows step one slide, dots jump and the current dot is marked`, { skip }, async () => {
@@ -131,6 +131,46 @@ for (const { path, name, autoplay, infinite } of INSTANCES) {
     await expectAt(slider, n - 1, "last dot");
     await dotsOf(slider).nth(0).click();
     await expectAt(slider, 0, "first dot");
+
+    // Past the last slide: an infinite slider carries on left, the others rewind.
+    await dotsOf(slider).nth(n - 1).click();
+    await expectAt(slider, n - 1, "last dot");
+    await nextArrow(slider).click();
+    assert.equal(await firstSlideComesFrom(slider), infinite ? "right" : "left", "next on the last slide");
+    await expectAt(slider, 0, "next on the last slide");
+    await page.context().close();
+  });
+}
+
+for (const { path, name, autoplay, infinite } of INSTANCES.filter((i) => i.autoplay)) {
+  const wrap = infinite ? "wraps" : "rewinds";
+  test(`${path} "${name}": autoplay steps every ${autoplay} ms and ${wrap} after the last slide`, { skip }, async () => {
+    const page = await open(path, { fakeClock: true });
+    const slider = sliderNamed(page, name);
+    const n = await slidesOf(slider).count();
+
+    await page.clock.runFor(autoplay - 100);
+    await expectAt(slider, 0, "before the delay");
+    await page.clock.runFor(100);
+    await expectAt(slider, 1, "after one delay");
+    for (let k = 2; k < n; k++) {
+      await page.clock.runFor(autoplay);
+      await expectAt(slider, k, `after ${k} delays`);
+    }
+    await page.clock.runFor(autoplay);
+    assert.equal(await firstSlideComesFrom(slider), infinite ? "right" : "left", "autoplay past the last slide");
+    await expectAt(slider, 0, "autoplay past the last slide");
+    await page.context().close();
+  });
+}
+
+for (const path of PAGES) {
+  test(`${path}: with prefers-reduced-motion: reduce nothing autoplays`, { skip }, async () => {
+    const page = await open(path, { reducedMotion: "reduce", fakeClock: true });
+    await page.clock.runFor(3 * Math.max(...INSTANCES.map((i) => i.autoplay ?? 0)));
+    for (const { name } of INSTANCES.filter((i) => i.path === path)) {
+      await expectAt(sliderNamed(page, name), 0, `"${name}"`);
+    }
     await page.context().close();
   });
 }
