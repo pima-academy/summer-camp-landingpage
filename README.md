@@ -13,13 +13,15 @@ Node 24 (`.nvmrc`) and npm.
 ```bash
 npm ci              # install exactly what package-lock.json pins
 npm run dev         # dev server; also serves the content gap pages, framed with "CONTENT GAP" labels
-npm run build       # production build into dist/ (CI runs `npm ci && npm run build`, .github/workflows/build.yml)
+npm run build       # production build into dist/
 npm run preview     # serve dist/ locally
-npm test            # unit and build checks (scripts/*.test.mjs); some need a fresh build
+npm test            # unit, build and browser checks (scripts/*.test.mjs); some need a fresh build and skip without one
 npm run shots       # build, then screenshot old (site/) and new (dist/) pages at 390/820/1440 into shots/
 ```
 
-`npm run shots -- index lien-he` shoots only the pages named (old file names); `--no-build` reuses `dist/`. Playwright's Chromium is needed once: `npx playwright install chromium`.
+`npm run shots -- index lien-he` shoots only the pages named (old file names); `--no-build` reuses `dist/`. Playwright's Chromium is needed once (for `npm test` too): `npx playwright install chromium`.
+
+CI (`.github/workflows/build.yml`, on PRs into `dev`) runs `npm ci`, `npm run build` and `npm test`. With `CI` set, a test that needs the build fails instead of skipping.
 
 ## Layout
 

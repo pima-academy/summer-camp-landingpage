@@ -10,7 +10,7 @@ import { existsSync, readFileSync, statSync } from "node:fs";
 import { join, normalize, sep } from "node:path";
 import { chromium } from "playwright";
 import { contact } from "../src/data/site.ts";
-import { builtHtmlFiles, dist } from "./test-lib.mjs";
+import { buildSkip, builtHtmlFiles, dist } from "./test-lib.mjs";
 
 const ORIGIN = "http://127.0.0.1:9"; // never contacted: every request is routed
 const ENDPOINT = "https://contact-endpoint.test/exec"; // reserved .test TLD, mocked
@@ -38,7 +38,7 @@ function distFile(pathname) {
 }
 
 const pages = formPages();
-const skip = pages.length ? false : "no built page has ContactForm: run `npm run build` first";
+const skip = buildSkip(pages.length > 0, "no built page has ContactForm: run `npm run build` first");
 
 let browser;
 before(async () => {
