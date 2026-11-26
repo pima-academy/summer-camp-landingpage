@@ -17,7 +17,7 @@ const milestones = [
 ];
 ---
 
-<Section name="milestone" spacing="small" animate class="milestones">
+<Section name="milestone" spacing="small" tone="surface" animate>
   <h2 class="title">Các cột mốc đáng nhớ</h2>
   <div class="timeline">
     <div class="list">
@@ -57,10 +57,6 @@ const milestones = [
 </Section>
 
 <style>
-  .milestones {
-    background-color: var(--color-background-surface-light);
-  }
-
   /* 2rem gap above the timeline (the old spacer). */
   .title {
     margin-top: 0;
@@ -120,7 +116,7 @@ const milestones = [
   }
 
   .date {
-    color: var(--color-text-subheading);
+    color: var(--color-text-accent);
     font-size: var(--font-size-heading-style-h5);
     font-weight: var(--font-weight-heading-style-h5);
     line-height: var(--line-height-heading-style-h5);

@@ -28,7 +28,7 @@ test("404 page has the site chrome and one section: a heading, one line and a bu
   const headings = [...main.matchAll(/<h[1-6][\s>]/g)];
   assert.equal(headings.length, 1, "one heading in <main>");
   assert.match(main, /<h1[^>]*>Không tìm thấy trang<\/h1>/);
-  assert.match(main, /<a href="\/"[^>]*data-variant="dark-green"[^>]*>Về trang chủ<\/a>/);
+  assert.match(main, /<a href="\/"[^>]*data-variant="secondary"[^>]*>Về trang chủ<\/a>/);
   assert.doesNotMatch(main, /<img/, "no illustration");
   assert.doesNotMatch(html, /Page Not Found|doesn&#x27;t exist/);
 });

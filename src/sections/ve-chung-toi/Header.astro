@@ -7,7 +7,7 @@ import Section from "../../components/Section.astro";
 import { aboutAnchors } from "../../data/site";
 ---
 
-<Section name="header" width="large" spacing="none" animate id={aboutAnchors.intro} class="header">
+<Section name="header" width="large" spacing="none" tone="dark-green" animate id={aboutAnchors.intro}>
   <div class="inner">
     <div class="crumb"><BrandName /> academy &gt; giới thiệu</div>
     <h1 class="title">Về chúng tôi</h1>
@@ -15,10 +15,6 @@ import { aboutAnchors } from "../../data/site";
 </Section>
 
 <style>
-  .header {
-    background-color: var(--color-background-dark-green);
-  }
-
   /* Section's spacing="large", except at ≤ 767 px (see below). */
   .inner {
     position: relative;
@@ -34,7 +30,7 @@ import { aboutAnchors } from "../../data/site";
   }
 
   .title {
-    color: var(--color-text-inverse);
+    color: var(--color-text-heading);
     font-weight: var(--font-weight-bold);
   }
 

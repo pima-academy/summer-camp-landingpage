@@ -30,7 +30,7 @@ test("khoa-hoc renders header, intro, trust bar and contact form in the old orde
 });
 
 test("khoa-hoc intro fades up like the other sections", { skip }, () => {
-  assert.match(main, /<section data-section="intro" data-animate="fade-up"/);
+  assert.match(main, /<section data-section="intro"[^>]*data-animate="fade-up"/);
 });
 
 test("khoa-hoc hides the CMS course list in production", { skip }, () => {

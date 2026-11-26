@@ -15,7 +15,7 @@ const claims = [
 ];
 ---
 
-<Section name="trust-bar" width="large" spacing="none" animate class="trust">
+<Section name="trust-bar" width="large" spacing="none" tone="dark-green" animate class="trust">
   <div class="strip">
     {/* 3 copies: 2 periods (~1900 px) always cover the 1280 px container while one scrolls out. */}
     <Marquee class="claims" duration={20} copies={3}>
@@ -34,7 +34,6 @@ const claims = [
 <style>
   .trust {
     overflow: clip;
-    background-color: var(--color-background-dark-green);
   }
 
   .strip {
@@ -48,7 +47,7 @@ const claims = [
 
   .claim {
     flex: none;
-    color: var(--color-text-lime);
+    color: var(--color-text);
     font-size: var(--font-size-trust-bar);
     font-weight: var(--font-weight-medium);
     text-transform: uppercase;

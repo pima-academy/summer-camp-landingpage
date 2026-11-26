@@ -1,13 +1,14 @@
 ---
 /*
-  Primitive: Kicker, the short green uppercase line right above a section heading
+  Primitive: Kicker, the short uppercase line right above a section heading
   ("ĐỐI TÁC CỦA PiMA", "TÁC ĐỘNG"). Renders a <p>, not a heading, so the page's
   heading outline stays correct. Put <BrandName /> inside for "PiMA".
 
-  Today's look, copied from the old `<h5 class="text-style-green text-style-allcaps">`:
-  accent green, semibold, uppercase, `--font-size-kicker`, with the old h5 margins
-  (10px above, 0.7em below). `flush` drops both margins (old `is-no-margin`), for a
-  kicker whose spacing comes from its parent.
+  Brand look (docs/brand.md, Typography): text in the text colour (black, white on the
+  dark-green tone) under a 40 × 4 px PiMA Green rule. The rule sits alone on the first
+  line box, so the parent's `text-align` places it: left over left-aligned text, centred
+  over centred text, with 12px between rule and text. Margins are the old h5 ones (10px above, 0.7em below); `flush`
+  drops both (old `is-no-margin`), for a kicker whose spacing comes from its parent.
 
     <Kicker>đối tác của <BrandName /></Kicker>
     <Kicker flush>trại hè toán học</Kicker>
@@ -22,17 +23,35 @@ interface Props extends HTMLAttributes<"p"> {
 const { flush = false, class: className, ...attrs } = Astro.props;
 ---
 
-<p class:list={["kicker", className]} data-flush={flush ? "" : undefined} {...attrs}><slot /></p>
+<p class:list={["kicker", className]} data-flush={flush ? "" : undefined} {...attrs}>
+  <span class="text"><slot /></span>
+</p>
 
 <style>
   .kicker {
     margin-top: 10px;
     margin-bottom: 0.7em;
-    color: var(--color-text-accent);
+    color: var(--color-text);
     font-size: var(--font-size-kicker);
     font-weight: var(--font-weight-semibold);
     line-height: var(--line-height-h5);
     text-transform: uppercase;
+  }
+
+  /* The PiMA Green rule: an inline block alone on the first line, so it follows text-align. */
+  .kicker::before {
+    content: "";
+    display: inline-block;
+    width: 40px;
+    height: 4px;
+    vertical-align: top;
+    background-color: var(--color-background-accent);
+  }
+
+  /* The rule's line box is one line high (1lh); pull the text up to 12px under the 4px rule. */
+  .text {
+    display: block;
+    margin-top: calc(16px - 1lh);
   }
 
   .kicker[data-flush] {

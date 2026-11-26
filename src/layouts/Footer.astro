@@ -114,8 +114,8 @@ const headingParts = (heading: string) => heading.split(/pima/i);
   footer {
     padding-left: 5%;
     padding-right: 5%;
-    color: var(--color-text);
-    background-color: var(--color-background-dark);
+    color: var(--color-text-footer);
+    background-color: var(--color-background-footer);
   }
 
   .inner {
@@ -151,7 +151,7 @@ const headingParts = (heading: string) => heading.split(/pima/i);
   .name {
     margin-bottom: 0.125rem;
     padding-top: 1rem;
-    color: var(--color-text-inverse);
+    color: var(--color-text-on-dark);
     font-size: var(--font-size-text-small);
     font-weight: var(--font-weight-semibold);
     text-transform: uppercase;
@@ -167,7 +167,7 @@ const headingParts = (heading: string) => heading.split(/pima/i);
   }
 
   .heading {
-    color: var(--color-text-accent);
+    color: var(--color-text-footer-heading);
     font-size: var(--font-size-kicker);
     font-weight: var(--font-weight-semibold);
     text-transform: uppercase;
@@ -184,13 +184,13 @@ const headingParts = (heading: string) => heading.split(/pima/i);
   }
 
   .muted {
-    color: var(--color-text-on-dark-muted);
+    color: var(--color-text-footer);
     font-weight: var(--font-weight-light);
     text-decoration: none;
   }
 
   .muted:hover {
-    color: var(--color-text-on-dark-hover);
+    color: var(--color-text-footer-hover);
   }
 
   .strong {
@@ -216,6 +216,11 @@ const headingParts = (heading: string) => heading.split(/pima/i);
   .social-link {
     display: inline-block;
     max-width: 100%;
+    color: var(--color-icon-footer);
+  }
+
+  .social-link:hover {
+    color: var(--color-text-footer-hover);
   }
 
   .social-icon {
@@ -237,7 +242,7 @@ const headingParts = (heading: string) => heading.split(/pima/i);
 
   .credit {
     flex: 0 auto;
-    color: var(--color-text-secondary);
+    color: var(--color-text-footer);
     font-size: var(--font-size-footer-credit);
   }
 
