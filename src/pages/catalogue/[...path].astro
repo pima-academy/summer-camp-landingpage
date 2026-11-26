@@ -111,7 +111,7 @@ const spaceSteps = [1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24, 28, 32] as const;
         </p>
         <div class="row">
           {tone === "dark-green" ? (
-            <Button href="#">on-dark</Button>
+            <Button href="#" variant="on-dark">on-dark</Button>
           ) : (
             <>
               <Button href="#" variant="primary">primary</Button>
@@ -123,6 +123,16 @@ const spaceSteps = [1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24, 28, 32] as const;
       </Section>
     ))
   }
+
+  <Section name="catalogue-tone-card" spacing="small">
+    <p>A card inside a section takes a tone with the same attribute (the founder card):</p>
+    <div class="card" data-tone="dark-green">
+      <Kicker flush>data-tone="dark-green"</Kicker>
+      <h3>A card on Dark Green</h3>
+      <p>Body text. <span class="accent">Accent text.</span> <a href="#">A link</a>.</p>
+      <Button href="#" variant="on-dark">on-dark</Button>
+    </div>
+  </Section>
 
   <Section name="catalogue-buttons" spacing="small">
     <h2>Button</h2>
@@ -143,7 +153,7 @@ const spaceSteps = [1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24, 28, 32] as const;
     <h2>Kicker</h2>
     <div class="framed">
       <Kicker>đối tác của <BrandName /></Kicker>
-      <h2>Kicker with the old h5 margins</h2>
+      <h2>Kicker: --space-3 above and below</h2>
     </div>
     <div class="framed">
       <Kicker flush>trại hè toán học (flush)</Kicker>
@@ -249,6 +259,11 @@ const spaceSteps = [1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24, 28, 32] as const;
   .content {
     padding: var(--space-4);
     background-color: var(--color-background-pale-lime);
+  }
+
+  .card {
+    padding: var(--space-6);
+    border-radius: var(--radius);
   }
 
   .row {
