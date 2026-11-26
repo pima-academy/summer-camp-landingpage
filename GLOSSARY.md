@@ -28,6 +28,10 @@ _Avoid_: style guide, design system, brand book
 A full-width band of a page with one purpose (hero, partners, press, contact form). A page is an ordered list of sections; brand alignment keeps that list, a redesign changes it.
 _Avoid_: block, module, row
 
+**Camp page**:
+The page for one edition of the PiMA summer camp (2025, 2026), with its own header and footer instead of the site's. Camp pages are left out of brand alignment: they keep the old site's look until they are redesigned on their own.
+_Avoid_: summer camp page (also names the camp overview page), event page
+
 **Brand alignment**:
 A change that brings a page's look in line with the brand guidelines (colour, type weight and size, heading style, corner radius, logo, icons, spacing) while keeping its structure: the same sections in the same order, the same grid, the same content.
 _Avoid_: redesign, restyle, polish
