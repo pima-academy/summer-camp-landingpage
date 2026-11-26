@@ -83,7 +83,7 @@ The footer is a `--black` band: column headings `--pima-green`, text and links `
 ## Typography
 
 - Nunito Sans is the only font. `body` sets it with `--font-family-base` and every element inherits it, so component CSS never sets a font family.
-- Five weights, each with a font face in `src/styles/fonts.css` (the browser fakes a weight that has none):
+- Five weights, each with a font face in `src/styles/fonts.css` (the browser fakes a weight that has none, so no other weight is used):
   - `--font-weight-regular`: body text, captions.
   - `--font-weight-semibold`: labels, nav links, light emphasis.
   - `--font-weight-bold`: buttons, the marquee, small labels.
@@ -97,21 +97,22 @@ The footer is a `--black` band: column headings `--pima-green`, text and links `
 | h2 | `--font-size-h2` | `--line-height-h2` | `--font-weight-h2` (extrabold) | `--pima-dark-green` |
 | h3 | `--font-size-h3` | `--line-height-h3` | `--font-weight-h3` (extrabold) | `--black`, `--white` on dark |
 | Body | `--font-size-body` | `--line-height-body` | regular | `--black` |
-| Kicker | `--font-size-kicker` | | extrabold, uppercase, letter-spaced | `--black`, under a short `--pima-green` rule aligned with the block |
+| Kicker | `--font-size-kicker` | `--line-height-kicker` | extrabold, uppercase, `--letter-spacing-kicker` | `--black`, under a short `--pima-green` rule aligned with the block |
 | Big numbers | `--font-size-big-number` | | `--font-weight-black` | `--pima-dark-green` |
-| Dates, names (milestones, testimonials) | | | extrabold | `--pima-dark-green` |
-| Marquee | | | bold, uppercase | `--white` on `--pima-dark-green` |
+| Dates, names (milestones, testimonials) | `--font-size-body` | | extrabold | `--pima-dark-green` |
+| Marquee | `--font-size-marquee` | | bold, uppercase, `--letter-spacing-marquee` | `--white` on `--pima-dark-green` |
 | Nav links | | | semibold | `--gray-1` |
-| Captions | `--font-size-caption` | | regular | `--gray-1` |
+| Captions and small text (form fields, tags, the footer credit) | `--font-size-small` | | regular | `--gray-1` for captions |
 
-- Size tokens that change per breakpoint are redeclared in `tokens.css`; a component writes the token once. A heading that must look like another level uses that level's tokens (an `h4` styled as h3 sets `font-size: var(--font-size-h3)`). Other heading levels and sizes map to the nearest role.
+- Size tokens that change per breakpoint are redeclared in `tokens.css`; a component writes the token once. Headings take the role of their level from base CSS, so a section's `h1`, `h2` or `h3` sets no size or weight of its own. An `h4` takes the h3 role; an `h5` is a bold label at body size. A heading that is not a heading to the eye (a date, a big number, a quote) sets the tokens of its role. Any other size maps to the nearest role.
+- Small uppercase lines right above a heading (a tagline, a breadcrumb such as "PiMA academy > giới thiệu") are kickers: use the `Kicker` component. The footer's column headings take the kicker's size, weight and tracking in `--pima-green`, without the rule.
 - Headings are in sentence case. Uppercase is for short labels: kickers, the marquee.
 - Vietnamese stacks diacritics (Ồ, Ộ, Ẫ). Headings keep a line height of 1.1 or more, so the marks are neither clipped nor touching the line above.
 - Figures that line up or change (stats, tables, dates, counters) use `font-variant-numeric: tabular-nums`.
 
 ## Shapes
 
-- One corner radius, `--radius`, for buttons, cards, panels, inputs and every photo and video.
+- One corner radius, `--radius`, for buttons, cards, panels, inputs, tags, menus and every photo and video. Base CSS gives every `img` `--radius`. No other radius token exists.
 - Square corners for full-width bands (sections, the marquee, the footer), rules and dividers (the kicker rule too), chart bars and legend swatches.
 - Circles (`--radius-circle`) for icon circles and avatars.
 - Logos are never rounded: base CSS rounds every `img`, so a logo sets `border-radius: 0`.
