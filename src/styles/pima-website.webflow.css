@@ -1612,67 +1612,6 @@ img {
   display: grid;
 }
 
-.slider-arrow {
-  border-top-left-radius: var(--radius-slider-arrow);
-  border-top-right-radius: var(--radius-slider-arrow);
-  border-bottom-left-radius: var(--radius-slider-arrow);
-  border-bottom-right-radius: var(--radius-slider-arrow);
-  background-color: var(--color-background);
-  width: 2.5rem;
-  height: 2.5rem;
-  font-size: var(--font-size-slider-arrow);
-  color: color-mix(in srgb, currentColor 70%, transparent);
-  justify-content: center;
-  align-items: center;
-  text-decoration: none;
-  transition-property: color, background-color;
-  transition-duration: .2s, .2s;
-  transition-timing-function: ease, ease;
-  display: flex;
-}
-
-.slider-arrow:hover {
-  background-color: color-mix(in srgb, currentColor 10%, transparent);
-}
-
-.slider-arrow.is-centre-previous {
-  border-radius: var(--radius-pill);
-  bottom: 4rem;
-}
-
-.slider-arrow.is-centre-next {
-  bottom: 4rem;
-}
-
-.slider-arrow.is-centre-next.hide-mobile-landscape {
-  border-radius: var(--radius-pill);
-}
-
-.slider-arrow.is-bottom-left-previous {
-  inset: auto auto 0% 0%;
-}
-
-.slider-arrow.is-bottom-left-next {
-  inset: auto auto 0% 4rem;
-}
-
-.slider-arrow.is-bottom-previous {
-  inset: auto 4rem 0% auto;
-}
-
-.slider-arrow.is-bottom-next {
-  inset: auto 0% 0% auto;
-}
-
-.slider-arrow-icon_default {
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 1rem;
-  height: 1rem;
-  display: flex;
-}
-
 .slide {
   vertical-align: baseline;
   position: relative;
@@ -1804,23 +1743,6 @@ img {
   border-radius: var(--radius-panel);
 }
 
-.course-testimonial {
-  background-color: unset;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  height: auto;
-  padding-bottom: 4rem;
-}
-
-.testimonial7_slide {
-  width: 100%;
-  height: 100%;
-  padding-left: 4rem;
-  padding-right: 4rem;
-  position: relative;
-}
-
 .testimonial7_content {
   text-align: center;
   max-width: 48rem;
@@ -1840,11 +1762,6 @@ img {
   min-height: 4rem;
   display: block;
   overflow: visible;
-}
-
-.testimonial7_slide-nav {
-  height: 1.75rem;
-  font-size: var(--font-size-slider-nav);
 }
 
 .trust-bar_text-wrapper {
@@ -1902,26 +1819,6 @@ img {
   place-items: start stretch;
 }
 
-.gallery16_slider {
-  background-color: unset;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  height: auto;
-  padding-bottom: 4rem;
-  overflow: hidden;
-}
-
-.gallery16_mask {
-  width: 50%;
-  overflow: visible;
-}
-
-.gallery16_slide {
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
 .gallery16_lightbox-link {
   width: 100%;
 }
@@ -1941,11 +1838,6 @@ img {
   object-fit: cover;
   width: 100%;
   height: 100%;
-}
-
-.gallery16_slide-nav {
-  height: 1.75rem;
-  font-size: var(--font-size-slider-nav);
 }
 
 .team3_list {
@@ -2972,24 +2864,6 @@ img {
   margin-right: 5rem;
 }
 
-.gallery25_slider {
-  background-color: transparent;
-  width: 100%;
-  height: auto;
-  padding-bottom: 4rem;
-  position: relative;
-  overflow: hidden;
-}
-
-.gallery25_mask {
-  width: 80%;
-  overflow: visible;
-}
-
-.gallery25_slide {
-  padding-right: 2rem;
-}
-
 .gallery25_image-wrapper {
   border-radius: unset;
   width: 100%;
@@ -3004,12 +2878,6 @@ img {
   max-width: 100%;
   height: 100%;
   overflow: clip;
-}
-
-.gallery25_slide-nav {
-  height: 1.75rem;
-  font-size: var(--font-size-slider-nav);
-  inset: auto 4rem 0% auto;
 }
 
 .expert-image-caption {
@@ -3069,25 +2937,6 @@ img {
   align-items: start;
 }
 
-.gallery22_slider {
-  background-color: unset;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  padding-bottom: 5rem;
-  position: relative;
-}
-
-.gallery22_mask {
-  width: 33.33%;
-  overflow: visible;
-}
-
-.gallery22_slide {
-  padding-right: 2rem;
-}
-
 .gallery22_lightbox-link {
   width: 100%;
 }
@@ -3106,12 +2955,6 @@ img {
   max-width: 100%;
   height: 100%;
   overflow: clip;
-}
-
-.gallery22_slide-nav {
-  height: 1.75rem;
-  font-size: var(--font-size-slider-nav);
-  inset: auto auto 0% 0%;
 }
 
 .text-field {
@@ -3354,22 +3197,6 @@ img {
 
 .text-weight-semibold {
   font-weight: var(--font-weight-semibold);
-}
-
-.slider-arrow-2 {
-  border: unset;
-  background-color: unset;
-  width: 3rem;
-  height: 3rem;
-  color: unset;
-  border-radius: var(--radius-circle);
-  justify-content: center;
-  align-items: center;
-  display: flex;
-}
-
-.slider-arrow-2.is-centre-next, .slider-arrow-2.is-centre-previous {
-  bottom: 4rem;
 }
 
 .course-testimonial-text {
@@ -3909,14 +3736,6 @@ img {
     padding: 2rem;
   }
 
-  .slider-arrow.is-bottom-left-previous {
-    left: auto;
-  }
-
-  .slider-arrow.is-bottom-left-next {
-    left: calc(5% + 4rem);
-  }
-
   .footer3_top-wrapper {
     grid-row-gap: 4rem;
     grid-template-columns: 1fr;
@@ -4081,23 +3900,6 @@ img {
     margin-bottom: 0;
     margin-left: 5%;
     margin-right: 5%;
-  }
-
-  .gallery25_slider {
-    padding-left: 5%;
-    padding-right: 5%;
-  }
-
-  .gallery25_mask {
-    width: 50%;
-  }
-
-  .gallery25_slide {
-    padding-right: 2rem;
-  }
-
-  .gallery25_slide-nav {
-    right: 2rem;
   }
 
   .testimonial18_list {
@@ -4344,11 +4146,6 @@ img {
     display: none;
   }
 
-  .slider-arrow {
-    height: 40px;
-    inset: 0%;
-  }
-
   .form_content-wrapper {
     padding-bottom: 1rem;
   }
@@ -4365,28 +4162,6 @@ img {
 
   .footer3_credit-text {
     margin-top: 2rem;
-  }
-
-  .course-testimonial {
-    padding-bottom: 3rem;
-  }
-
-  .testimonial7_slide {
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  .gallery16_slider {
-    padding-bottom: 3rem;
-  }
-
-  .gallery16_mask {
-    width: 100%;
-  }
-
-  .gallery16_slide {
-    padding-left: .75rem;
-    padding-right: .75rem;
   }
 
   .team3_list {
@@ -4541,18 +4316,6 @@ img {
     align-items: flex-start;
   }
 
-  .gallery25_mask {
-    width: 80%;
-  }
-
-  .gallery25_slide {
-    padding-right: 1.5rem;
-  }
-
-  .gallery25_slide-nav {
-    right: 5%;
-  }
-
   .testimonial18_list {
     column-count: 1;
   }
@@ -4565,14 +4328,6 @@ img {
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
-  }
-
-  .gallery22_mask {
-    width: 50%;
-  }
-
-  .gallery22_slide {
-    padding-right: 1.5rem;
   }
 
   .layout243_list {
@@ -4785,10 +4540,6 @@ img {
     flex-flow: column;
   }
 
-  .slider-arrow.is-bottom-left-next {
-    left: 24%;
-  }
-
   .footer3_logo-link {
     display: flex;
   }
@@ -4909,10 +4660,6 @@ img {
 
   .layout264_list {
     grid-template-columns: 1fr;
-  }
-
-  .gallery25_mask {
-    width: 95%;
   }
 
   .div-block-17, .form-field-wrapper {

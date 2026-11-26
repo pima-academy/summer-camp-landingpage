@@ -102,18 +102,10 @@ const storyCurrent = isCurrent(storyHref, Astro.url.pathname);
                 </p>
               </div>
             </div>
-            <Slider
-              class="gallery25_slider"
-              maskClass="gallery25_mask"
-              navClass="gallery25_slide-nav"
-              arrows="bottom-left"
-              autoplay={6000}
-              infinite
-              label="Các chuyên gia đồng hành"
-            >
+            <Slider layout="wide" autoplay={6000} infinite label="Các chuyên gia đồng hành">
               {
                 teamActivities.map(({ image, alt, caption }) => (
-                  <div class="gallery25_slide w-slide">
+                  <div>
                     <div class="gallery25_image-wrapper">
                       <Image
                         src={image}

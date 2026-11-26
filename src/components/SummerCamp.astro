@@ -40,17 +40,10 @@ const sizes = "(max-width: 479px) 39vw, (max-width: 991px) 26vw, 309px";
           </div>
           <div class="spacer-medium"></div>
           <div class="gallery22_component">
-            <Slider
-              class="gallery22_slider"
-              maskClass="gallery22_mask"
-              navClass="gallery22_slide-nav"
-              arrows="bottom"
-              autoplay={6000}
-              label="Ảnh trại hè toán học"
-            >
+            <Slider layout="third" autoplay={6000} label="Ảnh trại hè toán học">
               {
                 summerCampPhotos.map(({ image, alt }) => (
-                  <div class="gallery22_slide w-slide">
+                  <div>
                     <ContentGap name="SummerCamp: photo lightbox" inline>
                       <a href="#" class="gallery22_lightbox-link w-inline-block w-lightbox">
                         <div class="gallery22_image-wrapper">

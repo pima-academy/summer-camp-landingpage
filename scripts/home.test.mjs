@@ -46,13 +46,14 @@ test("hero and press sections fade up; #programs link has a target", { skip }, (
   assert.doesNotMatch(html, /style="[^"]*opacity:\s*0/);
 });
 
-test("press slider: 5 slides, 5 s autoplay, infinite, centre arrows", { skip }, () => {
+test("press slider: 5 slides (one quote each), 5 s autoplay, infinite, one slide at a time", { skip }, () => {
   const press = main.slice(main.indexOf('class="section_press"'), main.indexOf("section_contact-form"));
-  const slider = press.match(/<div[^>]*class="course-testimonial w-slider"[^>]*>/)?.[0] ?? "";
+  const slider = press.match(/<div[^>]*aria-label="Báo chí nói về PiMA"[^>]*>/)?.[0] ?? "";
+  assert.match(slider, /data-slider/);
   assert.match(slider, /data-autoplay="5000"/);
   assert.match(slider, /data-infinite/);
-  assert.equal(press.match(/testimonial7_slide w-slide/g)?.length, 5);
-  assert.equal(press.match(/is-centre-(previous|next)/g)?.length, 2);
+  assert.match(slider, /data-layout="single"/);
+  assert.equal(press.match(/<h3\b/g)?.length, 5);
   for (const host of ["tuoitre.vn", "dantri.com.vn", "cafef.vn", "muctim.tuoitre.vn", "hoahoctro.tienphong.vn"]) {
     assert.ok(press.includes(`https://${host}/`), `press link to ${host}`);
   }

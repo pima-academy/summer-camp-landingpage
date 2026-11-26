@@ -18,21 +18,21 @@ const PAGES = ["/", "/chi-tiet-trai-he/"];
 
 // ---------------------------------------------------------------------------
 // Markup helpers: the only place that knows how a slider is built. The Slider
-// refactor (w-slider* classes and w-active -> ARIA/data attributes) changes
-// these and nothing below them.
+// refactor (#64) moved them from Webflow classes to roles, names and ARIA state.
 
 /** Every slider on the page. */
 const sliders = (page) => page.locator("[data-slider]");
 /** The slider with this accessible name. */
 const sliderNamed = (page, name) => page.getByRole("region", { name, exact: true });
-const maskOf = (slider) => slider.locator(":scope > .w-slider-mask");
-const slidesOf = (slider) => maskOf(slider).locator(":scope > .w-slide");
-const prevArrow = (slider) => slider.locator(":scope > .w-slider-arrow-left");
-const nextArrow = (slider) => slider.locator(":scope > .w-slider-arrow-right");
-const dotsOf = (slider) => slider.locator(":scope > .w-slider-nav > .w-slider-dot");
+/** The slides: groups named "k / n"; every slide but the shown one is aria-hidden. */
+const slidesOf = (slider) => slider.getByRole("group", { name: /^\d+ \/ \d+$/, includeHidden: true });
+const maskOf = (slider) => slidesOf(slider).first().locator("xpath=..");
+const prevArrow = (slider) => slider.getByRole("button", { name: "Mục trước", exact: true });
+const nextArrow = (slider) => slider.getByRole("button", { name: "Mục tiếp theo", exact: true });
+const dotsOf = (slider) => slider.getByRole("button", { name: /^Hiện mục \d+ \/ \d+$/ });
 /** Index of the dot marked current, or -1. */
 const currentDot = (slider) =>
-  dotsOf(slider).evaluateAll((dots) => dots.findIndex((d) => d.classList.contains("w-active")));
+  dotsOf(slider).evaluateAll((dots) => dots.findIndex((d) => d.getAttribute("aria-current") === "true"));
 
 // ---------------------------------------------------------------------------
 
