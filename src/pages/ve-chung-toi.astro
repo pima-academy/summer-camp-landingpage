@@ -409,9 +409,18 @@ const timeline = [
     }
   }
 
-  /* The old logos had no width attribute (except Stony Brook's 84): their box followed the
-     image's aspect ratio at the 3rem/4.5rem max-height. Keep that instead of the width attribute. */
-  .logo3_list :global(.logo3_logo:not(.is-fixed-width)) {
+  /* The old logos had no width attribute (except Stony Brook's 84): every source is taller than
+     the 4.5rem (3rem at <= 767 px) max-height, so each box was max-height tall and followed the
+     image's aspect ratio. Same box here, sized before the lazy image loads. */
+  .logo3_logo {
+    height: 4.5rem;
+  }
+  .logo3_logo:not(.is-fixed-width) {
     width: auto;
+  }
+  @media screen and (max-width: 767px) {
+    .logo3_logo {
+      height: 3rem;
+    }
   }
 </style>
