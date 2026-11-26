@@ -4,6 +4,8 @@
 export interface Link {
   label: string;
   href: string;
+  /** Points at a gap page (src/gap-pages/): Nav renders it as an inline content gap, dev only. */
+  gap?: boolean;
 }
 
 export interface Dropdown {
@@ -44,7 +46,7 @@ export const aboutAnchors = {
 
 const about = (id: string) => `/ve-chung-toi/#${id}`;
 
-/** Main nav, in old-site order. "Sự kiện & Blog" is an inline content gap (Nav wraps it). */
+/** Main nav, in old-site order. "Sự kiện & Blog" points at a gap page (`gap`). */
 export const navItems: NavItem[] = [
   { label: "Trang chủ", href: "/" },
   { label: "Về chúng tôi", href: "/ve-chung-toi/" },
@@ -55,7 +57,7 @@ export const navItems: NavItem[] = [
       { label: "Khóa học", href: "/khoa-hoc/" },
     ],
   },
-  { label: "Sự kiện & Blog", href: "/su-kien-blog/" },
+  { label: "Sự kiện & Blog", href: "/su-kien-blog/", gap: true },
   { label: "Liên hệ", href: "/lien-he/" },
 ];
 

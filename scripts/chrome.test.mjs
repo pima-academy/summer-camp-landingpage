@@ -1,9 +1,29 @@
 // Checks Nav and Footer (site chrome) in the built pages: links, current-link state as
-// `aria-current`, and no Webflow class left in their markup.
-// Needs a fresh `npm run build`; skipped when dist/ is missing.
+// `aria-current`, and no Webflow class left in their markup; the nav's content-gap links come
+// from site.ts. Most tests need a fresh `npm run build`; skipped when dist/ is missing.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { distSkip as skip, readBuilt } from "./test-lib.mjs";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+import { navItems } from "../src/data/site.ts";
+import { frontmatter } from "./astro-file.mjs";
+import { distSkip as skip, readBuilt, root, walk } from "./test-lib.mjs";
+
+test("a nav link is a content gap exactly when it points at a gap page (site.ts `gap`)", () => {
+  const gapPages = walk(join(root, "src/gap-pages"))
+    .filter((f) => f.endsWith(".astro"))
+    .map((f) => `/${f.slice(join(root, "src/gap-pages").length + 1).replace(/(\/index)?\.astro$/, "")}/`);
+  const links = navItems.flatMap((item) => ("items" in item ? item.items : [item]));
+  for (const link of links) {
+    assert.equal(Boolean(link.gap), gapPages.includes(link.href), `${link.label} (${link.href})`);
+  }
+  assert.ok(links.some((link) => link.gap), "the nav has a gap link (Sự kiện & Blog)");
+});
+
+test("Nav hard-codes no route: its links and their flags come from site.ts", () => {
+  const code = frontmatter(readFileSync(join(root, "src/layouts/Nav.astro"), "utf8"));
+  assert.deepEqual(code.match(/["'`]\/[\w-]+[^"'`]*["'`]/g) ?? [], []);
+});
 
 const html = readBuilt("index.html");
 
@@ -71,6 +91,7 @@ test("nav logo link has an aria-label and a fixed-size image", { skip }, () => {
   assert.match(logo, /aria-label="[^"]+"/);
   assert.match(logo, /<img[^>]*srcset="[^"]* 1x, [^"]* 2x"/);
   assert.match(logo, /<img[^>]*width="132"[^>]*height="45"/);
+  assert.match(logo, /<img[^>]*loading="eager"/, "above the fold: not lazy");
 });
 
 test("footer comes after <main>", { skip }, () => {
