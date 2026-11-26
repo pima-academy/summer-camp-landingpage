@@ -214,18 +214,10 @@ const press = [
       <div class="container-medium">
         <div class="padding-section-small">
           <h2 class="heading-3 text-align-center text-size-large">Báo chí nói về PiMA</h2>
-          <Slider
-            class="course-testimonial"
-            maskClass="testimonial7_mask"
-            navClass="testimonial7_slide-nav"
-            arrows="centre"
-            autoplay={5000}
-            infinite
-            label="Báo chí nói về PiMA"
-          >
+          <Slider layout="single" autoplay={5000} infinite label="Báo chí nói về PiMA">
             {
               press.map((item) => (
-                <div class="testimonial7_slide w-slide">
+                <div>
                   <div class="testimonial7_content">
                     <h3 class="heading-style-h5">"{item.quote}"</h3>
                     <div class="margin-top margin-medium align-center">

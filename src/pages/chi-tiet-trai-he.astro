@@ -115,16 +115,10 @@ const gallerySlides = Array.from({ length: 6 });
           <div class="camp-detail_certificates_wrapper">
             <h2 class="text-align-center">Hình ảnh trại hè</h2>
             <div class="gallery16_component">
-              <Slider
-                class="gallery16_slider"
-                maskClass="gallery16_mask"
-                navClass="gallery16_slide-nav"
-                arrows="centre"
-                label="Hình ảnh trại hè"
-              >
+              <Slider layout="half" label="Hình ảnh trại hè">
                 {
                   gallerySlides.map(() => (
-                    <div class="gallery16_slide w-slide">
+                    <div>
                       <ContentGap name="chi-tiet-trai-he: certificate lightbox" inline>
                         <a href="#" class="gallery16_lightbox-link w-inline-block w-lightbox">
                           <div class="gallery16_image-wrapper">
