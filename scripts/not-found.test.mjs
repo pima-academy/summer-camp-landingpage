@@ -4,16 +4,12 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { spawn } from "node:child_process";
-import { existsSync, readFileSync, readdirSync } from "node:fs";
+import { readdirSync } from "node:fs";
 import { createServer } from "node:net";
-import { fileURLToPath } from "node:url";
 import { join } from "node:path";
+import { dist, distSkip as skip, readBuilt, root } from "./test-lib.mjs";
 
-const root = fileURLToPath(new URL("../", import.meta.url));
-const dist = join(root, "dist");
-const page = join(dist, "404.html");
-const skip = existsSync(join(dist, "index.html")) ? false : "dist/ missing: run `npm run build` first";
-const html = existsSync(page) ? readFileSync(page, "utf8") : "";
+const html = readBuilt("404.html");
 const main = html.match(/<main>([\s\S]*)<\/main>/)?.[1] ?? "";
 
 test("404 page has a Vietnamese title and is noindex", { skip }, () => {
@@ -38,7 +34,7 @@ test("404 page has the site chrome, one heading, one line and a button home", { 
 test("404 page is not in the sitemap", { skip }, () => {
   const maps = readdirSync(dist).filter((f) => /^sitemap.*\.xml$/.test(f));
   assert.ok(maps.length > 0);
-  for (const f of maps) assert.doesNotMatch(readFileSync(join(dist, f), "utf8"), /404/, f);
+  for (const f of maps) assert.doesNotMatch(readBuilt(f), /404/, f);
 });
 
 const freePort = () =>

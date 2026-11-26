@@ -4,19 +4,12 @@
 // Reads the sources only; no build needed.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readdirSync, readFileSync } from "node:fs";
+import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { fileURLToPath } from "node:url";
+import { root, walk } from "./test-lib.mjs";
 
-const src = fileURLToPath(new URL("../src/", import.meta.url));
-
-function files(dir, ext) {
-  return readdirSync(dir, { withFileTypes: true }).flatMap((e) => {
-    const p = join(dir, e.name);
-    if (e.isDirectory()) return files(p, ext);
-    return p.endsWith(ext) ? [p] : [];
-  });
-}
+const src = join(root, "src/");
+const files = (dir, ext) => walk(dir).filter((p) => p.endsWith(ext));
 
 // Classes put on <Image> / <img> anywhere in the components and pages.
 const imgClasses = new Set();

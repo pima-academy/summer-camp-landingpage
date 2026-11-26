@@ -3,15 +3,10 @@
 // Needs a fresh `npm run build`; skipped when dist/ is missing.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { existsSync, readFileSync } from "node:fs";
-import { fileURLToPath } from "node:url";
-import { join } from "node:path";
+import { distSkip as skip, mainOf, readBuilt } from "./test-lib.mjs";
 
-const dist = fileURLToPath(new URL("../dist/", import.meta.url));
-const indexPath = join(dist, "index.html");
-const skip = existsSync(indexPath) ? false : "dist/ missing: run `npm run build` first";
-const html = skip ? "" : readFileSync(indexPath, "utf8");
-const main = html.match(/<main[^>]*>([\s\S]*)<\/main>/)?.[1] ?? "";
+const html = readBuilt("index.html");
+const main = mainOf(html);
 
 test("home page sections are in the old order", { skip }, () => {
   const order = [

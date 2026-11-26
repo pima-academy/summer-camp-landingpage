@@ -2,14 +2,9 @@
 // Needs a fresh `npm run build`; skipped when the page is not built.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { existsSync, readFileSync } from "node:fs";
-import { fileURLToPath } from "node:url";
-import { join } from "node:path";
+import { distSkip as skip, readBuilt } from "./test-lib.mjs";
 
-const dist = fileURLToPath(new URL("../dist/", import.meta.url));
-const pagePath = join(dist, "ve-chung-toi", "index.html");
-const skip = existsSync(pagePath) ? false : "dist/ve-chung-toi missing: run `npm run build` first";
-const html = skip ? "" : readFileSync(pagePath, "utf8");
+const html = readBuilt("ve-chung-toi/index.html");
 
 /** The opening tag of the element carrying `id="<id>"`. */
 const tagWithId = (id) => html.match(new RegExp(`<[a-z]+\\b[^>]*\\bid="${id}"[^>]*>`))?.[0] ?? "";

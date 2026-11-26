@@ -4,31 +4,15 @@
 // Needs a fresh `npm run build`; skipped when dist/ is missing.
 import { test, before, after } from "node:test";
 import assert from "node:assert/strict";
-import { createReadStream, existsSync, statSync } from "node:fs";
-import { createServer } from "node:http";
-import { extname, join, normalize, sep } from "node:path";
-import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
-
-const dist = fileURLToPath(new URL("../dist/", import.meta.url));
-const skip = existsSync(join(dist, "index.html")) ? false : "dist/ missing: run `npm run build` first";
-
-const TYPES = { ".html": "text/html; charset=utf-8", ".css": "text/css", ".js": "text/javascript", ".webp": "image/webp", ".png": "image/png", ".svg": "image/svg+xml", ".woff2": "font/woff2" };
+import { distSkip as skip, serveDist } from "./test-lib.mjs";
 
 let server, base, browser;
 
 before(async () => {
   if (skip) return;
-  server = createServer((req, res) => {
-    let path = normalize(join(dist, decodeURIComponent(new URL(req.url, "http://x").pathname)));
-    if (!path.startsWith(dist.replace(/[\\/]$/, "") + sep) && path !== dist) path = "";
-    if (path && existsSync(path) && statSync(path).isDirectory()) path = join(path, "index.html");
-    if (!path || !existsSync(path)) return res.writeHead(404).end();
-    res.writeHead(200, { "content-type": TYPES[extname(path)] ?? "application/octet-stream" });
-    createReadStream(path).pipe(res);
-  });
-  await new Promise((ok) => server.listen(0, "127.0.0.1", ok));
-  base = `http://127.0.0.1:${server.address().port}/`;
+  server = await serveDist();
+  base = `${server.origin}/`;
   browser = await chromium.launch();
 });
 

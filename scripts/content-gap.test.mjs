@@ -3,25 +3,15 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { existsSync, readdirSync, readFileSync } from "node:fs";
-import { fileURLToPath } from "node:url";
 import { basename, extname, join, relative } from "node:path";
+import { dist, distSkip as skip, root, walk } from "./test-lib.mjs";
 
-const root = fileURLToPath(new URL("../", import.meta.url));
-const dist = join(root, "dist");
 const gapPages = join(root, "src/gap-pages");
-const skip = existsSync(join(dist, "index.html")) ? false : "dist/ missing: run `npm run build` first";
-
-const walk = (dir) =>
-  readdirSync(dir, { withFileTypes: true }).flatMap((e) =>
-    e.isDirectory() ? walk(join(dir, e.name)) : [join(dir, e.name)],
-  );
 
 // Gap page slugs as the dev route serves them: path under src/gap-pages without extension.
-const gapSlugs = existsSync(gapPages)
-  ? walk(gapPages)
-      .filter((f) => extname(f) === ".astro")
-      .map((f) => relative(gapPages, f).slice(0, -".astro".length).replace(/(^|\/)index$/, ""))
-  : [];
+const gapSlugs = walk(gapPages)
+  .filter((f) => extname(f) === ".astro")
+  .map((f) => relative(gapPages, f).slice(0, -".astro".length).replace(/(^|\/)index$/, ""));
 
 test("no built file carries a content gap marker", { skip }, () => {
   const text = walk(dist).filter((f) => /\.(html|css|js|xml)$/.test(f));

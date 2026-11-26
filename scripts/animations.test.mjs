@@ -2,18 +2,13 @@
 // Needs a fresh `npm run build`; skipped when dist/ is missing.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { existsSync, readFileSync } from "node:fs";
-import { fileURLToPath } from "node:url";
-import { join } from "node:path";
+import { distSkip as skip, readBuilt } from "./test-lib.mjs";
 
-const dist = fileURLToPath(new URL("../dist/", import.meta.url));
-const indexPath = join(dist, "index.html");
-const skip = existsSync(indexPath) ? false : "dist/ missing: run `npm run build` first";
-const html = skip ? "" : readFileSync(indexPath, "utf8");
+const html = readBuilt("index.html");
 const css = skip
   ? ""
   : [...html.matchAll(/<link rel="stylesheet" href="([^"]+)"/g)]
-      .map((m) => readFileSync(join(dist, m[1]), "utf8"))
+      .map((m) => readBuilt(m[1]))
       .join("\n");
 
 // Top-level blocks of a minified stylesheet: [prelude, body] pairs (one level of nesting).

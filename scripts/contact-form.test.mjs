@@ -6,27 +6,19 @@
 // Needs a fresh `npm run build`; skipped when no built page has the form.
 import { after, before, describe, test } from "node:test";
 import assert from "node:assert/strict";
-import { existsSync, readdirSync, readFileSync, statSync } from "node:fs";
+import { existsSync, readFileSync, statSync } from "node:fs";
 import { join, normalize, sep } from "node:path";
-import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
 import { contact } from "../src/data/site.ts";
+import { builtHtmlFiles, dist } from "./test-lib.mjs";
 
-const dist = fileURLToPath(new URL("../dist/", import.meta.url));
 const ORIGIN = "http://127.0.0.1:9"; // never contacted: every request is routed
 const ENDPOINT = "https://contact-endpoint.test/exec"; // reserved .test TLD, mocked
-
-function htmlFiles(dir) {
-  if (!existsSync(dir)) return [];
-  return readdirSync(dir, { recursive: true })
-    .filter((f) => f.endsWith(".html"))
-    .map((f) => join(dir, f));
-}
 
 /** One built page per form variant: "section" (textarea) and "lien-he" (single-line message). */
 function formPages() {
   const pages = new Map();
-  for (const file of htmlFiles(dist)) {
+  for (const file of builtHtmlFiles()) {
     const html = readFileSync(file, "utf8");
     if (!html.includes("data-contact-form")) continue;
     const variant = /<textarea[^>]*name="message"/.test(html) ? "section" : "lien-he";

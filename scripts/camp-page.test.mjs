@@ -2,14 +2,9 @@
 // Needs a fresh `npm run build`; skipped when dist/ is missing.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { existsSync, readFileSync } from "node:fs";
-import { fileURLToPath } from "node:url";
-import { join } from "node:path";
+import { distSkip as skip, readBuilt } from "./test-lib.mjs";
 
-const dist = fileURLToPath(new URL("../dist/", import.meta.url));
-const skip = existsSync(join(dist, "index.html")) ? false : "dist/ missing: run `npm run build` first";
-const pagePath = join(dist, "trai-he-toan-hoc-pima", "index.html");
-const html = !skip && existsSync(pagePath) ? readFileSync(pagePath, "utf8") : "";
+const html = readBuilt("trai-he-toan-hoc-pima/index.html");
 
 test("camp page is built with its own title and description", { skip }, () => {
   assert.ok(html, "dist/trai-he-toan-hoc-pima/index.html exists");

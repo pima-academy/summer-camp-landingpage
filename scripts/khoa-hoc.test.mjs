@@ -3,13 +3,10 @@
 // Needs a fresh `npm run build`; skipped when dist/ is missing.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { existsSync, readFileSync } from "node:fs";
-import { fileURLToPath } from "node:url";
+import { distSkip as skip, mainOf, readBuilt } from "./test-lib.mjs";
 
-const page = fileURLToPath(new URL("../dist/khoa-hoc/index.html", import.meta.url));
-const skip = existsSync(page) ? false : "dist/khoa-hoc/ missing: run `npm run build` first";
-const html = skip ? "" : readFileSync(page, "utf8");
-const main = html.match(/<main[^>]*>([\s\S]*)<\/main>/)?.[1] ?? "";
+const html = readBuilt("khoa-hoc/index.html");
+const main = mainOf(html);
 
 test("khoa-hoc has a specific title, description and canonical", { skip }, () => {
   assert.match(html, /<title>Khóa học Toán ứng dụng - PiMA Academy<\/title>/);

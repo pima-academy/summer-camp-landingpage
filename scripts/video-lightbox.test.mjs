@@ -3,35 +3,19 @@
 // YouTube is never contacted: every request off localhost is aborted and logged.
 import { test, before, after } from "node:test";
 import assert from "node:assert/strict";
-import { existsSync, readFileSync, readdirSync } from "node:fs";
-import { createServer } from "node:http";
-import { extname, join, relative } from "node:path";
-import { fileURLToPath } from "node:url";
+import { readFileSync } from "node:fs";
+import { relative } from "node:path";
+import { builtHtmlFiles, dist, serveDist } from "./test-lib.mjs";
 
-const dist = fileURLToPath(new URL("../dist/", import.meta.url));
-
-const htmlFiles = (dir) =>
-  readdirSync(dir, { withFileTypes: true }).flatMap((e) =>
-    e.isDirectory() ? htmlFiles(join(dir, e.name)) : e.name.endsWith(".html") ? [join(dir, e.name)] : [],
-  );
-const pages = existsSync(dist)
-  ? htmlFiles(dist).filter((f) => readFileSync(f, "utf8").includes("data-video-lightbox"))
-  : [];
+const pages = builtHtmlFiles().filter((f) => readFileSync(f, "utf8").includes("data-video-lightbox"));
 const skip = pages.length ? false : "no built page uses VideoLightbox: run `npm run build` first";
 
-const types = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".webp": "image/webp", ".woff2": "font/woff2" };
 let server, origin, browser;
 
 before(async () => {
   if (skip) return;
-  server = createServer((req, res) => {
-    let p = join(dist, decodeURIComponent(new URL(req.url, "http://x").pathname));
-    if (p.endsWith("/")) p = join(p, "index.html");
-    if (!p.startsWith(dist) || !existsSync(p)) return res.writeHead(404).end();
-    res.writeHead(200, { "content-type": types[extname(p)] ?? "application/octet-stream" }).end(readFileSync(p));
-  });
-  await new Promise((r) => server.listen(0, "127.0.0.1", r));
-  origin = `http://127.0.0.1:${server.address().port}`;
+  server = await serveDist();
+  origin = server.origin;
   const { chromium } = await import("playwright");
   browser = await chromium.launch();
 });
