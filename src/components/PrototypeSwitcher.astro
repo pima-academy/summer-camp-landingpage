@@ -1,0 +1,74 @@
+---
+// PROTOTYPE (#51, throwaway): floating bar that cycles ?variant= on the home page.
+// Dev only (BaseLayout gates it on import.meta.env.DEV).
+---
+
+<div id="proto-switcher" hidden>
+  <button type="button" data-step="-1" aria-label="Variant trước">←</button>
+  <div>
+    <strong data-label></strong>
+    <small data-summary></small>
+  </div>
+  <button type="button" data-step="1" aria-label="Variant sau">→</button>
+</div>
+
+<style is:global>
+  #proto-switcher {
+    position: fixed; left: 50%; bottom: 16px; transform: translateX(-50%); z-index: 9999;
+    display: flex; align-items: center; gap: 12px; max-width: calc(100vw - 24px);
+    padding: 8px 12px; border-radius: 999px; background: #1d4ed8; color: #fff;
+    box-shadow: 0 6px 24px rgb(0 0 0 / 0.35); font: 14px/1.3 system-ui, sans-serif;
+  }
+  #proto-switcher[hidden] { display: none; }
+  #proto-switcher button {
+    width: 32px; height: 32px; border: 0; border-radius: 50%; background: #fff; color: #1d4ed8;
+    font-size: 18px; cursor: pointer;
+  }
+  #proto-switcher div { display: flex; flex-direction: column; text-align: center; }
+  #proto-switcher small { opacity: 0.85; font-size: 12px; }
+</style>
+
+<script>
+  const VARIANTS: Record<string, { name: string; summary: string }> = {
+    "0": { name: "Hiện tại", summary: "Giao diện hôm nay, để so sánh" },
+    A: { name: "Nền trắng, nút xanh", summary: "Heading đen viết thường · nút PiMA Green chữ đen · bo 8px · footer đen" },
+    B: { name: "Dark Green dẫn dắt", summary: "Heading Dark Green · nút pill Dark Green · vạch xanh trên kicker · bo 20px" },
+    C: { name: "Đen + lưới", summary: "Hero nền lưới như bìa guideline · heading UPPERCASE gạch xanh · bo 12px" },
+  };
+  const keys = Object.keys(VARIANTS);
+  const bar = document.getElementById("proto-switcher")!;
+
+  function current() {
+    return new URLSearchParams(location.search).get("variant") ?? "A";
+  }
+  function render() {
+    const v = current();
+    const info = VARIANTS[v] ?? { name: "?", summary: "" };
+    bar.querySelector("[data-label]")!.textContent = `${v} · ${info.name}`;
+    bar.querySelector("[data-summary]")!.textContent = info.summary;
+    if (v === "0") delete document.documentElement.dataset.brand;
+    else document.documentElement.dataset.brand = v;
+  }
+  function step(dir: number) {
+    const i = keys.indexOf(current());
+    const next = keys[(i + dir + keys.length) % keys.length];
+    const url = new URL(location.href);
+    url.searchParams.set("variant", next);
+    history.replaceState(null, "", url);
+    render();
+  }
+
+  if (location.pathname === "/") {
+    bar.hidden = false;
+    bar.querySelectorAll<HTMLButtonElement>("[data-step]").forEach((b) =>
+      b.addEventListener("click", () => step(Number(b.dataset.step))),
+    );
+    document.addEventListener("keydown", (e) => {
+      const t = e.target as HTMLElement;
+      if (t.closest("input, textarea, [contenteditable]")) return;
+      if (e.key === "ArrowLeft") step(-1);
+      if (e.key === "ArrowRight") step(1);
+    });
+    render();
+  }
+</script>

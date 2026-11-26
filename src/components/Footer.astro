@@ -6,6 +6,8 @@
 import { Image } from "astro:assets";
 import logoSite from "../assets/images/logo-1-green.svg";
 import logoCamp from "../assets/images/logo-1.avif";
+import protoStackedGreen from "../assets/prototype-brand/pima-logo-stacked-green.png"; // PROTOTYPE
+import protoStackedWhite from "../assets/prototype-brand/pima-logo-stacked-white.png"; // PROTOTYPE
 import fbIcon from "../assets/images/fb.png";
 import mailIcon from "../assets/images/mail.png";
 import mapPinIcon from "../assets/images/map-pin.png";
@@ -55,7 +57,11 @@ const ids = isSite
                   >
                     {
                       isSite ? (
-                        <Image src={logoSite} alt="" width={96} class="image-14" />
+                        <>
+                          <Image src={logoSite} alt="" width={96} class="image-14 proto-old-logo" />
+                          <Image src={protoStackedGreen} alt="" width={80} densities={[1, 2]} class="proto-logo proto-logo-green" />
+                          <Image src={protoStackedWhite} alt="" width={80} densities={[1, 2]} class="proto-logo proto-logo-white" />
+                        </>
                       ) : (
                         <Image src={logoCamp} alt="" width={91} densities={[1, 2]} class="footer3_logo" />
                       )

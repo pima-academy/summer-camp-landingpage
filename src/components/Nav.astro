@@ -5,6 +5,7 @@
 // dropdown modules). Without JS the desktop links still work; the mobile menu stays closed.
 import { Image } from "astro:assets";
 import logo from "../assets/images/logo-horizontal.png";
+import protoLogoH from "../assets/prototype-brand/pima-logo-horizontal-green.png"; // PROTOTYPE
 import { navItems, type Link } from "../data/site";
 import { isCurrent } from "../lib/current-link";
 import ContentGap from "./ContentGap.astro";
@@ -37,7 +38,8 @@ const isGap = (item: Link) => item.href === "/su-kien-blog/";
         aria-label="PiMA, trang chủ"
       >
         <div class="nav-logo-icon">
-          <Image src={logo} alt="" width={117} densities={[1, 2]} class="image-13" />
+          <Image src={logo} alt="" width={117} densities={[1, 2]} class="image-13 proto-old-logo" />
+          <Image src={protoLogoH} alt="" width={132} densities={[1, 2]} class="proto-logo proto-logo-nav" />
         </div>
       </a>
     </div>

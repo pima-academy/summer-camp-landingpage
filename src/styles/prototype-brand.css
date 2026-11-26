@@ -1,0 +1,187 @@
+/*
+ * PROTOTYPE (throwaway, branch prototype/brand-alignment, ticket #51).
+ * Three brand-alignment directions for the home page, switched by ?variant=A|B|C
+ * (0 = today's look). Structure is untouched: only colour, type, radius, logo.
+ * Lives on a throwaway branch; never merge. !important wins the Webflow
+ * specificity fights without touching its files.
+ */
+
+/* ---------- shared brand palette ---------- */
+html[data-brand] {
+  --g: #50b448; /* PiMA Green: identity, fills only (2.64:1 on white) */
+  --dg: #275613; /* Dark Green: 8.6:1 on white */
+  --lime: #d4e889; /* Pale Lime */
+  --ink: #000;
+  --muted: #434343;
+  --surface: #efefef;
+  --hair: #d9d9d9;
+
+  /* Webflow vars that drive img/card radius site-wide */
+  --ai-gen-82921b10-4b39-48f0-b346-808cf4903d29-1746881340164---card--card-radius: var(--r-card);
+  --ai-gen-82921b10-4b39-48f0-b346-808cf4903d29-1746881340164---image--image-radius: var(--r-photo);
+}
+
+/* ---------- variant A: white page, green fills, sentence case, 8px ---------- */
+html[data-brand="A"] {
+  --fs-h1: 44px; --fs-h1-m: 30px;
+  --fs-h2: 36px; --fs-h2-m: 26px;
+  --fs-h3: 22px; --fs-h3-m: 19px;
+  --fs-kicker: 14px; --fs-body: 16px; --lh-body: 1.6;
+  --h-case: none; --h-weight: 800; --h1-weight: 800;
+  --h-color: var(--ink); --kicker-color: var(--dg); --num-color: var(--dg);
+  --btn-bg: var(--g); --btn-fg: var(--ink); --btn-radius: 8px;
+  --btn2-bg: var(--ink); --btn2-fg: #fff;
+  --r-card: 8px; --r-photo: 8px; --r-input: 8px;
+  --bg-trust: var(--dg); --fg-trust: var(--lime);
+  --bg-philo: var(--lime);
+  --bg-founding: var(--dg);
+  --bg-milestone: var(--surface);
+  --bg-testi: var(--lime);
+  --bg-contact: var(--lime);
+  --bg-footer: var(--ink); --fg-footer-kicker: var(--g); --fg-footer: var(--hair);
+}
+
+/* ---------- variant B: Dark Green leads, pills, green rule over kickers, 20px ---------- */
+html[data-brand="B"] {
+  --fs-h1: 52px; --fs-h1-m: 32px;
+  --fs-h2: 40px; --fs-h2-m: 28px;
+  --fs-h3: 24px; --fs-h3-m: 20px;
+  --fs-kicker: 15px; --fs-body: 17px; --lh-body: 1.65;
+  --h-case: none; --h-weight: 800; --h1-weight: 900;
+  --h-color: var(--dg); --kicker-color: var(--ink); --num-color: var(--dg);
+  --btn-bg: var(--dg); --btn-fg: #fff; --btn-radius: 999px;
+  --btn2-bg: var(--dg); --btn2-fg: #fff;
+  --r-card: 20px; --r-photo: 20px; --r-input: 999px;
+  --bg-trust: var(--g); --fg-trust: var(--ink);
+  --bg-philo: var(--lime);
+  --bg-founding: var(--dg);
+  --bg-milestone: #fff;
+  --bg-testi: var(--dg);
+  --bg-contact: var(--lime);
+  --bg-footer: var(--dg); --fg-footer-kicker: var(--lime); --fg-footer: var(--hair);
+}
+
+/* ---------- variant C: black + Dark Green grid (guideline cover), UPPERCASE, 12px ---------- */
+html[data-brand="C"] {
+  --fs-h1: 54px; --fs-h1-m: 30px;
+  --fs-h2: 32px; --fs-h2-m: 24px;
+  --fs-h3: 22px; --fs-h3-m: 18px;
+  --fs-kicker: 14px; --fs-body: 16px; --lh-body: 1.6;
+  --h-case: uppercase; --h-weight: 800; --h1-weight: 900;
+  --h-color: var(--ink); --kicker-color: var(--dg); --num-color: var(--ink);
+  --btn-bg: var(--g); --btn-fg: var(--ink); --btn-radius: 12px;
+  --btn2-bg: var(--ink); --btn2-fg: #fff;
+  --r-card: 12px; --r-photo: 12px; --r-input: 12px;
+  --bg-trust: var(--ink); --fg-trust: var(--g);
+  --bg-philo: var(--lime);
+  --bg-founding: var(--ink);
+  --bg-milestone: var(--surface);
+  --bg-testi: var(--surface);
+  --bg-contact: var(--lime);
+  --bg-footer: var(--ink); --fg-footer-kicker: var(--g); --fg-footer: var(--hair);
+  --grid: linear-gradient(var(--dg) 1px, transparent 1px) 0 0 / 44px 44px,
+    linear-gradient(90deg, var(--dg) 1px, transparent 1px) 0 0 / 44px 44px, var(--ink);
+}
+
+/* ---------- logos ---------- */
+.proto-logo { display: none; }
+html[data-brand] .proto-old-logo { display: none !important; }
+html[data-brand] .proto-logo-nav { display: block; width: 132px; height: auto; border-radius: 0 !important; }
+html[data-brand] .proto-logo-green,
+html[data-brand] .proto-logo-white { width: 80px; height: auto; border-radius: 0 !important; }
+html[data-brand="A"] .proto-logo-green,
+html[data-brand="C"] .proto-logo-green,
+html[data-brand="B"] .proto-logo-white { display: block; }
+
+/* ---------- type ---------- */
+html[data-brand] body { color: var(--ink); }
+html[data-brand] main p,
+html[data-brand] main .text-size-medium { font-size: var(--fs-body) !important; line-height: var(--lh-body) !important; color: var(--ink); }
+html[data-brand] main h1 {
+  font-size: var(--fs-h1) !important; font-weight: var(--h1-weight) !important; line-height: 1.15 !important;
+  text-transform: var(--h-case); color: var(--h-color) !important; letter-spacing: -0.01em;
+}
+html[data-brand] main h2 {
+  font-size: var(--fs-h2) !important; font-weight: var(--h-weight) !important; line-height: 1.2 !important;
+  text-transform: var(--h-case); color: var(--h-color) !important; letter-spacing: -0.005em;
+}
+html[data-brand] main h3:not(.heading-style-h5) { font-size: var(--fs-h3) !important; font-weight: 800 !important; line-height: 1.3 !important; }
+html[data-brand] .section_founding-story h3 { color: #fff !important; text-transform: var(--h-case); }
+@media (max-width: 767px) {
+  html[data-brand] main h1 { font-size: var(--fs-h1-m) !important; }
+  html[data-brand] main h2 { font-size: var(--fs-h2-m) !important; }
+  html[data-brand] main h3:not(.heading-style-h5) { font-size: var(--fs-h3-m) !important; }
+}
+
+/* kicker (the small label above a heading) */
+html[data-brand] :is(.text-style-green.text-style-allcaps, .h4-heading.text-style-green, .text-style-lime.text-style-allcaps) {
+  font-size: var(--fs-kicker) !important; font-weight: 800 !important; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--kicker-color) !important; line-height: 1.4 !important; margin-bottom: 12px !important;
+}
+html[data-brand] .h4-heading.text-style-green .brand,
+html[data-brand] :is(.text-style-green, .text-style-lime) span { text-transform: none; }
+html[data-brand] .section_founding-story .text-style-lime { color: var(--lime) !important; }
+html[data-brand] .footer .text-style-green { color: var(--fg-footer-kicker) !important; }
+
+/* B: a short PiMA Green rule over each kicker (green as a fill, not text) */
+html[data-brand="B"] main :is(.text-style-green.text-style-allcaps, .h4-heading.text-style-green, .text-style-lime.text-style-allcaps)::before {
+  content: ""; display: block; width: 40px; height: 4px; border-radius: 2px; background: var(--g); margin: 0 auto 12px;
+}
+html[data-brand="B"] :is(.section_impact, .section_founding-story) :is(.text-style-allcaps)::before { margin-left: 0; }
+
+/* C: a PiMA Green underline under each section heading */
+html[data-brand="C"] main h2::after {
+  content: ""; display: block; width: 56px; height: 5px; background: var(--g); margin: 14px auto 0;
+}
+html[data-brand="C"] .section_impact h2::after { margin-left: 0; }
+
+/* numbers, dates, names */
+html[data-brand] .section_impact .text-style-h4 { color: var(--num-color) !important; font-weight: 900 !important; }
+html[data-brand] .section_milestone .heading-style-h5 { color: var(--dg) !important; font-weight: 800 !important; }
+html[data-brand] .section_milestone p { color: var(--ink) !important; font-size: 15px !important; }
+html[data-brand] .section_testimonials :is(.text-weight-semibold, strong) { color: var(--dg) !important; font-weight: 800 !important; }
+html[data-brand] .section_press .heading-style-h5 { color: var(--ink) !important; font-weight: 400 !important; font-size: 18px !important; line-height: 1.6 !important; }
+html[data-brand] .expert-image-caption { color: var(--muted) !important; }
+html[data-brand] .nav-menu .text-style-secondary { color: var(--muted) !important; font-weight: 600 !important; }
+
+/* ---------- buttons ---------- */
+html[data-brand] .button,
+html[data-brand] .submit-button {
+  background-color: var(--btn-bg) !important; color: var(--btn-fg) !important; font-weight: 700 !important;
+  border-radius: var(--btn-radius) !important;
+}
+html[data-brand] :is(.button.is-dark-green, .button.is-lime.is-black) { background-color: var(--btn2-bg) !important; color: var(--btn2-fg) !important; }
+html[data-brand] .section_founding-story .button.is-lime { background-color: var(--lime) !important; color: var(--ink) !important; }
+
+/* ---------- section backgrounds ---------- */
+html[data-brand] .section_trust-bar_dark-green { background-color: var(--bg-trust) !important; }
+html[data-brand] .section_trust-bar_dark-green .text-block-2 { color: var(--fg-trust) !important; font-weight: 700 !important; }
+html[data-brand] .section_philosophy { background-color: var(--bg-philo) !important; }
+html[data-brand] .founding-story_content-wrapper { background: var(--bg-founding) !important; border-radius: var(--r-card) !important; }
+html[data-brand] .section_founding-story p { color: #fff !important; }
+html[data-brand] .section_milestone { background-color: var(--bg-milestone) !important; }
+html[data-brand] .section_testimonials { background-color: var(--bg-testi) !important; }
+html[data-brand="B"] .section_testimonials h2 { color: #fff !important; }
+html[data-brand] .testimonial18_card { border-radius: var(--r-card) !important; }
+html[data-brand] .section_contact-form { background-color: var(--bg-contact) !important; }
+html[data-brand] :is(.text-field-2, .textarea-2) { border-radius: var(--r-input) !important; border-color: var(--muted) !important; }
+html[data-brand] .textarea-2 { border-radius: min(var(--r-input), 16px) !important; }
+
+/* photos: every photo rounded with the variant radius */
+html[data-brand] :is(.header26_image, .gallery22_image, .gallery25_image, .program-banner-wrapper img, .impact-report_image-wrapper img) {
+  border-radius: var(--r-photo) !important;
+}
+
+/* ---------- footer ---------- */
+html[data-brand] .footer .background-color-dark { background: var(--bg-footer) !important; }
+html[data-brand] .footer :is(.text-style-gray, a) { color: var(--fg-footer) !important; font-weight: 400 !important; }
+html[data-brand] .footer .text-weight-bold { font-weight: 700 !important; }
+html[data-brand] .footer .footer3_credit-text { color: var(--fg-footer) !important; }
+
+/* ---------- C: the guideline cover look (black + Dark Green grid) ---------- */
+html[data-brand="C"] .section_homepage_hero { background: var(--grid) !important; }
+html[data-brand="C"] .section_homepage_hero h1 { color: #fff !important; }
+html[data-brand="C"] .section_homepage_hero p { color: #fff !important; }
+html[data-brand="C"] .section_homepage_hero .h4-heading.text-style-green { color: var(--g) !important; }
+html[data-brand="C"] .founding-story_content-wrapper { background: var(--grid) !important; }
+html[data-brand="C"] .footer .background-color-dark { background: var(--grid) !important; }
