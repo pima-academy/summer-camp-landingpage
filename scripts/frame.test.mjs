@@ -43,7 +43,7 @@ test("home page loads favicon, webclip and one site stylesheet", { skip }, () =>
     css.indexOf("@font-face"),
     css.indexOf("-webkit-text-size-adjust"), // normalize
     css.indexOf(".w-inline-block"), // webflow.css
-    css.indexOf(".footer3_"), // pima-website.webflow.css
+    css.indexOf(".padding-global"), // pima-website.webflow.css
   ];
   assert.ok(order.every((i) => i >= 0), `all sheets present: ${order}`);
   assert.deepEqual([...order].sort((a, b) => a - b), order, "sheets in old order");

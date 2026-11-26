@@ -1,0 +1,640 @@
+---
+// Site header of every site page (BaseLayout): logo, the links from site.ts and the
+// "Chương trình" dropdown; a hamburger menu at <= 991 px.
+// The current page's link gets `aria-current="page"` at build time. Open state is
+// `aria-expanded` on the menu button and on the dropdown toggle; the <script> below keeps it
+// in sync (it replaced webflow.js's navbar and dropdown modules). Without JS the desktop links
+// still work, the dropdown shows on hover and focus, and the mobile menu stays closed.
+import { Image } from "astro:assets";
+import logo from "../assets/images/logo-horizontal.png";
+import ContentGap from "../components/ContentGap.astro";
+import { navItems, type Link } from "../data/site";
+import { isCurrent } from "../lib/current-link";
+
+const { pathname } = Astro.url;
+const current = (href: string) => (isCurrent(href, pathname) ? ("page" as const) : undefined);
+
+// "Sự kiện & Blog" points at a page with no content yet (an inline content gap).
+const isGap = (item: Link) => item.href === "/su-kien-blog/";
+---
+
+<header data-animate="fade-up">
+  <div class="bar">
+    <div class="left">
+      <a href="/" class="logo-link" aria-current={current("/")} aria-label="PiMA, trang chủ">
+        <div class="logo-box">
+          <Image src={logo} alt="" width={117} densities={[1, 2]} class="logo-image" />
+        </div>
+      </a>
+    </div>
+    <div class="right">
+      <nav id="nav-menu" class="menu">
+        <ul role="list" class="list">
+          {
+            navItems.map((item, i) =>
+              "items" in item ? (
+                <li class="item">
+                  <div class="dropdown">
+                    <div
+                      id={`nav-dropdown-toggle-${i}`}
+                      role="button"
+                      tabindex="0"
+                      aria-controls={`nav-dropdown-list-${i}`}
+                      aria-expanded="false"
+                      class="link toggle"
+                    >
+                      <div class="label">{item.label}</div>
+                      {/* Tabler chevron-down */}
+                      <svg
+                        class="caret"
+                        aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M6 9l6 6l6 -6" />
+                      </svg>
+                    </div>
+                    <div
+                      id={`nav-dropdown-list-${i}`}
+                      aria-labelledby={`nav-dropdown-toggle-${i}`}
+                      class="dropdown-list"
+                      hidden
+                    >
+                      <div class="panel">
+                        <ul role="list" class="sub">
+                          {item.items.map((sub) => (
+                            <li>
+                              <a href={sub.href} class="sub-link" aria-current={current(sub.href)}>
+                                <div class="sub-label">{sub.label}</div>
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              ) : isGap(item) ? (
+                // Inline gap, no fallback: production renders no <li> at all.
+                <ContentGap name="nav: Sự kiện & Blog" inline>
+                  <li class="item">
+                    <a href={item.href} class="link" aria-current={current(item.href)}>
+                      <div class="label">{item.label}</div>
+                    </a>
+                  </li>
+                </ContentGap>
+              ) : (
+                <li class="item">
+                  <a href={item.href} class="link" aria-current={current(item.href)}>
+                    <div class="label">{item.label}</div>
+                  </a>
+                </li>
+              ),
+            )
+          }
+        </ul>
+      </nav>
+    </div>
+    <div role="button" tabindex="0" aria-label="Menu" aria-controls="nav-menu" aria-expanded="false" class="menu-button">
+      <div class="menu-icon">
+        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+          <g
+            stroke-linecap="square"
+            stroke-linejoin="miter"
+            stroke-width="1.5"
+            fill="none"
+            stroke="currentColor"
+            stroke-miterlimit="10"
+          >
+            <line x1="1" y1="12" x2="23" y2="12" stroke="currentColor"></line>
+            <line x1="1" y1="5" x2="23" y2="5"></line>
+            <line x1="1" y1="19" x2="23" y2="19"></line>
+          </g>
+        </svg>
+      </div>
+    </div>
+    <!-- The open mobile menu moves in here: it clips the slide-down and catches outside taps. -->
+    <div class="overlay" data-nav-overlay hidden></div>
+  </div>
+</header>
+
+<script>
+  // Menu (collapsed at <= 991 px by CSS): the button toggles `aria-expanded`. While open, the
+  // menu sits inside the overlay under the bar (CSS styles `.overlay > .menu` as the drop-down
+  // panel) and slides down; the page behind does not scroll. It moves back after closing.
+  //
+  // Dropdown: the toggle's `aria-expanded`; the list's `hidden` is lifted while it is open or
+  // closing. Opens on mouse hover, on keyboard focus and on click/tap; closes on leave, outside
+  // click/tap, focus leaving and Esc. The panel animates: open 300 ms (translateY -1rem -> 0
+  // and fade in), close 200 ms.
+
+  const DURATION = 400;
+  const EASING = "ease";
+  const reducedMotion = () => matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  type Dropdown = { close: (immediate?: boolean) => void };
+
+  function initDropdown(toggle: HTMLElement): Dropdown {
+    const el = toggle.parentElement!;
+    const list = document.getElementById(toggle.getAttribute("aria-controls")!)!;
+    const panel = list.firstElementChild as HTMLElement;
+    const links = () => [...list.querySelectorAll<HTMLElement>("a")];
+    let isOpen = false;
+    let hovering = false;
+    let skipFocusOpen = false;
+    let anim: Animation | undefined;
+
+    function open() {
+      if (isOpen) return;
+      isOpen = true;
+      anim?.cancel();
+      list.hidden = false;
+      toggle.setAttribute("aria-expanded", "true");
+      if (reducedMotion()) return;
+      anim = panel.animate(
+        [
+          { transform: "translateY(-1rem)", opacity: 0 },
+          { transform: "none", opacity: 1 },
+        ],
+        { duration: 300, easing: "ease-in-out" },
+      );
+    }
+
+    function close(immediate = false) {
+      if (!isOpen) return;
+      isOpen = false;
+      toggle.setAttribute("aria-expanded", "false");
+      anim?.cancel();
+      if (immediate || reducedMotion()) return void (list.hidden = true);
+      const closing = panel.animate(
+        [
+          { transform: "none", opacity: 1 },
+          { transform: "translateY(-1rem)", opacity: 0 },
+        ],
+        { duration: 200, easing: "ease-out", fill: "forwards" },
+      );
+      anim = closing;
+      closing.onfinish = () => {
+        list.hidden = true;
+        closing.cancel();
+      };
+    }
+
+    toggle.addEventListener("pointerenter", (e) => {
+      if (e.pointerType !== "mouse") return;
+      hovering = true;
+      open();
+    });
+    el.addEventListener("pointerleave", (e) => {
+      if (e.pointerType !== "mouse") return;
+      hovering = false;
+      if (!links().includes(document.activeElement as HTMLElement)) close();
+    });
+    toggle.addEventListener("click", () => (isOpen ? close() : open()));
+    toggle.addEventListener("focus", () => {
+      if (skipFocusOpen) return void (skipFocusOpen = false);
+      if (toggle.matches(":focus-visible")) open();
+    });
+    el.addEventListener("focusout", (e) => {
+      if (!hovering && !el.contains(e.relatedTarget as Node | null)) close();
+    });
+    document.addEventListener("click", (e) => {
+      if (isOpen && !el.contains(e.target as Node)) close();
+    });
+    el.addEventListener("keydown", (e) => {
+      const items = links();
+      const i = items.indexOf(document.activeElement as HTMLElement);
+      if (e.target === toggle && (e.key === "Enter" || e.key === " ")) {
+        e.preventDefault();
+        isOpen ? close() : open();
+      } else if (e.key === "Escape" && isOpen) {
+        e.stopPropagation();
+        hovering = false;
+        close();
+        skipFocusOpen = true;
+        toggle.focus();
+      } else if (isOpen && (e.key === "ArrowDown" || e.key === "ArrowUp")) {
+        e.preventDefault();
+        const next = e.key === "ArrowDown" ? Math.min(items.length - 1, i + 1) : i - 1;
+        (next < 0 ? toggle : items[next]).focus();
+      }
+    });
+
+    return { close };
+  }
+
+  function initNavbar(button: HTMLElement) {
+    const menu = document.getElementById(button.getAttribute("aria-controls")!);
+    const bar = button.parentElement!;
+    const overlay = bar.querySelector<HTMLElement>("[data-nav-overlay]");
+    if (!menu || !overlay) return;
+    const home = { parent: menu.parentElement!, next: menu.nextSibling };
+    const dropdowns = [...menu.querySelectorAll<HTMLElement>('[aria-controls^="nav-dropdown-list-"]')].map(
+      initDropdown,
+    );
+
+    let isOpen = false;
+    let anim: Animation | undefined;
+
+    const collapsed = () => getComputedStyle(button).display !== "none";
+    const sizeOverlay = () => {
+      overlay.style.height = `${Math.max(0, innerHeight - bar.getBoundingClientRect().bottom)}px`;
+    };
+    // Slide distance as in webflow.js: bar height + menu height, so the menu starts out of view.
+    const offscreen = () => `translateY(${-(bar.offsetHeight + menu.offsetHeight)}px)`;
+
+    function lockScroll(on: boolean) {
+      const root = document.documentElement;
+      const gap = innerWidth - root.clientWidth;
+      root.style.overflow = on ? "hidden" : "";
+      document.body.style.paddingRight = on && gap > 0 ? `${gap}px` : "";
+    }
+
+    function open() {
+      if (isOpen) return;
+      isOpen = true;
+      anim?.cancel();
+      button.setAttribute("aria-expanded", "true");
+      lockScroll(true);
+      overlay!.hidden = false;
+      sizeOverlay();
+      overlay!.append(menu!);
+      if (reducedMotion()) return;
+      anim = menu!.animate([{ transform: offscreen() }, { transform: "none" }], { duration: DURATION, easing: EASING });
+    }
+
+    function cleanup() {
+      home.parent.insertBefore(menu!, home.next);
+      overlay!.hidden = true;
+      overlay!.removeAttribute("style");
+      lockScroll(false);
+    }
+
+    function close(immediate = false) {
+      if (!isOpen) return;
+      isOpen = false;
+      anim?.cancel();
+      button.setAttribute("aria-expanded", "false");
+      dropdowns.forEach((d) => d.close(true));
+      if (immediate || reducedMotion()) return cleanup();
+      const closing = menu!.animate([{ transform: "none" }, { transform: offscreen() }], {
+        duration: DURATION,
+        easing: EASING,
+        fill: "forwards",
+      });
+      anim = closing;
+      closing.onfinish = () => {
+        cleanup();
+        closing.cancel();
+      };
+    }
+
+    button.addEventListener("click", () => (isOpen ? close() : open()));
+    button.addEventListener("keydown", (e) => {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        isOpen ? close() : open();
+      }
+    });
+    bar.addEventListener("keydown", (e) => {
+      if (e.key !== "Escape" || !isOpen) return;
+      close();
+      button.focus();
+    });
+    document.addEventListener("click", (e) => {
+      const t = e.target as Node;
+      if (isOpen && !menu.contains(t) && !button.contains(t)) close();
+    });
+    menu.addEventListener("click", (e) => {
+      const a = (e.target as Element).closest("a");
+      if (isOpen && a?.getAttribute("href")?.startsWith("#")) close();
+    });
+    addEventListener("resize", () => {
+      if (!isOpen) return;
+      if (!collapsed()) close(true);
+      else sizeOverlay();
+    });
+  }
+
+  document.querySelectorAll<HTMLElement>('[aria-controls="nav-menu"]').forEach(initNavbar);
+</script>
+
+<style>
+  header {
+    position: fixed;
+    top: 0;
+    z-index: 99;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    color: var(--color-text-inverse);
+    font-size: var(--font-size-nav);
+    background-color: var(--color-background);
+  }
+
+  .bar {
+    position: relative;
+    z-index: 1000;
+    display: flex;
+    width: 100%;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0.75rem 1rem;
+    border-bottom-left-radius: var(--radius-card);
+    border-bottom-right-radius: var(--radius-card);
+  }
+
+  .left,
+  .right {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .left {
+    justify-content: flex-start;
+  }
+
+  .right {
+    justify-content: flex-end;
+  }
+
+  .logo-link {
+    display: flex;
+    flex: 1;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.5rem;
+    max-width: 100%;
+    height: 2.5rem;
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .logo-link:hover {
+    color: color-mix(in srgb, currentColor 80%, transparent);
+  }
+
+  .logo-box {
+    display: block;
+    flex: 1;
+    aspect-ratio: 1;
+    height: 100%;
+  }
+
+  .logo-image {
+    height: 2.5rem;
+  }
+
+  .menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    height: 100%;
+    margin-bottom: 0;
+    padding-left: 0;
+  }
+
+  .list {
+    display: flex;
+    margin-bottom: 0;
+    padding-left: 0;
+    list-style: none;
+  }
+
+  .item {
+    display: flex;
+    margin-bottom: 0;
+  }
+
+  /* A top-level link and the "Chương trình" toggle. */
+  .link {
+    display: flex;
+    flex: none;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.5rem;
+    max-width: 100%;
+    padding: 0.5em 0.75em;
+    border-radius: var(--radius-pill);
+    color: color-mix(in srgb, currentColor 75%, transparent);
+    background-color: color-mix(in srgb, currentColor 0%, transparent);
+    white-space: nowrap;
+    word-break: keep-all;
+    text-decoration: none;
+  }
+
+  .link:hover {
+    color: inherit;
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .link[aria-current="page"] {
+    background-color: color-mix(in srgb, currentColor 30%, transparent);
+  }
+
+  .label {
+    color: var(--color-text-secondary);
+  }
+
+  .dropdown {
+    z-index: 900;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+  }
+
+  .toggle {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    vertical-align: top;
+    text-align: left;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .caret {
+    width: 1em;
+    height: 1em;
+    color: var(--color-text-secondary);
+  }
+
+  .dropdown-list {
+    position: absolute;
+    display: flex;
+    min-width: 100%;
+    padding-top: 1.25rem;
+  }
+
+  .dropdown-list[hidden] {
+    display: none;
+  }
+
+  /* Without JS (no `js-ready` on <html>) the dropdown links still show on hover and focus. */
+  :global(html:not(.js-ready)) .dropdown:is(:hover, :focus-within) > .dropdown-list {
+    display: flex;
+  }
+
+  .panel {
+    border-radius: var(--radius-card);
+    background-color: var(--color-background);
+    box-shadow: var(--shadow-dropdown);
+  }
+
+  .sub {
+    display: flex;
+    flex-direction: column;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-left: 0;
+    list-style: none;
+    text-align: left;
+    font-style: normal;
+  }
+
+  .sub-link {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.5rem;
+    max-width: 100%;
+    padding: 0.75em 1em;
+    color: var(--color-text);
+    font-weight: var(--font-weight-regular);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .sub-link:hover {
+    color: var(--color-text-accent-alt);
+  }
+
+  .sub-label {
+    white-space: pre;
+  }
+
+  .menu-button {
+    position: relative;
+    display: none;
+    padding: 0.5rem;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .menu-button[aria-expanded="true"] {
+    z-index: 2;
+  }
+
+  .menu-icon {
+    display: flex;
+    flex: none;
+    justify-content: center;
+    align-items: center;
+    width: 2rem;
+    height: 2rem;
+    color: var(--color-icon-on-inverse);
+    vertical-align: middle;
+  }
+
+  .overlay {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  @media screen and (max-width: 991px) {
+    .menu {
+      position: absolute;
+      top: 100%;
+      display: none;
+      height: auto;
+      max-height: calc(100dvh - 10rem);
+      padding: 1rem;
+      overflow: auto;
+      border-radius: var(--radius-nav-menu);
+      background-color: var(--color-background);
+      box-shadow: var(--shadow-dropdown);
+    }
+
+    /* The open menu, inside the overlay. */
+    .overlay > .menu {
+      top: 0;
+      left: 0;
+      right: 0;
+      display: block;
+      min-width: 200px;
+      text-align: center;
+    }
+
+    .list,
+    .item {
+      flex-direction: column;
+    }
+
+    .link,
+    .sub-link {
+      justify-content: space-between;
+      font-size: var(--font-size-nav-link-menu);
+    }
+
+    .link:hover {
+      color: var(--color-text-accent-alt);
+    }
+
+    .link[aria-current="page"]:hover {
+      background-color: transparent;
+    }
+
+    .dropdown {
+      display: block;
+      width: 100%;
+    }
+
+    .dropdown-list {
+      position: relative;
+      border-radius: var(--radius-card);
+    }
+
+    .panel {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      background-color: color-mix(in srgb, currentColor 5%, transparent);
+      box-shadow: none;
+    }
+
+    .menu-button {
+      display: block;
+      align-self: center;
+    }
+  }
+
+  @media screen and (max-width: 479px) {
+    .dropdown-list {
+      flex-direction: column;
+      background-color: color-mix(in srgb, currentColor 5%, transparent);
+    }
+
+    .label:active {
+      color: var(--color-text-muted);
+    }
+  }
+</style>
