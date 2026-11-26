@@ -1,0 +1,144 @@
+---
+// Liên hệ: contact facts, social links, trust bar and the lien-he contact form layout
+// (old `site/lien-he.html`). Facts come from site.ts.
+import { Image } from "astro:assets";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import TrustBar from "../components/TrustBar.astro";
+import ContactForm from "../components/ContactForm.astro";
+import { contact, social } from "../data/site";
+import { fluidWidths } from "../lib/image-widths";
+import fbIcon from "../assets/images/fb.png";
+import mailIcon from "../assets/images/mail.png";
+import mapPinIcon from "../assets/images/map-pin.png";
+import contactIllustration from "../assets/images/frame-28135.avif";
+---
+
+<BaseLayout
+  title="Liên hệ với PiMA Academy"
+  description="Liên hệ PiMA Academy qua Facebook, email contact@pimavn.com hoặc tại 35 Văn Chung, Thành phố Hồ Chí Minh, hoặc để lại lời nhắn để PiMA phản hồi bạn sớm nhất có thể."
+>
+  <div class="section-contact-info" data-animate="fade-up">
+    <div class="padding-global">
+      <div class="container-medium">
+        <div class="padding-section-small">
+          <div class="form_content-wrapper">
+            <div class="padding-custom4">
+              <h1 class="heading-style-h3 text-align-center">Liên hệ với PiMA</h1>
+              <div class="spacer-small"></div>
+              <div class="form_info">
+                <div class="form-contact">
+                  <div class="footer_icon-wrapper"><Image src={fbIcon} alt="" width={24} /></div>
+                  <div>
+                    <div class="text-weight-bold">Facebook</div>
+                    <div>{social.facebook.display}</div>
+                  </div>
+                </div>
+                <div class="form-contact">
+                  <div class="footer_icon-wrapper"><Image src={mailIcon} alt="" width={24} /></div>
+                  <div>
+                    <div class="text-weight-bold">Email</div>
+                    <div>{contact.email}</div>
+                  </div>
+                </div>
+                <div class="form-contact">
+                  <div class="footer_icon-wrapper"><Image src={mapPinIcon} alt="" width={24} /></div>
+                  <div>
+                    <div class="text-weight-bold">Địa chỉ</div>
+                    <div>{contact.address}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="section-contact-social" data-animate="fade-up">
+    <div class="padding-global">
+      <div class="container-medium">
+        <div class="padding-section-tiny">
+          <div class="form_content-wrapper">
+            <div class="padding-custom4">
+              <div class="contact-social-component">
+                <h2 class="heading-style-h4 text-align-center">Kết nối với chúng tôi qua</h2>
+                <div class="spacer-small"></div>
+                <div class="social-info-wrapper">
+                  <a
+                    id="w-node-_429b5782-ebf1-814f-b97d-c0124f0eff67-190d9eeb"
+                    href={social.facebook.href}
+                    class="button-social w-inline-block"
+                  >
+                    <div class="icon-embed-xxsmall-2 w-embed">
+                      <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" class="iconify iconify--bx" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                        <path d="M13.397 20.997v-8.196h2.765l.411-3.209h-3.176V7.548c0-.926.258-1.56 1.587-1.56h1.684V3.127A22.336 22.336 0 0 0 14.201 3c-2.444 0-4.122 1.492-4.122 4.231v2.355H7.332v3.209h2.753v8.202h3.312z" fill="currentColor"></path>
+                      </svg>
+                    </div>
+                    <div class="text-block-14"><span>Facebook</span></div>
+                  </a>
+                  <a
+                    id="w-node-_83e204d6-79c1-3eae-2f7c-a40660fdb5a0-190d9eeb"
+                    href={social.linkedin.href}
+                    class="button-social w-inline-block"
+                  >
+                    <div class="icon-embed-small-2 w-embed">
+                      <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" class="iconify iconify--bx" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                        <circle cx="4.983" cy="5.009" r="2.188" fill="currentColor"></circle>
+                        <path d="M9.237 8.855v12.139h3.769v-6.003c0-1.584.298-3.118 2.262-3.118c1.937 0 1.961 1.811 1.961 3.218v5.904H21v-6.657c0-3.27-.704-5.783-4.526-5.783c-1.835 0-3.065 1.007-3.568 1.96h-.051v-1.66H9.237zm-6.142 0H6.87v12.139H3.095z" fill="currentColor"></path>
+                      </svg>
+                    </div>
+                    <div class="text-block-14">LinkedIn</div>
+                  </a>
+                  <a
+                    id="w-node-_22b2a77c-7b14-2cff-cc6d-de45dac333a8-190d9eeb"
+                    href={social.youtube.href}
+                    class="button-social w-inline-block"
+                  >
+                    <div class="icon-embed-small-3 w-embed">
+                      <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" class="iconify iconify--bx" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                        <path d="M21.593 7.203a2.506 2.506 0 0 0-1.762-1.766C18.265 5.007 12 5 12 5s-6.264-.007-7.831.404a2.56 2.56 0 0 0-1.766 1.778c-.413 1.566-.417 4.814-.417 4.814s-.004 3.264.406 4.814c.23.857.905 1.534 1.763 1.765c1.582.43 7.83.437 7.83.437s6.265.007 7.831-.403a2.515 2.515 0 0 0 1.767-1.763c.414-1.565.417-4.812.417-4.812s.02-3.265-.407-4.831zM9.996 15.005l.005-6l5.207 3.005l-5.212 2.995z" fill="currentColor"></path>
+                      </svg>
+                    </div>
+                    <div class="text-block-14">Youtube</div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <TrustBar />
+  <div id="contact-form" class="section_contact-form" data-animate="fade-up">
+    <div class="padding-global">
+      <div class="container-medium">
+        <div class="form_content-wrapper">
+          <div class="padding-custom6">
+            <div class="contact-form-image-wrapper">
+              <div id="w-node-_61a97806-7176-83de-82b3-e3e5446cb63a-190d9eeb" class="contact-form-image">
+                {/* width 443 as the old attribute: it caps the illustration where the cell is wider. */}
+                <Image
+                  src={contactIllustration}
+                  alt=""
+                  width={443}
+                  widths={fluidWidths(contactIllustration)}
+                  sizes="(max-width: 479px) 90vw, (max-width: 767px) 443px, (max-width: 991px) 35vw, 400px"
+                  class="image-15"
+                />
+              </div>
+              <div id="w-node-bcb64683-ee7c-3592-b5e7-bb0599fe1218-190d9eeb" class="form-field-wrapper">
+                <div id="w-node-ac1848f7-0615-f052-ad82-698f5835a0df-190d9eeb" class="div-block-20">
+                  <h3>Hoặc để lại lời nhắn</h3>
+                  <div class="text-size-small">PiMA sẽ phản hồi bạn sớm nhất có thể!</div>
+                  <div class="spacer-small"></div>
+                  <ContactForm variant="lien-he" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</BaseLayout>
