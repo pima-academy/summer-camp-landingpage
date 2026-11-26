@@ -1,6 +1,7 @@
 // Text contrast (spec #56, "Readability beats the guidelines"): axe-core's `color-contrast` rule
 // (WCAG AA: 4.5:1, 3:1 for large text) over every brand-aligned published page, at 390 and
-// 1440 px, plus the open "Chương trình" nav dropdown, which is hidden on page load. No known
+// 1440 px, plus the open "Chương trình" nav dropdown, which is hidden on page load, and 3:1 for
+// every icon that is a control's only label (hamburger, caret, slider arrows). No known
 // failures are allowed.
 //
 // Text axe cannot decide (over an image, a gradient or a pseudo-element: its "incomplete"
@@ -92,6 +93,52 @@ test("every text pair of the open nav dropdown passes WCAG AA", { skip }, async 
     await page.waitForTimeout(500);
     const { violations } = await contrast(page, "header");
     assert.deepEqual(violations, [], `failing pairs in the nav at ${width} px`);
+    await page.context().close();
+  }
+});
+
+// Icons that are a control's only label (docs/brand.md, "Icons"): 3:1 against the background
+// behind them (WCAG 1.4.11; axe checks text only). Selectors: [path, width, selector].
+const CONTROL_ICONS = [
+  ["/", 390, '[aria-controls="nav-menu"] svg'],
+  ["/", 1440, '[aria-controls^="nav-dropdown-list-"] svg'],
+  ["/", 1440, "[data-slider] [role=button] svg"],
+  ["/", 390, "[data-slider] [role=button] svg"],
+];
+
+test("every icon that is a control's only label has 3:1 against its background", { skip }, async () => {
+  for (const [path, width, selector] of CONTROL_ICONS) {
+    const page = await open(path, width);
+    const pairs = await page.$$eval(selector, (icons) => {
+      /** [r, g, b, a] (0–1) of a computed colour: rgb()/rgba() or color(srgb …). */
+      const parse = (c) => {
+        const n = c.match(/[\d.]+/g).map(Number);
+        const srgb = c.startsWith("color(");
+        const [r, g, b] = srgb ? n.slice(0, 3) : n.slice(0, 3).map((v) => v / 255);
+        return [r, g, b, n[3] ?? 1];
+      };
+      const lum = ([r, g, b]) =>
+        [r, g, b]
+          .map((v) => (v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4))
+          .reduce((s, v, i) => s + v * [0.2126, 0.7152, 0.0722][i], 0);
+      return icons
+        .filter((icon) => icon.getBoundingClientRect().width > 0)
+        .map((icon) => {
+          let bg = null;
+          for (let e = icon; e && !bg; e = e.parentElement) {
+            const c = parse(getComputedStyle(e).backgroundColor);
+            if (c[3] > 0) bg = c;
+          }
+          bg ??= [1, 1, 1, 1];
+          const fg = parse(getComputedStyle(icon).color);
+          const [hi, lo] = [lum(fg), lum(bg)].sort((a, b) => b - a);
+          return { icon: icon.dataset.icon, fg: getComputedStyle(icon).color, ratio: (hi + 0.05) / (lo + 0.05) };
+        });
+    });
+    assert.ok(pairs.length > 0, `${path} at ${width} px: no ${selector}`);
+    for (const p of pairs) {
+      assert.ok(p.ratio >= 3, `${path} at ${width} px: ${p.icon} (${p.fg}) is ${p.ratio.toFixed(2)}:1`);
+    }
     await page.context().close();
   }
 });

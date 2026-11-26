@@ -2,6 +2,7 @@
 // FuturePlans: "Kế hoạch tương lai", the 3–5 year goal and three plans with icons. Used by
 // ve-chung-toi only (old `section_about-plan` / `layout264_*`); carries the footer anchor
 // "Kế hoạch tương lai". Fades up on scroll.
+import Icon from "../../components/Icon.astro";
 import Kicker from "../../components/Kicker.astro";
 import Section from "../../components/Section.astro";
 import { aboutAnchors } from "../../data/site";
@@ -16,28 +17,21 @@ import { aboutAnchors } from "../../data/site";
   <div class="items">
     <div>
       <div class="glyph">
-        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-          <path fill="currentColor" d="M9 22h1v-2h-.989C8.703 19.994 6 19.827 6 16c0-1.993-.665-3.246-1.502-4C5.335 11.246 6 9.993 6 8c0-3.827 2.703-3.994 3-4h1V2H8.998C7.269 2.004 4 3.264 4 8c0 2.8-1.678 2.99-2.014 3L2 13c.082 0 2 .034 2 3c0 4.736 3.269 5.996 5 6zm13-11c-.082 0-2-.034-2-3c0-4.736-3.269-5.996-5-6h-1v2h.989c.308.006 3.011.173 3.011 4c0 1.993.665 3.246 1.502 4c-.837.754-1.502 2.007-1.502 4c0 3.827-2.703 3.994-3 4h-1v2h1.002C16.731 21.996 20 20.736 20 16c0-2.8 1.678-2.99 2.014-3L22 11z"></path>
-        </svg>
+        <Icon name="braces" size="48" />
       </div>
       <h3>Mở rộng đào tạo &amp; nghiên cứu</h3>
       <p>Triển khai các khóa học chuyên sâu về Toán ứng dụng, khoa học dữ liệu, trí tuệ nhân tạo<br />Tăng cường chương trình mentorship và hỗ trợ nghiên cứu cho học viên</p>
     </div>
     <div>
       <div class="glyph">
-        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-          <path fill="currentColor" d="M16 14h.5c.827 0 1.5-.673 1.5-1.5v-9c0-.827-.673-1.5-1.5-1.5h-13C2.673 2 2 2.673 2 3.5V18l5.333-4H16zm-9.333-2L4 14V4h12v8H6.667z"></path>
-          <path fill="currentColor" d="M20.5 8H20v6.001c0 1.1-.893 1.993-1.99 1.999H8v.5c0 .827.673 1.5 1.5 1.5h7.167L22 22V9.5c0-.827-.673-1.5-1.5-1.5z"></path>
-        </svg>
+        <Icon name="messages" size="48" />
       </div>
       <h3 class="small-heading">Tăng cường hợp tác</h3>
       <p>Kết nối với doanh nghiệp, tổ chức nghiên cứu và trường đại học trong – ngoài nước<br />Phát triển quỹ học bổng PiMA đồng hành cùng học viên tài năng</p>
     </div>
     <div>
       <div class="glyph">
-        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-          <path fill="currentColor" d="M21 3h-7a2.98 2.98 0 0 0-2 .78A2.98 2.98 0 0 0 10 3H3a1 1 0 0 0-1 1v15a1 1 0 0 0 1 1h5.758c.526 0 1.042.214 1.414.586l1.121 1.121c.009.009.021.012.03.021c.086.079.182.149.294.196h.002a.996.996 0 0 0 .762 0h.002c.112-.047.208-.117.294-.196c.009-.009.021-.012.03-.021l1.121-1.121A2.015 2.015 0 0 1 15.242 20H21a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM8.758 18H4V5h6c.552 0 1 .449 1 1v12.689A4.032 4.032 0 0 0 8.758 18zM20 18h-4.758c-.799 0-1.584.246-2.242.689V6c0-.551.448-1 1-1h6v13z"></path>
-        </svg>
+        <Icon name="book" size="48" />
       </div>
       <h3 class="small-heading">Phát triển cộng đồng học thuật</h3>
       <p>Xây dựng diễn đàn online và nội dung học thuật chuyên sâu<br />Tổ chức hội thảo, toạ đàm, và các cuộc thi Toán ứng dụng quy mô mở rộng</p>

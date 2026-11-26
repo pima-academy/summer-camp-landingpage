@@ -4,6 +4,7 @@
 // khoa-hoc only (old `section_programs-overview` with a `w-dyn-list`), inside a content
 // gap, so it only shows in `npm run dev`. Fades up on scroll.
 import { Image } from "astro:assets";
+import Icon from "../../components/Icon.astro";
 import Section from "../../components/Section.astro";
 import placeholder from "../../assets/images/placeholder-image-landscape.svg";
 ---
@@ -20,9 +21,7 @@ import placeholder from "../../assets/images/placeholder-image-landscape.svg";
           <div class="name-row">
             <h3 class="unbound"></h3>
             <div class="arrow">
-              <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                <path fill="currentColor" d="m11.293 17.293l1.414 1.414L19.414 12l-6.707-6.707l-1.414 1.414L15.586 11H6v2h9.586z"></path>
-              </svg>
+              <Icon name="arrow-right" size="24" />
             </div>
           </div>
         </div>

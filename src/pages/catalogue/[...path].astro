@@ -15,6 +15,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import BrandName from "../../components/BrandName.astro";
 import Button from "../../components/Button.astro";
+import Icon from "../../components/Icon.astro";
 import Kicker from "../../components/Kicker.astro";
 import Section from "../../components/Section.astro";
 
@@ -25,6 +26,32 @@ export function getStaticPaths() {
 const widths = ["small", "medium", "large"] as const;
 const spacings = ["none", "small", "medium", "large"] as const;
 const tones = ["white", "surface", "pale-lime", "dark-green"] as const;
+const icons = [
+  "arrow-left",
+  "arrow-right",
+  "atom",
+  "book",
+  "braces",
+  "chevron-down",
+  "chevron-left",
+  "chevron-right",
+  "clock",
+  "cube",
+  "menu-2",
+  "messages",
+  "school",
+  "target",
+  "user",
+  "world",
+] as const;
+const circleIcons = [
+  "brand-facebook-filled",
+  "brand-linkedin-filled",
+  "brand-youtube-filled",
+  "mail-filled",
+  "map-pin-filled",
+] as const;
+const iconSizes = ["text", "16", "24", "32", "40", "48"] as const;
 ---
 
 <BaseLayout title="Catalogue" description="Every primitive in every variant (dev only)." noindex>
@@ -122,6 +149,50 @@ const tones = ["white", "surface", "pale-lime", "dark-green"] as const;
     </div>
   </Section>
 
+  <Section name="catalogue-icon" spacing="small">
+    <h2>Icon</h2>
+    <p>Content icons (Tabler outline, stroke 1.5), bare, in the parent's colour; here decorative.</p>
+    <div class="row icons">
+      {
+        icons.map((name) => (
+          <figure class="icon-cell">
+            <Icon name={name} size="32" />
+            <figcaption>name="{name}"</figcaption>
+          </figure>
+        ))
+      }
+    </div>
+    <p>Sizes (box in px; "text" is 1em of the surrounding text), in the control colour:</p>
+    <div class="row control">
+      {
+        iconSizes.map((size) => (
+          <figure class="icon-cell">
+            <Icon name="chevron-right" size={size} />
+            <figcaption>size="{size}"</figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </Section>
+  {
+    tones.map((tone) => (
+      <Section name={`catalogue-icon-circle-${tone}`} tone={tone} spacing="small">
+        <p>circle on tone="{tone}" (contact and social icons, Tabler filled):</p>
+        <div class="row">
+          {circleIcons.map((name) => (
+            <Icon name={name} size="40" circle />
+          ))}
+        </div>
+      </Section>
+    ))
+  }
+  <Section name="catalogue-icon-circle-footer" spacing="small" class="on-black">
+    <p>circle on black (the footer re-points the circle colours):</p>
+    <div class="row">
+      {circleIcons.map((name) => <Icon name={name} size="40" circle />)}
+    </div>
+  </Section>
+
   <Section name="catalogue-brand-name" spacing="small">
     <h2>BrandName</h2>
     <p class="upper">uppercased text: về <BrandName /> academy</p>
@@ -169,5 +240,36 @@ const tones = ["white", "surface", "pale-lime", "dark-green"] as const;
 
   .upper {
     text-transform: uppercase;
+  }
+
+  .icons {
+    color: var(--color-icon-decorative);
+  }
+
+  .control {
+    align-items: flex-end;
+    color: var(--color-icon-control);
+  }
+
+  .icon-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    width: 9rem;
+    margin: 0;
+  }
+
+  .icon-cell figcaption {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-text-small);
+  }
+
+  /* The footer's black band and its circle pair (Footer.astro). */
+  .on-black {
+    --color-icon-circle: var(--color-icon-circle-footer);
+    --color-icon-circle-glyph: var(--color-icon-circle-glyph-footer);
+    color: var(--color-text-footer);
+    background-color: var(--color-background-footer);
   }
 </style>

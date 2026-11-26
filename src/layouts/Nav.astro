@@ -8,6 +8,7 @@
 import { Image } from "astro:assets";
 import logo from "../assets/logo/pima-logo-horizontal-green.png";
 import ContentGap from "../components/ContentGap.astro";
+import Icon from "../components/Icon.astro";
 import { navItems, type Link } from "../data/site";
 import { isCurrent } from "../lib/current-link";
 
@@ -44,22 +45,7 @@ const isGap = (item: Link) => item.href === "/su-kien-blog/";
                       class="link toggle"
                     >
                       <div class="label">{item.label}</div>
-                      {/* Tabler chevron-down */}
-                      <svg
-                        class="caret"
-                        aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                      >
-                        <path d="M6 9l6 6l6 -6" />
-                      </svg>
+                      <Icon name="chevron-down" size="text" class="caret" />
                     </div>
                     <div
                       id={`nav-dropdown-list-${i}`}
@@ -104,20 +90,7 @@ const isGap = (item: Link) => item.href === "/su-kien-blog/";
     </div>
     <div role="button" tabindex="0" aria-label="Menu" aria-controls="nav-menu" aria-expanded="false" class="menu-button">
       <div class="menu-icon">
-        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-          <g
-            stroke-linecap="square"
-            stroke-linejoin="miter"
-            stroke-width="1.5"
-            fill="none"
-            stroke="currentColor"
-            stroke-miterlimit="10"
-          >
-            <line x1="1" y1="12" x2="23" y2="12" stroke="currentColor"></line>
-            <line x1="1" y1="5" x2="23" y2="5"></line>
-            <line x1="1" y1="19" x2="23" y2="19"></line>
-          </g>
-        </svg>
+        <Icon name="menu-2" size="32" />
       </div>
     </div>
     {/* The open mobile menu moves in here: it clips the slide-down and catches outside taps. */}
@@ -463,10 +436,9 @@ const isGap = (item: Link) => item.href === "/su-kien-blog/";
     user-select: none;
   }
 
+  /* The caret is part of the toggle's label: control colour (3:1), like the hamburger. */
   .caret {
-    width: 1em;
-    height: 1em;
-    color: var(--color-text-muted);
+    color: var(--color-icon-control);
   }
 
   .dropdown-list {
