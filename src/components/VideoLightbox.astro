@@ -25,6 +25,8 @@ interface Props {
   image: ImageMetadata;
   /** Thumbnail alt text. The old pages had none. */
   alt?: string;
+  /** Accessible name of the thumbnail link (the link holds only the image). */
+  label?: string;
   /** The old link's `w-node-*` id (grid placement rule in the stylesheet). */
   id?: string;
   /** `sizes` of the thumbnail; default measured on the old 2025/2026 pages. */
@@ -35,6 +37,7 @@ const {
   videoId,
   image,
   alt = "",
+  label = "Xem video",
   id,
   sizes = "(max-width: 767px) 90vw, (max-width: 1440px) 42vw, 600px",
 } = Astro.props;
@@ -49,6 +52,7 @@ const widths = [
   href={`https://www.youtube.com/watch?v=${videoId}`}
   id={id}
   class="layout11_lightbox w-inline-block w-lightbox"
+  aria-label={label}
   aria-haspopup="dialog"
   data-video-lightbox-open
   data-video-id={videoId}

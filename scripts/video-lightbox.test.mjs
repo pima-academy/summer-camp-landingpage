@@ -54,6 +54,14 @@ for (const file of pages) {
     assert.match(html, /<dialog [^>]*data-video-lightbox/);
   });
 
+  test(`${path}: the image-only thumbnail link has an accessible name`, () => {
+    const html = readFileSync(file, "utf8");
+    const link = html.match(/<a [^>]*data-video-lightbox-open[^>]*>([\s\S]*?)<\/a>/);
+    assert.ok(link, "thumbnail link not found");
+    const label = link[0].match(/\saria-label="([^"]+)"/)?.[1] ?? link[1].match(/\salt="([^"]+)"/)?.[1];
+    assert.ok(label?.trim(), "the link needs an aria-label (or its image a non-empty alt)");
+  });
+
   test(`${path}: opens on click, closes on Esc / x / backdrop, video removed, focus returns`, { skip }, async () => {
     const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
     const offsite = [];
