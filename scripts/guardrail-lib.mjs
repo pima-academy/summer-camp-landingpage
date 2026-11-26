@@ -153,6 +153,12 @@ export function isTokenValue(prop, value) {
   return rest !== v && /^[\s,]*$/.test(rest);
 }
 
+/**
+ * Brand palette tokens (tokens.css): only the role tokens there point at them; every other
+ * stylesheet uses a role token (docs/brand.md, "Using these rules").
+ */
+export const PALETTE_TOKEN = /^--(pima-[\w-]+|black|white|gray-\d|secondary-[\w-]+)$/;
+
 /** Violations ({ rule, line, message }) of one declaration; `known`: custom properties that exist. */
 function checkDecl(node, known) {
   const out = [];
@@ -160,6 +166,9 @@ function checkDecl(node, known) {
   if (literalColour(node.value)) out.push({ rule: "literal-colour", ...at });
   else if (TOKEN_PROPS.test(node.prop) && !isTokenValue(node.prop, node.value)) out.push({ rule: "not-a-token", ...at });
   else if (SPACING_PROPS.test(node.prop) && literalSpacing(node.value)) out.push({ rule: "literal-spacing", ...at });
+  if ([...node.value.matchAll(/var\(\s*(--[\w-]+)/g)].some(([, name]) => PALETTE_TOKEN.test(name))) {
+    out.push({ rule: "palette-token", ...at });
+  }
   if (known) {
     for (const [, name] of node.value.matchAll(/var\(\s*(--[\w-]+)/g)) {
       if (!known.has(name)) out.push({ rule: "unknown-token", ...at });
