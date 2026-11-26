@@ -27,7 +27,7 @@ const { id = "doi-tac" } = Astro.props;
       {
         partnerLogos.map((logo) => (
           <div class="partner">
-            <Image src={logo.src} alt={logo.alt} width={logo.width} densities={[1, 2]} />
+            <Image src={logo.src} alt={logo.alt} width={logo.width} densities={[1, 2]} data-logo />
           </div>
         ))
       }

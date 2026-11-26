@@ -34,7 +34,7 @@ const storyCurrent = isCurrent(storyHref, Astro.url.pathname);
   <ContentGap name="Team: Đội ngũ CMS list">
     {/* One empty member card (photo, name, role, bio once the content exists) and the CMS "empty" note. */}
     <div class="members">
-      <div class="member"></div>
+      <div class="member" data-tone="surface"></div>
     </div>
     <div class="empty">No items found.</div>
   </ContentGap>
@@ -109,7 +109,6 @@ const storyCurrent = isCurrent(storyHref, Astro.url.pathname);
   .member {
     padding: var(--space-10) var(--space-4) var(--space-6);
     border-radius: var(--radius);
-    background-color: var(--color-background-surface);
   }
 
   .empty {

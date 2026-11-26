@@ -113,6 +113,21 @@
   --space-32: 8rem;
 
   /*
+   * Layout. Section's content column (`width` small, medium, large), the page gutter each side
+   * of every band, and the medium column's own side padding (none on desktop, --space-4 at
+   * ≤ 767 px, none at ≤ 479 px; redeclared at the end). Anything that lines up with a section
+   * column takes these, so it cannot drift from Section.
+   */
+  --width-small: 48rem;
+  --width-medium: 64rem;
+  --width-large: 80rem;
+  --gutter-page: 5%;
+  --gutter-medium: 0;
+  /* In-page anchors (the footer's "Về PiMA" links, #programs) land below the fixed site nav
+     (about 4.5 rem tall at every width): base.css's scroll-padding-top. */
+  --scroll-offset-nav: var(--space-20);
+
+  /*
    * Colour roles. Each points at a brand palette colour; docs/brand.md lists the pairs that pass
    * WCAG AA. The text, heading, accent, link and focus roles are the light-tone values: Section's
    * `tone` (and `data-tone` on a card) re-points them on a dark green background.
@@ -169,6 +184,8 @@
   --color-background-timeline-dot-idle: var(--gray-4);
   --color-background-slider-dot: var(--gray-2);
   --color-background-slider-dot-current: var(--black);
+  /* The dot between the marquee's claims; the marquee is always on the dark-green tone. */
+  --color-marquee-separator: var(--pima-pale-lime);
 
   /* Buttons (Button variants and the contact form's submit). */
   --color-button-primary: var(--pima-green);
@@ -194,8 +211,8 @@
   --color-focus-ring: var(--pima-dark-green);
   --color-focus-ring-on-dark: var(--pima-pale-lime);
 
-  /* Corner radii. One radius for buttons, cards, panels, inputs, photos and videos; circles for
-     icon circles, avatars and dots. Full-width bands and rules have square corners. */
+  /* Corner radii. One radius for buttons, cards, panels, inputs, photos (avatars too) and videos;
+     circles only for icon circles and dots. Full-width bands, rules and logos are square. */
   --radius: 12px;
   --radius-circle: 100%;
 
@@ -216,5 +233,12 @@
     --font-size-h1: 32px;
     --font-size-h2: 26px;
     --font-size-h3: 19px;
+    --gutter-medium: var(--space-4);
+  }
+}
+
+@media screen and (max-width: 479px) {
+  :root {
+    --gutter-medium: 0;
   }
 }

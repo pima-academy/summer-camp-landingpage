@@ -1,8 +1,8 @@
 // The CSS guardrail of ADR 0004, as functions: checkFile(path, text) lists the rules a file
 // breaks. Used by scripts/guardrail.test.mjs. Not a test file itself (no `.test.` in the name).
-import { readdirSync } from "node:fs";
-import { join } from "node:path";
-import { fileURLToPath } from "node:url";
+import { join, relative, sep } from "node:path";
+import { markup, styleBlocks } from "./astro-file.mjs";
+import { root as repoRoot, walk } from "./test-lib.mjs";
 
 /**
  * Parses CSS into a tree of nodes: { type: "comment", text } | { type: "atrule", name,
@@ -153,6 +153,12 @@ export function isTokenValue(prop, value) {
   return rest !== v && /^[\s,]*$/.test(rest);
 }
 
+/**
+ * Brand palette tokens (tokens.css): only the role tokens there point at them; every other
+ * stylesheet uses a role token (docs/brand.md, "Using these rules").
+ */
+export const PALETTE_TOKEN = /^--(pima-[\w-]+|black|white|gray-\d|secondary-[\w-]+)$/;
+
 /** Violations ({ rule, line, message }) of one declaration; `known`: custom properties that exist. */
 function checkDecl(node, known) {
   const out = [];
@@ -160,6 +166,9 @@ function checkDecl(node, known) {
   if (literalColour(node.value)) out.push({ rule: "literal-colour", ...at });
   else if (TOKEN_PROPS.test(node.prop) && !isTokenValue(node.prop, node.value)) out.push({ rule: "not-a-token", ...at });
   else if (SPACING_PROPS.test(node.prop) && literalSpacing(node.value)) out.push({ rule: "literal-spacing", ...at });
+  if ([...node.value.matchAll(/var\(\s*(--[\w-]+)/g)].some(([, name]) => PALETTE_TOKEN.test(name))) {
+    out.push({ rule: "palette-token", ...at });
+  }
   if (known) {
     for (const [, name] of node.value.matchAll(/var\(\s*(--[\w-]+)/g)) {
       if (!known.has(name)) out.push({ rule: "unknown-token", ...at });
@@ -208,22 +217,13 @@ function checkNodes(nodes, known) {
   return out;
 }
 
-/** The <style> blocks of an .astro file: [{ css, line }] (line of the first CSS line). */
-function styleBlocks(text) {
-  return [...text.matchAll(/<style\b[^>]*>([\s\S]*?)<\/style>/g)].map((m) => ({
-    css: m[1],
-    line: 1 + (text.slice(0, m.index + m[0].indexOf(">") + 1).match(/\n/g)?.length ?? 0),
-  }));
-}
-
 /** Custom properties an inline `style` may set: per-instance values, not design values. */
 export const INLINE_STYLE_ALLOWED = ["--marquee-duration", "--marquee-copies"];
 // Properties that carry a design value in inline style, whatever their value.
 const DESIGN_PROPS = /^(color|background(-color|-image)?|border(-[\w-]+)?|outline(-color)?|fill|stroke)$/;
 
-/** Violations in the inline `style` attributes of an .astro file's markup. */
-function checkInlineStyles(text) {
-  const markup = text.replace(/^---[\s\S]*?\n---/, (m) => m.replace(/[^\n]/g, " "));
+/** Violations in the inline `style` attributes of an .astro file's markup (astro-file.mjs). */
+function checkInlineStyles(markup) {
   const out = [];
   const attrs = /\sstyle=(?:"([^"]*)"|'([^']*)'|\{\s*`([^`]*)`\s*\}|\{\s*"([^"]*)"\s*\})/g;
   for (const m of markup.matchAll(attrs)) {
@@ -259,12 +259,11 @@ export const inScope = (path) =>
   /^src\/.*\.(astro|css)$/.test(path) && !SKIPPED.some((re) => re.test(path));
 
 /** Every file the guardrail checks, relative to the repo root (`/` separators), sorted. */
-export function guardrailFiles(root = fileURLToPath(new URL("../", import.meta.url))) {
-  const walk = (dir) =>
-    readdirSync(join(root, dir), { withFileTypes: true }).flatMap((e) =>
-      e.isDirectory() ? walk(`${dir}/${e.name}`) : [`${dir}/${e.name}`],
-    );
-  return walk("src").filter(inScope).sort();
+export function guardrailFiles(root = repoRoot) {
+  return walk(join(root, "src"))
+    .map((f) => relative(root, f).split(sep).join("/"))
+    .filter(inScope)
+    .sort();
 }
 
 /**
@@ -276,7 +275,7 @@ export function checkFile(path, text, { tokens } = {}) {
   const known = tokens && new Set([...tokens, ...INLINE_STYLE_ALLOWED, ...sheets.flatMap((s) => [...tokenNames(s.css)])]);
   const found = sheets.flatMap((s) => checkNodes(parseCss(s.css, s.line), known));
   if (path.endsWith(".astro")) {
-    found.push(...checkInlineStyles(text.replace(/<style\b[\s\S]*?<\/style>/g, (m) => m.replace(/[^\n]/g, " "))));
+    found.push(...checkInlineStyles(markup(text)));
   }
   return found;
 }

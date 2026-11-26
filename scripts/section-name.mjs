@@ -1,5 +1,6 @@
 // The section-file naming rule of ADR 0005, used by scripts/sections.test.mjs.
 import { basename } from "node:path";
+import { template as templateOf } from "./astro-file.mjs";
 
 /** "FoundingStory" → "founding-story", "PressFAQ" → "press-faq". */
 export const kebabCase = (name) =>
@@ -14,7 +15,7 @@ export const kebabCase = (name) =>
  */
 export function sectionNameProblem(path, text) {
   const expected = kebabCase(basename(path, ".astro"));
-  const template = text.replace(/^---[\s\S]*?\n---/, "");
+  const template = templateOf(text);
   const tags = [...template.matchAll(/<Section(?=[\s/>])[^>]*>/g)].map((m) => m[0]);
   if (tags.length === 0) return `${path} does not render <Section name="${expected}">`;
   if (tags.length > 1) return `${path} renders ${tags.length} <Section>s; a section file renders one`;

@@ -1,12 +1,14 @@
 // Checks the section-file convention of ADR 0005: every .astro file under src/sections/
 // renders the Section primitive with `name` equal to its file name in kebab case
 // (src/sections/home/FoundingStory.astro → <Section name="founding-story">), and uses only
-// classes it styles itself (ADR 0004), none of them styled by a global stylesheet, and no `w-node` id.
+// classes it styles itself (ADR 0004), none of them styled by a global stylesheet, and no `w-node` id;
+// it paints no background of its own (docs/brand.md: tones only).
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join, relative } from "node:path";
 import { sectionClassProblems, selectorClasses } from "./section-classes.mjs";
+import { sectionFillProblems } from "./section-fills.mjs";
 import { kebabCase, sectionNameProblem } from "./section-name.mjs";
 import { root, walk } from "./test-lib.mjs";
 
@@ -90,5 +92,32 @@ test("every section file carries no Webflow class or id", () => {
   );
   const files = walk(join(root, "src/sections")).filter((f) => f.endsWith(".astro"));
   const problems = files.flatMap((file) => sectionClassProblems(relative(root, file), readFileSync(file, "utf8"), global));
+  assert.deepEqual(problems, []);
+});
+
+test("a section file paints no background of its own; a card takes a tone with data-tone", () => {
+  const file = (css) => `---\n---\n<Section name="x"><div class="card" data-tone="surface">a</div></Section>\n<style>\n${css}\n</style>\n`;
+  const path = "src/sections/X.astro";
+  for (const bad of [
+    ".card { background-color: var(--color-background-surface); }",
+    ".card { background: var(--color-background); }",
+    "@media (max-width: 767px) { .card { background-color: var(--color-background-pale-lime); } }",
+    ".dot { background-color: var(--color-text-accent); }",
+  ]) {
+    assert.equal(sectionFillProblems(path, file(bad)).length, 1, bad);
+  }
+  for (const good of [
+    ".card { border-radius: var(--radius); }",
+    ".axis { background-color: var(--color-background-accent); }",
+    ".dot { background-color: color-mix(in srgb, var(--color-background-accent) calc(var(--p) * 100%), var(--color-background-timeline-dot-idle)); }",
+    ".card { background-color: transparent; }",
+  ]) {
+    assert.deepEqual(sectionFillProblems(path, file(good)), [], good);
+  }
+});
+
+test("no section file paints a background other than an allowed fill", () => {
+  const files = walk(join(root, "src/sections")).filter((f) => f.endsWith(".astro"));
+  const problems = files.flatMap((file) => sectionFillProblems(relative(root, file), readFileSync(file, "utf8")));
   assert.deepEqual(problems, []);
 });

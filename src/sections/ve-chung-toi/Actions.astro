@@ -25,7 +25,7 @@ const actions = [
   <div class="cards">
     {
       actions.map((item) => (
-        <div class="card-box">
+        <div class="card-box" data-tone="surface">
           <div class="photo">
             <Image
               src={item.image}
@@ -73,7 +73,6 @@ const actions = [
     width: 100%;
     overflow: clip;
     border-radius: var(--radius);
-    background-color: var(--color-background-surface);
     text-align: center;
   }
 

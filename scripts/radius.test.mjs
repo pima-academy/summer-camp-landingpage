@@ -1,6 +1,7 @@
 // One corner radius (spec #56, "Brand look" → Shapes; docs/brand.md, Shapes): on every
 // brand-aligned page, at 390 and 1440 px, each rounded element has `--radius` (12px) corners
-// or is a circle, and every photo is rounded. Brand logos are the one exception (never rounded).
+// or is a circle (icon circles, dots), and every photo has `--radius` corners, never a circle.
+// Logos (brand, partner, press, university: `img[data-logo]`) are the exception: never rounded.
 //
 // Adding a page: add its path to PAGES. The two camp pages are frozen and stay out. Needs a
 // fresh `npm run build`; skipped when dist/ is missing (fails in CI).
@@ -25,9 +26,9 @@ after(async () => {
 });
 
 /**
- * The corners on the page that are neither square, `--radius` nor a circle, and the images
- * that are not rounded, as "<tag.class>: <radius>" strings. A brand logo (its file name
- * starts with `pima-logo-`) must be square instead.
+ * The corners on the page that are neither square, `--radius` nor a circle, and the photos
+ * whose corners are not `--radius`, as "<tag.class>: <radius>" strings. A logo (`data-logo`,
+ * and every brand logo file, `pima-logo-…`) must be square instead.
  */
 async function offRadius(path, width) {
   const context = await browser.newContext({ viewport: { width, height: 900 } });
@@ -40,14 +41,18 @@ async function offRadius(path, width) {
     for (const el of document.querySelectorAll("body *")) {
       const s = getComputedStyle(el);
       const corners = [s.borderTopLeftRadius, s.borderTopRightRadius, s.borderBottomRightRadius, s.borderBottomLeftRadius];
-      const logo = el.tagName === "IMG" && /\/pima-logo-/.test(el.currentSrc || el.src);
+      const img = el.tagName === "IMG";
+      const logo = img && (el.hasAttribute("data-logo") || /\/pima-logo-/.test(el.currentSrc || el.src));
       if (logo) {
         if (corners.some((c) => c !== "0px")) out.push(`${name(el)}: logo rounded ${corners.join(" ")}`);
         continue;
       }
+      if (img) {
+        if (!corners.every((c) => c === radius)) out.push(`${name(el)}: photo corners ${corners.join(" ")}, not ${radius}`);
+        continue;
+      }
       const ok = (c) => c === "0px" || c === radius || c === "100%" || c === "50%";
       if (!corners.every(ok)) out.push(`${name(el)}: ${corners.join(" ")}`);
-      else if (el.tagName === "IMG" && corners.every((c) => c === "0px")) out.push(`${name(el)}: photo not rounded`);
     }
     return out;
   });

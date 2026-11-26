@@ -5,7 +5,7 @@ import assert from "node:assert/strict";
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { root } from "./test-lib.mjs";
-import { literalColour, parseCss, tokenNames } from "./guardrail-lib.mjs";
+import { literalColour, PALETTE_TOKEN, parseCss, tokenNames } from "./guardrail-lib.mjs";
 
 const tokensCss = readFileSync(join(root, "src/styles/tokens.css"), "utf8");
 
@@ -42,8 +42,6 @@ test("tokens.css holds the PiMA palette", () => {
   }
 });
 
-/** Palette tokens: the only custom properties in tokens.css that may hold a literal colour. */
-const PALETTE = /^--(pima-|black$|white$|gray-\d$|secondary-)/;
 /** The dev-only content-gap marker is not part of the site's look. */
 const DEV_ONLY = /^--(color|font)-content-gap/;
 
@@ -62,7 +60,8 @@ function allTokenDecls(css) {
 
 test("every colour in tokens.css outside the palette points at a palette token", () => {
   const literal = allTokenDecls(tokensCss)
-    .filter((d) => !PALETTE.test(d.prop) && !DEV_ONLY.test(d.prop))
+    // Palette tokens are the only custom properties that may hold a literal colour.
+    .filter((d) => !PALETTE_TOKEN.test(d.prop) && !DEV_ONLY.test(d.prop))
     .filter((d) => literalColour(d.value))
     .map((d) => `${d.prop}: ${d.value}`);
   assert.deepEqual(literal, []);

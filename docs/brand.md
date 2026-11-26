@@ -60,7 +60,7 @@ PiMA Green appears as a fill: buttons, kicker rules, the timeline, the logo, dec
 
 ## Sections, buttons and footer
 
-`Section` takes a `tone`, which sets the background and the passing text colours on it. A section whose background is none of these takes the nearest one. A section never sets its own background; a card inside a section that needs a dark background takes the `dark-green` tone with `data-tone="dark-green"` (the founder card).
+`Section` takes a `tone`, which sets the background and the passing text colours on it. A section whose background is none of these takes the nearest one. A section never sets its own background, and neither does a card: a card with a fill of its own takes one of the four tones with the `data-tone` attribute (`surface` cards on white, `white` cards on Pale Lime, the founder card on `dark-green`). Only small marks that are no tone keep a fill of their own, from a role token: the timeline's axis and dots, the marquee's separator dot. `scripts/sections.test.mjs` checks.
 
 | `tone` | Background | Text | Used for |
 |---|---|---|---|
@@ -120,10 +120,11 @@ The footer is a `--black` band: column headings `--pima-green`, text and links `
 
 ## Shapes
 
-- One corner radius, `--radius`, for buttons, cards, panels, inputs, tags, menus and every photo and video. Base CSS gives every `img` `--radius`. No other radius token exists.
+- One corner radius, `--radius`, for buttons, cards, panels, inputs, tags, menus and every photo and video, portraits and avatars included. Base CSS gives every `img` `--radius`.
 - Square corners for full-width bands (sections, the marquee, the footer), rules and dividers (the kicker rule too), chart bars and legend swatches.
-- Circles (`--radius-circle`) for icon circles and avatars.
-- Logos are never rounded: base CSS rounds every `img`, so a logo sets `border-radius: 0`.
+- The only other radius token, `--radius-circle`, is for shapes that are not photos: icon circles, the timeline's and the marquee's dots, the slider's dots and arrows.
+- Logos (PiMA's, partners', newspapers', universities') are never rounded or cropped: the logo's `img` carries `data-logo`, which base CSS keeps square, and a logo in a fixed box takes `object-fit: contain`.
+- `scripts/radius.test.mjs` checks every aligned page: `--radius` or a circle on any rounded element, `--radius` on every photo, square logos.
 
 ## Logo
 
@@ -161,7 +162,7 @@ Prefer the green logo; where the background is not green, prefer black or white.
 
 ### Keep the logo intact
 
-- Set the width only; the height follows (`height: auto`). The logo keeps its proportions: no stretching, rotating or skewing.
+- Set the width only; the height follows (`height: auto`). The logo keeps its proportions: no stretching, rotating or skewing. The rule is about the source and the result: the component passes only `width` to Astro's `Image`, which also writes the matching `height` attribute (the file's own aspect ratio, so the browser reserves the space), and base CSS's `height: auto` keeps the drawn logo undistorted. That emitted `height` is intended.
 - Use the five colours only, flat: no other colour, gradient, shadow or outline.
 - On a photo, place it over a calm, even area or inside a colour block, never over a busy area.
 - Keep symbol and wordmark together, and show the wordmark as the image, never retyped as text. The favicon and app icon are the one exception: the symbol alone.

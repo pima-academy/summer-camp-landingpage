@@ -180,6 +180,24 @@ test("the guardrail skips tokens.css and the frozen camp files", () => {
   }
 });
 
+test("CSS outside tokens.css uses role tokens, never the brand palette", () => {
+  const check = (decl) => rules("src/components/Card.astro", astro(`.card { ${decl}; }`));
+  for (const bad of [
+    "color: var(--pima-dark-green)",
+    "background-color: var(--pima-green)",
+    "border: 1px solid var(--gray-4)",
+    "color: var(--black)",
+    "fill: var(--white)",
+    "background: color-mix(in srgb, var(--secondary-blue) 20%, transparent)",
+    "--accent: var(--pima-pale-lime)",
+  ]) {
+    assert.deepEqual(check(bad), ["palette-token"], bad);
+  }
+  for (const good of ["color: var(--color-text)", "background-color: var(--color-background-accent)", "border-color: var(--color-border)"]) {
+    assert.deepEqual(check(good), [], good);
+  }
+});
+
 test("every stylesheet gets every rule: no file is allowed its old media queries", () => {
   assert.equal("WEBFLOW_FILES" in guardrail, false, "no Webflow-file exemption left");
   const css = "@media (min-width: 768px) { a { color: #fff; font-size: 1rem; } }";

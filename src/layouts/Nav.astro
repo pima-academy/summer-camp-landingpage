@@ -9,14 +9,11 @@ import { Image } from "astro:assets";
 import logo from "../assets/logo/pima-logo-horizontal-green.png";
 import ContentGap from "../components/ContentGap.astro";
 import Icon from "../components/Icon.astro";
-import { navItems, type Link } from "../data/site";
+import { navItems } from "../data/site";
 import { isCurrent } from "../lib/current-link";
 
 const { pathname } = Astro.url;
 const current = (href: string) => (isCurrent(href, pathname) ? ("page" as const) : undefined);
-
-// "Sự kiện & Blog" points at a page with no content yet (an inline content gap).
-const isGap = (item: Link) => item.href === "/su-kien-blog/";
 ---
 
 <header data-animate="fade-up">
@@ -24,7 +21,7 @@ const isGap = (item: Link) => item.href === "/su-kien-blog/";
     <div class="left">
       <a href="/" class="logo-link" aria-current={current("/")} aria-label="PiMA, trang chủ">
         <div class="logo-box">
-          <Image src={logo} alt="" width={132} densities={[1, 2]} class="logo-image" />
+          <Image src={logo} alt="" width={132} densities={[1, 2]} loading="eager" data-logo />
         </div>
       </a>
     </div>
@@ -67,9 +64,10 @@ const isGap = (item: Link) => item.href === "/su-kien-blog/";
                     </div>
                   </div>
                 </li>
-              ) : isGap(item) ? (
-                // Inline gap, no fallback: production renders no <li> at all.
-                <ContentGap name="nav: Sự kiện & Blog" inline>
+              ) : item.gap ? (
+                // A link to a gap page (site.ts `gap`): an inline gap, no fallback, so
+                // production renders no <li> at all.
+                <ContentGap name={`nav: ${item.label}`} inline>
                   <li class="item">
                     <a href={item.href} class="link" aria-current={current(item.href)}>
                       <div class="label">{item.label}</div>
@@ -360,11 +358,6 @@ const isGap = (item: Link) => item.href === "/su-kien-blog/";
   .logo-box {
     display: block;
     flex: 1;
-  }
-
-  /* Brand logo: width only (the attribute), never rounded (docs/brand.md). */
-  .logo-image {
-    border-radius: 0;
   }
 
   .menu {
