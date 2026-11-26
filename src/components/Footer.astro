@@ -1,0 +1,231 @@
+---
+// Site footer: the old Webflow footer markup and classes, facts from site.ts.
+// variant "site": standard footer (index etc.). variant "camp": 2025/2026 camp pages
+// (company name, phone/email/address, no "Về PiMA" / "Sản phẩm" columns).
+// The `w-node-*` ids are kept: the stylesheet places the grid cells by id.
+import { Image } from "astro:assets";
+import logoSite from "../assets/images/logo-1-green.svg";
+import logoCamp from "../assets/images/logo-1.avif";
+import fbIcon from "../assets/images/fb.png";
+import mailIcon from "../assets/images/mail.png";
+import mapPinIcon from "../assets/images/map-pin.png";
+import phoneIcon from "../assets/images/phone.png";
+import BrandName from "./BrandName.astro";
+import { contact, footerColumns, social } from "../data/site";
+import { isCurrent } from "../lib/current-link";
+
+interface Props {
+  variant?: "site" | "camp";
+}
+
+const { variant = "site" } = Astro.props;
+const isSite = variant === "site";
+const year = new Date().getFullYear();
+
+const { pathname } = Astro.url;
+const current = (href: string) => isCurrent(href, pathname);
+
+// Footer headings are CSS-uppercased; "pima" in the heading data renders as <BrandName />.
+const headingParts = (heading: string) => heading.split(/pima/i);
+
+// Grid cell ids of the old footers (site: index etc.; camp: trai-he-toan-hoc-2025).
+const ids = isSite
+  ? { left: "w-node-_42410899-1744-e0fe-ccf2-c44616f315fd-16f315f6", right: "w-node-_42410899-1744-e0fe-ccf2-c44616f31607-16f315f6" }
+  : {
+      left: "w-node-_28a166f2-cbf9-5100-bc58-0e831f150a10-57c668ac",
+      right: "w-node-_28a166f2-cbf9-5100-bc58-0e831f150a1a-57c668ac",
+      contact: "w-node-_28a166f2-cbf9-5100-bc58-0e831f150a37-57c668ac",
+    };
+---
+
+<footer class="footer">
+  <div class="background-color-dark">
+    <div class="padding-global">
+      <div class="container-large">
+        <div class="padding-vertical padding-xxlarge">
+          <div class="padding-bottom padding-xxlarge">
+            <div class="w-layout-grid footer3_top-wrapper">
+              <div id={ids.left} class="footer3_left-wrapper">
+                <div class="margin-bottom">
+                  <a
+                    href="/"
+                    class:list={["footer3_logo-link w-nav-brand", current("/") && "w--current"]}
+                    aria-current={current("/") ? "page" : undefined}
+                    aria-label="PiMA, trang chủ"
+                  >
+                    {
+                      isSite ? (
+                        <Image src={logoSite} alt="" width={96} class="image-14" />
+                      ) : (
+                        <Image src={logoCamp} alt="" width={91} densities={[1, 2]} class="footer3_logo" />
+                      )
+                    }
+                  </a>
+                </div>
+                <div class="margin-bottom">
+                  <div class="footer3_details-wrapper">
+                    <div class="spacer-small"></div>
+                    <div class="margin-bottom margin-tiny">
+                      <div class="text-size-small text-weight-semibold text-style-white text-style-allcaps">
+                        {
+                          isSite ? (
+                            <Fragment>
+                              Học viện Toán học và<br />Ứng dụng <BrandName />
+                            </Fragment>
+                          ) : (
+                            <Fragment>
+                              Công ty Cổ phần <BrandName /> Academy
+                            </Fragment>
+                          )
+                        }
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div id={ids.right} class="footer_content_right">
+                {
+                  isSite &&
+                    footerColumns.map((column) => (
+                      <div class="footer_form-info">
+                        <h5 class="text-style-allcaps text-style-green">
+                          {headingParts(column.heading).map((part, i) => (
+                            <Fragment>
+                              {i > 0 && <BrandName />}
+                              {part}
+                            </Fragment>
+                          ))}
+                        </h5>
+                        {column.links.map((link, i) => (
+                          <Fragment>
+                            {i > 0 && <div class="spacer-small" />}
+                            <a
+                              href={link.href}
+                              class:list={["text-style-gray", current(link.href) && "w--current"]}
+                              aria-current={current(link.href) ? "page" : undefined}
+                            >
+                              {link.label}
+                            </a>
+                          </Fragment>
+                        ))}
+                      </div>
+                    ))
+                }
+                {
+                  isSite ? (
+                    <div class="footer_form-info">
+                      <h5 class="text-style-allcaps text-style-green">Liên hệ</h5>
+                      <div class="spacer-small">
+                        <div class="footer_contact">
+                          <div class="footer_icon-wrapper">
+                            <Image src={fbIcon} alt="" width={24} />
+                          </div>
+                          <div>
+                            <div class="text-style-gray text-weight-bold">Facebook</div>
+                            <a href={social.facebook.href} class="text-style-gray">
+                              {social.facebook.display}
+                            </a>
+                          </div>
+                        </div>
+                        <div class="spacer-small"></div>
+                      </div>
+                      <div class="footer_contact">
+                        <div class="footer_icon-wrapper">
+                          <Image src={mailIcon} alt="" width={24} />
+                        </div>
+                        <div>
+                          <div class="text-style-gray text-weight-bold">Email</div>
+                          <a href={contact.emailHref} class="text-style-gray">
+                            {contact.email}
+                          </a>
+                        </div>
+                      </div>
+                      <div class="spacer-small"></div>
+                      <div class="footer_contact">
+                        <div class="footer_icon-wrapper">
+                          <Image src={mapPinIcon} alt="" width={58} />
+                        </div>
+                        <div>
+                          <div class="text-style-gray text-weight-bold">Địa chỉ</div>
+                          <div class="text-style-gray">{contact.address}</div>
+                        </div>
+                      </div>
+                      <div class="footer-social-link-wrapper">
+                        <a
+                          href={social.linkedin.href}
+                          class="footer-social-link w-inline-block"
+                          aria-label="PiMA Academy trên LinkedIn"
+                        >
+                          <div class="icon-embed-xxsmall-5 w-embed">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              aria-hidden="true"
+                              role="img"
+                              class="iconify iconify--bx"
+                              width="100%"
+                              height="100%"
+                              preserveAspectRatio="xMidYMid meet"
+                              viewBox="0 0 24 24"
+                            >
+                              <circle cx="4.983" cy="5.009" r="2.188" fill="currentColor"></circle>
+                              <path
+                                d="M9.237 8.855v12.139h3.769v-6.003c0-1.584.298-3.118 2.262-3.118c1.937 0 1.961 1.811 1.961 3.218v5.904H21v-6.657c0-3.27-.704-5.783-4.526-5.783c-1.835 0-3.065 1.007-3.568 1.96h-.051v-1.66H9.237zm-6.142 0H6.87v12.139H3.095z"
+                                fill="currentColor"></path>
+                            </svg>
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+                  ) : (
+                    <div id={ids.contact} class="footer_form-info">
+                      <h4 class="text-style-allcaps text-style-green">Liên hệ</h4>
+                      <div class="footer_contact">
+                        <div class="footer_icon-wrapper">
+                          <Image src={phoneIcon} alt="" width={24} />
+                        </div>
+                        <div>
+                          <div class="text-style-gray text-weight-bold">Số điện thoại</div>
+                          <div class="text-style-gray">{contact.phone}</div>
+                        </div>
+                      </div>
+                      <div class="spacer-small"></div>
+                      <div class="footer_contact">
+                        <div class="footer_icon-wrapper">
+                          <Image src={mailIcon} alt="" width={24} />
+                        </div>
+                        <div>
+                          <div class="text-style-gray text-weight-bold">Email</div>
+                          <a href={contact.emailHref} class="text-style-gray">
+                            {contact.email}
+                          </a>
+                        </div>
+                      </div>
+                      <div class="spacer-small"></div>
+                      <div class="footer_contact">
+                        <div class="footer_icon-wrapper">
+                          <Image src={mapPinIcon} alt="" width={31} />
+                        </div>
+                        <div>
+                          <div class="text-style-gray text-weight-bold">Địa chỉ</div>
+                          <div class="text-style-gray">{contact.address}</div>
+                        </div>
+                      </div>
+                    </div>
+                  )
+                }
+              </div>
+            </div>
+          </div>
+          <div class="divider-horizontal"></div>
+          <div class="border-top">
+            <div class="padding-top padding-medium">
+              <div class="footer3_bottom-wrapper">
+                <div class="footer3_credit-text text-style-gray">© {year} PiMA Academy. All rights reserved.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

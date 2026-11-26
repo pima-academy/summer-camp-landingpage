@@ -1,0 +1,121 @@
+---
+// Site header: the old Webflow nav markup and classes, links from site.ts.
+// The active link (`w--current` + `aria-current="page"`) is computed at build time.
+// Collapse/dropdown behaviour is a separate script (#23); without it the mobile menu stays closed.
+import { Image } from "astro:assets";
+import logo from "../assets/images/logo-horizontal.png";
+import { navItems, type Link } from "../data/site";
+import { isCurrent } from "../lib/current-link";
+
+const { pathname } = Astro.url;
+const current = (href: string) => isCurrent(href, pathname);
+const linkClass = (base: string, href: string) => [base, current(href) && "w--current"];
+const aria = (href: string) => (current(href) ? ("page" as const) : undefined);
+
+// "Sự kiện & Blog" points at a page with no content yet (an inline content gap).
+const isGap = (item: Link) => item.href === "/su-kien-blog/";
+---
+
+<div class="nav inverse-nav">
+  <div
+    data-duration="400"
+    data-animation="default"
+    data-easing2="ease"
+    data-easing="ease"
+    data-collapse="medium"
+    role="banner"
+    data-no-scroll="1"
+    class="nav-container w-nav"
+  >
+    <div class="nav-left">
+      <a
+        href="/"
+        class:list={linkClass("nav-logo w-inline-block", "/")}
+        aria-current={aria("/")}
+        aria-label="PiMA, trang chủ"
+      >
+        <div class="nav-logo-icon">
+          <Image src={logo} alt="" width={117} densities={[1, 2]} class="image-13" />
+        </div>
+      </a>
+    </div>
+    <div class="nav-right">
+      <nav role="navigation" class="nav-menu w-nav-menu">
+        <ul role="list" class="nav-menu-list w-list-unstyled">
+          {
+            navItems.map((item) =>
+              "items" in item ? (
+                <li class="nav-menu-list-item">
+                  <div data-delay="0" data-hover="true" class="nav-menu-dropdown w-dropdown">
+                    <div class="nav-link nav-link-on-inverse w-dropdown-toggle">
+                      <div class="text-style-secondary">{item.label}</div>
+                      <div class="nav-caret secondary-color w-icon-dropdown-toggle" />
+                    </div>
+                    <div class="nav-menu-dropdown-list w-dropdown-list">
+                      <div class="nav-menu-dropdown-list-wrapper">
+                        <ul role="list" class="flex-vertical utility-margin-bottom-0 w-list-unstyled">
+                          {item.items.map((sub) => (
+                            <li class="utility-margin-bottom-0">
+                              <a
+                                href={sub.href}
+                                class:list={linkClass("nav-dropdown-link w-inline-block", sub.href)}
+                                aria-current={aria(sub.href)}
+                              >
+                                <div class="button-label">{sub.label}</div>
+                              </a>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </li>
+              ) : isGap(item) ? (
+                // TODO(#22): wrap this item in an inline <ContentGap name="nav: Sự kiện & Blog">
+                // with an empty fallback (production renders nothing) once ContentGap exists.
+                <li class="nav-menu-list-item">
+                  <a
+                    href={item.href}
+                    class:list={linkClass("nav-link nav-link-on-inverse w-inline-block", item.href)}
+                    aria-current={aria(item.href)}
+                  >
+                    <div class="text-style-secondary">{item.label}</div>
+                  </a>
+                </li>
+              ) : (
+                <li class="nav-menu-list-item">
+                  <a
+                    href={item.href}
+                    class:list={linkClass("nav-link nav-link-on-inverse w-inline-block", item.href)}
+                    aria-current={aria(item.href)}
+                  >
+                    <div class="text-style-secondary">{item.label}</div>
+                  </a>
+                </li>
+              ),
+            )
+          }
+        </ul>
+      </nav>
+    </div>
+    <div class="nav-mobile-menu-button w-nav-button">
+      <div class="icon icon-on-inverse">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+          <g
+            stroke-linecap="square"
+            stroke-linejoin="miter"
+            stroke-width="1.5"
+            fill="none"
+            stroke="currentColor"
+            stroke-miterlimit="10"
+            class="nc-icon-wrapper"
+          >
+            <line x1="1" y1="12" x2="23" y2="12" stroke="currentColor"></line>
+            <line x1="1" y1="5" x2="23" y2="5"></line>
+            <line x1="1" y1="19" x2="23" y2="19"></line>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>

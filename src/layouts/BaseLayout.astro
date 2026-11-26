@@ -2,6 +2,8 @@
 import type { ImageMetadata } from "astro";
 import { getImage } from "astro:assets";
 import logo from "../assets/images/logo-horizontal.png";
+import Footer from "../components/Footer.astro";
+import Nav from "../components/Nav.astro";
 import "../styles/global.css";
 
 interface Props {
@@ -62,15 +64,10 @@ const ogImage = new URL(og.src, site).href;
     </script>
   </head>
   <body>
-    {
-      chrome === "site" && (
-        // TODO(#21): replace with <Nav /> (site chrome only).
-        <Fragment />
-      )
-    }
+    {chrome === "site" && <Nav />}
     <main>
       <slot />
     </main>
-    {/* TODO(#21): <Footer variant={chrome} /> goes here. */}
+    <Footer variant={chrome} />
   </body>
 </html>
