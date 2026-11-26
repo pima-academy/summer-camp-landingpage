@@ -33,27 +33,27 @@ import postPlaceholder from "../../assets/images/6191a88a1c0e39463c2bf022-placeh
 
 <style>
   .inner {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-4);
   }
 
   .tag-row {
-    margin-bottom: 0.25rem;
-    padding-top: 2rem;
+    margin-bottom: var(--space-1);
+    padding-top: var(--space-8);
   }
 
   .tag {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.15em 0.75em;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-3);
     border: 2px solid transparent;
     border-radius: var(--radius);
     background-color: var(--color-background-pale-lime);
     color: var(--color-text);
     font-size: var(--font-size-small);
-    letter-spacing: 0.035em;
+    letter-spacing: var(--letter-spacing-tag);
     text-transform: uppercase;
   }
 
@@ -61,33 +61,33 @@ import postPlaceholder from "../../assets/images/6191a88a1c0e39463c2bf022-placeh
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap: 4px;
+    gap: var(--space-1);
   }
 
   .body {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+    padding-top: var(--space-12);
+    padding-bottom: var(--space-12);
   }
 
   @media screen and (max-width: 991px) {
     .tag-row {
-      padding-top: 1.5rem;
+      padding-top: var(--space-6);
     }
 
     .body {
-      padding-top: 2.5rem;
-      padding-bottom: 2.5rem;
+      padding-top: var(--space-10);
+      padding-bottom: var(--space-10);
     }
   }
 
   @media screen and (max-width: 767px) {
     .tag-row {
-      padding-top: 1.25rem;
+      padding-top: var(--space-5);
     }
 
     .body {
-      padding-top: 1.5rem;
-      padding-bottom: 1.5rem;
+      padding-top: var(--space-6);
+      padding-bottom: var(--space-6);
     }
   }
 

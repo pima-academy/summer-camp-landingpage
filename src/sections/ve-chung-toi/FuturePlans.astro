@@ -46,12 +46,12 @@ import { aboutAnchors } from "../../data/site";
     max-width: 56rem;
     margin-left: auto;
     margin-right: auto;
-    padding-bottom: 1rem;
+    padding-bottom: var(--space-4);
     text-align: center;
   }
 
   .lead {
-    margin-bottom: 1rem;
+    margin-bottom: var(--space-4);
     color: var(--color-text);
   }
 
@@ -61,17 +61,18 @@ import { aboutAnchors } from "../../data/site";
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     place-items: start;
-    gap: 4rem 3rem;
+    gap: var(--space-16) var(--space-12);
   }
 
   .items > div {
     width: 100%;
   }
 
-  /* The old icon was an inline box whose Webflow embed hack set it 17px down its line. */
+  /* The old icon was an inline box whose Webflow embed hack set it 17px down its line;
+     --space-4 is the nearest step. */
   .glyph {
     display: flex;
-    margin-top: 17px;
+    margin-top: var(--space-4);
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -82,14 +83,14 @@ import { aboutAnchors } from "../../data/site";
 
   @media screen and (max-width: 991px) {
     .items {
-      column-gap: 2rem;
+      column-gap: var(--space-8);
     }
   }
 
   @media screen and (max-width: 767px) {
     .items {
       grid-template-columns: 1fr;
-      row-gap: 3rem;
+      row-gap: var(--space-12);
     }
   }
 </style>

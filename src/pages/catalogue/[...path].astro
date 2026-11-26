@@ -52,6 +52,8 @@ const circleIcons = [
   "map-pin-filled",
 ] as const;
 const iconSizes = ["text", "16", "24", "32", "40", "48"] as const;
+// The spacing scale of tokens.css: a step's number is its size in 4 px units.
+const spaceSteps = [1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24, 28, 32] as const;
 ---
 
 <BaseLayout title="Catalogue" description="Every primitive in every variant (dev only)." noindex>
@@ -164,6 +166,22 @@ const iconSizes = ["text", "16", "24", "32", "40", "48"] as const;
     </div>
   </Section>
 
+  <Section name="catalogue-spacing-scale" spacing="small">
+    <h2>Spacing scale</h2>
+    <p>Every margin, padding, gap and offset takes one of these steps (docs/brand.md, Spacing).</p>
+    <div class="framed">
+      {
+        spaceSteps.map((step) => (
+          <div class="space-row">
+            <code class="space-name">--space-{step}</code>
+            <span class="space-bar" data-step={step} />
+            <span class="muted">{step * 4} px</span>
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+
   <Section name="catalogue-icon" spacing="small">
     <h2>Icon</h2>
     <p>Content icons (Tabler outline, stroke 1.5), bare, in the parent's colour; here decorative.</p>
@@ -217,7 +235,7 @@ const iconSizes = ["text", "16", "24", "32", "40", "48"] as const;
 
 <style>
   .title {
-    padding-top: 2rem;
+    padding-top: var(--space-8);
   }
 
   .demo {
@@ -225,18 +243,18 @@ const iconSizes = ["text", "16", "24", "32", "40", "48"] as const;
   }
 
   .demo + .demo {
-    margin-top: 2px;
+    margin-top: var(--space-1);
   }
 
   .content {
-    padding: 1rem;
+    padding: var(--space-4);
     background-color: var(--color-background-pale-lime);
   }
 
   .row {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: var(--space-2);
     align-items: center;
   }
 
@@ -249,7 +267,7 @@ const iconSizes = ["text", "16", "24", "32", "40", "48"] as const;
   }
 
   .framed {
-    margin-top: 1rem;
+    margin-top: var(--space-4);
     outline: 1px dashed var(--color-text-muted);
   }
 
@@ -268,6 +286,77 @@ const iconSizes = ["text", "16", "24", "32", "40", "48"] as const;
     text-transform: uppercase;
   }
 
+  .space-row {
+    display: flex;
+    gap: var(--space-4);
+    align-items: center;
+  }
+
+  .space-name {
+    width: 7rem;
+  }
+
+  .space-bar {
+    height: var(--space-4);
+    background-color: var(--color-background-accent);
+  }
+
+  .space-bar[data-step="1"] {
+    width: var(--space-1);
+  }
+
+  .space-bar[data-step="2"] {
+    width: var(--space-2);
+  }
+
+  .space-bar[data-step="3"] {
+    width: var(--space-3);
+  }
+
+  .space-bar[data-step="4"] {
+    width: var(--space-4);
+  }
+
+  .space-bar[data-step="5"] {
+    width: var(--space-5);
+  }
+
+  .space-bar[data-step="6"] {
+    width: var(--space-6);
+  }
+
+  .space-bar[data-step="8"] {
+    width: var(--space-8);
+  }
+
+  .space-bar[data-step="10"] {
+    width: var(--space-10);
+  }
+
+  .space-bar[data-step="12"] {
+    width: var(--space-12);
+  }
+
+  .space-bar[data-step="16"] {
+    width: var(--space-16);
+  }
+
+  .space-bar[data-step="20"] {
+    width: var(--space-20);
+  }
+
+  .space-bar[data-step="24"] {
+    width: var(--space-24);
+  }
+
+  .space-bar[data-step="28"] {
+    width: var(--space-28);
+  }
+
+  .space-bar[data-step="32"] {
+    width: var(--space-32);
+  }
+
   .icons {
     color: var(--color-icon-decorative);
   }
@@ -281,7 +370,7 @@ const iconSizes = ["text", "16", "24", "32", "40", "48"] as const;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.25rem;
+    gap: var(--space-1);
     width: 9rem;
     margin: 0;
   }

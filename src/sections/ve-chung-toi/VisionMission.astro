@@ -49,7 +49,7 @@ const photoSizes = "(max-width: 767px) calc(90vw - 36px), (max-width: 991px) 80v
 <style>
   /* The old empty heading block above the accordion left this gap. */
   .panels {
-    padding-top: 5rem;
+    padding-top: var(--space-20);
   }
 
   .heading {
@@ -57,13 +57,13 @@ const photoSizes = "(max-width: 767px) calc(90vw - 36px), (max-width: 991px) 80v
   }
 
   .text {
-    margin-bottom: 1rem;
+    margin-bottom: var(--space-4);
     color: var(--color-text);
     text-align: left;
   }
 
   .photo {
-    margin-bottom: 4rem;
+    margin-bottom: var(--space-16);
   }
 
   .photo-img {
@@ -76,7 +76,7 @@ const photoSizes = "(max-width: 767px) calc(90vw - 36px), (max-width: 991px) 80v
 
   @media screen and (max-width: 991px) {
     .panels {
-      padding-top: 4rem;
+      padding-top: var(--space-16);
     }
 
     .photo {
@@ -90,7 +90,7 @@ const photoSizes = "(max-width: 767px) calc(90vw - 36px), (max-width: 991px) 80v
 
   @media screen and (max-width: 767px) {
     .panels {
-      padding-top: 3rem;
+      padding-top: var(--space-12);
     }
 
     .photo-img {

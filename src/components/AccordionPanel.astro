@@ -66,7 +66,7 @@ const id = `accordion-panel-${Math.random().toString(36).slice(2, 10)}`;
     min-width: 5rem;
     height: 90vh;
     margin: 0;
-    padding: 2rem 0;
+    padding: var(--space-8) 0;
     border: 0;
     background: transparent;
     color: inherit;
@@ -91,7 +91,7 @@ const id = `accordion-panel-${Math.random().toString(36).slice(2, 10)}`;
   }
 
   .title {
-    margin: 20px auto 10px;
+    margin: var(--space-5) auto var(--space-3);
     font-size: var(--font-size-h3);
     font-weight: var(--font-weight-h3);
     line-height: var(--line-height-h3);
@@ -111,7 +111,7 @@ const id = `accordion-panel-${Math.random().toString(36).slice(2, 10)}`;
     flex-direction: column;
     width: 40rem;
     height: 100%;
-    padding: 4rem 3rem;
+    padding: var(--space-16) var(--space-12);
   }
 
   /* breakpoint-exception: desktop only (the complement of 991 px), where panels open sideways. */
@@ -146,7 +146,7 @@ const id = `accordion-panel-${Math.random().toString(36).slice(2, 10)}`;
 
     .number {
       position: absolute;
-      left: 2.5rem;
+      left: var(--space-10);
     }
 
     .title {
@@ -168,7 +168,7 @@ const id = `accordion-panel-${Math.random().toString(36).slice(2, 10)}`;
 
     .inner {
       width: auto;
-      padding: 0.5rem 2.5rem 2rem;
+      padding: var(--space-2) var(--space-10) var(--space-8);
     }
   }
 
@@ -178,17 +178,17 @@ const id = `accordion-panel-${Math.random().toString(36).slice(2, 10)}`;
     }
 
     .number {
-      left: 1.5rem;
+      left: var(--space-6);
     }
 
     .inner {
-      padding: 1rem 1.5rem 2rem;
+      padding: var(--space-4) var(--space-6) var(--space-8);
     }
   }
 
   @media screen and (max-width: 479px) {
     .inner {
-      padding: 0 1rem 1rem;
+      padding: 0 var(--space-4) var(--space-4);
     }
   }
 

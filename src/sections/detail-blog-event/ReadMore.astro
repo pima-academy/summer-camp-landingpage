@@ -52,8 +52,8 @@ import cardPlaceholder from "../../assets/images/placeholder-image-landscape.svg
     float: left;
     width: 33.33333333%;
     min-height: 1px;
-    padding-left: 10px;
-    padding-right: 10px;
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
   }
 
   .card-link {
@@ -65,7 +65,7 @@ import cardPlaceholder from "../../assets/images/placeholder-image-landscape.svg
   .media {
     position: relative;
     width: 100%;
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--space-2);
     overflow: clip;
   }
 
@@ -83,25 +83,25 @@ import cardPlaceholder from "../../assets/images/placeholder-image-landscape.svg
     inset: 2% auto auto 5%;
     justify-content: center;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.15em 0.75em;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-3);
     border: 2px solid transparent;
     border-radius: var(--radius);
     background-color: var(--color-background-pale-lime);
     color: var(--color-text);
     font-size: var(--font-size-small);
-    letter-spacing: 0.035em;
+    letter-spacing: var(--letter-spacing-tag);
     text-transform: uppercase;
   }
 
   .card-title {
-    margin-bottom: 0.25rem;
+    margin-bottom: var(--space-1);
     color: var(--color-text);
   }
 
   /* An empty Webflow CMS list, kept from the old site; dev only like the whole gap page. */
   .empty {
-    padding: 10px;
+    padding: var(--space-3);
     background-color: var(--color-background-empty-list);
   }
 
@@ -113,9 +113,9 @@ import cardPlaceholder from "../../assets/images/placeholder-image-landscape.svg
 
   .page-link {
     display: block;
-    margin-left: 10px;
-    margin-right: 10px;
-    padding: 9px 20px;
+    margin-left: var(--space-3);
+    margin-right: var(--space-3);
+    padding: var(--space-2) var(--space-5);
     border: 1px solid var(--color-border);
     border-radius: var(--radius);
     background-color: var(--color-background);
@@ -129,11 +129,11 @@ import cardPlaceholder from "../../assets/images/placeholder-image-landscape.svg
   }
 
   .arrow-prev {
-    margin-right: 4px;
+    margin-right: var(--space-1);
   }
 
   .arrow-next {
-    margin-left: 4px;
+    margin-left: var(--space-1);
   }
 
   @media screen and (max-width: 767px) {

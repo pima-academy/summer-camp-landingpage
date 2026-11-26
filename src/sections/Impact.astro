@@ -57,7 +57,7 @@ const numbers = [
   .layout {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 16px;
+    gap: var(--space-4);
   }
 
   .title {
@@ -67,7 +67,7 @@ const numbers = [
 
   /* 1rem gap under the heading (the old spacer). */
   .report {
-    padding-top: 1rem;
+    padding-top: var(--space-4);
   }
 
   .report-link {
@@ -79,8 +79,8 @@ const numbers = [
     display: grid;
     grid-column: span 2;
     grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    padding-left: 4rem;
+    gap: var(--space-4);
+    padding-left: var(--space-16);
   }
 
   .value {

@@ -43,11 +43,11 @@ import introExpert from "../../assets/images/screenshot-31.avif";
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
-    gap: 4rem;
+    gap: var(--space-16);
   }
 
   .lead {
-    margin-bottom: 1rem;
+    margin-bottom: var(--space-4);
     color: var(--color-text);
     text-align: left;
   }
@@ -90,7 +90,7 @@ import introExpert from "../../assets/images/screenshot-31.avif";
   @media screen and (max-width: 767px) {
     .layout {
       grid-template-columns: 1fr;
-      gap: 3rem;
+      gap: var(--space-12);
     }
   }
 </style>

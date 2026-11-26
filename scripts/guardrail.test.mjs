@@ -57,11 +57,60 @@ test("type, radius and shadow values must come through var(--…)", () => {
     "box-shadow: var(--shadow-card), var(--shadow-focus)",
     "font: inherit",
     "font-family: var(--font-family-base)",
-    "letter-spacing: -0.01em",
-    "padding: 1.5rem",
+    "letter-spacing: var(--letter-spacing-kicker)",
+    "letter-spacing: 0",
+    "letter-spacing: normal",
   ]) {
     assert.deepEqual(check(good), [], good);
   }
+  assert.deepEqual(check("letter-spacing: -0.01em"), ["not-a-token"]);
+});
+
+test("margins, paddings, gaps and offsets take a step of the spacing scale", () => {
+  const check = (decl) => rules("src/components/Card.astro", astro(`.card { ${decl}; }`));
+  for (const bad of [
+    "padding: 1.5rem",
+    "padding: 10px 20px",
+    "margin-top: 0.7em",
+    "margin: 0 auto 1rem",
+    "margin-left: -8rem",
+    "gap: 16px",
+    "row-gap: 3rem",
+    "column-gap: 2rem",
+    "top: 5rem",
+    "inset: 8px auto auto 8px",
+    "scroll-padding-top: 4.5rem",
+    "padding-left: calc(5% + 4rem)",
+    "margin-bottom: calc(var(--space-4) + 10px)",
+  ]) {
+    assert.deepEqual(check(bad), ["literal-spacing"], bad);
+  }
+  for (const good of [
+    "padding: var(--space-6)",
+    "margin: 0 auto var(--space-4)",
+    "margin: 0",
+    "margin-left: auto",
+    "margin-left: calc(-1 * var(--space-32))",
+    "gap: var(--space-16) var(--space-12)",
+    "padding-left: 5%",
+    "inset: 2% auto auto 5%",
+    "top: 100%",
+    "padding-left: calc(5% + var(--space-16))",
+    "padding-left: clamp(0px, calc(50% - var(--space-20)), var(--space-16))",
+    "margin-top: calc(var(--space-4) - 1lh)",
+    "gap: inherit",
+    "width: 40px",
+    "max-width: 64rem",
+    "outline-offset: 0.125rem",
+  ]) {
+    assert.deepEqual(check(good), [], good);
+  }
+});
+
+test("inline style carries no literal spacing", () => {
+  const page = (attr) => rules("src/pages/x.astro", `---\n---\n<div ${attr}>x</div>\n`);
+  assert.deepEqual(page('style="margin-top: 2rem"'), ["inline-style"]);
+  assert.deepEqual(page('style="padding: 0"'), []);
 });
 
 test("@media must be one of the three breakpoints, a motion query or a marked exception", () => {

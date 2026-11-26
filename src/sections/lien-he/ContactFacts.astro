@@ -38,24 +38,24 @@ import { contact, social } from "../../data/site";
 
 <style>
   .panel {
-    padding: 1rem 4rem 2rem;
+    padding: var(--space-4) var(--space-16) var(--space-8);
   }
 
-  /* 1rem below (the old spacer). */
+  /* The heading's margin plus the old 1rem spacer below it. */
   .title {
-    margin-bottom: calc(0.3em + 1rem);
+    margin-bottom: var(--space-8);
     text-align: center;
   }
 
   .info {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 16px;
-    padding-bottom: 1rem;
+    gap: var(--space-4);
+    padding-bottom: var(--space-4);
   }
 
   .icon-cell {
-    margin-bottom: 0.25rem;
+    margin-bottom: var(--space-1);
   }
 
   .label {
@@ -64,7 +64,7 @@ import { contact, social } from "../../data/site";
 
   @media screen and (max-width: 767px) {
     .panel {
-      padding-bottom: 3rem;
+      padding-bottom: var(--space-12);
     }
   }
 

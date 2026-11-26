@@ -120,16 +120,31 @@ export function literalColour(value) {
 
 // Properties whose value must come through var(--…): the type, radius and shadow tokens.
 const TOKEN_PROPS =
-  /^(font|font-family|font-size|font-weight|line-height|box-shadow|text-shadow|border(-(top|bottom|start|end)-(left|right|start|end))?-radius)$/;
+  /^(font|font-family|font-size|font-weight|line-height|letter-spacing|box-shadow|text-shadow|border(-(top|bottom|start|end)-(left|right|start|end))?-radius)$/;
 const KEYWORDS = /^(inherit|initial|unset|revert|revert-layer)$/i;
-// `0` and `none` are no radius / no shadow, not design values.
+// `0` and `none` are no radius / no shadow, `0` and `normal` no extra letter spacing: not design values.
 const NONE_PROPS = /(radius|shadow)$/;
+const NORMAL_PROPS = /^letter-spacing$/;
+
+// Spacing properties: margins, paddings, gaps and the offsets used as spacing. Their lengths come
+// from the spacing scale (--space-…); `0`, `auto`, percentages, viewport units and `lh` (one
+// line box) are not design values.
+const SPACING_PROPS =
+  /^((margin|padding|scroll-margin|scroll-padding|inset)(-[\w-]+)?|gap|row-gap|column-gap|grid-gap|grid-row-gap|grid-column-gap|top|right|bottom|left)$/;
+const LENGTH = /(?<![\w.-])-?(\d*\.?\d+)(px|r?em|ch|r?ex|pt|pc|cm|mm|in|q)(?![\w-])/gi;
+
+/** The first literal spacing length in a value (var(--…) references and zero lengths ignored), or null. */
+export function literalSpacing(value) {
+  const bare = value.replace(/var\(\s*--[\w-]+\s*\)/g, "");
+  return [...bare.matchAll(LENGTH)].find((m) => Number(m[1]) !== 0)?.[0] ?? null;
+}
 
 /** Whether a value is only var(--…) references (and commas, `!important`) or an allowed keyword. */
 export function isTokenValue(prop, value) {
   const v = value.replace(/\s*!important\s*$/i, "").trim();
   if (KEYWORDS.test(v)) return true;
   if (NONE_PROPS.test(prop) && /^(0|none)$/i.test(v)) return true;
+  if (NORMAL_PROPS.test(prop) && /^(0|normal)$/i.test(v)) return true;
   let rest = v;
   for (let prev; prev !== rest; ) {
     prev = rest;
@@ -144,6 +159,7 @@ function checkDecl(node, known) {
   const at = { line: node.line, message: `${node.prop}: ${node.value}` };
   if (literalColour(node.value)) out.push({ rule: "literal-colour", ...at });
   else if (TOKEN_PROPS.test(node.prop) && !isTokenValue(node.prop, node.value)) out.push({ rule: "not-a-token", ...at });
+  else if (SPACING_PROPS.test(node.prop) && literalSpacing(node.value)) out.push({ rule: "literal-spacing", ...at });
   if (known) {
     for (const [, name] of node.value.matchAll(/var\(\s*(--[\w-]+)/g)) {
       if (!known.has(name)) out.push({ rule: "unknown-token", ...at });
@@ -220,7 +236,10 @@ function checkInlineStyles(text) {
       const value = decl.slice(colon + 1).trim();
       const bad = prop.startsWith("--")
         ? !INLINE_STYLE_ALLOWED.includes(prop)
-        : literalColour(value) || TOKEN_PROPS.test(prop) || DESIGN_PROPS.test(prop);
+        : literalColour(value) ||
+          TOKEN_PROPS.test(prop) ||
+          DESIGN_PROPS.test(prop) ||
+          (SPACING_PROPS.test(prop) && literalSpacing(value));
       if (bad) out.push({ rule: "inline-style", line, message: decl.trim() });
     }
   }
