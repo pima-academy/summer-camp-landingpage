@@ -2,14 +2,14 @@
 // Header photo collage of the 2025/2026 camp pages: the `.header76_images-layout` of
 // `section_header76`, two columns scrolling upwards. A decorative collage (alt="" as on
 // the old pages).
-//   import { campHeaderPhotos2025 } from "../components/camp-header-photos";
+//   import { campHeaderPhotos2025 } from "../camp/camp-header-photos";
 //   <CampHeaderPhotos columns={campHeaderPhotos2025} page={campPageIds[2025]} />
 // Marquee: one period = the old content once (both lists); 60 s per period keeps the old
 // IX2 pace (it moved half of that per 30 s).
 import type { ImageMetadata } from "astro";
 import { Image } from "astro:assets";
-import { fluidWidths } from "../lib/image-widths";
-import { wNodeId } from "../lib/w-node";
+import { fluidWidths } from "./image-widths";
+import { wNodeId } from "./w-node";
 import type { CampHeaderPhotoColumns } from "./camp-header-photos";
 import Marquee from "./Marquee.astro";
 

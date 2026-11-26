@@ -1,6 +1,6 @@
 // University logos of the 2025/2026 camp mentor row (old `section_logo3`), for MentorLogos.
 // Two `.logo3_list`s per page; 2025 also has UCLA. `node` is the old Webflow element id
-// of the `.logo3_wrapper` (see lib/w-node).
+// of the `.logo3_wrapper` (see w-node.ts).
 import type { ImageMetadata } from "astro";
 
 import ucla from "../assets/images/university-of-california-los-angeles-logo.avif";

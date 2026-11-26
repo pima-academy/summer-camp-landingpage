@@ -1,20 +1,21 @@
 ---
+// FROZEN (#60): do not edit. Renders from src/camp/ only; see src/camp/README.md.
 // trai-he-pima-2026 (old site/trai-he-pima-2026.html), camp chrome, orphan page.
 // The 2025 information on this page (dates, apply buttons, "PiMA 2025" form) is migrated
 // as-is: content work for PiMA (spec #15, "Content work, migrated as-is").
 // Fade-ups follow the 2025 page's IX2 map (spec: 2026 gets the 2025 animations).
 import { Image } from "astro:assets";
-import BaseLayout from "../layouts/BaseLayout.astro";
-import CampHeaderPhotos from "../components/CampHeaderPhotos.astro";
-import CampMentors from "../components/CampMentors.astro";
-import CampTeamPhoto from "../components/CampTeamPhoto.astro";
-import MentorLogos from "../components/MentorLogos.astro";
-import VideoLightbox from "../components/VideoLightbox.astro";
-import { campHeaderPhotos2026 } from "../components/camp-header-photos";
-import { advisors, organizers } from "../components/camp-mentors";
-import { mentorLogos2026 } from "../components/mentor-logos";
+import CampLayout from "../camp/CampLayout.astro";
+import CampHeaderPhotos from "../camp/CampHeaderPhotos.astro";
+import CampMentors from "../camp/CampMentors.astro";
+import CampTeamPhoto from "../camp/CampTeamPhoto.astro";
+import MentorLogos from "../camp/MentorLogos.astro";
+import VideoLightbox from "../camp/VideoLightbox.astro";
+import { campHeaderPhotos2026 } from "../camp/camp-header-photos";
+import { advisors, organizers } from "../camp/camp-mentors";
+import { mentorLogos2026 } from "../camp/mentor-logos";
 import { contact, social } from "../data/site";
-import { campPageIds, wNodeId } from "../lib/w-node";
+import { campPageIds, wNodeId } from "../camp/w-node";
 
 import logoHorizontal from "../assets/images/logo-horizontal.png";
 import img6734 from "../assets/images/img-6734.jpg";
@@ -32,11 +33,10 @@ const PAGE_ID = campPageIds[2026];
 const apply = "https://qual.pimavn.com/apply";
 ---
 
-<BaseLayout
+<CampLayout
   title="Trại hè Toán học và Ứng dụng PiMA 2026"
   description="Trại hè Toán học và Ứng dụng PiMA 2026 với chủ đề Toán học trong Trí tuệ Nhân tạo: đại số tuyến tính, xác suất thống kê, lập trình Python và đề tài nhóm cùng mentor từ các trường đại học trong và ngoài nước."
   hero={img6734}
-  chrome="camp"
 >
   <section data-animate="fade-up">
     <div class="div-block-13">
@@ -485,5 +485,5 @@ const apply = "https://qual.pimavn.com/apply";
       </div>
     </div>
   </section>
-</BaseLayout>
+</CampLayout>
 
