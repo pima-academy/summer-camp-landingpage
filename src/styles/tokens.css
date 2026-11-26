@@ -254,6 +254,14 @@
   --radius-wf-spinner: 50%;
 }
 
+/* #72 (404 + gap pages): the empty CMS list box and the post pagination of the gap pages. */
+:root {
+  --color-background-cms-empty: #dddddd;
+  --color-text-pagination: #333;
+  --color-border-pagination: #ccc;
+  --font-size-pagination: 14px;
+}
+
 @media screen and (max-width: 991px) {
   :root {
     --font-size-h1: 3.37rem;

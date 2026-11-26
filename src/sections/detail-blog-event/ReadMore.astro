@@ -1,0 +1,164 @@
+---
+/*
+  ReadMore: "Đọc thêm" on the gap page /detail-blog-event/
+  (src/gap-pages/detail-blog-event.astro). A template for one related-post card
+  (image, tag, title; empty and `hidden`, as the old site's empty CMS bindings were),
+  the empty-list box "No items found." and the Previous/Next pagination, all kept as
+  on the old site. Replaces the old `section_blogpost-read-more` markup.
+*/
+import { Image } from "astro:assets";
+import Section from "../../components/Section.astro";
+import cardPlaceholder from "../../assets/images/placeholder-image-landscape.svg";
+---
+
+<Section name="read-more" width="small" spacing="small" class="surface">
+  <h2 class="heading">Đọc thêm</h2>
+  <div>
+    <div role="list" class="cards">
+      <div role="listitem" class="cell">
+        <a href="#" class="card-link">
+          <div class="media">
+            <Image src={cardPlaceholder} alt="" class="cover" hidden />
+            <div class="tag" hidden></div>
+          </div>
+          <h4 class="card-title" hidden></h4>
+        </a>
+      </div>
+    </div>
+    <div class="empty">
+      <div>No items found.</div>
+    </div>
+    <div role="navigation" aria-label="List" class="pagination">
+      <a href="#" aria-label="Previous Page" class="page-link">
+        <svg class="arrow-prev" height="12px" width="12px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" transform="translate(0, 1)">
+          <path fill="none" stroke="currentColor" fill-rule="evenodd" d="M8 10L4 6l4-4"></path>
+        </svg>
+        <div class="page-label">Previous</div>
+      </a>
+      <a href="#" aria-label="Next Page" class="page-link">
+        <div class="page-label">Next</div>
+        <svg class="arrow-next" height="12px" width="12px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" transform="translate(0, 1)">
+          <path fill="none" stroke="currentColor" fill-rule="evenodd" d="M4 2l4 4-4 4"></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+</Section>
+
+<style>
+  .surface {
+    background-color: var(--color-background-surface);
+  }
+
+  .heading {
+    font-size: var(--font-size-heading-style-h4);
+    font-weight: var(--font-weight-heading-style);
+    line-height: var(--line-height-heading-style-h4);
+  }
+
+  .cards {
+    display: flow-root;
+  }
+
+  .cell {
+    position: relative;
+    float: left;
+    width: 33.33333333%;
+    min-height: 1px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .card-link {
+    display: inline-block;
+    max-width: 100%;
+    text-decoration: none;
+  }
+
+  .media {
+    position: relative;
+    width: 100%;
+    margin-bottom: 0.5rem;
+    overflow: clip;
+  }
+
+  .cover {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+  }
+
+  .tag {
+    display: inline-flex;
+    position: absolute;
+    inset: 2% auto auto 5%;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.15em 0.75em;
+    border: 2px solid transparent;
+    border-radius: var(--radius-pill);
+    background-color: var(--color-background-lime-light);
+    color: var(--color-text-strong);
+    font-size: var(--font-size-tag);
+    letter-spacing: 0.035em;
+    text-transform: uppercase;
+  }
+
+  .card-title {
+    margin-bottom: 0.25rem;
+    color: var(--color-text-strong);
+    font-size: var(--font-size-blog-event-heading);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  /* An empty Webflow CMS list, kept from the old site; dev only like the whole gap page. */
+  .empty {
+    padding: 10px;
+    background-color: var(--color-background-cms-empty);
+  }
+
+  .pagination {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .page-link {
+    display: block;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 9px 20px;
+    border: 1px solid var(--color-border-pagination);
+    border-radius: var(--radius-pill-form);
+    background-color: var(--color-background-surface-light);
+    color: var(--color-text-pagination);
+    font-size: var(--font-size-pagination);
+  }
+
+  .page-label {
+    display: inline-block;
+    max-width: 100%;
+  }
+
+  .arrow-prev {
+    margin-right: 4px;
+  }
+
+  .arrow-next {
+    margin-left: 4px;
+  }
+
+  @media screen and (max-width: 767px) {
+    .cell {
+      width: 100%;
+    }
+  }
+
+  /* Empty CMS bindings (old `w-dyn-bind-empty`); after the rules above so it wins. */
+  [hidden] {
+    display: none;
+  }
+</style>

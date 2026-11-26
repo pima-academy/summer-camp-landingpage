@@ -2,110 +2,14 @@
 /*
   Gap page /su-kien-blog/ (old `su-kien-blog.html`): the events & blog listing.
   Its only content is two Webflow CMS lists with no items, kept as templates
-  for future posts (empty bindings, "No items found." boxes and `#` links as on
-  the old site). Dev only; see src/pages/[...gap].astro.
+  for future posts (empty, hidden bindings, "No items found." boxes and `#` links
+  as on the old site). Dev only; see src/pages/[...gap].astro.
 */
-import { Image } from "astro:assets";
-import BrandName from "../components/BrandName.astro";
-import placeholder from "../assets/images/placeholder-image-landscape.svg";
+import BlogHeader from "../sections/su-kien-blog/BlogHeader.astro";
+import FeaturedPosts from "../sections/su-kien-blog/FeaturedPosts.astro";
+import LatestPosts from "../sections/su-kien-blog/LatestPosts.astro";
 ---
 
-<header class="section_blog-header" data-animate="fade-up">
-  <div class="padding-global">
-    <div class="container-medium">
-      <div class="padding-section-large">
-        <div class="header45_component">
-          <div class="max-width-large">
-            <div class="margin-bottom margin-xsmall">
-              <div class="text-style-tagline text-block-7"><BrandName /> academy</div>
-            </div>
-            <div class="margin-bottom margin-small">
-              <h1 class="heading-style-h1">Sự kiện &amp; Blog</h1>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</header>
-<div class="section_blog-highlight" data-animate="fade-up">
-  <div class="padding-global">
-    <div class="container-medium">
-      <div class="padding-custom5">
-        <div class="max-width-large">
-          <div class="margin-bottom margin-small">
-            <h2 class="heading-style-h3">Bài viết nổi bật</h2>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="w-dyn-list">
-    <div role="list" class="w-dyn-items">
-      <div role="listitem" class="w-dyn-item">
-        <header id="blog-header-5-1" class="section_blog5">
-          <div class="padding-global">
-            <div class="container-medium">
-              <div class="padding-section-tiny">
-                <a href="#" class="link-block is-black w-inline-block">
-                  <div class="blog5_featured-item-link">
-                    <div id="w-node-eddebaf5-61ba-89cb-534e-52780a35ae73-6d0e02a9" class="blog5_image-wrapper">
-                      <Image src={placeholder} alt="" class="blog5_featured-image w-dyn-bind-empty" />
-                    </div>
-                    <div class="blog5_featured-item-content">
-                      <div class="margin-bottom margin-xxsmall">
-                        <div class="tag-2 is-text w-dyn-bind-empty"></div>
-                      </div>
-                      <div class="margin-bottom">
-                        <h3 class="heading-style-h4 w-dyn-bind-empty"></h3>
-                      </div>
-                      <div class="text-size-regular w-dyn-bind-empty"></div>
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </div>
-          </div>
-        </header>
-      </div>
-    </div>
-    <div class="w-dyn-empty">
-      <div>No items found.</div>
-    </div>
-  </div>
-</div>
-<header id="blog-header-5" class="section_blog5" data-animate="fade-up">
-  <div class="padding-global">
-    <div class="container-medium">
-      <div class="padding-section-medium">
-        <div class="blog5_component">
-          <h2 class="heading-style-h3">Bài viết mới nhất</h2>
-          <div class="spacer-medium"></div>
-          <div class="collection-list-wrapper-2 w-dyn-list">
-            <div role="list" class="w-dyn-items w-row">
-              <div role="listitem" class="collection-item-4 w-dyn-item w-col w-col-4">
-                <div class="blog5_item">
-                  <a href="#" class="blog5_item-link w-inline-block">
-                    <div class="margin-bottom margin-xsmall">
-                      <div class="blog5_image-wrapper">
-                        <Image src={placeholder} alt="" class="blog5_image w-dyn-bind-empty" />
-                        <div class="tag-2 is-text is-absolute w-dyn-bind-empty"></div>
-                      </div>
-                    </div>
-                    <div class="margin-bottom margin-xxsmall">
-                      <h3 class="blog-card-title w-dyn-bind-empty"></h3>
-                    </div>
-                    <div class="blog-card-sapo w-dyn-bind-empty"></div>
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div class="w-dyn-empty">
-              <div>No items found.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</header>
+<BlogHeader />
+<FeaturedPosts />
+<LatestPosts />
