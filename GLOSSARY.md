@@ -24,6 +24,10 @@ _Avoid_: improvement, polish
 PiMA's rules for how the brand looks on the website (naming, logo, colour, typography, shapes, icons, photos), kept in the repo as the single source for every page and component.
 _Avoid_: style guide, design system, brand book
 
+**Section**:
+A full-width band of a page with one purpose (hero, partners, press, contact form). A page is an ordered list of sections; brand alignment keeps that list, a redesign changes it.
+_Avoid_: block, module, row
+
 **Brand alignment**:
 A change that brings a page's look in line with the brand guidelines (colour, type weight and size, heading style, corner radius, logo, icons, spacing) while keeping its structure: the same sections in the same order, the same grid, the same content.
 _Avoid_: redesign, restyle, polish
