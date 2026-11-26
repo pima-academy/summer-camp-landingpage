@@ -96,6 +96,26 @@ test("CLAUDE.md's Building UI section starts by sending agents to docs/brand.md"
   );
 });
 
+/** The `@font-face` rules of a stylesheet as "<weight> <style> <subset>" strings, sorted. */
+function fontFaces(css) {
+  return parseCss(css)
+    .filter((n) => n.type === "atrule" && n.name === "font-face")
+    .map((n) => {
+      const d = Object.fromEntries(n.children.filter((c) => c.type === "decl").map((c) => [c.prop, c.value]));
+      const subset = d.src.match(/nunito-sans-([a-z]+)-\d+-normal/)?.[1];
+      return `${d["font-weight"]} ${d["font-style"]} ${subset}`;
+    })
+    .sort();
+}
+
+test("fonts.css loads Nunito Sans 400, 600, 700, 800 and 900 upright, Latin and Vietnamese", () => {
+  const fontsCss = readFileSync(join(root, "src/styles/fonts.css"), "utf8");
+  const expected = ["400", "600", "700", "800", "900"]
+    .flatMap((w) => ["latin", "vietnamese"].map((s) => `${w} normal ${s}`))
+    .sort();
+  assert.deepEqual(fontFaces(fontsCss), expected);
+});
+
 test("src/assets/logo/ holds the ten brand logo files", () => {
   const expected = ["horizontal", "stacked"]
     .flatMap((shape) => ["green", "darkgreen", "lime", "black", "white"].map((c) => `pima-logo-${shape}-${c}.png`))
