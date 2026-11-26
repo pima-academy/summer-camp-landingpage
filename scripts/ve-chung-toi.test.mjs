@@ -10,16 +10,18 @@ const html = readBuilt("ve-chung-toi/index.html");
 const tagWithId = (id) => html.match(new RegExp(`<[a-z]+\\b[^>]*\\bid="${id}"[^>]*>`))?.[0] ?? "";
 
 test("each 'Về PiMA' footer anchor sits on its section", { skip }, () => {
+  // Section files are found by data-section; the page's own sections (#67) still by class.
+  const byClass = (cls) => new RegExp(`class="[^"]*\\b${cls}\\b`);
   const expected = {
-    "gioi-thieu": "section_about-header",
-    "tam-nhin-su-menh": "about-feature",
-    "doi-tac-mang-luoi-nhan-tai": "section_partners",
-    "cac-tac-dong-tich-cuc": "section_impact",
-    "cau-chuyen-nha-sang-lap": "section_about-timeline",
-    "ke-hoach-tuong-lai": "section_about-plan",
+    "gioi-thieu": byClass("section_about-header"),
+    "tam-nhin-su-menh": byClass("about-feature"),
+    "doi-tac-mang-luoi-nhan-tai": /data-section="partners"/,
+    "cac-tac-dong-tich-cuc": byClass("section_impact"),
+    "cau-chuyen-nha-sang-lap": byClass("section_about-timeline"),
+    "ke-hoach-tuong-lai": byClass("section_about-plan"),
   };
-  for (const [id, cls] of Object.entries(expected)) {
-    assert.match(tagWithId(id), new RegExp(`class="[^"]*\\b${cls}\\b`), `#${id} on .${cls}`);
+  for (const [id, on] of Object.entries(expected)) {
+    assert.match(tagWithId(id), on, `#${id} on ${on}`);
   }
   // The footer links to them.
   for (const id of Object.keys(expected)) assert.ok(html.includes(`href="/ve-chung-toi/#${id}"`), `footer links #${id}`);

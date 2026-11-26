@@ -1,9 +1,11 @@
 ---
-// Dark green trust bar (old `section_trust-bar_dark-green`): the four claims looping right to
-// left, 20 s per period. Identical on every page that uses it; fades up on scroll as before.
+// TrustBar: dark green band with the four claims looping right to left, 20 s per period.
+// Used by index (twice), ve-chung-toi, khoa-hoc, lien-he and trai-he-toan-hoc-pima (old
+// `section_trust-bar_dark-green`). Fades up on scroll.
 import { Image } from "astro:assets";
 import ellipse from "../assets/images/ellipse.svg";
 import Marquee from "../components/Marquee.astro";
+import Section from "../components/Section.astro";
 
 const claims = [
   "Trại hè Toán học uy tín",
@@ -13,30 +15,54 @@ const claims = [
 ];
 ---
 
-<div class="section_trust-bar_dark-green" data-animate="fade-up">
-  <div class="padding-global">
-    <div class="container-large">
-      <div class="padding-section-tiny">
-        {/* 3 copies: 2 periods (~1900 px) always cover the 1280 px container while one scrolls out. */}
-        <Marquee class="trust-bar_text-wrapper" duration={20} copies={3}>
-          {
-            claims.map((claim) => (
-              <>
-                <div class="text-block-2">{claim}</div>
-                <Image src={ellipse} alt="" width={8} />
-              </>
-            ))
-          }
-        </Marquee>
-      </div>
-    </div>
+<Section name="trust-bar" width="large" spacing="none" animate class="trust">
+  <div class="strip">
+    {/* 3 copies: 2 periods (~1900 px) always cover the 1280 px container while one scrolls out. */}
+    <Marquee class="claims" duration={20} copies={3}>
+      {
+        claims.map((claim) => (
+          <>
+            <div class="claim">{claim}</div>
+            <Image src={ellipse} alt="" width={8} class="dot" />
+          </>
+        ))
+      }
+    </Marquee>
   </div>
-</div>
+</Section>
 
 <style>
+  .trust {
+    overflow: clip;
+    background-color: var(--color-background-dark-green);
+  }
+
+  .strip {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+
+  .claims {
+    gap: 1rem;
+  }
+
+  .claim {
+    flex: none;
+    color: var(--color-text-lime);
+    font-size: var(--font-size-trust-bar);
+    font-weight: var(--font-weight-medium);
+    text-transform: uppercase;
+  }
+
   /* The old ellipse <img> had no height attribute and stretched to the text's line box with
      the dot centred; Astro sets height="8", so centre the 8 px box instead (same position). */
-  .section_trust-bar_dark-green :global(.trust-bar_text-wrapper img) {
+  .dot {
     align-self: center;
+  }
+
+  @media screen and (max-width: 479px) {
+    .claims {
+      gap: 0.6rem;
+    }
   }
 </style>

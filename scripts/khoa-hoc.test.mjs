@@ -20,7 +20,7 @@ test("khoa-hoc renders header, intro, trust bar and contact form in the old orde
     ">Khóa học</h1>",
     'class="section_header64"',
     "Khóa học Toán ứng dụng tại PiMA được thiết kế",
-    'class="section_trust-bar_dark-green"',
+    'data-section="trust-bar"',
     'id="contact-form"',
   ].map((s) => main.indexOf(s));
   assert.ok(order.every((i) => i >= 0), `all sections present: ${order}`);

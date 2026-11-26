@@ -9,25 +9,26 @@ const html = readBuilt("index.html");
 const main = mainOf(html);
 
 test("home page sections are in the old order", { skip }, () => {
+  // A section file is found by its data-section; the page's own sections (#66) still by class.
   const order = [
-    "section_homepage_hero",
-    "section_trust-bar_dark-green",
-    "section_partners",
-    "section_philosophy",
-    "section_impact",
-    "section_programs-overview",
-    "section_founding-story",
-    "section_milestone",
-    "section_team",
-    "section_testimonials",
-    "section_summer-camp",
-    "section_press",
-    "section_contact-form",
+    'section_homepage_hero"',
+    'data-section="trust-bar"',
+    'data-section="partners"',
+    'section_philosophy"',
+    'section_impact"',
+    'section_programs-overview"',
+    'section_founding-story"',
+    'section_milestone"',
+    'section_team"',
+    'section_testimonials"',
+    'section_summer-camp"',
+    'section_press"',
+    'section_contact-form"',
   ];
-  const at = order.map((c) => main.indexOf(`${c}"`));
+  const at = order.map((c) => main.indexOf(c));
   assert.ok(at.every((i) => i >= 0), `all sections present: ${order.filter((_, i) => at[i] < 0)}`);
   assert.deepEqual([...at].sort((a, b) => a - b), at, "sections in old order");
-  assert.equal(main.match(/section_trust-bar_dark-green"/g)?.length, 2, "two trust bars");
+  assert.equal(main.match(/data-section="trust-bar"/g)?.length, 2, "two trust bars");
 });
 
 test("home page hides its content gaps in production", { skip }, () => {
