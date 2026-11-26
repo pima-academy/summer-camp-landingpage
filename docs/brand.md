@@ -160,7 +160,7 @@ Prefer the green logo; where the background is not green, prefer black or white.
 
 ## Icons
 
-- Tabler Icons only, as SVG files copied into `src/assets/icons/` (no icon package), drawn by the `Icon` component in `currentColor`.
+- Tabler Icons only, as SVG files copied into `src/assets/icons/` (no icon package, MIT licence kept there), drawn by the `Icon` component in `currentColor`. Only the icons in use are in the folder; one icon per concept (one Facebook, one mail, one book …).
 - Content icons use Tabler's line set at stroke 1.5 on a 24 px grid and stand bare, without a circle. Contact and social icons use Tabler's filled brand and contact glyphs inside a circle.
 - One colour per icon: no multicolour icons, emoji or 3D icons.
 - Colour by role:
@@ -174,6 +174,8 @@ Prefer the green logo; where the background is not green, prefer black or white.
 | `--white` | `--black` | `--white` |
 | `--pima-dark-green` | `--pima-pale-lime` | `--pima-dark-green` |
 | `--pima-pale-lime` | `--pima-dark-green` | `--pima-pale-lime` |
+
+`<Icon circle>` takes the pair from `--color-icon-circle` and `--color-icon-circle-glyph`: the white pair is the default (also on `--gray-5`), `Section`'s pale-lime and dark-green tones and the footer re-point them. A small separator mark (the marquee's dot) is a CSS shape coloured from a token, not an icon file.
 
 ## Photos
 
