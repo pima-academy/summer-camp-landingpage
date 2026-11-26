@@ -32,7 +32,7 @@ html[data-brand="A"] {
   --btn-bg: var(--g); --btn-fg: var(--ink); --btn-radius: 8px;
   --btn2-bg: var(--ink); --btn2-fg: #fff;
   --r-card: 8px; --r-photo: 8px; --r-input: 8px;
-  --bg-trust: var(--dg); --fg-trust: var(--lime);
+  --bg-trust: var(--dg); --fg-trust: #fff; --fs-trust: 15px;
   --bg-philo: var(--lime);
   --bg-founding: var(--dg);
   --bg-milestone: var(--surface);
@@ -155,7 +155,7 @@ html[data-brand] .section_founding-story .button.is-lime { background-color: var
 
 /* ---------- section backgrounds ---------- */
 html[data-brand] .section_trust-bar_dark-green { background-color: var(--bg-trust) !important; }
-html[data-brand] .section_trust-bar_dark-green .text-block-2 { color: var(--fg-trust) !important; font-weight: 700 !important; }
+html[data-brand] .section_trust-bar_dark-green .text-block-2 { color: var(--fg-trust) !important; font-weight: 700 !important; font-size: var(--fs-trust, 14px) !important; letter-spacing: 0.03em; }
 html[data-brand] .section_philosophy { background-color: var(--bg-philo) !important; }
 html[data-brand] .founding-story_content-wrapper { background: var(--bg-founding) !important; border-radius: var(--r-card) !important; }
 html[data-brand] .section_founding-story p { color: #fff !important; }
