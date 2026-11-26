@@ -5,6 +5,10 @@
 - All repo documentation (this file, `docs/`, ADRs, `GLOSSARY.md`, GitHub issues and PR bodies) is written in English.
 - Website content in `site/` stays in Vietnamese. Don't translate it.
 
+## Frozen code
+
+- `src/camp/` and the two camp page files (`src/pages/trai-he-toan-hoc-2025.astro`, `src/pages/trai-he-pima-2026.astro`) are frozen; do not edit them. See `src/camp/README.md`.
+
 ## Agent skills
 
 ### Issue tracker
