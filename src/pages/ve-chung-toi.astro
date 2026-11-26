@@ -1,86 +1,24 @@
 ---
 // "Về chúng tôi" (old site/ve-chung-toi.html). The six "Về PiMA" footer anchors
 // (`aboutAnchors` in site.ts) sit on the matching sections.
-import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import BrandName from "../components/BrandName.astro";
-import Accordion from "../components/Accordion.astro";
-import AccordionPanel from "../components/AccordionPanel.astro";
-import ProgramsOverview from "../sections/ProgramsOverview.astro";
+import ContactSection from "../sections/ContactSection.astro";
 import Impact from "../sections/Impact.astro";
 import Milestone from "../sections/Milestone.astro";
-import TrustBar from "../sections/TrustBar.astro";
 import Partners from "../sections/Partners.astro";
 import Philosophy from "../sections/Philosophy.astro";
+import ProgramsOverview from "../sections/ProgramsOverview.astro";
 import Team from "../sections/Team.astro";
-import ContactSection from "../sections/ContactSection.astro";
+import TrustBar from "../sections/TrustBar.astro";
+import Actions from "../sections/ve-chung-toi/Actions.astro";
+import FounderStory from "../sections/ve-chung-toi/FounderStory.astro";
+import FuturePlans from "../sections/ve-chung-toi/FuturePlans.astro";
+import Header from "../sections/ve-chung-toi/Header.astro";
+import Intro from "../sections/ve-chung-toi/Intro.astro";
+import MemberUniversities from "../sections/ve-chung-toi/MemberUniversities.astro";
+import VisionMission from "../sections/ve-chung-toi/VisionMission.astro";
 import { aboutAnchors } from "../data/site";
-import { fluidWidths } from "../lib/image-widths";
-
 import introPhoto from "../assets/images/screenshot-5.avif";
-import introExpert from "../assets/images/screenshot-31.avif";
-import founders from "../assets/images/impact-report-no-q-111sdfs.avif";
-import orientation2023 from "../assets/images/481995832-1135445505045584-6318121554141229279-n.avif";
-import workshop from "../assets/images/481775555-1135445305045604-7304032333989245886-n.avif";
-import action1 from "../assets/images/action-1.avif";
-import action2 from "../assets/images/action-2.avif";
-import action3 from "../assets/images/action-3.avif";
-import ucla from "../assets/images/university-of-california-los-angeles-logo.avif";
-import stonyBrook from "../assets/images/large-blob.avif";
-import nus from "../assets/images/national-university-of-singapore-logo-wine.avif";
-import ntu from "../assets/images/nanyang-technological-university-logo-wine.avif";
-import khtn from "../assets/images/truong-dai-hoc-khoa-hoc-tu-nhien-dai-hoc-quoc-gia-thanh-pho-ho-chi-minh.avif";
-import hcmut from "../assets/images/hcmut-official-logo.avif";
-import williamMary from "../assets/images/vi-logo.avif";
-import hust from "../assets/images/logo-dai-hoc-bach-khoa-ha-noi.avif";
-
-// Sizes measured on the old page at 390/820/1440.
-const accordionSizes = "(max-width: 767px) calc(90vw - 36px), (max-width: 991px) 80vw, 708px";
-
-// Member university logos: `width` = rendered width at the 4.5rem (72 px) max-height.
-// Stony Brook had a width="84" attribute on the old page; the others had none.
-// `ids` are the old `w-node-*` grid ids of the first / second copy of the list.
-const universities = [
-  { image: ucla, width: 190, alt: "Logo Đại học California, Los Angeles (UCLA)", ids: ["adc4", "add5"] },
-  { image: stonyBrook, width: 84, alt: "Logo Đại học Stony Brook", ids: ["adc6", "add7"], fixed: true },
-  { image: nus, width: 108, alt: "Logo Đại học Quốc gia Singapore (NUS)", ids: ["adc8", "add9"] },
-  { image: ntu, width: 108, alt: "Logo Đại học Công nghệ Nanyang (NTU)", ids: ["adca", "addb"] },
-  { image: khtn, width: 88, alt: "Logo Trường Đại học Khoa học Tự nhiên, ĐHQG-HCM", ids: ["adcc", "addd"] },
-  { image: hcmut, width: 71, alt: "Logo Trường Đại học Bách khoa, ĐHQG-HCM", ids: ["adce", "addf"] },
-  { image: williamMary, width: 116, alt: "Logo Đại học William & Mary", ids: ["add0", "ade1"] },
-  { image: hust, width: 48, alt: "Logo Đại học Bách khoa Hà Nội", ids: ["add2", "ade3"] },
-];
-const nodeId = (suffix: string) => `w-node-a7a66f7a-6465-6d0b-6217-b1bf1c03${suffix}-1c03adb8`;
-
-const timeline = [
-  {
-    title: "PIMA: Hành trình kiến tạo một cộng đồng Toán học và Ứng dụng tại Việt Nam",
-    text: "Năm 2016, từ ý tưởng nhỏ trong mùa hè, nhóm du học sinh Việt Nam đã quyết định tổ chức trại hè Toán học đầu tiên – miễn phí và tập trung vào ứng dụng thực tế.",
-    textClass: "text-size-regular",
-  },
-  {
-    title: "Từ một ý tưởng mùa hè đến sứ mệnh ươm mầm nhân tài",
-    text: "Không chỉ dừng ở việc dạy Toán, PiMA mong muốn tạo cơ hội để học sinh được trải nghiệm nghiên cứu, làm việc nhóm và tiếp cận tư duy hiện đại trong môi trường học thuật thực tiễn.",
-    textClass: "text-size-regular",
-  },
-  {
-    title: "Bài toán của giáo dục Toán học tại Việt Nam và một câu hỏi thôi thúc",
-    text: "Vấn đề lớn nhất không phải thiếu kiến thức – mà là thiếu môi trường, thiếu cơ hội cọ xát và truyền cảm hứng. PiMA được hình thành để giải bài toán đó.",
-    textClass: "text-size-regular",
-  },
-  {
-    title: "Dùng học bổng cá nhân để mở trại hè miễn phí",
-    text: "Chương trình ban đầu được vận hành hoàn toàn từ học bổng cá nhân của sáng lập viên – với cam kết chất lượng cao, bài bản và phi lợi nhuận.",
-  },
-  {
-    title: "Từ một trại hè đến một tổ chức giáo dục chuyên nghiệp",
-    text: "Từ một chương trình thử nghiệm, PiMA phát triển thành tổ chức giáo dục có mạng lưới mentor toàn cầu, kết nối với đại học lớn và các trường phổ thông hàng đầu trong nước.",
-  },
-  {
-    title: "2025 – Bước chuyển mình quan trọng",
-    text: "Năm 2025, PiMA chính thức trở thành Công ty Cổ phần PiMA Academy – một bước ngoặt để mở rộng quy mô, hợp tác sâu với doanh nghiệp và trường đại học quốc tế, tiếp tục ươm mầm tài năng toán học Việt Nam ra thế giới.",
-  },
-];
 ---
 
 <BaseLayout
@@ -88,339 +26,26 @@ const timeline = [
   description="PiMA (Projects in Mathematics and Applications) là tổ chức giáo dục toán học và ứng dụng do các nhà toán học Việt Nam thành lập năm 2016: tầm nhìn, sứ mệnh, câu chuyện nhà sáng lập và kế hoạch tương lai."
   hero={introPhoto}
 >
-  <header id={aboutAnchors.intro} data-animate="fade-up" class="section_about-header">
-    <div class="padding-global">
-      <div class="container-large">
-        <div class="padding-section-large">
-          <div class="header45_component">
-            <div class="max-width-large">
-              <div class="margin-bottom margin-xsmall">
-                <div class="text-style-tagline text-block-7"><BrandName /> academy &gt; giới thiệu</div>
-              </div>
-              <div class="margin-bottom margin-small">
-                <h1 class="about-title">Về chúng tôi</h1>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-  <header data-animate="fade-up" class="section_about-intro">
-    <div class="padding-global">
-      <div class="container-large">
-        <div class="padding-section-small">
-          <div class="header126_component">
-            <div class="header126_content">
-              <div class="header126_content-left">
-                <p class="text-size-medium"><strong>PiMA (Projects in Mathematics and Applications)</strong> là một tổ chức tiên phong trong lĩnh vực giáo dục toán học và ứng dụng, được thành lập vào năm 2016 bởi các nhà toán học Việt Nam đến từ những trường đại học hàng đầu thế giới. PiMA hướng đến mục tiêu đưa toán học đến gần hơn với thực tiễn, đồng thời tạo cầu nối giữa tri thức học thuật và các ứng dụng trong khoa học, công nghệ, và đời sống.</p>
-              </div>
-              <div class="header126_image-group">
-                <div class="header126_image-wrapper1">
-                  <Image
-                    src={introPhoto}
-                    widths={fluidWidths(introPhoto)}
-                    sizes="(max-width: 767px) 63vw, (max-width: 1422px) calc(31.5vw - 22px), 426px"
-                    loading="eager"
-                    alt="Thành viên PiMA đứng cạnh banner giới thiệu PiMA"
-                    class="header126_image1"
-                  />
-                </div>
-                <div class="header126_image-wrapper2">
-                  <Image
-                    src={introExpert}
-                    widths={fluidWidths(introExpert)}
-                    sizes="(max-width: 767px) 45vw, (max-width: 1422px) calc(22.5vw - 16px), 304px"
-                    loading="eager"
-                    alt="Chuyên gia của PiMA trình bày tại một hội thảo"
-                    class="header126_image2"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-  <section id={aboutAnchors.visionMission} data-animate="fade-up" class="about-feature">
-    <div class="padding-global">
-      <div class="container-large">
-        <div class="padding-section-small">
-          <div class="layout351_component">
-            <div class="margin-bottom margin-xxlarge">
-              <div class="max-width-large"></div>
-            </div>
-            <Accordion>
-              <AccordionPanel number="01" title="Xuất phát điểm" open>
-                <div class="margin-bottom margin-small">
-                  <div class="text-style-tagline text-block-7">Tầm nhìn, Sứ mệnh, Mục tiêu</div>
-                  <h3 class="heading-style-h3-2">Xuất phát điểm</h3>
-                </div>
-                <p class="text-size-medium">Với mong muốn giúp học sinh và sinh viên Việt Nam tiếp cận toán học không chỉ như một môn học trên lớp mà còn như một công cụ để khám phá thế giới, PiMA đã tổ chức trại hè đầu tiên vào năm 2016, đánh dấu bước khởi đầu cho hành trình đưa toán học đến gần hơn với thực tiễn.</p>
-                <div class="margin-top margin-large">
-                  <div class="layout351_image-wrapper">
-                    <Image src={founders} widths={fluidWidths(founders)} sizes={accordionSizes} alt="Hai nhà đồng sáng lập PiMA" class="layout351_image" />
-                  </div>
-                </div>
-              </AccordionPanel>
-              <AccordionPanel number="02" title="Tầm nhìn">
-                <div class="margin-bottom margin-small">
-                  <h3 class="heading-style-h3-2">Tầm nhìn</h3>
-                </div>
-                <p class="text-size-medium">Trở thành một tổ chức hàng đầu về giáo dục, nghiên cứu toán học và ứng dụng, nơi quy tụ và phát triển các tài năng trẻ, giúp họ phát huy tối đa tiềm năng và đóng góp vào sự phát triển bền vững của xã hội.</p>
-                <div class="margin-top margin-large">
-                  <div class="layout351_image-wrapper">
-                    <Image src={orientation2023} widths={fluidWidths(orientation2023)} sizes={accordionSizes} alt="Học viên và ban tổ chức tại buổi định hướng Trại hè PiMA 2023" class="layout351_image" />
-                  </div>
-                </div>
-              </AccordionPanel>
-              <AccordionPanel number="03" title="Sứ mệnh">
-                <div class="margin-bottom margin-small">
-                  <h3 class="heading-style-h3-2">Xuất phát điểm</h3>
-                </div>
-                <p class="text-size-medium">Phát triển giáo dục toán học tại Việt Nam thông qua các chương trình giảng dạy tiên tiến, lấy người học làm trọng tâm, và hướng tới việc giúp mọi người không chỉ hiểu sâu hơn về toán mà còn biết cách vận dụng để tạo ra những ứng dụng thực tiễn.</p>
-                <div class="margin-top margin-large">
-                  <div class="layout351_image-wrapper">
-                    <Image src={workshop} widths={fluidWidths(workshop)} sizes={accordionSizes} alt="Mentor PiMA trao đổi với học viên trong một buổi workshop" class="layout351_image" />
-                  </div>
-                </div>
-              </AccordionPanel>
-            </Accordion>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <Header />
+  <Intro />
+  <VisionMission />
   <ProgramsOverview />
   <Impact id={aboutAnchors.impact} />
-  <div data-animate="fade-up" class="section_about-action">
-    <div class="padding-global padding-section-large">
-      <div class="container-medium">
-        <div class="text-align-center">
-          <div class="max-width-large align-center">
-            <h4 class="text-style-green text-style-allcaps is-no-margin"><BrandName /> academy</h4>
-            <div class="margin-bottom margin-small">
-              <h2 class="heading-3">Hành động</h2>
-              <div class="spacer-medium"></div>
-            </div>
-          </div>
-        </div>
-        <div class="layout230_component">
-          <div class="w-layout-grid layout230_list">
-            {[
-              { image: action3, title: "Ươm mầm tài năng", text: "Tìm kiếm, truyền cảm hứng và hỗ trợ các cá nhân có năng lực và đam mê toán học vươn tầm thế giới và trở thành các chuyên gia hàng đầu." },
-              { image: action2, title: "Kết nối cộng đồng", text: "Xây dựng mạng lưới kết nối giáo dục, nghiên cứu và doanh nghiệp nhằm thúc đẩy việc hợp tác đào tạo và nghiên cứu ứng dụng của toán học tại Việt Nam." },
-              { image: action1, title: "Ứng dụng Toán học vào thực tiễn", text: "Nghiên cứu các mô hình và thuật toán tối ưu cho trí tuệ nhân tạo, khoa học dữ liệu, tài chính, tin sinh học, và nhiều lĩnh vực khác." },
-            ].map((item) => (
-              <div class="layout230_item">
-                <div class="margin-bottom margin-medium">
-                  <div class="layout230_image-wrapper">
-                    <Image
-                      src={item.image}
-                      widths={fluidWidths(item.image)}
-                      sizes="(max-width: 767px) 90vw, (max-width: 1137px) calc(30vw - 21px), 310px"
-                      alt=""
-                      class="layout230_image"
-                    />
-                  </div>
-                </div>
-                <div class="margin-bottom margin-xsmall padding-custom5">
-                  <h3>{item.title}</h3>
-                  <p>{item.text}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <Actions />
   <Milestone />
   <TrustBar />
   <Partners id={aboutAnchors.partners} />
   <Philosophy />
   <Team />
-  <section class="section_about-member-uni">
-    <div class="padding-global">
-      <div class="container-medium">
-        <div class="padding-section-small">
-          <div class="margin-bottom margin-large">
-            <div class="text-align-center">
-              <div class="max-width-large align-center">
-                <h2 class="about-member-title">Thành viên của chúng tôi đến từ</h2>
-                <div class="spacer-medium"></div>
-              </div>
-            </div>
-            <div class="logo3_component">
-              {[0, 1].map((copy) => (
-                <div
-                  class="logo3_list"
-                  data-animate={copy === 0 ? "slide-in-left" : undefined}
-                  aria-hidden={copy === 1 ? "true" : undefined}
-                >
-                  {universities.map((u) => (
-                    <div id={nodeId(u.ids[copy])} class="logo3_wrapper">
-                      <Image
-                        src={u.image}
-                        width={u.width}
-                        densities={[1, 2]}
-                        alt={u.alt}
-                        class:list={["logo3_logo", { "is-fixed-width": u.fixed }]}
-                      />
-                    </div>
-                  ))}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section id={aboutAnchors.founderStory} data-animate="fade-up" class="section_about-timeline">
-    <div class="padding-global">
-      <div class="container-medium">
-        <div class="padding-section-medium">
-          <div class="timeline1_component">
-            <div class="w-layout-grid timeline1_content">
-              <div class="timeline1_content-left">
-                <div class="max-width-large align-center">
-                  <div class="margin-bottom margin-small">
-                    <h2>Câu chuyện của nhà sáng lập</h2>
-                  </div>
-                  <div class="about-founder-image">
-                    <Image
-                      src={founders}
-                      width={387}
-                      widths={fluidWidths(founders)}
-                      sizes="(max-width: 767px) 90vw, (max-width: 991px) calc(45vw - 64px), 387px"
-                      alt="Hai nhà đồng sáng lập PiMA: Trần Hoàng Bảo Linh và Cấn Trần Thành Trung"
-                      class="image-6"
-                    />
-                    <p class="about-founder-caption">Hai người bạn thân đồng sáng lập PiMA: Trần Hoàng Bảo Linh (trái) và Cấn Trần Thành Trung (phải)</p>
-                  </div>
-                </div>
-              </div>
-              <div id="w-node-_90ee6870-8bbd-3275-27aa-4caad0634755-227ed6ae" class="timeline1_progress">
-                <div class="timeline1_line"></div>
-                <div class="timeline1_fade-overlay-bottom"></div>
-                <div class="timeline1_progress-line-cover"></div>
-              </div>
-              <div class="timeline1_content-right">
-                {timeline.map((row) => (
-                  <div class="timeline1_row">
-                    <div class="timeline1_circle-wrapper">
-                      <div class="timeline1_circle" data-timeline-dot></div>
-                    </div>
-                    <div class="margin-top margin-xsmall">
-                      <div class="timeline1_item">
-                        <div class="margin-bottom margin-xsmall">
-                          <h3 class="heading-style-h4">{row.title}</h3>
-                        </div>
-                        <p class={row.textClass}>{row.text}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <section id={aboutAnchors.futurePlans} data-animate="fade-up" class="section_about-plan">
-    <div class="padding-global">
-      <div class="container-medium">
-        <div class="padding-section-large">
-          <div class="plan-component">
-            <div class="max-width-large align-center">
-              <h4 class="text-style-green text-style-allcaps text-align-center">kế hoạch tương lai</h4>
-              <div class="margin-bottom margin-small">
-                <h2 class="text-align-center">Hướng đến một trung tâm đào tạo Toán học ứng dụng hàng đầu</h2>
-              </div>
-              <p class="text-size-medium text-align-center">Trong 3–5 năm tới, PiMA đặt mục tiêu trở thành trung tâm đào tạo và nghiên cứu Toán học ứng dụng hàng đầu tại Việt Nam, mở rộng hợp tác quốc tế và thúc đẩy ứng dụng Toán học trong khởi nghiệp, công nghệ và đổi mới sáng tạo.</p>
-              <div class="spacer-small"></div>
-            </div>
-            <div class="layout264_component">
-              <div class="w-layout-grid layout264_list">
-                <div class="layout264_item">
-                  <div class="margin-bottom margin-small">
-                    <div class="layout264_item-icon-wrapper">
-                      <div class="icon-embed-xsmall-4 w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" class="iconify iconify--bx" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                          <path fill="currentColor" d="M9 22h1v-2h-.989C8.703 19.994 6 19.827 6 16c0-1.993-.665-3.246-1.502-4C5.335 11.246 6 9.993 6 8c0-3.827 2.703-3.994 3-4h1V2H8.998C7.269 2.004 4 3.264 4 8c0 2.8-1.678 2.99-2.014 3L2 13c.082 0 2 .034 2 3c0 4.736 3.269 5.996 5 6zm13-11c-.082 0-2-.034-2-3c0-4.736-3.269-5.996-5-6h-1v2h.989c.308.006 3.011.173 3.011 4c0 1.993.665 3.246 1.502 4c-.837.754-1.502 2.007-1.502 4c0 3.827-2.703 3.994-3 4h-1v2h1.002C16.731 21.996 20 20.736 20 16c0-2.8 1.678-2.99 2.014-3L22 11z"></path>
-                        </svg></div>
-                    </div>
-                  </div>
-                  <div class="margin-bottom margin-small">
-                    <h3>Mở rộng đào tạo &amp; nghiên cứu</h3>
-                  </div>
-                  <p>Triển khai các khóa học chuyên sâu về Toán ứng dụng, khoa học dữ liệu, trí tuệ nhân tạo<br />Tăng cường chương trình mentorship và hỗ trợ nghiên cứu cho học viên</p>
-                </div>
-                <div class="layout264_item">
-                  <div class="margin-bottom margin-small">
-                    <div class="layout264_item-icon-wrapper">
-                      <div class="icon-embed-xsmall-4 w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" class="iconify iconify--bx" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                          <path fill="currentColor" d="M16 14h.5c.827 0 1.5-.673 1.5-1.5v-9c0-.827-.673-1.5-1.5-1.5h-13C2.673 2 2 2.673 2 3.5V18l5.333-4H16zm-9.333-2L4 14V4h12v8H6.667z"></path>
-                          <path fill="currentColor" d="M20.5 8H20v6.001c0 1.1-.893 1.993-1.99 1.999H8v.5c0 .827.673 1.5 1.5 1.5h7.167L22 22V9.5c0-.827-.673-1.5-1.5-1.5z"></path>
-                        </svg></div>
-                    </div>
-                  </div>
-                  <div class="margin-bottom margin-small">
-                    <h3 class="heading-style-h4">Tăng cường hợp tác</h3>
-                  </div>
-                  <p>Kết nối với doanh nghiệp, tổ chức nghiên cứu và trường đại học trong – ngoài nước<br />Phát triển quỹ học bổng PiMA đồng hành cùng học viên tài năng</p>
-                </div>
-                <div class="layout264_item">
-                  <div class="margin-bottom margin-small">
-                    <div class="layout264_item-icon-wrapper">
-                      <div class="icon-embed-xsmall-4 w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" class="iconify iconify--bx" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                          <path fill="currentColor" d="M21 3h-7a2.98 2.98 0 0 0-2 .78A2.98 2.98 0 0 0 10 3H3a1 1 0 0 0-1 1v15a1 1 0 0 0 1 1h5.758c.526 0 1.042.214 1.414.586l1.121 1.121c.009.009.021.012.03.021c.086.079.182.149.294.196h.002a.996.996 0 0 0 .762 0h.002c.112-.047.208-.117.294-.196c.009-.009.021-.012.03-.021l1.121-1.121A2.015 2.015 0 0 1 15.242 20H21a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1zM8.758 18H4V5h6c.552 0 1 .449 1 1v12.689A4.032 4.032 0 0 0 8.758 18zM20 18h-4.758c-.799 0-1.584.246-2.242.689V6c0-.551.448-1 1-1h6v13z"></path>
-                        </svg></div>
-                    </div>
-                  </div>
-                  <div class="margin-bottom margin-small">
-                    <h3 class="heading-style-h4">Phát triển cộng đồng học thuật</h3>
-                  </div>
-                  <p>Xây dựng diễn đàn online và nội dung học thuật chuyên sâu<br />Tổ chức hội thảo, toạ đàm, và các cuộc thi Toán ứng dụng quy mô mở rộng</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <ContactSection />
-  </section>
+  <MemberUniversities />
+  <FounderStory />
+  <FuturePlans />
+  <ContactSection />
 </BaseLayout>
 
 <style>
   /* Anchored sections (footer "Về PiMA" links) land below the fixed nav. */
   :global(html) {
     scroll-padding-top: 4.5rem;
-  }
-
-  /* Defect fix, as in PageHeader: at <= 767 px `.padding-section-large` drops to 4rem, so the
-     breadcrumb sat under the 72 px fixed nav. Keep the tablet top padding (6rem). */
-  @media screen and (max-width: 767px) {
-    .section_about-header .padding-section-large {
-      padding-top: 6rem;
-    }
-  }
-
-  /* The old logos had no width attribute (except Stony Brook's 84): every source is taller than
-     the 4.5rem (3rem at <= 767 px) max-height, so each box was max-height tall and followed the
-     image's aspect ratio. Same box here, sized before the lazy image loads. */
-  .logo3_logo {
-    height: 4.5rem;
-  }
-  .logo3_logo:not(.is-fixed-width) {
-    width: auto;
-  }
-  @media screen and (max-width: 767px) {
-    .logo3_logo {
-      height: 3rem;
-    }
   }
 </style>
