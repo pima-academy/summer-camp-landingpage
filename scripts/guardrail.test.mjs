@@ -4,8 +4,10 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { checkFile, guardrailFiles, inScope, tokenNames, WEBFLOW_FILES } from "./guardrail-lib.mjs";
-import { root } from "./test-lib.mjs";
+import * as guardrail from "./guardrail-lib.mjs";
+import { root, walk } from "./test-lib.mjs";
+
+const { checkFile, guardrailFiles, inScope, tokenNames } = guardrail;
 
 /** The rule ids a file's text breaks, in order. */
 const rules = (path, text) => checkFile(path, text).map((v) => v.rule);
@@ -129,12 +131,24 @@ test("the guardrail skips tokens.css and the frozen camp files", () => {
   }
 });
 
-test("in the Webflow files only the old one-off media queries are allowed", () => {
+test("every stylesheet gets every rule: no file is allowed its old media queries", () => {
+  assert.equal("WEBFLOW_FILES" in guardrail, false, "no Webflow-file exemption left");
   const css = "@media (min-width: 768px) { a { color: #fff; font-size: 1rem; } }";
-  for (const path of WEBFLOW_FILES) {
-    assert.deepEqual(rules(path, css), ["literal-colour", "not-a-token"], path);
+  for (const path of ["src/styles/base.css", "src/styles/animations.css"]) {
+    assert.deepEqual(rules(path, css), ["media-query", "literal-colour", "not-a-token"], path);
   }
-  assert.deepEqual(rules("src/styles/animations.css", css), ["media-query", "literal-colour", "not-a-token"]);
+});
+
+test("the guardrail checks every .astro and .css file in src/ except tokens.css and the frozen camp files", () => {
+  const frozen = (path) =>
+    path === "src/styles/tokens.css" ||
+    path.startsWith("src/camp/") ||
+    /^src\/pages\/trai-he-(toan-hoc-2025|pima-2026)\.astro$/.test(path);
+  const all = walk(join(root, "src"))
+    .map((f) => f.slice(root.length).split("\\").join("/"))
+    .filter((path) => /\.(astro|css)$/.test(path));
+  assert.deepEqual(guardrailFiles(), all.filter((path) => !frozen(path)).sort());
+  assert.ok(guardrailFiles().includes("src/styles/base.css"), "base.css is checked");
 });
 
 // The repo itself: every file in scope passes.

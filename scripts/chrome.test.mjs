@@ -3,9 +3,7 @@
 // Needs a fresh `npm run build`; skipped when dist/ is missing.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { existsSync, readFileSync } from "node:fs";
-import { join } from "node:path";
-import { distSkip as skip, readBuilt, root } from "./test-lib.mjs";
+import { distSkip as skip, readBuilt } from "./test-lib.mjs";
 
 const html = readBuilt("index.html");
 
@@ -110,21 +108,10 @@ test("footer shows address, build year and PiMA in headings", { skip }, () => {
   assert.match(footer, /<h5[^>]*>về <span[^>]*>PiMA<\/span><\/h5>/);
 });
 
-// Every class the old Webflow stylesheets define a rule for (while they exist), plus any
-// `w-…`/`w--…` runtime class.
-const webflowFiles = ["normalize.css", "webflow.css", "pima-website.webflow.css"]
-  .map((f) => join(root, "src/styles", f))
-  .filter(existsSync);
-const webflowClasses = new Set(
-  webflowFiles
-    .flatMap((f) => [...readFileSync(f, "utf8").replace(/\/\*[\s\S]*?\*\//g, "").matchAll(/\.(-?[_a-zA-Z][\w-]*)/g)])
-    .map((m) => m[1]),
-);
 const classesIn = (markup) =>
   [...markup.matchAll(/\sclass="([^"]*)"/g)].flatMap((m) => m[1].split(/\s+/)).filter(Boolean);
 
 test("nav and footer markup carry no Webflow class on any site page", { skip }, () => {
-  assert.ok(webflowFiles.length === 0 || webflowClasses.size > 0, "reads the Webflow class list");
   for (const path of sitePages) {
     const page = readBuilt(path);
     for (const [part, markup] of [
@@ -132,7 +119,8 @@ test("nav and footer markup carry no Webflow class on any site page", { skip }, 
       ["footer", footerOf(page)],
     ]) {
       assert.ok(markup, `${path}: ${part} present`);
-      const old = classesIn(markup).filter((c) => webflowClasses.has(c) || /^w-/.test(c));
+      // Any `w-…`/`w--…` runtime class; no-webflow.test.mjs covers the other Webflow names in src/.
+      const old = classesIn(markup).filter((c) => /^w-/.test(c));
       assert.deepEqual([...new Set(old)], [], `${path}: Webflow classes in the ${part}`);
       assert.doesNotMatch(markup, /\sid="w-node-/, `${path}: w-node ids in the ${part}`);
     }

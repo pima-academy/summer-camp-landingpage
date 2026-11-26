@@ -1,0 +1,151 @@
+/*
+ * Base: the reset and the element typography every page starts from (ADR 0004). Only element
+ * selectors live here; anything with a class belongs in the <style> of the file that owns the
+ * markup. Every design value comes from tokens.css.
+ *
+ * Extracted from the old Webflow stylesheets (normalize.css, webflow.css,
+ * pima-website.webflow.css) with the cascade already resolved: each property keeps the value
+ * that won before. Browser defaults that the old CSS only restated are left out.
+ */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  min-height: 100%;
+  margin: 0;
+  background-color: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+  letter-spacing: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Headings. Sizes per breakpoint are redeclared in tokens.css. h6 keeps the browser's look. */
+h1 {
+  margin-top: 20px;
+  margin-bottom: 0.3em;
+  font-size: var(--font-size-h1);
+  font-weight: var(--font-weight-h1);
+  line-height: var(--line-height-h1);
+  letter-spacing: -0.01em;
+}
+
+h2 {
+  margin-top: 20px;
+  margin-bottom: 0.35em;
+  font-size: var(--font-size-h2);
+  font-weight: var(--font-weight-h2);
+  line-height: var(--line-height-h2);
+  letter-spacing: -0.01em;
+}
+
+h3 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: var(--font-size-h3);
+  font-weight: var(--font-weight-h3);
+  line-height: var(--line-height-h3);
+}
+
+h4 {
+  margin-top: 10px;
+  margin-bottom: 0.5em;
+  font-size: var(--font-size-h4);
+  font-weight: var(--font-weight-h4);
+  line-height: var(--line-height-h4);
+  letter-spacing: -0.01em;
+}
+
+h5 {
+  margin-top: 10px;
+  margin-bottom: 0.7em;
+  font-size: var(--font-size-h5);
+  font-weight: var(--font-weight-h5);
+  line-height: var(--line-height-h5);
+  letter-spacing: 0;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+ul {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+b,
+strong {
+  font-weight: var(--font-weight-strong);
+}
+
+a {
+  color: var(--color-link);
+}
+
+a:hover {
+  color: var(--color-link-hover);
+}
+
+a:active,
+a:hover {
+  outline: 0;
+}
+
+[tabindex]:focus-visible {
+  outline: 0.125rem solid var(--color-focus-ring);
+  outline-offset: 0.125rem;
+}
+
+img {
+  display: inline-block;
+  max-width: 100%;
+  height: auto;
+  vertical-align: middle;
+  border-radius: var(--radius-image);
+  overflow: visible;
+}
+
+/* Form controls take the surrounding type; components style the rest. */
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: var(--font-weight-label);
+}
+
+button,
+input,
+textarea {
+  margin: 0;
+  color: inherit;
+  font: inherit;
+}
+
+input {
+  line-height: var(--line-height-form-control);
+}
+
+button,
+[type="button"] {
+  border: 0;
+  cursor: pointer;
+  -webkit-appearance: button;
+}
+
+button::-moz-focus-inner,
+input::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}

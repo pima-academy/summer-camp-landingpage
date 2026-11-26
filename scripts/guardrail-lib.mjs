@@ -227,16 +227,6 @@ function checkInlineStyles(text) {
   return out;
 }
 
-/**
- * The old Webflow stylesheets, checked for design values but allowed their old media queries.
- * "Extract the base CSS and delete the Webflow stylesheets" (#73) empties this list.
- */
-export const WEBFLOW_FILES = [
-  "src/styles/normalize.css",
-  "src/styles/webflow.css",
-  "src/styles/pima-website.webflow.css",
-];
-
 /** Files the guardrail never checks: the tokens themselves and the frozen camp pages. */
 const SKIPPED = [
   /^src\/styles\/tokens\.css$/,
@@ -269,5 +259,5 @@ export function checkFile(path, text, { tokens } = {}) {
   if (path.endsWith(".astro")) {
     found.push(...checkInlineStyles(text.replace(/<style\b[\s\S]*?<\/style>/g, (m) => m.replace(/[^\n]/g, " "))));
   }
-  return WEBFLOW_FILES.includes(path) ? found.filter((v) => v.rule !== "media-query") : found;
+  return found;
 }

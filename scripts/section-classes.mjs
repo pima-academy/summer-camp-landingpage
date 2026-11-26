@@ -28,17 +28,17 @@ export function markupClasses(text) {
  * What breaks the rule in a section file, as messages ([] when none):
  * - a class in the markup that the file's own <style> does not style (a Webflow or utility
  *   class, styled by a global stylesheet);
- * - a class the file styles that a Webflow stylesheet also styles (the global rule would
- *   still apply: scoping only adds an attribute);
+ * - a class the file styles that a global stylesheet (src/styles/) also styles (the global
+ *   rule would still apply: scoping only adds an attribute);
  * - a Webflow `w-node-…` id.
- * `webflowClasses` is the set of class names the Webflow stylesheets style.
+ * `globalClasses` is the set of class names the global stylesheets style.
  */
-export function sectionClassProblems(path, text, webflowClasses) {
+export function sectionClassProblems(path, text, globalClasses) {
   const styles = [...text.matchAll(/<style\b[^>]*>([\s\S]*?)<\/style>/g)].map((m) => m[1]).join("\n");
   const own = selectorClasses(styles);
   const problems = [];
   for (const c of markupClasses(text)) if (!own.has(c)) problems.push(`${path}: class "${c}" is not styled in this file`);
-  for (const c of own) if (webflowClasses.has(c)) problems.push(`${path}: class "${c}" is also styled by a Webflow stylesheet`);
+  for (const c of own) if (globalClasses.has(c)) problems.push(`${path}: class "${c}" is also styled by a global stylesheet`);
   for (const m of text.matchAll(/\bid="(w-node-[^"]*)"/g)) problems.push(`${path}: Webflow id "${m[1]}"`);
   return problems;
 }

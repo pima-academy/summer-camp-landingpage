@@ -23,6 +23,7 @@
   --font-weight-extrabold: 800;
   --font-weight-h1: 400;
   --font-weight-h2: 700;
+  --font-weight-h3: 700;
   --font-weight-h2-heading: 400;
   --font-weight-h4: 400;
   --font-weight-h4-heading: 400;
@@ -30,10 +31,12 @@
   --font-weight-h5-heading: 400;
   --font-weight-heading-style: 700;
   --font-weight-heading-style-h5: 500;
+  --font-weight-label: 700;
   --font-weight-light: 300;
   --font-weight-medium: 500;
   --font-weight-regular: 400;
   --font-weight-semibold: 600;
+  --font-weight-strong: 700;
 
   /* Font sizes. Sizes that change per breakpoint are redeclared in the media queries at the end. */
   --font-size-accordion-title: 1.5rem;
@@ -55,6 +58,7 @@
   --font-size-footer-credit: .875rem;
   --font-size-h1: 4.21rem;
   --font-size-h2: 2.37rem;
+  --font-size-h3: 24px;
   --font-size-h2-heading: 2.37rem;
   --font-size-h4: 1.33rem;
   --font-size-h4-heading: 1.33rem;
@@ -85,8 +89,10 @@
   --line-height-button: 1.2;
   --line-height-button-link: 1;
   --line-height-field: 1.42857143;
+  --line-height-form-control: normal;
   --line-height-h1: 1.04em;
   --line-height-h2: 1.04em;
+  --line-height-h3: 30px;
   --line-height-h2-heading: 1.04em;
   --line-height-h4: 1.3em;
   --line-height-h4-heading: 1.3em;
@@ -205,53 +211,6 @@
   --font-content-gap-label: 700 11px/1.3 monospace;
   --font-size-content-gap-label-inline: 10px;
   --font-size-content-gap-label-page: 14px;
-
-  /*
-   * Webflow defaults: values only the old Webflow runtime CSS (webflow.css, normalize.css and the
-   * w-* rules of pima-website.webflow.css) uses. They go with those files (#73).
-   */
-  /* Webflow font families. */
-  --font-family-wf-body: Arial, sans-serif;
-  --font-family-wf-lightbox: "Helvetica Neue", Helvetica, Ubuntu, "Segoe UI", Verdana, sans-serif;
-  --font-family-wf-normalize: sans-serif;
-  /* Webflow font weights. */
-  --font-weight-wf-heading: bold;
-  --font-weight-wf-label: bold;
-  --font-weight-wf-lightbox: 300;
-  --font-weight-wf-strong: bold;
-  /* Webflow font sizes. */
-  --font-size-wf-body: 14px;
-  --font-size-wf-h1: 38px;
-  --font-size-wf-h2: 32px;
-  --font-size-wf-h3: 24px;
-  --font-size-wf-h4: 18px;
-  --font-size-wf-h5: 14px;
-  --font-size-wf-lightbox: 17px;
-  --font-size-wf-normalize-h1: 2em;
-  --font-size-wf-pagination: 14px;
-  /* Webflow line heights. */
-  --line-height-wf-body: 20px;
-  --line-height-wf-h1: 44px;
-  --line-height-wf-h2: 36px;
-  --line-height-wf-h3: 30px;
-  --line-height-wf-h4: 24px;
-  --line-height-wf-h5: 20px;
-  --line-height-wf-lightbox: 1.2;
-  --line-height-wf-lightbox-strip: 0;
-  --line-height-wf-normalize-input: normal;
-  /* Webflow colours. */
-  --color-wf-background-dark: #222;
-  --color-wf-background-placeholder: #dddddd;
-  --color-wf-border: #ccc;
-  --color-wf-button: #3898EC;
-  --color-wf-lightbox-backdrop: rgba(0, 0, 0, 0.9);
-  --color-wf-lightbox-caption: rgba(0, 0, 0, 0.4);
-  --color-wf-spinner: rgba(0, 0, 0, 0.4);
-  --color-wf-spinner-head: #fff;
-  --color-wf-text-body: #333;
-  /* Webflow radii. */
-  --radius-wf-pagination: 2px;
-  --radius-wf-spinner: 50%;
 }
 
 /* #72 (404 + gap pages): the empty CMS list box and the post pagination of the gap pages. */

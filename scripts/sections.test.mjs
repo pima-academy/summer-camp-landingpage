@@ -1,12 +1,11 @@
 // Checks the section-file convention of ADR 0005: every .astro file under src/sections/
 // renders the Section primitive with `name` equal to its file name in kebab case
 // (src/sections/home/FoundingStory.astro → <Section name="founding-story">), and uses only
-// classes it styles itself (ADR 0004), none of them a Webflow class or `w-node` id.
+// classes it styles itself (ADR 0004), none of them styled by a global stylesheet, and no `w-node` id.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { existsSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join, relative } from "node:path";
-import { WEBFLOW_FILES } from "./guardrail-lib.mjs";
 import { sectionClassProblems, selectorClasses } from "./section-classes.mjs";
 import { kebabCase, sectionNameProblem } from "./section-name.mjs";
 import { root, walk } from "./test-lib.mjs";
@@ -45,19 +44,19 @@ test("every section file renders Section with its kebab-case file name", () => {
   }
 });
 
-test("a section file may only use classes it styles itself, none a Webflow stylesheet styles", () => {
-  const webflow = new Set(["button", "heading"]);
+test("a section file may only use classes it styles itself, none a global stylesheet styles", () => {
+  const global = new Set(["button", "heading"]);
   const path = "src/sections/Partners.astro";
   const ok =
     '---\n---\n<Section name="partners" class="band-a"><p class:list={["logos", { x: y }]}>a</p></Section>\n' +
     "<style>\n  .band-a { color: red; }\n  .logos.x img { width: 1px; }\n</style>\n";
-  assert.deepEqual(sectionClassProblems(path, ok, webflow), []);
+  assert.deepEqual(sectionClassProblems(path, ok, global), []);
   const utility = '---\n---\n<Section name="partners"><div class="text-align-center">a</div></Section>\n';
-  assert.match(sectionClassProblems(path, utility, webflow).join(), /"text-align-center" is not styled/);
+  assert.match(sectionClassProblems(path, utility, global).join(), /"text-align-center" is not styled/);
   const clash = '---\n---\n<Section name="partners"><div class="button">a</div></Section>\n<style>.button { color: red; }</style>\n';
-  assert.match(sectionClassProblems(path, clash, webflow).join(), /"button" is also styled by a Webflow/);
+  assert.match(sectionClassProblems(path, clash, global).join(), /"button" is also styled by a global stylesheet/);
   const node = '---\n---\n<Section name="partners"><div id="w-node-_22-1" class="x">a</div></Section>\n<style>.x {}</style>\n';
-  assert.match(sectionClassProblems(path, node, webflow).join(), /Webflow id "w-node-_22-1"/);
+  assert.match(sectionClassProblems(path, node, global).join(), /Webflow id "w-node-_22-1"/);
 });
 
 /** The sections more than one page uses (#65). */
@@ -83,12 +82,13 @@ test("the shared sections live in src/sections/", () => {
 });
 
 test("every section file carries no Webflow class or id", () => {
-  const webflow = new Set(
-    WEBFLOW_FILES.filter((f) => existsSync(join(root, f))).flatMap((f) => [
-      ...selectorClasses(readFileSync(join(root, f), "utf8")),
-    ]),
+  const styles = join(root, "src/styles");
+  const global = new Set(
+    readdirSync(styles)
+      .filter((f) => f.endsWith(".css"))
+      .flatMap((f) => [...selectorClasses(readFileSync(join(styles, f), "utf8"))]),
   );
   const files = walk(join(root, "src/sections")).filter((f) => f.endsWith(".astro"));
-  const problems = files.flatMap((file) => sectionClassProblems(relative(root, file), readFileSync(file, "utf8"), webflow));
+  const problems = files.flatMap((file) => sectionClassProblems(relative(root, file), readFileSync(file, "utf8"), global));
   assert.deepEqual(problems, []);
 });
