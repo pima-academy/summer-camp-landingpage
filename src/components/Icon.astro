@@ -1,0 +1,145 @@
+---
+/*
+  Primitive: Icon, one Tabler icon (https://tabler.io/icons, MIT, see
+  src/assets/icons/LICENSE) drawn inline from src/assets/icons/<name>.svg in currentColor.
+  The only way to put an icon on a page (docs/brand.md, "Icons"); scripts/icons.test.mjs
+  fails on any other <svg> or icon image outside the frozen camp pages.
+
+    <Icon name="school" size="48" />                       a bare content icon
+    <Icon name="mail-filled" size="40" circle />           a contact icon in a brand circle
+
+  - Content and control icons stand bare and take the parent's `color`: set it in the
+    caller's CSS from a role token (`--color-icon-decorative` next to text,
+    `--color-icon-control` when the icon is a control's only label, which needs 3:1).
+  - `circle`: the glyph (a Tabler filled icon, `…-filled`) sits in a circle whose fill and
+    glyph colours come from `--color-icon-circle` / `--color-icon-circle-glyph`. White
+    and surface give black + white; Section's pale-lime and dark-green tones and the
+    footer re-point them to the brand pairs (dark green + pale lime, pale lime + dark
+    green, PiMA Green + black).
+  - `size`: the icon's box in px (the circle's diameter with `circle`; the glyph is 60 % of
+    it), or "text" for 1em, sized with the surrounding text.
+  - Always aria-hidden: name the control that holds it (aria-label or visible text).
+  - Any other attribute (`class` …) lands on the root (the <svg>, or the circle <span>),
+    so the caller's scoped class can place it.
+
+  Adding an icon: copy its SVG from Tabler (outline at stroke-width 1.5, or a filled one
+  saved as `<name>-filled.svg`) into src/assets/icons/, add its name to `name` below and
+  to the catalogue. Delete a file once nothing uses it.
+*/
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"svg"> {
+  /** File name in src/assets/icons/, without ".svg". */
+  name:
+    | "arrow-left"
+    | "arrow-right"
+    | "atom"
+    | "book"
+    | "braces"
+    | "brand-facebook-filled"
+    | "brand-linkedin-filled"
+    | "brand-youtube-filled"
+    | "chevron-down"
+    | "chevron-left"
+    | "chevron-right"
+    | "clock"
+    | "cube"
+    | "mail-filled"
+    | "map-pin-filled"
+    | "menu-2"
+    | "messages"
+    | "school"
+    | "target"
+    | "user"
+    | "world";
+  /** Box in px, or "text" for 1em. */
+  size?: "text" | "16" | "24" | "32" | "40" | "48";
+  /** Inside a brand circle (contact and social icons). */
+  circle?: boolean;
+}
+
+const { name, size = "24", circle = false, class: className, ...attrs } = Astro.props;
+
+const files = import.meta.glob<string>("../assets/icons/*.svg", { query: "?raw", import: "default", eager: true });
+const source = files[`../assets/icons/${name}.svg`];
+if (!source) throw new Error(`Icon: no src/assets/icons/${name}.svg`);
+
+// The file's own <svg> attributes that draw (fill, stroke …) and its inner markup.
+const [, open, inner] = source.match(/<svg\b([^>]*)>([\s\S]*)<\/svg>/) ?? [];
+const drawing = Object.fromEntries(
+  [...(open ?? "").matchAll(/\b(fill|stroke|stroke-width|stroke-linecap|stroke-linejoin)="([^"]*)"/g)].map((m) => [
+    m[1],
+    m[2],
+  ]),
+);
+const svgAttrs = {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 24 24",
+  "aria-hidden": "true" as const,
+  focusable: "false",
+  "data-icon": name,
+  ...drawing,
+};
+---
+
+{
+  circle ? (
+    <span class:list={["circle", className]} data-circle data-size={size} {...attrs}>
+      <svg class="glyph" {...svgAttrs} set:html={inner} />
+    </span>
+  ) : (
+    <svg class:list={["icon", className]} data-size={size} {...svgAttrs} {...attrs} set:html={inner} />
+  )
+}
+
+<style>
+  .icon,
+  .circle {
+    display: inline-flex;
+    flex: none;
+    justify-content: center;
+    align-items: center;
+    vertical-align: middle;
+  }
+
+  [data-size="text"] {
+    width: 1em;
+    height: 1em;
+  }
+
+  [data-size="16"] {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  [data-size="24"] {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  [data-size="32"] {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  [data-size="40"] {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  [data-size="48"] {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .circle {
+    border-radius: var(--radius-circle);
+    background-color: var(--color-icon-circle);
+    color: var(--color-icon-circle-glyph);
+  }
+
+  .glyph {
+    width: 60%;
+    height: 60%;
+  }
+</style>
