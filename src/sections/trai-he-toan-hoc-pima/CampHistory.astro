@@ -27,7 +27,7 @@ import { campTopics } from "./camp-topics";
     <div>
       {
         campTopics.map((c) => (
-          <div class="camp">
+          <div class="camp" data-tone="white">
             <h3 class="year">{c.year}</h3>
             <p>{c.topic}</p>
             <ContentGap name={`trai-he-toan-hoc-pima: Xem chi tiết ${c.year}`} inline>
@@ -80,7 +80,6 @@ import { campTopics } from "./camp-topics";
     padding: var(--space-1) var(--space-8) var(--space-4);
     border: 1px solid var(--color-border-accent);
     border-radius: var(--radius);
-    background-color: var(--color-background);
   }
 
   .camp:last-child {

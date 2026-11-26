@@ -20,7 +20,7 @@ import cardPlaceholder from "../../assets/images/placeholder-image-landscape.svg
         <a href="#" class="card-link">
           <div class="media">
             <Image src={cardPlaceholder} alt="" class="cover" hidden />
-            <div class="tag" hidden></div>
+            <div class="tag" data-tone="pale-lime" hidden></div>
           </div>
           <h4 class="card-title" hidden></h4>
         </a>
@@ -30,11 +30,11 @@ import cardPlaceholder from "../../assets/images/placeholder-image-landscape.svg
       <div>No items found.</div>
     </div>
     <div role="navigation" aria-label="List" class="pagination">
-      <a href="#" aria-label="Previous Page" class="page-link">
+      <a href="#" aria-label="Previous Page" class="page-link" data-tone="white">
         <Icon name="chevron-left" size="16" class="arrow-prev" />
         <div class="page-label">Previous</div>
       </a>
-      <a href="#" aria-label="Next Page" class="page-link">
+      <a href="#" aria-label="Next Page" class="page-link" data-tone="white">
         <div class="page-label">Next</div>
         <Icon name="chevron-right" size="16" class="arrow-next" />
       </a>
@@ -87,7 +87,6 @@ import cardPlaceholder from "../../assets/images/placeholder-image-landscape.svg
     padding: var(--space-1) var(--space-3);
     border: 2px solid transparent;
     border-radius: var(--radius);
-    background-color: var(--color-background-pale-lime);
     color: var(--color-text);
     font-size: var(--font-size-small);
     letter-spacing: var(--letter-spacing-tag);
@@ -118,7 +117,6 @@ import cardPlaceholder from "../../assets/images/placeholder-image-landscape.svg
     padding: var(--space-2) var(--space-5);
     border: 1px solid var(--color-border);
     border-radius: var(--radius);
-    background-color: var(--color-background);
     color: var(--color-text);
     font-size: var(--font-size-small);
   }

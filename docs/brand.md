@@ -60,7 +60,7 @@ PiMA Green appears as a fill: buttons, kicker rules, the timeline, the logo, dec
 
 ## Sections, buttons and footer
 
-`Section` takes a `tone`, which sets the background and the passing text colours on it. A section whose background is none of these takes the nearest one. A section never sets its own background; a card inside a section that needs a dark background takes the `dark-green` tone with `data-tone="dark-green"` (the founder card).
+`Section` takes a `tone`, which sets the background and the passing text colours on it. A section whose background is none of these takes the nearest one. A section never sets its own background, and neither does a card: a card with a fill of its own takes one of the four tones with the `data-tone` attribute (`surface` cards on white, `white` cards on Pale Lime, the founder card on `dark-green`). Only small marks that are no tone keep a fill of their own, from a role token: the timeline's axis and dots, the marquee's separator dot. `scripts/sections.test.mjs` checks.
 
 | `tone` | Background | Text | Used for |
 |---|---|---|---|

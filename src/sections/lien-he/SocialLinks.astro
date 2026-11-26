@@ -9,7 +9,7 @@ import { social } from "../../data/site";
 
 <Section name="social-links" spacing="none" animate>
   <div class="frame">
-    <div class="box">
+    <div class="box" data-tone="surface">
       <h2 class="heading">Kết nối với chúng tôi qua</h2>
       <div class="links">
         <a href={social.facebook.href} class="link">
@@ -38,7 +38,6 @@ import { social } from "../../data/site";
   .box {
     padding: var(--space-8) var(--space-16) var(--space-12);
     border-radius: var(--radius);
-    background-color: var(--color-background-surface);
   }
 
   /* The heading's margin plus the old 1rem spacer below it. */

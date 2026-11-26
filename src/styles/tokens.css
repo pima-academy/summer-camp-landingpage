@@ -184,6 +184,8 @@
   --color-background-timeline-dot-idle: var(--gray-4);
   --color-background-slider-dot: var(--gray-2);
   --color-background-slider-dot-current: var(--black);
+  /* The dot between the marquee's claims; the marquee is always on the dark-green tone. */
+  --color-marquee-separator: var(--pima-pale-lime);
 
   /* Buttons (Button variants and the contact form's submit). */
   --color-button-primary: var(--pima-green);
