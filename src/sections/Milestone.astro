@@ -60,7 +60,7 @@ const milestones = [
   /* 2rem gap above the timeline (the old spacer). */
   .title {
     margin-top: 0;
-    margin-bottom: 2rem;
+    margin-bottom: var(--space-8);
     text-align: center;
   }
 
@@ -86,13 +86,13 @@ const milestones = [
     position: relative;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr max-content 1fr;
-    gap: 1rem;
+    gap: var(--space-4);
   }
 
   .track {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: var(--space-1);
     width: 100%;
   }
 
@@ -112,7 +112,7 @@ const milestones = [
   }
 
   .entry {
-    margin-right: 1rem;
+    margin-right: var(--space-4);
   }
 
   .date {
@@ -125,13 +125,13 @@ const milestones = [
 
   @media screen and (max-width: 991px) {
     .title {
-      margin-bottom: 1.5rem;
+      margin-bottom: var(--space-6);
     }
   }
 
   @media screen and (max-width: 767px) {
     .title {
-      margin-bottom: 1.25rem;
+      margin-bottom: var(--space-5);
     }
 
     .list {
@@ -166,7 +166,7 @@ const milestones = [
 
     .entry {
       margin-right: 0;
-      margin-bottom: 2rem;
+      margin-bottom: var(--space-8);
       text-align: left;
     }
 

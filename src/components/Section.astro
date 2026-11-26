@@ -9,9 +9,10 @@
   wrapper and reproduces its values:
 
     width   small 48rem | medium 64rem (default) | large 80rem max width
-            (medium adds 1rem side padding at ≤ 767 px, none at ≤ 479 px)
-    spacing none 0 | small 3rem (2rem ≤ 767) | medium 5rem (4rem ≤ 991, 3rem ≤ 767)
-            (default) | large 7rem (6rem ≤ 991, 4rem ≤ 767), top and bottom
+            (medium adds --space-4 side padding at ≤ 767 px, none at ≤ 479 px)
+    spacing none 0 | small --space-12 (--space-8 ≤ 767) | medium --space-20 (--space-16
+            ≤ 991, --space-12 ≤ 767) (default) | large --space-28 (--space-24 ≤ 991,
+            --space-16 ≤ 767), top and bottom
     tone    white (default) | surface | pale-lime | dark-green: the band's background and
             the text, heading, accent, link and focus colours that pass WCAG AA on it
             (docs/brand.md, "Sections, buttons and footer"). A section never sets its own
@@ -131,51 +132,51 @@ const {
   }
 
   .column[data-spacing="small"] {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+    padding-top: var(--space-12);
+    padding-bottom: var(--space-12);
   }
 
   .column[data-spacing="medium"] {
-    padding-top: 5rem;
-    padding-bottom: 5rem;
+    padding-top: var(--space-20);
+    padding-bottom: var(--space-20);
   }
 
   .column[data-spacing="large"] {
-    padding-top: 7rem;
-    padding-bottom: 7rem;
+    padding-top: var(--space-28);
+    padding-bottom: var(--space-28);
   }
 
   @media screen and (max-width: 991px) {
     .column[data-spacing="medium"] {
-      padding-top: 4rem;
-      padding-bottom: 4rem;
+      padding-top: var(--space-16);
+      padding-bottom: var(--space-16);
     }
 
     .column[data-spacing="large"] {
-      padding-top: 6rem;
-      padding-bottom: 6rem;
+      padding-top: var(--space-24);
+      padding-bottom: var(--space-24);
     }
   }
 
   @media screen and (max-width: 767px) {
     .column[data-width="medium"] {
-      padding-left: 1rem;
-      padding-right: 1rem;
+      padding-left: var(--space-4);
+      padding-right: var(--space-4);
     }
 
     .column[data-spacing="small"] {
-      padding-top: 2rem;
-      padding-bottom: 2rem;
+      padding-top: var(--space-8);
+      padding-bottom: var(--space-8);
     }
 
     .column[data-spacing="medium"] {
-      padding-top: 3rem;
-      padding-bottom: 3rem;
+      padding-top: var(--space-12);
+      padding-bottom: var(--space-12);
     }
 
     .column[data-spacing="large"] {
-      padding-top: 4rem;
-      padding-bottom: 4rem;
+      padding-top: var(--space-16);
+      padding-bottom: var(--space-16);
     }
   }
 

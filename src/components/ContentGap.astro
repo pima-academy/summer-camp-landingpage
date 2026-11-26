@@ -49,7 +49,7 @@ const Tag = inline ? "span" : "div";
           top: 0;
           left: 0;
           z-index: 9999;
-          padding: 2px 6px;
+          padding: var(--space-1) var(--space-2);
           background: var(--color-content-gap);
           color: var(--color-content-gap-label);
           font: var(--font-content-gap-label);
@@ -59,15 +59,15 @@ const Tag = inline ? "span" : "div";
         span.content-gap::before {
           top: auto;
           bottom: 100%;
-          padding: 0 4px;
+          padding: 0 var(--space-1);
           font-size: var(--font-size-content-gap-label-inline);
         }
         .content-gap--page::before {
           position: fixed;
           top: auto;
-          bottom: 8px;
-          left: 8px;
-          padding: 6px 10px;
+          bottom: var(--space-2);
+          left: var(--space-2);
+          padding: var(--space-2) var(--space-3);
           font-size: var(--font-size-content-gap-label-page);
         }
       </style>

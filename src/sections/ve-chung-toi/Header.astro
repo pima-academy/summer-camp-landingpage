@@ -19,12 +19,12 @@ import { aboutAnchors } from "../../data/site";
   /* Section's spacing="large", except at ≤ 767 px (see below). */
   .inner {
     position: relative;
-    padding-top: 7rem;
-    padding-bottom: 7rem;
+    padding-top: var(--space-28);
+    padding-bottom: var(--space-28);
   }
 
   .crumb {
-    margin-bottom: 0.5rem;
+    margin-bottom: var(--space-2);
   }
 
   .title {
@@ -33,8 +33,8 @@ import { aboutAnchors } from "../../data/site";
 
   @media screen and (max-width: 991px) {
     .inner {
-      padding-top: 6rem;
-      padding-bottom: 6rem;
+      padding-top: var(--space-24);
+      padding-bottom: var(--space-24);
     }
   }
 
@@ -42,7 +42,7 @@ import { aboutAnchors } from "../../data/site";
      under the 72 px fixed nav. Keep the tablet top padding (6rem). */
   @media screen and (max-width: 767px) {
     .inner {
-      padding-bottom: 4rem;
+      padding-bottom: var(--space-16);
     }
   }
 </style>

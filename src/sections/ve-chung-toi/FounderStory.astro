@@ -84,13 +84,13 @@ const timeline = [
     display: grid;
     grid-template-columns: 1fr 1fr;
     place-items: start center;
-    gap: 8rem;
+    gap: var(--space-32);
   }
 
   .aside {
     position: sticky;
-    top: 5rem;
-    padding-right: 1rem;
+    top: var(--space-20);
+    padding-right: var(--space-4);
   }
 
   .aside-inner {
@@ -101,7 +101,7 @@ const timeline = [
   }
 
   .portrait {
-    margin-top: 2rem;
+    margin-top: var(--space-8);
   }
 
   .portrait-img {
@@ -133,7 +133,7 @@ const timeline = [
   .entries {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 5rem;
+    gap: var(--space-20);
   }
 
   .entry {
@@ -149,33 +149,33 @@ const timeline = [
     align-items: flex-start;
     width: 8rem;
     height: 100%;
-    margin-left: -8rem;
+    margin-left: calc(-1 * var(--space-32));
   }
 
   .dot {
     z-index: 2;
     width: 0.9375rem;
     height: 0.9375rem;
-    margin-top: 2rem;
+    margin-top: var(--space-8);
     border-radius: var(--radius-circle);
     background-color: var(--color-background-accent);
   }
 
   @media screen and (max-width: 991px) {
     .layout {
-      gap: 6rem;
+      gap: var(--space-24);
     }
 
     .dot-cell {
       width: 6rem;
-      margin-left: -6rem;
+      margin-left: calc(-1 * var(--space-24));
     }
   }
 
   @media screen and (max-width: 767px) {
     .layout {
       grid-template-columns: 1fr;
-      gap: 3rem;
+      gap: var(--space-12);
     }
 
     .aside {
@@ -191,7 +191,7 @@ const timeline = [
     }
 
     .entries {
-      gap: 3rem;
+      gap: var(--space-12);
     }
 
     .dot-cell {
@@ -200,21 +200,21 @@ const timeline = [
     }
 
     .dot {
-      margin-top: 0.75rem;
+      margin-top: var(--space-3);
     }
 
     .entry-body {
-      margin-left: 3rem;
+      margin-left: var(--space-12);
     }
   }
 
   @media screen and (max-width: 479px) {
     .layout {
-      gap: 1.5rem;
+      gap: var(--space-6);
     }
 
     .entries {
-      row-gap: 2rem;
+      row-gap: var(--space-8);
     }
   }
 </style>

@@ -7,8 +7,8 @@
   Brand look (docs/brand.md, Typography): 14 px extrabold uppercase, letter-spaced, in the
   text colour (black, white on the dark-green tone), under a 40 × 4 px PiMA Green rule. The
   rule sits alone on the first line box, so the parent's `text-align` places it: left over
-  left-aligned text, centred over centred text, with 12px between rule and text. Margins are
-  the old h5 ones (10px above, 0.7em below); `flush` drops both (old `is-no-margin`), for a
+  left-aligned text, centred over centred text, with --space-3 between rule and text and
+  --space-3 above and below the kicker; `flush` drops both margins (old `is-no-margin`), for a
   kicker whose spacing comes from its parent.
 
     <Kicker>đối tác của <BrandName /></Kicker>
@@ -30,8 +30,8 @@ const { flush = false, class: className, ...attrs } = Astro.props;
 
 <style>
   .kicker {
-    margin-top: 10px;
-    margin-bottom: 0.7em;
+    margin-top: var(--space-3);
+    margin-bottom: var(--space-3);
     color: var(--color-text);
     font-size: var(--font-size-kicker);
     font-weight: var(--font-weight-extrabold);
@@ -50,10 +50,11 @@ const { flush = false, class: className, ...attrs } = Astro.props;
     background-color: var(--color-background-accent);
   }
 
-  /* The rule's line box is one line high (1lh); pull the text up to 12px under the 4px rule. */
+  /* The rule's line box is one line high (1lh); pull the text up to --space-3 under the rule,
+     which is --space-1 (4px) high. */
   .text {
     display: block;
-    margin-top: calc(16px - 1lh);
+    margin-top: calc(var(--space-1) + var(--space-3) - 1lh);
   }
 
   .kicker[data-flush] {

@@ -1,11 +1,11 @@
 /*
  * Design tokens: the only place design values live (ADR 0004). Colours, font families, weights,
- * sizes, line heights, radii and shadows are written here once, named by role, and used everywhere
- * else as var(--…). scripts/guardrail.test.mjs fails on a literal value outside this file.
+ * sizes, line heights, letter spacing, radii and shadows are written here once, named by role, and
+ * used everywhere else as var(--…); spacing comes from the spacing scale.
+ * scripts/guardrail.test.mjs fails on a literal value outside this file.
  *
  * The brand palette comes first. Every colour role after it points at a palette token
  * (scripts/brand.test.mjs checks); only the dev-only content-gap marker keeps its own colour.
- * Spacing stays literal for now.
  *
  * Breakpoints (desktop-first, max-width; custom properties do not work in @media, so they are
  * written as literals wherever they are used):
@@ -84,9 +84,33 @@
   --line-height-field: 1.42857143;
   --line-height-form-control: normal;
 
-  /* Letter spacing of uppercase labels. */
+  /* Letter spacing: tightened h1, h2 and h4; tracked uppercase labels. */
+  --letter-spacing-heading: -0.01em;
   --letter-spacing-kicker: 0.08em;
   --letter-spacing-marquee: 0.03em;
+  --letter-spacing-tag: 0.035em;
+
+  /*
+   * Spacing scale: every margin, padding, gap and offset used as spacing takes one of these
+   * steps. A step's number is its size in 4 px units (--space-4 is 16 px); the scale thins out
+   * as it grows. A value between two steps takes the nearest one, the larger on a tie.
+   * Negative spacing is calc(-1 * var(--space-…)). `0`, `auto`, percentages (the 5 % page
+   * gutter) and layout widths (max-width) are not spacing and stay literal.
+   */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-28: 7rem;
+  --space-32: 8rem;
 
   /*
    * Colour roles. Each points at a brand palette colour; docs/brand.md lists the pairs that pass

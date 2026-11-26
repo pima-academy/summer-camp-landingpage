@@ -217,7 +217,7 @@ const iconSizes = ["text", "16", "24", "32", "40", "48"] as const;
 
 <style>
   .title {
-    padding-top: 2rem;
+    padding-top: var(--space-8);
   }
 
   .demo {
@@ -225,18 +225,18 @@ const iconSizes = ["text", "16", "24", "32", "40", "48"] as const;
   }
 
   .demo + .demo {
-    margin-top: 2px;
+    margin-top: var(--space-1);
   }
 
   .content {
-    padding: 1rem;
+    padding: var(--space-4);
     background-color: var(--color-background-pale-lime);
   }
 
   .row {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: var(--space-2);
     align-items: center;
   }
 
@@ -249,7 +249,7 @@ const iconSizes = ["text", "16", "24", "32", "40", "48"] as const;
   }
 
   .framed {
-    margin-top: 1rem;
+    margin-top: var(--space-4);
     outline: 1px dashed var(--color-text-muted);
   }
 
@@ -281,7 +281,7 @@ const iconSizes = ["text", "16", "24", "32", "40", "48"] as const;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.25rem;
+    gap: var(--space-1);
     width: 9rem;
     margin: 0;
   }

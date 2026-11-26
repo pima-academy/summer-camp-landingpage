@@ -50,7 +50,7 @@ import { campActivities } from "./camp-activities";
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: auto;
     grid-auto-columns: 1fr;
-    gap: 16px;
+    gap: var(--space-4);
   }
 
   .text {
@@ -58,7 +58,7 @@ import { campActivities } from "./camp-activities";
   }
 
   .lead {
-    margin-bottom: 1rem;
+    margin-bottom: var(--space-4);
     color: var(--color-text);
     text-align: left;
   }
@@ -69,9 +69,9 @@ import { campActivities } from "./camp-activities";
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: auto;
     grid-auto-columns: 1fr;
-    gap: 4rem;
+    gap: var(--space-16);
     align-items: start;
-    padding-top: 2rem;
+    padding-top: var(--space-8);
   }
 
   .photo {
@@ -92,16 +92,16 @@ import { campActivities } from "./camp-activities";
 
   @media screen and (max-width: 991px) {
     .activities {
-      column-gap: 2rem;
-      padding-top: 1.5rem;
+      column-gap: var(--space-8);
+      padding-top: var(--space-6);
     }
   }
 
   @media screen and (max-width: 767px) {
     .activities {
       grid-template-columns: 1fr;
-      row-gap: 3rem;
-      padding-top: 1.25rem;
+      row-gap: var(--space-12);
+      padding-top: var(--space-5);
     }
   }
 

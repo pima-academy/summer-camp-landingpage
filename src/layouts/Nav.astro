@@ -321,7 +321,7 @@ const isGap = (item: Link) => item.href === "/su-kien-blog/";
     max-width: 1280px;
     margin-left: auto;
     margin-right: auto;
-    padding: 0.75rem 1rem;
+    padding: var(--space-3) var(--space-4);
     border-bottom-left-radius: var(--radius);
     border-bottom-right-radius: var(--radius);
   }
@@ -331,7 +331,7 @@ const isGap = (item: Link) => item.href === "/su-kien-blog/";
     display: flex;
     flex: 1;
     align-items: center;
-    gap: 2rem;
+    gap: var(--space-8);
   }
 
   .left {
@@ -347,7 +347,7 @@ const isGap = (item: Link) => item.href === "/su-kien-blog/";
     flex: 1;
     justify-content: flex-start;
     align-items: center;
-    gap: 0.5rem;
+    gap: var(--space-2);
     max-width: 100%;
     color: inherit;
     text-decoration: none;
@@ -395,9 +395,9 @@ const isGap = (item: Link) => item.href === "/su-kien-blog/";
     flex: none;
     justify-content: flex-start;
     align-items: center;
-    gap: 0.5rem;
+    gap: var(--space-2);
     max-width: 100%;
-    padding: 0.5em 0.75em;
+    padding: var(--space-2) var(--space-3);
     border-radius: var(--radius);
     color: color-mix(in srgb, currentColor 75%, transparent);
     background-color: color-mix(in srgb, currentColor 0%, transparent);
@@ -445,7 +445,7 @@ const isGap = (item: Link) => item.href === "/su-kien-blog/";
     position: absolute;
     display: flex;
     min-width: 100%;
-    padding-top: 1.25rem;
+    padding-top: var(--space-5);
   }
 
   .dropdown-list[hidden] {
@@ -478,9 +478,9 @@ const isGap = (item: Link) => item.href === "/su-kien-blog/";
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap: 0.5rem;
+    gap: var(--space-2);
     max-width: 100%;
-    padding: 0.75em 1em;
+    padding: var(--space-3) var(--space-4);
     color: var(--color-text);
     font-weight: var(--font-weight-semibold);
     text-decoration: none;
@@ -498,7 +498,7 @@ const isGap = (item: Link) => item.href === "/su-kien-blog/";
   .menu-button {
     position: relative;
     display: none;
-    padding: 0.5rem;
+    padding: var(--space-2);
     cursor: pointer;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
@@ -535,7 +535,7 @@ const isGap = (item: Link) => item.href === "/su-kien-blog/";
       display: none;
       height: auto;
       max-height: calc(100dvh - 10rem);
-      padding: 1rem;
+      padding: var(--space-4);
       overflow: auto;
       border-radius: var(--radius);
       background-color: var(--color-background);
@@ -585,8 +585,8 @@ const isGap = (item: Link) => item.href === "/su-kien-blog/";
       display: flex;
       flex-direction: column;
       width: 100%;
-      padding-top: 0.5rem;
-      padding-bottom: 0.5rem;
+      padding-top: var(--space-2);
+      padding-bottom: var(--space-2);
       background-color: color-mix(in srgb, currentColor 5%, transparent);
       box-shadow: none;
     }

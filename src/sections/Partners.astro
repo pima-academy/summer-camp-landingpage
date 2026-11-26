@@ -45,7 +45,7 @@ const { id = "doi-tac" } = Astro.props;
   }
 
   .lead {
-    margin-bottom: 1rem;
+    margin-bottom: var(--space-4);
     color: var(--color-text);
   }
 
@@ -53,7 +53,7 @@ const { id = "doi-tac" } = Astro.props;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap: 1rem;
+    gap: var(--space-4);
   }
 
   /* Old `.logo-image-wrapper`: a huge width that the flex row shrinks to share the line. */

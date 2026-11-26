@@ -126,7 +126,7 @@ const field = (tallInSection: boolean) => ["field", { tall: !isSection || tallIn
 
 <style>
   .contact-form {
-    margin: 0 0 15px;
+    margin: 0 0 var(--space-4);
   }
 
   .fields {
@@ -134,7 +134,7 @@ const field = (tallInSection: boolean) => ["field", { tall: !isSection || tallIn
     grid-template-rows: auto auto;
     grid-template-columns: 1fr 1fr;
     grid-auto-columns: 1fr;
-    gap: 16px;
+    gap: var(--space-4);
   }
 
   .message {
@@ -145,8 +145,8 @@ const field = (tallInSection: boolean) => ["field", { tall: !isSection || tallIn
     display: block;
     width: 100%;
     height: 38px;
-    margin-bottom: 10px;
-    padding: 8px 12px;
+    margin-bottom: var(--space-3);
+    padding: var(--space-2) var(--space-3);
     border: 1px solid var(--color-border-field);
     border-radius: var(--radius);
     background-color: var(--color-background);
@@ -185,13 +185,13 @@ const field = (tallInSection: boolean) => ["field", { tall: !isSection || tallIn
   }
 
   .actions {
-    margin-top: 2rem;
+    margin-top: var(--space-8);
     text-align: left;
   }
 
   .submit {
     display: inline-block;
-    padding: 9px 2rem;
+    padding: var(--space-2) var(--space-8);
     border: 0;
     border-radius: var(--radius);
     background-color: var(--color-button-primary);
@@ -209,14 +209,14 @@ const field = (tallInSection: boolean) => ["field", { tall: !isSection || tallIn
   }
 
   .done {
-    padding: 20px;
+    padding: var(--space-5);
     background-color: var(--color-background-pale-lime);
     text-align: center;
   }
 
   .fail {
-    margin-top: 10px;
-    padding: 10px;
+    margin-top: var(--space-3);
+    padding: var(--space-3);
     background-color: var(--color-background-form-error);
   }
 

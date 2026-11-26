@@ -79,19 +79,19 @@ const sizes = "(max-width: 479px) 39vw, (max-width: 991px) 26vw, 309px";
 
   /* 1rem above and below the heading (the old spacers). */
   .title {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
+    margin-top: var(--space-4);
+    margin-bottom: var(--space-4);
   }
 
   .lead {
-    margin-bottom: 1rem;
+    margin-bottom: var(--space-4);
     color: var(--color-text);
   }
 
   /* The old spacers (2rem) above and below the slider. */
   .gallery,
   .actions {
-    padding-top: 2rem;
+    padding-top: var(--space-8);
   }
 
   .photo-link {
@@ -120,20 +120,20 @@ const sizes = "(max-width: 479px) 39vw, (max-width: 991px) 26vw, 309px";
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: 0.5rem;
+    gap: var(--space-2);
   }
 
   @media screen and (max-width: 991px) {
     .gallery,
     .actions {
-      padding-top: 1.5rem;
+      padding-top: var(--space-6);
     }
   }
 
   @media screen and (max-width: 767px) {
     .gallery,
     .actions {
-      padding-top: 1.25rem;
+      padding-top: var(--space-5);
     }
   }
 

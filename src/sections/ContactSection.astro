@@ -46,12 +46,12 @@ import { contact, social } from "../data/site";
 
 <style>
   .panel {
-    padding: 1rem 4rem 2rem;
+    padding: var(--space-4) var(--space-16) var(--space-8);
   }
 
-  /* 1rem below (the old spacer). */
+  /* The heading's margin plus the old 1rem spacer below it. */
   .head {
-    margin-bottom: calc(10px + 1rem);
+    margin-bottom: var(--space-6);
     text-align: center;
   }
 
@@ -59,12 +59,12 @@ import { contact, social } from "../data/site";
   .info {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 16px;
-    padding-bottom: 2rem;
+    gap: var(--space-4);
+    padding-bottom: var(--space-8);
   }
 
   .icon-cell {
-    margin-bottom: 0.25rem;
+    margin-bottom: var(--space-1);
   }
 
   .label {
@@ -72,12 +72,12 @@ import { contact, social } from "../data/site";
   }
 
   .form-area {
-    margin-bottom: 20px;
+    margin-bottom: var(--space-5);
   }
 
   /* 2rem below (the old spacer). */
   .form-intro {
-    padding-bottom: 2rem;
+    padding-bottom: var(--space-8);
   }
 
   .note {
@@ -86,17 +86,17 @@ import { contact, social } from "../data/site";
 
   @media screen and (max-width: 991px) {
     .form-intro {
-      padding-bottom: 1.5rem;
+      padding-bottom: var(--space-6);
     }
   }
 
   @media screen and (max-width: 767px) {
     .panel {
-      padding-bottom: 3rem;
+      padding-bottom: var(--space-12);
     }
 
     .form-intro {
-      padding-bottom: 1.25rem;
+      padding-bottom: var(--space-5);
     }
   }
 
