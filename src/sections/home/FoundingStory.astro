@@ -5,14 +5,14 @@
 import { Image } from "astro:assets";
 import founder from "../../assets/images/pima-founder.png";
 import Button from "../../components/Button.astro";
+import Kicker from "../../components/Kicker.astro";
 import Section from "../../components/Section.astro";
 ---
 
 <Section name="founding-story" width="medium" spacing="medium" animate>
   <div class="panel" data-tone="dark-green">
     <div class="story">
-      <!-- Not a Kicker: lime, regular weight, h4 size (old `h4 text-style-lime text-style-allcaps`). -->
-      <p class="eyebrow">Câu chuyện nhà sáng lập</p>
+      <Kicker>Câu chuyện nhà sáng lập</Kicker>
       <h3 class="heading">Các chương trình của chúng tôi</h3>
       <p class="lead">
         Từ các trường đại học danh tiếng đến doanh nghiệp công nghệ và viện nghiên cứu, PiMA tự hào đồng hành cùng những
@@ -36,24 +36,13 @@ import Section from "../../components/Section.astro";
     gap: 16px;
     place-items: center;
     padding: 2rem;
-    border-radius: var(--radius-panel);
+    border-radius: var(--radius);
   }
 
   .story {
     width: 100%;
     max-width: 56rem;
     text-align: left;
-  }
-
-  .eyebrow {
-    margin-top: 10px;
-    margin-bottom: 0.5em;
-    color: var(--color-text-accent);
-    font-size: var(--font-size-h4);
-    font-weight: var(--font-weight-h4);
-    line-height: var(--line-height-h4);
-    letter-spacing: -0.01em;
-    text-transform: uppercase;
   }
 
   .heading {

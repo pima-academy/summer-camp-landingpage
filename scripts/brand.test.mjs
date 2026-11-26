@@ -96,6 +96,102 @@ test("CLAUDE.md's Building UI section starts by sending agents to docs/brand.md"
   );
 });
 
+/** The `@font-face` rules of a stylesheet as "<weight> <style> <subset>" strings, sorted. */
+function fontFaces(css) {
+  return parseCss(css)
+    .filter((n) => n.type === "atrule" && n.name === "font-face")
+    .map((n) => {
+      const d = Object.fromEntries(n.children.filter((c) => c.type === "decl").map((c) => [c.prop, c.value]));
+      const subset = d.src.match(/nunito-sans-([a-z]+)-\d+-normal/)?.[1];
+      return `${d["font-weight"]} ${d["font-style"]} ${subset}`;
+    })
+    .sort();
+}
+
+test("fonts.css loads Nunito Sans 400, 600, 700, 800 and 900 upright, Latin and Vietnamese", () => {
+  const fontsCss = readFileSync(join(root, "src/styles/fonts.css"), "utf8");
+  const expected = ["400", "600", "700", "800", "900"]
+    .flatMap((w) => ["latin", "vietnamese"].map((s) => `${w} normal ${s}`))
+    .sort();
+  assert.deepEqual(fontFaces(fontsCss), expected);
+});
+
+/**
+ * The tokens as a viewport `width` px wide sees them: the top-level `:root`, then each
+ * `@media (max-width: N)` block with N ≥ width, in source order; var() references resolved.
+ */
+function tokensAt(css, width) {
+  const raw = {};
+  const take = (rule) => rule.children.filter((n) => n.type === "decl").forEach((n) => (raw[n.prop] = n.value));
+  for (const n of parseCss(css)) {
+    if (n.type === "rule" && n.selector === ":root") take(n);
+    const max = n.type === "atrule" && n.name === "media" ? Number(n.prelude.match(/max-width:\s*(\d+)px/)?.[1]) : NaN;
+    if (max >= width) n.children.filter((c) => c.type === "rule" && c.selector === ":root").forEach(take);
+  }
+  const resolve = (v) => v.replace(/var\(\s*(--[\w-]+)\s*\)/g, (_, name) => resolve(raw[name] ?? `<missing ${name}>`));
+  return Object.fromEntries(Object.entries(raw).map(([k, v]) => [k, resolve(v)]));
+}
+
+test("tokensAt applies the media blocks of a width and resolves var()", () => {
+  const css = `:root { --a: 1px; --b: var(--a); }
+    @media screen and (max-width: 767px) { :root { --a: 2px; } }`;
+  assert.deepEqual(tokensAt(css, 1440), { "--a": "1px", "--b": "1px" });
+  assert.deepEqual(tokensAt(css, 390), { "--a": "2px", "--b": "2px" });
+});
+
+test("font weight tokens are only the brand's 400, 600, 700, 800 and 900", () => {
+  for (const width of [1440, 390]) {
+    const weights = Object.entries(tokensAt(tokensCss, width)).filter(([k]) => k.startsWith("--font-weight-"));
+    assert.deepEqual(weights.filter(([, v]) => !["400", "600", "700", "800", "900"].includes(v)), [], `at ${width}px`);
+  }
+});
+
+test("type tokens follow the spec's web scale", () => {
+  // Spec #56, "Brand look" → Type: [desktop, ≤ 767 px].
+  const scale = {
+    "--font-size-h1": ["48px", "32px"],
+    "--line-height-h1": ["1.15", "1.15"],
+    "--font-weight-h1": ["800", "800"],
+    "--font-size-h2": ["36px", "26px"],
+    "--line-height-h2": ["1.2", "1.2"],
+    "--font-weight-h2": ["800", "800"],
+    "--font-size-h3": ["22px", "19px"],
+    "--line-height-h3": ["1.3", "1.3"],
+    "--font-weight-h3": ["800", "800"],
+    "--font-size-body": ["16px", "16px"],
+    "--line-height-body": ["1.6", "1.6"],
+    "--font-weight-regular": ["400", "400"],
+    "--font-size-kicker": ["14px", "14px"],
+    "--letter-spacing-kicker": ["0.08em", "0.08em"],
+    "--font-weight-extrabold": ["800", "800"],
+    "--font-weight-black": ["900", "900"],
+    "--font-size-marquee": ["15px", "15px"],
+    "--font-weight-semibold": ["600", "600"],
+    "--font-weight-bold": ["700", "700"],
+  };
+  for (const [i, width] of [1440, 390].entries()) {
+    const tokens = tokensAt(tokensCss, width);
+    const got = Object.fromEntries(Object.keys(scale).map((k) => [k, tokens[k]]));
+    const want = Object.fromEntries(Object.entries(scale).map(([k, v]) => [k, v[i]]));
+    assert.deepEqual(got, want, `at ${width}px`);
+  }
+});
+
+test("every heading line height is 1.1 or more (stacked Vietnamese diacritics)", () => {
+  for (const width of [1440, 991, 767, 390]) {
+    const low = Object.entries(tokensAt(tokensCss, width))
+      .filter(([k]) => /^--line-height-h\d$/.test(k))
+      .filter(([, v]) => !(Number(v) >= 1.1));
+    assert.deepEqual(low, [], `at ${width}px`);
+  }
+});
+
+test("one corner radius: tokens.css declares --radius (12px) and --radius-circle only", () => {
+  const radii = [...tokenNames(tokensCss)].filter((k) => k.startsWith("--radius")).sort();
+  assert.deepEqual(radii, ["--radius", "--radius-circle"]);
+  assert.equal(tokensAt(tokensCss, 1440)["--radius"], "12px");
+});
+
 test("src/assets/logo/ holds the ten brand logo files", () => {
   const expected = ["horizontal", "stacked"]
     .flatMap((shape) => ["green", "darkgreen", "lime", "black", "white"].map((c) => `pima-logo-${shape}-${c}.png`))

@@ -6,11 +6,12 @@
 */
 import Section from "../../components/Section.astro";
 import BrandName from "../../components/BrandName.astro";
+import Kicker from "../../components/Kicker.astro";
 ---
 
 <Section name="blog-header" spacing="large" tone="surface" animate>
   <div class="eyebrow">
-    <div class="tagline"><BrandName /> academy</div>
+    <Kicker flush><BrandName /> academy</Kicker>
   </div>
   <h1 class="title">Sự kiện &amp; Blog</h1>
 </Section>
@@ -20,19 +21,8 @@ import BrandName from "../../components/BrandName.astro";
     margin-bottom: 0.5rem;
   }
 
-  .tagline {
-    display: inline-block;
-    color: var(--color-text-accent);
-    font-weight: var(--font-weight-semibold);
-    text-transform: uppercase;
-    text-decoration: none;
-  }
-
   .title {
     color: var(--color-text-heading);
-    font-size: var(--font-size-heading-style-h1);
-    font-weight: var(--font-weight-heading-style);
-    line-height: var(--line-height-heading-style-h1);
     text-transform: none;
   }
 </style>

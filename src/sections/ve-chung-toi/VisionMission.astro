@@ -5,6 +5,7 @@
 import { Image } from "astro:assets";
 import Accordion from "../../components/Accordion.astro";
 import AccordionPanel from "../../components/AccordionPanel.astro";
+import Kicker from "../../components/Kicker.astro";
 import Section from "../../components/Section.astro";
 import { aboutAnchors } from "../../data/site";
 import { fluidWidths } from "../../lib/image-widths";
@@ -20,7 +21,7 @@ const photoSizes = "(max-width: 767px) calc(90vw - 36px), (max-width: 991px) 80v
   <div class="panels">
     <Accordion>
       <AccordionPanel number="01" title="Xuất phát điểm" open>
-        <div class="tagline">Tầm nhìn, Sứ mệnh, Mục tiêu</div>
+        <Kicker flush>Tầm nhìn, Sứ mệnh, Mục tiêu</Kicker>
         <h3 class="heading">Xuất phát điểm</h3>
         <p class="text">Với mong muốn giúp học sinh và sinh viên Việt Nam tiếp cận toán học không chỉ như một môn học trên lớp mà còn như một công cụ để khám phá thế giới, PiMA đã tổ chức trại hè đầu tiên vào năm 2016, đánh dấu bước khởi đầu cho hành trình đưa toán học đến gần hơn với thực tiễn.</p>
         <div class="photo">
@@ -51,17 +52,8 @@ const photoSizes = "(max-width: 767px) calc(90vw - 36px), (max-width: 991px) 80v
     padding-top: 5rem;
   }
 
-  .tagline {
-    color: var(--color-text-accent);
-    font-weight: var(--font-weight-semibold);
-    text-transform: uppercase;
-  }
-
   .heading {
     text-align: left;
-    font-size: var(--font-size-heading-style-h3);
-    font-weight: var(--font-weight-heading-style);
-    line-height: var(--line-height-heading-style-h3);
   }
 
   .text {

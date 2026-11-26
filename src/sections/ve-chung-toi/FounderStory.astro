@@ -66,7 +66,7 @@ const timeline = [
               <div class="dot" data-timeline-dot />
             </div>
             <div class="entry-body">
-              <h3 class="entry-title">{row.title}</h3>
+              <h3>{row.title}</h3>
               <p>{row.text}</p>
             </div>
           </div>
@@ -110,7 +110,7 @@ const timeline = [
   }
 
   .caption {
-    font-size: var(--font-size-caption);
+    font-size: var(--font-size-small);
     font-weight: var(--font-weight-regular);
   }
 
@@ -159,12 +159,6 @@ const timeline = [
     margin-top: 2rem;
     border-radius: var(--radius-circle);
     background-color: var(--color-background-accent);
-  }
-
-  .entry-title {
-    font-size: var(--font-size-heading-style-h4);
-    font-weight: var(--font-weight-heading-style);
-    line-height: var(--line-height-heading-style-h4);
   }
 
   @media screen and (max-width: 991px) {

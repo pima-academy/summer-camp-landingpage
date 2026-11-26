@@ -21,7 +21,7 @@ import { testimonials } from "./testimonials";
               <Image src={t.avatar} alt={`Ảnh đại diện của ${t.name}`} width={48} densities={[1, 2]} class="avatar-img" />
             </div>
             <div>
-              <div class="name">{t.nameLook ? <strong data-look={t.nameLook}>{t.name}</strong> : t.name}</div>
+              <div class="name">{t.name}</div>
               <div>
                 {t.role.map((line, i) => (
                   <Fragment>
@@ -55,7 +55,7 @@ import { testimonials } from "./testimonials";
     margin-bottom: 2rem;
     padding: 2rem;
     overflow: hidden;
-    border-radius: var(--radius-card-small);
+    border-radius: var(--radius);
     background-color: var(--color-background);
   }
 
@@ -82,17 +82,10 @@ import { testimonials } from "./testimonials";
     object-fit: cover;
   }
 
+  /* Names are extrabold Dark Green (docs/brand.md, Typography). */
   .name {
     color: var(--color-text-accent);
-    font-weight: var(--font-weight-semibold);
-  }
-
-  .name [data-look="bold"] {
-    font-weight: var(--font-weight-bold);
-  }
-
-  .name [data-look="bolder-accent"] {
-    color: var(--color-text-accent);
+    font-weight: var(--font-weight-extrabold);
   }
 
   @media screen and (max-width: 991px) {

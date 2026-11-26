@@ -148,10 +148,10 @@ const field = (tallInSection: boolean) => ["field", { tall: !isSection || tallIn
     margin-bottom: 10px;
     padding: 8px 12px;
     border: 1px solid var(--color-border-field);
-    border-radius: var(--radius-pill-form);
+    border-radius: var(--radius);
     background-color: var(--color-background);
     color: var(--color-text);
-    font-size: var(--font-size-field);
+    font-size: var(--font-size-small);
     line-height: var(--line-height-field);
     vertical-align: middle;
   }
@@ -171,7 +171,7 @@ const field = (tallInSection: boolean) => ["field", { tall: !isSection || tallIn
 
   .area {
     height: auto;
-    border-radius: var(--radius-card-small);
+    border-radius: var(--radius);
     overflow: visible;
   }
 
@@ -193,9 +193,10 @@ const field = (tallInSection: boolean) => ["field", { tall: !isSection || tallIn
     display: inline-block;
     padding: 9px 2rem;
     border: 0;
-    border-radius: var(--radius-pill-form);
+    border-radius: var(--radius);
     background-color: var(--color-button-primary);
     color: var(--color-button-primary-text);
+    font-weight: var(--font-weight-bold);
     line-height: inherit;
     text-decoration: none;
     cursor: pointer;

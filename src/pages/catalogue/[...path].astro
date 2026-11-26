@@ -141,11 +141,26 @@ const iconSizes = ["text", "16", "24", "32", "40", "48"] as const;
     <h2>Kicker</h2>
     <div class="framed">
       <Kicker>đối tác của <BrandName /></Kicker>
-      <h2>Kicker with today's h5 margins</h2>
+      <h2>Kicker with the old h5 margins</h2>
     </div>
     <div class="framed">
       <Kicker flush>trại hè toán học (flush)</Kicker>
       <h2>Kicker flush: no margins</h2>
+    </div>
+  </Section>
+
+  <Section name="catalogue-type" spacing="small">
+    <h2>Type roles</h2>
+    <p>Base CSS styles each heading level by its role (docs/brand.md, Typography); sections set no heading size.</p>
+    <div class="framed">
+      <h1>h1: Khám phá những biên giới mới</h1>
+      <h2>h2: Những con số nổi bật</h2>
+      <h3>h3: Kiến thức nền tảng &amp; ứng dụng</h3>
+      <h4>h4 takes the h3 role</h4>
+      <h5>h5: a bold label at body size</h5>
+      <p>Body: Nunito Sans regular, Vietnamese diacritics Ồ Ộ Ẫ ặ ữ.</p>
+      <p class="small">Small text: captions, form fields, tags, the footer credit.</p>
+      <p class="number">0123456789</p>
     </div>
   </Section>
 
@@ -238,6 +253,17 @@ const iconSizes = ["text", "16", "24", "32", "40", "48"] as const;
     outline: 1px dashed var(--color-text-muted);
   }
 
+  .small {
+    font-size: var(--font-size-small);
+  }
+
+  .number {
+    color: var(--color-text-accent);
+    font-size: var(--font-size-big-number);
+    font-weight: var(--font-weight-black);
+    font-variant-numeric: tabular-nums;
+  }
+
   .upper {
     text-transform: uppercase;
   }
@@ -262,7 +288,7 @@ const iconSizes = ["text", "16", "24", "32", "40", "48"] as const;
 
   .icon-cell figcaption {
     color: var(--color-text-muted);
-    font-size: var(--font-size-text-small);
+    font-size: var(--font-size-small);
   }
 
   /* The footer's black band and its circle pair (Footer.astro). */
