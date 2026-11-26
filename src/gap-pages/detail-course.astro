@@ -1,0 +1,397 @@
+---
+/*
+  Gap page /detail-course/ (old `detail_course.html`): the Webflow CMS template
+  of one course. Placeholder text, sample mentors/testimonials and empty
+  bindings are kept as they were, as a template for future courses.
+  Dev only; see src/pages/[...gap].astro.
+
+  Both image lightboxes were empty on the old site: inline content gaps whose
+  fallback keeps the box without the click.
+*/
+import { Image } from "astro:assets";
+import ContactSection from "../components/ContactSection.astro";
+import ContentGap from "../components/ContentGap.astro";
+import Slider from "../components/Slider.astro";
+import { fluidWidths } from "../lib/image-widths";
+import cover from "../assets/images/dan-cristian-padure-h3kuhyuce9a-unsplash.avif";
+import partner from "../assets/images/partner-logo-04-big.avif";
+import avatar from "../assets/images/artboard-3-4x.avif";
+import blankAvatar from "../assets/images/blank-avatar.png";
+
+// The cover and partner images carry `w-dyn-bind-empty` (display: none) and load lazily, so they are
+// never fetched. `sizes` is the content column (`container-custom`): 351/738/960 px at 390/820/1440;
+// the partner image's grid cell is at most that wide.
+const coverSizes = "(max-width: 1066px) 90vw, 960px";
+const partnerSizes = coverSizes;
+---
+
+<section id="course1" class="section_course-detail" data-animate="fade-up">
+  <div class="padding-global">
+    <div class="container-custom">
+      <div class="padding-section-medium">
+        <div class="course-description-component">
+          <ContentGap name="detail-course: cover image lightbox" inline>
+            <a href="#" class="course-description-cover w-inline-block w-dyn-bind-empty w-lightbox">
+              <div class="gallery1_image-wrapper"><Image src={cover} alt="" widths={fluidWidths(cover)} sizes={coverSizes} class="gallery1_image-2 w-dyn-bind-empty" /></div>
+            </a>
+            <Fragment slot="fallback">
+              <div class="course-description-cover w-inline-block w-dyn-bind-empty">
+                <div class="gallery1_image-wrapper"><Image src={cover} alt="" widths={fluidWidths(cover)} sizes={coverSizes} class="gallery1_image-2 w-dyn-bind-empty" /></div>
+              </div>
+            </Fragment>
+          </ContentGap>
+          <div class="margin-bottom">
+            <div class="max-width-large">
+              <div class="margin-bottom margin-small">
+                <h2 class="heading-style-h3 w-dyn-bind-empty"></h2>
+              </div>
+              <p class="text-size-medium text-style-italic w-dyn-bind-empty"></p>
+            </div>
+            <div class="spacer-medium"></div>
+          </div>
+          <h3>Giới thiệu</h3>
+          <div class="w-dyn-bind-empty w-richtext"></div>
+          <div class="spacer-medium"></div>
+          <h3>Nội dung khóa học</h3>
+          <div class="spacer-small"></div>
+          <div class="w-layout-grid layout243_list">
+            <div id="w-node-b2eb502a-8f08-f08e-06c0-0d6e1757ecc1-18fd2b46" class="course-feature-detail">
+              <div class="layout243_item-icon-wrapper">
+                <div class="text-block-11">1</div>
+              </div>
+              <div class="layout243_item-text-wrapper">
+                <div class="margin-bottom margin-small">
+                  <h4 class="course-feature-title"><strong>Triển khai thuật toán (Implementation)</strong></h4>
+                </div>
+                <p>Thay vì sử dụng các thư viện có sẵn, học viên được hướng dẫn xây dựng lại các thành phần cốt lõi của mô hình, từ kiến thức căn bản như Backpropagation, Self-Attention cho đến Beam Search bằng PyTorch. Cách tiếp cận này giúp học viên nắm bắt bản chất vận hành của các mô hình một cách toàn diện.</p>
+              </div>
+            </div>
+            <div id="w-node-b2eb502a-8f08-f08e-06c0-0d6e1757eccb-18fd2b46" class="course-feature-detail">
+              <div class="layout243_item-icon-wrapper">
+                <div class="text-block-11">2</div>
+              </div>
+              <div class="layout243_item-text-wrapper">
+                <div class="margin-bottom margin-small">
+                  <h4 class="course-feature-title"><strong>Nền tảng Toán học (Mathematics)</strong></h4>
+                </div>
+                <p>Tiếp cận các hiện tượng bất định thông qua lý thuyết xác suất và phương trình vi phân.</p>
+              </div>
+            </div>
+          </div>
+          <div class="spacer-medium"></div>
+          <div class="w-layout-grid layout60_item-list">
+            <div class="layout60_item">
+              <div class="margin-bottom margin-xsmall">
+                <div class="layout60_item-icon-wrapper">
+                  <div class="icon-embed-xsmall-2 w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--bx" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                      <path fill="currentColor" d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10s10-4.486 10-10S17.514 2 12 2m0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8s8 3.589 8 8s-3.589 8-8 8"></path>
+                      <path fill="currentColor" d="M13 7h-2v6h6v-2h-4z"></path>
+                    </svg></div>
+                </div>
+              </div>
+              <div class="course-detail">
+                <div class="margin-bottom margin-xsmall">
+                  <div class="text-block-12">Thời gian</div>
+                </div>
+                <p class="w-dyn-bind-empty"></p>
+              </div>
+            </div>
+            <div class="layout60_item">
+              <div class="margin-bottom margin-xsmall">
+                <div class="layout60_item-icon-wrapper">
+                  <div class="icon-embed-xsmall-2 w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--bx" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                      <path fill="currentColor" d="M12 6c-3.309 0-6 2.691-6 6s2.691 6 6 6s6-2.691 6-6s-2.691-6-6-6m0 10c-2.206 0-4-1.794-4-4s1.794-4 4-4s4 1.794 4 4s-1.794 4-4 4"></path>
+                      <path fill="currentColor" d="M12 2C6.579 2 2 6.579 2 12s4.579 10 10 10s10-4.579 10-10S17.421 2 12 2m0 18c-4.337 0-8-3.663-8-8s3.663-8 8-8s8 3.663 8 8s-3.663 8-8 8"></path>
+                      <path fill="currentColor" d="M12 10c-1.081 0-2 .919-2 2s.919 2 2 2s2-.919 2-2s-.919-2-2-2"></path>
+                    </svg></div>
+                </div>
+              </div>
+              <div class="course-detail">
+                <div class="margin-bottom margin-xsmall">
+                  <div class="text-block-12">Hình thức</div>
+                </div>
+                <p class="w-dyn-bind-empty"></p>
+              </div>
+            </div>
+            <div class="layout60_item">
+              <div class="margin-bottom margin-xsmall">
+                <div class="layout60_item-icon-wrapper">
+                  <div class="icon-embed-xsmall-2 w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--bx" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                      <path fill="currentColor" d="M3.102 20.898c.698.699 1.696 1.068 2.887 1.068c1.742 0 3.855-.778 6.012-2.127c2.156 1.35 4.27 2.127 6.012 2.127c1.19 0 2.188-.369 2.887-1.068c1.269-1.269 1.411-3.413.401-6.039c-.358-.932-.854-1.895-1.457-2.859a17 17 0 0 0 1.457-2.859c1.01-2.626.867-4.771-.401-6.039c-.698-.699-1.696-1.068-2.887-1.068c-1.742 0-3.855.778-6.012 2.127c-2.156-1.35-4.27-2.127-6.012-2.127c-1.19 0-2.188.369-2.887 1.068C1.833 4.371 1.69 6.515 2.7 9.141c.359.932.854 1.895 1.457 2.859A17 17 0 0 0 2.7 14.859c-1.01 2.626-.867 4.77.402 6.039m16.331-5.321c.689 1.79.708 3.251.052 3.907c-.32.32-.815.482-1.473.482c-1.167 0-2.646-.503-4.208-1.38a26.6 26.6 0 0 0 4.783-4.784c.336.601.623 1.196.846 1.775M12 17.417a23.6 23.6 0 0 1-2.934-2.483A24 24 0 0 1 6.566 12A23.7 23.7 0 0 1 12 6.583a23.6 23.6 0 0 1 2.934 2.483a24 24 0 0 1 2.5 2.934A23.7 23.7 0 0 1 12 17.417m6.012-13.383c.657 0 1.152.162 1.473.482c.656.656.638 2.117-.052 3.907c-.223.579-.51 1.174-.846 1.775a26.5 26.5 0 0 0-4.783-4.784c1.562-.876 3.041-1.38 4.208-1.38M4.567 8.423c-.689-1.79-.708-3.251-.052-3.907c.32-.32.815-.482 1.473-.482c1.167 0 2.646.503 4.208 1.38a26.5 26.5 0 0 0-4.783 4.784a14 14 0 0 1-.846-1.775m0 7.154c.223-.579.51-1.174.846-1.775a26.5 26.5 0 0 0 4.783 4.784c-1.563.877-3.041 1.38-4.208 1.38c-.657 0-1.152-.162-1.473-.482c-.656-.656-.637-2.117.052-3.907"></path>
+                      <circle cx="12" cy="12" r="2.574" fill="currentColor"></circle>
+                    </svg></div>
+                </div>
+              </div>
+              <div class="course-detail">
+                <div class="margin-bottom margin-xsmall">
+                  <div class="text-block-12">Yêu cầu kiến thức nền</div>
+                </div>
+                <p class="w-dyn-bind-empty"></p>
+              </div>
+            </div>
+            <div class="layout60_item">
+              <div class="margin-bottom margin-xsmall">
+                <div class="layout60_item-icon-wrapper">
+                  <div class="icon-embed-xsmall-2 w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--bx" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                      <path fill="currentColor" d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10s10-4.486 10-10S17.514 2 12 2M4 12c0-.899.156-1.762.431-2.569L6 11l2 2v2l2 2l1 1v1.931C7.061 19.436 4 16.072 4 12m14.33 4.873C17.677 16.347 16.687 16 16 16v-1a2 2 0 0 0-2-2h-4v-3a2 2 0 0 0 2-2V7h1a2 2 0 0 0 2-2v-.411C17.928 5.778 20 8.65 20 12a7.95 7.95 0 0 1-1.67 4.873"></path>
+                    </svg></div>
+                </div>
+              </div>
+              <div class="course-detail">
+                <div class="margin-bottom margin-xsmall">
+                  <div class="text-block-12">Ngôn ngữ</div>
+                </div>
+                <p class="w-dyn-bind-empty"></p>
+              </div>
+            </div>
+          </div>
+          <div class="spacer-medium"></div>
+          <h3>Head Mentor(s)</h3>
+          <div class="spacer-small"></div>
+          <div class="team3_component">
+            <div class="team3_list-wrapper">
+              <div class="w-layout-grid team3_list">
+                <div class="course-mentor">
+                  <div class="margin-bottom margin-small">
+                    <div class="team3_image-wrapper"><Image src={avatar} alt="Ảnh đại diện của Nguyễn Hồ Thăng Long" width={64} densities={[1, 2]} class="team3_image is-course" /></div>
+                  </div>
+                  <div class="margin-bottom">
+                    <div class="team3_title-wrapper">
+                      <div class="course-mentor-name">Nguyễn Hồ Thăng Long</div>
+                      <div class="course-mentor-title">
+                        <div class="icon-embed-xxsmall w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--bx" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                            <path d="M7.5 6.5C7.5 8.981 9.519 11 12 11s4.5-2.019 4.5-4.5S14.481 2 12 2S7.5 4.019 7.5 6.5zM20 21h1v-1c0-3.859-3.141-7-7-7h-4c-3.86 0-7 3.141-7 7v1h17z" fill="currentColor"></path>
+                          </svg></div>
+                        <div class="text-block-13">Nghiên cứu sinh Tiến sĩ</div>
+                      </div>
+                      <div class="course-mentor-title">
+                        <div class="icon-embed-xxsmall w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--bx" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                            <path d="M2 7v1l11 4l9-4V7L11 4z" fill="currentColor"></path>
+                            <path d="M4 11v4.267c0 1.621 4.001 3.893 9 3.734c4-.126 6.586-1.972 7-3.467c.024-.089.037-.178.037-.268V11L13 14l-5-1.667v3.213l-1-.364V12l-3-1z" fill="currentColor"></path>
+                          </svg></div>
+                        <div class="text-block-13">Đại học Dublin City</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="spacer-medium"></div>
+              </div>
+            </div>
+          </div>
+          <div class="w-dyn-list">
+            <div role="list" class="w-dyn-items">
+              <div role="listitem" class="w-dyn-item">
+                <div>This is some text inside of a div block.</div>
+              </div>
+            </div>
+            <div class="w-dyn-empty">
+              <div>No items found.</div>
+              <div>This is some text inside of a div block.</div>
+            </div>
+          </div>
+          <h3>Cố vấn học thuật</h3>
+          <div class="spacer-small"></div>
+          <div class="w-layout-grid team3_list">
+            <div class="course-mentor">
+              <div class="margin-bottom margin-small">
+                <div class="team3_image-wrapper"><Image src={avatar} alt="Ảnh đại diện của TS. Cấn Trần Thành Trung" width={64} densities={[1, 2]} class="team3_image is-course" /></div>
+              </div>
+              <div class="margin-bottom">
+                <div class="team3_title-wrapper">
+                  <div class="course-mentor-name"><strong>TS. Cấn Trần Thành Trung<br></strong></div>
+                  <div class="course-mentor-title">
+                    <div class="icon-embed-xxsmall w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--bx" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                        <path d="M7.5 6.5C7.5 8.981 9.519 11 12 11s4.5-2.019 4.5-4.5S14.481 2 12 2S7.5 4.019 7.5 6.5zM20 21h1v-1c0-3.859-3.141-7-7-7h-4c-3.86 0-7 3.141-7 7v1h17z" fill="currentColor"></path>
+                      </svg></div>
+                    <div class="text-block-13">Giảng viên</div>
+                  </div>
+                  <div class="course-mentor-title">
+                    <div class="icon-embed-xxsmall w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--bx" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                        <path d="M2 7v1l11 4l9-4V7L11 4z" fill="currentColor"></path>
+                        <path d="M4 11v4.267c0 1.621 4.001 3.893 9 3.734c4-.126 6.586-1.972 7-3.467c.024-.089.037-.178.037-.268V11L13 14l-5-1.667v3.213l-1-.364V12l-3-1z" fill="currentColor"></path>
+                      </svg></div>
+                    <div class="text-block-13">Trường Đại học Khoa học tự nhiên, ĐHQG-HCMTrường Đại học Khoa học tự nhiên, ĐHQG-HCM</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="spacer-medium"></div>
+          <h3>Mentor(s)</h3>
+          <div class="spacer-small"></div>
+          <div class="w-layout-grid team3_list">
+            <div class="course-mentor">
+              <div class="margin-bottom margin-small">
+                <div class="team3_image-wrapper"><Image src={avatar} alt="Ảnh đại diện của Trần Phan Anh Danh" width={64} densities={[1, 2]} class="team3_image is-course" /></div>
+              </div>
+              <div class="margin-bottom">
+                <div class="team3_title-wrapper">
+                  <div class="course-mentor-name">Trần Phan Anh Danh</div>
+                  <div class="course-mentor-title">
+                    <div class="icon-embed-xxsmall w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--bx" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                        <path d="M7.5 6.5C7.5 8.981 9.519 11 12 11s4.5-2.019 4.5-4.5S14.481 2 12 2S7.5 4.019 7.5 6.5zM20 21h1v-1c0-3.859-3.141-7-7-7h-4c-3.86 0-7 3.141-7 7v1h17z" fill="currentColor"></path>
+                      </svg></div>
+                    <div class="text-block-13">Sinh viên</div>
+                  </div>
+                  <div class="course-mentor-title">
+                    <div class="icon-embed-xxsmall w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--bx" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                        <path d="M2 7v1l11 4l9-4V7L11 4z" fill="currentColor"></path>
+                        <path d="M4 11v4.267c0 1.621 4.001 3.893 9 3.734c4-.126 6.586-1.972 7-3.467c.024-.089.037-.178.037-.268V11L13 14l-5-1.667v3.213l-1-.364V12l-3-1z" fill="currentColor"></path>
+                      </svg></div>
+                    <div class="text-block-13">Đại học Công nghệ Nanyang, Singapore</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="course-mentor">
+              <div class="margin-bottom margin-small">
+                <div class="team3_image-wrapper"><Image src={avatar} alt="Ảnh đại diện của Vòng Vĩnh Toàn" width={64} densities={[1, 2]} class="team3_image is-course" /></div>
+              </div>
+              <div class="margin-bottom">
+                <div class="team3_title-wrapper">
+                  <div class="course-mentor-name">Vòng Vĩnh Toàn</div>
+                  <div class="course-mentor-title">
+                    <div class="icon-embed-xxsmall w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--bx" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                        <path d="M7.5 6.5C7.5 8.981 9.519 11 12 11s4.5-2.019 4.5-4.5S14.481 2 12 2S7.5 4.019 7.5 6.5zM20 21h1v-1c0-3.859-3.141-7-7-7h-4c-3.86 0-7 3.141-7 7v1h17z" fill="currentColor"></path>
+                      </svg></div>
+                    <div class="text-block-13">Sinh viên</div>
+                  </div>
+                  <div class="course-mentor-title">
+                    <div class="icon-embed-xxsmall w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--bx" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                        <path d="M2 7v1l11 4l9-4V7L11 4z" fill="currentColor"></path>
+                        <path d="M4 11v4.267c0 1.621 4.001 3.893 9 3.734c4-.126 6.586-1.972 7-3.467c.024-.089.037-.178.037-.268V11L13 14l-5-1.667v3.213l-1-.364V12l-3-1z" fill="currentColor"></path>
+                      </svg></div>
+                    <div class="text-block-13">Trường ĐH Khoa học Tự nhiên, ĐHQG-HCM</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="course-mentor">
+              <div class="margin-bottom margin-small">
+                <div class="team3_image-wrapper"><Image src={avatar} alt="Ảnh đại diện của Nguyễn Minh Đức" width={64} densities={[1, 2]} class="team3_image is-course" /></div>
+              </div>
+              <div class="margin-bottom">
+                <div class="team3_title-wrapper">
+                  <div class="course-mentor-name">Nguyễn Minh Đức</div>
+                  <div class="course-mentor-title">
+                    <div class="icon-embed-xxsmall w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--bx" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                        <path d="M7.5 6.5C7.5 8.981 9.519 11 12 11s4.5-2.019 4.5-4.5S14.481 2 12 2S7.5 4.019 7.5 6.5zM20 21h1v-1c0-3.859-3.141-7-7-7h-4c-3.86 0-7 3.141-7 7v1h17z" fill="currentColor"></path>
+                      </svg></div>
+                    <div class="text-block-13">Sinh viên</div>
+                  </div>
+                  <div class="course-mentor-title">
+                    <div class="icon-embed-xxsmall w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--bx" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                        <path d="M2 7v1l11 4l9-4V7L11 4z" fill="currentColor"></path>
+                        <path d="M4 11v4.267c0 1.621 4.001 3.893 9 3.734c4-.126 6.586-1.972 7-3.467c.024-.089.037-.178.037-.268V11L13 14l-5-1.667v3.213l-1-.364V12l-3-1z" fill="currentColor"></path>
+                      </svg></div>
+                    <div class="text-block-13">Đại học FPT Hà Nội</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="course-mentor">
+              <div class="margin-bottom margin-small">
+                <div class="team3_image-wrapper"><Image src={avatar} alt="Ảnh đại diện của Nguyễn Ngọc Cảnh" width={64} densities={[1, 2]} class="team3_image is-course" /></div>
+              </div>
+              <div class="margin-bottom">
+                <div class="team3_title-wrapper">
+                  <div class="course-mentor-name">Nguyễn Ngọc Cảnh</div>
+                  <div class="course-mentor-title">
+                    <div class="icon-embed-xxsmall w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--bx" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                        <path d="M7.5 6.5C7.5 8.981 9.519 11 12 11s4.5-2.019 4.5-4.5S14.481 2 12 2S7.5 4.019 7.5 6.5zM20 21h1v-1c0-3.859-3.141-7-7-7h-4c-3.86 0-7 3.141-7 7v1h17z" fill="currentColor"></path>
+                      </svg></div>
+                    <div class="text-block-13">Sinh viên</div>
+                  </div>
+                  <div class="course-mentor-title">
+                    <div class="icon-embed-xxsmall w-embed"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--bx" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                        <path d="M2 7v1l11 4l9-4V7L11 4z" fill="currentColor"></path>
+                        <path d="M4 11v4.267c0 1.621 4.001 3.893 9 3.734c4-.126 6.586-1.972 7-3.467c.024-.089.037-.178.037-.268V11L13 14l-5-1.667v3.213l-1-.364V12l-3-1z" fill="currentColor"></path>
+                      </svg></div>
+                    <div class="text-block-13">Trường ĐH Khoa học Tự nhiên, ĐHQG-HCM</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="spacer-medium"></div>
+          <div class="spacer-small"></div>
+          <div class="course-partner-wrapper">
+            <div>
+              <div class="w-layout-grid gallery1_grid-list">
+                <ContentGap name="detail-course: partner image lightbox" inline>
+                  <a href="#" id="w-node-b2eb502a-8f08-f08e-06c0-0d6e1757edb3-18fd2b46" class="course-description-cover w-inline-block w-lightbox">
+                    <div class="gallery1_image-wrapper"><Image src={partner} alt="" widths={fluidWidths(partner)} sizes={partnerSizes} class="gallery1_image w-dyn-bind-empty" /></div>
+                  </a>
+                  <Fragment slot="fallback">
+                    <div id="w-node-b2eb502a-8f08-f08e-06c0-0d6e1757edb3-18fd2b46" class="course-description-cover w-inline-block">
+                      <div class="gallery1_image-wrapper"><Image src={partner} alt="" widths={fluidWidths(partner)} sizes={partnerSizes} class="gallery1_image w-dyn-bind-empty" /></div>
+                    </div>
+                  </Fragment>
+                </ContentGap>
+              </div>
+            </div>
+          </div>
+          <h3>Chia sẻ từ học viên</h3>
+          <div class="spacer-medium"></div>
+          <div class="max-width-large-3 align-center"></div>
+          <Slider
+            class="course-testimonial"
+            maskClass="testimonial7_mask"
+            navClass="testimonial7_slide-nav"
+            arrows="centre"
+            arrowClass="slider-arrow-2"
+            autoplay={4000}
+            infinite
+            label="Chia sẻ từ học viên"
+          >
+            <div class="testimonial7_slide w-slide">
+              <div class="testimonial7_content">
+                <p class="course-testimonial-text">“Dù bọn mình chỉ ôn lớp này trong 3 ngày nhưng đã đạt được huy chương bạc ở vòng thi chung kết với 27 đội tham gia, cao hơn những gì bọn mình kỳ vọng ban đầu. Tụi mình muốn cảm ơn các anh chị mentor đã mang tới lớp học này cũng như đã hỗ trợ tụi mình hết mức khi tụi mình có câu hỏi để đạt được kết quả như vậy.” </p>
+                <div class="spacer-small"></div>
+                <div class="margin-top">
+                  <div class="testimonial7_client">
+                    <div class="course-testimonials-wrapper"><Image src={blankAvatar} alt="" width={80} densities={[1, 2]} class="course-testimonials" /></div>
+                    <div class="text-weight-semibold">Châu Phúc Khang</div>
+                    <div>Học sinh, Trường Phổ thông Năng khiếu, ĐHQG-HCM <br>Học viên Khóa AI Bootcamp (Tập huấn AI)</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="testimonial7_slide w-slide">
+              <div class="testimonial7_content">
+                <p class="course-testimonial-text">“Khóa học thật sự rất thú vị, có lúc khá thử thách, nhưng cũng giúp mình hiểu rõ hơn về cách những mô hình AI này hoạt động “đằng sau hậu trường”. Phần thực hành bằng Python là điểm mình thích nhất - vừa học vừa làm, vừa thấy kiến thức dần “vỡ” ra.” </p>
+                <div class="spacer-small"></div>
+                <div class="margin-top">
+                  <div class="testimonial7_client">
+                    <div class="course-testimonials-wrapper"><Image src={blankAvatar} alt="" width={80} densities={[1, 2]} class="course-testimonials" /></div>
+                    <div class="text-weight-semibold">Võ Hoàng Nhật Khang</div>
+                    <div>Nghiên cứu sinh tiến sĩ (Học bổng toàn phần), Đại học Trí tuệ Nhân tạo Mohamed bin Zayed, UAE <br>Học viên Khóa Generative AI (AI Tạo sinh)<br></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="testimonial7_slide w-slide">
+              <div class="testimonial7_content">
+                <p class="course-testimonial-text">“Các bài giảng trong khóa học được thiết kế khá hợp lý và dễ hiểu. Mỗi bài giảng đều cung cấp đầy đủ kiến thức cơ bản và có sự liên kết chặt chẽ giữa các chủ đề, giúp học sinh dễ dàng tiếp thu. Mình rất trân trọng sự tận tâm của các mentor trong việc truyền đạt và giải thích các vấn đề phức tạp một cách dễ hiểu, tạo điều kiện cho học sinh có thể nắm vững kiến thức.”</p>
+                <div class="spacer-small"></div>
+                <div class="margin-top">
+                  <div class="testimonial7_client">
+                    <div class="course-testimonials-wrapper"><Image src={blankAvatar} alt="" width={80} densities={[1, 2]} class="course-testimonials" /></div>
+                    <div class="text-weight-semibold">Phạm Nguyễn Trung Nghĩa</div>
+                    <div>Giáo viên tự do<br>Học viên Khóa Mathematical Modeling (Mô hình hóa Toán học)<br></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Slider>
+          <div class="spacer-medium"></div>
+          <div class="button-group is-center">
+            <a href="https://forms.gle/3jbtvwKpNeJF1BMz8" class="button is-lime is-black w-button">Liên hệ đăng ký</a>
+          </div>
+          <div class="spacer-medium"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<ContactSection />
