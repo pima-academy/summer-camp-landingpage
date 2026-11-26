@@ -1,0 +1,606 @@
+---
+/*
+  CourseDetail: the whole body of the gap page /detail-course/
+  (src/gap-pages/detail-course.astro), the old site's Webflow CMS template of one
+  course: cover image, title and summary (empty, `hidden` bindings), "Giới thiệu",
+  "Nội dung khóa học" with two numbered features and a panel of four details, the
+  mentor lists, a partner image, a slider of student quotes and a sign-up button.
+  Placeholder text, sample mentors and quotes are kept as they were, as a template
+  for future courses. Replaces the old `section_course-detail` markup
+  (`course-*`, `layout243_*`, `layout60_*`, `team3_*`, `gallery1_*`, `testimonial7_*`).
+
+  Both image lightboxes were empty on the old site: inline content gaps whose
+  fallback keeps the box without the click.
+*/
+import { Image } from "astro:assets";
+import Section from "../../components/Section.astro";
+import Button from "../../components/Button.astro";
+import ContentGap from "../../components/ContentGap.astro";
+import Slider from "../../components/Slider.astro";
+import { fluidWidths } from "../../lib/image-widths";
+import cover from "../../assets/images/dan-cristian-padure-h3kuhyuce9a-unsplash.avif";
+import partner from "../../assets/images/partner-logo-04-big.avif";
+import { advisors, courseQuotes, headMentors, mentors } from "./course-detail";
+
+// The cover and partner images are empty bindings (`hidden`) and load lazily, so they are
+// never fetched. `sizes` is the content column (60rem): 351/738/960 px at 390/820/1440;
+// the partner image's grid cell is at most that wide.
+const coverSizes = "(max-width: 1066px) 90vw, 960px";
+const partnerSizes = coverSizes;
+
+// The three mentor lists. Kept from the old markup: the head mentor list has an empty
+// second cell (a spacer that adds a gap below it on one column) and is followed by an
+// unbound CMS list; "Cố vấn học thuật" follows that list with no space above it.
+const mentorGroups = [
+  { title: "Head Mentor(s)", people: headMentors, spaced: true, filler: true, cmsList: true },
+  { title: "Cố vấn học thuật", people: advisors, spaced: false, filler: false, cmsList: false },
+  { title: "Mentor(s)", people: mentors, spaced: true, filler: false, cmsList: false },
+];
+---
+
+<Section name="course-detail" width="large" spacing="medium" animate id="course1" class="surface">
+  <div class="course">
+    <ContentGap name="detail-course: cover image lightbox" inline>
+      <a href="#" class="cover-box" hidden>
+        <div class="cover-frame"><Image src={cover} alt="" widths={fluidWidths(cover)} sizes={coverSizes} class="cover-img" hidden /></div>
+      </a>
+      <Fragment slot="fallback">
+        <div class="cover-box" hidden>
+          <div class="cover-frame"><Image src={cover} alt="" widths={fluidWidths(cover)} sizes={coverSizes} class="cover-img" hidden /></div>
+        </div>
+      </Fragment>
+    </ContentGap>
+    <div>
+      <h2 class="course-title" hidden></h2>
+      <p class="summary" hidden></p>
+    </div>
+
+    <div class="part">
+      <h3>Giới thiệu</h3>
+      <div hidden></div>
+    </div>
+
+    <div class="part">
+      <h3>Nội dung khóa học</h3>
+      <div class="list">
+        <div class="features">
+          <div class="feature">
+            <div class="step">1</div>
+            <div>
+              <h4 class="feature-title"><strong>Triển khai thuật toán (Implementation)</strong></h4>
+              <p>Thay vì sử dụng các thư viện có sẵn, học viên được hướng dẫn xây dựng lại các thành phần cốt lõi của mô hình, từ kiến thức căn bản như Backpropagation, Self-Attention cho đến Beam Search bằng PyTorch. Cách tiếp cận này giúp học viên nắm bắt bản chất vận hành của các mô hình một cách toàn diện.</p>
+            </div>
+          </div>
+          <div class="feature">
+            <div class="step">2</div>
+            <div>
+              <h4 class="feature-title"><strong>Nền tảng Toán học (Mathematics)</strong></h4>
+              <p>Tiếp cận các hiện tượng bất định thông qua lý thuyết xác suất và phương trình vi phân.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="part">
+      <div class="details">
+        <div class="detail">
+          <div class="detail-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10s10-4.486 10-10S17.514 2 12 2m0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8s8 3.589 8 8s-3.589 8-8 8"></path>
+              <path fill="currentColor" d="M13 7h-2v6h6v-2h-4z"></path>
+            </svg>
+          </div>
+          <div>
+            <div class="detail-label">Thời gian</div>
+            <p hidden></p>
+          </div>
+        </div>
+        <div class="detail">
+          <div class="detail-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M12 6c-3.309 0-6 2.691-6 6s2.691 6 6 6s6-2.691 6-6s-2.691-6-6-6m0 10c-2.206 0-4-1.794-4-4s1.794-4 4-4s4 1.794 4 4s-1.794 4-4 4"></path>
+              <path fill="currentColor" d="M12 2C6.579 2 2 6.579 2 12s4.579 10 10 10s10-4.579 10-10S17.421 2 12 2m0 18c-4.337 0-8-3.663-8-8s3.663-8 8-8s8 3.663 8 8s-3.663 8-8 8"></path>
+              <path fill="currentColor" d="M12 10c-1.081 0-2 .919-2 2s.919 2 2 2s2-.919 2-2s-.919-2-2-2"></path>
+            </svg>
+          </div>
+          <div>
+            <div class="detail-label">Hình thức</div>
+            <p hidden></p>
+          </div>
+        </div>
+        <div class="detail">
+          <div class="detail-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M3.102 20.898c.698.699 1.696 1.068 2.887 1.068c1.742 0 3.855-.778 6.012-2.127c2.156 1.35 4.27 2.127 6.012 2.127c1.19 0 2.188-.369 2.887-1.068c1.269-1.269 1.411-3.413.401-6.039c-.358-.932-.854-1.895-1.457-2.859a17 17 0 0 0 1.457-2.859c1.01-2.626.867-4.771-.401-6.039c-.698-.699-1.696-1.068-2.887-1.068c-1.742 0-3.855.778-6.012 2.127c-2.156-1.35-4.27-2.127-6.012-2.127c-1.19 0-2.188.369-2.887 1.068C1.833 4.371 1.69 6.515 2.7 9.141c.359.932.854 1.895 1.457 2.859A17 17 0 0 0 2.7 14.859c-1.01 2.626-.867 4.77.402 6.039m16.331-5.321c.689 1.79.708 3.251.052 3.907c-.32.32-.815.482-1.473.482c-1.167 0-2.646-.503-4.208-1.38a26.6 26.6 0 0 0 4.783-4.784c.336.601.623 1.196.846 1.775M12 17.417a23.6 23.6 0 0 1-2.934-2.483A24 24 0 0 1 6.566 12A23.7 23.7 0 0 1 12 6.583a23.6 23.6 0 0 1 2.934 2.483a24 24 0 0 1 2.5 2.934A23.7 23.7 0 0 1 12 17.417m6.012-13.383c.657 0 1.152.162 1.473.482c.656.656.638 2.117-.052 3.907c-.223.579-.51 1.174-.846 1.775a26.5 26.5 0 0 0-4.783-4.784c1.562-.876 3.041-1.38 4.208-1.38M4.567 8.423c-.689-1.79-.708-3.251-.052-3.907c.32-.32.815-.482 1.473-.482c1.167 0 2.646.503 4.208 1.38a26.5 26.5 0 0 0-4.783 4.784a14 14 0 0 1-.846-1.775m0 7.154c.223-.579.51-1.174.846-1.775a26.5 26.5 0 0 0 4.783 4.784c-1.563.877-3.041 1.38-4.208 1.38c-.657 0-1.152-.162-1.473-.482c-.656-.656-.637-2.117.052-3.907"></path>
+              <circle cx="12" cy="12" r="2.574" fill="currentColor"></circle>
+            </svg>
+          </div>
+          <div>
+            <div class="detail-label">Yêu cầu kiến thức nền</div>
+            <p hidden></p>
+          </div>
+        </div>
+        <div class="detail">
+          <div class="detail-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10s10-4.486 10-10S17.514 2 12 2M4 12c0-.899.156-1.762.431-2.569L6 11l2 2v2l2 2l1 1v1.931C7.061 19.436 4 16.072 4 12m14.33 4.873C17.677 16.347 16.687 16 16 16v-1a2 2 0 0 0-2-2h-4v-3a2 2 0 0 0 2-2V7h1a2 2 0 0 0 2-2v-.411C17.928 5.778 20 8.65 20 12a7.95 7.95 0 0 1-1.67 4.873"></path>
+            </svg>
+          </div>
+          <div>
+            <div class="detail-label">Ngôn ngữ</div>
+            <p hidden></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {
+      mentorGroups.map((group) => (
+        <div class="group" data-spaced={group.spaced ? "" : undefined}>
+          <h3>{group.title}</h3>
+          <div class="list">
+            <div class="mentors">
+              {group.people.map((person) => (
+                <div>
+                  <Image src={person.photo} alt={`Ảnh đại diện của ${person.name}`} width={64} densities={[1, 2]} class="mentor-photo" />
+                  <div class="mentor-name">{person.strong ? <strong>{person.name}</strong> : person.name}</div>
+                  <div class="mentor-line">
+                    <div class="mentor-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                        <path d="M7.5 6.5C7.5 8.981 9.519 11 12 11s4.5-2.019 4.5-4.5S14.481 2 12 2S7.5 4.019 7.5 6.5zM20 21h1v-1c0-3.859-3.141-7-7-7h-4c-3.86 0-7 3.141-7 7v1h17z" fill="currentColor" />
+                      </svg>
+                    </div>
+                    <div class="mentor-text">{person.role}</div>
+                  </div>
+                  <div class="mentor-line">
+                    <div class="mentor-icon">
+                      <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
+                        <path d="M2 7v1l11 4l9-4V7L11 4z" fill="currentColor" />
+                        <path d="M4 11v4.267c0 1.621 4.001 3.893 9 3.734c4-.126 6.586-1.972 7-3.467c.024-.089.037-.178.037-.268V11L13 14l-5-1.667v3.213l-1-.364V12l-3-1z" fill="currentColor" />
+                      </svg>
+                    </div>
+                    <div class="mentor-text">{person.school}</div>
+                  </div>
+                </div>
+              ))}
+              {group.filler && <div class="filler" />}
+            </div>
+          </div>
+          {group.cmsList && (
+            <div>
+              <div role="list">
+                <div role="listitem">
+                  <div>This is some text inside of a div block.</div>
+                </div>
+              </div>
+              <div class="empty">
+                <div>No items found.</div>
+                <div>This is some text inside of a div block.</div>
+              </div>
+            </div>
+          )}
+        </div>
+      ))
+    }
+
+    <div class="partners">
+      <div>
+        <div class="partner-grid">
+          <ContentGap name="detail-course: partner image lightbox" inline>
+            <a href="#" class="cover-box">
+              <div class="cover-frame"><Image src={partner} alt="" widths={fluidWidths(partner)} sizes={partnerSizes} class="partner-img" hidden /></div>
+            </a>
+            <Fragment slot="fallback">
+              <div class="cover-box">
+                <div class="cover-frame"><Image src={partner} alt="" widths={fluidWidths(partner)} sizes={partnerSizes} class="partner-img" hidden /></div>
+              </div>
+            </Fragment>
+          </ContentGap>
+        </div>
+      </div>
+    </div>
+
+    <h3>Chia sẻ từ học viên</h3>
+    <div class="quotes">
+      <Slider layout="single" arrowStyle="plain" autoplay={4000} infinite label="Chia sẻ từ học viên">
+        {
+          courseQuotes.map((item) => (
+            <div>
+              <div class="quote-card">
+                <p class="quote">{item.quote}</p>
+                <div class="client">
+                  <div class="client-photo-box">
+                    <Image src={item.photo} alt="" width={80} densities={[1, 2]} class="client-photo" />
+                  </div>
+                  <div class="client-name">{item.name}</div>
+                  <div>
+                    {item.role.map((line, i) => (
+                      <>
+                        {i > 0 && <br />}
+                        {line}
+                      </>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </Slider>
+    </div>
+
+    <div class="actions">
+      <Button href="https://forms.gle/3jbtvwKpNeJF1BMz8" variant="black">Liên hệ đăng ký</Button>
+    </div>
+  </div>
+</Section>
+
+<style>
+  .surface {
+    background-color: var(--color-background-surface);
+  }
+
+  .course {
+    width: 100%;
+    max-width: 60rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* The cover and partner image boxes (old `course-description-cover`). */
+  .cover-box {
+    display: inline-block;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    overflow: clip;
+    border-radius: var(--radius-panel);
+  }
+
+  .cover-frame {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .cover-img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 3.5;
+    object-fit: cover;
+  }
+
+  .course-title {
+    font-size: var(--font-size-heading-style-h3);
+    font-weight: var(--font-weight-heading-style);
+    line-height: var(--line-height-heading-style-h3);
+    text-align: left;
+  }
+
+  .summary {
+    margin-bottom: 1rem;
+    color: var(--color-text-strong);
+    font-style: italic;
+    text-align: left;
+  }
+
+  /* A block after a medium space (old `spacer-medium`). */
+  .part,
+  .group[data-spaced],
+  .quotes {
+    padding-top: 2rem;
+  }
+
+  /* The list under a heading, after a small space (old `spacer-small`). */
+  .list {
+    padding-top: 1rem;
+  }
+
+  .features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    grid-auto-columns: 1fr;
+    place-items: start;
+    gap: 4rem 3rem;
+  }
+
+  .feature {
+    display: flex;
+    justify-content: flex-start;
+    align-items: stretch;
+    align-self: start;
+    gap: 1.5rem;
+    width: 100%;
+    padding: 1rem 0.5rem;
+  }
+
+  .step {
+    flex: none;
+    align-self: flex-start;
+    padding-top: 1rem;
+    color: var(--color-text-accent);
+    font-size: var(--font-size-course-step-number);
+    font-weight: var(--font-weight-bold);
+  }
+
+  .feature-title {
+    margin-top: 0.125rem;
+    font-size: var(--font-size-course-feature-title);
+    font-weight: var(--font-weight-bold);
+  }
+
+  .details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    grid-auto-columns: 1fr;
+    gap: 2rem;
+    padding: 2rem 4rem;
+    overflow: clip;
+    border-radius: var(--radius-panel);
+    background-color: var(--color-background);
+  }
+
+  .detail {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .detail-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 5rem;
+    height: 5rem;
+    margin-bottom: 0.5rem;
+    border-radius: var(--radius-gallery-image);
+    background-color: var(--color-background-lime);
+    color: var(--color-text-dark-green);
+    text-align: center;
+  }
+
+  .detail-icon svg {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .detail-label {
+    margin-bottom: 0.5rem;
+    font-weight: var(--font-weight-extrabold);
+  }
+
+  .mentors {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    grid-auto-columns: 1fr;
+    gap: 4rem 2rem;
+  }
+
+  .mentor-photo {
+    width: 4rem;
+    min-width: 4rem;
+    max-width: 100%;
+    height: 4rem;
+    min-height: 4rem;
+    margin-bottom: 0.5rem;
+    overflow: clip;
+    border-radius: var(--radius-circle);
+    object-fit: cover;
+  }
+
+  .mentor-name {
+    padding-top: 0.25rem;
+    font-size: var(--font-size-course-mentor-name);
+    font-weight: var(--font-weight-bold);
+  }
+
+  .mentor-line {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .mentor-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 1rem;
+    min-width: 1rem;
+    height: 1rem;
+    min-height: 1rem;
+    margin-top: 0.25rem;
+    color: var(--color-text-accent);
+  }
+
+  .mentor-text {
+    font-size: var(--font-size-course-mentor-title);
+    font-weight: var(--font-weight-medium);
+  }
+
+  /* An empty grid cell kept from the old markup (a spacer): on one column it adds a gap. */
+  .filler {
+    width: 100%;
+    padding-top: 2rem;
+  }
+
+  /* An empty Webflow CMS list, kept from the old site; dev only like the whole gap page. */
+  .empty {
+    padding: 10px;
+    background-color: var(--color-background-cms-empty);
+  }
+
+  /* The partner image row, after a medium and a small space. */
+  .partners {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    grid-auto-columns: 1fr;
+    place-items: center;
+    gap: 3rem;
+    padding-top: 3rem;
+  }
+
+  .partner-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    grid-auto-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .partner-img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: fill;
+  }
+
+  .quote-card {
+    max-width: 48rem;
+    height: 100%;
+    max-height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  .quote {
+    font-size: var(--font-size-course-testimonial);
+  }
+
+  .client {
+    padding-top: 1rem;
+  }
+
+  .client-photo-box {
+    margin-bottom: 1rem;
+  }
+
+  .client-photo {
+    width: 5rem;
+    min-width: 5rem;
+    height: 5rem;
+    min-height: 5rem;
+    overflow: clip;
+    border-radius: var(--radius-circle);
+    object-fit: cover;
+  }
+
+  .client-name {
+    color: var(--color-text-accent-alt);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-self: stretch;
+    align-items: center;
+    gap: 0.5rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  @media screen and (max-width: 991px) {
+    .part,
+    .group[data-spaced],
+    .quotes,
+    .filler {
+      padding-top: 1.5rem;
+    }
+
+    .features {
+      column-gap: 2rem;
+    }
+
+    .partners {
+      padding-top: 2.5rem;
+    }
+
+    .actions {
+      padding-top: 1.5rem;
+      padding-bottom: 1.5rem;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .part,
+    .group[data-spaced],
+    .quotes,
+    .filler {
+      padding-top: 1.25rem;
+    }
+
+    .features {
+      grid-template-columns: 1fr;
+      row-gap: 3rem;
+    }
+
+    .mentors {
+      grid-template-columns: 1fr;
+      row-gap: 3rem;
+    }
+
+    .partners {
+      padding-top: 2.25rem;
+    }
+
+    .partner-grid {
+      gap: 1.5rem;
+    }
+
+    .actions {
+      padding-top: 1.25rem;
+      padding-bottom: 1.25rem;
+    }
+  }
+
+  @media screen and (max-width: 479px) {
+    .features {
+      grid-template-columns: 1fr;
+    }
+
+    .details {
+      grid-template-columns: 1fr;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+
+    .detail-icon {
+      width: 3rem;
+      height: 3rem;
+    }
+
+    .detail-icon svg {
+      width: 2rem;
+    }
+
+    .partners {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .cover-box {
+      border-radius: var(--radius-course-cover-mobile);
+    }
+
+    .actions {
+      flex-direction: column;
+      align-items: stretch;
+      width: 100%;
+    }
+  }
+
+  /* Empty CMS bindings (old `w-dyn-bind-empty`); after the rules above so it wins. */
+  [hidden] {
+    display: none;
+  }
+</style>

@@ -3,7 +3,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { existsSync, readdirSync, readFileSync } from "node:fs";
-import { basename, extname, join, relative } from "node:path";
+import { basename, extname, join, relative, sep } from "node:path";
 import { dist, distSkip as skip, root, walk } from "./test-lib.mjs";
 
 const gapPages = join(root, "src/gap-pages");
@@ -42,7 +42,10 @@ test("gap pages are only reachable through the dev route", () => {
   }
 });
 
-// Asset files imported by gap pages and by nothing else under src/.
+// Asset files imported by gap pages (or by their sections in src/sections/<gap slug>/) and by
+// nothing else under src/.
+const gapSections = gapSlugs.map((slug) => join(root, "src/sections", slug) + sep);
+const isGapFile = (f) => f.startsWith(gapPages) || gapSections.some((dir) => f.startsWith(dir));
 const assetImports = (files) =>
   new Set(
     files.flatMap((f) =>
@@ -50,8 +53,8 @@ const assetImports = (files) =>
     ),
   );
 const srcFiles = walk(join(root, "src")).filter((f) => /\.(astro|ts|mjs|js)$/.test(f));
-const usedOutsideGaps = assetImports(srcFiles.filter((f) => !f.startsWith(gapPages)));
-const gapOnlyAssets = [...assetImports(srcFiles.filter((f) => f.startsWith(gapPages)))].filter(
+const usedOutsideGaps = assetImports(srcFiles.filter((f) => !isGapFile(f)));
+const gapOnlyAssets = [...assetImports(srcFiles.filter(isGapFile))].filter(
   (name) => !usedOutsideGaps.has(name),
 );
 
