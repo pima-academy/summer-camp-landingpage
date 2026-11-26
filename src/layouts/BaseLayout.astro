@@ -1,0 +1,76 @@
+---
+import type { ImageMetadata } from "astro";
+import { getImage } from "astro:assets";
+import logo from "../assets/images/logo-horizontal.png";
+import "../styles/global.css";
+
+interface Props {
+  /** Page <title> and og:title. */
+  title: string;
+  /** Meta description and og:description. */
+  description: string;
+  /** The page's hero photo, used for og:image (1200 px wide JPEG). Without it: the logo as a 1200 px PNG. */
+  hero?: ImageMetadata;
+  /** "site": standard Nav + Footer. "camp": no Nav, camp Footer (2025/2026 pages). */
+  chrome?: "site" | "camp";
+}
+
+const { title, description, hero, chrome = "site" } = Astro.props;
+
+const site = Astro.site ?? new URL("https://pimavn.com");
+const canonical = new URL(Astro.url.pathname, site).href;
+
+// Width only, so the image keeps its aspect ratio (no crop). Capped at the
+// source width: the image service never upscales, and og:image:width must match.
+const ogSrc = hero ?? logo;
+const og = await getImage({
+  src: ogSrc,
+  width: Math.min(1200, ogSrc.width),
+  format: hero ? "jpg" : "png",
+});
+const ogImage = new URL(og.src, site).href;
+---
+
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="vi_VN" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content={String(og.attributes.width)} />
+    <meta property="og:image:height" content={String(og.attributes.height)} />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="apple-touch-icon" href="/webclip.png" />
+    {
+      /*
+        JS-ready class: this script adds `js-ready` to <html> before first paint.
+        Decorative animations (animations.css) hide their start state only under
+        `html.js-ready`, so all content stays visible without JS. The fade-up
+        IntersectionObserver script (animations ticket) goes in this layout too.
+      */
+    }
+    <script is:inline>
+      document.documentElement.classList.add("js-ready");
+    </script>
+  </head>
+  <body>
+    {
+      chrome === "site" && (
+        // TODO(#21): replace with <Nav /> (site chrome only).
+        <Fragment />
+      )
+    }
+    <main>
+      <slot />
+    </main>
+    {/* TODO(#21): <Footer variant={chrome} /> goes here. */}
+  </body>
+</html>

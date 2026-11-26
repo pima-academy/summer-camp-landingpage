@@ -1,14 +1,12 @@
 ---
-// Placeholder so the build passes; replaced by the home page ticket.
+// Minimal page to see the frame; replaced by the home page ticket (#31).
+import BaseLayout from "../layouts/BaseLayout.astro";
+import BrandName from "../components/BrandName.astro";
 ---
 
-<html lang="vi">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>PiMA Academy</title>
-  </head>
-  <body>
-    <main></main>
-  </body>
-</html>
+<BaseLayout
+  title="PiMA Academy - Trang chủ"
+  description="Học viện Toán học và Ứng dụng PiMA: khóa học và trại hè toán học."
+>
+  <div class="text-style-allcaps">Học viện Toán học và Ứng dụng <BrandName /></div>
+</BaseLayout>
