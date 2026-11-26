@@ -652,7 +652,7 @@ const apply = "https://qual.pimavn.com/apply";
             src={pimaTeam}
             alt="Đội ngũ PiMA trong áo đồng phục"
             widths={fluidWidths(pimaTeam)}
-            sizes="(max-width: 767px) 82vw, 49vw"
+            sizes="(max-width: 479px) 82vw, (max-width: 2085px) 49vw, 1022px"
             loading="eager"
             class="team-image"
           />
@@ -661,3 +661,22 @@ const apply = "https://qual.pimavn.com/apply";
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  /* The old <img> had no width attribute, so its width came from Webflow's `sizes`
+     (100vw / 49vw / 1022px, capped by max-width: 100%): 319 / 402 / 706 px at
+     390 / 820 / 1440. <Image> sets width="1022"; this keeps the old width. */
+  .div-block-12 :global(.team-image) {
+    width: 49vw;
+  }
+  @media (max-width: 479px) {
+    .div-block-12 :global(.team-image) {
+      width: 100vw;
+    }
+  }
+  @media (min-width: 2086px) {
+    .div-block-12 :global(.team-image) {
+      width: 1022px;
+    }
+  }
+</style>
