@@ -33,7 +33,7 @@ src/
   components/       Nav, Footer, shared sections, scripted parts (Slider, Accordion, ...), ContentGap
   data/site.ts      site-wide facts: contact details, social links, nav and footer links, form endpoint
   assets/images/    every image used in markup (rendered with astro:assets as WebP)
-  styles/           the old Webflow CSS (pruned) and animations.css
+  styles/           global CSS: fonts.css, tokens.css (every design value), base.css, animations.css
 public/             favicon, webclip, robots.txt
 apps-script/        Code.gs, the contact form backend (Google Apps Script)
 scripts/            tests and the screenshot script
