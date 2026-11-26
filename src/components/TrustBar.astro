@@ -32,3 +32,11 @@ const claims = [
     </div>
   </div>
 </div>
+
+<style>
+  /* The old ellipse <img> had no height attribute and stretched to the text's line box with
+     the dot centred; Astro sets height="8", so centre the 8 px box instead (same position). */
+  .section_trust-bar_dark-green :global(.trust-bar_text-wrapper img) {
+    align-self: center;
+  }
+</style>
