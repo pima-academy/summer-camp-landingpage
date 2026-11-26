@@ -289,3 +289,9 @@
     --font-size-heading-style-h6: 14px;
   }
 }
+
+/* home (#66): tokens used only by the home page sections (src/sections/home/). */
+:root {
+  /* Background of the "No items found." line in the dev-only content gaps (old `.w-dyn-empty`). */
+  --color-background-empty-list: #dddddd;
+}
