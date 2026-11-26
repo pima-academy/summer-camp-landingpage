@@ -6,7 +6,7 @@ import Section from "../../components/Section.astro";
 import { social } from "../../data/site";
 ---
 
-<Section name="social-links" spacing="none" animate class="social">
+<Section name="social-links" spacing="none" animate>
   <div class="frame">
     <div class="box">
       <h2 class="heading">Kết nối với chúng tôi qua</h2>
@@ -42,10 +42,6 @@ import { social } from "../../data/site";
 </Section>
 
 <style>
-  .social {
-    background-color: var(--color-background);
-  }
-
   /* The old band (1rem) plus the old card frame (1rem 4rem 2rem). */
   .frame {
     padding: 2rem 4rem 3rem;
@@ -83,14 +79,14 @@ import { social } from "../../data/site";
     min-height: 44px;
     padding-left: 20px;
     padding-right: 20px;
-    border: 1px solid var(--color-border-social);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-pill-form);
     background-color: transparent;
     color: var(--color-text-muted);
   }
 
   .pill:hover {
-    color: var(--color-text-social-hover);
+    color: var(--color-text);
   }
 
   .glyph {
@@ -105,15 +101,15 @@ import { social } from "../../data/site";
   .facebook {
     min-width: 2px;
     min-height: 2px;
-    color: var(--color-icon-facebook);
+    color: var(--color-icon-decorative);
   }
 
   .linkedin {
-    color: var(--color-icon-linkedin);
+    color: var(--color-icon-decorative);
   }
 
   .youtube {
-    color: var(--color-icon-youtube);
+    color: var(--color-icon-decorative);
   }
 
   .text {

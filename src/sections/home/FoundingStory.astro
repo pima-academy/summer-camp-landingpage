@@ -1,5 +1,5 @@
 ---
-// FoundingStory: "Câu chuyện nhà sáng lập", a dark green panel with a short text, a link to
+// FoundingStory: "Câu chuyện nhà sáng lập", a dark green panel (the dark-green tone on a card) with a short text, a link to
 // ve-chung-toi and the founder's photo. Used by index only (old `section_founding-story`).
 // Fades up on scroll.
 import { Image } from "astro:assets";
@@ -9,7 +9,7 @@ import Section from "../../components/Section.astro";
 ---
 
 <Section name="founding-story" width="medium" spacing="medium" animate>
-  <div class="panel">
+  <div class="panel" data-tone="dark-green">
     <div class="story">
       <!-- Not a Kicker: lime, regular weight, h4 size (old `h4 text-style-lime text-style-allcaps`). -->
       <p class="eyebrow">Câu chuyện nhà sáng lập</p>
@@ -19,7 +19,7 @@ import Section from "../../components/Section.astro";
         đối tác có chung sứ mệnh: nâng cao chất lượng giáo dục và ứng dụng Toán học vào thực tiễn.
       </p>
       <div class="actions">
-        <Button href="/ve-chung-toi/" variant="lime" target="_blank">Câu chuyện về PiMA</Button>
+        <Button href="/ve-chung-toi/" variant="on-dark" target="_blank">Câu chuyện về PiMA</Button>
       </div>
     </div>
     <div>
@@ -37,7 +37,6 @@ import Section from "../../components/Section.astro";
     place-items: center;
     padding: 2rem;
     border-radius: var(--radius-panel);
-    background-color: var(--color-background-founding-story);
   }
 
   .story {
@@ -49,7 +48,7 @@ import Section from "../../components/Section.astro";
   .eyebrow {
     margin-top: 10px;
     margin-bottom: 0.5em;
-    color: var(--color-text-lime);
+    color: var(--color-text-accent);
     font-size: var(--font-size-h4);
     font-weight: var(--font-weight-h4);
     line-height: var(--line-height-h4);
@@ -60,12 +59,11 @@ import Section from "../../components/Section.astro";
   .heading {
     margin-top: 0;
     margin-bottom: 1rem;
-    color: var(--color-text-inverse);
   }
 
   .lead {
     margin-bottom: 1rem;
-    color: var(--color-text-on-dark-muted);
+    color: var(--color-text);
   }
 
   /* Old `.button-group`, 1rem below the text. */

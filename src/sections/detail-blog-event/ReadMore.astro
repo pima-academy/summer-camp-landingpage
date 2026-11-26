@@ -11,7 +11,7 @@ import Section from "../../components/Section.astro";
 import cardPlaceholder from "../../assets/images/placeholder-image-landscape.svg";
 ---
 
-<Section name="read-more" width="small" spacing="small" class="surface">
+<Section name="read-more" width="small" spacing="small" tone="surface">
   <h2 class="heading">Đọc thêm</h2>
   <div>
     <div role="list" class="cards">
@@ -46,10 +46,6 @@ import cardPlaceholder from "../../assets/images/placeholder-image-landscape.svg
 </Section>
 
 <style>
-  .surface {
-    background-color: var(--color-background-surface);
-  }
-
   .heading {
     font-size: var(--font-size-heading-style-h4);
     font-weight: var(--font-weight-heading-style);
@@ -100,8 +96,8 @@ import cardPlaceholder from "../../assets/images/placeholder-image-landscape.svg
     padding: 0.15em 0.75em;
     border: 2px solid transparent;
     border-radius: var(--radius-pill);
-    background-color: var(--color-background-lime-light);
-    color: var(--color-text-strong);
+    background-color: var(--color-background-pale-lime);
+    color: var(--color-text);
     font-size: var(--font-size-tag);
     letter-spacing: 0.035em;
     text-transform: uppercase;
@@ -109,7 +105,7 @@ import cardPlaceholder from "../../assets/images/placeholder-image-landscape.svg
 
   .card-title {
     margin-bottom: 0.25rem;
-    color: var(--color-text-strong);
+    color: var(--color-text);
     font-size: var(--font-size-blog-event-heading);
     font-weight: var(--font-weight-semibold);
   }
@@ -131,10 +127,10 @@ import cardPlaceholder from "../../assets/images/placeholder-image-landscape.svg
     margin-left: 10px;
     margin-right: 10px;
     padding: 9px 20px;
-    border: 1px solid var(--color-border-pagination);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-pill-form);
-    background-color: var(--color-background-surface-light);
-    color: var(--color-text-pagination);
+    background-color: var(--color-background);
+    color: var(--color-text);
     font-size: var(--font-size-pagination);
   }
 

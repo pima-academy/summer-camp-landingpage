@@ -3,9 +3,10 @@
  * sizes, line heights, radii and shadows are written here once, named by role, and used everywhere
  * else as var(--…). scripts/guardrail.test.mjs fails on a literal value outside this file.
  *
- * The brand palette comes first. The role tokens after it still carry the refactor's values,
- * off-brand ones included; brand alignment changes them here. Two values that look alike stay
- * two tokens until then. Spacing stays literal for now.
+ * The brand palette comes first. Every colour role after it points at a palette token
+ * (scripts/brand.test.mjs checks); only the dev-only content-gap marker keeps its own colour.
+ * Type and radius roles still carry the refactor's values until their brand alignment. Spacing
+ * stays literal for now.
  *
  * Breakpoints (desktop-first, max-width; custom properties do not work in @media, so they are
  * written as literals wherever they are used):
@@ -17,7 +18,7 @@
 :root {
   /*
    * Brand palette: PiMA's colours by name (docs/brand.md says where each one goes). Components
-   * use the role tokens below, never these; brand alignment re-points the roles at them.
+   * use the role tokens below, never these.
    */
   /* Primary. PiMA Green is the one colour that carries the brand. */
   --pima-green: #50b448;
@@ -123,78 +124,74 @@
   --line-height-heading-style-h5: 1.5;
   --line-height-heading-style-h6: 1.5;
 
-  /* Text colours. */
-  --color-text: #262628;
-  --color-text-accent: #50b448;
-  --color-text-accent-alt: #05aa53;
-  --color-text-dark: #1f242f;
-  --color-text-dark-green: #2b5314;
-  --color-text-field: #333;
-  --color-text-field-placeholder: #999;
-  --color-text-inverse: white;
-  --color-text-lime: #d4e889;
-  --color-text-muted: #333741;
-  --color-text-on-dark-hover: #fafafa;
-  --color-text-on-dark-muted: #cecfd2;
-  --color-text-pagination: #333;
-  --color-text-secondary: #85888e;
-  --color-text-social-hover: #0c111d;
-  --color-text-strong: black;
-  --color-text-subheading: #61646c;
+  /*
+   * Colour roles. Each points at a brand palette colour; docs/brand.md lists the pairs that pass
+   * WCAG AA. The text, heading, accent, link and focus roles are the light-tone values: Section's
+   * `tone` (and `data-tone` on a card) re-points them on a dark green background.
+   */
+  /* Text on the white, surface and pale-lime tones. */
+  --color-text: var(--black);
+  --color-text-heading: var(--pima-dark-green);
+  --color-text-accent: var(--pima-dark-green);
+  --color-text-muted: var(--gray-1);
+  --color-text-placeholder: var(--gray-2);
+  /* Text on the dark-green tone and on dark fills. */
+  --color-text-on-dark: var(--white);
+  --color-text-on-dark-muted: var(--gray-4);
+  --color-text-on-dark-accent: var(--pima-pale-lime);
+  /* The footer, a black band. */
+  --color-text-footer: var(--gray-4);
+  --color-text-footer-heading: var(--pima-green);
+  --color-text-footer-hover: var(--white);
+  --color-icon-footer: var(--pima-green);
 
-  /* Link colours. */
-  --color-link: #50b448;
-  --color-link-hover: #4ca30d;
+  /* Links. */
+  --color-link: var(--pima-dark-green);
+  --color-link-hover: var(--black);
+  --color-link-on-dark: var(--pima-pale-lime);
+  --color-link-on-dark-hover: var(--white);
 
-  /* Icon colours (social icons keep their platform colours). */
-  --color-icon-facebook: #1877f2;
-  --color-icon-linkedin: #0a66c2;
-  --color-icon-on-inverse: #09ce65;
-  --color-icon-youtube: red;
+  /* Icons. A control's only label (hamburger, carets, arrows) needs 3:1; a decorative icon next
+     to text does not, so it may be PiMA Green on white. */
+  --color-icon-control: var(--pima-dark-green);
+  --color-icon-decorative: var(--pima-green);
 
-  /* Background colours of sections, cards and panels. */
-  --color-background: #fff;
-  --color-background-accent: #50b448;
-  --color-background-dark: #3b3b3b;
-  --color-background-dark-green: #2b5314;
+  /* Backgrounds: the four section tones, the footer, and green fills. */
+  --color-background: var(--white);
+  --color-background-surface: var(--gray-5);
+  --color-background-pale-lime: var(--pima-pale-lime);
+  --color-background-dark-green: var(--pima-dark-green);
+  --color-background-footer: var(--black);
+  --color-background-accent: var(--pima-green);
+  --color-background-form-error: var(--gray-5);
   /* The "No items found." box of a dev-only empty list (old `.w-dyn-empty`). */
-  --color-background-empty-list: #dddddd;
-  --color-background-form-error: #ffdede;
-  --color-background-founding-story: #326212;
-  --color-background-highlight-card: #fafef5;
-  --color-background-lime: #d4e889;
-  --color-background-lime-faint: #f7fbeb;
-  --color-background-lime-light: #e6f2bc;
-  --color-background-lime-pale: #f2f8db;
-  --color-background-muted: #f0f1f1;
-  --color-background-slider-dot: rgba(34, 34, 34, 0.4);
-  --color-background-slider-dot-current: #222;
-  --color-background-surface: #f5f5f6;
-  --color-background-surface-light: #fafafa;
+  --color-background-empty-list: var(--gray-4);
+  --color-background-slider-dot: var(--gray-2);
+  --color-background-slider-dot-current: var(--black);
 
-  /* Button fills. */
-  --color-button: #50b448;
-  --color-button-black: black;
-  --color-button-dark-green: #2b5314;
-  --color-button-hover: #4ca30d;
-  --color-button-lime: #d4e889;
+  /* Buttons (Button variants and the contact form's submit). */
+  --color-button-primary: var(--pima-green);
+  --color-button-primary-text: var(--black);
+  --color-button-primary-hover: var(--pima-dark-green);
+  --color-button-primary-hover-text: var(--white);
+  --color-button-secondary: var(--black);
+  --color-button-secondary-text: var(--white);
+  --color-button-on-dark: var(--pima-pale-lime);
+  --color-button-on-dark-text: var(--black);
 
   /* Overlays. */
-  --color-video-overlay: #00000080;
+  --color-video-overlay: color-mix(in srgb, var(--black) 50%, transparent);
 
-  /* Border colours. */
-  --color-border-field: #ccc;
-  --color-border-field-focus: #3898EC;
-  --color-border-footer: #61646c;
-  --color-border-highlight-card: #d0f8ab;
-  --color-border-lime: #d4e889;
-  --color-border-pagination: #ccc;
-  --color-border-social: #cecfd2;
-  --color-border-subtle: #ececed;
+  /* Borders. A form field's border is its outline, so it needs 3:1. */
+  --color-border: var(--gray-4);
+  --color-border-accent: var(--pima-pale-lime);
+  --color-border-field: var(--gray-2);
+  --color-border-field-focus: var(--pima-dark-green);
+  --color-border-footer: var(--gray-1);
 
   /* Focus outlines. */
-  --color-focus-outline: #50b448;
-  --color-focus-ring: #4d65ff;
+  --color-focus-ring: var(--pima-dark-green);
+  --color-focus-ring-on-dark: var(--pima-pale-lime);
 
   /* Corner radii. `--radius` is the brand's one radius; brand alignment moves the others to it. */
   --radius: 12px;
@@ -211,8 +208,8 @@
   --radius-slider-arrow: .25rem;
 
   /* Shadows. */
-  --shadow-dropdown: 0 4px 8px #0000001a;
-  --shadow-slider-dot-focus: 0px 0px 0px 2px #fff;
+  --shadow-dropdown: 0 4px 8px color-mix(in srgb, var(--black) 10%, transparent);
+  --shadow-slider-dot-focus: 0px 0px 0px 2px var(--white);
 
   /* The dev-only content-gap marker (ContentGap.astro); never in the production build. */
   --color-content-gap: #e5007e;

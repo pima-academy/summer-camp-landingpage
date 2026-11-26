@@ -8,7 +8,7 @@ import Section from "../../components/Section.astro";
 import BrandName from "../../components/BrandName.astro";
 ---
 
-<Section name="blog-header" spacing="large" animate class="band-lime">
+<Section name="blog-header" spacing="large" tone="surface" animate>
   <div class="eyebrow">
     <div class="tagline"><BrandName /> academy</div>
   </div>
@@ -16,10 +16,6 @@ import BrandName from "../../components/BrandName.astro";
 </Section>
 
 <style>
-  .band-lime {
-    background-color: var(--color-background-lime-pale);
-  }
-
   .eyebrow {
     margin-bottom: 0.5rem;
   }
@@ -33,7 +29,7 @@ import BrandName from "../../components/BrandName.astro";
   }
 
   .title {
-    color: var(--color-text-strong);
+    color: var(--color-text-heading);
     font-size: var(--font-size-heading-style-h1);
     font-weight: var(--font-weight-heading-style);
     line-height: var(--line-height-heading-style-h1);

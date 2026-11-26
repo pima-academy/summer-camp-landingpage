@@ -11,7 +11,7 @@ import { fluidWidths } from "../../lib/image-widths";
 import { campActivities } from "./camp-activities";
 ---
 
-<Section name="camp-activity" spacing="large" animate class="camp-activity">
+<Section name="camp-activity" spacing="large" tone="surface" animate>
   <div class="intro">
     <div class="text">
       <h2>Định hướng học thuật, phát triển toàn diện</h2>
@@ -44,10 +44,6 @@ import { campActivities } from "./camp-activities";
 </Section>
 
 <style>
-  .camp-activity {
-    background-color: var(--color-background-lime-light);
-  }
-
   /* The text takes two of three columns. */
   .intro {
     display: grid;
@@ -63,7 +59,7 @@ import { campActivities } from "./camp-activities";
 
   .lead {
     margin-bottom: 1rem;
-    color: var(--color-text-strong);
+    color: var(--color-text);
     text-align: left;
   }
 

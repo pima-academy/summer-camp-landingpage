@@ -9,7 +9,7 @@ import { fluidWidths } from "../../lib/image-widths";
 import contactIllustration from "../../assets/images/frame-28135.avif";
 ---
 
-<Section name="message-form" spacing="none" animate id="contact-form" class="message-band">
+<Section name="message-form" spacing="none" tone="pale-lime" animate id="contact-form">
   <div class="layout">
     <div class="illustration">
       {/* width 443 as the old attribute: it caps the illustration where the cell is wider. */}
@@ -30,10 +30,6 @@ import contactIllustration from "../../assets/images/frame-28135.avif";
 </Section>
 
 <style>
-  .message-band {
-    background-color: var(--color-background-lime-light);
-  }
-
   /* Five columns: the illustration takes two, the form three. */
   .layout {
     display: grid;

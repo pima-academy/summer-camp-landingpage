@@ -41,7 +41,7 @@ test("the primitives of ADR 0005 are marked as primitives", () => {
 });
 
 test("the variant scan reads Button's variants and Section's boolean prop", () => {
-  assert.ok(variantProps("Button").some(({ prop, values }) => prop === "variant" && values.includes("lime")));
+  assert.ok(variantProps("Button").some(({ prop, values }) => prop === "variant" && values.includes("primary")));
   assert.ok(booleanProps("Section").includes("animate"));
 });
 

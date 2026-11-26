@@ -7,7 +7,7 @@ import Section from "../components/Section.astro";
 import { testimonials } from "./testimonials";
 ---
 
-<Section name="testimonials" spacing="small" animate class="testimonials">
+<Section name="testimonials" spacing="small" tone="pale-lime" animate>
   <h2 class="title">Cảm nhận từ trại sinh và học viên</h2>
   <div class="cards">
     {
@@ -39,10 +39,6 @@ import { testimonials } from "./testimonials";
 </Section>
 
 <style>
-  .testimonials {
-    background-color: var(--color-background-lime-pale);
-  }
-
   .title {
     text-align: center;
   }
@@ -65,7 +61,7 @@ import { testimonials } from "./testimonials";
 
   .quote {
     margin-bottom: 1rem;
-    color: var(--color-text-strong);
+    color: var(--color-text);
   }
 
   .client {
@@ -87,7 +83,7 @@ import { testimonials } from "./testimonials";
   }
 
   .name {
-    color: var(--color-text-accent-alt);
+    color: var(--color-text-accent);
     font-weight: var(--font-weight-semibold);
   }
 

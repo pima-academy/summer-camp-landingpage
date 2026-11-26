@@ -12,14 +12,21 @@
             (medium adds 1rem side padding at ≤ 767 px, none at ≤ 479 px)
     spacing none 0 | small 3rem (2rem ≤ 767) | medium 5rem (4rem ≤ 991, 3rem ≤ 767)
             (default) | large 7rem (6rem ≤ 991, 4rem ≤ 767), top and bottom
+    tone    white (default) | surface | pale-lime | dark-green: the band's background and
+            the text, heading, accent, link and focus colours that pass WCAG AA on it
+            (docs/brand.md, "Sections, buttons and footer"). A section never sets its own
+            background. Inside the section, use the role tokens (--color-text,
+            --color-text-heading, --color-text-accent, --color-text-muted, --color-link): the
+            dark-green tone re-points them. A card inside a section takes a tone with the
+            same `data-tone` attribute (FoundingStory's founder card).
 
   `spacing="none"` is for sections whose content sets its own vertical padding.
 
-  The section's background (and anything else about the band) is set in the section
-  file's own CSS through `class`, which lands on the <section>:
+  Anything else about the band is set in the section file's own CSS through `class`, which
+  lands on the <section>:
 
-    <Section name="founding-story" spacing="medium" animate class="story">…</Section>
-    <style>.story { background-color: var(--color-background-dark-green); }</style>
+    <Section name="trust-bar" tone="dark-green" class="trust">…</Section>
+    <style>.trust { overflow: clip; }</style>
 
   `name` is the section file's name in kebab case (FoundingStory.astro → "founding-story");
   scripts/sections.test.mjs checks it. Tests find sections by `data-section`.
@@ -33,20 +40,69 @@ interface Props extends HTMLAttributes<"section"> {
   width?: "small" | "medium" | "large";
   /** Vertical padding of the content column. */
   spacing?: "none" | "small" | "medium" | "large";
+  /** Background and the passing text colours on it. */
+  tone?: "white" | "surface" | "pale-lime" | "dark-green";
   /** Fade the section up the first time it scrolls into view (src/lib/animate.ts). */
   animate?: boolean;
 }
 
-const { name, width = "medium", spacing = "medium", animate = false, class: className, ...attrs } = Astro.props;
+const {
+  name,
+  width = "medium",
+  spacing = "medium",
+  tone = "white",
+  animate = false,
+  class: className,
+  ...attrs
+} = Astro.props;
 ---
 
-<section data-section={name} data-animate={animate ? "fade-up" : undefined} class:list={["band", className]} {...attrs}>
+<section
+  data-section={name}
+  data-tone={tone}
+  data-animate={animate ? "fade-up" : undefined}
+  class:list={["band", className]}
+  {...attrs}
+>
   <div class="column" data-width={width} data-spacing={spacing}>
     <slot />
   </div>
 </section>
 
 <style>
+  /* Tones. Global so that a card inside a section can take one with data-tone. */
+  :global([data-tone]) {
+    color: var(--color-text);
+  }
+
+  /* The light tones keep the :root text roles. */
+  :global([data-tone="white"]) {
+    background-color: var(--color-background);
+  }
+
+  /* Surface tone (milestones). */
+  :global([data-tone="surface"]) {
+    background-color: var(--color-background-surface);
+  }
+
+  /* Pale-lime tone (philosophy, testimonials, contact). */
+  :global([data-tone="pale-lime"]) {
+    background-color: var(--color-background-pale-lime);
+  }
+
+  /* Dark-green tone (marquee, founder card): re-points the text roles for every descendant. */
+  :global([data-tone="dark-green"]) {
+    --color-text: var(--color-text-on-dark);
+    --color-text-heading: var(--color-text-on-dark);
+    --color-text-accent: var(--color-text-on-dark-accent);
+    --color-text-muted: var(--color-text-on-dark-muted);
+    --color-link: var(--color-link-on-dark);
+    --color-link-hover: var(--color-link-on-dark-hover);
+    --color-icon-control: var(--color-text-on-dark);
+    --color-focus-ring: var(--color-focus-ring-on-dark);
+    background-color: var(--color-background-dark-green);
+  }
+
   .band {
     padding-left: 5%;
     padding-right: 5%;

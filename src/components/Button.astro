@@ -4,27 +4,26 @@
   "Câu chuyện về PiMA"). Use it for every button-looking link; never restyle an <a>
   as a button in a section's CSS.
 
-  Variants (today's looks, copied from the old `.button` classes):
-    default     PiMA green pill, white text, darker green on hover      (old `button`)
-    lime        lime pill, black text                                    (old `button is-lime`)
-    dark-green  dark green pill, white text                              (old `button is-dark-green`)
-    black       black pill, white text                                   (old `button is-lime is-black`)
-    link        bold text and a green chevron, no pill; text colour      (old `button is-link is-icon is-green`)
-                comes from the parent
+  Variants, by role (docs/brand.md, "Sections, buttons and footer"):
+    primary    PiMA Green fill, black text; Dark Green fill, white text on hover. The default.
+               On the white, surface and pale-lime tones.
+    secondary  black fill, white text. On the white, surface and pale-lime tones.
+    on-dark    Pale Lime fill, black text. On the dark-green tone.
+    link       bold text and a chevron, no fill, both in the surrounding text colour
+               (`color` of the parent). Any tone.
 
-  Any other attribute (`target`, `class`, `id`, …) goes on the <a>. Brand alignment
-  renames the variants by role (primary, secondary, on-dark, link).
+  Any other attribute (`target`, `class`, `id`, …) goes on the <a>.
 
-    <Button href="/ve-chung-toi/" variant="lime" target="_blank">Câu chuyện về PiMA</Button>
+    <Button href="/ve-chung-toi/" variant="on-dark" target="_blank">Câu chuyện về PiMA</Button>
 */
 import type { HTMLAttributes } from "astro/types";
 
 interface Props extends HTMLAttributes<"a"> {
   href: string;
-  variant?: "default" | "lime" | "dark-green" | "black" | "link";
+  variant?: "primary" | "secondary" | "on-dark" | "link";
 }
 
-const { href, variant = "default", class: className, ...attrs } = Astro.props;
+const { href, variant = "primary", class: className, ...attrs } = Astro.props;
 ---
 
 <a href={href} class:list={["btn", className]} data-variant={variant} {...attrs}>
@@ -55,10 +54,8 @@ const { href, variant = "default", class: className, ...attrs } = Astro.props;
     padding: 1em 1.5em;
     border: 0 solid transparent;
     border-radius: var(--radius-pill);
-    background-color: var(--color-button);
     background-image: none;
     box-shadow: none;
-    color: var(--color-text-inverse);
     font-size: var(--font-size-button);
     font-weight: var(--font-weight-button);
     line-height: var(--line-height-button);
@@ -72,31 +69,31 @@ const { href, variant = "default", class: className, ...attrs } = Astro.props;
       box-shadow 0.2s;
   }
 
-  .btn:hover {
-    color: var(--color-text-inverse);
-  }
-
-  .btn[data-variant="default"]:hover {
-    background-color: var(--color-button-hover);
-  }
-
   .btn:focus {
-    outline: 2px solid var(--color-focus-outline);
+    outline: 2px solid var(--color-focus-ring);
     outline-offset: 2px;
   }
 
-  .btn[data-variant="lime"],
-  .btn[data-variant="lime"]:hover {
-    background-color: var(--color-button-lime);
-    color: var(--color-text-strong);
+  .btn[data-variant="primary"] {
+    background-color: var(--color-button-primary);
+    color: var(--color-button-primary-text);
   }
 
-  .btn[data-variant="dark-green"] {
-    background-color: var(--color-button-dark-green);
+  .btn[data-variant="primary"]:hover {
+    background-color: var(--color-button-primary-hover);
+    color: var(--color-button-primary-hover-text);
   }
 
-  .btn[data-variant="black"] {
-    background-color: var(--color-button-black);
+  .btn[data-variant="secondary"],
+  .btn[data-variant="secondary"]:hover {
+    background-color: var(--color-button-secondary);
+    color: var(--color-button-secondary-text);
+  }
+
+  .btn[data-variant="on-dark"],
+  .btn[data-variant="on-dark"]:hover {
+    background-color: var(--color-button-on-dark);
+    color: var(--color-button-on-dark-text);
   }
 
   .btn[data-variant="link"],
@@ -126,7 +123,6 @@ const { href, variant = "default", class: className, ...attrs } = Astro.props;
     height: 1rem;
     min-height: 1rem;
     margin-top: 0.25rem;
-    color: var(--color-text-accent);
   }
 
   @media screen and (max-width: 479px) {

@@ -150,14 +150,14 @@ const field = (tallInSection: boolean) => ["field", { tall: !isSection || tallIn
     border: 1px solid var(--color-border-field);
     border-radius: var(--radius-pill-form);
     background-color: var(--color-background);
-    color: var(--color-text-field);
+    color: var(--color-text);
     font-size: var(--font-size-field);
     line-height: var(--line-height-field);
     vertical-align: middle;
   }
 
   .field::placeholder {
-    color: var(--color-text-field-placeholder);
+    color: var(--color-text-placeholder);
   }
 
   .field:focus {
@@ -194,8 +194,8 @@ const field = (tallInSection: boolean) => ["field", { tall: !isSection || tallIn
     padding: 9px 2rem;
     border: 0;
     border-radius: var(--radius-pill-form);
-    background-color: var(--color-button);
-    color: var(--color-text-inverse);
+    background-color: var(--color-button-primary);
+    color: var(--color-button-primary-text);
     line-height: inherit;
     text-decoration: none;
     cursor: pointer;
@@ -209,7 +209,7 @@ const field = (tallInSection: boolean) => ["field", { tall: !isSection || tallIn
 
   .done {
     padding: 20px;
-    background-color: var(--color-background-lime);
+    background-color: var(--color-background-pale-lime);
     text-align: center;
   }
 

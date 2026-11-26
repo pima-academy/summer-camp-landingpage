@@ -38,7 +38,7 @@ const mentorGroups = [
 ];
 ---
 
-<Section name="course-detail" width="large" spacing="medium" animate id="course1" class="surface">
+<Section name="course-detail" width="large" spacing="medium" tone="surface" animate id="course1">
   <div class="course">
     <ContentGap name="detail-course: cover image lightbox" inline>
       <a href="#" class="cover-box" hidden>
@@ -231,16 +231,12 @@ const mentorGroups = [
     </div>
 
     <div class="actions">
-      <Button href="https://forms.gle/3jbtvwKpNeJF1BMz8" variant="black">Liên hệ đăng ký</Button>
+      <Button href="https://forms.gle/3jbtvwKpNeJF1BMz8" variant="secondary">Liên hệ đăng ký</Button>
     </div>
   </div>
 </Section>
 
 <style>
-  .surface {
-    background-color: var(--color-background-surface);
-  }
-
   .course {
     width: 100%;
     max-width: 60rem;
@@ -279,7 +275,7 @@ const mentorGroups = [
 
   .summary {
     margin-bottom: 1rem;
-    color: var(--color-text-strong);
+    color: var(--color-text);
     font-style: italic;
     text-align: left;
   }
@@ -357,8 +353,8 @@ const mentorGroups = [
     height: 5rem;
     margin-bottom: 0.5rem;
     border-radius: var(--radius-gallery-image);
-    background-color: var(--color-background-lime);
-    color: var(--color-text-dark-green);
+    background-color: var(--color-background-pale-lime);
+    color: var(--color-text-accent);
     text-align: center;
   }
 
@@ -415,7 +411,7 @@ const mentorGroups = [
     height: 1rem;
     min-height: 1rem;
     margin-top: 0.25rem;
-    color: var(--color-text-accent);
+    color: var(--color-icon-decorative);
   }
 
   .mentor-text {
@@ -493,7 +489,7 @@ const mentorGroups = [
   }
 
   .client-name {
-    color: var(--color-text-accent-alt);
+    color: var(--color-text-accent);
     font-weight: var(--font-weight-semibold);
   }
 

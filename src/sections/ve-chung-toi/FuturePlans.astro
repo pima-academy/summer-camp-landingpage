@@ -7,7 +7,7 @@ import Section from "../../components/Section.astro";
 import { aboutAnchors } from "../../data/site";
 ---
 
-<Section name="future-plans" width="medium" spacing="large" animate id={aboutAnchors.futurePlans} class="plans">
+<Section name="future-plans" width="medium" spacing="large" tone="surface" animate id={aboutAnchors.futurePlans}>
   <div class="intro">
     <Kicker>kế hoạch tương lai</Kicker>
     <h2>Hướng đến một trung tâm đào tạo Toán học ứng dụng hàng đầu</h2>
@@ -46,10 +46,6 @@ import { aboutAnchors } from "../../data/site";
 </Section>
 
 <style>
-  .plans {
-    background-color: var(--color-background-surface);
-  }
-
   /* The old spacer under the text is the bottom padding. */
   .intro {
     width: 100%;
@@ -62,7 +58,7 @@ import { aboutAnchors } from "../../data/site";
 
   .lead {
     margin-bottom: 1rem;
-    color: var(--color-text-strong);
+    color: var(--color-text);
   }
 
   .items {
@@ -87,7 +83,7 @@ import { aboutAnchors } from "../../data/site";
     align-items: center;
     width: 3rem;
     height: 3rem;
-    color: var(--color-text-accent);
+    color: var(--color-icon-decorative);
   }
 
   /* Only the second and third plan headings had the smaller heading style. */

@@ -10,7 +10,7 @@ import Section from "../components/Section.astro";
 import { fluidWidths } from "../lib/image-widths";
 ---
 
-<Section name="philosophy" width="large" spacing="none" animate class="philosophy">
+<Section name="philosophy" width="large" spacing="none" tone="pale-lime" animate>
   <div class="intro">
     <h2>Học viên chính là động lực và trọng tâm</h2>
     <p class="lead">
@@ -19,7 +19,7 @@ import { fluidWidths } from "../lib/image-widths";
       người học hiểu sâu hơn về toán mà còn trang bị kỹ năng vận dụng toán học vào thực tiễn.
     </p>
     <div class="actions">
-      <Button href="/ve-chung-toi/" variant="dark-green">Câu chuyện về PiMA</Button>
+      <Button href="/ve-chung-toi/" variant="secondary">Câu chuyện về PiMA</Button>
     </div>
   </div>
   <div class="photo">
@@ -34,10 +34,6 @@ import { fluidWidths } from "../lib/image-widths";
 </Section>
 
 <style>
-  .philosophy {
-    background-color: var(--color-background-lime);
-  }
-
   .intro {
     width: 100%;
     max-width: 56rem;
@@ -49,7 +45,7 @@ import { fluidWidths } from "../lib/image-widths";
 
   .lead {
     margin-bottom: 1rem;
-    color: var(--color-text-strong);
+    color: var(--color-text);
   }
 
   /* Old `.button-group.is-center`, 1rem below the text. */

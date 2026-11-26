@@ -46,12 +46,12 @@ const id = `accordion-panel-${Math.random().toString(36).slice(2, 10)}`;
     min-width: 5rem;
     height: 90vh;
     overflow: hidden;
-    border: 1px solid var(--color-border-lime);
+    border: 1px solid var(--color-border-accent);
   }
 
   .panel:has(> .tab[aria-expanded="true"]) {
     width: 100%;
-    border-color: var(--color-border-subtle);
+    border-color: var(--color-border);
   }
 
   /* The title button, reset to look like a plain column. */
@@ -132,7 +132,7 @@ const id = `accordion-panel-${Math.random().toString(36).slice(2, 10)}`;
       width: 100%;
       min-width: auto;
       height: auto;
-      border-color: var(--color-border-subtle);
+      border-color: var(--color-border);
     }
 
     .tab {

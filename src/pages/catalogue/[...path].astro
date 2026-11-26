@@ -24,6 +24,7 @@ export function getStaticPaths() {
 
 const widths = ["small", "medium", "large"] as const;
 const spacings = ["none", "small", "medium", "large"] as const;
+const tones = ["white", "surface", "pale-lime", "dark-green"] as const;
 ---
 
 <BaseLayout title="Catalogue" description="Every primitive in every variant (dev only)." noindex>
@@ -31,7 +32,7 @@ const spacings = ["none", "small", "medium", "large"] as const;
     <h1>Catalogue</h1>
     <p>
       Every primitive in <code>src/components/</code> in every variant (dev only). Section frames below: the band is
-      pale, the content column lime.
+      gray, the content column pale lime.
     </p>
   </Section>
 
@@ -62,23 +63,50 @@ const spacings = ["none", "small", "medium", "large"] as const;
     <div class="content">animate (fades up on first scroll into view)</div>
   </Section>
 
+  <Section name="catalogue-section-tones" spacing="small" class="title">
+    <h2>Section: tone</h2>
+    <p>
+      Background and the text colours on it. Each shows an h2, an h3, body text, muted text, accent text, a link, a
+      kicker and the buttons meant for that tone.
+    </p>
+  </Section>
+  {
+    tones.map((tone) => (
+      <Section name={`catalogue-tone-${tone}`} tone={tone} spacing="small">
+        <Kicker>kicker on {tone}</Kicker>
+        <h2>tone="{tone}"</h2>
+        <h3>An h3 heading</h3>
+        <p>
+          Body text. <span class="muted">Muted text.</span> <span class="accent">Accent text: dates, names.</span>{" "}
+          <a href="#">A link</a>.
+        </p>
+        <div class="row">
+          {tone === "dark-green" ? (
+            <Button href="#">on-dark</Button>
+          ) : (
+            <>
+              <Button href="#" variant="primary">primary</Button>
+              <Button href="#" variant="secondary">secondary</Button>
+            </>
+          )}
+          <Button href="#" variant="link">link</Button>
+        </div>
+      </Section>
+    ))
+  }
+
   <Section name="catalogue-buttons" spacing="small">
     <h2>Button</h2>
     <div class="row">
-      <Button href="#" variant="default">variant="default"</Button>
-      <Button href="#" variant="lime">variant="lime"</Button>
-      <Button href="#" variant="dark-green">variant="dark-green"</Button>
-      <Button href="#" variant="black">variant="black"</Button>
-    </div>
-    <div class="row link-row">
+      <Button href="#" variant="primary">variant="primary"</Button>
+      <Button href="#" variant="secondary">variant="secondary"</Button>
       <Button href="#" variant="link">variant="link"</Button>
     </div>
   </Section>
-  <Section name="catalogue-buttons-on-dark" spacing="small" class="dark">
+  <Section name="catalogue-buttons-on-dark" spacing="small" tone="dark-green">
     <div class="row">
-      <Button href="#" variant="default">default on dark green</Button>
-      <Button href="#" variant="lime">lime on dark green</Button>
-      <Button href="#" variant="black">black on dark green</Button>
+      <Button href="#" variant="on-dark">variant="on-dark"</Button>
+      <Button href="#" variant="link">variant="link" on dark green</Button>
     </div>
   </Section>
 
@@ -107,7 +135,7 @@ const spacings = ["none", "small", "medium", "large"] as const;
   }
 
   .demo {
-    background-color: var(--color-background-lime-faint);
+    background-color: var(--color-background-surface);
   }
 
   .demo + .demo {
@@ -116,7 +144,7 @@ const spacings = ["none", "small", "medium", "large"] as const;
 
   .content {
     padding: 1rem;
-    background-color: var(--color-background-lime);
+    background-color: var(--color-background-pale-lime);
   }
 
   .row {
@@ -126,18 +154,17 @@ const spacings = ["none", "small", "medium", "large"] as const;
     align-items: center;
   }
 
-  .link-row {
-    margin-top: 1rem;
-    color: var(--color-text-dark-green);
+  .muted {
+    color: var(--color-text-muted);
   }
 
-  .dark {
-    background-color: var(--color-background-dark-green);
+  .accent {
+    color: var(--color-text-accent);
   }
 
   .framed {
     margin-top: 1rem;
-    outline: 1px dashed var(--color-text-secondary);
+    outline: 1px dashed var(--color-text-muted);
   }
 
   .upper {
