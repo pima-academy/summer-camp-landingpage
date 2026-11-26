@@ -17,7 +17,7 @@ const aria = (href: string) => (current(href) ? ("page" as const) : undefined);
 const isGap = (item: Link) => item.href === "/su-kien-blog/";
 ---
 
-<div class="nav inverse-nav">
+<div class="nav inverse-nav" data-animate="fade-up">
   <div
     data-duration="400"
     data-animation="default"
