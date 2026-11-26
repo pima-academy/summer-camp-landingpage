@@ -89,7 +89,7 @@ async function settle(page) {
     for (const img of document.querySelectorAll('img[loading="lazy"]')) img.loading = "eager";
     for (let i = 0; i < 200; i++) {
       const before = window.scrollY;
-      // "instant": the new site has `html { scroll-behavior: smooth }`.
+      // "instant": the site sets `scroll-behavior: smooth`, which would leave the page mid-scroll.
       window.scrollBy({ top: Math.round(window.innerHeight * 0.7), behavior: "instant" });
       await pause(150);
       if (window.scrollY === before) break;
