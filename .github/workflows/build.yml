@@ -18,3 +18,7 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+      # The browser tests (nav, contact form, lightbox, …) drive Chromium.
+      - run: npx playwright install --with-deps chromium
+      # CI is set by GitHub Actions, so a test that needs dist/ fails rather than skips.
+      - run: npm test
