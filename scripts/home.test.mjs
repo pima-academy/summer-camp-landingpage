@@ -23,7 +23,7 @@ test("home page sections are in the old order", { skip }, () => {
     'data-section="testimonials"',
     'data-section="summer-camp"',
     'section_press"',
-    'section_contact-form"',
+    'data-section="contact-section"',
   ];
   const at = order.map((c) => main.indexOf(c));
   assert.ok(at.every((i) => i >= 0), `all sections present: ${order.filter((_, i) => at[i] < 0)}`);
@@ -38,17 +38,18 @@ test("home page hides its content gaps in production", { skip }, () => {
 });
 
 test("hero and press sections fade up; #programs link has a target", { skip }, () => {
-  for (const c of ["section_homepage_hero", "section_founding-story", "section_press", "section_contact-form"]) {
+  for (const c of ["section_homepage_hero", "section_founding-story", "section_press"]) {
     const tag = main.match(new RegExp(`<div[^>]*class="${c}"[^>]*>`))?.[0] ?? "";
     assert.match(tag, /data-animate="fade-up"/, `${c} fades up`);
   }
+  assert.match(main, /<section[^>]*data-section="contact-section"[^>]*data-animate="fade-up"/, "contact section fades up");
   assert.match(main, /href="#programs"/);
   assert.match(main, /id="programs"/);
   assert.doesNotMatch(html, /style="[^"]*opacity:\s*0/);
 });
 
 test("press slider: 5 slides (one quote each), 5 s autoplay, infinite, one slide at a time", { skip }, () => {
-  const press = main.slice(main.indexOf('class="section_press"'), main.indexOf("section_contact-form"));
+  const press = main.slice(main.indexOf('class="section_press"'), main.indexOf('data-section="contact-section"'));
   const slider = press.match(/<div[^>]*aria-label="Báo chí nói về PiMA"[^>]*>/)?.[0] ?? "";
   assert.match(slider, /data-slider/);
   assert.match(slider, /data-autoplay="5000"/);
