@@ -32,9 +32,10 @@ test("home page has Open Graph tags with an absolute image at most 1200 px wide"
   assert.ok(existsSync(file), `og:image file ${file} exists`);
 });
 
-test("home page loads favicon, webclip and one site stylesheet", { skip }, () => {
-  assert.match(html, /<link rel="icon" href="\/favicon\.png"/);
-  assert.match(html, /<link rel="apple-touch-icon" href="\/webclip\.png"/);
+test("home page loads favicon, app icon and one site stylesheet", { skip }, () => {
+  // The icon files themselves: logo.test.mjs.
+  assert.match(html, /<link rel="icon" href="\/favicon-32\.png"/);
+  assert.match(html, /<link rel="apple-touch-icon" href="\/apple-touch-icon\.png"/);
   // Astro may bundle a large component <style> (e.g. Slider's) into a sheet of its own;
   // the site's global CSS is the one sheet with the font faces.
   const sheets = [...html.matchAll(/<link rel="stylesheet" href="([^"]+)"/g)]
