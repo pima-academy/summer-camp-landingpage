@@ -149,7 +149,7 @@ const applyHref = "https://qual.pimavn.com/apply";
           <p class="text-size-medium">
             <strong>Trại hè Toán học và Ứng dụng 2025 </strong>mang đến chủ đề <em
               >Toán học trong các Mô hình Tạo sinh - The Mathematics of Generative Models</em
-            > – khám phá nền tảng Toán học đằng sau Trí tuệ Nhân tạo.
+            >&nbsp; – khám phá nền tảng Toán học đằng sau Trí tuệ Nhân tạo.&nbsp;&nbsp;
           </p>
           <div class="margin-top margin-medium">
             <div class="button-group-3">
@@ -210,7 +210,7 @@ const applyHref = "https://qual.pimavn.com/apply";
             bản ngôn ngữ tự nhiên) và DALL-E (tạo hình ảnh từ văn bản).<br /><br />Đằng sau sức mạnh của các mô hình
             này là hệ thống các công cụ toán học và kỹ thuật lập trình sâu sắc. Những kiến thức đó được tích hợp để xử
             lý dữ liệu và huấn luyện mô hình. Qua đó, các kiến thức như đại số tuyến tính, vi tích phân và xác suất
-            thống kê chính là nền tảng tạo nên trí tuệ của những hệ thống hiện đại này.
+            thống kê chính là nền tảng tạo nên trí tuệ của những hệ thống hiện đại này.&nbsp;
           </p>
         </div>
       </div>
@@ -454,7 +454,7 @@ const applyHref = "https://qual.pimavn.com/apply";
         <div class="padding-section-small">
           <div class="spacer-large"></div>
           <div class="div-block-10">
-            <h3>Quy trình <br />tuyển sinh</h3>
+            <h3>Quy trình &nbsp;<br />tuyển sinh &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</h3>
             <p class="paragraph-5">
               Đối tượng: Học sinh Trung học Phổ thông (năm học 2024-2025) trong và ngoài nước<br />Số lượng tuyển: 48
               bạn (mỗi địa điểm 24 bạn) <br />Quá trình tuyển sinh bao gồm 2 vòng: vòng hồ sơ đơn tuyển và vòng phỏng
@@ -586,7 +586,7 @@ const applyHref = "https://qual.pimavn.com/apply";
             <div class="header61_component">
               <div class="w-layout-grid header61_content">
                 <div class="header49_content-left">
-                  <h2 class="heading-style-h3">Kinh phí <br />tham gia</h2>
+                  <h2 class="heading-style-h3">Kinh phí <br />tham gia &nbsp;&nbsp;&nbsp;</h2>
                 </div>
                 <div class="header49_content-right">
                   <p class="text-size-medium">
@@ -675,5 +675,19 @@ const applyHref = "https://qual.pimavn.com/apply";
      left to the aspect ratio (the one logo with an old width attribute keeps it inline). */
   .logo3_wrapper :global(img.logo3_logo) {
     width: auto;
+  }
+
+  /* The old team photo had no width attribute, so its width came from its `sizes`
+     (49vw from 480 px, 1022px from 2086 px; `max-width: 100%` below that). <Image>'s
+     width attribute (1022) would make it fill the column instead. */
+  @media (min-width: 480px) {
+    .div-block-12 :global(img.team-image) {
+      width: 49vw;
+    }
+  }
+  @media (min-width: 2086px) {
+    .div-block-12 :global(img.team-image) {
+      width: 1022px;
+    }
   }
 </style>
