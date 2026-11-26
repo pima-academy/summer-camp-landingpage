@@ -1,0 +1,65 @@
+/*
+ * Decorative animations (spec #15 "Decorative animations"), replacing the old Webflow IX2 ones.
+ * Script: src/lib/animate.ts, run by BaseLayout. Marquee markup: src/components/Marquee.astro.
+ *
+ * Every start state that hides content applies only when both hold:
+ *   - `html.js-ready` (set by BaseLayout's inline head script), so nothing is hidden without JS;
+ *   - `prefers-reduced-motion: no-preference`, so with reduced motion everything is visible at once.
+ */
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Smooth scroll for in-page links (index "#programs"). */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Fade-up on scroll, once: IX2 "Move up on scroll" (50px, 1000 ms inOutQuint). */
+  html.js-ready [data-animate="fade-up"] {
+    opacity: 0;
+    transform: translate3d(0, 50px, 0);
+    transition:
+      opacity 1000ms cubic-bezier(0.86, 0, 0.07, 1),
+      transform 1000ms cubic-bezier(0.86, 0, 0.07, 1);
+  }
+
+  /* Webflow "Slide in left" preset: -100px, 1000 ms outQuart. */
+  html.js-ready [data-animate="slide-in-left"] {
+    opacity: 0;
+    transform: translate3d(-100px, 0, 0);
+    transition:
+      opacity 1000ms cubic-bezier(0.165, 0.84, 0.44, 1),
+      transform 1000ms cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+
+  html.js-ready [data-animate].is-animated {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Marquee: the track holds `--marquee-copies` identical groups; one period = one group. */
+  [data-marquee] {
+    animation: marquee-x var(--marquee-duration, 20s) linear infinite;
+  }
+
+  [data-marquee="y"] {
+    animation-name: marquee-y;
+  }
+}
+
+@keyframes marquee-x {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(calc(-100% / var(--marquee-copies, 2)), 0, 0);
+  }
+}
+
+@keyframes marquee-y {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(0, calc(-100% / var(--marquee-copies, 2)), 0);
+  }
+}

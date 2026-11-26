@@ -1,0 +1,42 @@
+---
+// Dark green trust bar (old `section_trust-bar_dark-green`): the four claims looping right to
+// left, 20 s per period. Identical on every page that uses it; fades up on scroll as before.
+import { Image } from "astro:assets";
+import ellipse from "../assets/images/ellipse.svg";
+import Marquee from "./Marquee.astro";
+
+const claims = [
+  "Trại hè Toán học uy tín",
+  "Mentor từ các đại học hàng đầu",
+  "Nuôi dưỡng tài năng STEM trẻ",
+  "Mở rộng cơ hội học thuật quốc tế",
+];
+---
+
+<div class="section_trust-bar_dark-green" data-animate="fade-up">
+  <div class="padding-global">
+    <div class="container-large">
+      <div class="padding-section-tiny">
+        {/* 3 copies: 2 periods (~1900 px) always cover the 1280 px container while one scrolls out. */}
+        <Marquee class="trust-bar_text-wrapper" duration={20} copies={3}>
+          {
+            claims.map((claim) => (
+              <>
+                <div class="text-block-2">{claim}</div>
+                <Image src={ellipse} alt="" width={8} />
+              </>
+            ))
+          }
+        </Marquee>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* The old ellipse <img> had no height attribute and stretched to the text's line box with
+     the dot centred; Astro sets height="8", so centre the 8 px box instead (same position). */
+  .section_trust-bar_dark-green :global(.trust-bar_text-wrapper img) {
+    align-self: center;
+  }
+</style>

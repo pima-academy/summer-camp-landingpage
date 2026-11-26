@@ -55,8 +55,8 @@ const ogImage = new URL(og.src, site).href;
       /*
         JS-ready class: this script adds `js-ready` to <html> before first paint.
         Decorative animations (animations.css) hide their start state only under
-        `html.js-ready`, so all content stays visible without JS. The fade-up
-        IntersectionObserver script (animations ticket) goes in this layout too.
+        `html.js-ready`, so all content stays visible without JS. The script at the
+        end of <body> (src/lib/animate.ts) runs the fade-ups and timeline dots.
       */
     }
     <script is:inline>
@@ -69,5 +69,9 @@ const ogImage = new URL(og.src, site).href;
       <slot />
     </main>
     <Footer variant={chrome} />
+    <script>
+      import { initAnimations } from "../lib/animate";
+      initAnimations();
+    </script>
   </body>
 </html>
