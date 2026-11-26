@@ -3,8 +3,9 @@
  * sizes, line heights, radii and shadows are written here once, named by role, and used everywhere
  * else as var(--…). scripts/guardrail.test.mjs fails on a literal value outside this file.
  *
- * Values are today's values, off-brand ones included; brand alignment changes them here. Two
- * values that look alike stay two tokens until then. Spacing stays literal for now.
+ * The brand palette comes first. The role tokens after it still carry the refactor's values,
+ * off-brand ones included; brand alignment changes them here. Two values that look alike stay
+ * two tokens until then. Spacing stays literal for now.
  *
  * Breakpoints (desktop-first, max-width; custom properties do not work in @media, so they are
  * written as literals wherever they are used):
@@ -14,10 +15,37 @@
  */
 
 :root {
+  /*
+   * Brand palette: PiMA's colours by name (docs/brand.md says where each one goes). Components
+   * use the role tokens below, never these; brand alignment re-points the roles at them.
+   */
+  /* Primary. PiMA Green is the one colour that carries the brand. */
+  --pima-green: #50b448;
+  --pima-dark-green: #275613;
+  --pima-pale-lime: #d4e889;
+  /* Base: black, the grays (1 darkest) and white. */
+  --black: #000000;
+  --gray-1: #434343;
+  --gray-2: #666666;
+  --gray-3: #999999;
+  --gray-4: #d9d9d9;
+  --gray-5: #efefef;
+  --white: #ffffff;
+  /* Secondary: only in charts, tables and infographics. */
+  --secondary-red: #e9542c;
+  --secondary-orange: #ff9e1d;
+  --secondary-yellow: #f6c545;
+  --secondary-sky-blue: #37b2db;
+  --secondary-blue: #3379b8;
+  --secondary-pink: #f99ad3;
+  --secondary-purple: #9e61c8;
+  --secondary-brown: #91632f;
+
   /* Font families. Nunito Sans is the only site font. */
   --font-family-base: "Nunito Sans", sans-serif;
 
   /* Font weights. Headings by level; other text by today's weight. */
+  --font-weight-black: 900;
   --font-weight-bold: 700;
   --font-weight-button: 400;
   --font-weight-extrabold: 800;
@@ -168,7 +196,8 @@
   --color-focus-outline: #50b448;
   --color-focus-ring: #4d65ff;
 
-  /* Corner radii. */
+  /* Corner radii. `--radius` is the brand's one radius; brand alignment moves the others to it. */
+  --radius: 12px;
   --radius-card: 1.25rem;
   --radius-card-small: 12px;
   --radius-circle: 100%;
