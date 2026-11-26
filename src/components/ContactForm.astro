@@ -118,12 +118,16 @@ const fieldClass = (sectionClass: "text-field" | "text-field-2") =>
     <div>
       Chưa gửi được lời nhắn. Bạn vui lòng thử lại, hoặc liên hệ PiMA qua email <a href={contact.emailHref}
         >{contact.email}</a
-      > hoặc số điện thoại <a href={contact.phoneHref}>{contact.phone}</a>.
+      > hoặc số điện thoại <a href={contact.phoneHref} class="contact-form-nowrap">{contact.phone}</a>.
     </div>
   </div>
 </div>
 
 <style>
+  .contact-form-nowrap {
+    white-space: nowrap;
+  }
+
   .contact-form-honeypot {
     position: absolute;
     width: 1px;
