@@ -15,9 +15,11 @@ interface Props {
   hero?: ImageMetadata;
   /** "site": standard Nav + Footer. "camp": no Nav, camp Footer (2025/2026 pages). */
   chrome?: "site" | "camp";
+  /** Adds `meta robots noindex` and drops canonical/og:url (404 page: served at any missing URL). */
+  noindex?: boolean;
 }
 
-const { title, description, hero, chrome = "site" } = Astro.props;
+const { title, description, hero, chrome = "site", noindex = false } = Astro.props;
 
 const site = Astro.site ?? new URL("https://pimavn.com");
 const canonical = new URL(Astro.url.pathname, site).href;
@@ -40,10 +42,11 @@ const ogImage = new URL(og.src, site).href;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    {!noindex && <link rel="canonical" href={canonical} />}
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="vi_VN" />
-    <meta property="og:url" content={canonical} />
+    {!noindex && <meta property="og:url" content={canonical} />}
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
