@@ -1,0 +1,146 @@
+---
+/*
+  Dev-only catalogue page, served at /catalogue/ by `npm run dev`: every primitive of
+  src/components/ (files whose header comment starts with "Primitive:") in every variant,
+  inside the site chrome. Use it to see what exists before building a section, and to
+  check a primitive change by eye.
+
+  Like the gap-page route, getStaticPaths returns no path outside dev, so the page is
+  never built or listed in the sitemap. scripts/catalogue.test.mjs fails when a
+  primitive, one of its variant values or one of its boolean props is missing here.
+
+  Adding a primitive: give it a "Primitive: …" header comment and add a block below
+  showing each variant, with its prop value written as a literal (variant="lime").
+*/
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BrandName from "../../components/BrandName.astro";
+import Button from "../../components/Button.astro";
+import Kicker from "../../components/Kicker.astro";
+import Section from "../../components/Section.astro";
+
+export function getStaticPaths() {
+  return import.meta.env.DEV ? [{ params: { path: undefined } }] : [];
+}
+
+const widths = ["small", "medium", "large"] as const;
+const spacings = ["none", "small", "medium", "large"] as const;
+---
+
+<BaseLayout title="Catalogue" description="Every primitive in every variant (dev only)." noindex>
+  <Section name="catalogue-intro" spacing="small">
+    <h1>Catalogue</h1>
+    <p>
+      Every primitive in <code>src/components/</code> in every variant (dev only). Section frames below: the band is
+      pale, the content column lime.
+    </p>
+  </Section>
+
+  <Section name="catalogue-section-widths" spacing="small" class="title">
+    <h2>Section: width</h2>
+    <p>Each with <code>spacing="medium"</code> (the default).</p>
+  </Section>
+  {
+    widths.map((width) => (
+      <Section name={`catalogue-width-${width}`} width={width} class="demo">
+        <div class="content">width="{width}"</div>
+      </Section>
+    ))
+  }
+
+  <Section name="catalogue-section-spacings" spacing="small" class="title">
+    <h2>Section: spacing</h2>
+    <p>Each with <code>width="medium"</code> (the default).</p>
+  </Section>
+  {
+    spacings.map((spacing) => (
+      <Section name={`catalogue-spacing-${spacing}`} spacing={spacing} class="demo">
+        <div class="content">spacing="{spacing}"</div>
+      </Section>
+    ))
+  }
+  <Section name="catalogue-animate" animate class="demo">
+    <div class="content">animate (fades up on first scroll into view)</div>
+  </Section>
+
+  <Section name="catalogue-buttons" spacing="small">
+    <h2>Button</h2>
+    <div class="row">
+      <Button href="#" variant="default">variant="default"</Button>
+      <Button href="#" variant="lime">variant="lime"</Button>
+      <Button href="#" variant="dark-green">variant="dark-green"</Button>
+      <Button href="#" variant="black">variant="black"</Button>
+    </div>
+    <div class="row link-row">
+      <Button href="#" variant="link">variant="link"</Button>
+    </div>
+  </Section>
+  <Section name="catalogue-buttons-on-dark" spacing="small" class="dark">
+    <div class="row">
+      <Button href="#" variant="default">default on dark green</Button>
+      <Button href="#" variant="lime">lime on dark green</Button>
+      <Button href="#" variant="black">black on dark green</Button>
+    </div>
+  </Section>
+
+  <Section name="catalogue-kicker" spacing="small">
+    <h2>Kicker</h2>
+    <div class="framed">
+      <Kicker>đối tác của <BrandName /></Kicker>
+      <h2>Kicker with today's h5 margins</h2>
+    </div>
+    <div class="framed">
+      <Kicker flush>trại hè toán học (flush)</Kicker>
+      <h2>Kicker flush: no margins</h2>
+    </div>
+  </Section>
+
+  <Section name="catalogue-brand-name" spacing="small">
+    <h2>BrandName</h2>
+    <p class="upper">uppercased text: về <BrandName /> academy</p>
+    <p>plain text: <BrandName /> Academy</p>
+  </Section>
+</BaseLayout>
+
+<style>
+  .title {
+    padding-top: 2rem;
+  }
+
+  .demo {
+    background-color: var(--color-background-lime-faint);
+  }
+
+  .demo + .demo {
+    margin-top: 2px;
+  }
+
+  .content {
+    padding: 1rem;
+    background-color: var(--color-background-lime);
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .link-row {
+    margin-top: 1rem;
+    color: var(--color-text-dark-green);
+  }
+
+  .dark {
+    background-color: var(--color-background-dark-green);
+  }
+
+  .framed {
+    margin-top: 1rem;
+    outline: 1px dashed var(--color-text-secondary);
+  }
+
+  .upper {
+    text-transform: uppercase;
+  }
+</style>
