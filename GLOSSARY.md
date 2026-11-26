@@ -28,6 +28,22 @@ _Avoid_: style guide, design system, brand book
 A full-width band of a page with one purpose (hero, partners, press, contact form). A page is an ordered list of sections; brand alignment keeps that list, a redesign changes it.
 _Avoid_: block, module, row
 
+**Primitive**:
+One of the small fixed set of building blocks that carry a brand rule and repeat across sections: `Section`, `Button`, `Kicker`, `BrandName`, `Icon`. A new one needs a pattern repeated in two or more places and a brand rule; every primitive is shown on the catalogue page.
+_Avoid_: base component, atom, design-system component
+
+**Widget**:
+A reusable component with behaviour or a fixed structure of its own but no brand rule to carry (`Slider`, `Marquee`, `Accordion`, `ContactForm`, `ContentGap`). Lives next to the primitives, is not one.
+_Avoid_: primitive (for these), plugin
+
+**Tone**:
+One of the four backgrounds a section or a card may have (`white`, `surface`, `pale-lime`, `dark-green`), together with the text colours that pass WCAG AA on it. A section takes it with `Section`'s `tone`, a card with the `data-tone` attribute; neither paints a background of its own.
+_Avoid_: theme, background colour, variant
+
+**Kicker**:
+The short uppercase line above a heading, under a short PiMA Green rule (a tagline or a breadcrumb such as "PiMA academy > giới thiệu"). Not a heading itself.
+_Avoid_: eyebrow, overline, tagline, subheading
+
 **Camp page**:
 The page for one edition of the PiMA summer camp (2025, 2026), with its own header and footer instead of the site's. Camp pages are left out of brand alignment: they keep the old site's look until they are redesigned on their own.
 _Avoid_: summer camp page (also names the camp overview page), event page
@@ -51,6 +67,14 @@ _Avoid_: design bug, UX issue
 **Content gap**:
 A component, section or page of the old site that is empty or broken only because its content does not exist yet. The rebuild keeps it, out of visitors' sight, so it can be filled later.
 _Avoid_: placeholder, stub, empty section
+
+**Gap page**:
+A whole page that is a content gap: a page of the old site with no content yet (events & blog, course detail, team detail…). It exists only in development, at its old address, and is never built for visitors.
+_Avoid_: draft page, hidden page, placeholder page
+
+**Catalogue page**:
+The development-only page (`/catalogue/`) that shows every primitive in every variant, to see what exists before building a section and to check a primitive change by eye. Never built for visitors.
+_Avoid_: style guide, storybook, component library
 
 **Contact form**:
 The form on several pages through which a visitor sends PiMA their name, contact details and a message.
