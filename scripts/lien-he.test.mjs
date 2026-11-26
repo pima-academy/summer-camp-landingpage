@@ -1,5 +1,5 @@
 // Checks the built lien-he page in headless Chromium: its sections in the old order, the
-// social pills stay inside their card at every width (old site: "Youtube" overflowed at
+// social links stay inside their card at every width (old site: "Youtube" overflowed at
 // 820 px and the page scrolled sideways), and the contact facts come from site.ts.
 // Needs a fresh `npm run build`; skipped when dist/ is missing.
 import { test, before, after } from "node:test";
@@ -37,23 +37,23 @@ test("lien-he renders contact facts, social links, trust bar and message form in
   await page.close();
 });
 
-test("the social pills stay inside their card and the page never scrolls sideways", { skip }, async () => {
+test("the social links stay inside their card and the page never scrolls sideways", { skip }, async () => {
   for (const width of [320, 390, 479, 480, 500, 520, 559, 560, 600, 700, 768, 820, 900, 991, 992, 1024, 1100, 1440, 1920]) {
     const page = await open(width);
     const m = await page.evaluate(() => {
-      // The card is the box around the heading and the pills.
+      // The card is the box around the heading and the links.
       const section = document.querySelector('[data-section="social-links"]');
       const card = section.querySelector("h2").parentElement.getBoundingClientRect();
-      const pills = [...section.querySelectorAll("a")].map((e) => {
+      const links = [...section.querySelectorAll("a")].map((e) => {
         const b = e.getBoundingClientRect();
         return { text: e.textContent.trim(), left: b.left, right: b.right };
       });
-      return { scrollWidth: document.documentElement.scrollWidth, card: { left: card.left, right: card.right }, pills };
+      return { scrollWidth: document.documentElement.scrollWidth, card: { left: card.left, right: card.right }, links };
     });
-    assert.equal(m.pills.length, 3);
+    assert.equal(m.links.length, 3);
     assert.ok(m.scrollWidth <= width, `${width} px: page is ${m.scrollWidth} px wide`);
-    for (const p of m.pills) {
-      assert.ok(p.left >= m.card.left - 0.5 && p.right <= m.card.right + 0.5, `${width} px: "${p.text}" pill [${p.left}, ${p.right}] leaves card [${m.card.left}, ${m.card.right}]`);
+    for (const p of m.links) {
+      assert.ok(p.left >= m.card.left - 0.5 && p.right <= m.card.right + 0.5, `${width} px: "${p.text}" link [${p.left}, ${p.right}] leaves card [${m.card.left}, ${m.card.right}]`);
     }
     await page.close();
   }

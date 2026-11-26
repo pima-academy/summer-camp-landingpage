@@ -4,10 +4,8 @@
 // `aria-current="page"`. The 2025/2026 camp pages have their own, frozen src/camp/CampFooter.astro.
 import { Image } from "astro:assets";
 import logo from "../assets/logo/pima-logo-stacked-green.png";
-import fbIcon from "../assets/images/fb.png";
-import mailIcon from "../assets/images/mail.png";
-import mapPinIcon from "../assets/images/map-pin.png";
 import BrandName from "../components/BrandName.astro";
+import Icon from "../components/Icon.astro";
 import { contact, footerColumns, social } from "../data/site";
 import { isCurrent } from "../lib/current-link";
 
@@ -56,27 +54,21 @@ const headingParts = (heading: string) => heading.split(/pima/i);
         <div>
           <h5 class="heading">Liên hệ</h5>
           <div class="contact">
-            <div class="contact-icon">
-              <Image src={fbIcon} alt="" width={24} />
-            </div>
+            <Icon name="brand-facebook-filled" size="40" circle class="contact-icon" />
             <div>
               <div class="muted strong">Facebook</div>
               <a href={social.facebook.href} class="muted">{social.facebook.display}</a>
             </div>
           </div>
           <div class="contact">
-            <div class="contact-icon">
-              <Image src={mailIcon} alt="" width={24} />
-            </div>
+            <Icon name="mail-filled" size="40" circle class="contact-icon" />
             <div>
               <div class="muted strong">Email</div>
               <a href={contact.emailHref} class="muted">{contact.email}</a>
             </div>
           </div>
           <div class="contact">
-            <div class="contact-icon">
-              <Image src={mapPinIcon} alt="" width={58} />
-            </div>
+            <Icon name="map-pin-filled" size="40" circle class="contact-icon" />
             <div>
               <div class="muted strong">Địa chỉ</div>
               <div class="muted">{contact.address}</div>
@@ -84,21 +76,7 @@ const headingParts = (heading: string) => heading.split(/pima/i);
           </div>
           <div class="social">
             <a href={social.linkedin.href} class="social-link" aria-label="PiMA Academy trên LinkedIn">
-              <div class="social-icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  aria-hidden="true"
-                  width="100%"
-                  height="100%"
-                  preserveAspectRatio="xMidYMid meet"
-                  viewBox="0 0 24 24"
-                >
-                  <circle cx="4.983" cy="5.009" r="2.188" fill="currentColor"></circle>
-                  <path
-                    d="M9.237 8.855v12.139h3.769v-6.003c0-1.584.298-3.118 2.262-3.118c1.937 0 1.961 1.811 1.961 3.218v5.904H21v-6.657c0-3.27-.704-5.783-4.526-5.783c-1.835 0-3.065 1.007-3.568 1.96h-.051v-1.66H9.237zm-6.142 0H6.87v12.139H3.095z"
-                    fill="currentColor"></path>
-                </svg>
-              </div>
+              <Icon name="brand-linkedin-filled" size="32" circle />
             </a>
           </div>
         </div>
@@ -114,6 +92,9 @@ const headingParts = (heading: string) => heading.split(/pima/i);
   footer {
     padding-left: 5%;
     padding-right: 5%;
+    /* Icon circles on black: PiMA Green circle, black glyph. */
+    --color-icon-circle: var(--color-icon-circle-footer);
+    --color-icon-circle-glyph: var(--color-icon-circle-glyph-footer);
     color: var(--color-text-footer);
     background-color: var(--color-background-footer);
   }
@@ -214,22 +195,12 @@ const headingParts = (heading: string) => heading.split(/pima/i);
   }
 
   .social-link {
-    display: inline-block;
+    display: inline-flex;
     max-width: 100%;
-    color: var(--color-icon-footer);
   }
 
   .social-link:hover {
-    color: var(--color-text-footer-hover);
-  }
-
-  .social-icon {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 2rem;
-    height: 2rem;
+    --color-icon-circle: var(--color-icon-circle-footer-hover);
   }
 
   .bottom {

@@ -2,12 +2,9 @@
 // ContactFacts: the lien-he page's heading "Liên hệ với PiMA" and its three contact facts
 // (Facebook, email, address), facts from site.ts. Used by lien-he only (old
 // `section-contact-info`). Fades up on scroll.
-import { Image } from "astro:assets";
+import Icon from "../../components/Icon.astro";
 import Section from "../../components/Section.astro";
 import { contact, social } from "../../data/site";
-import fbIcon from "../../assets/images/fb.png";
-import mailIcon from "../../assets/images/mail.png";
-import mapPinIcon from "../../assets/images/map-pin.png";
 ---
 
 <Section name="contact-facts" spacing="small" animate>
@@ -15,21 +12,21 @@ import mapPinIcon from "../../assets/images/map-pin.png";
     <h1 class="title">Liên hệ với PiMA</h1>
     <div class="info">
       <div>
-        <div class="icon-cell"><Image src={fbIcon} alt="" width={24} /></div>
+        <div class="icon-cell"><Icon name="brand-facebook-filled" size="40" circle /></div>
         <div>
           <div class="label">Facebook</div>
           <div>{social.facebook.display}</div>
         </div>
       </div>
       <div>
-        <div class="icon-cell"><Image src={mailIcon} alt="" width={24} /></div>
+        <div class="icon-cell"><Icon name="mail-filled" size="40" circle /></div>
         <div>
           <div class="label">Email</div>
           <div>{contact.email}</div>
         </div>
       </div>
       <div>
-        <div class="icon-cell"><Image src={mapPinIcon} alt="" width={24} /></div>
+        <div class="icon-cell"><Icon name="map-pin-filled" size="40" circle /></div>
         <div>
           <div class="label">Địa chỉ</div>
           <div>{contact.address}</div>
