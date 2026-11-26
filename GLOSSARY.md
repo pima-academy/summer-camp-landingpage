@@ -1,6 +1,6 @@
 # pimavn.com
 
-The PiMA Academy website: first moved off its Webflow export onto a code-only build without changing how it looked (the rebuild), then brought in line with PiMA's brand guidelines (brand alignment).
+The PiMA Academy website: first moved off its Webflow export onto a code-only build without changing how it looked (the rebuild), restructured for agents (the refactor), then brought in line with PiMA's brand guidelines (brand alignment).
 
 ## Language
 
@@ -31,6 +31,10 @@ _Avoid_: block, module, row
 **Camp page**:
 The page for one edition of the PiMA summer camp (2025, 2026), with its own header and footer instead of the site's. Camp pages are left out of brand alignment: they keep the old site's look until they are redesigned on their own.
 _Avoid_: summer camp page (also names the camp overview page), event page
+
+**Refactor**:
+The restructuring of the rebuild's code between the rebuild and brand alignment, so that an agent changes one section by reading one file: scoped CSS, one tokens file, section files, a fixed set of primitives. It aims to change nothing visible; small drift is accepted, broken behaviour is not.
+_Avoid_: cleanup, rewrite, migration (for this phase)
 
 **Brand alignment**:
 A change that brings a page's look in line with the brand guidelines (colour, type weight and size, heading style, corner radius, logo, icons, spacing) while keeping its structure: the same sections in the same order, the same grid, the same content.
