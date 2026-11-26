@@ -1,0 +1,70 @@
+---
+// PageHeader: the page title band with the "PiMA academy > chương trình" breadcrumb. Used by
+// khoa-hoc and trai-he-toan-hoc-pima (old `section_camp-header`); only the title differs.
+// Fades up on scroll.
+import BrandName from "../components/BrandName.astro";
+import Section from "../components/Section.astro";
+
+interface Props {
+  /** The page title (the <h1>). */
+  title: string;
+}
+
+const { title } = Astro.props;
+---
+
+<Section name="page-header" spacing="none" animate class="page-header">
+  <div class="inner">
+    <div class="crumb">
+      <div class="tagline"><BrandName /> academy &gt; chương trình</div>
+    </div>
+    <h1 class="title">{title}</h1>
+  </div>
+</Section>
+
+<style>
+  .page-header {
+    background-color: var(--color-background-lime-pale);
+  }
+
+  /* Section's spacing="large", except at ≤ 767 px (see below). */
+  .inner {
+    position: relative;
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+  }
+
+  .crumb {
+    margin-bottom: 0.5rem;
+  }
+
+  .tagline {
+    display: inline-block;
+    color: var(--color-text-accent);
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+  }
+
+  .title {
+    color: var(--color-text-strong);
+    font-size: var(--font-size-heading-style-h1);
+    font-weight: var(--font-weight-heading-style);
+    line-height: var(--line-height-heading-style-h1);
+  }
+
+  @media screen and (max-width: 991px) {
+    .inner {
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+    }
+  }
+
+  /* Defect fix: the old 4rem top padding at ≤ 767 px put the breadcrumb under the 72 px
+     fixed nav. Keep the tablet top padding (6rem) here: the breadcrumb clears the nav by
+     24 px, as it does at 768-991 px. */
+  @media screen and (max-width: 767px) {
+    .inner {
+      padding-bottom: 4rem;
+    }
+  }
+</style>

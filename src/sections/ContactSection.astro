@@ -1,0 +1,121 @@
+---
+// ContactSection: "Liên hệ với PiMA" section, the contact channels and the ContactForm.
+// Used by index, ve-chung-toi, khoa-hoc, trai-he-toan-hoc-pima and the gap pages
+// detail-course and detail-blog-event (old `section_contact-form`). Facebook and email stay
+// plain text here, as on the old site; facts come from site.ts. Fades up on scroll.
+import { Image } from "astro:assets";
+import fbIcon from "../assets/images/fb.png";
+import mailIcon from "../assets/images/mail.png";
+import mapPinIcon from "../assets/images/map-pin.png";
+import ContactForm from "../components/ContactForm.astro";
+import Section from "../components/Section.astro";
+import { contact, social } from "../data/site";
+---
+
+<Section name="contact-section" spacing="small" animate id="contact-form" class="contact">
+  <div class="panel">
+    <h3 class="head">Liên hệ với PiMA</h3>
+    <div class="info">
+      <div>
+        <div class="icon-cell"><Image src={fbIcon} alt="" width={24} /></div>
+        <div>
+          <div class="label">Facebook</div>
+          <div>{social.facebook.display}</div>
+        </div>
+      </div>
+      <div>
+        <div class="icon-cell"><Image src={mailIcon} alt="" width={24} /></div>
+        <div>
+          <div class="label">Email</div>
+          <div>{contact.email}</div>
+        </div>
+      </div>
+      {/* Unlike the two cells above, the old address cell had its icon spacing on the whole cell. */}
+      <div class="icon-cell">
+        <Image src={mapPinIcon} alt="" width={24} />
+        <div class="label">Địa chỉ</div>
+        <div>{contact.address}</div>
+      </div>
+    </div>
+    <div class="form-area">
+      <div class="form-intro">
+        <h4>Hoặc để lại lời nhắn</h4>
+        <div class="note">PiMA sẽ phản hồi bạn sớm nhất có thể!</div>
+      </div>
+      <ContactForm />
+    </div>
+  </div>
+</Section>
+
+<style>
+  .contact {
+    background-color: var(--color-background-lime-light);
+  }
+
+  .panel {
+    padding: 1rem 4rem 2rem;
+  }
+
+  /* 1rem below (the old spacer). */
+  .head {
+    margin-bottom: calc(10px + 1rem);
+    text-align: center;
+  }
+
+  /* The old spacer (1rem) is below the info block's own 1rem padding. */
+  .info {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    padding-bottom: 2rem;
+  }
+
+  .icon-cell {
+    margin-bottom: 0.25rem;
+  }
+
+  .label {
+    font-weight: var(--font-weight-bold);
+  }
+
+  .form-area {
+    margin-bottom: 20px;
+  }
+
+  /* 2rem below (the old spacer). */
+  .form-intro {
+    padding-bottom: 2rem;
+  }
+
+  .note {
+    font-size: var(--font-size-text-small);
+  }
+
+  @media screen and (max-width: 991px) {
+    .form-intro {
+      padding-bottom: 1.5rem;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .panel {
+      padding-bottom: 3rem;
+    }
+
+    .form-intro {
+      padding-bottom: 1.25rem;
+    }
+  }
+
+  @media screen and (max-width: 479px) {
+    .panel {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .info {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+</style>

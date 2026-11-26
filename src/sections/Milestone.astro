@@ -1,0 +1,194 @@
+---
+// Milestone: "Các cột mốc đáng nhớ" timeline. Used by index and ve-chung-toi (old
+// `section_milestone`). Desktop: one row, entries alternating below and above the line.
+// ≤ 767 px: one column, the dot and line on the left of each entry. Fades up on scroll.
+import Section from "../components/Section.astro";
+
+/** The milestones, oldest first. */
+const milestones = [
+  {
+    date: "08/2016",
+    text: "Dự án PiMA chính thức được thành lập và tổ chức trại hè: Toán mô hình – Mathematical Modeling.",
+  },
+  { date: "02/2018", text: "PiMA thực hiện workshop đầu tiên: Tối ưu hóa – Optimization." },
+  { date: "11/2024", text: "PiMA tổ chức khóa học trực tuyến đầu tiên: Toán mô hình – Mathematical Modeling." },
+  { date: "01/2025", text: "PiMA Academy chính thức được thành lập." },
+  { date: "08/2025", text: "PiMA lần đầu tổ chức Trại hè ở cả TP.HCM và Hà Nội." },
+];
+---
+
+<Section name="milestone" spacing="small" animate class="milestones">
+  <h2 class="title">Các cột mốc đáng nhớ</h2>
+  <div class="timeline">
+    <div class="list">
+      {
+        milestones.map(({ date, text }, i) => {
+          const entry = (
+            <div class="entry">
+              <h3 class="date">{date}</h3>
+              <p>{text}</p>
+            </div>
+          );
+          const track = (
+            <div class="track">
+              <div class="dot" />
+              <div class="line" />
+            </div>
+          );
+          const gap = <div class="gap" />;
+          // Even entries (2nd, 4th) sit above the line.
+          return i % 2 === 0 ? (
+            <div class="item">
+              {gap}
+              {track}
+              {entry}
+            </div>
+          ) : (
+            <div class="item" data-above>
+              {entry}
+              {track}
+              {gap}
+            </div>
+          );
+        })
+      }
+    </div>
+  </div>
+</Section>
+
+<style>
+  .milestones {
+    background-color: var(--color-background-surface-light);
+  }
+
+  /* 2rem gap above the timeline (the old spacer). */
+  .title {
+    margin-top: 0;
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .timeline {
+    display: flex;
+    position: relative;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  .list {
+    display: grid;
+    position: relative;
+    grid-auto-columns: 1fr;
+    grid-auto-flow: column;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    align-items: center;
+  }
+
+  .item {
+    display: grid;
+    position: relative;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr max-content 1fr;
+    gap: 1rem;
+  }
+
+  .track {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+  }
+
+  .dot {
+    z-index: 2;
+    flex: none;
+    width: 0.9375rem;
+    height: 0.9375rem;
+    border-radius: var(--radius-circle);
+    background-color: var(--color-background-accent);
+  }
+
+  .line {
+    width: 86%;
+    height: 3px;
+    background-color: var(--color-background-accent);
+  }
+
+  .entry {
+    margin-right: 1rem;
+  }
+
+  .date {
+    color: var(--color-text-subheading);
+    font-size: var(--font-size-heading-style-h5);
+    font-weight: var(--font-weight-heading-style-h5);
+    line-height: var(--line-height-heading-style-h5);
+  }
+
+  @media screen and (max-width: 991px) {
+    .title {
+      margin-bottom: 1.5rem;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .title {
+      margin-bottom: 1.25rem;
+    }
+
+    .list {
+      grid-auto-flow: row;
+      grid-template-rows: auto auto auto auto;
+      justify-items: center;
+    }
+
+    .item {
+      grid-template-columns: max-content 1fr;
+      grid-template-rows: auto;
+    }
+
+    .gap {
+      display: none;
+    }
+
+    .track {
+      flex-direction: column;
+      width: auto;
+    }
+
+    .line {
+      width: 3px;
+      height: 100%;
+    }
+
+    /* The last entry has no line below its dot. */
+    .item:last-child .line {
+      display: none;
+    }
+
+    .entry {
+      margin-right: 0;
+      margin-bottom: 2rem;
+      text-align: left;
+    }
+
+    /* Entries that sit above the line on desktop come after their dot here too. */
+    .item[data-above] .entry {
+      order: 1;
+    }
+  }
+
+  @media screen and (max-width: 479px) {
+    .list {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+
+    .item[data-above] .track {
+      grid-area: 1 / 1 / 2 / 2;
+    }
+  }
+</style>

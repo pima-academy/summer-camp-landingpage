@@ -1,0 +1,96 @@
+---
+// Philosophy: "Học viên chính là động lực và trọng tâm" section, the mission text, a link
+// to the story and the team photo. Used by index and ve-chung-toi (old `section_philosophy`).
+// The button is a plain link on every page (old ve-chung-toi only had `w--current` on it
+// because webflow.js added it). Fades up on scroll.
+import { Image } from "astro:assets";
+import team from "../assets/images/pima-team.png";
+import Button from "../components/Button.astro";
+import Section from "../components/Section.astro";
+import { fluidWidths } from "../lib/image-widths";
+---
+
+<Section name="philosophy" width="large" spacing="none" animate class="philosophy">
+  <div class="intro">
+    <h2>Học viên chính là động lực và trọng tâm</h2>
+    <p class="lead">
+      PiMA (Projects in Mathematics and Applications) được thành lập với sứ mệnh phát triển giáo dục toán học và ứng
+      dụng tại Việt Nam. Thông qua các chương trình giảng dạy tiên tiến, lấy người học làm trung tâm, PiMA không chỉ giúp
+      người học hiểu sâu hơn về toán mà còn trang bị kỹ năng vận dụng toán học vào thực tiễn.
+    </p>
+    <div class="actions">
+      <Button href="/ve-chung-toi/" variant="dark-green">Câu chuyện về PiMA</Button>
+    </div>
+  </div>
+  <div class="photo">
+    <Image
+      src={team}
+      alt="Đội ngũ PiMA"
+      widths={fluidWidths(team)}
+      sizes="(max-width: 1135px) 90vw, 1022px"
+      loading="eager"
+    />
+  </div>
+</Section>
+
+<style>
+  .philosophy {
+    background-color: var(--color-background-lime);
+  }
+
+  .intro {
+    width: 100%;
+    max-width: 56rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 3rem;
+    text-align: center;
+  }
+
+  .lead {
+    margin-bottom: 1rem;
+    color: var(--color-text-strong);
+  }
+
+  /* Old `.button-group.is-center`, 1rem below the text. */
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    padding-top: 1rem;
+  }
+
+  .photo {
+    padding-top: 2rem;
+    text-align: center;
+  }
+
+  @media screen and (max-width: 991px) {
+    .intro {
+      padding-top: 2.5rem;
+    }
+
+    .photo {
+      padding-top: 1.5rem;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .intro {
+      padding-top: 1.5rem;
+    }
+
+    .photo {
+      padding-top: 1.25rem;
+    }
+  }
+
+  @media screen and (max-width: 479px) {
+    .actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+</style>

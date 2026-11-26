@@ -21,8 +21,8 @@ test("chi-tiet-trai-he keeps its real content", { skip }, () => {
   assert.match(h, /<span[^>]*>PiMA<\/span> academy &gt; chương trình &gt; trại hè 2024/);
   assert.match(h, /<h2>Chủ đề<\/h2>/);
   assert.match(h, /<h2>Nội dung chương trình<\/h2>/);
-  assert.match(h, /<div[^>]*data-animate="fade-up"[^>]*class="section_testimonials"|<div[^>]*class="section_testimonials"[^>]*data-animate="fade-up"/);
-  assert.equal((h.match(/class="testimonial18_card"/g) ?? []).length, 6);
+  assert.match(h, /<section[^>]*data-section="testimonials"[^>]*data-animate="fade-up"/);
+  assert.equal((h.match(/alt="Ảnh đại diện của /g) ?? []).length, 6, "six testimonial cards");
 });
 
 test("chi-tiet-trai-he hides its content gaps", { skip }, () => {

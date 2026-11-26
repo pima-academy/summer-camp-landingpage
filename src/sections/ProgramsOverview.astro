@@ -1,0 +1,79 @@
+---
+// ProgramsOverview: "Các chương trình của chúng tôi" section, banners linking to the camp
+// and the course pages. Used by index and ve-chung-toi (old `section_programs-overview`).
+// id="programs" is the target of index's in-page "#programs" link. Fades up on scroll.
+import { Image } from "astro:assets";
+import campBanner from "../assets/images/trai-he-toan-hoc.png";
+import courseBanner from "../assets/images/khoa-hoc-toan-mo-hinh.png";
+import BrandName from "../components/BrandName.astro";
+import Kicker from "../components/Kicker.astro";
+import Section from "../components/Section.astro";
+import { fluidWidths } from "../lib/image-widths";
+
+const sizes = "(max-width: 991px) 45vw, 440px";
+---
+
+<Section name="programs-overview" spacing="small" animate id="programs">
+  <div class="intro">
+    <Kicker flush><BrandName /> academy</Kicker>
+    <h2 class="title">Các chương trình của chúng tôi</h2>
+    <p class="lead">
+      Từ các trường đại học danh tiếng đến doanh nghiệp công nghệ và viện nghiên cứu, PiMA tự hào đồng hành cùng những
+      đối tác có chung sứ mệnh: nâng cao chất lượng giáo dục và ứng dụng Toán học vào thực tiễn.
+    </p>
+  </div>
+  <div class="banners">
+    <a href="/trai-he-toan-hoc-pima/" class="banner">
+      <Image src={campBanner} alt="Trại hè Toán học" widths={fluidWidths(campBanner)} sizes={sizes} />
+    </a>
+    <a href="/khoa-hoc/" class="banner">
+      <Image src={courseBanner} alt="Khóa học Toán Mô Hình" widths={fluidWidths(courseBanner)} sizes={sizes} />
+    </a>
+  </div>
+</Section>
+
+<style>
+  .intro,
+  .banners {
+    width: 100%;
+    max-width: 56rem;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  /* 1rem below the heading (the old spacer). */
+  .title {
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+
+  .lead {
+    margin-bottom: 1rem;
+    color: var(--color-text-strong);
+    text-align: left;
+  }
+
+  .banners {
+    display: flex;
+    gap: 16px;
+    padding-top: 2rem;
+  }
+
+  .banner {
+    display: inline-block;
+    max-width: 100%;
+  }
+
+  @media screen and (max-width: 991px) {
+    .banners {
+      padding-top: 1.5rem;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .banners {
+      padding-top: 1.25rem;
+    }
+  }
+</style>
