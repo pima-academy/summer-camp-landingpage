@@ -7,6 +7,7 @@
   on the old site. Replaces the old `section_blogpost-read-more` markup.
 */
 import { Image } from "astro:assets";
+import Icon from "../../components/Icon.astro";
 import Section from "../../components/Section.astro";
 import cardPlaceholder from "../../assets/images/placeholder-image-landscape.svg";
 ---
@@ -30,16 +31,12 @@ import cardPlaceholder from "../../assets/images/placeholder-image-landscape.svg
     </div>
     <div role="navigation" aria-label="List" class="pagination">
       <a href="#" aria-label="Previous Page" class="page-link">
-        <svg class="arrow-prev" height="12px" width="12px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" transform="translate(0, 1)">
-          <path fill="none" stroke="currentColor" fill-rule="evenodd" d="M8 10L4 6l4-4"></path>
-        </svg>
+        <Icon name="chevron-left" size="16" class="arrow-prev" />
         <div class="page-label">Previous</div>
       </a>
       <a href="#" aria-label="Next Page" class="page-link">
         <div class="page-label">Next</div>
-        <svg class="arrow-next" height="12px" width="12px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" transform="translate(0, 1)">
-          <path fill="none" stroke="currentColor" fill-rule="evenodd" d="M4 2l4 4-4 4"></path>
-        </svg>
+        <Icon name="chevron-right" size="16" class="arrow-next" />
       </a>
     </div>
   </div>
