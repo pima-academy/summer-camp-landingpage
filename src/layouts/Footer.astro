@@ -1,0 +1,296 @@
+---
+// Site footer of every site page (BaseLayout): logo and name, the link columns and the
+// contact column from site.ts, the copyright line. The current page's link gets
+// `aria-current="page"`. The 2025/2026 camp pages have their own, frozen src/camp/CampFooter.astro.
+import { Image } from "astro:assets";
+import logo from "../assets/images/logo-1-green.svg";
+import fbIcon from "../assets/images/fb.png";
+import mailIcon from "../assets/images/mail.png";
+import mapPinIcon from "../assets/images/map-pin.png";
+import BrandName from "../components/BrandName.astro";
+import { contact, footerColumns, social } from "../data/site";
+import { isCurrent } from "../lib/current-link";
+
+const year = new Date().getFullYear();
+
+const { pathname } = Astro.url;
+const current = (href: string) => (isCurrent(href, pathname) ? ("page" as const) : undefined);
+
+// Footer headings are CSS-uppercased; "pima" in the heading data renders as <BrandName />.
+const headingParts = (heading: string) => heading.split(/pima/i);
+---
+
+<footer data-animate="fade-up">
+  <div class="inner">
+    <div class="top">
+      <div class="brand">
+        <a href="/" class="logo-link" aria-current={current("/")} aria-label="PiMA, trang chủ">
+          <Image src={logo} alt="" width={96} class="logo-image" />
+        </a>
+        <div class="name">Học viện Toán học và<br />Ứng dụng <BrandName /></div>
+      </div>
+      <div class="columns">
+        {
+          footerColumns.map((column) => (
+            <div>
+              <h5 class="heading">
+                {headingParts(column.heading).map((part, i) => (
+                  <Fragment>
+                    {i > 0 && <BrandName />}
+                    {part}
+                  </Fragment>
+                ))}
+              </h5>
+              <ul role="list" class="links">
+                {column.links.map((link) => (
+                  <li>
+                    <a href={link.href} class="muted" aria-current={current(link.href)}>
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))
+        }
+        <div>
+          <h5 class="heading">Liên hệ</h5>
+          <div class="contact">
+            <div class="contact-icon">
+              <Image src={fbIcon} alt="" width={24} />
+            </div>
+            <div>
+              <div class="muted strong">Facebook</div>
+              <a href={social.facebook.href} class="muted">{social.facebook.display}</a>
+            </div>
+          </div>
+          <div class="contact">
+            <div class="contact-icon">
+              <Image src={mailIcon} alt="" width={24} />
+            </div>
+            <div>
+              <div class="muted strong">Email</div>
+              <a href={contact.emailHref} class="muted">{contact.email}</a>
+            </div>
+          </div>
+          <div class="contact">
+            <div class="contact-icon">
+              <Image src={mapPinIcon} alt="" width={58} />
+            </div>
+            <div>
+              <div class="muted strong">Địa chỉ</div>
+              <div class="muted">{contact.address}</div>
+            </div>
+          </div>
+          <div class="social">
+            <a href={social.linkedin.href} class="social-link" aria-label="PiMA Academy trên LinkedIn">
+              <div class="social-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                  width="100%"
+                  height="100%"
+                  preserveAspectRatio="xMidYMid meet"
+                  viewBox="0 0 24 24"
+                >
+                  <circle cx="4.983" cy="5.009" r="2.188" fill="currentColor"></circle>
+                  <path
+                    d="M9.237 8.855v12.139h3.769v-6.003c0-1.584.298-3.118 2.262-3.118c1.937 0 1.961 1.811 1.961 3.218v5.904H21v-6.657c0-3.27-.704-5.783-4.526-5.783c-1.835 0-3.065 1.007-3.568 1.96h-.051v-1.66H9.237zm-6.142 0H6.87v12.139H3.095z"
+                    fill="currentColor"></path>
+                </svg>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bottom">
+      <div class="muted credit">© {year} PiMA Academy. All rights reserved.</div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  footer {
+    padding-left: 5%;
+    padding-right: 5%;
+    color: var(--color-text);
+    background-color: var(--color-background-dark);
+  }
+
+  .inner {
+    width: 100%;
+    max-width: 80rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+  }
+
+  /* Brand cell (1 column) + link columns (2 columns); stacked at <= 991 px. */
+  .top {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    grid-auto-columns: 1fr;
+    gap: 0;
+    place-items: start stretch;
+    padding-bottom: 2rem;
+  }
+
+  .logo-link {
+    position: relative;
+    text-decoration: none;
+  }
+
+  .logo-image {
+    height: 8rem;
+    border-radius: 0;
+  }
+
+  .name {
+    margin-bottom: 0.125rem;
+    padding-top: 1rem;
+    color: var(--color-text-inverse);
+    font-size: var(--font-size-text-small);
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+  }
+
+  .columns {
+    display: grid;
+    grid-column: span 2;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    grid-auto-columns: 1fr;
+    gap: 16px;
+  }
+
+  .heading {
+    color: var(--color-text-accent);
+    font-size: var(--font-size-kicker);
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+  }
+
+  .links {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .links li + li {
+    padding-top: 1rem;
+  }
+
+  .muted {
+    color: var(--color-text-on-dark-muted);
+    font-weight: var(--font-weight-light);
+    text-decoration: none;
+  }
+
+  .muted:hover {
+    color: var(--color-text-on-dark-hover);
+  }
+
+  .strong {
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .contact {
+    display: flex;
+    gap: 0.6rem;
+    padding-top: 1rem;
+  }
+
+  .contact-icon {
+    margin-bottom: 0.25rem;
+  }
+
+  .social {
+    display: flex;
+    gap: 8px;
+    margin-top: 0.5rem;
+  }
+
+  .social-link {
+    display: inline-block;
+    max-width: 100%;
+  }
+
+  .social-icon {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .bottom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border-footer);
+  }
+
+  .credit {
+    flex: 0 auto;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-footer-credit);
+  }
+
+  @media screen and (max-width: 991px) {
+    .inner {
+      padding-top: 4rem;
+      padding-bottom: 4rem;
+    }
+
+    .top {
+      grid-template-columns: 1fr;
+      row-gap: 4rem;
+    }
+
+    .bottom {
+      padding-top: 1.5rem;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .inner {
+      padding-top: 3rem;
+      padding-bottom: 3rem;
+    }
+
+    .top {
+      row-gap: 3rem;
+    }
+
+    .bottom {
+      flex-direction: column-reverse;
+      align-items: flex-start;
+      padding-top: 1.25rem;
+      padding-bottom: 1rem;
+    }
+
+    .credit {
+      margin-top: 2rem;
+    }
+  }
+
+  @media screen and (max-width: 479px) {
+    .brand {
+      grid-column: span 2;
+    }
+
+    .logo-link {
+      display: flex;
+    }
+
+    .columns {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+</style>

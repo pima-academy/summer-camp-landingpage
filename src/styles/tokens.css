@@ -115,7 +115,6 @@
   --color-text-muted: #333741;
   --color-text-on-dark-hover: #fafafa;
   --color-text-on-dark-muted: #cecfd2;
-  --color-text-on-inverse-hover: #09ce6599;
   --color-text-pale-lime: #e6f2bc;
   --color-text-placeholder: #26262833;
   --color-text-secondary: #85888e;
@@ -198,7 +197,6 @@
   /* Shadows. */
   --shadow-card: 0 0 0 1px #26262833;
   --shadow-dropdown: 0 4px 8px #0000001a;
-  --shadow-dropdown-open: 0 6px 8px -4px #0000001a;
   --shadow-slider-dot-focus: 0px 0px 0px 2px #fff;
 
   /* The dev-only content-gap marker (ContentGap.astro); never in the production build. */
@@ -214,12 +212,10 @@
    */
   /* Webflow font families. */
   --font-family-wf-body: Arial, sans-serif;
-  --font-family-wf-icons: 'webflow-icons';
   --font-family-wf-lightbox: "Helvetica Neue", Helvetica, Ubuntu, "Segoe UI", Verdana, sans-serif;
   --font-family-wf-normalize: sans-serif;
   /* Webflow font weights. */
   --font-weight-wf-heading: bold;
-  --font-weight-wf-icon: normal;
   --font-weight-wf-label: bold;
   --font-weight-wf-lightbox: 300;
   --font-weight-wf-strong: bold;
@@ -231,7 +227,6 @@
   --font-size-wf-h4: 18px;
   --font-size-wf-h5: 14px;
   --font-size-wf-lightbox: 17px;
-  --font-size-wf-nav-button: 24px;
   --font-size-wf-normalize-h1: 2em;
   --font-size-wf-pagination: 14px;
   /* Webflow line heights. */
@@ -241,7 +236,6 @@
   --line-height-wf-h3: 30px;
   --line-height-wf-h4: 24px;
   --line-height-wf-h5: 20px;
-  --line-height-wf-icon: 1;
   --line-height-wf-lightbox: 1.2;
   --line-height-wf-lightbox-strip: 0;
   --line-height-wf-normalize-input: normal;
@@ -252,11 +246,8 @@
   --color-wf-button: #3898EC;
   --color-wf-lightbox-backdrop: rgba(0, 0, 0, 0.9);
   --color-wf-lightbox-caption: rgba(0, 0, 0, 0.4);
-  --color-wf-nav-link-current: #0082f3;
-  --color-wf-nav-open: #C8C8C8;
   --color-wf-spinner: rgba(0, 0, 0, 0.4);
   --color-wf-spinner-head: #fff;
-  --color-wf-text: #222222;
   --color-wf-text-body: #333;
   /* Webflow radii. */
   --radius-wf-pagination: 2px;

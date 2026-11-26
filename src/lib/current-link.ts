@@ -1,4 +1,4 @@
-// Build-time active-link rule for Nav and Footer (Webflow's `w--current`).
+// Build-time active-link rule for Nav and Footer (`aria-current="page"`).
 // Plain, erasable TypeScript so `node --test` can import it directly.
 
 /** "/ve-chung-toi/index.html", "/ve-chung-toi" and "/ve-chung-toi/" all become "/ve-chung-toi". */

@@ -21,8 +21,8 @@ test("404 page has a Vietnamese title and is noindex", { skip }, () => {
 });
 
 test("404 page has the site chrome, one heading, one line and a button home", { skip }, () => {
-  assert.match(html, /<div class="nav[ "]/, "nav");
-  assert.match(html, /<footer[^>]*class="footer/, "footer");
+  assert.match(html, /<header\b[^>]*>[\s\S]*<nav\b[^>]*id="nav-menu"/, "nav");
+  assert.match(html, /<footer\b/, "footer");
   const headings = [...main.matchAll(/<h[1-6][\s>]/g)];
   assert.equal(headings.length, 1, "one heading in <main>");
   assert.match(main, /<h1[^>]*>Không tìm thấy trang<\/h1>/);
