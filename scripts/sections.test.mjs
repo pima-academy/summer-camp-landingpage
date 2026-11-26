@@ -1,10 +1,13 @@
 // Checks the section-file convention of ADR 0005: every .astro file under src/sections/
 // renders the Section primitive with `name` equal to its file name in kebab case
-// (src/sections/home/FoundingStory.astro → <Section name="founding-story">).
+// (src/sections/home/FoundingStory.astro → <Section name="founding-story">), and uses only
+// classes it styles itself (ADR 0004), none of them a Webflow class or `w-node` id.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { join, relative } from "node:path";
+import { WEBFLOW_FILES } from "./guardrail-lib.mjs";
+import { sectionClassProblems, selectorClasses } from "./section-classes.mjs";
 import { kebabCase, sectionNameProblem } from "./section-name.mjs";
 import { root, walk } from "./test-lib.mjs";
 
@@ -40,4 +43,52 @@ test("every section file renders Section with its kebab-case file name", () => {
     const path = relative(root, file);
     assert.equal(sectionNameProblem(path, readFileSync(file, "utf8")), null, path);
   }
+});
+
+test("a section file may only use classes it styles itself, none a Webflow stylesheet styles", () => {
+  const webflow = new Set(["button", "heading"]);
+  const path = "src/sections/Partners.astro";
+  const ok =
+    '---\n---\n<Section name="partners" class="band-a"><p class:list={["logos", { x: y }]}>a</p></Section>\n' +
+    "<style>\n  .band-a { color: red; }\n  .logos.x img { width: 1px; }\n</style>\n";
+  assert.deepEqual(sectionClassProblems(path, ok, webflow), []);
+  const utility = '---\n---\n<Section name="partners"><div class="text-align-center">a</div></Section>\n';
+  assert.match(sectionClassProblems(path, utility, webflow).join(), /"text-align-center" is not styled/);
+  const clash = '---\n---\n<Section name="partners"><div class="button">a</div></Section>\n<style>.button { color: red; }</style>\n';
+  assert.match(sectionClassProblems(path, clash, webflow).join(), /"button" is also styled by a Webflow/);
+  const node = '---\n---\n<Section name="partners"><div id="w-node-_22-1" class="x">a</div></Section>\n<style>.x {}</style>\n';
+  assert.match(sectionClassProblems(path, node, webflow).join(), /Webflow id "w-node-_22-1"/);
+});
+
+/** The sections more than one page uses (#65). */
+const SHARED = [
+  "TrustBar",
+  "Partners",
+  "Impact",
+  "Testimonials",
+  "ProgramsOverview",
+  "Philosophy",
+  "Milestone",
+  "Team",
+  "SummerCamp",
+  "ContactSection",
+  "PageHeader",
+];
+
+test("the shared sections live in src/sections/", () => {
+  for (const name of SHARED) {
+    assert.ok(existsSync(join(root, "src/sections", `${name}.astro`)), `src/sections/${name}.astro`);
+    assert.ok(!existsSync(join(root, "src/components", `${name}.astro`)), `src/components/${name}.astro is gone`);
+  }
+});
+
+test("every section file carries no Webflow class or id", () => {
+  const webflow = new Set(
+    WEBFLOW_FILES.filter((f) => existsSync(join(root, f))).flatMap((f) => [
+      ...selectorClasses(readFileSync(join(root, f), "utf8")),
+    ]),
+  );
+  const files = walk(join(root, "src/sections")).filter((f) => f.endsWith(".astro"));
+  const problems = files.flatMap((file) => sectionClassProblems(relative(root, file), readFileSync(file, "utf8"), webflow));
+  assert.deepEqual(problems, []);
 });
