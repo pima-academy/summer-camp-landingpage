@@ -1,0 +1,1456 @@
+{
+  "year": 2025,
+  "source": {
+    "drive_root": {
+      "id": "1C3cRO9e8vHsutvGTPPIVZkMRZAneRnFU",
+      "title": "[Public] Tài liệu Trại hè PiMA 2025",
+      "view_url": "https://drive.google.com/drive/folders/1C3cRO9e8vHsutvGTPPIVZkMRZAneRnFU"
+    },
+    "read_on": "2026-11-27",
+    "method": "Google Drive connector (search by parent/ancestors with metadata, permissions on roots and a sample file, download of every report and lecture for its first page)"
+  },
+  "sharing_summary": {
+    "anyone_with_link": 59,
+    "restricted": 0,
+    "note": "Every file and folder listed has Drive visibility 'anyoneWithLink' (role reader). Confirmed with get_file_permissions on both root folders and on one 2025 report; a 'visibility != anyoneWithLink' search under the 2025 root returns nothing.",
+    "root_permissions": "owner danhtran1604@gmail.com, 37 writer accounts and 1 reader account (inherited by every file), plus anyone with the link as reader"
+  },
+  "counts": {
+    "folders": 18,
+    "files": 41,
+    "bytes": 106761480,
+    "lectures": 8,
+    "projects": 11,
+    "campers_listed": 41
+  },
+  "notes": [
+    "Lectures are in '2. Bài giảng/Slide bài giảng/'; '2. Bài giảng/Tài liệu đọc thêm/' holds 4 reading documents (block 'reading').",
+    "Project folders are named '<topic> (HN|HCM)': 5 HN and 6 HCM. 'Luồng chuẩn hóa' has only an HCM folder.",
+    "Only 4 of 11 projects have a Notebook.ipynb (Mô hình đồ thị (HN), Mô hình khuếch tán (HCM), Mô hình tự hồi quy (HCM), Tự mã hóa biến phân (HCM)).",
+    "Campers' names and schools are verbatim from the first page of each Report.pdf (footnote markers ∗ † ‡ § matched to names by position). Three authors have a university affiliation and one is marked '(Mentor)'; see each camper's note."
+  ],
+  "lectures": [
+    {
+      "number": 1,
+      "title": "Đại số tuyến tính",
+      "title_on_title_page": "Đại số tuyến tính",
+      "authors": [
+        "Võ Hoàng An",
+        "Đỗ Lê Tuyết Ly",
+        "Trần Nguyễn Nam Hưng"
+      ],
+      "affiliations_on_title_page": [
+        "Khoa Toán-Tin, HUST",
+        "Trường Đại học Khoa học Tự nhiên, ĐHQG-HCM",
+        "PiMA Team, Việt Nam"
+      ],
+      "date_on_title_page": "Ngày 2 tháng 8 năm 2025",
+      "file": {
+        "id": "1syS1yCPsuXMqm9jbQ7L8VRWpL_SEdOsK",
+        "file": "[PiMA-2025] Bài giảng 1 - Đại số tuyến tính.pdf",
+        "size": 4296700,
+        "view_url": "https://drive.google.com/file/d/1syS1yCPsuXMqm9jbQ7L8VRWpL_SEdOsK/view"
+      }
+    },
+    {
+      "number": 2,
+      "title": "Giải tích hàm nhiều biến",
+      "title_on_title_page": "Bài giảng giải tích",
+      "authors": [
+        "Lê Tiến Hợp",
+        "Nguyễn Hoàng Ngọc Hà"
+      ],
+      "affiliations_on_title_page": [
+        "Trường Đại học Khoa học Tự nhiên, ĐHQG-HCM",
+        "PiMA Team, Việt Nam"
+      ],
+      "date_on_title_page": "Ngày 2 tháng 8 năm 2025",
+      "file": {
+        "id": "1vKsBpL4neQVx0U1f_DqcwWjCqzZBOPfb",
+        "file": "[PiMA-2025] Bài giảng 2 - Giải tích hàm nhiều biến.pdf",
+        "size": 2440552,
+        "view_url": "https://drive.google.com/file/d/1vKsBpL4neQVx0U1f_DqcwWjCqzZBOPfb/view"
+      }
+    },
+    {
+      "number": 3,
+      "title": "Xác suất thống kê cơ bản 1",
+      "title_on_title_page": "Xác suất thống kê cơ bản 1",
+      "authors": [
+        "Nguyễn Thị Vân",
+        "Đỗ Lê Tuyết Ly"
+      ],
+      "affiliations_on_title_page": [
+        "PiMA Team, Việt Nam"
+      ],
+      "date_on_title_page": "Ngày 3 tháng 8 năm 2025",
+      "file": {
+        "id": "1g8QBVMCia2F4KZIRe7iBc9-G6a05UPl5",
+        "file": "[PiMA-2025] Bài giảng 3 - Xác suất thống kê cơ bản 1.pdf",
+        "size": 752455,
+        "view_url": "https://drive.google.com/file/d/1g8QBVMCia2F4KZIRe7iBc9-G6a05UPl5/view"
+      }
+    },
+    {
+      "number": 4,
+      "title": "Xác suất thống kê cơ bản 2",
+      "title_on_title_page": "Xác suất thống kê cơ bản 2",
+      "authors": [
+        "Nguyễn Thị Vân",
+        "Trần Phan Anh Danh"
+      ],
+      "affiliations_on_title_page": [
+        "PiMA Team, Việt Nam"
+      ],
+      "date_on_title_page": "Ngày 3 tháng 8 năm 2025",
+      "file": {
+        "id": "17KVl0wHskao42wwFGDWANuN4IN_0ckxp",
+        "file": "[PiMA-2025] Bài giảng 4 - Xác suất thống kê cơ bản 2.pdf",
+        "size": 562945,
+        "view_url": "https://drive.google.com/file/d/17KVl0wHskao42wwFGDWANuN4IN_0ckxp/view"
+      }
+    },
+    {
+      "number": 5,
+      "title": "Ước lượng tham số",
+      "title_on_title_page": "Ước lượng tham số",
+      "authors": [
+        "Đặng Trọng Bảo Thi",
+        "Vòng Vĩnh Toàn",
+        "Trần Phan Anh Danh"
+      ],
+      "affiliations_on_title_page": [
+        "PiMA Team, Việt Nam"
+      ],
+      "date_on_title_page": "Ngày 3 tháng 8 năm 2025",
+      "file": {
+        "id": "1rMgMqdW-btjahICGy6CfUpfCNzhfhmxH",
+        "file": "[PiMA-2025] Bài giảng 5 - Ước lượng tham số.pdf",
+        "size": 641088,
+        "view_url": "https://drive.google.com/file/d/1rMgMqdW-btjahICGy6CfUpfCNzhfhmxH/view"
+      }
+    },
+    {
+      "number": 6,
+      "title": "Suy diễn và Mô hình tạo sinh",
+      "title_on_title_page": "Mô hình tạo sinh và suy diễn",
+      "authors": [
+        "Nguyễn Hữu Phước",
+        "Tăng Vĩnh Hà"
+      ],
+      "affiliations_on_title_page": [
+        "Trường Đại học Khoa học Tự nhiên, ĐHQG-HCM",
+        "Trường Đại học Công nghệ, ĐHQG-HN",
+        "PiMA Team, Việt Nam"
+      ],
+      "date_on_title_page": "Ngày 3 tháng 8 năm 2025",
+      "file": {
+        "id": "1F9kyohfKCMIkzK4W4iMUjrWph7wkh0QF",
+        "file": "[PiMA-2025] Bài giảng 6 - Suy diễn và Mô hình tạo sinh.pdf",
+        "size": 1790986,
+        "view_url": "https://drive.google.com/file/d/1F9kyohfKCMIkzK4W4iMUjrWph7wkh0QF/view"
+      }
+    },
+    {
+      "number": 7,
+      "title": "Học máy và Học sâu cơ bản",
+      "title_on_title_page": "Học sâu cơ bản",
+      "authors": [
+        "Nguyễn Minh Đức",
+        "Nguyễn Mai Anh Thư"
+      ],
+      "affiliations_on_title_page": [
+        "Trường Đại học Khoa học tự nhiên, ĐHQG-HCM",
+        "PiMA Team, Việt Nam"
+      ],
+      "date_on_title_page": "Ngày 4 tháng 8 năm 2025",
+      "file": {
+        "id": "1XPXSNbYyxlWz_TRE-nCL34cLU7FztAmo",
+        "file": "[PiMA-2025] Bài giảng 7 - Học máy và Học sâu cơ bản.pdf",
+        "size": 5610054,
+        "view_url": "https://drive.google.com/file/d/1XPXSNbYyxlWz_TRE-nCL34cLU7FztAmo/view"
+      }
+    },
+    {
+      "number": 8,
+      "title": "Các mô hình học sâu",
+      "title_on_title_page": "Các mô hình học sâu",
+      "authors": [
+        "Nguyễn Ngọc Cảnh",
+        "Nguyễn Minh Đức"
+      ],
+      "affiliations_on_title_page": [
+        "Trường Đại học Khoa học tự nhiên, ĐHQG-HCM",
+        "PiMA Team, Việt Nam"
+      ],
+      "date_on_title_page": "Ngày 4 tháng 8 năm 2025",
+      "file": {
+        "id": "1EeNHdZtemr2OxQRYvCyDjmPCK_F_Yy_Y",
+        "file": "[PiMA-2025] Bài giảng 8 - Các mô hình học sâu.pdf",
+        "size": 16574524,
+        "view_url": "https://drive.google.com/file/d/1EeNHdZtemr2OxQRYvCyDjmPCK_F_Yy_Y/view"
+      },
+      "notes": [
+        "16.6 MB, over the Drive connector's 10 MB download limit; authors read from Drive's text snippet of the title page."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "title": "Mô hình khuếch tán",
+      "campus": "HN",
+      "folder": "Mô hình khuếch tán (HN)",
+      "folder_url": "https://drive.google.com/drive/folders/1MC1UOu-aRbHerUjD4_c4YufEd5-5_xlA",
+      "title_on_report": "Mô hình khuếch tán",
+      "date_on_report": "Ngày 31 tháng 8 năm 2025",
+      "campers": [
+        {
+          "name": "Đinh Hoàng Phương Thảo",
+          "school": "Trường THPT Chuyên Hà Giang, Tuyên Quang"
+        },
+        {
+          "name": "Đinh Nguyễn Bảo Anh",
+          "school": "Trường THPT chuyên Lê Quý Đôn, Đà Nẵng"
+        },
+        {
+          "name": "Hồ Xuân Hùng",
+          "school": "Trường THPT Chuyên Chu Văn An, Hà Nội"
+        },
+        {
+          "name": "Vũ Đình Minh",
+          "school": "Trường THPT Chuyên Chu Văn An, Hà Nội"
+        }
+      ],
+      "slides": {
+        "id": "1UqYz33WH7B9BFxmWYrpzVII-LEFP9RqP",
+        "file": "Slides.pdf",
+        "size": 9045053,
+        "view_url": "https://drive.google.com/file/d/1UqYz33WH7B9BFxmWYrpzVII-LEFP9RqP/view"
+      },
+      "report": {
+        "id": "1RS0KZooFJRSQrMR89xaqmGO13f8HZNHe",
+        "file": "Report.pdf",
+        "size": 9079287,
+        "view_url": "https://drive.google.com/file/d/1RS0KZooFJRSQrMR89xaqmGO13f8HZNHe/view"
+      },
+      "notebooks": [],
+      "notes": []
+    },
+    {
+      "title": "Mạng đối nghịch - tạo sinh",
+      "campus": "HN",
+      "folder": "Mạng đối nghịch - tạo sinh (HN)",
+      "folder_url": "https://drive.google.com/drive/folders/1ZI6boFJf-mktfYtDP2ZfeP7j1L3vGIrD",
+      "title_on_report": "Mạng đối nghịch tạo sinh",
+      "date_on_report": "Ngày 16 tháng 9 năm 2025",
+      "campers": [
+        {
+          "name": "Nguyễn Văn Khuê",
+          "school": "École Polytechnique, Paris",
+          "note": "University affiliation; the report does not say whether this author is a camper or a mentor."
+        },
+        {
+          "name": "Phạm Mạnh Quân",
+          "school": "THPT chuyên Lê Quý Đôn, Đà Nẵng"
+        },
+        {
+          "name": "Lê Nguyễn Bảo Anh",
+          "school": "THPT chuyên KHTN, ĐHQG Hà Nội"
+        },
+        {
+          "name": "Nguyễn Minh Đức (Mentor)",
+          "school": "Trường Đại học FPT, Hà Nội",
+          "note": "Marked '(Mentor)' in the report: a mentor, not a camper."
+        }
+      ],
+      "slides": {
+        "id": "12ixbkFnCesp67sSo-EiP0tPnOFrEakP6",
+        "file": "Slides.pdf",
+        "size": 927382,
+        "view_url": "https://drive.google.com/file/d/12ixbkFnCesp67sSo-EiP0tPnOFrEakP6/view"
+      },
+      "report": {
+        "id": "1YivjRSjQTE0HhmS6Tw0nmwZK40rzoPv-",
+        "file": "Report.pdf",
+        "size": 804325,
+        "view_url": "https://drive.google.com/file/d/1YivjRSjQTE0HhmS6Tw0nmwZK40rzoPv-/view"
+      },
+      "notebooks": [],
+      "notes": [
+        "Report.pdf is owned by ducido.w@gmail.com, the only 2025 project file not owned by danh.tran@pimavn.com."
+      ]
+    },
+    {
+      "title": "Mô hình đồ thị",
+      "campus": "HN",
+      "folder": "Mô hình đồ thị (HN)",
+      "folder_url": "https://drive.google.com/drive/folders/1nUJrxvGoIDyP_XjiHFmuM0zs9x1tWZnZ",
+      "title_on_report": "Mô hình đồ thị",
+      "date_on_report": "Ngày 31 tháng 8 năm 2025",
+      "campers": [
+        {
+          "name": "Nguyễn Hữu Phát Lộc",
+          "school": "Trường Đại học Khoa học Tự nhiên - Đại học Quốc gia TP.HCM",
+          "note": "University affiliation; the report does not say whether this author is a camper or a mentor."
+        },
+        {
+          "name": "Tạ Minh Tuấn",
+          "school": "Trường Đại học Công nghệ, Đại học Quốc gia Hà Nội",
+          "note": "University affiliation; the report does not say whether this author is a camper or a mentor."
+        },
+        {
+          "name": "Hoàng Công Bảo Long",
+          "school": "Trường THPT Chuyên Lê Quý Đôn, Đà Nẵng"
+        },
+        {
+          "name": "Lê Xuân Thịnh",
+          "school": "Trường THPT chuyên Nguyễn Du, Đăk Lăk"
+        }
+      ],
+      "slides": {
+        "id": "1FtHdf1rA5gV3X11SDzRmVFEVj_Cuaf1W",
+        "file": "Slides.pdf",
+        "size": 5866478,
+        "view_url": "https://drive.google.com/file/d/1FtHdf1rA5gV3X11SDzRmVFEVj_Cuaf1W/view"
+      },
+      "report": {
+        "id": "17orZHqeH27IBWd9QgfYQCBoFy5EZyMQC",
+        "file": "Report.pdf",
+        "size": 1860257,
+        "view_url": "https://drive.google.com/file/d/17orZHqeH27IBWd9QgfYQCBoFy5EZyMQC/view"
+      },
+      "notebooks": [
+        {
+          "id": "1HKTrC143aAgp-yMiqgu0Yv8RTbAvf0cW",
+          "file": "Notebook.ipynb",
+          "size": 714700,
+          "view_url": "https://drive.google.com/file/d/1HKTrC143aAgp-yMiqgu0Yv8RTbAvf0cW/view"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "title": "Mô hình tự hồi quy",
+      "campus": "HN",
+      "folder": "Mô hình tự hồi quy (HN)",
+      "folder_url": "https://drive.google.com/drive/folders/1opNr91rEhmAydzZ4aVLxjiEyyxLYL6BA",
+      "title_on_report": "Mô hình tự hồi quy",
+      "date_on_report": "Ngày 31 tháng 8 năm 2025",
+      "campers": [
+        {
+          "name": "Nguyễn Thùy Dung",
+          "school": "THPT Chuyên Bắc Giang"
+        },
+        {
+          "name": "Nguyễn Đăng Sỹ Hoàng",
+          "school": "Phổ thông Năng khiếu ĐHQG-HCM"
+        },
+        {
+          "name": "Trương Quang Thái",
+          "school": "THPT Chuyên Lào Cai"
+        }
+      ],
+      "slides": {
+        "id": "1A83eW_1chPsFyJ36GPKbSoemIgS-S_oE",
+        "file": "Slides.pdf",
+        "size": 5013159,
+        "view_url": "https://drive.google.com/file/d/1A83eW_1chPsFyJ36GPKbSoemIgS-S_oE/view"
+      },
+      "report": {
+        "id": "1d1ZRGm5s2b1ZTibVXl8_HfFMv-6cGX8L",
+        "file": "Report.pdf",
+        "size": 842218,
+        "view_url": "https://drive.google.com/file/d/1d1ZRGm5s2b1ZTibVXl8_HfFMv-6cGX8L/view"
+      },
+      "notebooks": [],
+      "notes": []
+    },
+    {
+      "title": "Tự mã hóa biến phân",
+      "campus": "HN",
+      "folder": "Tự mã hóa biến phân (HN)",
+      "folder_url": "https://drive.google.com/drive/folders/1cEodHAk0PyWRJNn58davvU6Wyz-JjF-3",
+      "title_on_report": "Tự mã hóa biến phân",
+      "date_on_report": "Ngày 31 tháng 8 năm 2025",
+      "campers": [
+        {
+          "name": "Nguyễn Trung Tín",
+          "school": "Trường THPT Chuyên Bắc Giang"
+        },
+        {
+          "name": "Phạm Hữu Nam",
+          "school": "Trường THPT Cẩm Phả"
+        },
+        {
+          "name": "Trịnh Khánh Nam",
+          "school": "Trường THPT Chuyên Trần Phú"
+        }
+      ],
+      "slides": {
+        "id": "1Eqi4E6U-VStKAooSaJ9QL1T_ZMVSW-4l",
+        "file": "Slides.pdf",
+        "size": 1315633,
+        "view_url": "https://drive.google.com/file/d/1Eqi4E6U-VStKAooSaJ9QL1T_ZMVSW-4l/view"
+      },
+      "report": {
+        "id": "1-p9PyPRZQghKe8EoYN1EpmQqY8FhKQyW",
+        "file": "Report.pdf",
+        "size": 1606242,
+        "view_url": "https://drive.google.com/file/d/1-p9PyPRZQghKe8EoYN1EpmQqY8FhKQyW/view"
+      },
+      "notebooks": [],
+      "notes": []
+    },
+    {
+      "title": "Luồng chuẩn hóa",
+      "campus": "HCM",
+      "folder": "Luồng chuẩn hóa (HCM)",
+      "folder_url": "https://drive.google.com/drive/folders/106zFgEiOlHO-Jbrfsxv-qCBur3nTC3kU",
+      "title_on_report": "Mô hình luồng chuẩn hóa",
+      "date_on_report": "Ngày 31 tháng 8 năm 2025",
+      "campers": [
+        {
+          "name": "Nguyễn Anh Khoa",
+          "school": "Trường Phổ thông Năng khiếu, ĐHQG-TPHCM"
+        },
+        {
+          "name": "Nguyễn Minh Khôi",
+          "school": "Trường THPT Nguyễn Thị Minh Khai, TPHCM"
+        },
+        {
+          "name": "Nguyễn Thuý Nam Trân",
+          "school": "Trường Phổ thông Năng khiếu, ĐHQG-TPHCM"
+        },
+        {
+          "name": "Nguyễn Ngọc Khang",
+          "school": "Trường THPT Chuyên Lê Quý Đôn, Bà Rịa-Vũng Tàu"
+        }
+      ],
+      "slides": {
+        "id": "1FDCM7uyiu-6aMcz4JA420PXb226VJqv5",
+        "file": "Slides.pdf",
+        "size": 1215829,
+        "view_url": "https://drive.google.com/file/d/1FDCM7uyiu-6aMcz4JA420PXb226VJqv5/view"
+      },
+      "report": {
+        "id": "1MdTNq9F8osMU-oszbEmx46ZsfdeT9muz",
+        "file": "Report.pdf",
+        "size": 574109,
+        "view_url": "https://drive.google.com/file/d/1MdTNq9F8osMU-oszbEmx46ZsfdeT9muz/view"
+      },
+      "notebooks": [],
+      "notes": [
+        "Only HCM ran this topic; there is no 'Luồng chuẩn hóa (HN)' folder."
+      ]
+    },
+    {
+      "title": "Mô hình khuếch tán",
+      "campus": "HCM",
+      "folder": "Mô hình khuếch tán (HCM)",
+      "folder_url": "https://drive.google.com/drive/folders/1VkP4srvoR0M25e4eF0fXsd9Uu94fm6Hk",
+      "title_on_report": "Mô hình khuếch tán",
+      "date_on_report": "Ngày 31 tháng 8 năm 2025",
+      "campers": [
+        {
+          "name": "Châu Tấn Phát",
+          "school": "Trường THPT chuyên Trần Đại Nghĩa, TPHCM"
+        },
+        {
+          "name": "Nguyễn Hữu Vinh",
+          "school": "Trường THPT Gia Định, TPHCM"
+        },
+        {
+          "name": "Ưng Ngọc Bảo Trân",
+          "school": "Trường Phổ thông Năng khiếu, ĐHQG-TPHCM"
+        },
+        {
+          "name": "Nguyễn Quang Thông",
+          "school": "Trường THPT chuyên Lê Hồng Phong, TPHCM"
+        }
+      ],
+      "slides": {
+        "id": "13l50v-zBdTKAl4OuNrAFPqHtvQ8wKurI",
+        "file": "Slides.pdf",
+        "size": 7839313,
+        "view_url": "https://drive.google.com/file/d/13l50v-zBdTKAl4OuNrAFPqHtvQ8wKurI/view"
+      },
+      "report": {
+        "id": "1SAYEdc5iymf4o6DioDHMiEZoLlFuK_66",
+        "file": "Report.pdf",
+        "size": 1736581,
+        "view_url": "https://drive.google.com/file/d/1SAYEdc5iymf4o6DioDHMiEZoLlFuK_66/view"
+      },
+      "notebooks": [
+        {
+          "id": "1TcGRde6QOxuX898HRXyV5At-sbicB8Sn",
+          "file": "Notebook.ipynb",
+          "size": 1922755,
+          "view_url": "https://drive.google.com/file/d/1TcGRde6QOxuX898HRXyV5At-sbicB8Sn/view"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "title": "Mạng đối nghịch - tạo sinh",
+      "campus": "HCM",
+      "folder": "Mạng đối nghịch - tạo sinh (HCM)",
+      "folder_url": "https://drive.google.com/drive/folders/17YRpFfMN2LccuqMcIxF7O8HoARhigysg",
+      "title_on_report": "Mô hình mạng đối nghịch - tạo sinh",
+      "date_on_report": "Ngày 1 tháng 9 năm 2025",
+      "campers": [
+        {
+          "name": "Trang Thảo My",
+          "school": "Trường THPT Gia Định, TPHCM"
+        },
+        {
+          "name": "Trương Tấn Minh",
+          "school": "Trường THPT Chuyên Quang Trung, Bình Phước"
+        },
+        {
+          "name": "Nguyễn Ngọc Quỳnh Thi",
+          "school": "Trường Phổ thông Năng khiếu, ĐHQG-TPHCM"
+        }
+      ],
+      "slides": {
+        "id": "1PwWJA3LsgeqaOVuxW6hUuVdSJX65_tWT",
+        "file": "Slides.pdf",
+        "size": 5738196,
+        "view_url": "https://drive.google.com/file/d/1PwWJA3LsgeqaOVuxW6hUuVdSJX65_tWT/view"
+      },
+      "report": {
+        "id": "15ifXhQxG-zHv6UKbhRs2eu-zxhPSWE_d",
+        "file": "Report.pdf",
+        "size": 1949644,
+        "view_url": "https://drive.google.com/file/d/15ifXhQxG-zHv6UKbhRs2eu-zxhPSWE_d/view"
+      },
+      "notebooks": [],
+      "notes": []
+    },
+    {
+      "title": "Mô hình đồ thị",
+      "campus": "HCM",
+      "folder": "Mô hình đồ thị (HCM)",
+      "folder_url": "https://drive.google.com/drive/folders/18GwYS1SpppXn5xLxBWP-E2-1E2vJ99C4",
+      "title_on_report": "Mô hình đồ thị",
+      "date_on_report": "Ngày 31 tháng 8 năm 2025",
+      "campers": [
+        {
+          "name": "Nguyễn Sơn Hải",
+          "school": "Trường Phổ thông Năng khiếu, ĐHQG-TPHCM"
+        },
+        {
+          "name": "Phạm Phúc Toàn",
+          "school": "Trường THPT Chuyên Hoàng Lê Kha, Tây Ninh"
+        },
+        {
+          "name": "Lê Vũ Thiêm Hoàng",
+          "school": "Trường THPT Chuyên Hùng Vương, Bình Dương"
+        },
+        {
+          "name": "Phan Hoàng Thanh Dung",
+          "school": "Trường Phổ thông Năng khiếu, ĐHQG-TPHCM"
+        }
+      ],
+      "slides": {
+        "id": "1S33OWkIJd4Efrc-NwrsqCRcHx-Crlcvh",
+        "file": "Slides.pdf",
+        "size": 865827,
+        "view_url": "https://drive.google.com/file/d/1S33OWkIJd4Efrc-NwrsqCRcHx-Crlcvh/view"
+      },
+      "report": {
+        "id": "1oT3tZqNgMmlKJqefNwXQ7ZZ6UMsjbmr0",
+        "file": "Report.pdf",
+        "size": 710911,
+        "view_url": "https://drive.google.com/file/d/1oT3tZqNgMmlKJqefNwXQ7ZZ6UMsjbmr0/view"
+      },
+      "notebooks": [],
+      "notes": []
+    },
+    {
+      "title": "Mô hình tự hồi quy",
+      "campus": "HCM",
+      "folder": "Mô hình tự hồi quy (HCM)",
+      "folder_url": "https://drive.google.com/drive/folders/1Mh82nTb-f9kByZ_Ilu64XplhszI4E6Um",
+      "title_on_report": "Mô hình học sâu tự hồi quy trong tạo sinh âm thanh",
+      "date_on_report": "Ngày 31 tháng 8 năm 2025",
+      "campers": [
+        {
+          "name": "Vũ Thị Quỳnh Như",
+          "school": "Trường THPT Chuyên Huỳnh Mẫn Đạt, Kiên Giang"
+        },
+        {
+          "name": "Phạm Vũ Gia Bảo",
+          "school": "Trường THPT Chuyên Lê Quý Đôn, Bà Rịa-Vũng Tàu"
+        },
+        {
+          "name": "Dương Nghiệp Phát",
+          "school": "Trường THPT Nguyễn Thị Minh Khai, TPHCM"
+        },
+        {
+          "name": "Nguyễn Xuân Gia Khang",
+          "school": "Trường Phổ thông Năng Khiếu, ĐHQG-TPHCM"
+        }
+      ],
+      "slides": {
+        "id": "1PDyjbd1P7O8enBfODJmfh11OTvA-j-v_",
+        "file": "Slides.pdf",
+        "size": 2266478,
+        "view_url": "https://drive.google.com/file/d/1PDyjbd1P7O8enBfODJmfh11OTvA-j-v_/view"
+      },
+      "report": {
+        "id": "1BJi0FbINb_zLgbtZh5FNhANM29bDjCF9",
+        "file": "Report.pdf",
+        "size": 1102160,
+        "view_url": "https://drive.google.com/file/d/1BJi0FbINb_zLgbtZh5FNhANM29bDjCF9/view"
+      },
+      "notebooks": [
+        {
+          "id": "1lqs-1ZrDFpclDZeZZmHQDiXnnDdCH0rk",
+          "file": "Notebook.ipynb",
+          "size": 271502,
+          "view_url": "https://drive.google.com/file/d/1lqs-1ZrDFpclDZeZZmHQDiXnnDdCH0rk/view"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "title": "Tự mã hóa biến phân",
+      "campus": "HCM",
+      "folder": "Tự mã hóa biến phân (HCM)",
+      "folder_url": "https://drive.google.com/drive/folders/1oGZL3smePvPeBsrUHOjSnY5NEnQ82NML",
+      "title_on_report": "Mô hình tự mã hóa biến phân",
+      "date_on_report": "Ngày 31 tháng 8 năm 2025",
+      "campers": [
+        {
+          "name": "Đỗ Viết Hoàng Long",
+          "school": "Trường THPT Chuyên Quang Trung, Bình Phước"
+        },
+        {
+          "name": "Nguyễn Thị Ánh Tuyết",
+          "school": "Trường THPT Chuyên Nguyễn Chí Thanh, Đắk Nông"
+        },
+        {
+          "name": "Võ Nguyễn Thành Nhân",
+          "school": "Trường Phổ thông Năng khiếu, ĐHQG-TPHCM"
+        },
+        {
+          "name": "Nguyễn Đình Minh Huy",
+          "school": "Trường THPT Chuyên Nguyễn Du, Đắk Lắk"
+        }
+      ],
+      "slides": {
+        "id": "1ELrTq2MpWeaBSZ5EnMJJTzeg0J4GLWlB",
+        "file": "Slides.pdf",
+        "size": 1238414,
+        "view_url": "https://drive.google.com/file/d/1ELrTq2MpWeaBSZ5EnMJJTzeg0J4GLWlB/view"
+      },
+      "report": {
+        "id": "1TcrRu4-IoqaxJEpC7RTefXFH0kM1AGBP",
+        "file": "Report.pdf",
+        "size": 4780837,
+        "view_url": "https://drive.google.com/file/d/1TcrRu4-IoqaxJEpC7RTefXFH0kM1AGBP/view"
+      },
+      "notebooks": [
+        {
+          "id": "1n30SSqDo9Nu_ds6K10DmIValyvHUWVVn",
+          "file": "Notebook.ipynb",
+          "size": 505502,
+          "view_url": "https://drive.google.com/file/d/1n30SSqDo9Nu_ds6K10DmIValyvHUWVVn/view"
+        }
+      ],
+      "notes": []
+    }
+  ],
+  "other_documents": {
+    "entrance_exam": [
+      {
+        "id": "1n72NZxaQzjYZGnHTz3Phz7Ioa9Z2CyE4",
+        "file": "Đề tuyển sinh.pdf",
+        "size": 435142,
+        "view_url": "https://drive.google.com/file/d/1n72NZxaQzjYZGnHTz3Phz7Ioa9Z2CyE4/view"
+      },
+      {
+        "id": "1Liz_RJAJF-YetOXJeb3BBNxaBMXJAoEW",
+        "file": "Hướng dẫn giải.pdf",
+        "size": 449058,
+        "view_url": "https://drive.google.com/file/d/1Liz_RJAJF-YetOXJeb3BBNxaBMXJAoEW/view"
+      }
+    ],
+    "exercises": [
+      {
+        "id": "1N_Annb7f4D56cWEspAjugIpQ-6_J-CpZ",
+        "file": "Bài tập về nhà.pdf",
+        "size": 449289,
+        "view_url": "https://drive.google.com/file/d/1N_Annb7f4D56cWEspAjugIpQ-6_J-CpZ/view"
+      }
+    ],
+    "reading": [
+      {
+        "id": "1xpMgD66efwhFvjHkS3oJIa-zKJt8fjad",
+        "file": "Đại số tuyến tính.pdf",
+        "size": 605056,
+        "view_url": "https://drive.google.com/file/d/1xpMgD66efwhFvjHkS3oJIa-zKJt8fjad/view"
+      },
+      {
+        "id": "1XzROd7EbwvZ0lWRyDgQZ-d1yOOJtlS2Y",
+        "file": "Vi tích phân.pdf",
+        "size": 915934,
+        "view_url": "https://drive.google.com/file/d/1XzROd7EbwvZ0lWRyDgQZ-d1yOOJtlS2Y/view"
+      },
+      {
+        "id": "1pecEE-6uP612NvY548FwdKk26UdrJklW",
+        "file": "Xác suất Thống kê.pdf",
+        "size": 592486,
+        "view_url": "https://drive.google.com/file/d/1pecEE-6uP612NvY548FwdKk26UdrJklW/view"
+      },
+      {
+        "id": "1NWWsgZf3v6UfSkP2Sf7UJ4yS1_oRBlCm",
+        "file": "Soạn thảo bằng LaTeX.pdf",
+        "size": 852419,
+        "view_url": "https://drive.google.com/file/d/1NWWsgZf3v6UfSkP2Sf7UJ4yS1_oRBlCm/view"
+      }
+    ]
+  },
+  "camp_page": {
+    "page": "src/pages/trai-he-toan-hoc-2025.astro",
+    "read_from": "branch dev at 6c1f6a0",
+    "keep": {
+      "topic": {
+        "kicker": "Trại hè Toán học & Ứng dụng PiMA 2025",
+        "h1": "Trại hè PiMA 2025",
+        "hero_text": "Trại hè Toán học và Ứng dụng 2025 mang đến chủ đề Toán học trong các Mô hình Tạo sinh - The Mathematics of Generative Models – khám phá nền tảng Toán học đằng sau Trí tuệ Nhân tạo.",
+        "h2": "Toán học trong <br />Mô hình <br />Tạo sinh<br />",
+        "h3": "The Mathematics of Generative Models",
+        "description": "Toán học trong các Mô hình Tạo sinh (The Mathematics of Generative Models) là một chủ đề nằm ở giao điểm giữa Toán học, Khoa học Dữ liệu và Trí tuệ Nhân tạo. Mô hình tạo sinh là những hệ thống có khả năng <em>học</em> từ dữ liệu đã có để tạo ra dữ liệu mới theo yêu cầu của người dùng. Ví dụ điển hình là ChatGPT (tạo văn bản ngôn ngữ tự nhiên) và DALL-E (tạo hình ảnh từ văn bản).<br /><br />Đằng sau sức mạnh của các mô hình này là hệ thống các công cụ toán học và kỹ thuật lập trình sâu sắc. Những kiến thức đó được tích hợp để xử lý dữ liệu và huấn luyện mô hình. Qua đó, các kiến thức như đại số tuyến tính, vi tích phân và xác suất thống kê chính là nền tảng tạo nên trí tuệ của những hệ thống hiện đại này.",
+        "programme": [
+          "Tiếp thu các kiến thức về đại số tuyến tính, xác suất thống kê và học sâu",
+          "Học được các kỹ năng cơ bản về lập trình với Python và soạn thảo văn bản với LaTeX",
+          "Tìm hiểu cách ứng dụng các kiến thức trên vào việc khám phá các khía cạnh khác nhau của mô hình tạo sinh và ứng dụng của mô hình trong thực tế",
+          "Vận dụng các kiến thức và kĩ năng để hoàn thành một đề tài nhóm dưới sự hỗ trợ của các mentor đến từ các trường đại học lớn trong và ngoài nước."
+        ],
+        "programme_heading": "Nội dung chương trình",
+        "source": "src/pages/trai-he-toan-hoc-2025.astro lines 46-51 (hero), 73-87 (topic section), 101-126 (programme)"
+      },
+      "team": {
+        "organizers": {
+          "heading": "Ban tổ chức",
+          "people": [
+            {
+              "name": "PGS. TS. Trần Minh Triết",
+              "affiliation": "Trường ĐH Khoa học Tự nhiên, ĐHQG-HCM",
+              "photo": "src/assets/images/tran-minh-triet.avif"
+            },
+            {
+              "name": "TS. Cấn Trần Thành Trung",
+              "affiliation": "Trường ĐH Khoa học Tự nhiên, ĐHQG-HCM",
+              "photo": "src/assets/images/can-tran-thanh-trung.avif"
+            }
+          ],
+          "source": "src/camp/camp-mentors.ts (organizers), rendered by src/camp/CampMentors.astro"
+        },
+        "advisors": {
+          "heading": "Cố vấn chuyên môn",
+          "people": [
+            {
+              "name": "GS. Trần Thanh Long",
+              "affiliation": "Đại học Warwick, Vương quốc Anh",
+              "photo": "src/assets/images/tran-thanh-long.avif"
+            },
+            {
+              "name": "TS. Phạm Kim Sơn",
+              "affiliation": "Công ty BioTuring, Việt Nam",
+              "photo": "src/assets/images/pham-kim-son.avif"
+            }
+          ],
+          "source": "src/camp/camp-mentors.ts (advisors), rendered by src/camp/CampMentors.astro"
+        },
+        "mentor_universities": {
+          "heading": "Mentor trại hè PiMA đến từ các trường đại học hàng đầu",
+          "logos": [
+            "Logo Đại học California, Los Angeles (UCLA)",
+            "Logo Đại học Stony Brook",
+            "Logo Đại học Quốc gia Singapore (NUS)",
+            "Logo Đại học Công nghệ Nanyang (NTU)",
+            "Logo Trường Đại học Khoa học Tự nhiên, ĐHQG-HCM",
+            "Logo Trường Đại học Bách khoa, ĐHQG-HCM",
+            "Logo Đại học William & Mary",
+            "Logo Đại học Bách khoa Hà Nội",
+            "Logo Đại học Bonn",
+            "Logo Trường Đại học FPT",
+            "Logo Trường Đại học Khoa học và Công nghệ Hà Nội"
+          ],
+          "source": "src/camp/mentor-logos.ts (mentorLogos2025), images in src/assets/images/, rendered by src/camp/MentorLogos.astro",
+          "keep": "optional: it lists universities, not people; keep only if the archive page's team block wants it"
+        },
+        "same_on_both_pages": true
+      },
+      "photos": {
+        "camp_photos": [
+          "src/assets/images/trai-he-pima-1.avif",
+          "src/assets/images/trai-he-pima-2.avif",
+          "src/assets/images/trai-he-pima-4.avif",
+          "src/assets/images/trai-he-pima-5.avif",
+          "src/assets/images/trai-he-pima-6.avif",
+          "src/assets/images/trai-he-pima-7.avif",
+          "src/assets/images/trai-he-pima-8.avif",
+          "src/assets/images/481775555-1135445305045604-7304032333989245886-n.avif"
+        ],
+        "og_image": "src/assets/images/481775555-1135445305045604-7304032333989245886-n.avif (CampLayout hero prop → og:image)",
+        "not_camp_photos": [
+          "src/assets/images/thisisengineering-gzdrm7syq0g-unsplash.avif (Unsplash stock photo)",
+          "src/assets/images/artboard-7.avif, src/assets/images/artboard-2.avif (illustrations)"
+        ],
+        "source": "src/camp/camp-header-photos.ts (campHeaderPhotos2025), rendered by src/camp/CampHeaderPhotos.astro",
+        "year_unverified": "Which camp year each trai-he-pima-N photo shows is not recorded anywhere in the repo; the same files are used on both camp pages and on the overview page (src/sections/summer-camp-photos.ts)."
+      },
+      "video": {
+        "youtube_id": "8DKLYsikxTs",
+        "url": "https://www.youtube.com/watch?v=8DKLYsikxTs",
+        "thumbnail": "src/assets/images/503130863-1201891305067670-4173964297695478867-n.jpg",
+        "source": "src/pages/trai-he-toan-hoc-2025.astro lines 129-133, src/camp/VideoLightbox.astro"
+      },
+      "camps_held": {
+        "items": [
+          {
+            "campus": "TP.HCM",
+            "text": "Thời gian dự kiến: từ 02/08/2025 đến 09/08/2025<br />Hình thức: Trực tiếp<br />Địa điểm: Đại học Khoa học Tự nhiên, ĐHQG-HCM cơ sở Nguyễn Văn Cừ<br />Địa chỉ: 227 Đ. Nguyễn Văn Cừ, Phường 4, Quận 5, Thành phố Hồ Chí Minh"
+          },
+          {
+            "campus": "Hà Nội",
+            "text": "Thời gian dự kiến: từ 11/08/2025 đến 18/08/2025<br />Hình thức: Trực tiếp<br />Địa điểm: Viện Nghiên cứu cao cấp về Toán - VIASM<br />Địa chỉ: 161 P. Huỳnh Thúc Kháng, Láng Hạ, Đống Đa, Hà Nội"
+          }
+        ],
+        "keep": "as facts (campus, dates, venue) if the archive page shows them; not as 'Thời gian dự kiến'"
+      }
+    },
+    "drop": [
+      {
+        "content": "Đăng ký ngay / Ứng tuyển ngay buttons → https://qual.pimavn.com/apply",
+        "where": "src/pages/trai-he-toan-hoc-2025.astro lines 28, 55, 278, 412"
+      },
+      {
+        "content": "Quyền lợi tham gia trại hè (5 benefit cards)",
+        "where": "src/pages/trai-he-toan-hoc-2025.astro lines 141-280"
+      },
+      {
+        "content": "Thông tin trại hè: 'Thời gian dự kiến', address cards (recruitment framing; dates and venues can be restated as facts)",
+        "where": "src/pages/trai-he-toan-hoc-2025.astro lines 281-323"
+      },
+      {
+        "content": "Quy trình tuyển sinh: Đối tượng, Số lượng tuyển: 48 bạn (mỗi địa điểm 24 bạn), deadline, 5-step timeline",
+        "where": "src/pages/trai-he-toan-hoc-2025.astro lines 324-418"
+      },
+      {
+        "content": "Kinh phí tham gia: 8 000 000 VNĐ, học bổng",
+        "where": "src/pages/trai-he-toan-hoc-2025.astro lines 422-446"
+      },
+      {
+        "content": "Thông tin liên hệ: Fanpage, Email, Hotline (two phone numbers with names)",
+        "where": "src/pages/trai-he-toan-hoc-2025.astro lines 447-496"
+      },
+      {
+        "content": "PiMA team photo next to the contact list (src/assets/images/pima-team.png via src/camp/CampTeamPhoto.astro; a team photo, not a camp photo; also used by src/sections/Philosophy.astro)",
+        "where": "src/pages/trai-he-toan-hoc-2025.astro line 497"
+      },
+      {
+        "content": "Page title 'Tuyển sinh trại hè toán học PiMA 2025' and meta description (mentions quyền lợi, quy trình tuyển sinh, kinh phí, liên hệ)",
+        "where": "src/pages/trai-he-toan-hoc-2025.astro lines 32-33"
+      }
+    ]
+  },
+  "files": [
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025",
+      "id": "1C3cRO9e8vHsutvGTPPIVZkMRZAneRnFU",
+      "type": "folder",
+      "size": null,
+      "owner": "danhtran1604@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/drive/folders/1C3cRO9e8vHsutvGTPPIVZkMRZAneRnFU"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/1. Đề tuyển sinh",
+      "id": "1dDYrKP4O1LDFySKKwKFAQmE-tEQXQucF",
+      "type": "folder",
+      "mime_type": null,
+      "size": null,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/drive/folders/1dDYrKP4O1LDFySKKwKFAQmE-tEQXQucF"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/1. Đề tuyển sinh/Hướng dẫn giải.pdf",
+      "id": "1Liz_RJAJF-YetOXJeb3BBNxaBMXJAoEW",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 449058,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1Liz_RJAJF-YetOXJeb3BBNxaBMXJAoEW/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/1. Đề tuyển sinh/Đề tuyển sinh.pdf",
+      "id": "1n72NZxaQzjYZGnHTz3Phz7Ioa9Z2CyE4",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 435142,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1n72NZxaQzjYZGnHTz3Phz7Ioa9Z2CyE4/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/2. Bài giảng",
+      "id": "1WMfOkzAve-WHpwluTiIke_YHcy-9uKTk",
+      "type": "folder",
+      "mime_type": null,
+      "size": null,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/drive/folders/1WMfOkzAve-WHpwluTiIke_YHcy-9uKTk"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/2. Bài giảng/Slide bài giảng",
+      "id": "1UhenMkPQ3SlFK9o9RoXEuZQ4_-hX9-7g",
+      "type": "folder",
+      "mime_type": null,
+      "size": null,
+      "owner": "toanvv.ti.1922@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/drive/folders/1UhenMkPQ3SlFK9o9RoXEuZQ4_-hX9-7g"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/2. Bài giảng/Slide bài giảng/[PiMA-2025] Bài giảng 1 - Đại số tuyến tính.pdf",
+      "id": "1syS1yCPsuXMqm9jbQ7L8VRWpL_SEdOsK",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 4296700,
+      "owner": "toanvv.ti.1922@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1syS1yCPsuXMqm9jbQ7L8VRWpL_SEdOsK/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/2. Bài giảng/Slide bài giảng/[PiMA-2025] Bài giảng 2 - Giải tích hàm nhiều biến.pdf",
+      "id": "1vKsBpL4neQVx0U1f_DqcwWjCqzZBOPfb",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 2440552,
+      "owner": "toanvv.ti.1922@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1vKsBpL4neQVx0U1f_DqcwWjCqzZBOPfb/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/2. Bài giảng/Slide bài giảng/[PiMA-2025] Bài giảng 3 - Xác suất thống kê cơ bản 1.pdf",
+      "id": "1g8QBVMCia2F4KZIRe7iBc9-G6a05UPl5",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 752455,
+      "owner": "toanvv.ti.1922@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1g8QBVMCia2F4KZIRe7iBc9-G6a05UPl5/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/2. Bài giảng/Slide bài giảng/[PiMA-2025] Bài giảng 4 - Xác suất thống kê cơ bản 2.pdf",
+      "id": "17KVl0wHskao42wwFGDWANuN4IN_0ckxp",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 562945,
+      "owner": "toanvv.ti.1922@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/17KVl0wHskao42wwFGDWANuN4IN_0ckxp/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/2. Bài giảng/Slide bài giảng/[PiMA-2025] Bài giảng 5 - Ước lượng tham số.pdf",
+      "id": "1rMgMqdW-btjahICGy6CfUpfCNzhfhmxH",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 641088,
+      "owner": "toanvv.ti.1922@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1rMgMqdW-btjahICGy6CfUpfCNzhfhmxH/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/2. Bài giảng/Slide bài giảng/[PiMA-2025] Bài giảng 6 - Suy diễn và Mô hình tạo sinh.pdf",
+      "id": "1F9kyohfKCMIkzK4W4iMUjrWph7wkh0QF",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 1790986,
+      "owner": "toanvv.ti.1922@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1F9kyohfKCMIkzK4W4iMUjrWph7wkh0QF/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/2. Bài giảng/Slide bài giảng/[PiMA-2025] Bài giảng 7 - Học máy và Học sâu cơ bản.pdf",
+      "id": "1XPXSNbYyxlWz_TRE-nCL34cLU7FztAmo",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 5610054,
+      "owner": "toanvv.ti.1922@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1XPXSNbYyxlWz_TRE-nCL34cLU7FztAmo/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/2. Bài giảng/Slide bài giảng/[PiMA-2025] Bài giảng 8 - Các mô hình học sâu.pdf",
+      "id": "1EeNHdZtemr2OxQRYvCyDjmPCK_F_Yy_Y",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 16574524,
+      "owner": "toanvv.ti.1922@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1EeNHdZtemr2OxQRYvCyDjmPCK_F_Yy_Y/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/2. Bài giảng/Tài liệu đọc thêm",
+      "id": "1L6EfJaeJr3VYLze4SihvJs6kuctI1qeQ",
+      "type": "folder",
+      "mime_type": null,
+      "size": null,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/drive/folders/1L6EfJaeJr3VYLze4SihvJs6kuctI1qeQ"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/2. Bài giảng/Tài liệu đọc thêm/Soạn thảo bằng LaTeX.pdf",
+      "id": "1NWWsgZf3v6UfSkP2Sf7UJ4yS1_oRBlCm",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 852419,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1NWWsgZf3v6UfSkP2Sf7UJ4yS1_oRBlCm/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/2. Bài giảng/Tài liệu đọc thêm/Vi tích phân.pdf",
+      "id": "1XzROd7EbwvZ0lWRyDgQZ-d1yOOJtlS2Y",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 915934,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1XzROd7EbwvZ0lWRyDgQZ-d1yOOJtlS2Y/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/2. Bài giảng/Tài liệu đọc thêm/Xác suất Thống kê.pdf",
+      "id": "1pecEE-6uP612NvY548FwdKk26UdrJklW",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 592486,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1pecEE-6uP612NvY548FwdKk26UdrJklW/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/2. Bài giảng/Tài liệu đọc thêm/Đại số tuyến tính.pdf",
+      "id": "1xpMgD66efwhFvjHkS3oJIa-zKJt8fjad",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 605056,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1xpMgD66efwhFvjHkS3oJIa-zKJt8fjad/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/3. Bài tập",
+      "id": "1XlAu3hqKrFqC_wHfqw3FSTx7IqxfWp-u",
+      "type": "folder",
+      "mime_type": null,
+      "size": null,
+      "owner": "nhauyen6299@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/drive/folders/1XlAu3hqKrFqC_wHfqw3FSTx7IqxfWp-u"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/3. Bài tập/Bài tập về nhà.pdf",
+      "id": "1N_Annb7f4D56cWEspAjugIpQ-6_J-CpZ",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 449289,
+      "owner": "danhtran1604@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1N_Annb7f4D56cWEspAjugIpQ-6_J-CpZ/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/4. Dự án nhóm",
+      "id": "1vT9eposx94YPl_2xOGzrD99jZ3uqz_jG",
+      "type": "folder",
+      "mime_type": null,
+      "size": null,
+      "owner": "danhtran1604@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/drive/folders/1vT9eposx94YPl_2xOGzrD99jZ3uqz_jG"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/4. Dự án nhóm/Luồng chuẩn hóa (HCM)",
+      "id": "106zFgEiOlHO-Jbrfsxv-qCBur3nTC3kU",
+      "type": "folder",
+      "mime_type": null,
+      "size": null,
+      "owner": "danhtran1604@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/drive/folders/106zFgEiOlHO-Jbrfsxv-qCBur3nTC3kU"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/4. Dự án nhóm/Luồng chuẩn hóa (HCM)/Report.pdf",
+      "id": "1MdTNq9F8osMU-oszbEmx46ZsfdeT9muz",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 574109,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1MdTNq9F8osMU-oszbEmx46ZsfdeT9muz/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/4. Dự án nhóm/Luồng chuẩn hóa (HCM)/Slides.pdf",
+      "id": "1FDCM7uyiu-6aMcz4JA420PXb226VJqv5",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 1215829,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1FDCM7uyiu-6aMcz4JA420PXb226VJqv5/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/4. Dự án nhóm/Mô hình khuếch tán (HCM)",
+      "id": "1VkP4srvoR0M25e4eF0fXsd9Uu94fm6Hk",
+      "type": "folder",
+      "mime_type": null,
+      "size": null,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/drive/folders/1VkP4srvoR0M25e4eF0fXsd9Uu94fm6Hk"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/4. Dự án nhóm/Mô hình khuếch tán (HCM)/Notebook.ipynb",
+      "id": "1TcGRde6QOxuX898HRXyV5At-sbicB8Sn",
+      "type": "ipynb",
+      "mime_type": "application/json",
+      "size": 1922755,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1TcGRde6QOxuX898HRXyV5At-sbicB8Sn/view",
+      "colab_url": "https://colab.research.google.com/drive/1TcGRde6QOxuX898HRXyV5At-sbicB8Sn"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/4. Dự án nhóm/Mô hình khuếch tán (HCM)/Report.pdf",
+      "id": "1SAYEdc5iymf4o6DioDHMiEZoLlFuK_66",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 1736581,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1SAYEdc5iymf4o6DioDHMiEZoLlFuK_66/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/4. Dự án nhóm/Mô hình khuếch tán (HCM)/Slides.pdf",
+      "id": "13l50v-zBdTKAl4OuNrAFPqHtvQ8wKurI",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 7839313,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/13l50v-zBdTKAl4OuNrAFPqHtvQ8wKurI/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/4. Dự án nhóm/Mô hình khuếch tán (HN)",
+      "id": "1MC1UOu-aRbHerUjD4_c4YufEd5-5_xlA",
+      "type": "folder",
+      "mime_type": null,
+      "size": null,
+      "owner": "danhtran1604@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/drive/folders/1MC1UOu-aRbHerUjD4_c4YufEd5-5_xlA"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/4. Dự án nhóm/Mô hình khuếch tán (HN)/Report.pdf",
+      "id": "1RS0KZooFJRSQrMR89xaqmGO13f8HZNHe",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 9079287,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1RS0KZooFJRSQrMR89xaqmGO13f8HZNHe/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/4. Dự án nhóm/Mô hình khuếch tán (HN)/Slides.pdf",
+      "id": "1UqYz33WH7B9BFxmWYrpzVII-LEFP9RqP",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 9045053,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1UqYz33WH7B9BFxmWYrpzVII-LEFP9RqP/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/4. Dự án nhóm/Mô hình tự hồi quy (HCM)",
+      "id": "1Mh82nTb-f9kByZ_Ilu64XplhszI4E6Um",
+      "type": "folder",
+      "mime_type": null,
+      "size": null,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/drive/folders/1Mh82nTb-f9kByZ_Ilu64XplhszI4E6Um"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/4. Dự án nhóm/Mô hình tự hồi quy (HCM)/Notebook.ipynb",
+      "id": "1lqs-1ZrDFpclDZeZZmHQDiXnnDdCH0rk",
+      "type": "ipynb",
+      "mime_type": "application/octet-stream",
+      "size": 271502,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1lqs-1ZrDFpclDZeZZmHQDiXnnDdCH0rk/view",
+      "colab_url": "https://colab.research.google.com/drive/1lqs-1ZrDFpclDZeZZmHQDiXnnDdCH0rk"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/4. Dự án nhóm/Mô hình tự hồi quy (HCM)/Report.pdf",
+      "id": "1BJi0FbINb_zLgbtZh5FNhANM29bDjCF9",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 1102160,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1BJi0FbINb_zLgbtZh5FNhANM29bDjCF9/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/4. Dự án nhóm/Mô hình tự hồi quy (HCM)/Slides.pdf",
+      "id": "1PDyjbd1P7O8enBfODJmfh11OTvA-j-v_",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 2266478,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1PDyjbd1P7O8enBfODJmfh11OTvA-j-v_/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/4. Dự án nhóm/Mô hình tự hồi quy (HN)",
+      "id": "1opNr91rEhmAydzZ4aVLxjiEyyxLYL6BA",
+      "type": "folder",
+      "mime_type": null,
+      "size": null,
+      "owner": "danhtran1604@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/drive/folders/1opNr91rEhmAydzZ4aVLxjiEyyxLYL6BA"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/4. Dự án nhóm/Mô hình tự hồi quy (HN)/Report.pdf",
+      "id": "1d1ZRGm5s2b1ZTibVXl8_HfFMv-6cGX8L",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 842218,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1d1ZRGm5s2b1ZTibVXl8_HfFMv-6cGX8L/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/4. Dự án nhóm/Mô hình tự hồi quy (HN)/Slides.pdf",
+      "id": "1A83eW_1chPsFyJ36GPKbSoemIgS-S_oE",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 5013159,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1A83eW_1chPsFyJ36GPKbSoemIgS-S_oE/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/4. Dự án nhóm/Mô hình đồ thị (HCM)",
+      "id": "18GwYS1SpppXn5xLxBWP-E2-1E2vJ99C4",
+      "type": "folder",
+      "mime_type": null,
+      "size": null,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/drive/folders/18GwYS1SpppXn5xLxBWP-E2-1E2vJ99C4"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/4. Dự án nhóm/Mô hình đồ thị (HCM)/Report.pdf",
+      "id": "1oT3tZqNgMmlKJqefNwXQ7ZZ6UMsjbmr0",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 710911,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1oT3tZqNgMmlKJqefNwXQ7ZZ6UMsjbmr0/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/4. Dự án nhóm/Mô hình đồ thị (HCM)/Slides.pdf",
+      "id": "1S33OWkIJd4Efrc-NwrsqCRcHx-Crlcvh",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 865827,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1S33OWkIJd4Efrc-NwrsqCRcHx-Crlcvh/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/4. Dự án nhóm/Mô hình đồ thị (HN)",
+      "id": "1nUJrxvGoIDyP_XjiHFmuM0zs9x1tWZnZ",
+      "type": "folder",
+      "mime_type": null,
+      "size": null,
+      "owner": "danhtran1604@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/drive/folders/1nUJrxvGoIDyP_XjiHFmuM0zs9x1tWZnZ"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/4. Dự án nhóm/Mô hình đồ thị (HN)/Notebook.ipynb",
+      "id": "1HKTrC143aAgp-yMiqgu0Yv8RTbAvf0cW",
+      "type": "ipynb",
+      "mime_type": "application/octet-stream",
+      "size": 714700,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1HKTrC143aAgp-yMiqgu0Yv8RTbAvf0cW/view",
+      "colab_url": "https://colab.research.google.com/drive/1HKTrC143aAgp-yMiqgu0Yv8RTbAvf0cW"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/4. Dự án nhóm/Mô hình đồ thị (HN)/Report.pdf",
+      "id": "17orZHqeH27IBWd9QgfYQCBoFy5EZyMQC",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 1860257,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/17orZHqeH27IBWd9QgfYQCBoFy5EZyMQC/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/4. Dự án nhóm/Mô hình đồ thị (HN)/Slides.pdf",
+      "id": "1FtHdf1rA5gV3X11SDzRmVFEVj_Cuaf1W",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 5866478,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1FtHdf1rA5gV3X11SDzRmVFEVj_Cuaf1W/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/4. Dự án nhóm/Mạng đối nghịch - tạo sinh (HCM)",
+      "id": "17YRpFfMN2LccuqMcIxF7O8HoARhigysg",
+      "type": "folder",
+      "mime_type": null,
+      "size": null,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/drive/folders/17YRpFfMN2LccuqMcIxF7O8HoARhigysg"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/4. Dự án nhóm/Mạng đối nghịch - tạo sinh (HCM)/Report.pdf",
+      "id": "15ifXhQxG-zHv6UKbhRs2eu-zxhPSWE_d",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 1949644,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/15ifXhQxG-zHv6UKbhRs2eu-zxhPSWE_d/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/4. Dự án nhóm/Mạng đối nghịch - tạo sinh (HCM)/Slides.pdf",
+      "id": "1PwWJA3LsgeqaOVuxW6hUuVdSJX65_tWT",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 5738196,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1PwWJA3LsgeqaOVuxW6hUuVdSJX65_tWT/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/4. Dự án nhóm/Mạng đối nghịch - tạo sinh (HN)",
+      "id": "1ZI6boFJf-mktfYtDP2ZfeP7j1L3vGIrD",
+      "type": "folder",
+      "mime_type": null,
+      "size": null,
+      "owner": "danhtran1604@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/drive/folders/1ZI6boFJf-mktfYtDP2ZfeP7j1L3vGIrD"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/4. Dự án nhóm/Mạng đối nghịch - tạo sinh (HN)/Report.pdf",
+      "id": "1YivjRSjQTE0HhmS6Tw0nmwZK40rzoPv-",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 804325,
+      "owner": "ducido.w@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1YivjRSjQTE0HhmS6Tw0nmwZK40rzoPv-/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/4. Dự án nhóm/Mạng đối nghịch - tạo sinh (HN)/Slides.pdf",
+      "id": "12ixbkFnCesp67sSo-EiP0tPnOFrEakP6",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 927382,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/12ixbkFnCesp67sSo-EiP0tPnOFrEakP6/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/4. Dự án nhóm/Tự mã hóa biến phân (HCM)",
+      "id": "1oGZL3smePvPeBsrUHOjSnY5NEnQ82NML",
+      "type": "folder",
+      "mime_type": null,
+      "size": null,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/drive/folders/1oGZL3smePvPeBsrUHOjSnY5NEnQ82NML"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/4. Dự án nhóm/Tự mã hóa biến phân (HCM)/Notebook.ipynb",
+      "id": "1n30SSqDo9Nu_ds6K10DmIValyvHUWVVn",
+      "type": "ipynb",
+      "mime_type": "application/octet-stream",
+      "size": 505502,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1n30SSqDo9Nu_ds6K10DmIValyvHUWVVn/view",
+      "colab_url": "https://colab.research.google.com/drive/1n30SSqDo9Nu_ds6K10DmIValyvHUWVVn"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/4. Dự án nhóm/Tự mã hóa biến phân (HCM)/Report.pdf",
+      "id": "1TcrRu4-IoqaxJEpC7RTefXFH0kM1AGBP",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 4780837,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1TcrRu4-IoqaxJEpC7RTefXFH0kM1AGBP/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/4. Dự án nhóm/Tự mã hóa biến phân (HCM)/Slides.pdf",
+      "id": "1ELrTq2MpWeaBSZ5EnMJJTzeg0J4GLWlB",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 1238414,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1ELrTq2MpWeaBSZ5EnMJJTzeg0J4GLWlB/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/4. Dự án nhóm/Tự mã hóa biến phân (HN)",
+      "id": "1cEodHAk0PyWRJNn58davvU6Wyz-JjF-3",
+      "type": "folder",
+      "mime_type": null,
+      "size": null,
+      "owner": "danhtran1604@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/drive/folders/1cEodHAk0PyWRJNn58davvU6Wyz-JjF-3"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/4. Dự án nhóm/Tự mã hóa biến phân (HN)/Report.pdf",
+      "id": "1-p9PyPRZQghKe8EoYN1EpmQqY8FhKQyW",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 1606242,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1-p9PyPRZQghKe8EoYN1EpmQqY8FhKQyW/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2025/4. Dự án nhóm/Tự mã hóa biến phân (HN)/Slides.pdf",
+      "id": "1Eqi4E6U-VStKAooSaJ9QL1T_ZMVSW-4l",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 1315633,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1Eqi4E6U-VStKAooSaJ9QL1T_ZMVSW-4l/view"
+    }
+  ]
+}

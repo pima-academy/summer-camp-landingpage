@@ -1,0 +1,1216 @@
+{
+  "year": 2026,
+  "source": {
+    "drive_root": {
+      "id": "1hpka8hYJ4QzhDoQ8nxTpIblqY1FxHl4S",
+      "title": "[Public] Tài liệu Trại hè PiMA 2026",
+      "view_url": "https://drive.google.com/drive/folders/1hpka8hYJ4QzhDoQ8nxTpIblqY1FxHl4S"
+    },
+    "read_on": "2026-11-27",
+    "method": "Google Drive connector (search by parent/ancestors with metadata, permissions on roots and a sample file, download of every report and lecture for its first page)"
+  },
+  "sharing_summary": {
+    "anyone_with_link": 60,
+    "restricted": 0,
+    "note": "Every file and folder listed has Drive visibility 'anyoneWithLink' (role reader). Confirmed with get_file_permissions on both root folders and on one 2025 report; a 'visibility != anyoneWithLink' search under the 2025 root returns nothing.",
+    "root_permissions": "owner danh.tran@pimavn.com, plus anyone with the link as reader"
+  },
+  "counts": {
+    "folders": 18,
+    "files": 42,
+    "bytes": 57255621,
+    "lectures": 5,
+    "projects": 6,
+    "campers_listed": 23
+  },
+  "notes": [
+    "File names in 2026 have no extension ('Slides', 'Report', '1 - Đại số tuyến tính'), except the notebooks and the files under '5 - Lập trình Học máy'.",
+    "Project folders carry no campus suffix: 6 folders, one per topic. The 2026 camp page shows one camp card and 'Số lượng tuyển: 24'; campus is left null.",
+    "Reports carry 'NHÓM 1'..'NHÓM 3' on three of six title pages; the others have no group number.",
+    "Campers' names and schools are verbatim from the first page of each report (footnote markers ∗ † ‡ § matched to names by position).",
+    "The Drive query \"'<id>' in ancestors\" returns nothing for this folder; the tree was walked folder by folder with parentId queries."
+  ],
+  "lectures": [
+    {
+      "number": 1,
+      "title": "Đại số tuyến tính",
+      "file_name": "1 - Đại số tuyến tính",
+      "title_on_title_page": "Đại số tuyến tính",
+      "authors": [
+        "Nguyễn Trần Hà Phương"
+      ],
+      "affiliations_on_title_page": [
+        "PiMA",
+        "Project in Mathematics and Applications"
+      ],
+      "date_on_title_page": "Ngày 3 tháng 8 năm 2025",
+      "file": {
+        "id": "1yfB1mlBsaPBL0lHWStHO-J2JWU5ifmy_",
+        "file": "1 - Đại số tuyến tính",
+        "size": 703606,
+        "view_url": "https://drive.google.com/file/d/1yfB1mlBsaPBL0lHWStHO-J2JWU5ifmy_/view"
+      },
+      "notes": [
+        "The title page says 'PiMA 2026' but is dated 'Ngày 3 tháng 8 năm 2025'."
+      ]
+    },
+    {
+      "number": 2,
+      "title": "Giải tích nhiều biến",
+      "file_name": "2 - Giải tích nhiều biến",
+      "title_on_title_page": "Giải tích nhiều biến",
+      "authors": [
+        "Ngô Xuân Thuỷ"
+      ],
+      "affiliations_on_title_page": [
+        "PiMA",
+        "Project in Mathematics and Applications"
+      ],
+      "date_on_title_page": "Ngày 3 tháng 8 năm 2025",
+      "file": {
+        "id": "1NeqPFpzT7xgbQN7muMpVxvADH6I_5uDN",
+        "file": "2 - Giải tích nhiều biến",
+        "size": 1732542,
+        "view_url": "https://drive.google.com/file/d/1NeqPFpzT7xgbQN7muMpVxvADH6I_5uDN/view"
+      },
+      "notes": [
+        "The title page says 'PiMA 2026' but is dated 'Ngày 3 tháng 8 năm 2025'."
+      ]
+    },
+    {
+      "number": 3,
+      "title": "Xác suất",
+      "file_name": "3 - Xác suất",
+      "title_on_title_page": "Xác suất",
+      "authors": [
+        "Nguyễn Gia Khánh",
+        "Nguyễn Đức Nguyên"
+      ],
+      "affiliations_on_title_page": [
+        "PiMA",
+        "Project in Mathematics and Applications"
+      ],
+      "date_on_title_page": "Ngày 23 tháng 6 năm 2026",
+      "file": {
+        "id": "1PFg3s6uivmhqe0258xSIoManRPlOoHmv",
+        "file": "3 - Xác suất",
+        "size": 644671,
+        "view_url": "https://drive.google.com/file/d/1PFg3s6uivmhqe0258xSIoManRPlOoHmv/view"
+      },
+      "notes": []
+    },
+    {
+      "number": 4,
+      "title": "Trí tuệ Nhân tạo: Học máy",
+      "file_name": "4- Trí tuệ Nhân tạo: Học máy",
+      "title_on_title_page": "Trí tuệ nhân tạo: Học máy",
+      "authors": [
+        "Châu Tấn Phát",
+        "Nguyễn Thị Ánh Tuyết"
+      ],
+      "affiliations_on_title_page": [
+        "PiMA",
+        "Project in Mathematics and Applications"
+      ],
+      "date_on_title_page": "Ngày 20 tháng 6 năm 2026",
+      "file": {
+        "id": "1yizTkeP6zrKupAKsO1yB8AP6jCCAItBm",
+        "file": "4- Trí tuệ Nhân tạo: Học máy",
+        "size": 6985785,
+        "view_url": "https://drive.google.com/file/d/1yizTkeP6zrKupAKsO1yB8AP6jCCAItBm/view"
+      },
+      "notes": [
+        "Both authors have the same names as 2025 campers (Mô hình khuếch tán (HCM), Tự mã hóa biến phân (HCM))."
+      ]
+    },
+    {
+      "number": 5,
+      "title": "Lập trình Học máy",
+      "title_source": "folder name '5 - Lập trình Học máy'",
+      "authors": null,
+      "authors_note": "No file in the folder names its authors. The folder is owned by the Drive account 'Hoàng Ngọc Dung'; 'Kmeans' is owned by the same account, 'Linear_Regression' by daolamhoang120807@gmail.com, 'Student handout' by 'Toàn Vòng'.",
+      "folder": {
+        "id": "1ev9XQXfkYMGfSIHMA6uK6MYxmER31FxC",
+        "view_url": "https://drive.google.com/drive/folders/1ev9XQXfkYMGfSIHMA6uK6MYxmER31FxC"
+      },
+      "contents": [
+        "README.pdf (2 pages, setup guide titled 'Steup Lập trình Học máy bằng Python', dated 2026-08-02)",
+        "Kmeans/: pima2026-mlprog-student.ipynb, pima2026-mlprog-teacher.ipynb, data.csv, original.tiff",
+        "Linear_Regression/: PiMA_Linear_Reg.ipynb, PiMA_Linear_Reg_Student.ipynb, Real estate (1).csv",
+        "Student handout/: Hướng dẫn.pdf, kmeans/ (student notebook, data, uv project files), linreg/ (student notebook, data, uv project files)"
+      ],
+      "notes": [
+        "A practical session of notebooks, not a slide deck. 'Student handout' repeats the student notebooks and data of 'Kmeans' and 'Linear_Regression' (same sizes) with uv.lock and pyproject.toml added."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "title": "Cây quyết định",
+      "campus": null,
+      "folder": "Cây quyết định",
+      "folder_url": "https://drive.google.com/drive/folders/1ZsjWZ17MVkSBTF8zAH_X9s31whREXnRJ",
+      "title_on_report": "DECISION TREE",
+      "group_on_report": "NHÓM 1",
+      "date_on_report": "Ngày 16 tháng 8 năm 2026",
+      "campers": [
+        {
+          "name": "Lê Nguyễn Minh Khôi",
+          "school": "Trường THPT Chuyên Trần Đại Nghĩa"
+        },
+        {
+          "name": "Nguyễn Đức Nhân",
+          "school": "Trường Phổ Thông Năng Khiếu"
+        },
+        {
+          "name": "Lê Hoàng Mai Linh",
+          "school": "Trường THPT Bỉm Sơn"
+        },
+        {
+          "name": "Đoàn Nhật Anh",
+          "school": "Trường THPT Chuyên Hùng Vương"
+        }
+      ],
+      "slides": {
+        "id": "1FUjK0OCvMjV6bOVBPR485pVpXH6LG5fv",
+        "file": "Slides",
+        "size": 1587354,
+        "view_url": "https://drive.google.com/file/d/1FUjK0OCvMjV6bOVBPR485pVpXH6LG5fv/view"
+      },
+      "report": {
+        "id": "1A2XbDQOBeJn4aSfW3gfLTDCkgCdl9Tz6",
+        "file": "Report",
+        "size": 463442,
+        "view_url": "https://drive.google.com/file/d/1A2XbDQOBeJn4aSfW3gfLTDCkgCdl9Tz6/view"
+      },
+      "notebooks": [],
+      "notes": [
+        "No notebook in the folder."
+      ]
+    },
+    {
+      "title": "Mô hình Markov ẩn",
+      "campus": null,
+      "folder": "Mô hình Markov ẩn",
+      "folder_url": "https://drive.google.com/drive/folders/1N5H4bTw4aIEd4yakZDRFdHmB_pHUnq6c",
+      "title_on_report": "MÔ HÌNH MARKOV ẨN",
+      "group_on_report": "NHÓM 3",
+      "date_on_report": "Ngày 16 tháng 8 năm 2026",
+      "campers": [
+        {
+          "name": "Bùi Minh Triết",
+          "school": "Trường Phổ thông Năng khiếu, ĐHQG TPHCM"
+        },
+        {
+          "name": "Nguyễn Công Diễm Hằng",
+          "school": "Trường Phổ thông Năng khiếu, ĐHQG TPHCM"
+        },
+        {
+          "name": "Lâm Gia Phúc Nguyên",
+          "school": "Trường Phổ thông Năng khiếu, ĐHQG TPHCM"
+        },
+        {
+          "name": "Hoàng Văn Quyền",
+          "school": "Trường THCS - THPT Đông Du"
+        }
+      ],
+      "slides": {
+        "id": "1JW9Ff1mpdQulgdEukoStgmSLHdNgNWgd",
+        "file": "Slides",
+        "size": 3413855,
+        "view_url": "https://drive.google.com/file/d/1JW9Ff1mpdQulgdEukoStgmSLHdNgNWgd/view"
+      },
+      "report": {
+        "id": "1R58qnMmvVJBZPXQKegnpFaubVLwbTsjB",
+        "file": "Report",
+        "size": 1308512,
+        "view_url": "https://drive.google.com/file/d/1R58qnMmvVJBZPXQKegnpFaubVLwbTsjB/view"
+      },
+      "notebooks": [],
+      "notes": [
+        "No notebook in the folder."
+      ]
+    },
+    {
+      "title": "Học tăng cường",
+      "campus": null,
+      "folder": "Học tăng cường",
+      "folder_url": "https://drive.google.com/drive/folders/1URFrPHF1bITzp16KWnw1NyweJCZvtFkE",
+      "title_on_report": "Học Tăng cường — Bài toán Máy Đánh bạc Nhiều tay",
+      "group_on_report": null,
+      "date_on_report": "10 tháng 8 năm 2026",
+      "campers": [
+        {
+          "name": "Phan Chung Nhân",
+          "school": "Trường THPT Chuyên Nguyễn Đình Chiểu, Đồng Tháp"
+        },
+        {
+          "name": "Đinh Tiến Hưng",
+          "school": "Trường Phổ thông Năng khiếu, ĐHQG-HCM"
+        },
+        {
+          "name": "Lê Xuân Trọng",
+          "school": "Trường THPT Chuyên Hùng Vương, TP.HCM"
+        },
+        {
+          "name": "Vũ Hoàng Yến",
+          "school": "Trường Phổ thông Năng khiếu, ĐHQG-HCM"
+        }
+      ],
+      "slides": {
+        "id": "1SGQSSxogQzJX7kl2kiaqNoJDzobO11X2",
+        "file": "Slides",
+        "size": 2391796,
+        "view_url": "https://drive.google.com/file/d/1SGQSSxogQzJX7kl2kiaqNoJDzobO11X2/view"
+      },
+      "report": {
+        "id": "1rWw1sX-4O7ynQlSJAwmD_YFaI3CL15YH",
+        "file": "Notebook",
+        "size": 2393315,
+        "view_url": "https://drive.google.com/file/d/1rWw1sX-4O7ynQlSJAwmD_YFaI3CL15YH/view"
+      },
+      "notebooks": [],
+      "notes": [
+        "The folder has no file named 'Report'. The file named 'Notebook' is a 27-page LaTeX PDF with the report title page (title, subtitle 'Bài toán Máy Đánh bạc Nhiều tay', campers, schools), so it is the report; there is no notebook.",
+        "The slides' title page reads 'Học Tăng Cường / PiMA 2026: Toán học trong Trí tuệ Nhân tạo', dated 'Ngày 17 tháng 8 năm 2026'."
+      ]
+    },
+    {
+      "title": "Máy vector hỗ trợ",
+      "campus": null,
+      "folder": "Máy vector hỗ trợ",
+      "folder_url": "https://drive.google.com/drive/folders/1t_vbdzV5ggQ3sUVihx_FlfIq6k6sAF_I",
+      "title_on_report": "MÁY VECTOR HỖ TRỢ",
+      "group_on_report": null,
+      "date_on_report": "Ngày 16 tháng 8 năm 2026",
+      "campers": [
+        {
+          "name": "Đoàn Thiên An",
+          "school": "Trường THPT Chuyên Trần Đại Nghĩa"
+        },
+        {
+          "name": "Lưu Trọng Phúc",
+          "school": "Trường THPT Chuyên Phan Bội Châu"
+        },
+        {
+          "name": "Trần Như Ý",
+          "school": "Trường THPT Chuyên Nguyễn Du"
+        },
+        {
+          "name": "Nguyễn Thụy Xuân An",
+          "school": "Trường Phổ thông Năng khiếu, ĐHQG-TPHCM"
+        }
+      ],
+      "slides": {
+        "id": "1ZtfdtwJNwwwvnTnTqnl5kcXugmM92-1X",
+        "file": "Slides",
+        "size": 1250801,
+        "view_url": "https://drive.google.com/file/d/1ZtfdtwJNwwwvnTnTqnl5kcXugmM92-1X/view"
+      },
+      "report": {
+        "id": "1u-lJfyuhFmqMmmEJ1yubdqOzUsVS_iB8",
+        "file": "Report",
+        "size": 3085172,
+        "view_url": "https://drive.google.com/file/d/1u-lJfyuhFmqMmmEJ1yubdqOzUsVS_iB8/view"
+      },
+      "notebooks": [
+        {
+          "id": "1cHDt1srysv0idXPnq-PD5WPtKIngdSvd",
+          "file": "Notebook",
+          "size": 1235410,
+          "view_url": "https://drive.google.com/file/d/1cHDt1srysv0idXPnq-PD5WPtKIngdSvd/view"
+        }
+      ],
+      "notes": []
+    },
+    {
+      "title": "Perceptron nhiều lớp",
+      "campus": null,
+      "folder": "Perceptron nhiều lớp",
+      "folder_url": "https://drive.google.com/drive/folders/1YjtNznznsoid06NFLaFYTYsRbHYexz3O",
+      "title_on_report": "PERCEPTRON NHIỀU LỚP",
+      "group_on_report": "NHÓM 2",
+      "date_on_report": "Ngày 16 tháng 8 năm 2026",
+      "campers": [
+        {
+          "name": "Nguyễn Phương Chi",
+          "school": "Trường THPT Vũng Tàu, TP.HCM"
+        },
+        {
+          "name": "Trần Tùng Anh Khoa",
+          "school": "Trường THPT chuyên Đại học Sư phạm Hà Nội"
+        },
+        {
+          "name": "Hà Quốc Thịnh",
+          "school": "Trường Phổ thông Năng khiếu, ĐHQG - HCM"
+        },
+        {
+          "name": "Giang Huỳnh Minh Thư",
+          "school": "Trường Phổ thông Năng khiếu, ĐHQG - HCM"
+        }
+      ],
+      "slides": {
+        "id": "1utr46pkk8tmYHnpYO_8nEmLP_0x7zEFR",
+        "file": "Slides",
+        "size": 1715932,
+        "view_url": "https://drive.google.com/file/d/1utr46pkk8tmYHnpYO_8nEmLP_0x7zEFR/view"
+      },
+      "report": {
+        "id": "1CA3_3acxDF4jwCFHYSh40s7qv5z-sCzt",
+        "file": "Report",
+        "size": 479031,
+        "view_url": "https://drive.google.com/file/d/1CA3_3acxDF4jwCFHYSh40s7qv5z-sCzt/view"
+      },
+      "notebooks": [],
+      "notes": [
+        "No notebook in the folder."
+      ]
+    },
+    {
+      "title": "Phân tích thành phần chính",
+      "campus": null,
+      "folder": "Phân tích thành phần chính",
+      "folder_url": "https://drive.google.com/drive/folders/1QAf_LDarJ0MvxQIJxaQKMI10b_-Og4NN",
+      "title_on_report": "PHÂN TÍCH THÀNH PHẦN CHÍNH",
+      "group_on_report": null,
+      "date_on_report": "Ngày 16 tháng 8 năm 2026",
+      "campers": [
+        {
+          "name": "Phạm Phương Thảo",
+          "school": "Trường Phổ thông Năng khiếu, Đại học Quốc gia Thành phố Hồ Chí Minh"
+        },
+        {
+          "name": "Đặng Anh Quân",
+          "school": "Trường Phổ thông Năng khiếu, Đại học Quốc gia Thành phố Hồ Chí Minh."
+        },
+        {
+          "name": "Vũ Khôi Nguyên",
+          "school": "Trường THPT Chuyên Lam Sơn"
+        }
+      ],
+      "slides": {
+        "id": "13mdTdUE2i2rAF4LJ4eoGu5ZbaTVD2U-3",
+        "file": "Slides",
+        "size": 12546820,
+        "view_url": "https://drive.google.com/file/d/13mdTdUE2i2rAF4LJ4eoGu5ZbaTVD2U-3/view"
+      },
+      "report": {
+        "id": "1I8w4GFCf-wTRiQenVemjH9SdXs449Fsp",
+        "file": "Report",
+        "size": 1591080,
+        "view_url": "https://drive.google.com/file/d/1I8w4GFCf-wTRiQenVemjH9SdXs449Fsp/view"
+      },
+      "notebooks": [
+        {
+          "id": "1Hsn3e6Dl2FgnsHra6fAEFvSBeejN-kDy",
+          "file": "pima-pca (1).ipynb",
+          "size": 21864,
+          "view_url": "https://drive.google.com/file/d/1Hsn3e6Dl2FgnsHra6fAEFvSBeejN-kDy/view"
+        },
+        {
+          "id": "1lFmeXPN9dk1mym0MyIppi_JGwYYdkf-j",
+          "file": "pima-pca-vs-knn.ipynb",
+          "size": 2958937,
+          "view_url": "https://drive.google.com/file/d/1lFmeXPN9dk1mym0MyIppi_JGwYYdkf-j/view"
+        }
+      ],
+      "notes": [
+        "Two notebooks in a 'Notebooks' subfolder instead of one Notebook.ipynb. Slides are 12.5 MB, over the connector's 10 MB download limit (not needed here)."
+      ]
+    }
+  ],
+  "other_documents": {
+    "entrance_exam": [
+      {
+        "id": "1cgyu-f23V4LPC-MZk_lnuEQuxrE4WMuv",
+        "file": "Đề tuyển Trại sinh Trại hè PiMA 2026.pdf",
+        "size": 566092,
+        "view_url": "https://drive.google.com/file/d/1cgyu-f23V4LPC-MZk_lnuEQuxrE4WMuv/view"
+      }
+    ],
+    "entrance_exam_note": "No solutions file (2025 has 'Hướng dẫn giải.pdf').",
+    "exercises": [
+      {
+        "id": "1L1itadLLL1mvu6FqlF3Ws5ccMPEOvUiq",
+        "file": "1 - Đại số tuyến tính",
+        "size": 509430,
+        "view_url": "https://drive.google.com/file/d/1L1itadLLL1mvu6FqlF3Ws5ccMPEOvUiq/view"
+      },
+      {
+        "id": "1FkW1Hj0tXqy7GEFBaYCShsCLSZqq_oOX",
+        "file": "2 - Giải tích nhiều biến",
+        "size": 504331,
+        "view_url": "https://drive.google.com/file/d/1FkW1Hj0tXqy7GEFBaYCShsCLSZqq_oOX/view"
+      },
+      {
+        "id": "1FLjYcIA5L0NY-o6Dmfns__PaNN7cVHx8",
+        "file": "3 - Xác suất",
+        "size": 721485,
+        "view_url": "https://drive.google.com/file/d/1FLjYcIA5L0NY-o6Dmfns__PaNN7cVHx8/view"
+      },
+      {
+        "id": "1_deP1BHiPMCDBAGMdLabatVKB1MXZ_Sb",
+        "file": "4- Trí tuệ Nhân tạo: Học máy",
+        "size": 564634,
+        "view_url": "https://drive.google.com/file/d/1_deP1BHiPMCDBAGMdLabatVKB1MXZ_Sb/view"
+      }
+    ],
+    "exercises_note": "One exercise sheet per lecture 1-4, with the lecture's file name.",
+    "reading": []
+  },
+  "camp_page": {
+    "page": "src/pages/trai-he-pima-2026.astro",
+    "read_from": "branch dev at 6c1f6a0",
+    "keep": {
+      "topic": {
+        "kicker": "Trại hè Toán học & Ứng dụng PiMA 2026",
+        "h1": "Trại hè PiMA 2026",
+        "hero_text": "Trại hè Toán học và Ứng dụng PiMA 2026 mang đến chủ đề Toán học trong Trí tuệ Nhân tạo - Mathematics in Artificial Intelligence - khám phá nền tảng Toán học đằng sau Trí tuệ Nhân tạo.",
+        "h2": "Toán học trong<br />Trí tuệ Nhân tạo<br />",
+        "h3": "Mathematics in Artificial Intelligence",
+        "description": null,
+        "description_note": "The topic paragraph (lines 83-92) is the 2025 text about generative models, copied unchanged; it does not describe the 2026 topic. Do not carry it over; a 2026 description has to come from the user.",
+        "programme": [
+          "Tiếp thu các kiến thức về đại số tuyến tính, xác suất thống kê và trí tuệ nhân tạo.",
+          "Học được các kỹ năng cơ bản về lập trình với Python và soạn thảo văn bản với LaTeX.",
+          "Tìm hiểu cách ứng dụng các kiến thức trên vào việc khám phá những khía cạnh ứng dụng của toán học trong các chủ đề trí tuệ nhân tạo.",
+          "Vận dụng các kiến thức và kĩ năng để hoàn thành một đề tài nhóm dưới sự hỗ trợ của các mentor đến từ các trường đại học lớn trong và ngoài nước."
+        ],
+        "programme_heading": "Nội dung chương trình",
+        "source": "src/pages/trai-he-pima-2026.astro lines 51-56 (hero), 78-81 (topic heading), 106-131 (programme)"
+      },
+      "team": {
+        "organizers": {
+          "heading": "Ban tổ chức",
+          "people": [
+            {
+              "name": "PGS. TS. Trần Minh Triết",
+              "affiliation": "Trường ĐH Khoa học Tự nhiên, ĐHQG-HCM",
+              "photo": "src/assets/images/tran-minh-triet.avif"
+            },
+            {
+              "name": "TS. Cấn Trần Thành Trung",
+              "affiliation": "Trường ĐH Khoa học Tự nhiên, ĐHQG-HCM",
+              "photo": "src/assets/images/can-tran-thanh-trung.avif"
+            }
+          ],
+          "source": "src/camp/camp-mentors.ts (organizers), rendered by src/camp/CampMentors.astro"
+        },
+        "advisors": {
+          "heading": "Cố vấn chuyên môn",
+          "people": [
+            {
+              "name": "GS. Trần Thanh Long",
+              "affiliation": "Đại học Warwick, Vương quốc Anh",
+              "photo": "src/assets/images/tran-thanh-long.avif"
+            },
+            {
+              "name": "TS. Phạm Kim Sơn",
+              "affiliation": "Công ty BioTuring, Việt Nam",
+              "photo": "src/assets/images/pham-kim-son.avif"
+            }
+          ],
+          "source": "src/camp/camp-mentors.ts (advisors), rendered by src/camp/CampMentors.astro"
+        },
+        "mentor_universities": {
+          "heading": "Mentor trại hè PiMA đến từ các trường đại học hàng đầu",
+          "logos": [
+            "Logo Đại học Stony Brook",
+            "Logo Đại học Quốc gia Singapore (NUS)",
+            "Logo Đại học Công nghệ Nanyang (NTU)",
+            "Logo Trường Đại học Khoa học Tự nhiên, ĐHQG-HCM",
+            "Logo Trường Đại học Bách khoa, ĐHQG-HCM",
+            "Logo Đại học William & Mary",
+            "Logo Đại học Bách khoa Hà Nội",
+            "Logo Đại học Bonn",
+            "Logo Trường Đại học FPT",
+            "Logo Trường Đại học Khoa học và Công nghệ Hà Nội"
+          ],
+          "source": "src/camp/mentor-logos.ts (mentorLogos2026), images in src/assets/images/, rendered by src/camp/MentorLogos.astro",
+          "keep": "optional: it lists universities, not people; keep only if the archive page's team block wants it"
+        },
+        "same_on_both_pages": true
+      },
+      "photos": {
+        "camp_photos": [
+          "src/assets/images/img-6734.jpg",
+          "src/assets/images/528774704-1253966339860166-1751942015170179034-n.jpg",
+          "src/assets/images/3a0f691f-f27a-437c-ad0a-19ca8a29ec97.jpg",
+          "src/assets/images/528602247-1253966253193508-3147679947265190284-n.jpg",
+          "src/assets/images/528404284-1253989449857855-5372161073753020928-n.jpg",
+          "src/assets/images/lop-hoc.jpg",
+          "src/assets/images/trai-he-pima-1.avif",
+          "src/assets/images/481775555-1135445305045604-7304032333989245886-n.avif"
+        ],
+        "og_image": "src/assets/images/img-6734.jpg (CampLayout hero prop → og:image)",
+        "not_camp_photos": [
+          "src/assets/images/thisisengineering-gzdrm7syq0g-unsplash.avif (Unsplash stock photo)",
+          "src/assets/images/artboard-7.avif, src/assets/images/artboard-2.avif (illustrations)"
+        ],
+        "source": "src/camp/camp-header-photos.ts (campHeaderPhotos2026), rendered by src/camp/CampHeaderPhotos.astro",
+        "year_unverified": "The 2026 collage shares its second and fourth lists (trai-he-pima-1, the 481775555 group photo) with 2025. The 5282*/5287*/5284* Facebook-export photos and img-6734.jpg are new on this page, but no file records the camp year they show; the 2026 camp was in August 2026 and the page is older (its text still carries 2025 dates), so they are probably 2025 photos. Ask the user."
+      },
+      "video": {
+        "youtube_id": "8DKLYsikxTs",
+        "url": "https://www.youtube.com/watch?v=8DKLYsikxTs",
+        "thumbnail": "src/assets/images/poster-optimized-4000.png",
+        "source": "src/pages/trai-he-pima-2026.astro lines 134-138, src/camp/VideoLightbox.astro",
+        "note": "Same video as the 2025 page, with a different thumbnail. It is a 2025 (or earlier) video, not a 2026 one."
+      },
+      "camps_held": {
+        "items": [
+          {
+            "campus": "TP.HCM?",
+            "text": "Thời gian dự kiến: Từ 02/08/2025 đến 09/08/2025<br />Hình thức: Trực tiếp<br />Địa điểm: Đại học Khoa học Tự nhiên, ĐHQG-HCM cơ sở Nguyễn Văn Cừ<br />Địa chỉ: 227 Đ. Nguyễn Văn Cừ, Phường 4, Quận 5, Thành phố Hồ Chí Minh",
+            "note": "One card with no campus heading, and the 2025 dates (the page header says the 2025 information was migrated as-is). Not a reliable 2026 fact."
+          }
+        ],
+        "keep": "as facts (campus, dates, venue) if the archive page shows them; not as 'Thời gian dự kiến'"
+      }
+    },
+    "drop": [
+      {
+        "content": "Đăng ký ngay / Ứng tuyển ngay buttons → https://qual.pimavn.com/apply",
+        "where": "src/pages/trai-he-pima-2026.astro lines 33, 60, 283, 401"
+      },
+      {
+        "content": "Quyền lợi tham gia trại hè (5 benefit cards)",
+        "where": "src/pages/trai-he-pima-2026.astro lines 146-285"
+      },
+      {
+        "content": "Thông tin trại hè card (2025 dates)",
+        "where": "src/pages/trai-he-pima-2026.astro lines 286-305"
+      },
+      {
+        "content": "Quy trình tuyển sinh: Đối tượng, Số lượng tuyển: 24, Hình thức: Vòng đơn & Vòng phỏng vấn (Online), deadline 17/05/2026, timeline (2025 dates)",
+        "where": "src/pages/trai-he-pima-2026.astro lines 306-407"
+      },
+      {
+        "content": "Kinh phí tham gia: 10 500 000 VNĐ, học bổng",
+        "where": "src/pages/trai-he-pima-2026.astro lines 411-435"
+      },
+      {
+        "content": "Thông tin liên hệ: Fanpage, Email, Hotline",
+        "where": "src/pages/trai-he-pima-2026.astro lines 436-483"
+      },
+      {
+        "content": "PiMA team photo (src/assets/images/pima-team.png via src/camp/CampTeamPhoto.astro)",
+        "where": "src/pages/trai-he-pima-2026.astro line 484"
+      },
+      {
+        "content": "2025 topic paragraph copied onto the 2026 page",
+        "where": "src/pages/trai-he-pima-2026.astro lines 83-92"
+      }
+    ]
+  },
+  "files": [
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026",
+      "id": "1hpka8hYJ4QzhDoQ8nxTpIblqY1FxHl4S",
+      "type": "folder",
+      "size": null,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/drive/folders/1hpka8hYJ4QzhDoQ8nxTpIblqY1FxHl4S"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/1. Đề tuyển sinh",
+      "id": "1J8aGu3G18S2jm84bMiZwSQcq6d_qP-0b",
+      "type": "folder",
+      "mime_type": null,
+      "size": null,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/drive/folders/1J8aGu3G18S2jm84bMiZwSQcq6d_qP-0b"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/1. Đề tuyển sinh/Đề tuyển Trại sinh Trại hè PiMA 2026.pdf",
+      "id": "1cgyu-f23V4LPC-MZk_lnuEQuxrE4WMuv",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 566092,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1cgyu-f23V4LPC-MZk_lnuEQuxrE4WMuv/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/2. Bài giảng",
+      "id": "1Yozvt4t1OdSoJWMw0RY1pE7rNiFTz_nf",
+      "type": "folder",
+      "mime_type": null,
+      "size": null,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/drive/folders/1Yozvt4t1OdSoJWMw0RY1pE7rNiFTz_nf"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/2. Bài giảng/1 - Đại số tuyến tính",
+      "id": "1yfB1mlBsaPBL0lHWStHO-J2JWU5ifmy_",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 703606,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1yfB1mlBsaPBL0lHWStHO-J2JWU5ifmy_/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/2. Bài giảng/2 - Giải tích nhiều biến",
+      "id": "1NeqPFpzT7xgbQN7muMpVxvADH6I_5uDN",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 1732542,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1NeqPFpzT7xgbQN7muMpVxvADH6I_5uDN/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/2. Bài giảng/3 - Xác suất",
+      "id": "1PFg3s6uivmhqe0258xSIoManRPlOoHmv",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 644671,
+      "owner": "toan.vong@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1PFg3s6uivmhqe0258xSIoManRPlOoHmv/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/2. Bài giảng/4- Trí tuệ Nhân tạo: Học máy",
+      "id": "1yizTkeP6zrKupAKsO1yB8AP6jCCAItBm",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 6985785,
+      "owner": "toan.vong@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1yizTkeP6zrKupAKsO1yB8AP6jCCAItBm/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/2. Bài giảng/5 - Lập trình Học máy",
+      "id": "1ev9XQXfkYMGfSIHMA6uK6MYxmER31FxC",
+      "type": "folder",
+      "mime_type": null,
+      "size": null,
+      "owner": "dunghoang0401237@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/drive/folders/1ev9XQXfkYMGfSIHMA6uK6MYxmER31FxC"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/2. Bài giảng/5 - Lập trình Học máy/Kmeans",
+      "id": "1Rbam_71AUyTi_Q8EUCIqNTY0MZYVdl0Z",
+      "type": "folder",
+      "mime_type": null,
+      "size": null,
+      "owner": "dunghoang0401237@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/drive/folders/1Rbam_71AUyTi_Q8EUCIqNTY0MZYVdl0Z"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/2. Bài giảng/5 - Lập trình Học máy/Kmeans/data.csv",
+      "id": "1pLbg4SGkDiO4LwImQ7BfORBUDq7KYkZO",
+      "type": "csv",
+      "mime_type": "text/csv",
+      "size": 11336,
+      "owner": "dunghoang0401237@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1pLbg4SGkDiO4LwImQ7BfORBUDq7KYkZO/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/2. Bài giảng/5 - Lập trình Học máy/Kmeans/original.tiff",
+      "id": "1_DiYQVfdjNQ0uxsH0ZtbV768M4VJK4Vj",
+      "type": "tiff",
+      "mime_type": "image/tiff",
+      "size": 196748,
+      "owner": "dunghoang0401237@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1_DiYQVfdjNQ0uxsH0ZtbV768M4VJK4Vj/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/2. Bài giảng/5 - Lập trình Học máy/Kmeans/pima2026-mlprog-student.ipynb",
+      "id": "1biF3CnlSazUi610Xw7CYfjSVSBlZzm5U",
+      "type": "ipynb",
+      "mime_type": "application/json",
+      "size": 1158413,
+      "owner": "dunghoang0401237@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1biF3CnlSazUi610Xw7CYfjSVSBlZzm5U/view",
+      "colab_url": "https://colab.research.google.com/drive/1biF3CnlSazUi610Xw7CYfjSVSBlZzm5U"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/2. Bài giảng/5 - Lập trình Học máy/Kmeans/pima2026-mlprog-teacher.ipynb",
+      "id": "17bNUY5swO4NzRMMQpg7FCqBlWFVKEzDE",
+      "type": "ipynb",
+      "mime_type": "application/octet-stream",
+      "size": 1181290,
+      "owner": "dunghoang0401237@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/17bNUY5swO4NzRMMQpg7FCqBlWFVKEzDE/view",
+      "colab_url": "https://colab.research.google.com/drive/17bNUY5swO4NzRMMQpg7FCqBlWFVKEzDE"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/2. Bài giảng/5 - Lập trình Học máy/Linear_Regression",
+      "id": "1gjgjMKfqA9K9r3vjfXEcZg26C4z_s02S",
+      "type": "folder",
+      "mime_type": null,
+      "size": null,
+      "owner": "daolamhoang120807@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/drive/folders/1gjgjMKfqA9K9r3vjfXEcZg26C4z_s02S"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/2. Bài giảng/5 - Lập trình Học máy/Linear_Regression/PiMA_Linear_Reg.ipynb",
+      "id": "1giW283eqD-tVxfCJh3JUgWYTsItw93UK",
+      "type": "ipynb",
+      "mime_type": "application/octet-stream",
+      "size": 805711,
+      "owner": "daolamhoang120807@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1giW283eqD-tVxfCJh3JUgWYTsItw93UK/view",
+      "colab_url": "https://colab.research.google.com/drive/1giW283eqD-tVxfCJh3JUgWYTsItw93UK"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/2. Bài giảng/5 - Lập trình Học máy/Linear_Regression/PiMA_Linear_Reg_Student.ipynb",
+      "id": "1Cf4ikOFv0zNonEauXAEGstKc9C--TeQE",
+      "type": "ipynb",
+      "mime_type": "application/octet-stream",
+      "size": 716516,
+      "owner": "daolamhoang120807@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1Cf4ikOFv0zNonEauXAEGstKc9C--TeQE/view",
+      "colab_url": "https://colab.research.google.com/drive/1Cf4ikOFv0zNonEauXAEGstKc9C--TeQE"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/2. Bài giảng/5 - Lập trình Học máy/Linear_Regression/Real estate (1).csv",
+      "id": "1hA9N5P_K1PitcH1qI53aMhchvdrAVrUp",
+      "type": "csv",
+      "mime_type": "text/csv",
+      "size": 21968,
+      "owner": "daolamhoang120807@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1hA9N5P_K1PitcH1qI53aMhchvdrAVrUp/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/2. Bài giảng/5 - Lập trình Học máy/README.pdf",
+      "id": "1xOxiCTqr8XAcDDuUzRdgAOtu6rL40dkl",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 129027,
+      "owner": "dunghoang0401237@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1xOxiCTqr8XAcDDuUzRdgAOtu6rL40dkl/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/2. Bài giảng/5 - Lập trình Học máy/Student handout",
+      "id": "1Ha2HweuTwx6HcaVrrPmyxCxiNYpAA2Vp",
+      "type": "folder",
+      "mime_type": null,
+      "size": null,
+      "owner": "toanvv.ti.1922@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/drive/folders/1Ha2HweuTwx6HcaVrrPmyxCxiNYpAA2Vp"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/2. Bài giảng/5 - Lập trình Học máy/Student handout/Hướng dẫn.pdf",
+      "id": "15ccEkqWQy2Tnbb0mIwBcKrAYyfedyxpZ",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 1134812,
+      "owner": "toanvv.ti.1922@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/15ccEkqWQy2Tnbb0mIwBcKrAYyfedyxpZ/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/2. Bài giảng/5 - Lập trình Học máy/Student handout/kmeans",
+      "id": "1R7OYFGB_g9IV0KCJy_fYuPXWi_zIeI8t",
+      "type": "folder",
+      "mime_type": null,
+      "size": null,
+      "owner": "toanvv.ti.1922@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/drive/folders/1R7OYFGB_g9IV0KCJy_fYuPXWi_zIeI8t"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/2. Bài giảng/5 - Lập trình Học máy/Student handout/kmeans/data.csv",
+      "id": "1vaPfCPUUaf3s6wFBkGHuK-zWdnhOhgB_",
+      "type": "csv",
+      "mime_type": "text/csv",
+      "size": 11336,
+      "owner": "toanvv.ti.1922@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1vaPfCPUUaf3s6wFBkGHuK-zWdnhOhgB_/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/2. Bài giảng/5 - Lập trình Học máy/Student handout/kmeans/original.tiff",
+      "id": "12iCnBhOAp7DOh0gpNxIyuMVRiZ04TZnI",
+      "type": "tiff",
+      "mime_type": "image/tiff",
+      "size": 196748,
+      "owner": "toanvv.ti.1922@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/12iCnBhOAp7DOh0gpNxIyuMVRiZ04TZnI/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/2. Bài giảng/5 - Lập trình Học máy/Student handout/kmeans/pima2026-mlprog-student.ipynb",
+      "id": "1Gufj_vqaHaAcvhPDyujXNr5n04Ksz6gy",
+      "type": "ipynb",
+      "mime_type": "application/octet-stream",
+      "size": 1158413,
+      "owner": "toanvv.ti.1922@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1Gufj_vqaHaAcvhPDyujXNr5n04Ksz6gy/view",
+      "colab_url": "https://colab.research.google.com/drive/1Gufj_vqaHaAcvhPDyujXNr5n04Ksz6gy"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/2. Bài giảng/5 - Lập trình Học máy/Student handout/kmeans/pyproject.toml",
+      "id": "1M44QzUFm8s3rMuGQ8AJrSuW4eFAi0yDz",
+      "type": "toml",
+      "mime_type": "application/octet-stream",
+      "size": 230,
+      "owner": "toanvv.ti.1922@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1M44QzUFm8s3rMuGQ8AJrSuW4eFAi0yDz/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/2. Bài giảng/5 - Lập trình Học máy/Student handout/kmeans/uv.lock",
+      "id": "1L9ATN9rscAGrrt0rohrFRSwBZ_Txrx0K",
+      "type": "lock",
+      "mime_type": "application/octet-stream",
+      "size": 209279,
+      "owner": "toanvv.ti.1922@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1L9ATN9rscAGrrt0rohrFRSwBZ_Txrx0K/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/2. Bài giảng/5 - Lập trình Học máy/Student handout/linreg",
+      "id": "1KmX8-HrkgAxRcnBx82QcPZ9W1R_FSTT3",
+      "type": "folder",
+      "mime_type": null,
+      "size": null,
+      "owner": "toanvv.ti.1922@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/drive/folders/1KmX8-HrkgAxRcnBx82QcPZ9W1R_FSTT3"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/2. Bài giảng/5 - Lập trình Học máy/Student handout/linreg/PiMA_Linear_Reg_Student.ipynb",
+      "id": "16RTpN5QN0Iv-i7-YmR3P-UFZ1PgZo_ZM",
+      "type": "ipynb",
+      "mime_type": "application/octet-stream",
+      "size": 716516,
+      "owner": "toanvv.ti.1922@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/16RTpN5QN0Iv-i7-YmR3P-UFZ1PgZo_ZM/view",
+      "colab_url": "https://colab.research.google.com/drive/16RTpN5QN0Iv-i7-YmR3P-UFZ1PgZo_ZM"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/2. Bài giảng/5 - Lập trình Học máy/Student handout/linreg/Real estate (1).csv",
+      "id": "1Ogzt1uw7le8Zqmrmr5L7NDmuNzfpu6kH",
+      "type": "csv",
+      "mime_type": "text/csv",
+      "size": 21968,
+      "owner": "toanvv.ti.1922@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1Ogzt1uw7le8Zqmrmr5L7NDmuNzfpu6kH/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/2. Bài giảng/5 - Lập trình Học máy/Student handout/linreg/pyproject.toml",
+      "id": "1LKEkOIjhQBMRBXYFwxF0_1Tiql7W-L7J",
+      "type": "toml",
+      "mime_type": "application/octet-stream",
+      "size": 208,
+      "owner": "toanvv.ti.1922@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1LKEkOIjhQBMRBXYFwxF0_1Tiql7W-L7J/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/2. Bài giảng/5 - Lập trình Học máy/Student handout/linreg/uv.lock",
+      "id": "1UGg7eT6YlwjcXiz2SA27uH7SGR15LaeW",
+      "type": "lock",
+      "mime_type": "application/octet-stream",
+      "size": 209205,
+      "owner": "toanvv.ti.1922@gmail.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1UGg7eT6YlwjcXiz2SA27uH7SGR15LaeW/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/3. Bài tập",
+      "id": "1PHkNFddFB-GlgmpTSCTCHgyKxDRYJc2b",
+      "type": "folder",
+      "mime_type": null,
+      "size": null,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/drive/folders/1PHkNFddFB-GlgmpTSCTCHgyKxDRYJc2b"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/3. Bài tập/1 - Đại số tuyến tính",
+      "id": "1L1itadLLL1mvu6FqlF3Ws5ccMPEOvUiq",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 509430,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1L1itadLLL1mvu6FqlF3Ws5ccMPEOvUiq/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/3. Bài tập/2 - Giải tích nhiều biến",
+      "id": "1FkW1Hj0tXqy7GEFBaYCShsCLSZqq_oOX",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 504331,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1FkW1Hj0tXqy7GEFBaYCShsCLSZqq_oOX/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/3. Bài tập/3 - Xác suất",
+      "id": "1FLjYcIA5L0NY-o6Dmfns__PaNN7cVHx8",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 721485,
+      "owner": "toan.vong@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1FLjYcIA5L0NY-o6Dmfns__PaNN7cVHx8/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/3. Bài tập/4- Trí tuệ Nhân tạo: Học máy",
+      "id": "1_deP1BHiPMCDBAGMdLabatVKB1MXZ_Sb",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 564634,
+      "owner": "toan.vong@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1_deP1BHiPMCDBAGMdLabatVKB1MXZ_Sb/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/4. Dự án nhóm",
+      "id": "1BK7Ao568JVJuYw77mmtFFjwuQDa6URqg",
+      "type": "folder",
+      "mime_type": null,
+      "size": null,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/drive/folders/1BK7Ao568JVJuYw77mmtFFjwuQDa6URqg"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/4. Dự án nhóm/Cây quyết định",
+      "id": "1ZsjWZ17MVkSBTF8zAH_X9s31whREXnRJ",
+      "type": "folder",
+      "mime_type": null,
+      "size": null,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/drive/folders/1ZsjWZ17MVkSBTF8zAH_X9s31whREXnRJ"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/4. Dự án nhóm/Cây quyết định/Report",
+      "id": "1A2XbDQOBeJn4aSfW3gfLTDCkgCdl9Tz6",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 463442,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1A2XbDQOBeJn4aSfW3gfLTDCkgCdl9Tz6/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/4. Dự án nhóm/Cây quyết định/Slides",
+      "id": "1FUjK0OCvMjV6bOVBPR485pVpXH6LG5fv",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 1587354,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1FUjK0OCvMjV6bOVBPR485pVpXH6LG5fv/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/4. Dự án nhóm/Học tăng cường",
+      "id": "1URFrPHF1bITzp16KWnw1NyweJCZvtFkE",
+      "type": "folder",
+      "mime_type": null,
+      "size": null,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/drive/folders/1URFrPHF1bITzp16KWnw1NyweJCZvtFkE"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/4. Dự án nhóm/Học tăng cường/Notebook",
+      "id": "1rWw1sX-4O7ynQlSJAwmD_YFaI3CL15YH",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 2393315,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1rWw1sX-4O7ynQlSJAwmD_YFaI3CL15YH/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/4. Dự án nhóm/Học tăng cường/Slides",
+      "id": "1SGQSSxogQzJX7kl2kiaqNoJDzobO11X2",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 2391796,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1SGQSSxogQzJX7kl2kiaqNoJDzobO11X2/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/4. Dự án nhóm/Máy vector hỗ trợ",
+      "id": "1t_vbdzV5ggQ3sUVihx_FlfIq6k6sAF_I",
+      "type": "folder",
+      "mime_type": null,
+      "size": null,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/drive/folders/1t_vbdzV5ggQ3sUVihx_FlfIq6k6sAF_I"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/4. Dự án nhóm/Máy vector hỗ trợ/Notebook",
+      "id": "1cHDt1srysv0idXPnq-PD5WPtKIngdSvd",
+      "type": "ipynb",
+      "mime_type": "application/octet-stream",
+      "size": 1235410,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1cHDt1srysv0idXPnq-PD5WPtKIngdSvd/view",
+      "colab_url": "https://colab.research.google.com/drive/1cHDt1srysv0idXPnq-PD5WPtKIngdSvd"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/4. Dự án nhóm/Máy vector hỗ trợ/Report",
+      "id": "1u-lJfyuhFmqMmmEJ1yubdqOzUsVS_iB8",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 3085172,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1u-lJfyuhFmqMmmEJ1yubdqOzUsVS_iB8/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/4. Dự án nhóm/Máy vector hỗ trợ/Slides",
+      "id": "1ZtfdtwJNwwwvnTnTqnl5kcXugmM92-1X",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 1250801,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1ZtfdtwJNwwwvnTnTqnl5kcXugmM92-1X/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/4. Dự án nhóm/Mô hình Markov ẩn",
+      "id": "1N5H4bTw4aIEd4yakZDRFdHmB_pHUnq6c",
+      "type": "folder",
+      "mime_type": null,
+      "size": null,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/drive/folders/1N5H4bTw4aIEd4yakZDRFdHmB_pHUnq6c"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/4. Dự án nhóm/Mô hình Markov ẩn/Report",
+      "id": "1R58qnMmvVJBZPXQKegnpFaubVLwbTsjB",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 1308512,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1R58qnMmvVJBZPXQKegnpFaubVLwbTsjB/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/4. Dự án nhóm/Mô hình Markov ẩn/Slides",
+      "id": "1JW9Ff1mpdQulgdEukoStgmSLHdNgNWgd",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 3413855,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1JW9Ff1mpdQulgdEukoStgmSLHdNgNWgd/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/4. Dự án nhóm/Perceptron nhiều lớp",
+      "id": "1YjtNznznsoid06NFLaFYTYsRbHYexz3O",
+      "type": "folder",
+      "mime_type": null,
+      "size": null,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/drive/folders/1YjtNznznsoid06NFLaFYTYsRbHYexz3O"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/4. Dự án nhóm/Perceptron nhiều lớp/Report",
+      "id": "1CA3_3acxDF4jwCFHYSh40s7qv5z-sCzt",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 479031,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1CA3_3acxDF4jwCFHYSh40s7qv5z-sCzt/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/4. Dự án nhóm/Perceptron nhiều lớp/Slides",
+      "id": "1utr46pkk8tmYHnpYO_8nEmLP_0x7zEFR",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 1715932,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1utr46pkk8tmYHnpYO_8nEmLP_0x7zEFR/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/4. Dự án nhóm/Phân tích thành phần chính",
+      "id": "1QAf_LDarJ0MvxQIJxaQKMI10b_-Og4NN",
+      "type": "folder",
+      "mime_type": null,
+      "size": null,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/drive/folders/1QAf_LDarJ0MvxQIJxaQKMI10b_-Og4NN"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/4. Dự án nhóm/Phân tích thành phần chính/Notebooks",
+      "id": "15oT6qhoPh3g98ey0fGIWTT1va6N9NHIW",
+      "type": "folder",
+      "mime_type": null,
+      "size": null,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/drive/folders/15oT6qhoPh3g98ey0fGIWTT1va6N9NHIW"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/4. Dự án nhóm/Phân tích thành phần chính/Notebooks/pima-pca (1).ipynb",
+      "id": "1Hsn3e6Dl2FgnsHra6fAEFvSBeejN-kDy",
+      "type": "ipynb",
+      "mime_type": "application/octet-stream",
+      "size": 21864,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1Hsn3e6Dl2FgnsHra6fAEFvSBeejN-kDy/view",
+      "colab_url": "https://colab.research.google.com/drive/1Hsn3e6Dl2FgnsHra6fAEFvSBeejN-kDy"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/4. Dự án nhóm/Phân tích thành phần chính/Notebooks/pima-pca-vs-knn.ipynb",
+      "id": "1lFmeXPN9dk1mym0MyIppi_JGwYYdkf-j",
+      "type": "ipynb",
+      "mime_type": "application/octet-stream",
+      "size": 2958937,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1lFmeXPN9dk1mym0MyIppi_JGwYYdkf-j/view",
+      "colab_url": "https://colab.research.google.com/drive/1lFmeXPN9dk1mym0MyIppi_JGwYYdkf-j"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/4. Dự án nhóm/Phân tích thành phần chính/Report",
+      "id": "1I8w4GFCf-wTRiQenVemjH9SdXs449Fsp",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 1591080,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/1I8w4GFCf-wTRiQenVemjH9SdXs449Fsp/view"
+    },
+    {
+      "path": "[Public] Tài liệu Trại hè PiMA 2026/4. Dự án nhóm/Phân tích thành phần chính/Slides",
+      "id": "13mdTdUE2i2rAF4LJ4eoGu5ZbaTVD2U-3",
+      "type": "pdf",
+      "mime_type": "application/pdf",
+      "size": 12546820,
+      "owner": "danh.tran@pimavn.com",
+      "sharing": "anyone_with_link",
+      "view_url": "https://drive.google.com/file/d/13mdTdUE2i2rAF4LJ4eoGu5ZbaTVD2U-3/view"
+    }
+  ]
+}
