@@ -14,7 +14,11 @@ import { createRequire } from "node:module";
 import { readFileSync } from "node:fs";
 import { distSkip as skip, serveDist } from "./test-lib.mjs";
 
-const PAGES = ["/", "/ve-chung-toi/", "/khoa-hoc/", "/trai-he-toan-hoc-pima/", "/lien-he/", "/404.html"];
+const CAMP_YEARS = [2016, 2017, 2018, 2019, 2021, 2023, 2024, 2025, 2026];
+const PAGES = [
+  "/", "/ve-chung-toi/", "/khoa-hoc/", "/trai-he-toan-hoc-pima/", "/lien-he/", "/404.html",
+  ...CAMP_YEARS.map((year) => `/trai-he-toan-hoc-pima/${year}/`),
+];
 const WIDTHS = [390, 1440];
 
 const axeSource = readFileSync(createRequire(import.meta.url).resolve("axe-core/axe.min.js"), "utf8");
