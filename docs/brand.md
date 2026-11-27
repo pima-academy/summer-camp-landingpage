@@ -170,7 +170,7 @@ Prefer the green logo; where the background is not green, prefer black or white.
 
 ## Icons
 
-- Tabler Icons only, as SVG files copied into `src/assets/icons/` (no icon package, MIT licence kept there), drawn by the `Icon` component in `currentColor`. Only the icons in use are in the folder; one icon per concept (one Facebook, one mail, one book …).
+- Tabler Icons only, as SVG files copied into `src/assets/icons/` (no icon package, MIT licence kept there), except the Facebook glyph: Font Awesome's `facebook-f` (CC BY 4.0, credited in the file), since Tabler's filled one is too heavy. Every icon is drawn by the `Icon` component in `currentColor`. Only the icons in use are in the folder; one icon per concept (one Facebook, one mail, one book …).
 - Content icons use Tabler's line set at stroke 1.5 on a 24 px grid and stand bare, without a circle. Contact and social icons use Tabler's filled brand and contact glyphs inside a circle.
 - One colour per icon: no multicolour icons, emoji or 3D icons.
 - Colour by role:
