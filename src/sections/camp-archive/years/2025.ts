@@ -1,16 +1,12 @@
 // The 2025 camp (spec #93, issue #104): sources are the Drive folder "[Public] Tài liệu Trại hè
 // PiMA 2025" (copied into 2025/ on "Trại hè PiMA - Lưu trữ"), the 2025 camp page
-// (topic, description, programme, sessions) and its team list (both removed in #107), as inventoried
+// (topic, description, programme, sessions; removed in #107), as inventoried
 // in docs/research/camp-2025-2026-inventory.md (issue #85). Campers and schools are verbatim
 // from the first page of each report. No gallery and no video: no photo or video is confirmed
 // as the 2025 camp's.
 import type { Camper, CampYear, Campus, FileLink, Person, ProjectGroup } from "../camp-archive";
 import coverTphcm from "../../../assets/camp-archive/2025/cover-tphcm.jpg";
 import coverHaNoi from "../../../assets/camp-archive/2025/cover-ha-noi.jpg";
-import tranMinhTriet from "../../../assets/camp-archive/2025/team/tran-minh-triet.avif";
-import canTranThanhTrung from "../../../assets/camp-archive/2025/team/can-tran-thanh-trung.avif";
-import tranThanhLong from "../../../assets/camp-archive/2025/team/tran-thanh-long.avif";
-import phamKimSon from "../../../assets/camp-archive/2025/team/pham-kim-son.avif";
 
 const file = (id: string): string => `https://drive.google.com/file/d/${id}/view`;
 const pdf = (id: string): FileLink => ({ label: "PDF", url: file(id) });
@@ -59,22 +55,6 @@ const camp: CampYear = {
   sessions: [
     { campus: "TP.HCM", start: "2025-08-02", end: "2025-08-09", venue: "Trường ĐH Khoa học Tự nhiên, ĐHQG-HCM" },
     { campus: "Hà Nội", start: "2025-08-11", end: "2025-08-18", venue: "Viện Nghiên cứu cao cấp về Toán (VIASM)" },
-  ],
-  team: [
-    {
-      name: "Ban tổ chức",
-      members: [
-        { name: "PGS. TS. Trần Minh Triết", affiliation: "Trường ĐH Khoa học Tự nhiên, ĐHQG-HCM", photo: tranMinhTriet },
-        { name: "TS. Cấn Trần Thành Trung", affiliation: "Trường ĐH Khoa học Tự nhiên, ĐHQG-HCM", photo: canTranThanhTrung },
-      ],
-    },
-    {
-      name: "Cố vấn chuyên môn",
-      members: [
-        { name: "GS. Trần Thanh Long", affiliation: "Đại học Warwick, Vương quốc Anh", photo: tranThanhLong },
-        { name: "TS. Phạm Kim Sơn", affiliation: "Công ty BioTuring, Việt Nam", photo: phamKimSon },
-      ],
-    },
   ],
   entranceExam: [
     {

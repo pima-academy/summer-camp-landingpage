@@ -1,14 +1,10 @@
 // The 2026 camp (spec #93, issue #105): sources are the Drive folder "[Public] Tài liệu Trại hè
 // PiMA 2026" (inventory #85, docs/research/camp-2025-2026-inventory.md), copied into the folder
-// 2026/ on "Trại hè PiMA - Lưu trữ", and the removed 2026 camp page (topic, programme, team).
+// 2026/ on "Trại hè PiMA - Lưu trữ", and the removed 2026 camp page (topic, programme).
 // Campers and schools are from the first page of each report; mentors are the people a report's
 // acknowledgements name as having guided the group. Session from the user (spec #93).
 import type { CampYear, FileLink } from "../camp-archive";
 import cover from "../../../assets/camp-archive/2026/cover.jpg";
-import tranMinhTriet from "../../../assets/camp-archive/2026/team/tran-minh-triet.avif";
-import canTranThanhTrung from "../../../assets/camp-archive/2026/team/can-tran-thanh-trung.avif";
-import tranThanhLong from "../../../assets/camp-archive/2026/team/tran-thanh-long.avif";
-import phamKimSon from "../../../assets/camp-archive/2026/team/pham-kim-son.avif";
 
 const file = (label: FileLink["label"], id: string): FileLink => ({ label, url: `https://drive.google.com/file/d/${id}/view` });
 const pdf = (id: string) => file("PDF", id);
@@ -38,22 +34,6 @@ const camp: CampYear = {
     "Vận dụng các kiến thức và kĩ năng để hoàn thành một đề tài nhóm dưới sự hỗ trợ của các mentor đến từ các trường đại học lớn trong và ngoài nước.",
   ],
   sessions: [{ campus: "TP.HCM", start: "2026-08-01", end: "2026-08-09", venue: "Trường ĐH Khoa học Tự nhiên, ĐHQG-HCM" }],
-  team: [
-    {
-      name: "Ban tổ chức",
-      members: [
-        { name: "PGS. TS. Trần Minh Triết", affiliation: "Trường ĐH Khoa học Tự nhiên, ĐHQG-HCM", photo: tranMinhTriet },
-        { name: "TS. Cấn Trần Thành Trung", affiliation: "Trường ĐH Khoa học Tự nhiên, ĐHQG-HCM", photo: canTranThanhTrung },
-      ],
-    },
-    {
-      name: "Cố vấn chuyên môn",
-      members: [
-        { name: "GS. Trần Thanh Long", affiliation: "Đại học Warwick, Vương quốc Anh", photo: tranThanhLong },
-        { name: "TS. Phạm Kim Sơn", affiliation: "Công ty BioTuring, Việt Nam", photo: phamKimSon },
-      ],
-    },
-  ],
   entranceExam: [{ title: "Đề tuyển Trại sinh Trại hè PiMA 2026", authors: [], files: [pdf("1ebTtevFUhDbDAbaYGKB0hzrDdYuRxqIy")] }],
   lectures: [
     { title: "Đại số tuyến tính", authors: [pima("Nguyễn Trần Hà Phương")], files: [pdf("1yV5W3YaGaRTd7YCE6i5A_Cmn6h4osAGS")] },
