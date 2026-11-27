@@ -161,8 +161,8 @@ test("a post page: one h1 (its title), its date, author when known, cover when p
 });
 
 // The Jekyll site posts moved in so far, with their date, author and a sentence from the Jekyll
-// site's text: the 7 text-only posts (#111), the 6 with formulas (#112), then the 5 with body
-// images (#113).
+// site's text: the 7 text-only posts (#111), the 6 with formulas (#112), the 5 with body
+// images (#113), then the Jupyter introduction (#114).
 const JEKYLL_POSTS = [
   ["phat-hien-gian-lan", "25/11/2017", "Nghia Nguyen", "Làm thế nào để phát hiện các công ty giả mạo sổ sách?", "tuy nhiên Benford cũng chưa hoàn toàn giải thích được hiện tượng này."],
   ["chuyen-xe-thien-vi", "27/11/2017", "Nghia Nguyen", "Những chuyến xe thiên vị", "Bạn có thể giúp Sơn giải thích điều này không? Hãy comment bên dưới nhé!"],
@@ -184,6 +184,9 @@ const JEKYLL_POSTS = [
   ["plato-2", "25/02/2019", undefined, "5 khối đa diện của Plato (Phần 2)", "Trong ảnh là hình chụp dưới kính hiển vi của một loại virus gọi là virus Adeno."],
   ["reinforcement-learning-1", "15/06/2019", undefined, "Khám phá Reinforcement Learning (Kỳ 1)", "Vẽ lại sơ đồ cho Ví dụ 2 (gợi ý: kèm theo một giá trị xác suất cho mỗi mũi tên chuyển trạng thái)."],
   ["reinforcement-learning-2", "25/06/2019", undefined, "Khám phá Reinforcement Learning (Kỳ 2)", "Kiểm tra tính toán của bé Trabbit (gợi ý: tính xác suất ngày thứ t có mưa theo t trước)"],
+  // The Jupyter introduction post, its notebook converted into the post (#114). The Jekyll
+  // site's title broke its line with a <br>, which is markup, not text.
+  ["introduction-to-jupyter-and-python", "11/07/2019", "Thien Hoang", "Cách sử dụng Jupyter Notebook và các khái niệm cơ bản trong Python", "Trong Edit mode, các phím tắt cũng có sẵn như khi soạn thảo văn bản."],
 ];
 
 for (const [slug, date, author, title, sentence] of JEKYLL_POSTS) {
@@ -203,7 +206,8 @@ for (const [slug, date, author, title, sentence] of JEKYLL_POSTS) {
 // ---- Formulas (#112) --------------------------------------------------------------------------
 
 // The display ($$…$$ on a line of its own) and inline ($…$) formulas of each post with maths,
-// counted in the Jekyll site's text: 21 in the 6 posts of #112, 36 in the two with images (#113).
+// counted in the Jekyll site's text: 21 in the 6 posts of #112, 36 in the two with images (#113),
+// 9 in the Jupyter introduction (#114).
 const FORMULAS = {
   "calculus-war": { display: 1, inline: 0 },
   pagerank: { display: 0, inline: 1 },
@@ -213,6 +217,9 @@ const FORMULAS = {
   "perfect-strategy": { display: 1, inline: 3 },
   "reinforcement-learning-1": { display: 0, inline: 20 },
   "reinforcement-learning-2": { display: 1, inline: 15 },
+  // The post's own Markdown example (1 + 1) and the notebook's text cells (1 + 6); the three in
+  // the notebook's indented block are code, as Jupyter showed them.
+  "introduction-to-jupyter-and-python": { display: 2, inline: 7 },
 };
 
 /** A post body's formulas: KaTeX's display blocks and its inline spans (not inside a display). */
@@ -233,8 +240,9 @@ for (const [slug, expected] of Object.entries(FORMULAS)) {
 
 test("no post page shows a raw $ delimiter or a KaTeX error; a lone dollar sign stays text", { skip }, () => {
   for (const { slug } of published) {
-    // The Lightbox's script aside.
-    const body = sectionOf(readBuilt(`blog/${slug}/index.html`), "post-body").replace(/<script\b[\s\S]*?<\/script>/g, "");
+    // The Lightbox's script and code blocks aside: code shows its source as written ("$ jupyter
+    // notebook", a Markdown example with its formulas).
+    const body = sectionOf(readBuilt(`blog/${slug}/index.html`), "post-body").replace(/<(script|pre)\b[\s\S]*?<\/\1>/g, "");
     // A dollar sign before an amount ("$10 million") is not a delimiter.
     assert.ok(!text(body).replace(/\$(?=\d)/g, "").includes("$"), `${slug}: raw $`);
     assert.doesNotMatch(body, /katex-error/, `${slug}: KaTeX error`);
@@ -286,6 +294,47 @@ test("every body image is a figure with non-empty alt; a Markdown title is its f
       assert.equal(caption === undefined ? undefined : text(caption), title, `${slug} image ${k + 1}: figcaption`);
     });
   }
+});
+
+// ---- The Jupyter introduction's notebook, converted into the post (#114) ---------------------
+
+const JUPYTER = "introduction-to-jupyter-and-python";
+/** The notebook as the Jekyll site served it; the post offers it for download. */
+const notebookFile = join(root, "public/blog", JUPYTER, "introduction.ipynb");
+
+/** The text a code block shows. */
+const codeText = (pre) =>
+  pre
+    .replace(/<[^>]*>/g, "")
+    .replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCodePoint(parseInt(h, 16)))
+    .replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(Number(d)))
+    .replaceAll("&lt;", "<").replaceAll("&gt;", ">").replaceAll("&quot;", '"').replaceAll("&amp;", "&");
+
+test("the Jupyter introduction shows its notebook inline: each code cell as Python, then its text outputs, in order", { skip }, () => {
+  const body = sectionOf(readBuilt(`blog/${JUPYTER}/index.html`), "post-body");
+  assert.doesNotMatch(body, /<iframe\b/, "no iframe");
+  assert.doesNotMatch(body.replace(/<script\b[^>]*type="module"[\s\S]*?<\/script>/g, ""), /<script\b/, "no Jekyll script");
+  const blocks = [...body.matchAll(/<pre\b[^>]*data-language="(\w+)"[^>]*>([\s\S]*?)<\/pre>/g)].map(([, lang, inner]) => ({ lang, text: codeText(inner) }));
+  // What the notebook's code cells and their outputs read, colours (ANSI codes) aside.
+  const expected = JSON.parse(readFileSync(notebookFile, "utf8")).cells
+    .filter((c) => c.cell_type === "code")
+    .flatMap((c) => [
+      { lang: "python", text: c.source.join("") },
+      ...c.outputs.map((o) => ({ lang: "text", text: o.output_type === "error" ? o.traceback.join("\n") : (o.text ?? o.data["text/plain"]).join("") })),
+    ])
+    .map(({ lang, text }) => ({ lang, text: text.replace(/\x1b\[[0-9;]*m/g, "").replace(/\n+$/, "") }));
+  assert.equal(expected.length, 78 + 76, "78 code cells, 76 text outputs");
+  let i = 0;
+  for (const block of blocks) if (i < expected.length && block.lang === expected[i].lang && block.text === expected[i].text) i++;
+  assert.equal(i, expected.length, `block ${i + 1} of the notebook (${JSON.stringify(expected[i]?.text.slice(0, 60))}) is missing or out of order`);
+});
+
+test("the Jupyter introduction's Download link serves the notebook", { skip }, () => {
+  const body = sectionOf(readBuilt(`blog/${JUPYTER}/index.html`), "post-body");
+  const link = anchors(body).find(([, inner]) => text(inner) === "Download");
+  assert.ok(link, "a Download link");
+  assert.equal(href(link[0]), `/blog/${JUPYTER}/introduction.ipynb`);
+  assert.deepEqual(readFileSync(join(dist, "blog", JUPYTER, "introduction.ipynb")), readFileSync(notebookFile));
 });
 
 test("the sitemap lists /blog/ and every non-draft post, and no draft", { skip }, () => {
