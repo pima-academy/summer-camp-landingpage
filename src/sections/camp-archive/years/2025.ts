@@ -1,6 +1,6 @@
 // The 2025 camp (spec #93, issue #104): sources are the Drive folder "[Public] Tài liệu Trại hè
 // PiMA 2025" (copied into 2025/ on "Trại hè PiMA - Lưu trữ"), the 2025 camp page
-// (topic, description, programme, sessions) and src/camp/camp-mentors.ts (team), as inventoried
+// (topic, description, programme, sessions) and its team list (both removed in #107), as inventoried
 // in docs/research/camp-2025-2026-inventory.md (issue #85). Campers and schools are verbatim
 // from the first page of each report. No gallery and no video: no photo or video is confirmed
 // as the 2025 camp's.

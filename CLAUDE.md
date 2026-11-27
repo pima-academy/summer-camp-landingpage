@@ -16,10 +16,6 @@
 - Every section file is English PascalCase (`FoundingStory.astro`) and renders through `<Section name="founding-story">`, the file name in kebab case (`scripts/sections.test.mjs` checks). Tests find sections by `data-section`.
 - Styles live in the `<style>` of the file that owns the markup; no utility classes. Every file starts with a comment saying what it is and which pages use it (`scripts/header-comments.test.mjs` checks sections, components and layouts).
 
-## Frozen code
-
-- `src/camp/` and the two camp page files (`src/pages/trai-he-toan-hoc-2025.astro`, `src/pages/trai-he-pima-2026.astro`) are frozen; do not edit them. See `src/camp/README.md`.
-
 ## Agent skills
 
 ### Issue tracker
