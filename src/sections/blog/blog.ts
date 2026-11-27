@@ -12,8 +12,11 @@ export async function publishedPosts(): Promise<Post[]> {
   return posts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf() || a.id.localeCompare(b.id));
 }
 
+/** The blog list page, /blog/, linked back to from every post. */
+export const blogHref = "/blog/";
+
 /** A post's URL. */
-export const postHref = (post: Post) => `/blog/${post.id}/`;
+export const postHref = (post: Post) => `${blogHref}${post.id}/`;
 
 /** A post's summary (its card on /blog/, its page's meta description): see `summaryOf`. */
 export const postSummary = (post: Post) => summaryOf({ description: post.data.description, body: post.body });
