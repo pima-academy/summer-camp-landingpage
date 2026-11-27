@@ -17,7 +17,6 @@ test("a nav link is a content gap exactly when it points at a gap page (site.ts 
   for (const link of links) {
     assert.equal(Boolean(link.gap), gapPages.includes(link.href), `${link.label} (${link.href})`);
   }
-  assert.ok(links.some((link) => link.gap), "the nav has a gap link (Sự kiện & Blog)");
 });
 
 test("Nav hard-codes no route: its links and their flags come from site.ts", () => {
@@ -48,15 +47,15 @@ test("nav is the page banner, before <main>, and lists the site links", { skip }
   assert.match(nav, /<nav\b[^>]*id="nav-menu"/);
   assert.ok(html.indexOf("</header>") < html.indexOf("<main"), "header before main");
   const hrefs = anchors(nav).map(href);
-  for (const h of ["/", "/ve-chung-toi/", "/trai-he-toan-hoc-pima/", "/khoa-hoc/", "/lien-he/"]) {
+  for (const h of ["/", "/ve-chung-toi/", "/trai-he-toan-hoc-pima/", "/khoa-hoc/", "/blog/", "/lien-he/"]) {
     assert.ok(hrefs.includes(h), `nav links to ${h}`);
   }
 });
 
-test("the Sự kiện & Blog content gap is not in the production nav", { skip }, () => {
+test("the old Sự kiện & Blog gap link is not in the production nav", { skip }, () => {
   assert.doesNotMatch(nav, /su-kien-blog|Sự kiện/);
-  // 4 top-level items (Trang chủ, Về chúng tôi, Chương trình, Liên hệ) + 2 in the dropdown.
-  assert.equal((nav.match(/<li\b/g) ?? []).length, 6);
+  // 5 top-level items (Trang chủ, Về chúng tôi, Chương trình, Blog, Liên hệ) + 2 in the dropdown.
+  assert.equal((nav.match(/<li\b/g) ?? []).length, 7);
 });
 
 test("only the home links are current on the home page", { skip }, () => {
