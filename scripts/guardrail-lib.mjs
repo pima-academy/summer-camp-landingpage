@@ -218,7 +218,7 @@ function checkNodes(nodes, known) {
 }
 
 /** Custom properties an inline `style` may set: per-instance values, not design values. */
-export const INLINE_STYLE_ALLOWED = ["--marquee-duration", "--marquee-copies", "--cover-ratio"];
+export const INLINE_STYLE_ALLOWED = ["--marquee-duration", "--marquee-copies", "--cover-ratio", "--photo-ratio"];
 // Properties that carry a design value in inline style, whatever their value.
 const DESIGN_PROPS = /^(color|background(-color|-image)?|border(-[\w-]+)?|outline(-color)?|fill|stroke)$/;
 

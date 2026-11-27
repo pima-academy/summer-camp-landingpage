@@ -1,0 +1,266 @@
+---
+/*
+  Widget: Lightbox, a full-screen layer that shows one photo of a set as large as the screen
+  allows and steps through the others (GLOSSARY.md, "Lightbox"). Used by the camp archive page
+  (trai-he-toan-hoc-pima/[year]): the cover's photos (Cover) and each album (Plates).
+
+  One Lightbox per photo set renders a closed <dialog>; the photos are only fetched when shown.
+  Any element on the page opens it at a photo with two attributes, so the caller keeps its own
+  markup and styles for the thumbnails:
+
+    <Lightbox id="album-1" label="Khai mạc" photos={photos.map((src) => ({ src, alt }))} />
+    <button type="button" data-lightbox-open="album-1" data-index="0" aria-label="Phóng to ảnh">…</button>
+
+  `id` is unique on the page; `data-index` is 0-based (default 0).
+
+  Behaviour (script below): the dialog is modal (`showModal`: focus stays inside, Esc closes,
+  the page under it does not scroll). Close button, a click on the dark area around the photo,
+  previous and next buttons (absent for a single photo), ← and →, and swipe; the set wraps
+  around. A counter "k / n" (announced) and the set's label, or the photo's own caption, sit
+  above the photo. Closing returns focus to the element that opened it. The photo is never
+  cropped: it is the largest box of its own aspect ratio that fits under the bar, at the largest
+  width Astro generated (the repo's copies are at most 1600 px, ADR 0006). The two neighbours
+  are preloaded. The URL does not change.
+*/
+import { getImage } from "astro:assets";
+import type { ImageMetadata } from "astro";
+import Icon from "./Icon.astro";
+
+interface Props {
+  /** Unique on the page; openers name it in `data-lightbox-open`. */
+  id: string;
+  /** The set's name, shown above the photo and naming the dialog (Vietnamese). */
+  label: string;
+  /** `caption` replaces the label above that one photo (a campus's cover). */
+  photos: { src: ImageMetadata; alt: string; caption?: string }[];
+}
+
+const { id, label, photos } = Astro.props;
+
+/** What the script needs per photo: the largest copy, its srcset, alt and aspect ratio. */
+const resolved = await Promise.all(
+  photos.map(async ({ src, alt, caption }) => {
+    const image = await getImage({ src, widths: [800, 1200, 1600, 2400], sizes: "100vw" });
+    return { src: image.src, srcset: image.srcSet.attribute, alt, caption, ratio: src.width / src.height };
+  }),
+);
+const single = photos.length < 2;
+---
+
+<dialog class="lightbox" id={`lightbox-${id}`} aria-label={label} data-lightbox data-tone="dark-green" data-photos={JSON.stringify(resolved)}>
+  <div class="bar">
+    <p class="label">{label}</p>
+    <p class="count" aria-live="polite"></p>
+    <button type="button" class="control close" aria-label="Đóng">
+      <Icon name="x" size="24" />
+    </button>
+  </div>
+  <div class="stage">
+    <img class="photo" alt="" sizes="100vw" decoding="async" />
+  </div>
+  {
+    !single && (
+      <>
+        <button type="button" class="control arrow prev" aria-label="Ảnh trước">
+          <Icon name="chevron-left" size="24" />
+        </button>
+        <button type="button" class="control arrow next" aria-label="Ảnh sau">
+          <Icon name="chevron-right" size="24" />
+        </button>
+      </>
+    )
+  }
+</dialog>
+
+<style>
+  /* The whole viewport, on the dark-green tone (its background and text roles). */
+  .lightbox {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    margin: 0;
+    padding: var(--space-4);
+    border: 0;
+    grid-template-rows: auto minmax(0, 1fr);
+    gap: var(--space-4);
+    overscroll-behavior: contain;
+  }
+  .lightbox[open] {
+    display: grid;
+  }
+
+  /* The page under an open lightbox does not scroll. */
+  :global(html:has(dialog[data-lightbox][open])) {
+    overflow: hidden;
+  }
+
+  .bar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+  .label {
+    flex: 1;
+    min-width: 0;
+    font-weight: var(--font-weight-bold);
+  }
+  .count {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* The photo: the largest box of its aspect ratio (--photo-ratio, set by the script) that fits
+     the stage, centred. A click on the stage around it closes the lightbox. */
+  .stage {
+    min-height: 0;
+    container-type: size;
+    display: grid;
+    place-items: center;
+    touch-action: pan-y pinch-zoom;
+  }
+  .photo {
+    width: min(100cqw, 100cqh * var(--photo-ratio));
+    height: auto;
+    aspect-ratio: var(--photo-ratio);
+    object-fit: cover;
+    border-radius: var(--radius);
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  /* Controls: icon buttons on the tone's own background, so they keep their contrast over a
+     photo. */
+  .control {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 3rem;
+    height: 3rem;
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius-circle);
+    background-color: var(--color-background-dark-green);
+    color: var(--color-icon-control);
+    cursor: pointer;
+  }
+  .control:hover {
+    background-color: color-mix(in srgb, currentColor 15%, var(--color-background-dark-green));
+  }
+  .arrow {
+    position: absolute;
+    top: 50%;
+    translate: 0 -50%;
+  }
+  .prev {
+    left: var(--space-4);
+  }
+  .next {
+    right: var(--space-4);
+  }
+
+  @media screen and (max-width: 767px) {
+    .lightbox {
+      padding: var(--space-3);
+      gap: var(--space-3);
+    }
+    .prev {
+      left: var(--space-2);
+    }
+    .next {
+      right: var(--space-2);
+    }
+  }
+</style>
+
+<script>
+  type Photo = { src: string; srcset: string; alt: string; caption?: string; ratio: number };
+
+  const SWIPE_MIN_PX = 40;
+  /** Each dialog's controller, made on first open. */
+  const controllers = new WeakMap<HTMLDialogElement, (index: number) => void>();
+
+  function setup(dialog: HTMLDialogElement) {
+    const photos: Photo[] = JSON.parse(dialog.dataset.photos ?? "[]");
+    const n = photos.length;
+    const img = dialog.querySelector<HTMLImageElement>(".photo")!;
+    const count = dialog.querySelector<HTMLElement>(".count")!;
+    const label = dialog.querySelector<HTMLElement>(".label")!;
+    const setLabel = label.textContent ?? "";
+    const stage = dialog.querySelector<HTMLElement>(".stage")!;
+    let current = 0;
+    let opener: HTMLElement | null = null;
+
+    function show(index: number) {
+      current = (index + n) % n;
+      const p = photos[current];
+      img.style.setProperty("--photo-ratio", String(p.ratio));
+      img.srcset = p.srcset;
+      img.src = p.src;
+      img.alt = p.alt;
+      label.textContent = p.caption ?? setLabel;
+      count.textContent = `${current + 1} / ${n}`;
+      for (const k of [current - 1, current + 1]) {
+        if (n < 2) break;
+        const q = photos[(k + n) % n];
+        const pre = new Image();
+        pre.sizes = "100vw";
+        pre.srcset = q.srcset;
+        pre.src = q.src;
+      }
+    }
+
+    dialog.querySelector(".close")!.addEventListener("click", () => dialog.close());
+    dialog.querySelector(".prev")?.addEventListener("click", () => show(current - 1));
+    dialog.querySelector(".next")?.addEventListener("click", () => show(current + 1));
+    dialog.addEventListener("keydown", (e) => {
+      if (n < 2) return;
+      if (e.key === "ArrowLeft") show(current - 1);
+      else if (e.key === "ArrowRight") show(current + 1);
+      else return;
+      e.preventDefault();
+    });
+
+    // A horizontal swipe steps; a tap on the stage outside the photo closes.
+    let start: { x: number; y: number } | null = null;
+    stage.addEventListener("pointerdown", (e) => {
+      start = { x: e.clientX, y: e.clientY };
+    });
+    stage.addEventListener("pointerup", (e) => {
+      if (!start) return;
+      const dx = e.clientX - start.x;
+      const dy = e.clientY - start.y;
+      start = null;
+      if (n > 1 && Math.abs(dx) >= SWIPE_MIN_PX && Math.abs(dx) > Math.abs(dy)) show(dx < 0 ? current + 1 : current - 1);
+      else if (Math.abs(dx) < SWIPE_MIN_PX && Math.abs(dy) < SWIPE_MIN_PX && e.target === stage) dialog.close();
+    });
+    stage.addEventListener("pointercancel", () => {
+      start = null;
+    });
+
+    dialog.addEventListener("close", () => {
+      opener?.focus();
+      opener = null;
+    });
+
+    return (index: number) => {
+      opener = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+      show(index);
+      dialog.showModal();
+    };
+  }
+
+  document.addEventListener("click", (e) => {
+    const trigger = (e.target as Element | null)?.closest<HTMLElement>("[data-lightbox-open]");
+    if (!trigger) return;
+    const dialog = document.getElementById(`lightbox-${trigger.dataset.lightboxOpen}`);
+    if (!(dialog instanceof HTMLDialogElement)) return;
+    e.preventDefault();
+    let open = controllers.get(dialog);
+    if (!open) controllers.set(dialog, (open = setup(dialog)));
+    // A mouse click does not focus a button in every browser: focus the opener first, so closing returns to it.
+    trigger.focus({ preventScroll: true });
+    open(Number(trigger.dataset.index) || 0);
+  });
+</script>
