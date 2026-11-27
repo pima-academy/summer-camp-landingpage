@@ -43,7 +43,10 @@ export interface DocItem {
   title: string;
   /** In source order; [] when the source names nobody. */
   authors: Person[];
-  /** At least one. A solution ("Lời giải") or notebook is a file of its item. */
+  /**
+   * A solution ("Lời giải") or notebook is a file of its item. [] only when the item's file is
+   * lost (2017 "Tối ưu hóa", #87): the page shows its title and authors with no link.
+   */
   files: FileLink[];
   /** A lecture reused from an earlier camp (2019 reuses 2018's); shown as "(từ trại hè 2018)" and listed first. */
   fromYear?: number;

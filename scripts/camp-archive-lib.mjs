@@ -83,7 +83,8 @@ const person = shape("Person", { name: text, "affiliation?": text });
 const docItem = shape("DocItem", {
   title: text,
   authors: list(person),
-  files: list(fileLink, { nonEmpty: true }),
+  // [] for an item whose file is lost: it shows title and authors, no link (2017 "Tối ưu hóa").
+  files: list(fileLink),
   "fromYear?": (v, at, out, ctx) => {
     integer(v, at, out);
     if (Number.isInteger(v) && v >= ctx.year) out.push(`${at}: ${v} is not before ${ctx.year}`);
