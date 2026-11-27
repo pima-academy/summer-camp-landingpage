@@ -8,6 +8,10 @@ The PiMA Academy website: first moved off its Webflow export onto a code-only bu
 The Webflow export in `site/`, as served at pimavn.com before the switch-over. The reference for what the rebuild had to look like; once brand alignment starts, only an archive.
 _Avoid_: legacy site, current site, baseline
 
+**Jekyll site**:
+PiMA's earlier site at pimavn.github.io, older than the old site: the blog of 2017-2019 and the summer camp pages of 2016-2023. A source for the camp archive pages and the blog's first posts, never served by the rebuild.
+_Avoid_: old site (that is the Webflow export), old blog, legacy site
+
 **Rebuild**:
 The new code-only version of pimavn.com that replaces the old site, visually equivalent to it.
 _Avoid_: new site, redesign, migration (for the result)
@@ -93,8 +97,16 @@ A component, section or page of the old site that is empty or broken only becaus
 _Avoid_: placeholder, stub, empty section
 
 **Gap page**:
-A whole page that is a content gap: a page of the old site with no content yet (events & blog, course detail, team detail…). It exists only in development, at its old address, and is never built for visitors.
+A whole page that is a content gap: a page of the old site with no content yet (course detail, team detail…). It exists only in development, at its old address, and is never built for visitors.
 _Avoid_: draft page, hidden page, placeholder page
+
+**Blog**:
+The part of pimavn.com that lists blog posts, newest first, and shows each one on a page of its own. It replaced the old site's "Sự kiện & Blog" page; events are not part of it.
+_Avoid_: news, events & blog, articles
+
+**Blog post**:
+One piece of writing published on the blog ("bài viết"), with a title, a date and optionally an author and a cover photo. Its body may hold mathematical formulas. The posts of 2017-2019 came from the Jekyll site, with their text unchanged.
+_Avoid_: article, news item, event, entry
 
 **Catalogue page**:
 The development-only page (`/catalogue/`) that shows every primitive in every variant, to see what exists before building a section and to check a primitive change by eye. Never built for visitors.
