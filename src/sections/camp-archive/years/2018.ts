@@ -130,8 +130,8 @@ const camp: CampYear = {
           campers: [
             { name: "Nguyễn Nguyễn", school: ptnk },
             { name: "Huỳnh Phạm Phương Mai", school: "Trường THPT Chuyên Lê Hồng Phong, TP. HCM" },
-            { name: "Nguyễn Tất Đạt", school: "Trường THPT Chuyên Sư Phạm, Hà Nội" },
-            { name: "Nguyễn An Tường", school: "Trường THPT Chuyên Nguyễn Tất Thành, Kon Tum" },
+            { name: "Nguyễn Tấn Đạt", school: "Trường THPT Chuyên Sư Phạm, Hà Nội" },
+            { name: "Nguyễn An Trường", school: "Trường THPT Chuyên Nguyễn Tất Thành, Kon Tum" },
           ],
           mentors: [manh, truongHai, nhat],
           files: [pdf("1p4ms5wvPfVrQ5G4WJOkbeNKgHQtzKGCz")],
