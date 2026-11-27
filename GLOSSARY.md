@@ -44,6 +44,10 @@ _Avoid_: theme, background colour, variant
 The short uppercase line above a heading, under a short PiMA Green rule (a tagline or a breadcrumb such as "PiMA academy > giới thiệu"). Not a heading itself.
 _Avoid_: eyebrow, overline, tagline, subheading
 
+**Lightbox**:
+A full-screen layer over the page that shows one photo as large as the screen allows, and steps through the other photos of its set: an album of a camp archive page, or a year's covers. It is a widget.
+_Avoid_: modal, popup, zoom viewer, gallery viewer
+
 **Camp page**:
 Removed (#107). The recruitment page for one edition of the PiMA summer camp (2025, 2026), with its own header and footer instead of the site's. The camp archive page replaced it, and its old URL redirects to that year's camp archive page.
 _Avoid_: summer camp page (also names the camp overview page), event page
