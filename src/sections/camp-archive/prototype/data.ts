@@ -63,8 +63,8 @@ export const camp2019: CampYear = {
   year: 2019,
   topic: { vi: "Toán học trong Học sâu", en: "The Mathematics of Deep Learning" },
   cover: cover2019,
-  // Dates from the user (2026-11-27); campus and venue not known yet.
-  sessions: [{ start: "2019-07-29", end: "2019-08-09" }],
+  // From the user (2026-11-27).
+  sessions: [{ campus: "TP.HCM", start: "2019-07-29", end: "2019-08-09", venue: "Trường ĐH Khoa học Tự nhiên, ĐHQG-HCM" }],
   lectures: [
     { title: "Đại số tuyến tính", fromYear: 2018, authors: [linh, { name: "Nguyễn Trung Nghĩa", affiliation: "VNUHCM University of Science, Vietnam" }, { name: "Cấn Trần Thành Trung", affiliation: "Caltech" }], files: [pdf()] },
     { title: "Tối ưu hóa", fromYear: 2018, authors: [{ name: "Phạm Hoàng Nhật", affiliation: "University of Washington" }], files: [pdf()] },
