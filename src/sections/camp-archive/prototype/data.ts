@@ -32,7 +32,8 @@ export interface CampYear {
   topic: { vi: string; en: string };
   description?: string[];
   programme?: string[];
-  sessions?: { campus: Campus; dates?: string; venue?: string }[];
+  /** One per camp held that year; start and end as ISO dates. */
+  sessions?: { campus?: Campus; start: string; end: string; venue?: string }[];
   cover?: ImageMetadata;
   team?: { name: string; members: TeamMember[] }[];
   entranceExam?: DocItem[];
@@ -62,6 +63,8 @@ export const camp2019: CampYear = {
   year: 2019,
   topic: { vi: "Toán học trong Học sâu", en: "The Mathematics of Deep Learning" },
   cover: cover2019,
+  // Dates from the user (2026-11-27); campus and venue not known yet.
+  sessions: [{ start: "2019-07-29", end: "2019-08-09" }],
   lectures: [
     { title: "Đại số tuyến tính", fromYear: 2018, authors: [linh, { name: "Nguyễn Trung Nghĩa", affiliation: "VNUHCM University of Science, Vietnam" }, { name: "Cấn Trần Thành Trung", affiliation: "Caltech" }], files: [pdf()] },
     { title: "Tối ưu hóa", fromYear: 2018, authors: [{ name: "Phạm Hoàng Nhật", affiliation: "University of Washington" }], files: [pdf()] },
@@ -173,8 +176,8 @@ export const camp2025: CampYear = {
     "Vận dụng các kiến thức và kĩ năng để hoàn thành một đề tài nhóm dưới sự hỗ trợ của các mentor đến từ các trường đại học lớn trong và ngoài nước.",
   ],
   sessions: [
-    { campus: "TP.HCM", dates: "02–09/08/2025", venue: "Trường ĐH Khoa học Tự nhiên, ĐHQG-HCM" },
-    { campus: "Hà Nội", dates: "11–18/08/2025", venue: "Viện Nghiên cứu cao cấp về Toán (VIASM)" },
+    { campus: "TP.HCM", start: "2025-08-02", end: "2025-08-09", venue: "Trường ĐH Khoa học Tự nhiên, ĐHQG-HCM" },
+    { campus: "Hà Nội", start: "2025-08-11", end: "2025-08-18", venue: "Viện Nghiên cứu cao cấp về Toán (VIASM)" },
   ],
   team: [
     {

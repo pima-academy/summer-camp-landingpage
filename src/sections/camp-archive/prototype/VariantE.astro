@@ -50,7 +50,7 @@ const docs: { title: string; items?: DocItem[] }[] = [
         <p class="where">
           {y.sessions.map((s) => (
             <span>
-              <Icon name="map-pin" size="text" class="pin" /> {s.campus}, {s.dates}, {s.venue}
+              <Icon name="map-pin" size="text" class="pin" /> {s.campus}, {`${s.start} – ${s.end}`}, {s.venue}
             </span>
           ))}
         </p>

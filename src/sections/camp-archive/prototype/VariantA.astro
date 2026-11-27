@@ -44,7 +44,7 @@ const fileText = (f: FileLink) => f.label;
               <li>
                 <Icon name="map-pin" size="text" class="ic" />
                 <strong>{s.campus}</strong>
-                {s.dates && <span>{s.dates}</span>}
+                <span>{s.start} – {s.end}</span>
                 {s.venue && <span class="muted">{s.venue}</span>}
               </li>
             ))}

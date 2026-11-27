@@ -31,10 +31,14 @@ const counts = {
   groups,
   campers,
 };
-// "02–09/08/2025" → days "02–09", month 8, year 2025 (the spec should store start and end dates).
-const dateParts = (d?: string) => {
-  const m = d?.match(/^(.+)\/(\d{2})\/(\d{4})$/);
-  return m ? { days: m[1], month: Number(m[2]), year: m[3] } : undefined;
+// A session's dates as a calendar block: "02–09" over "tháng 8 năm 2025" within one month,
+// "29/07–09/08" over "năm 2019" across two.
+const dateParts = (start: string, end: string) => {
+  const [sy, sm, sd] = start.split("-");
+  const [, em, ed] = end.split("-");
+  return sm === em
+    ? { days: `${sd}–${ed}`, rest: `tháng ${Number(sm)} năm ${sy}` }
+    : { days: `${sd}/${sm}–${ed}/${em}`, rest: `năm ${sy}` };
 };
 const author = (a: { name: string; affiliation?: string }) => (a.affiliation ? `${a.name} (${a.affiliation})` : a.name);
 const shortDocs: { title: string; items?: DocItem[] }[] = [
@@ -68,19 +72,15 @@ const laterDocs: { title: string; items?: DocItem[] }[] = [
         y.sessions && (
           <dl class="bc-dates">
             {y.sessions.map((s) => {
-              const d = dateParts(s.dates);
+              const d = dateParts(s.start, s.end);
               return (
                 <div class="bc-date">
-                  <dt>{s.campus}</dt>
-                  {d ? (
-                    <dd>
-                      <span class="bc-days">{d.days}</span>
-                      <span class="bc-month">tháng {d.month} năm {d.year}</span>
-                      {s.venue && <span class="bc-venue">{s.venue}</span>}
-                    </dd>
-                  ) : (
-                    <dd>{s.dates}</dd>
-                  )}
+                  <dt>{s.campus ?? "Thời gian"}</dt>
+                  <dd>
+                    <span class="bc-days">{d.days}</span>
+                    <span class="bc-month">{d.rest}</span>
+                    {s.venue && <span class="bc-venue">{s.venue}</span>}
+                  </dd>
                 </div>
               );
             })}

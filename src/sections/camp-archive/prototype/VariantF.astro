@@ -31,7 +31,7 @@ const docs: { title: string; items?: DocItem[] }[] = [
           <ul class="sessions">
             {y.sessions.map((s) => (
               <li>
-                <strong>{s.campus}</strong> {s.dates}
+                <strong>{s.campus}</strong> {`${s.start} – ${s.end}`}
                 <br />
                 <span>{s.venue}</span>
               </li>

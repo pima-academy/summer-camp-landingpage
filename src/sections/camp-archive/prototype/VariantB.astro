@@ -41,7 +41,7 @@ const smallDocs: { title: string; items?: DocItem[] }[] = [
         <div class="hero-sessions">
           {y.sessions.map((s) => (
             <p>
-              <strong>{s.campus}</strong> · {s.dates}
+              <strong>{s.campus}</strong> · {`${s.start} – ${s.end}`}
             </p>
           ))}
         </div>
@@ -94,7 +94,7 @@ const smallDocs: { title: string; items?: DocItem[] }[] = [
               <Icon name="map-pin" size="24" class="deco" />
               <h3>Trại {s.campus}</h3>
               <p>
-                <Icon name="calendar" size="text" class="deco" /> {s.dates}
+                <Icon name="calendar" size="text" class="deco" /> {`${s.start} – ${s.end}`}
               </p>
               <p>{s.venue}</p>
             </div>

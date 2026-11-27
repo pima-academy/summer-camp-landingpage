@@ -34,7 +34,7 @@ const aria = (f: FileLink, title: string) => `${f.label}: ${title} (mở trong t
     {
       y.sessions && (
         <p class="muted sess">
-          {y.sessions.map((s) => `${s.campus} ${s.dates ?? ""}`).join("  |  ")}
+          {y.sessions.map((s) => `${s.campus} ${s.start} – ${s.end}`).join("  |  ")}
         </p>
       )
     }
@@ -69,7 +69,7 @@ const aria = (f: FileLink, title: string) => `${f.label}: ${title} (mở trong t
         y.sessions && (
           <table class="tbl">
             <thead><tr><th>Cơ sở</th><th>Thời gian</th><th>Địa điểm</th></tr></thead>
-            <tbody>{y.sessions.map((s) => <tr><td>{s.campus}</td><td class="nowrap">{s.dates}</td><td>{s.venue}</td></tr>)}</tbody>
+            <tbody>{y.sessions.map((s) => <tr><td>{s.campus}</td><td class="nowrap">{`${s.start} – ${s.end}`}</td><td>{s.venue}</td></tr>)}</tbody>
           </table>
         )
       }
