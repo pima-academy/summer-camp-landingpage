@@ -1,8 +1,8 @@
 // Checks the Lightbox widget (src/components/Lightbox.astro) on the camp archive page in a
 // browser: a plate's photo opens its album at that photo and steps through every photo of the
 // album, not only the five shown; Esc closes and focus returns to the photo; the cover opens its
-// own set (two photos in a multi-campus year, no arrows for one); the open lightbox's text and
-// control icons pass WCAG AA. Needs a fresh `npm run build`; skipped when dist/ is missing.
+// own set (two photos in a multi-campus year, no arrows for one); in a blog post, an image opens
+// the post's set at it, captioned; the open lightbox's text and control icons pass WCAG AA. Needs a fresh `npm run build`; skipped when dist/ is missing.
 import { test, before, after } from "node:test";
 import assert from "node:assert/strict";
 import { createRequire } from "node:module";
@@ -95,6 +95,31 @@ test("the cover opens its own set: both campuses in 2025, one photo without arro
   await page.locator("[data-section=cover] [data-lightbox-open]").click();
   assert.equal((await shown(page)).count, "1 / 1");
   assert.equal(await page.locator("dialog[open] .arrow").count(), 0);
+  await page.close();
+});
+
+test("a blog post's image opens the post's images at it; Esc closes and returns focus", { skip }, async () => {
+  const page = await open("/blog/plato-2/");
+  const images = page.locator("[data-section=post-body] figure button");
+  assert.equal(await images.count(), 4);
+  const label = () => page.locator("dialog[open] .label").textContent();
+
+  const third = images.nth(2);
+  await third.click();
+  assert.equal((await shown(page)).count, "3 / 4");
+  assert.equal(await label(), "Cấu trúc tinh thể", "the image's caption");
+  assert.match((await shown(page)).src, /plato-7/);
+
+  await page.keyboard.press("ArrowRight");
+  assert.equal((await shown(page)).count, "4 / 4");
+  assert.equal(await label(), "Cấu trúc vi khuẩn và vi rút");
+  await page.keyboard.press("ArrowRight");
+  assert.equal((await shown(page)).count, "1 / 4", "wraps around to the post's first image");
+  assert.match((await shown(page)).src, /plato-5/);
+
+  await page.keyboard.press("Escape");
+  assert.equal(await shown(page), null);
+  assert.ok(await third.evaluate((el) => el === document.activeElement), "focus is back on the image");
   await page.close();
 });
 
