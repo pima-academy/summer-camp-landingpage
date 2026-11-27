@@ -45,8 +45,12 @@ The short uppercase line above a heading, under a short PiMA Green rule (a tagli
 _Avoid_: eyebrow, overline, tagline, subheading
 
 **Camp page**:
-The page for one edition of the PiMA summer camp (2025, 2026), with its own header and footer instead of the site's. Camp pages are left out of brand alignment: they keep the old site's look until they are redesigned on their own.
+The recruitment page for one edition of the PiMA summer camp (2025, 2026), with its own header and footer instead of the site's. Camp pages are left out of brand alignment and are to be removed: camp archive pages replace them.
 _Avoid_: summer camp page (also names the camp overview page), event page
+
+**Camp archive page**:
+The page for one past edition of the PiMA summer camp ("trang chi tiết trại hè"), an academic record of that year (topic, team, entrance exam, lectures, exercises, group projects, student papers, photos) built from one template shared by every year. It carries no recruitment information.
+_Avoid_: camp page, camp detail page, event page
 
 **Refactor**:
 The restructuring of the rebuild's code between the rebuild and brand alignment, so that an agent changes one section by reading one file: scoped CSS, one tokens file, section files, a fixed set of primitives. It aims to change nothing visible; small drift is accepted, broken behaviour is not.
