@@ -1,8 +1,8 @@
-// The 2023 camp (spec #93, issue #102). Sources: the old site (pimavn/pimavn.github.io at
+// The 2023 camp (spec #93, issue #102). Sources: the Jekyll site (pimavn/pimavn.github.io at
 // 2b1a1fa, summer_camps/2023/, _data/organizers.yaml, _data/banners.yaml), whose 12 Drive links
 // pointed at folders and files of a personal account; those were copied into the Drive folder
 // 2023/ on "Trại hè PiMA - Lưu trữ" and the page links the copies. Topic as on the overview
-// page and the 2023 project slides; the old banner's "The Mathematics of Bioinformatics" and
+// page and the 2023 project slides; the Jekyll site banner's "The Mathematics of Bioinformatics" and
 // "Virtual" label are not used. Dates and venue from issue #89. Mentors: the people each report's
 // acknowledgements name as having guided the group.
 import type { CampYear, FileLink, Person } from "../camp-archive";

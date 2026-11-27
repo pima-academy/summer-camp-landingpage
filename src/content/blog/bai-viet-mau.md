@@ -12,7 +12,11 @@ Một lớp học có 30 bạn và cô giáo mang đến 29 chiếc kẹo. Dù c
 
 ## Nguyên lý Dirichlet
 
-Nếu xếp nhiều hơn n đồ vật vào n chiếc hộp, thì có ít nhất một chiếc hộp chứa từ hai đồ vật trở lên. Nguyên lý này còn được gọi là nguyên lý chuồng bồ câu.
+Nếu xếp nhiều hơn $n$ đồ vật vào $n$ chiếc hộp, thì có ít nhất một chiếc hộp chứa từ hai đồ vật trở lên. Nguyên lý này còn được gọi là nguyên lý chuồng bồ câu. Tổng quát hơn, khi xếp $m$ đồ vật vào $n$ chiếc hộp, có một chiếc hộp chứa ít nhất
+
+$$
+\left\lceil \frac{m}{n} \right\rceil \quad \text{đồ vật.}
+$$
 
 ## Một ví dụ
 

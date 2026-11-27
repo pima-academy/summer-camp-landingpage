@@ -1,4 +1,4 @@
-// The 2019 camp (spec #93, issue #101): sources are the old site's summer_camps/2019/
+// The 2019 camp (spec #93, issue #101): sources are the Jekyll site's summer_camps/2019/
 // (lectures_and_projects, student_papers, gallery), _data/organizers.yaml and _data/banners.yaml
 // (pimavn/pimavn.github.io @ 2b1a1fa), with mentors from each report's acknowledgements.
 // Drive folder 2019/ on "Trại hè PiMA - Lưu trữ"; the four 2018 lectures link their copies in 2018/.
