@@ -7,7 +7,7 @@
 // no link. A part the year lacks is left out; nothing renders without any.
 // Used by trai-he-toan-hoc-pima/[year].
 import Section from "../../components/Section.astro";
-import type { CampYear, DocItem, Person } from "./camp-archive";
+import { FILE_LINKS, type CampYear, type DocItem, type Person } from "./camp-archive";
 
 interface Props {
   y: CampYear;
@@ -43,8 +43,8 @@ const byline = (a: Person) => (a.affiliation ? `${a.name} (${a.affiliation})` : 
                   {it.files.length > 0 && (
                     <span class="files">
                       {it.files.map((f) => (
-                        <a href={f.url} target="_blank" rel="noopener" aria-label={`${f.label}, ${it.title}`}>
-                          {f.label}
+                        <a href={f.url} target="_blank" rel="noopener" aria-label={`${FILE_LINKS[f.label].text}, ${it.title}`}>
+                          {FILE_LINKS[f.label].text}
                         </a>
                       ))}
                     </span>

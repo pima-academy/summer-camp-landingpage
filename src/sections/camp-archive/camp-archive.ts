@@ -12,12 +12,27 @@
 // them. This file must not use `import.meta.glob` or other Vite-only code: the year-file test
 // loads year files in plain Node.
 import type { ImageMetadata } from "astro";
+import type { ComponentProps } from "astro/types";
+import type Icon from "../../components/Icon.astro";
 
 /** Where a session was held. "Trực tuyến" is an online camp (2021). */
 export type Campus = "Hà Nội" | "TP.HCM" | "Trực tuyến";
 
 /** The link text of a file. Solutions and notebooks are files of their item, not items. */
 export type FileLabel = "PDF" | "Slide" | "Notebook" | "Thư mục" | "Mã nguồn" | "Lời giải";
+
+/**
+ * How a file link shows, by label: its link text (Contents) and its icon (Projects, which says
+ * "Báo cáo" for a group's PDF, its report).
+ */
+export const FILE_LINKS: Record<FileLabel, { text: string; icon: ComponentProps<typeof Icon>["name"] }> = {
+  PDF: { text: "PDF", icon: "file-text" },
+  Slide: { text: "Slide", icon: "presentation" },
+  Notebook: { text: "Notebook", icon: "notebook" },
+  "Thư mục": { text: "Thư mục", icon: "folder" },
+  "Mã nguồn": { text: "Mã nguồn", icon: "braces" },
+  "Lời giải": { text: "Lời giải", icon: "file-check" },
+};
 
 /**
  * One document link. `url` is a Drive viewer URL on the shared drive "Trại hè PiMA - Lưu trữ",

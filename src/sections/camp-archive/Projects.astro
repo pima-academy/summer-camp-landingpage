@@ -7,7 +7,7 @@
 // Used by trai-he-toan-hoc-pima/[year].
 import Icon from "../../components/Icon.astro";
 import Section from "../../components/Section.astro";
-import { isMultiCampus, type CampYear, type FileLabel } from "./camp-archive";
+import { FILE_LINKS, isMultiCampus, type CampYear, type FileLabel } from "./camp-archive";
 
 interface Props {
   y: CampYear;
@@ -15,16 +15,8 @@ interface Props {
 
 const { y } = Astro.props;
 const multiCampus = isMultiCampus(y);
-/** The icon and the link text of each file label; a group's PDF is its report. */
-const fileLinks: { label: FileLabel; icon: "file-text" | "presentation" | "notebook" | "folder" | "braces" | "file-check"; text: string }[] = [
-  { label: "PDF", icon: "file-text", text: "Báo cáo" },
-  { label: "Slide", icon: "presentation", text: "Slide" },
-  { label: "Notebook", icon: "notebook", text: "Notebook" },
-  { label: "Thư mục", icon: "folder", text: "Thư mục" },
-  { label: "Mã nguồn", icon: "braces", text: "Mã nguồn" },
-  { label: "Lời giải", icon: "file-check", text: "Lời giải" },
-];
-const fileLink = (label: FileLabel) => fileLinks.find((f) => f.label === label)!;
+/** A file link's text: a group's PDF is its report. */
+const linkText = (label: FileLabel) => (label === "PDF" ? "Báo cáo" : FILE_LINKS[label].text);
 ---
 
 {
@@ -63,8 +55,8 @@ const fileLink = (label: FileLabel) => fileLinks.find((f) => f.label === label)!
                   <p class="files">
                     {g.files.map((f) => (
                       <a href={f.url} target="_blank" rel="noopener">
-                        <Icon name={fileLink(f.label).icon} size="16" />
-                        {fileLink(f.label).text}
+                        <Icon name={FILE_LINKS[f.label].icon} size="16" />
+                        {linkText(f.label)}
                       </a>
                     ))}
                   </p>
