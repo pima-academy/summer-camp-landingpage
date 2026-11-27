@@ -1,0 +1,84 @@
+---
+// Preface: the camp archive page's "Lời giới thiệu" (the year's description) beside
+// "Nội dung chương trình" (its programme, a numbered list on a pale-lime page). Renders
+// nothing when the year has neither; one alone takes its column. Design D of #89.
+// Used by trai-he-toan-hoc-pima/[year].
+import Section from "../../components/Section.astro";
+import type { CampYear } from "./camp-archive";
+
+interface Props {
+  y: CampYear;
+}
+
+const { description, programme } = Astro.props.y;
+---
+
+{
+  (description || programme) && (
+    <Section name="preface" width="large" spacing="medium">
+      <div class="preface">
+        {description && (
+          <div>
+            <h2>Lời giới thiệu</h2>
+            {description.map((p) => (
+              <p class="prose">{p}</p>
+            ))}
+          </div>
+        )}
+        {programme && (
+          <div class="page" data-tone="pale-lime">
+            <h2 class="page-title">Nội dung chương trình</h2>
+            <ol class="programme">
+              {programme.map((p) => (
+                <li>{p}</li>
+              ))}
+            </ol>
+          </div>
+        )}
+      </div>
+    </Section>
+  )
+}
+
+<style>
+  .preface {
+    display: grid;
+    grid-template-columns: 7fr 5fr;
+    gap: var(--space-12);
+    align-items: start;
+  }
+  .prose {
+    margin-top: var(--space-4);
+    max-width: 40rem;
+  }
+  .page {
+    padding: var(--space-10);
+    border-radius: var(--radius);
+  }
+  /* An h2 at the h3 role: the page's heading inside the preface. */
+  .page-title {
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+  }
+  .programme {
+    margin: var(--space-6) 0 0;
+    padding-left: var(--space-6);
+    display: grid;
+    gap: var(--space-4);
+  }
+  .programme li::marker {
+    font-weight: var(--font-weight-black);
+    color: var(--color-text-heading);
+  }
+
+  @media screen and (max-width: 991px) {
+    .preface {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .page {
+      padding: var(--space-6);
+    }
+  }
+</style>

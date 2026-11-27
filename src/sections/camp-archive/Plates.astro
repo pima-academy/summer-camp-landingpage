@@ -1,0 +1,138 @@
+---
+// Plates: the camp archive page's photos, as plates at the back of a book (design D of #89).
+// One plate per album: its name and photo count, "Xem cả album" (the album's Drive folder,
+// until the tailoring pass, #108, adds a lightbox), and one large and four small photos. The
+// year's video, when it has one, follows as a last plate. Renders nothing without either.
+// Used by trai-he-toan-hoc-pima/[year].
+import { Image } from "astro:assets";
+import Section from "../../components/Section.astro";
+import type { CampYear } from "./camp-archive";
+import type { Album } from "./camp-years";
+
+interface Props {
+  y: CampYear;
+  /** The year's gallery sections with their photos (camp-years.ts). */
+  albums: Album[];
+}
+
+const { y, albums } = Astro.props;
+const shown = albums.filter((a) => a.photos.length > 0);
+const title = shown.length && y.video ? "Hình ảnh và video" : y.video ? "Video" : "Hình ảnh";
+---
+
+{
+  (shown.length > 0 || y.video) && (
+    <Section name="plates" width="large" spacing="medium">
+      <h2>{title}</h2>
+      {shown.map((a) => (
+        <section class="plate">
+          <div>
+            {a.name && <h3 class="name">{a.name}</h3>}
+            <p class="count">{a.photos.length} ảnh</p>
+            {a.album && (
+              <a href={a.album} target="_blank" rel="noopener" class="all">
+                Xem cả album
+              </a>
+            )}
+          </div>
+          <div class="grid">
+            {a.photos.slice(0, 5).map((photo, k) => (
+              <div class:list={["cell", { lead: k === 0 }]}>
+                <Image
+                  src={photo}
+                  alt={a.name ? `${a.name}, Trại hè PiMA ${y.year}` : `Trại hè PiMA ${y.year}`}
+                  widths={[400, 800, 1200]}
+                  sizes={k === 0 ? "(max-width: 767px) 90vw, 40vw" : "(max-width: 767px) 45vw, 20vw"}
+                  class="img"
+                />
+              </div>
+            ))}
+          </div>
+        </section>
+      ))}
+      {y.video && (
+        <section class="plate">
+          <div>
+            <h3 class="name">Video</h3>
+          </div>
+          <iframe
+            class="video"
+            src={`https://www.youtube-nocookie.com/embed/${y.video.youtubeId}`}
+            title={`Video Trại hè PiMA ${y.year}`}
+            loading="lazy"
+            allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          />
+        </section>
+      )}
+    </Section>
+  )
+}
+
+<style>
+  .plate {
+    display: grid;
+    grid-template-columns: 3fr 9fr;
+    gap: var(--space-8);
+    padding: var(--space-8) 0;
+    border-top: 1px solid var(--color-border);
+  }
+  .plate:first-of-type {
+    margin-top: var(--space-8);
+  }
+  /* An album's name: an h3 set as a body-size label. */
+  .name {
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+  }
+  .count {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+  }
+  .all {
+    display: inline-block;
+    margin-top: var(--space-2);
+    font-size: var(--font-size-small);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-link);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: var(--space-2);
+    aspect-ratio: 3 / 1.2;
+  }
+  .cell {
+    position: relative;
+    min-height: 0;
+  }
+  .cell.lead {
+    grid-row: span 2;
+  }
+  .img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .video {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: 0;
+    border-radius: var(--radius);
+  }
+
+  @media screen and (max-width: 991px) {
+    .plate {
+      grid-template-columns: 1fr;
+      gap: var(--space-3);
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .grid {
+      aspect-ratio: 3 / 2;
+    }
+  }
+</style>
