@@ -10,7 +10,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { calendarDates, countsSentence } from "../src/sections/camp-archive/camp-archive.ts";
 import { loadYearFile, yearProblems } from "./camp-archive-lib.mjs";
-import { dist, distSkip, root } from "./test-lib.mjs";
+import { dist, distSkip, readBuilt, root } from "./test-lib.mjs";
 
 test("the counts sentence of 2019: lectures, topics, and group reports of their campers", () => {
   const camper = { name: "A", school: "B" };
@@ -270,6 +270,17 @@ test("the build has a camp archive page for each year file and no other (the dev
   assert.deepEqual(built, yearFiles);
   // No sample photo reaches the build (sample/2019/<album>/0N.jpg would be emitted as 0N.<hash>.jpg).
   assert.deepEqual(readdirSync(join(dist, "_astro")).filter((f) => /^\d\d\.[\w-]+\.(jpg|webp)$/.test(f)), []);
+});
+
+test("an item with no file shows its title and authors, with no link and no dotted leader (2017 'Tối ưu hóa')", { skip: distSkip }, () => {
+  const html = readBuilt("trai-he-toan-hoc-pima/2017/index.html");
+  const entries = [...html.matchAll(/<li[^>]*class="entry[^"]*"[^>]*>([\s\S]*?)<\/li>/g)].map((m) => m[1]);
+  const entry = entries.find((e) => e.includes("Tối ưu hóa"));
+  assert.ok(entry, "no 'Tối ưu hóa' entry");
+  assert.match(entry, /Phạm Hoàng Nhật/);
+  assert.doesNotMatch(entry, /<a |class="leader/);
+  // Its neighbours keep their links.
+  assert.ok(entries.filter((e) => e.includes("<a ")).length >= 8);
 });
 
 test("the dev-only sample loads like a year file and differs from one only by its '#' links", async () => {

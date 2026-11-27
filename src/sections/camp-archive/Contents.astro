@@ -3,7 +3,8 @@
 // #89), in the fixed order "Đề tuyển sinh", "Bài giảng", "Bài tập", "Tài liệu đọc thêm".
 // Each entry: title, a dotted leader, its file links as text (opening the Drive viewer in a
 // new tab), and its authors under it. Lectures are numbered; a lecture reused from an earlier
-// camp says "(từ trại hè 2018)". A part the year lacks is left out; nothing renders without any.
+// camp says "(từ trại hè 2018)"; an item whose file is lost (2017 "Tối ưu hóa") has no leader and
+// no link. A part the year lacks is left out; nothing renders without any.
 // Used by trai-he-toan-hoc-pima/[year].
 import Section from "../../components/Section.astro";
 import type { CampYear, DocItem, Person } from "./camp-archive";
@@ -38,14 +39,16 @@ const byline = (a: Person) => (a.affiliation ? `${a.name} (${a.affiliation})` : 
                     {it.title}
                     {it.fromYear && <span class="muted"> (từ trại hè {it.fromYear})</span>}
                   </span>
-                  <span class="leader" aria-hidden="true" />
-                  <span class="files">
-                    {it.files.map((f) => (
-                      <a href={f.url} target="_blank" rel="noopener" aria-label={`${f.label}, ${it.title}`}>
-                        {f.label}
-                      </a>
-                    ))}
-                  </span>
+                  {it.files.length > 0 && <span class="leader" aria-hidden="true" />}
+                  {it.files.length > 0 && (
+                    <span class="files">
+                      {it.files.map((f) => (
+                        <a href={f.url} target="_blank" rel="noopener" aria-label={`${f.label}, ${it.title}`}>
+                          {f.label}
+                        </a>
+                      ))}
+                    </span>
+                  )}
                   {it.authors.length > 0 && <span class="byline">{it.authors.map(byline).join(", ")}</span>}
                 </li>
               ))}
