@@ -202,14 +202,9 @@ export function countsSentence(y: Pick<CampYear, "lectures" | "projects">): (str
   }, []);
 }
 
-/**
- * A session's dates as a calendar block: "02–09" over "tháng 8 năm 2025" within one month,
- * "29/07–09/08" over "năm 2019" across two.
- */
+/** A session's dates as a calendar block: "02/08 – 09/08" over "năm 2025". */
 export function calendarDates(start: string, end: string): { days: string; rest: string } {
   const [sy, sm, sd] = start.split("-");
   const [, em, ed] = end.split("-");
-  return sm === em
-    ? { days: `${sd}–${ed}`, rest: `tháng ${Number(sm)} năm ${sy}` }
-    : { days: `${sd}/${sm}–${ed}/${em}`, rest: `năm ${sy}` };
+  return { days: `${sd}/${sm} – ${ed}/${em}`, rest: `năm ${sy}` };
 }

@@ -36,9 +36,9 @@ test("the counts sentence drops what the year lacks", () => {
   assert.deepEqual(countsSentence({}), []);
 });
 
-test("calendar dates: days over the month within one month, day/month over the year across two", () => {
-  assert.deepEqual(calendarDates("2025-08-02", "2025-08-09"), { days: "02–09", rest: "tháng 8 năm 2025" });
-  assert.deepEqual(calendarDates("2019-07-29", "2019-08-09"), { days: "29/07–09/08", rest: "năm 2019" });
+test("calendar dates: day/month to day/month over the year", () => {
+  assert.deepEqual(calendarDates("2025-08-02", "2025-08-09"), { days: "02/08 – 09/08", rest: "năm 2025" });
+  assert.deepEqual(calendarDates("2019-07-29", "2019-08-09"), { days: "29/07 – 09/08", rest: "năm 2019" });
 });
 
 // ---- The year-file check, on fixtures -------------------------------------------------------

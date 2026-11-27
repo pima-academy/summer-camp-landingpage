@@ -68,7 +68,7 @@ const beside = ratio < 2;
       </div>
       {
         camp.sessions && (
-          <dl class="dates">
+          <dl class:list={["dates", { several: camp.sessions.length > 1 }]}>
             {camp.sessions.map((s) => {
               const d = s.start && s.end ? calendarDates(s.start, s.end) : undefined;
               const slide = slideOf(s.campus);
@@ -233,10 +233,12 @@ const beside = ratio < 2;
     line-height: var(--line-height-h3);
     font-weight: var(--font-weight-semibold);
   }
+  /* A date range stays on one line; two campuses' blocks stack when the column is too narrow. */
   .dates {
     grid-area: dates;
     display: flex;
-    gap: var(--space-8);
+    flex-wrap: wrap;
+    gap: var(--space-4) var(--space-8);
     margin: 0;
   }
   .date {
@@ -256,6 +258,19 @@ const beside = ratio < 2;
     line-height: var(--line-height-h2);
     font-weight: var(--font-weight-black);
     font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  /* Several campuses: smaller ranges in blocks sharing the row, so they stay side by side
+     beside the photo; the venue wraps to the block's width. */
+  .several .date {
+    flex: 1 1 0;
+  }
+  .several .venue {
+    max-width: none;
+  }
+  .several .days {
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
   }
   .month,
   .venue {
