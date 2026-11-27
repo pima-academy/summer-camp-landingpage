@@ -218,7 +218,7 @@ function checkNodes(nodes, known) {
 }
 
 /** Custom properties an inline `style` may set: per-instance values, not design values. */
-export const INLINE_STYLE_ALLOWED = ["--marquee-duration", "--marquee-copies"];
+export const INLINE_STYLE_ALLOWED = ["--marquee-duration", "--marquee-copies", "--cover-ratio"];
 // Properties that carry a design value in inline style, whatever their value.
 const DESIGN_PROPS = /^(color|background(-color|-image)?|border(-[\w-]+)?|outline(-color)?|fill|stroke)$/;
 
@@ -246,13 +246,8 @@ function checkInlineStyles(markup) {
   return out;
 }
 
-/** Files the guardrail never checks: the tokens themselves and the frozen camp pages. */
-const SKIPPED = [
-  /^src\/styles\/tokens\.css$/,
-  /^src\/camp\//,
-  /^src\/pages\/trai-he-toan-hoc-2025\.astro$/,
-  /^src\/pages\/trai-he-pima-2026\.astro$/,
-];
+/** Files the guardrail never checks: the tokens themselves. */
+const SKIPPED = [/^src\/styles\/tokens\.css$/];
 
 /** Whether the guardrail checks a file (path relative to the repo root, `/` separators). */
 export const inScope = (path) =>

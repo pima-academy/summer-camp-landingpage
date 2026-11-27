@@ -7,16 +7,18 @@
 // Text axe cannot decide (over an image, a gradient or a pseudo-element: its "incomplete"
 // results) is listed as a test diagnostic and checked by eye.
 //
-// Adding a page: add its path to PAGES. The two camp pages are frozen (not brand-aligned)
-// and stay out. Needs a fresh `npm run build`; skipped when dist/ is missing (fails in CI).
+// Adding a page: add its path to PAGES. Needs a fresh `npm run build`; skipped when dist/ is missing (fails in CI).
 import { test, before, after } from "node:test";
 import assert from "node:assert/strict";
 import { createRequire } from "node:module";
 import { readFileSync } from "node:fs";
 import { distSkip as skip, serveDist } from "./test-lib.mjs";
 
-/** Every published page except the two frozen camp pages. */
-const PAGES = ["/", "/ve-chung-toi/", "/khoa-hoc/", "/trai-he-toan-hoc-pima/", "/lien-he/", "/chi-tiet-trai-he/", "/404.html"];
+const CAMP_YEARS = [2016, 2017, 2018, 2019, 2021, 2023, 2024, 2025, 2026];
+const PAGES = [
+  "/", "/ve-chung-toi/", "/khoa-hoc/", "/trai-he-toan-hoc-pima/", "/lien-he/", "/404.html",
+  ...CAMP_YEARS.map((year) => `/trai-he-toan-hoc-pima/${year}/`),
+];
 const WIDTHS = [390, 1440];
 
 const axeSource = readFileSync(createRequire(import.meta.url).resolve("axe-core/axe.min.js"), "utf8");
@@ -141,4 +143,44 @@ test("every icon that is a control's only label has 3:1 against its background",
     }
     await page.context().close();
   }
+});
+
+// Section tones (src/components/Section.astro): a card takes a tone with data-tone wherever it
+// sits, so a light card inside a dark-green section has the roles it has on the page itself.
+const ROLES = [
+  "color",
+  "--color-text",
+  "--color-text-heading",
+  "--color-text-accent",
+  "--color-text-muted",
+  "--color-link",
+  "--color-link-hover",
+  "--color-icon-control",
+  "--color-icon-circle",
+  "--color-icon-circle-glyph",
+  "--color-focus-ring",
+];
+
+test("a light-tone card inside a dark-green section takes the light text roles", { skip }, async () => {
+  const page = await open("/", 1440);
+  const found = await page.evaluate((roles) => {
+    const read = (el) => {
+      const s = getComputedStyle(el);
+      return Object.fromEntries(roles.map((r) => [r, (r === "color" ? s.color : s.getPropertyValue(r)).trim()]));
+    };
+    const card = (tone, parent) => {
+      const el = document.createElement("div");
+      el.dataset.tone = tone;
+      parent.append(el);
+      return el;
+    };
+    const dark = card("dark-green", document.body);
+    return Object.fromEntries(
+      ["white", "surface", "pale-lime"].map((tone) => [tone, { alone: read(card(tone, document.body)), inDark: read(card(tone, dark)) }]),
+    );
+  }, ROLES);
+  for (const [tone, { alone, inDark }] of Object.entries(found)) {
+    assert.deepEqual(inDark, alone, `${tone} card inside dark-green`);
+  }
+  await page.context().close();
 });

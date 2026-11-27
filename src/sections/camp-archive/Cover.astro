@@ -1,0 +1,419 @@
+---
+// Cover: the hero of the camp archive page, a book cover (design D of #89). A dark-green
+// frame holding the cover photo, the season line with the year, the topic in display type with
+// its English under it, one calendar block per session and the counts sentence with its numbers
+// set large. Missing data drops out; the structure is the same every year.
+// The photo is never cropped: it keeps its own aspect ratio, at every size. On desktop the frame
+// fits the viewport: the season line runs across the top, the counts across the foot, and
+// between them the photo, shrunk whole to the height left, with the topic and the dates centred
+// beside it. Where the topic and the dates need more than that height (a short viewport), the
+// frame grows to hold them rather than run them into the counts. A wide photo (2:1 or wider: 2019, 2023, 2026) runs instead across the top with the
+// text under it when the viewport is 850 px tall or more, where that shows it larger. Below
+// 992 px the photo is always on top, at the frame's width.
+// A year held at several campuses (2025) has one cover per campus: they crossfade every 7 s
+// with a campus tag, and the matching date block's rule and days turn Pale Lime in step.
+// Hover pauses; reduced motion shows the first cover only.
+// Used by trai-he-toan-hoc-pima/[year].
+import { Image } from "astro:assets";
+import BrandName from "../../components/BrandName.astro";
+import Section from "../../components/Section.astro";
+import { calendarDates, countsSentence, coversOf, type CampYear } from "./camp-archive";
+
+interface Props {
+  camp: CampYear;
+}
+
+const { camp } = Astro.props;
+const slides = coversOf(camp);
+const rotating = slides.length > 1;
+/** The cover a session pairs with in a rotating hero, or undefined. */
+const slideOf = (campus?: string) => {
+  const i = rotating ? slides.findIndex((c) => c.campus === campus) : -1;
+  return i >= 0 ? i : undefined;
+};
+const counts = countsSentence(camp);
+/** The first cover's aspect ratio, which the frame takes (a year's covers share one). */
+const ratio = slides[0].image.width / slides[0].image.height;
+/** A cover 2:1 or wider, on top of the text on a tall desktop viewport. */
+const wide = ratio >= 2;
+---
+
+<Section name="cover" width="large" spacing="none">
+  <div class:list={["bookcover", { wide }]} data-tone="dark-green" data-covers={slides.length}>
+    <div class:list={["photo", { rotating }]} style={`--cover-ratio: ${ratio}`}>
+      <div class="fit">
+      <div class="pic">
+      {
+        slides.map((c, i) => (
+          <figure class="slide" data-slide={i} data-active={i === 0 ? "" : undefined} aria-hidden={i > 0 ? "true" : undefined}>
+            {/* Desktop: 60 % of the frame's width beside the text, all of it for a wide photo on top. */}
+            <Image
+              src={c.image}
+              alt={c.campus ? `Trại sinh và ban tổ chức Trại hè PiMA ${camp.year} tại ${c.campus}` : `Trại sinh và ban tổ chức Trại hè PiMA ${camp.year}`}
+              widths={[800, 1200, 1600, 2000, 2400, 2880]}
+              sizes={wide ? "(max-width: 991px) 92vw, 1232px" : "(max-width: 991px) 92vw, 800px"}
+              quality={90}
+              class="img"
+              loading="eager"
+            />
+            {rotating && c.campus && <figcaption class="tag" data-tone="pale-lime">{c.campus}</figcaption>}
+          </figure>
+        ))
+      }
+      </div>
+      </div>
+    </div>
+    <div class="text">
+      <p class="season">
+        <span>Trại hè Toán học và Ứng dụng <BrandName /></span>
+        <span class="year">{camp.year}</span>
+      </p>
+      <div class="lead">
+      <div class="title">
+        <h1 class="display">{camp.topic.vi}</h1>
+        <p class="en">{camp.topic.en}</p>
+      </div>
+      {
+        camp.sessions && (
+          <dl class:list={["dates", { several: camp.sessions.length > 1 }]}>
+            {camp.sessions.map((s) => {
+              const d = s.start && s.end ? calendarDates(s.start, s.end) : undefined;
+              const slide = slideOf(s.campus);
+              return (
+                <div class="date" data-slide={slide} data-active={slide === 0 ? "" : undefined}>
+                  <dt>{s.campus ?? "Thời gian"}</dt>
+                  <dd>
+                    {d && <span class="days">{d.days}</span>}
+                    {d && <span class="month">{d.rest}</span>}
+                    {s.venue && <span class="venue">{s.venue}</span>}
+                  </dd>
+                </div>
+              );
+            })}
+          </dl>
+        )
+      }
+      </div>
+      {
+        counts.length > 0 && (
+          <p class="counts">{counts.map((piece) => (typeof piece === "number" ? <b>{piece}</b> : piece))}</p>
+        )
+      }
+    </div>
+  </div>
+</Section>
+
+<script>
+  // The campus covers take turns every 7 s; the date block of the showing cover is lit.
+  // Hover pauses; reduced motion keeps the first cover.
+  const STEP_MS = 7000;
+  for (const cover of document.querySelectorAll<HTMLElement>(".bookcover[data-covers]")) {
+    const count = Number(cover.dataset.covers);
+    if (count < 2 || matchMedia("(prefers-reduced-motion: reduce)").matches) continue;
+    let current = 0;
+    let paused = false;
+    cover.addEventListener("mouseenter", () => (paused = true));
+    cover.addEventListener("mouseleave", () => (paused = false));
+    setInterval(() => {
+      if (paused) return;
+      current = (current + 1) % count;
+      cover.querySelectorAll<HTMLElement>("[data-slide]").forEach((el) => {
+        const on = Number(el.dataset.slide) === current;
+        el.toggleAttribute("data-active", on);
+        // Only the cover on show is exposed to assistive technology.
+        if (el.matches(".slide")) {
+          if (on) el.removeAttribute("aria-hidden");
+          else el.setAttribute("aria-hidden", "true");
+        }
+      });
+    }, STEP_MS);
+  }
+</script>
+
+<style>
+  /* The book cover: one dark-green frame, as tall as its photo and text need. */
+  .bookcover {
+    margin-top: var(--space-20);
+    margin-bottom: var(--space-16);
+    padding: var(--space-6);
+    border-radius: var(--radius);
+    display: grid;
+    grid-template-areas: "photo" "text";
+    gap: var(--space-8);
+  }
+  /* The photo's cell asks, through an empty box of the photo's aspect ratio, for the photo's
+     height at the cell's width, held under what the viewport leaves (see the layouts below). The
+     photo is the largest box of its own aspect ratio that fits the cell (so object-fit: cover
+     cuts nothing), centred in it. */
+  .photo {
+    grid-area: photo;
+    position: relative;
+    min-height: 0;
+    overflow: clip;
+  }
+  .photo::before {
+    content: "";
+    display: block;
+    aspect-ratio: var(--cover-ratio);
+  }
+  .fit {
+    position: absolute;
+    inset: 0;
+    container-type: size;
+    display: grid;
+    place-items: center;
+  }
+  .pic {
+    position: relative;
+    width: min(100cqw, 100cqh * var(--cover-ratio));
+    aspect-ratio: var(--cover-ratio);
+  }
+  .slide {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+  }
+  .img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .tag {
+    position: absolute;
+    left: var(--space-4);
+    bottom: var(--space-4);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius);
+    font-size: var(--font-size-small);
+    font-weight: var(--font-weight-extrabold);
+  }
+
+  /* Several covers: a 1 s crossfade; the lit date block's rule and days turn Pale Lime. */
+  .rotating .slide {
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
+  .rotating .slide[data-active] {
+    opacity: 1;
+  }
+  .date[data-slide] {
+    transition: border-color 1s ease;
+  }
+  .date[data-slide] .days {
+    transition: color 1s ease;
+  }
+  .date[data-active] {
+    border-left-color: var(--color-text-accent);
+  }
+  .date[data-active] .days {
+    color: var(--color-text-accent);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .rotating .slide,
+    .date[data-slide],
+    .date[data-slide] .days {
+      transition: none;
+    }
+  }
+
+  .text {
+    grid-area: text;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "season season"
+      "title dates"
+      "counts counts";
+    column-gap: var(--space-12);
+    row-gap: var(--space-5);
+    align-items: end;
+    padding: 0 var(--space-4) var(--space-4);
+  }
+  /* The topic and the dates: two cells of the text's grid, or beside the photo one column. */
+  .lead {
+    display: contents;
+  }
+  .season {
+    grid-area: season;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-4);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--color-text-accent);
+    color: var(--color-text-accent);
+    font-weight: var(--font-weight-bold);
+  }
+  .year {
+    font-weight: var(--font-weight-black);
+    font-variant-numeric: tabular-nums;
+  }
+  .title {
+    grid-area: title;
+  }
+  /* Display type: the topic is the page's h1, but not a heading to the eye. */
+  .display {
+    color: var(--color-text);
+    font-size: var(--font-size-display-2);
+    line-height: var(--line-height-display);
+    letter-spacing: var(--letter-spacing-display);
+    font-weight: var(--font-weight-black);
+    text-wrap: balance;
+  }
+  .en {
+    margin-top: var(--space-2);
+    color: var(--color-text-accent);
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+    font-weight: var(--font-weight-semibold);
+  }
+  /* A date range stays on one line; two campuses' blocks stack when the column is too narrow. */
+  .dates {
+    grid-area: dates;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4) var(--space-8);
+    margin: 0;
+  }
+  .date {
+    padding-left: var(--space-4);
+    border-left: var(--border-width-rule-accent) solid var(--color-border-rule-accent);
+  }
+  .date dt {
+    color: var(--color-text-accent);
+    font-weight: var(--font-weight-extrabold);
+  }
+  .date dd {
+    margin: 0;
+    display: grid;
+  }
+  .days {
+    font-size: var(--font-size-h2);
+    line-height: var(--line-height-h2);
+    font-weight: var(--font-weight-black);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+  /* Several campuses: smaller ranges in blocks sharing the row, so they stay side by side
+     beside the photo; the venue wraps to the block's width. */
+  .several .date {
+    flex: 1 1 0;
+  }
+  .several .venue {
+    max-width: none;
+  }
+  .several .days {
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+  }
+  .month,
+  .venue {
+    font-size: var(--font-size-small);
+  }
+  .venue {
+    color: var(--color-text-muted);
+    max-width: 16rem;
+  }
+  .counts {
+    grid-area: counts;
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-text-accent);
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+  }
+  .counts b {
+    color: var(--color-text-accent);
+    font-weight: var(--font-weight-black);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Above, the photo on top of the text (a wide photo on a tall viewport, every photo under
+     992 px). On desktop the photo sits beside the text: the season line runs across the top and
+     the counts across the foot; between them the photo, and the topic with the dates centred
+     beside it. The photo asks for no more than the viewport leaves once the frame's padding,
+     gaps, season line and one line of counts (each a <p> with its margin and a 1 px rule) are
+     taken; the row is as tall as the photo or the
+     text, whichever is taller, so the text never runs into the counts (a short viewport then
+     scrolls the frame). */
+  .bookcover {
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    grid-template-areas:
+      "season season"
+      "photo lead"
+      "counts counts";
+  }
+  .bookcover .photo::before {
+    max-height: calc(
+      100svh - var(--space-24) - 2 * var(--space-6) - 2 * var(--space-8) - var(--font-size-body) * var(--line-height-body) -
+        3 * var(--space-3) - var(--space-4) - var(--font-size-h3) * var(--line-height-h3) - 2px
+    );
+  }
+  .bookcover .text {
+    display: contents;
+  }
+  .bookcover .lead {
+    grid-area: lead;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--space-5);
+  }
+
+  /* breakpoint-exception: a wide photo is larger on top of the text once the viewport is tall
+     enough; the width breakpoints below still put every photo on top under 992 px. The frame
+     fits the viewport: the text keeps its height and the photo's row gets what is left. */
+  @media screen and (min-height: 850px) {
+    .wide {
+      grid-template-columns: none;
+      grid-template-rows: minmax(0, 1fr) auto;
+      grid-template-areas: "photo" "text";
+      max-height: calc(100svh - var(--space-24));
+    }
+    .wide .photo::before {
+      max-height: none;
+    }
+    .wide .text {
+      display: grid;
+    }
+    .wide .lead {
+      display: contents;
+    }
+  }
+
+  @media screen and (max-width: 991px) {
+    .bookcover {
+      max-height: none;
+      grid-template-columns: none;
+      grid-template-rows: none;
+      grid-template-areas: "photo" "text";
+    }
+    .bookcover .photo::before {
+      max-height: none;
+    }
+    .bookcover .text {
+      display: grid;
+    }
+    .bookcover .lead {
+      display: contents;
+    }
+    .text {
+      grid-template-columns: 1fr;
+      grid-template-areas: "season" "title" "dates" "counts";
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .bookcover {
+      padding: var(--space-3);
+      gap: var(--space-5);
+    }
+    .text {
+      padding: 0 var(--space-2) var(--space-2);
+    }
+    .dates {
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+  }
+</style>

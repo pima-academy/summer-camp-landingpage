@@ -1,5 +1,4 @@
-// Icons (docs/brand.md, "Icons"; spec #56, "Brand look"): every icon outside the frozen camp
-// pages is a Tabler SVG from src/assets/icons/, drawn by the `Icon` primitive in currentColor;
+// Icons (docs/brand.md, "Icons"; spec #56, "Brand look"): every icon is a Tabler SVG from src/assets/icons/, drawn by the `Icon` primitive in currentColor;
 // contact and social icons sit in brand circles; no unused icon file is left behind.
 // The dist/ checks need a fresh `npm run build`; skipped when dist/ is missing.
 import { test } from "node:test";
@@ -13,18 +12,15 @@ const iconFiles = existsSync(iconsDir) ? readdirSync(iconsDir).filter((f) => f.e
 const iconNames = iconFiles.map((f) => f.slice(0, -".svg".length));
 
 const rel = (file) => relative(root, file).split(sep).join("/");
-/** Frozen camp code (not brand-aligned): src/camp/ and the two camp page files. */
-const frozen = (path) =>
-  path.startsWith("src/camp/") || /^src\/pages\/trai-he-(toan-hoc-2025|pima-2026)\.astro$/.test(path);
-/** Every .astro and .ts file under src/ outside the frozen camp code, as [path, text]. */
+/** Every .astro and .ts file under src/, as [path, text]. */
 const aligned = walk(join(root, "src"))
   .map(rel)
-  .filter((p) => /\.(astro|ts)$/.test(p) && !frozen(p))
+  .filter((p) => /\.(astro|ts)$/.test(p))
   .map((p) => [p, readFileSync(join(root, p), "utf8")]);
 const iconComponent = "src/components/Icon.astro";
 const cataloguePage = "src/pages/catalogue/[...path].astro";
 
-// The old raster and SVG icons (the inventory's icon list): the camp pages still use some.
+// The old raster and SVG icons (the inventory's icon list), all deleted.
 const OLD_ICONS = [
   "fb.png",
   "facebook.png",
@@ -59,7 +55,7 @@ test("every icon file draws in currentColor only, outline icons at stroke 1.5 on
   }
 });
 
-test("outside the camp pages, no file draws an icon itself: no inline <svg>, no old icon image", () => {
+test("no file draws an icon itself: no inline <svg>, no old icon image", () => {
   for (const [path, text] of aligned) {
     if (path === iconComponent) continue;
     assert.doesNotMatch(text, /<svg[\s>]/, `${path} has an inline <svg>: use <Icon>`);
@@ -76,23 +72,12 @@ test("every icon file is used by a page (the catalogue does not count)", () => {
   for (const name of used) assert.ok(iconNames.includes(name), `<Icon name="${name}"> has no file`);
 });
 
-test("no old icon file is left that only the camp pages do not use", () => {
-  const camp = walk(join(root, "src"))
-    .map(rel)
-    .filter(frozen)
-    .map((p) => readFileSync(join(root, p), "utf8"))
-    .join("\n");
-  for (const old of OLD_ICONS) {
-    const file = join(root, "src/assets/images", old);
-    if (existsSync(file)) assert.ok(camp.includes(`/${old}`), `src/assets/images/${old} is unused: delete it`);
-  }
+test("no old icon file is left", () => {
+  for (const old of OLD_ICONS) assert.equal(existsSync(join(root, "src/assets/images", old)), false, old);
 });
 
-/** Published pages except the two frozen camp pages (and the dev-only gap pages, not built). */
-const pages = () =>
-  builtHtmlFiles()
-    .map((f) => relative(dist, f).split(sep).join("/"))
-    .filter((p) => !/^trai-he-(toan-hoc-2025|pima-2026)\//.test(p));
+/** Published pages (the dev-only gap pages are not built). */
+const pages = () => builtHtmlFiles().map((f) => relative(dist, f).split(sep).join("/"));
 
 test("every <svg> on a published page is an Icon", { skip }, () => {
   for (const page of pages()) {

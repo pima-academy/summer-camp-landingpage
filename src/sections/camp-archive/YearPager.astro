@@ -1,0 +1,94 @@
+---
+// YearPager: the end of a camp archive page. The previous and next built years with their
+// topics ("← 2018 · Toán học trong Học máy", "2021 · Toán học trong Khoa học Dữ liệu →") and a
+// link back to the camp list of the overview page (CampHistory, #cac-mua-trai). A side with no
+// year is left empty.
+// Used by trai-he-toan-hoc-pima/[year].
+import Icon from "../../components/Icon.astro";
+import Section from "../../components/Section.astro";
+import type { CampYear } from "./camp-archive";
+
+interface Props {
+  prev?: CampYear;
+  next?: CampYear;
+}
+
+const { prev, next } = Astro.props;
+const href = (camp: CampYear) => `/trai-he-toan-hoc-pima/${camp.year}/`;
+---
+
+<Section name="year-pager" width="large" spacing="small">
+  <nav class="pager" aria-label="Các mùa trại">
+    <div>
+      {
+        prev && (
+          <a href={href(prev)} rel="prev" class="year-link">
+            <Icon name="arrow-left" size="24" class="arrow" />
+            <span>
+              <span class="year">{prev.year}</span> · {prev.topic.vi}
+            </span>
+          </a>
+        )
+      }
+    </div>
+    <a href="/trai-he-toan-hoc-pima/#cac-mua-trai" class="all">Tất cả các mùa trại</a>
+    <div class="next">
+      {
+        next && (
+          <a href={href(next)} rel="next" class="year-link">
+            <span>
+              <span class="year">{next.year}</span> · {next.topic.vi}
+            </span>
+            <Icon name="arrow-right" size="24" class="arrow" />
+          </a>
+        )
+      }
+    </div>
+  </nav>
+</Section>
+
+<style>
+  .pager {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: var(--space-8);
+    align-items: center;
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border);
+  }
+  .next {
+    text-align: right;
+  }
+  .year-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-link);
+  }
+  .year {
+    font-weight: var(--font-weight-black);
+    font-variant-numeric: tabular-nums;
+  }
+  .arrow {
+    flex-shrink: 0;
+  }
+  .all {
+    font-size: var(--font-size-small);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-link);
+  }
+
+  @media screen and (max-width: 767px) {
+    .pager {
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+    }
+    .next {
+      text-align: left;
+    }
+    .all {
+      order: 1;
+    }
+  }
+</style>

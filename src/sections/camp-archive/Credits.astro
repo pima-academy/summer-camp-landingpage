@@ -1,0 +1,83 @@
+---
+// Credits: the camp archive page's team, as a book's credits: one column per team block
+// ("Ban tổ chức", "Cố vấn chuyên môn"), each member with an optional portrait, name and
+// affiliation. Renders nothing for a year whose sources list no team. Design D of #89; its
+// final look is left to the tailoring pass (#108).
+// Used by trai-he-toan-hoc-pima/[year].
+import { Image } from "astro:assets";
+import Section from "../../components/Section.astro";
+import type { CampYear } from "./camp-archive";
+
+interface Props {
+  camp: CampYear;
+}
+
+const { team } = Astro.props.camp;
+---
+
+{
+  team && (
+    <Section name="credits" width="small" spacing="small">
+      <div class="credits">
+        {team.map((t) => (
+          <div>
+            <h2 class="role">{t.name}</h2>
+            {t.members.map((m) => (
+              <p class="credit">
+                {m.photo && <Image src={m.photo} alt="" width={96} height={96} class="portrait" />}
+                <span>
+                  <strong>{m.name}</strong>
+                  {m.affiliation && (
+                    <>
+                      <br />
+                      <span class="affiliation">{m.affiliation}</span>
+                    </>
+                  )}
+                </span>
+              </p>
+            ))}
+          </div>
+        ))}
+      </div>
+    </Section>
+  )
+}
+
+<style>
+  .credits {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-10);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border);
+  }
+  /* A team block's name: an h2 set as a body-size label. */
+  .role {
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+    color: var(--color-text);
+    margin-bottom: var(--space-3);
+  }
+  .credit {
+    display: flex;
+    gap: var(--space-4);
+    align-items: center;
+    margin-bottom: var(--space-4);
+    font-size: var(--font-size-small);
+  }
+  .portrait {
+    width: var(--size-portrait-small);
+    height: var(--size-portrait-small);
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  .affiliation {
+    color: var(--color-text-muted);
+  }
+
+  @media screen and (max-width: 767px) {
+    .credits {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

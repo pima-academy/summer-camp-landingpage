@@ -1,0 +1,151 @@
+---
+// Projects: the camp archive page's "Dự án nhóm" (design D of #89). Each project topic is a
+// problem (title, description, "Đọc đề bài") facing its solutions, the group reports: report
+// title (the topic's when the report has none), campus in a year held at several campuses,
+// campers with their schools, mentors and file links (Drive viewer, new tab). Renders nothing
+// for a year with no project.
+// Used by trai-he-toan-hoc-pima/[year].
+import Icon from "../../components/Icon.astro";
+import Section from "../../components/Section.astro";
+import { FILE_LINKS, isMultiCampus, type CampYear, type FileLabel } from "./camp-archive";
+
+interface Props {
+  camp: CampYear;
+}
+
+const { camp } = Astro.props;
+const multiCampus = isMultiCampus(camp);
+/** A file link's text: a group's PDF is its report. */
+const linkText = (label: FileLabel) => (label === "PDF" ? "Báo cáo" : FILE_LINKS[label].text);
+---
+
+{
+  camp.projects && (
+    <Section name="projects" width="large" spacing="medium" tone="surface">
+      <h2 class="title">Dự án nhóm</h2>
+      {camp.projects.map((p) => (
+        <article class="problem">
+          <div class="statement">
+            <h3>{p.title}</h3>
+            {p.description && <p class="statement-text">{p.description}</p>}
+            {p.brief && (
+              <a href={p.brief.url} target="_blank" rel="noopener" class="brief">
+                <Icon name="file-text" size="16" /> Đọc đề bài
+              </a>
+            )}
+          </div>
+          <div class="solutions">
+            {p.groups.map((g) => (
+              <div class="solution">
+                <p class="solution-head">
+                  <strong>{g.reportTitle ?? p.title}</strong>
+                  {multiCampus && g.campus && <span class="campus">{g.campus}</span>}
+                </p>
+                {g.campers.length > 0 && (
+                  <ul class="campers">
+                    {g.campers.map((c) => (
+                      <li>
+                        {c.name} <span class="muted">{c.school}</span>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+                {g.mentors.length > 0 && <p class="muted small">Mentor {g.mentors.map((m) => m.name).join(", ")}</p>}
+                {g.files.length > 0 && (
+                  <p class="files">
+                    {g.files.map((f) => (
+                      <a href={f.url} target="_blank" rel="noopener">
+                        <Icon name={FILE_LINKS[f.label].icon} size="16" />
+                        {linkText(f.label)}
+                      </a>
+                    ))}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        </article>
+      ))}
+    </Section>
+  )
+}
+
+<style>
+  .title {
+    margin-bottom: var(--space-8);
+  }
+  .problem {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    gap: var(--space-12);
+    padding: var(--space-10) 0;
+    border-top: 1px solid var(--color-border-field);
+  }
+  /* A topic's title: an h3 at the h2 role, the problem's heading. */
+  .statement h3 {
+    font-size: var(--font-size-h2);
+    line-height: var(--line-height-h2);
+    color: var(--color-text-heading);
+  }
+  .statement-text {
+    margin-top: var(--space-4);
+  }
+  .brief,
+  .files a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-weight: var(--font-weight-extrabold);
+    color: var(--color-link);
+  }
+  .brief {
+    margin-top: var(--space-4);
+  }
+  .solutions {
+    display: grid;
+    gap: var(--space-6);
+    align-content: start;
+  }
+  .solution {
+    padding-left: var(--space-6);
+    border-left: var(--border-width-rule-accent) solid var(--color-border-rule-accent);
+  }
+  .solution-head {
+    display: flex;
+    gap: var(--space-3);
+    align-items: baseline;
+    flex-wrap: wrap;
+  }
+  .campus {
+    font-size: var(--font-size-small);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-heading);
+  }
+  .campers {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-2) 0;
+    display: grid;
+    gap: var(--space-1);
+  }
+  .muted {
+    color: var(--color-text-muted);
+  }
+  .campers .muted,
+  .small {
+    font-size: var(--font-size-small);
+  }
+  .files {
+    display: flex;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+    font-size: var(--font-size-small);
+  }
+
+  @media screen and (max-width: 991px) {
+    .problem {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+  }
+</style>

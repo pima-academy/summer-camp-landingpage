@@ -40,8 +40,8 @@ const anchors = (s) => [...s.matchAll(/<a\b[^>]*>/g)].map((m) => m[0]);
 const href = (tag) => tag.match(/href="([^"]*)"/)?.[1];
 const current = (s) => anchors(s).filter((a) => /aria-current="page"/.test(a));
 
-// Site pages built with BaseLayout (the two frozen camp pages have no Nav and their own footer).
-const sitePages = ["index.html", "ve-chung-toi/index.html", "khoa-hoc/index.html", "lien-he/index.html", "trai-he-toan-hoc-pima/index.html", "chi-tiet-trai-he/index.html", "404.html"];
+// Site pages built with BaseLayout.
+const sitePages = ["index.html", "ve-chung-toi/index.html", "khoa-hoc/index.html", "lien-he/index.html", "trai-he-toan-hoc-pima/index.html", "404.html"];
 
 test("nav is the page banner, before <main>, and lists the site links", { skip }, () => {
   assert.ok(nav, "<header> present");

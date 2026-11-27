@@ -1,0 +1,142 @@
+---
+// Contents: the camp archive page's documents as a book's table of contents (design D of
+// #89), in the fixed order "Đề tuyển sinh", "Bài giảng", "Bài tập", "Tài liệu đọc thêm".
+// Each entry: title, a dotted leader, its file links as text (opening the Drive viewer in a
+// new tab), and its authors under it. Lectures are numbered; a lecture reused from an earlier
+// camp says "(từ trại hè 2018)"; an item whose file is lost (2017 "Tối ưu hóa") has no leader and
+// no link. A part the year lacks is left out; nothing renders without any.
+// Used by trai-he-toan-hoc-pima/[year].
+import Section from "../../components/Section.astro";
+import { FILE_LINKS, type CampYear, type DocItem, type Person } from "./camp-archive";
+
+interface Props {
+  camp: CampYear;
+}
+
+const { camp } = Astro.props;
+const parts: { title: string; items?: DocItem[]; numbered?: boolean }[] = [
+  { title: "Đề tuyển sinh", items: camp.entranceExam },
+  { title: "Bài giảng", items: camp.lectures, numbered: true },
+  { title: "Bài tập", items: camp.exercises },
+  { title: "Tài liệu đọc thêm", items: camp.reading },
+].filter((p) => p.items?.length);
+const byline = (a: Person) => (a.affiliation ? `${a.name} (${a.affiliation})` : a.name);
+---
+
+{
+  parts.length > 0 && (
+    <Section name="contents" width="large" spacing="medium" class="contents">
+      {parts.map((part) => {
+        const List = part.numbered ? "ol" : "ul";
+        return (
+          <div class="part">
+            <h2>{part.title}</h2>
+            <List class:list={["toc", { numbered: part.numbered }]}>
+              {part.items!.map((it, i) => (
+                <li class="entry">
+                  {part.numbered && <span class="num">{i + 1}</span>}
+                  <span class="entry-title">
+                    {it.title}
+                    {it.fromYear && <span class="muted"> (từ trại hè {it.fromYear})</span>}
+                  </span>
+                  {it.files.length > 0 && <span class="leader" aria-hidden="true" />}
+                  {it.files.length > 0 && (
+                    <span class="files">
+                      {it.files.map((f) => (
+                        <a href={f.url} target="_blank" rel="noopener" aria-label={`${FILE_LINKS[f.label].text}, ${it.title}`}>
+                          {FILE_LINKS[f.label].text}
+                        </a>
+                      ))}
+                    </span>
+                  )}
+                  {it.authors.length > 0 && <span class="byline">{it.authors.map(byline).join(", ")}</span>}
+                </li>
+              ))}
+            </List>
+          </div>
+        );
+      })}
+    </Section>
+  )
+}
+
+<style>
+  /* On the page's left edge, at a reading measure. */
+  .contents :global(.column) > * {
+    max-width: 60rem;
+  }
+  .part + .part {
+    margin-top: var(--space-16);
+  }
+  .toc {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-6) 0 0;
+  }
+  .entry {
+    display: grid;
+    grid-template-columns: auto minmax(var(--width-toc-leader-min), 1fr) auto;
+    column-gap: var(--space-3);
+    align-items: baseline;
+    padding: var(--space-3) 0;
+  }
+  .numbered .entry {
+    grid-template-columns: var(--width-toc-number) auto minmax(var(--width-toc-leader-min), 1fr) auto;
+  }
+  .num {
+    font-weight: var(--font-weight-black);
+    color: var(--color-text-heading);
+    font-variant-numeric: tabular-nums;
+  }
+  .entry-title {
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+  }
+  .muted {
+    color: var(--color-text-muted);
+  }
+  .leader {
+    border-bottom: 2px dotted var(--color-border-field);
+    transform: translateY(calc(-1 * var(--space-1)));
+  }
+  .files {
+    display: flex;
+    gap: var(--space-3);
+  }
+  .files a {
+    font-weight: var(--font-weight-extrabold);
+    color: var(--color-link);
+  }
+  .byline {
+    grid-column: 1 / -1;
+    font-size: var(--font-size-small);
+    color: var(--color-text-muted);
+  }
+  .numbered .byline {
+    grid-column: 2 / -1;
+  }
+
+  @media screen and (max-width: 767px) {
+    .entry {
+      grid-template-columns: 1fr auto;
+      row-gap: var(--space-1);
+    }
+    .numbered .entry {
+      grid-template-columns: var(--width-toc-number) 1fr;
+    }
+    .leader {
+      display: none;
+    }
+    .entry-title {
+      font-size: var(--font-size-body);
+    }
+    .numbered .files,
+    .numbered .byline {
+      grid-column: 2;
+    }
+    .numbered .files {
+      order: 1;
+    }
+  }
+</style>

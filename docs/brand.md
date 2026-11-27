@@ -60,7 +60,7 @@ PiMA Green appears as a fill: buttons, kicker rules, the timeline, the logo, dec
 
 ## Sections, buttons and footer
 
-`Section` takes a `tone`, which sets the background and the passing text colours on it. A section whose background is none of these takes the nearest one. A section never sets its own background, and neither does a card: a card with a fill of its own takes one of the four tones with the `data-tone` attribute (`surface` cards on white, `white` cards on Pale Lime, the founder card on `dark-green`). Only small marks that are no tone keep a fill of their own, from a role token: the timeline's axis and dots, the marquee's separator dot. `scripts/sections.test.mjs` checks.
+`Section` takes a `tone`, which sets the background and the passing text colours on it. A section whose background is none of these takes the nearest one. A section never sets its own background, and neither does a card: a card with a fill of its own takes one of the four tones with the `data-tone` attribute (`surface` cards on white, `white` cards on Pale Lime, the founder card on `dark-green`). Every tone declares the full set of text, link, icon and focus roles, so a card reads as its tone wherever it sits (a Pale Lime tag on the dark-green cover keeps black text). Only small marks that are no tone keep a fill of their own, from a role token: the timeline's axis and dots, the marquee's separator dot. `scripts/sections.test.mjs` checks.
 
 | `tone` | Background | Text | Used for |
 |---|---|---|---|
@@ -88,7 +88,7 @@ The footer is a `--black` band: column headings `--pima-green`, text and links `
   - `--font-weight-semibold`: labels, nav links, light emphasis.
   - `--font-weight-bold`: buttons, the marquee, small labels.
   - `--font-weight-extrabold`: h1–h3, kickers, dates and names, strong emphasis.
-  - `--font-weight-black`: big numbers.
+  - `--font-weight-black`: big numbers, display type.
 - Hierarchy comes from size, weight and colour.
 
 | Role | Size | Line height | Weight | Colour |
@@ -99,15 +99,16 @@ The footer is a `--black` band: column headings `--pima-green`, text and links `
 | Body | `--font-size-body` | `--line-height-body` | regular | `--black` |
 | Kicker | `--font-size-kicker` | `--line-height-kicker` | extrabold, uppercase, `--letter-spacing-kicker` | `--black`, under a short `--pima-green` rule aligned with the block |
 | Big numbers | `--font-size-big-number` | | `--font-weight-black` | `--pima-dark-green` |
+| Display (big type that is not a heading level, such as the camp archive page's topic) | `--font-size-display-2` (the topic), or the larger `--font-size-display` (unused so far) | `--line-height-display` | `--font-weight-black`, `--letter-spacing-display` | the text role of its tone (`--white` on the dark-green hero) |
 | Dates, names (milestones, testimonials) | `--font-size-body` | | extrabold | `--pima-dark-green` |
 | Marquee | `--font-size-marquee` | | bold, uppercase, `--letter-spacing-marquee` | `--white` on `--pima-dark-green` |
 | Nav links | | | semibold | `--gray-1` |
 | Captions and small text (form fields, tags, the footer credit) | `--font-size-small` | | regular | `--gray-1` for captions |
 
-- Size tokens that change per breakpoint are redeclared in `tokens.css`; a component writes the token once. Headings take the role of their level from base CSS, so a section's `h1`, `h2` or `h3` sets no size or weight of its own. An `h4` takes the h3 role; an `h5` is a bold label at body size. A heading that is not a heading to the eye (a date, a big number, a quote) sets the tokens of its role. Any other size maps to the nearest role.
+- Size tokens that change per breakpoint are redeclared in `tokens.css`; a component writes the token once. Headings take the role of their level from base CSS, so a section's `h1`, `h2` or `h3` sets no size or weight of its own. An `h4` takes the h3 role; an `h5` is a bold label at body size. A heading that is not a heading to the eye (a date, a big number, a quote, display type) sets the tokens of its role. Any other size maps to the nearest role.
 - Small uppercase lines right above a heading (a tagline, a breadcrumb such as "PiMA academy > giới thiệu") are kickers: use the `Kicker` component. The footer's column headings take the kicker's size, weight and tracking in `--pima-green`, without the rule.
 - Headings are in sentence case. Uppercase is for short labels: kickers, the marquee.
-- Vietnamese stacks diacritics (Ồ, Ộ, Ẫ). Headings keep a line height of 1.1 or more, so the marks are neither clipped nor touching the line above.
+- Vietnamese stacks diacritics (Ồ, Ộ, Ẫ). Headings and display type keep a line height of 1.1 or more, so the marks are neither clipped nor touching the line above.
 - Figures that line up or change (stats, tables, dates, counters) use `font-variant-numeric: tabular-nums`.
 
 ## Spacing
@@ -115,8 +116,9 @@ The footer is a `--black` band: column headings `--pima-green`, text and links `
 - Every margin, padding, gap and offset used as spacing is a step of the spacing scale: `--space-1`, `--space-2`, `--space-3`, `--space-4`, `--space-5`, `--space-6`, `--space-8`, `--space-10`, `--space-12`, `--space-16`, `--space-20`, `--space-24`, `--space-28`, `--space-32`. A step's number is its size in 4 px units, so `--space-4` is 16 px. Fewer, regular steps keep the rhythm of the page even.
 - A value between two steps takes the nearest one, the larger on a tie. Negative spacing is `calc(-1 * var(--space-32))` and the like.
 - `0`, `auto`, percentages (the 5 % page gutter) and layout widths (`max-width` of a column) are not spacing.
+- Neither is the size of a thing: a box, a column or a rule takes a size token named for its role (`--size-portrait-small`, `--width-toc-number`, `--border-width-rule-accent`), never a step of the spacing scale. A rule's colour is a border role (`--color-border-rule-accent`), not a background one.
 - A section's vertical padding comes from `Section`'s `spacing`; a kicker brings its own margins (`--space-3` above and below, `--space-3` between rule and text); `<Kicker flush>` drops the margins above and below when its parent sets the spacing.
-- Letter spacing is a type value: `--letter-spacing-heading` (h1, h2, h4), `--letter-spacing-kicker`, `--letter-spacing-marquee`, `--letter-spacing-tag`.
+- Letter spacing is a type value: `--letter-spacing-heading` (h1, h2, h4), `--letter-spacing-display`, `--letter-spacing-kicker`, `--letter-spacing-marquee`, `--letter-spacing-tag`.
 
 ## Shapes
 

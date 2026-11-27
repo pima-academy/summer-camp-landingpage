@@ -45,7 +45,7 @@ The short uppercase line above a heading, under a short PiMA Green rule (a tagli
 _Avoid_: eyebrow, overline, tagline, subheading
 
 **Camp page**:
-The recruitment page for one edition of the PiMA summer camp (2025, 2026), with its own header and footer instead of the site's. Camp pages are left out of brand alignment and are to be removed: camp archive pages replace them.
+Removed (#107). The recruitment page for one edition of the PiMA summer camp (2025, 2026), with its own header and footer instead of the site's. The camp archive page replaced it, and its old URL redirects to that year's camp archive page.
 _Avoid_: summer camp page (also names the camp overview page), event page
 
 **Camp archive page**:

@@ -1,0 +1,40 @@
+---
+// The camp archive page of one past camp year, /trai-he-toan-hoc-pima/<year>/ (spec #93):
+// one page per file in src/sections/camp-archive/years/, from the template in
+// src/sections/camp-archive/ (design D of #89). The sections render nothing for a block the
+// year lacks.
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Contents from "../../sections/camp-archive/Contents.astro";
+import Cover from "../../sections/camp-archive/Cover.astro";
+import Credits from "../../sections/camp-archive/Credits.astro";
+import Plates from "../../sections/camp-archive/Plates.astro";
+import Preface from "../../sections/camp-archive/Preface.astro";
+import Projects from "../../sections/camp-archive/Projects.astro";
+import YearPager from "../../sections/camp-archive/YearPager.astro";
+import { countsSentence, coversOf, type CampYear } from "../../sections/camp-archive/camp-archive";
+import { archiveYears, type ArchiveYear } from "../../sections/camp-archive/camp-years";
+
+export function getStaticPaths() {
+  return archiveYears.map((entry, i) => ({
+    params: { year: String(entry.camp.year) },
+    props: { ...entry, prev: archiveYears[i - 1]?.camp, next: archiveYears[i + 1]?.camp },
+  }));
+}
+
+type Props = ArchiveYear & { prev?: CampYear; next?: CampYear };
+
+const { camp, albums, prev, next } = Astro.props;
+const counts = countsSentence(camp).join("");
+const title = `${camp.topic.vi} | Trại hè Toán học PiMA ${camp.year}`;
+const description = `Trại hè Toán học PiMA ${camp.year}, chủ đề ${camp.topic.vi} (${camp.topic.en}).${counts ? ` ${counts}` : ""}`;
+---
+
+<BaseLayout title={title} description={description} hero={coversOf(camp)[0].image}>
+  <Cover camp={camp} />
+  <Preface camp={camp} />
+  <Credits camp={camp} />
+  <Contents camp={camp} />
+  <Projects camp={camp} />
+  <Plates camp={camp} albums={albums} />
+  <YearPager prev={prev} next={next} />
+</BaseLayout>

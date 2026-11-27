@@ -25,6 +25,8 @@ At the end nothing Webflow remains outside the camp pages: no utility classes, n
 
 The 2025 and 2026 camp pages are left out of both phases: they will be redesigned on their own, so refactoring them would be thrown away. Before step 1 they switch to a frozen copy of the old stylesheets (today's literal values, loaded only by them), so token changes never reach them, and they keep their own copy of the camp footer, old logo and PNG icons. All of it lives in `src/camp/`, and the two pages render through its own `CampLayout` rather than `BaseLayout`. The copy, its assets and the `w-node` helper they use are deleted with their redesign, not by this migration.
 
+Update (#107): the camp pages and their frozen code are deleted; camp archive pages replace them and the old URLs redirect there. The guardrail now scans every `.astro` and `.css` file except `tokens.css`.
+
 ## Considered Options
 
 - **Tailwind**: rejected. Every page's markup would be rewritten, the long class strings are hard to read for a non-front-end maintainer, and the refactor would fill the markup with arbitrary values like `p-[14.9px]`.

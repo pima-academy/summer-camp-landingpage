@@ -45,8 +45,17 @@ test("both 'Định hướng học thuật' blocks stay", { skip }, () => {
   assert.equal(html.match(/Định hướng học thuật, phát triển toàn diện/g)?.length, 2);
 });
 
-test("'Xem chi tiết' links are content gaps rendered as plain text", { skip }, () => {
-  assert.equal(html.match(/Xem chi tiết &gt;/g)?.length, 7);
+test("camp history has a card per camp year, 2026 first, each linking its built year page", { skip }, () => {
+  const cards = [...html.matchAll(/<div[^>]*class="camp"[^>]*>([\s\S]*?)<\/div>/g)].map((m) => m[1]);
+  const years = cards.map((c) => c.match(/<h3[^>]*>(\d{4})<\/h3>/)?.[1]);
+  assert.deepEqual(years, ["2026", "2025", "2024", "2023", "2021", "2019", "2018", "2017", "2016"]);
+  for (const [i, c] of cards.entries()) {
+    const href = c.match(/<a[^>]*href="([^"]*)"[^>]*>\s*Xem chi tiết &gt;\s*<\/a>/)?.[1];
+    assert.equal(href, `/trai-he-toan-hoc-pima/${years[i]}/`, years[i]);
+    assert.ok(readBuilt(`trai-he-toan-hoc-pima/${years[i]}/index.html`), `${href} is built`);
+  }
+  assert.match(cards[0], /<p[^>]*>Toán học trong Trí tuệ Nhân tạo - Mathematics in Artificial Intelligence<\/p>/);
+  assert.match(cards[1], /<p[^>]*>Toán học trong các Mô hình Tạo sinh - The Mathematics of Generative Models<\/p>/);
   assert.doesNotMatch(html, /href="#"/);
 });
 

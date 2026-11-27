@@ -3,13 +3,12 @@
 // or is a circle (icon circles, dots), and every photo has `--radius` corners, never a circle.
 // Logos (brand, partner, press, university: `img[data-logo]`) are the exception: never rounded.
 //
-// Adding a page: add its path to PAGES. The two camp pages are frozen and stay out. Needs a
-// fresh `npm run build`; skipped when dist/ is missing (fails in CI).
+// Adding a page: add its path to PAGES. Needs a fresh `npm run build`; skipped when dist/ is missing (fails in CI).
 import { test, before, after } from "node:test";
 import assert from "node:assert/strict";
 import { distSkip as skip, serveDist } from "./test-lib.mjs";
 
-const PAGES = ["/", "/ve-chung-toi/", "/khoa-hoc/", "/trai-he-toan-hoc-pima/", "/lien-he/", "/chi-tiet-trai-he/", "/404.html"];
+const PAGES = ["/", "/ve-chung-toi/", "/khoa-hoc/", "/trai-he-toan-hoc-pima/", "/lien-he/", "/404.html"];
 const WIDTHS = [390, 1440];
 
 let server, browser;
