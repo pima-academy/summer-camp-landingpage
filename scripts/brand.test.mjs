@@ -205,6 +205,13 @@ test("one corner radius: tokens.css declares --radius (12px) and --radius-circle
   assert.equal(tokensAt(tokensCss, 1440)["--radius"], "12px");
 });
 
+test("base CSS clips every img to its box, so an object-fit: cover crop paints nothing outside it", () => {
+  const baseCss = readFileSync(join(root, "src/styles/base.css"), "utf8");
+  const img = parseCss(baseCss).find((n) => n.type === "rule" && n.selector === "img");
+  const overflow = img?.children.filter((n) => n.type === "decl" && n.prop === "overflow").map((n) => n.value);
+  assert.deepEqual(overflow, ["clip"]);
+});
+
 test("src/assets/logo/ holds the ten brand logo files", () => {
   const expected = ["horizontal", "stacked"]
     .flatMap((shape) => ["green", "darkgreen", "lime", "black", "white"].map((c) => `pima-logo-${shape}-${c}.png`))
