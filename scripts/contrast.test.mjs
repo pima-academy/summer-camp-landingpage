@@ -18,8 +18,8 @@ const CAMP_YEARS = [2016, 2017, 2018, 2019, 2021, 2023, 2024, 2025, 2026];
 const PAGES = [
   "/", "/ve-chung-toi/", "/khoa-hoc/", "/trai-he-toan-hoc-pima/", "/lien-he/", "/404.html",
   ...CAMP_YEARS.map((year) => `/trai-he-toan-hoc-pima/${year}/`),
-  // The blog list and one post page (with an author and a cover).
-  "/blog/", "/blog/phat-hien-gian-lan/",
+  // The blog list, a post page with an author and a cover, and one with captioned figures.
+  "/blog/", "/blog/phat-hien-gian-lan/", "/blog/plato-2/",
 ];
 const WIDTHS = [390, 1440];
 
