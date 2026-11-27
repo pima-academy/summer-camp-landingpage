@@ -1,10 +1,19 @@
 // @ts-check
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
+import { unified } from "@astrojs/markdown-remark";
+import { mathRehypePlugins, mathRemarkPlugins } from "./src/lib/markdown-math.ts";
 
 export default defineConfig({
   site: "https://pimavn.com",
   integrations: [sitemap()],
+  // Blog posts (spec #110): the unified (remark/rehype) processor, for KaTeX formulas at build time.
+  markdown: {
+    processor: unified({
+      remarkPlugins: [...mathRemarkPlugins],
+      rehypePlugins: [...mathRehypePlugins],
+    }),
+  },
   // The removed camp pages and /chi-tiet-trai-he/ (#107) point to their camp archive pages.
   // Astro builds each as an instant meta refresh with noindex and a canonical link, and the
   // sitemap leaves redirects out (scripts/redirects.test.mjs).
