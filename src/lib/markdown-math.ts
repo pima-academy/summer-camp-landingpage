@@ -65,6 +65,41 @@ function refuseUntrusted({ command }: { command: string }): never {
 }
 
 /**
+ * KaTeX's `strict` option. Its fonts have no metrics for most Vietnamese letters (ậ, ớ, ọ…),
+ * so text in `\text{…}` (as the author guide asks) printed "Unrecognized Unicode character" and
+ * "No character metrics" on every build, though it renders. Those two are ignored for text in
+ * a `\text…{}` or `\mbox{}` group; every other strict warning stays a warning.
+ * "No character metrics" carries no position, only the mode: it is ignored in text mode, where a
+ * letter typed in math mode lands too, but that letter has already warned "Unrecognized".
+ */
+function strictOutsideText(code: string, message: string, token?: { loc?: { start: number; lexer: { input: string } } }): "ignore" | "warn" {
+  if (code === "symbolNotInFont" && message.endsWith("mode 'text'")) return "ignore";
+  if (code === "unknownSymbol" && token?.loc && inTextGroup(token.loc.lexer.input, token.loc.start)) return "ignore";
+  return "warn";
+}
+
+/** Whether position `at` of a formula is inside the argument of a `\text…{}` or `\mbox{}`. */
+function inTextGroup(input: string, at: number): boolean {
+  const groups: boolean[] = [];
+  let command = "";
+  for (let i = 0; i < at; i++) {
+    const name = /^\\([a-zA-Z]+|.)/.exec(input.slice(i));
+    if (name) {
+      command = name[1];
+      i += name[0].length - 1;
+    } else if (input[i] === "{") {
+      groups.push(/^(text[a-z]*|mbox)$/.test(command));
+      command = "";
+    } else if (input[i] === "}") {
+      groups.pop();
+    } else if (!/\s/.test(input[i])) {
+      command = "";
+    }
+  }
+  return groups.includes(true);
+}
+
+/**
  * rehype-katex with KaTeX's `throwOnError`: rehype-katex only warns on a formula KaTeX cannot
  * parse (and renders it in red), so the first such warning fails the file, and the build.
  * A command KaTeX still shows as red text without throwing (one it rejects before asking
@@ -73,7 +108,7 @@ function refuseUntrusted({ command }: { command: string }): never {
  * `\newcommand` or `\gdef` applies only inside its own formula.
  */
 export function rehypeKatexStrict() {
-  const typeset = rehypeKatex({ trust: refuseUntrusted, errorColor: ERROR_COLOR });
+  const typeset = rehypeKatex({ trust: refuseUntrusted, errorColor: ERROR_COLOR, strict: strictOutsideText });
   return (tree: Parameters<typeof typeset>[0], file: VFile) => {
     typeset(tree, file);
     const error = file.messages.find((m) => m.source === "rehype-katex");

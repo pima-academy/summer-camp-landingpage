@@ -60,6 +60,27 @@ test("a macro defined in one formula applies only inside it", async () => {
   await failsOnFormula("$\\pimb$");
 });
 
+/** The strict-mode warnings KaTeX prints while `markdown` renders. */
+async function strictWarnings(markdown) {
+  const warn = console.warn;
+  const warnings = [];
+  console.warn = (...args) => warnings.push(args.join(" "));
+  try {
+    await render(markdown);
+  } finally {
+    console.warn = warn;
+  }
+  return warnings.filter((w) => w.includes("strict mode"));
+}
+
+test("Vietnamese inside \\text{…} renders without strict-mode warnings; other strict warnings stay", async () => {
+  assert.deepEqual(await strictWarnings("$f(x) = 0 \\text{ với mọi đồ vật.}$"), []);
+  assert.deepEqual(await strictWarnings("$$\n\\textbf{ậ} + \\text{x \\textit{ậ}}\n$$"), []);
+  assert.ok((await strictWarnings("$ậ$")).some((w) => w.includes("unknownSymbol")), "Vietnamese in math mode");
+  assert.ok((await strictWarnings("$\\text{ậ} \\mathrm{ậ}$")).some((w) => w.includes("unknownSymbol")), "outside \\text");
+  assert.ok((await strictWarnings("$é$")).some((w) => w.includes("unicodeTextInMathMode")), "other strict warnings");
+});
+
 test("a command KaTeX would show as red text (links, images, HTML, untrusted) fails the render", async () => {
   await failsOnFormula("$\\href{https://pimavn.com}{PiMA}$");
   await failsOnFormula("$\\url{https://pimavn.com}$");
