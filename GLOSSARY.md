@@ -49,8 +49,24 @@ The recruitment page for one edition of the PiMA summer camp (2025, 2026), with 
 _Avoid_: summer camp page (also names the camp overview page), event page
 
 **Camp archive page**:
-The page for one past edition of the PiMA summer camp ("trang chi tiết trại hè"), an academic record of that year (topic, team, entrance exam, lectures, exercises, group projects, student papers, photos) built from one template shared by every year. It carries no recruitment information.
+The page for one past edition of the PiMA summer camp ("trang chi tiết trại hè"), an academic record of that year (topic, team, entrance exam, lectures, exercises, further reading, group projects, photos) built from one template shared by every year. It carries no recruitment information.
 _Avoid_: camp page, camp detail page, event page
+
+**Project topic**:
+One problem set for the group projects of a camp year ("đề tài dự án"), with its brief when there is one. Several project groups may work on the same topic, at one campus or at both.
+_Avoid_: project (alone), student paper
+
+**Project group**:
+The three or four campers who worked on one project topic together, with their mentors, and the report, slides and notebooks they produced. Its report is what the old site called a student paper.
+_Avoid_: student paper, team
+
+**Camper**:
+A participant of one camp year ("trại sinh"), named with the school or university they gave in that year's sources. Mentors and organizers are not campers, even when the same name appears as a camper in another year.
+_Avoid_: student, attendee
+
+**Campus**:
+One of the places a camp year was held (Hà Nội, TP.HCM), each with its own dates and venue. A year may have one, two, or be held online.
+_Avoid_: site, location, branch
 
 **Refactor**:
 The restructuring of the rebuild's code between the rebuild and brand alignment, so that an agent changes one section by reading one file: scoped CSS, one tokens file, section files, a fixed set of primitives. It aims to change nothing visible; small drift is accepted, broken behaviour is not.
