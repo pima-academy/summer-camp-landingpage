@@ -43,17 +43,19 @@ test("only the cover on show is exposed to assistive technology, after each turn
   await context.close();
 });
 
-test("a square cover (2021) is shown whole, its frame as square as the photo", { skip }, async () => {
-  for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
-    const context = await browser.newContext({ viewport });
-    const page = await context.newPage();
-    await page.goto(server.origin + "/trai-he-toan-hoc-pima/2021/", { waitUntil: "load" });
-    const { natural, shown } = await page.$eval(".bookcover .img", async (img) => {
-      await img.decode();
-      const r = img.getBoundingClientRect();
-      return { natural: img.naturalWidth / img.naturalHeight, shown: r.width / r.height };
-    });
-    assert.ok(Math.abs(shown - natural) < 0.01, `${viewport.width} px: frame ${shown.toFixed(3)} vs photo ${natural.toFixed(3)}`);
-    await context.close();
+test("a square cover (2021, 2024) is shown whole, its frame as square as the photo", { skip }, async () => {
+  for (const year of [2021, 2024]) {
+    for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
+      const context = await browser.newContext({ viewport });
+      const page = await context.newPage();
+      await page.goto(server.origin + `/trai-he-toan-hoc-pima/${year}/`, { waitUntil: "load" });
+      const { natural, shown } = await page.$eval(".bookcover .img", async (img) => {
+        await img.decode();
+        const r = img.getBoundingClientRect();
+        return { natural: img.naturalWidth / img.naturalHeight, shown: r.width / r.height };
+      });
+      assert.ok(Math.abs(shown - natural) < 0.01, `${year}, ${viewport.width} px: frame ${shown.toFixed(3)} vs photo ${natural.toFixed(3)}`);
+      await context.close();
+    }
   }
 });
