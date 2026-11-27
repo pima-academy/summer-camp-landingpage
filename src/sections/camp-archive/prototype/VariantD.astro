@@ -1,7 +1,8 @@
 ---
 // PROTOTYPE variant D, "Giáo trình": the year read as a mathematics textbook. Every year opens
-// the same way: a title page (topic in display type, a colophon with the counts and sessions),
-// then the cover as a 12:5 plate. Preface and programme follow when the year has them. Lectures
+// the same way: a dark-green book cover, one viewport tall on desktop, holding the cover photo,
+// the season, the topic, the camp dates (a calendar block per session) and the counts sentence
+// with its numbers set large. Preface and programme follow when the year has them. Lectures
 // are the book's table of contents, numbered because they are a sequence, with dotted leaders
 // running to their files. Each project topic is a problem facing its solutions, the group
 // reports. Photos are plates at the back.
@@ -23,6 +24,18 @@ const summary = [
   groups && `${groups} báo cáo nhóm của ${campers} trại sinh`,
 ].filter(Boolean);
 const summaryText = summary.length > 1 ? `${summary.slice(0, -1).join(", ")} và ${summary.at(-1)}.` : `${summary[0]}.`;
+// The counts sentence, with each number marked so the hero can set it large.
+const counts = {
+  lectures: y.lectures?.length ?? 0,
+  topics: y.projects?.length ?? 0,
+  groups,
+  campers,
+};
+// "02–09/08/2025" → days "02–09", month 8, year 2025 (the spec should store start and end dates).
+const dateParts = (d?: string) => {
+  const m = d?.match(/^(.+)\/(\d{2})\/(\d{4})$/);
+  return m ? { days: m[1], month: Number(m[2]), year: m[3] } : undefined;
+};
 const author = (a: { name: string; affiliation?: string }) => (a.affiliation ? `${a.name} (${a.affiliation})` : a.name);
 const shortDocs: { title: string; items?: DocItem[] }[] = [
   { title: "Đề tuyển sinh", items: y.entranceExam },
@@ -33,36 +46,54 @@ const laterDocs: { title: string; items?: DocItem[] }[] = [
 ];
 ---
 
-<Section name="variant-d-spread" width="large" spacing="none">
-  <div class="titlepage">
-    <p class="press">Trại hè Toán học và Ứng dụng <BrandName /> {y.year}</p>
-    <div class="title-block">
-      <h1 class="display">{y.topic.vi}</h1>
-      <p class="en">{y.topic.en}</p>
-    </div>
-    <div class="colophon">
-      <p>{summaryText}</p>
+<Section name="variant-d-cover" width="large" spacing="none">
+  <div class="bookcover" data-tone="dark-green">
+    {
+      y.cover && (
+        <div class="bc-photo">
+          <Image src={y.cover} alt={`Trại sinh và ban tổ chức Trại hè PiMA ${y.year}`} widths={[800, 1200, 1600, 2000, 2880]} sizes="(max-width: 1440px) 86vw, 1200px" class="bc-img" loading="eager" />
+        </div>
+      )
+    }
+    <div class="bc-text">
+      <p class="bc-season">
+        <span>Trại hè Toán học và Ứng dụng <BrandName /></span>
+        <span class="bc-year">{y.year}</span>
+      </p>
+      <div class="bc-title">
+        <h1 class="bc-display">{y.topic.vi}</h1>
+        <p class="bc-en">{y.topic.en}</p>
+      </div>
       {
         y.sessions && (
-          <dl class="sessions">
-            {y.sessions.map((s) => (
-              <div>
-                <dt>{s.campus}</dt>
-                <dd>{s.dates}<br />{s.venue}</dd>
-              </div>
-            ))}
+          <dl class="bc-dates">
+            {y.sessions.map((s) => {
+              const d = dateParts(s.dates);
+              return (
+                <div class="bc-date">
+                  <dt>{s.campus}</dt>
+                  {d ? (
+                    <dd>
+                      <span class="bc-days">{d.days}</span>
+                      <span class="bc-month">tháng {d.month} năm {d.year}</span>
+                      {s.venue && <span class="bc-venue">{s.venue}</span>}
+                    </dd>
+                  ) : (
+                    <dd>{s.dates}</dd>
+                  )}
+                </div>
+              );
+            })}
           </dl>
         )
       }
+      <p class="bc-counts">
+        {counts.lectures > 0 && <><b>{counts.lectures}</b> bài giảng{counts.topics ? ", " : ""}</>}
+        {counts.topics > 0 && <><b>{counts.topics}</b> đề tài dự án </>}
+        {counts.groups > 0 && <>và <b>{counts.groups}</b> báo cáo nhóm của <b>{counts.campers}</b> trại sinh</>}.
+      </p>
     </div>
   </div>
-  {
-    y.cover && (
-      <figure class="plate-cover">
-        <Image src={y.cover} alt={`Trại sinh và ban tổ chức Trại hè PiMA ${y.year}`} widths={[800, 1200, 1600, 2000, 2880]} sizes="(max-width: 1440px) 90vw, 1280px" class="plate-cover-img" loading="eager" />
-      </figure>
-    )
-  }
 </Section>
 
 {
@@ -258,65 +289,120 @@ const laterDocs: { title: string; items?: DocItem[] }[] = [
     font-size: var(--font-size-small);
   }
 
-  /* The title page, then the plate. */
-  .titlepage {
+  /* The book cover: one dark-green frame, a viewport tall on desktop, holding the cover photo,
+     the season, the topic, the camp dates and the counts. */
+  .bookcover {
+    margin-top: var(--space-20);
+    margin-bottom: var(--space-16);
+    padding: var(--space-6);
+    border-radius: var(--radius);
     display: grid;
-    grid-template-columns: 8fr 4fr;
-    column-gap: var(--space-12);
-    row-gap: var(--space-8);
-    align-items: end;
-    padding-top: var(--space-28);
-    padding-bottom: var(--space-12);
+    grid-template-rows: minmax(0, 1fr) auto;
+    gap: var(--space-8);
+    height: calc(100svh - var(--space-24));
+    min-height: 40rem;
+    max-height: 60rem;
   }
-  .press {
-    grid-column: 1 / -1;
-    font-weight: var(--font-weight-bold);
-    padding-top: var(--space-4);
-    border-top: var(--space-1) solid var(--color-background-accent);
-  }
-  .display {
-    font-size: var(--font-size-display);
-    line-height: var(--line-height-display);
-    letter-spacing: var(--letter-spacing-display);
-    font-weight: var(--font-weight-black);
-    text-wrap: balance;
-  }
-  .en {
-    margin-top: var(--space-4);
-    font-size: var(--font-size-h3);
-    line-height: var(--line-height-h3);
-    color: var(--color-text-muted);
-  }
-  .colophon {
-    display: grid;
-    gap: var(--space-4);
-    font-size: var(--font-size-small);
-  }
-  .sessions {
-    display: grid;
-    gap: var(--space-3);
-    margin: 0;
-  }
-  .sessions dt {
-    font-weight: var(--font-weight-extrabold);
-    color: var(--color-text-heading);
-  }
-  .sessions dd {
-    margin: 0;
-    font-variant-numeric: tabular-nums;
-  }
-  .plate-cover {
-    margin: 0 0 var(--space-16);
+  .bc-photo {
     position: relative;
-    aspect-ratio: 12 / 5;
+    min-height: 0;
   }
-  .plate-cover-img {
+  .bc-img {
     position: absolute;
     inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: center 35%;
+  }
+  .bc-text {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "season season"
+      "title dates"
+      "counts counts";
+    column-gap: var(--space-12);
+    row-gap: var(--space-5);
+    align-items: end;
+    padding: 0 var(--space-4) var(--space-4);
+  }
+  .bc-season {
+    grid-area: season;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-4);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--color-text-accent);
+    color: var(--color-text-accent);
+    font-weight: var(--font-weight-bold);
+  }
+  .bc-year {
+    font-weight: var(--font-weight-black);
+    font-variant-numeric: tabular-nums;
+  }
+  .bc-title {
+    grid-area: title;
+  }
+  .bc-display {
+    color: var(--color-text);
+    font-size: var(--font-size-display-2);
+    line-height: var(--line-height-display);
+    letter-spacing: var(--letter-spacing-display);
+    font-weight: var(--font-weight-black);
+    text-wrap: balance;
+  }
+  .bc-en {
+    margin-top: var(--space-2);
+    color: var(--color-text-accent);
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+    font-weight: var(--font-weight-semibold);
+  }
+  .bc-dates {
+    grid-area: dates;
+    display: flex;
+    gap: var(--space-8);
+    margin: 0;
+  }
+  .bc-date {
+    padding-left: var(--space-4);
+    border-left: var(--space-1) solid var(--color-background-accent);
+  }
+  .bc-date dt {
+    color: var(--color-text-accent);
+    font-weight: var(--font-weight-extrabold);
+  }
+  .bc-date dd {
+    margin: 0;
+    display: grid;
+  }
+  .bc-days {
+    font-size: var(--font-size-h2);
+    line-height: var(--line-height-h2);
+    font-weight: var(--font-weight-black);
+    font-variant-numeric: tabular-nums;
+  }
+  .bc-month,
+  .bc-venue {
+    font-size: var(--font-size-small);
+  }
+  .bc-venue {
+    color: var(--color-text-muted);
+    max-width: 16rem;
+  }
+  .bc-counts {
+    grid-area: counts;
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-text-accent);
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+  }
+  .bc-counts b {
+    color: var(--color-text-accent);
+    font-weight: var(--font-weight-black);
+    font-variant-numeric: tabular-nums;
   }
 
   .preface {
@@ -540,9 +626,21 @@ const laterDocs: { title: string; items?: DocItem[] }[] = [
   }
 
   @media screen and (max-width: 991px) {
-    .titlepage,
     .preface {
       grid-template-columns: 1fr;
+    }
+    .bookcover {
+      height: auto;
+      max-height: none;
+      min-height: 0;
+      grid-template-rows: auto auto;
+    }
+    .bc-photo {
+      aspect-ratio: 12 / 5;
+    }
+    .bc-text {
+      grid-template-columns: 1fr;
+      grid-template-areas: "season" "title" "dates" "counts";
     }
     .problem {
       grid-template-columns: 1fr;
@@ -554,11 +652,20 @@ const laterDocs: { title: string; items?: DocItem[] }[] = [
     }
   }
   @media screen and (max-width: 767px) {
-    .titlepage {
-      padding-top: var(--space-24);
+    .bookcover {
+      margin-top: var(--space-20);
+      padding: var(--space-3);
+      gap: var(--space-5);
     }
-    .plate-cover {
+    .bc-photo {
       aspect-ratio: 4 / 3;
+    }
+    .bc-text {
+      padding: 0 var(--space-2) var(--space-2);
+    }
+    .bc-dates {
+      flex-direction: column;
+      gap: var(--space-4);
     }
     .page-lime {
       padding: var(--space-6);
