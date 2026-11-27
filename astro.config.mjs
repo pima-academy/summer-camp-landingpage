@@ -1,10 +1,21 @@
 // @ts-check
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
+import { unified } from "@astrojs/markdown-remark";
+import rehypeFigures from "./src/lib/rehype-figures.ts";
 
 export default defineConfig({
   site: "https://pimavn.com",
   integrations: [sitemap()],
+  // Blog posts (src/content/blog/, ADR 0007) go through remark/rehype.
+  markdown: {
+    processor: unified({
+      rehypePlugins: [
+        // Body images as figures opening the post's Lightbox (#113).
+        rehypeFigures,
+      ],
+    }),
+  },
   // The removed camp pages and /chi-tiet-trai-he/ (#107) point to their camp archive pages.
   // Astro builds each as an instant meta refresh with noindex and a canonical link, and the
   // sitemap leaves redirects out (scripts/redirects.test.mjs).
