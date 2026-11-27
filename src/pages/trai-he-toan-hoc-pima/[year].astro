@@ -3,11 +3,6 @@
 // one page per file in src/sections/camp-archive/years/, from the template in
 // src/sections/camp-archive/ (design D of #89). The sections render nothing for a block the
 // year lacks.
-//
-// Dev only: the sample years in src/sections/camp-archive/sample/ (2019, 2025, links "#") fill
-// in for years whose file has not landed yet. They are loaded with a dynamic import behind
-// `import.meta.env.DEV` (replaced at build time), so neither they nor their photos reach the
-// production build.
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Contents from "../../sections/camp-archive/Contents.astro";
 import Cover from "../../sections/camp-archive/Cover.astro";
@@ -19,16 +14,10 @@ import YearPager from "../../sections/camp-archive/YearPager.astro";
 import { countsSentence, coversOf, type CampYear } from "../../sections/camp-archive/camp-archive";
 import { archiveYears, type ArchiveYear } from "../../sections/camp-archive/camp-years";
 
-export async function getStaticPaths() {
-  let years = archiveYears;
-  if (import.meta.env.DEV) {
-    const { sampleYears } = await import("../../sections/camp-archive/sample");
-    const missing = sampleYears.filter((s) => !years.some((b) => b.y.year === s.y.year));
-    years = [...years, ...missing].sort((a, b) => a.y.year - b.y.year);
-  }
-  return years.map((entry, i) => ({
+export function getStaticPaths() {
+  return archiveYears.map((entry, i) => ({
     params: { year: String(entry.y.year) },
-    props: { ...entry, prev: years[i - 1]?.y, next: years[i + 1]?.y },
+    props: { ...entry, prev: archiveYears[i - 1]?.y, next: archiveYears[i + 1]?.y },
   }));
 }
 

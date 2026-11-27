@@ -1,6 +1,7 @@
 // The built camp years of the camp archive page: every `years/<year>.ts`, oldest first, each
 // with its gallery albums resolved to photos. Used by src/pages/trai-he-toan-hoc-pima/[year].astro
-// (one page per year, and the year pager). Vite-only (`import.meta.glob`), so year files and
+// (one page per year, and the year pager) and by the overview page's CampHistory (a card per
+// year). Vite-only (`import.meta.glob`), so year files and
 // camp-archive.ts never import it.
 import type { ImageMetadata } from "astro";
 import type { CampYear } from "./camp-archive";

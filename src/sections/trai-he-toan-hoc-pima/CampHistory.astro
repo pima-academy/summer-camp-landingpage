@@ -1,14 +1,15 @@
 ---
 /*
   CampHistory: "Hành trình học thuật qua các mùa trại", a sticky intro next to a stack of
-  sticky cards, one per past camp (camp-topics.ts). Used by trai-he-toan-hoc-pima (old
-  `section_camp-history`). Each card's "Xem chi tiết" link has no target yet, so it is an
-  inline content gap; production shows plain text. Fades up on scroll.
+  sticky cards, one per camp year of the camp archive (src/sections/camp-archive/years/),
+  newest first. Each card's "Xem chi tiết" links that year's camp archive page. Used by
+  trai-he-toan-hoc-pima (old `section_camp-history`). Fades up on scroll.
 */
-import ContentGap from "../../components/ContentGap.astro";
 import Kicker from "../../components/Kicker.astro";
 import Section from "../../components/Section.astro";
-import { campTopics } from "./camp-topics";
+import { campYears } from "../camp-archive/camp-years";
+
+const newestFirst = [...campYears].reverse();
 ---
 
 <Section name="camp-history" id="cac-mua-trai" spacing="large" animate>
@@ -26,18 +27,15 @@ import { campTopics } from "./camp-topics";
     </div>
     <div>
       {
-        campTopics.map((c) => (
+        newestFirst.map((y) => (
           <div class="camp" data-tone="white">
-            <h3 class="year">{c.year}</h3>
-            <p>{c.topic}</p>
-            <ContentGap name={`trai-he-toan-hoc-pima: Xem chi tiết ${c.year}`} inline>
-              <a href="#" class="more">
-                Xem chi tiết &gt;
-              </a>
-              <Fragment slot="fallback">
-                <span class="more">Xem chi tiết &gt;</span>
-              </Fragment>
-            </ContentGap>
+            <h3 class="year">{y.year}</h3>
+            <p>
+              {y.topic.vi} - {y.topic.en}
+            </p>
+            <a href={`/trai-he-toan-hoc-pima/${y.year}/`} class="more">
+              Xem chi tiết &gt;
+            </a>
           </div>
         ))
       }

@@ -262,14 +262,12 @@ for (const f of yearFiles) {
   });
 }
 
-test("the build has a camp archive page for each year file and no other (the dev sample stays out)", { skip: distSkip }, () => {
+test("the build has a camp archive page for each year file and no other", { skip: distSkip }, () => {
   const built = readdirSync(join(dist, "trai-he-toan-hoc-pima"), { withFileTypes: true })
     .filter((e) => e.isDirectory() && existsSync(join(dist, "trai-he-toan-hoc-pima", e.name, "index.html")))
     .map((e) => `${e.name}.ts`)
     .sort();
   assert.deepEqual(built, yearFiles);
-  // No sample photo reaches the build (sample/2019/<album>/0N.jpg would be emitted as 0N.<hash>.jpg).
-  assert.deepEqual(readdirSync(join(dist, "_astro")).filter((f) => /^\d\d\.[\w-]+\.(jpg|webp)$/.test(f)), []);
 });
 
 test("an item with no file shows its title and authors, with no link and no dotted leader (2017 'Tối ưu hóa')", { skip: distSkip }, () => {
@@ -281,19 +279,6 @@ test("an item with no file shows its title and authors, with no link and no dott
   assert.doesNotMatch(entry, /<a |class="leader/);
   // Its neighbours keep their links.
   assert.ok(entries.filter((e) => e.includes("<a ")).length >= 8);
-});
-
-test("the dev-only sample loads like a year file and differs from one only by its '#' links", async () => {
-  const sampleDir = join(root, "src/sections/camp-archive/sample");
-  const sample = await loadYearFile(join(sampleDir, "sample.ts"));
-  assert.deepEqual(sample.map((y) => y.year), [2019, 2025]);
-  for (const y of sample) {
-    // The sample keeps its 2019 photos in sample/2019/; 2025 uses the real covers.
-    const dir = existsSync(join(sampleDir, String(y.year))) ? sampleDir : undefined;
-    const problems = yearProblems(y, { assetsDir: dir });
-    assert.ok(problems.length > 0);
-    assert.deepEqual(problems.filter((p) => !/: "#" is not a Drive viewer URL/.test(p)), [], String(y.year));
-  }
 });
 
 test("a YouTube id is 11 characters", () => {
