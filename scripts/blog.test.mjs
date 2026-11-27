@@ -155,8 +155,8 @@ test("a post page: one h1 (its title), its date, author when known, cover when p
   }
 });
 
-// The 7 text-only posts of the Jekyll site (#111), with their date, author and a sentence each
-// from the Jekyll site's text, before and after <!--more-->.
+// The posts of the Jekyll site moved in so far (#111, #112), with their date, author and their
+// last sentence in the Jekyll site's text.
 const JEKYLL_POSTS = [
   ["phat-hien-gian-lan", "25/11/2017", "Nghia Nguyen", "Làm thế nào để phát hiện các công ty giả mạo sổ sách?", "tuy nhiên Benford cũng chưa hoàn toàn giải thích được hiện tượng này."],
   ["chuyen-xe-thien-vi", "27/11/2017", "Nghia Nguyen", "Những chuyến xe thiên vị", "Bạn có thể giúp Sơn giải thích điều này không? Hãy comment bên dưới nhé!"],
@@ -165,6 +165,13 @@ const JEKYLL_POSTS = [
   ["end-of-universe", "05/09/2018", undefined, "Truyền thuyết về sự kết thúc của vũ trụ", "Giả sử mỗi bước các thầy tu có thể di chuyển trong vòng 1 giây, liệu bạn có thể tính toán ngày tận diệt của vũ trụ chứ?"],
   ["infty-equal-infty", "17/12/2018", undefined, "Liệu vô cùng có bằng vô cùng?", "Liệu tập X mà Linh đề cập có tồn tại không? Nếu có thì đó là tập gì?"],
   ["best-choices", "21/12/2018", undefined, "Lựa chọn thế nào là tốt nhất?", "Còn bạn, nếu bạn là Duy và Khang, bạn sẽ lựa chọn như thế nào?"],
+  // The 6 posts with formulas (#112).
+  ["calculus-war", "20/11/2017", "Duy Tran", "Newton và Leibniz - The Calculus War", "những di sản của Newton để lại trong vật lý tạo tiền đề cho thuyết tương đối của Einstein."],
+  ["pagerank", "22/11/2017", "Son Luu", "PageRank - Một thuật toán của Google", "tính năng làm cho Google trội hơn hẳn so với các trang tìm kiếm thông tin cùng thời."],
+  ["max-speed-animals", "16/12/2017", "Duy Tran", "Công thức xác định tốc độ tối đa của động vật", "với vận tốc vào khoảng 36 km/h thì con người hoàn toàn có thể chạy nhanh hơn khủng long."],
+  ["softmax", "29/07/2018", undefined, "Thuật toán One vs. All và Softmax Classification", "Nếu bạn có thể giúp Uyên, bạn sẽ chọn phương pháp nào, và vì sao?"],
+  ["which-has-more-elements", "27/11/2018", undefined, "Tập nào nhiều số hơn?", "Theo bạn, bạn thấy ý kiến nào đúng và bạn có đoán được câu trả lời của thầy giáo chứ?"],
+  ["perfect-strategy", "02/12/2018", undefined, "Chiến thuật đặt cược hoàn hảo?", "Liệu các bạn có đề xuất chiến thuật nào “có lợi hơn” trong trò chơi này?"],
 ];
 
 for (const [slug, date, author, title, sentence] of JEKYLL_POSTS) {
@@ -174,11 +181,49 @@ for (const [slug, date, author, title, sentence] of JEKYLL_POSTS) {
     assert.ok(header.includes(title), "title");
     assert.ok(header.includes(date), "date");
     if (author) assert.ok(header.includes(author), "author");
-    const body = text(sectionOf(html, "post-body"));
+    // KaTeX's own layout spans hold a zero-width space (Safari needs one there); the text, none.
+    const body = text(sectionOf(html, "post-body").replaceAll('<span class="vlist-s">​</span>', ""));
     assert.ok(body.includes(sentence), "last sentence");
     assert.doesNotMatch(body, /​/, "no zero-width space");
   });
 }
+
+// ---- Formulas (#112) --------------------------------------------------------------------------
+
+// The display ($$…$$ on a line of its own) and inline ($…$) formulas of each post with maths,
+// counted in the Jekyll site's text: 21 in all.
+const FORMULAS = {
+  "calculus-war": { display: 1, inline: 0 },
+  pagerank: { display: 0, inline: 1 },
+  "max-speed-animals": { display: 1, inline: 2 },
+  softmax: { display: 2, inline: 8 },
+  "which-has-more-elements": { display: 0, inline: 2 },
+  "perfect-strategy": { display: 1, inline: 3 },
+};
+
+/** A post body's formulas: KaTeX's display blocks and its inline spans (not inside a display). */
+function formulas(body) {
+  const display = body.match(/<span class="katex-display">/g)?.length ?? 0;
+  const all = body.match(/<span class="katex">/g)?.length ?? 0;
+  return { display, inline: all - display };
+}
+
+for (const [slug, expected] of Object.entries(FORMULAS)) {
+  test(`${slug}'s formulas are typeset by KaTeX at build time, display ones on their own line`, { skip }, () => {
+    const body = sectionOf(readBuilt(`blog/${slug}/index.html`), "post-body");
+    assert.deepEqual(formulas(body), expected);
+    // A display formula is a block of its own, never inside a paragraph.
+    assert.doesNotMatch(body, /<p>(?:(?!<\/p>)[\s\S])*class="katex-display"/, "display formula inside a <p>");
+  });
+}
+
+test("no post page shows a raw $ delimiter or a KaTeX error", { skip }, () => {
+  for (const { slug } of published) {
+    const body = sectionOf(readBuilt(`blog/${slug}/index.html`), "post-body");
+    assert.ok(!text(body).includes("$"), `${slug}: raw $`);
+    assert.doesNotMatch(body, /katex-error/, `${slug}: KaTeX error`);
+  }
+});
 
 test("the sitemap lists /blog/ and every non-draft post, and no draft", { skip }, () => {
   const sitemap = readBuilt("sitemap-0.xml");
