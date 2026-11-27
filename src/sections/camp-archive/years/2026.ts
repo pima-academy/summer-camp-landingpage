@@ -106,7 +106,8 @@ const camp: CampYear = {
             { name: "Lê Xuân Trọng", school: "Trường THPT Chuyên Hùng Vương, TP.HCM" },
             { name: "Vũ Hoàng Yến", school: ptnk },
           ],
-          mentors: [],
+          // Mentor from the user; the report does not name one.
+          mentors: [{ name: "Nguyễn Ngọc Cảnh" }],
           files: [pdf("1sPVy28MKVa5y--j4avYicHZps1Cs8A5e"), slide("1DSyUEbtM3Lq1MJmE_iPTnUQYKF-2q6yw")],
         },
       ],
@@ -150,7 +151,8 @@ const camp: CampYear = {
             { name: "Đặng Anh Quân", school: "Trường Phổ thông Năng khiếu, Đại học Quốc gia Thành phố Hồ Chí Minh" },
             { name: "Vũ Khôi Nguyên", school: "Trường THPT Chuyên Lam Sơn" },
           ],
-          mentors: [],
+          // Mentors from the user; the report does not name them.
+          mentors: [{ name: "Nguyễn Gia Khánh" }, { name: "Nguyễn Đức Nguyên" }],
           files: [pdf("1dmXQEv-3IR59HFP0F4TawhEIRbZPMrF1"), slide("14-JZICxevmOaTDNutf23HX7MqfK6Mm_Z"), notebook("1ixISGFm_HPF9T06s1zrRrf22ya7iBShj"), notebook("1Z1y8ZU8tEJqlUy5zV8SSosQxEivsMl0O")],
         },
       ],
