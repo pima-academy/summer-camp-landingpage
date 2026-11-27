@@ -40,7 +40,7 @@ const href = (tag) => tag.match(/href="([^"]*)"/)?.[1];
 const current = (s) => anchors(s).filter((a) => /aria-current="page"/.test(a));
 
 // Site pages built with BaseLayout.
-const sitePages = ["index.html", "ve-chung-toi/index.html", "khoa-hoc/index.html", "lien-he/index.html", "trai-he-toan-hoc-pima/index.html", "404.html"];
+const sitePages = ["index.html", "ve-chung-toi/index.html", "khoa-hoc/index.html", "lien-he/index.html", "trai-he-toan-hoc-pima/index.html", "404.html", "blog/index.html", "blog/phat-hien-gian-lan/index.html"];
 
 test("nav is the page banner, before <main>, and lists the site links", { skip }, () => {
   assert.ok(nav, "<header> present");
