@@ -102,7 +102,13 @@ const counts = countsSentence(y);
       if (paused) return;
       current = (current + 1) % count;
       cover.querySelectorAll<HTMLElement>("[data-slide]").forEach((el) => {
-        el.toggleAttribute("data-active", Number(el.dataset.slide) === current);
+        const on = Number(el.dataset.slide) === current;
+        el.toggleAttribute("data-active", on);
+        // Only the cover on show is exposed to assistive technology.
+        if (el.matches(".slide")) {
+          if (on) el.removeAttribute("aria-hidden");
+          else el.setAttribute("aria-hidden", "true");
+        }
       });
     }, STEP_MS);
   }
