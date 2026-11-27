@@ -10,9 +10,10 @@
 // frame grows to hold them rather than run them into the counts. A wide photo (2:1 or wider: 2019, 2023, 2026) runs instead across the top with the
 // text under it when the viewport is 850 px tall or more, where that shows it larger. Below
 // 992 px the photo is always on top, at the frame's width.
-// A year held at several campuses (2025) has one cover per campus, all shown at once: on desktop
-// the season line runs across the top, the covers side by side under it, each with its own date
-// block under it, then the topic and the counts. Below 768 px the covers stack.
+// A year held at several campuses (2025) has one cover per campus, all shown at once, each with
+// its own date block under it. On desktop the covers sit side by side in the photo's place, the
+// topic beside them, and each cover is held under the height the viewport leaves, so the frame
+// still fits it. Below 992 px they run across the top at the frame's width, stacking below 768 px.
 // Above the frame, the row of every camp year (CampYearNav) with this one current: the frame's
 // viewport fit leaves room for its one line.
 // Used by trai-he-toan-hoc-pima/[year].
@@ -56,7 +57,7 @@ const wide = !multi && ratio >= 2;
             const s = camp.sessions?.find((x) => x.campus === c.campus);
             const b = s && blockOf(s);
             return (
-              <figure class="campus">
+              <figure class="campus" style={`--cover-ratio: ${c.image.width / c.image.height}`}>
                 <Image
                   src={c.image}
                   alt={`Trại sinh và ban tổ chức Trại hè PiMA ${camp.year} tại ${c.campus}`}
@@ -345,11 +346,14 @@ const wide = !multi && ratio >= 2;
       "photo lead"
       "counts counts";
   }
-  .bookcover .photo::before {
-    max-height: calc(
+  .bookcover {
+    --photo-room: calc(
       100svh - var(--space-24) - var(--year-nav-room) - 2 * var(--space-6) - 2 * var(--space-8) - var(--font-size-body) * var(--line-height-body) -
         3 * var(--space-3) - var(--space-4) - var(--font-size-h3) * var(--line-height-h3) - 2px
     );
+  }
+  .bookcover .photo::before {
+    max-height: var(--photo-room);
   }
   .bookcover .text {
     display: contents;
@@ -362,12 +366,20 @@ const wide = !multi && ratio >= 2;
     gap: var(--space-5);
   }
 
-  /* Several campuses on desktop: the season line, the covers side by side, then the topic and
-     the counts, one column. The frame grows to hold them. Under 992 px the layout below takes
-     over. */
+  /* Several campuses on desktop: the covers take more of the row, side by side; each is as wide
+     as its column, or narrower so that it and its date block (campus, days, month, one line of
+     venue) fit the photo's room. */
   .multi {
-    grid-template-columns: none;
-    grid-template-areas: "season" "photo" "lead" "counts";
+    grid-template-columns: minmax(0, 7fr) minmax(0, 3fr);
+  }
+  .multi .campus .img {
+    width: min(
+      100%,
+      (
+          var(--photo-room) - var(--space-4) - var(--font-size-body) * var(--line-height-body) - var(--font-size-h2) * var(--line-height-h2) - 2 *
+            var(--font-size-small) * var(--line-height-body)
+        ) * var(--cover-ratio)
+    );
   }
 
   /* breakpoint-exception: a wide photo is larger on top of the text once the viewport is tall
@@ -400,6 +412,9 @@ const wide = !multi && ratio >= 2;
     }
     .bookcover .photo::before {
       max-height: none;
+    }
+    .multi .campus .img {
+      width: 100%;
     }
     .bookcover .text {
       display: grid;
