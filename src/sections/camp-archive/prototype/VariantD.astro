@@ -1,9 +1,10 @@
 ---
-// PROTOTYPE variant D, "Giáo trình": the year read as a mathematics textbook. The hero is an
-// open book: a frontispiece (the cover photo, or the programme on a pale-lime page when the year
-// has no photo) facing a title page. Lectures are the book's table of contents, numbered because
-// they are a sequence, with dotted leaders running to their files. Each project topic is a problem
-// ("Đề bài") facing its solutions, the group reports. Photos are plates at the back.
+// PROTOTYPE variant D, "Giáo trình": the year read as a mathematics textbook. Every year opens
+// the same way: a title page (topic in display type, a colophon with the counts and sessions),
+// then the cover as a 12:5 plate. Preface and programme follow when the year has them. Lectures
+// are the book's table of contents, numbered because they are a sequence, with dotted leaders
+// running to their files. Each project topic is a problem facing its solutions, the group
+// reports. Photos are plates at the back.
 // Used by /prototype/trai-he-toan-hoc-pima/[year]/ only.
 import { Image } from "astro:assets";
 import BrandName from "../../../components/BrandName.astro";
@@ -33,53 +34,54 @@ const laterDocs: { title: string; items?: DocItem[] }[] = [
 ---
 
 <Section name="variant-d-spread" width="large" spacing="none">
-  <div class:list={["spread", { single: !y.programme }]}>
-    {
-      y.programme && (
-        <div class="frontis page-lime" data-tone="pale-lime">
-          <h2 class="page-title">Nội dung chương trình</h2>
-          <ol class="programme">{y.programme.map((p) => <li>{p}</li>)}</ol>
-        </div>
-      )
-    }
-    <div class="titlepage">
-      <p class="press">Trại hè Toán học và Ứng dụng <BrandName /> {y.year}</p>
-      <div class="title-block">
-        <h1 class="display">{y.topic.vi}</h1>
-        <p class="en">{y.topic.en}</p>
-      </div>
-      <div class="colophon">
-        {
-          y.sessions && (
-            <dl class="sessions">
-              {y.sessions.map((s) => (
-                <div>
-                  <dt>{s.campus}</dt>
-                  <dd>{s.dates}<br />{s.venue}</dd>
-                </div>
-              ))}
-            </dl>
-          )
-        }
-        <p>{summaryText}</p>
-      </div>
+  <div class="titlepage">
+    <p class="press">Trại hè Toán học và Ứng dụng <BrandName /> {y.year}</p>
+    <div class="title-block">
+      <h1 class="display">{y.topic.vi}</h1>
+      <p class="en">{y.topic.en}</p>
+    </div>
+    <div class="colophon">
+      <p>{summaryText}</p>
+      {
+        y.sessions && (
+          <dl class="sessions">
+            {y.sessions.map((s) => (
+              <div>
+                <dt>{s.campus}</dt>
+                <dd>{s.dates}<br />{s.venue}</dd>
+              </div>
+            ))}
+          </dl>
+        )
+      }
     </div>
   </div>
   {
     y.cover && (
       <figure class="plate-cover">
         <Image src={y.cover} alt={`Trại sinh và ban tổ chức Trại hè PiMA ${y.year}`} widths={[800, 1200, 1600, 2000, 2880]} sizes="(max-width: 1440px) 90vw, 1280px" class="plate-cover-img" loading="eager" />
-        <figcaption>Trại sinh và ban tổ chức, {y.year}.</figcaption>
       </figure>
     )
   }
 </Section>
 
 {
-  y.description && (
-    <Section name="variant-d-preface" width="small" spacing="medium">
-      <h2>Lời giới thiệu</h2>
-      {y.description.map((p) => <p class="prose">{p}</p>)}
+  (y.description || y.programme) && (
+    <Section name="variant-d-preface" width="large" spacing="medium">
+      <div class="preface">
+        {y.description && (
+          <div>
+            <h2>Lời giới thiệu</h2>
+            {y.description.map((p) => <p class="prose">{p}</p>)}
+          </div>
+        )}
+        {y.programme && (
+          <div class="page-lime" data-tone="pale-lime">
+            <h2 class="page-title">Nội dung chương trình</h2>
+            <ol class="programme">{y.programme.map((p) => <li>{p}</li>)}</ol>
+          </div>
+        )}
+      </div>
     </Section>
   )
 }
@@ -256,70 +258,21 @@ const laterDocs: { title: string; items?: DocItem[] }[] = [
     font-size: var(--font-size-small);
   }
 
-  /* The open book. */
-  .spread {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-16);
-    padding-top: var(--space-28);
-    padding-bottom: var(--space-20);
-    align-items: stretch;
-  }
-  .spread.single {
-    grid-template-columns: 1fr;
-  }
-  .frontis {
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-  .plate-cover {
-    margin: 0 0 var(--space-16);
-    display: grid;
-    gap: var(--space-3);
-  }
-  .plate-cover-img {
-    width: 100%;
-    height: auto;
-  }
-  .plate-cover figcaption {
-    font-size: var(--font-size-small);
-    color: var(--color-text-muted);
-  }
-  .spread.single .titlepage {
-    max-width: 56rem;
-  }
-  .page-lime {
-    padding: var(--space-12);
-    border-radius: var(--radius);
-    justify-content: center;
-  }
-  .page-title {
-    font-size: var(--font-size-h3);
-    line-height: var(--line-height-h3);
-  }
-  .programme {
-    margin: var(--space-6) 0 0;
-    padding-left: var(--space-6);
-    display: grid;
-    gap: var(--space-4);
-  }
-  .programme li::marker {
-    font-weight: var(--font-weight-black);
-    color: var(--color-text-heading);
-  }
+  /* The title page, then the plate. */
   .titlepage {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: var(--space-12);
-    padding-top: var(--space-2);
-    border-top: var(--space-1) solid var(--color-background-accent);
+    display: grid;
+    grid-template-columns: 8fr 4fr;
+    column-gap: var(--space-12);
+    row-gap: var(--space-8);
+    align-items: end;
+    padding-top: var(--space-28);
+    padding-bottom: var(--space-12);
   }
   .press {
+    grid-column: 1 / -1;
     font-weight: var(--font-weight-bold);
     padding-top: var(--space-4);
+    border-top: var(--space-1) solid var(--color-background-accent);
   }
   .display {
     font-size: var(--font-size-display);
@@ -337,13 +290,11 @@ const laterDocs: { title: string; items?: DocItem[] }[] = [
   .colophon {
     display: grid;
     gap: var(--space-4);
-    padding-top: var(--space-4);
-    border-top: 1px solid var(--color-border);
+    font-size: var(--font-size-small);
   }
   .sessions {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-6);
+    gap: var(--space-3);
     margin: 0;
   }
   .sessions dt {
@@ -352,12 +303,50 @@ const laterDocs: { title: string; items?: DocItem[] }[] = [
   }
   .sessions dd {
     margin: 0;
-    font-size: var(--font-size-small);
     font-variant-numeric: tabular-nums;
+  }
+  .plate-cover {
+    margin: 0 0 var(--space-16);
+    position: relative;
+    aspect-ratio: 12 / 5;
+  }
+  .plate-cover-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 35%;
+  }
+
+  .preface {
+    display: grid;
+    grid-template-columns: 7fr 5fr;
+    gap: var(--space-12);
+    align-items: start;
+  }
+  .page-lime {
+    padding: var(--space-10);
+    border-radius: var(--radius);
+  }
+  .page-title {
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+  }
+  .programme {
+    margin: var(--space-6) 0 0;
+    padding-left: var(--space-6);
+    display: grid;
+    gap: var(--space-4);
+  }
+  .programme li::marker {
+    font-weight: var(--font-weight-black);
+    color: var(--color-text-heading);
   }
 
   .prose {
     margin-top: var(--space-4);
+    max-width: 40rem;
   }
   .credits {
     display: grid;
@@ -551,9 +540,9 @@ const laterDocs: { title: string; items?: DocItem[] }[] = [
   }
 
   @media screen and (max-width: 991px) {
-    .spread {
+    .titlepage,
+    .preface {
       grid-template-columns: 1fr;
-      gap: var(--space-10);
     }
     .problem {
       grid-template-columns: 1fr;
@@ -565,9 +554,11 @@ const laterDocs: { title: string; items?: DocItem[] }[] = [
     }
   }
   @media screen and (max-width: 767px) {
-    .spread {
+    .titlepage {
       padding-top: var(--space-24);
-      padding-bottom: var(--space-12);
+    }
+    .plate-cover {
+      aspect-ratio: 4 / 3;
     }
     .page-lime {
       padding: var(--space-6);

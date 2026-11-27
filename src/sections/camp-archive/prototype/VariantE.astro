@@ -40,7 +40,7 @@ const docs: { title: string; items?: DocItem[] }[] = [
   )
 }
 
-<Section name="variant-e-title" width="large" spacing="none" tone={y.cover ? "white" : "pale-lime"}>
+<Section name="variant-e-title" width="large" spacing="none">
   <div class:list={["title", { "no-cover": !y.cover }]}>
     <p class="year">Trại hè <BrandName /> {y.year}</p>
     <h1 class="display">{y.topic.vi}</h1>
@@ -249,13 +249,16 @@ const docs: { title: string; items?: DocItem[] }[] = [
   .bleed {
     padding-top: var(--space-20);
   }
+  .bleed {
+    position: relative;
+  }
   .bleed-img {
     display: block;
     width: 100%;
     height: auto;
-    max-height: 82vh;
+    aspect-ratio: 12 / 5;
     object-fit: cover;
-    object-position: top;
+    object-position: center 35%;
     border-radius: 0;
   }
   .title {
@@ -535,6 +538,9 @@ const docs: { title: string; items?: DocItem[] }[] = [
   @media screen and (max-width: 767px) {
     .bleed {
       padding-top: var(--space-16);
+    }
+    .bleed-img {
+      aspect-ratio: 4 / 3;
     }
     .title.no-cover {
       padding-top: var(--space-24);

@@ -8,6 +8,8 @@ import canTranThanhTrung from "../../../assets/images/can-tran-thanh-trung.avif"
 import tranThanhLong from "../../../assets/images/tran-thanh-long.avif";
 import phamKimSon from "../../../assets/images/pham-kim-son.avif";
 import cover2019 from "../../../assets/camp-archive/2019/cover.jpg";
+// Temporary: the 2018 old-site banner stands in until the user supplies a 2025 cover.
+import cover2025 from "../../../assets/camp-archive/2025/cover-temp-2018-banner.jpg";
 
 export type FileLabel = "PDF" | "Slide" | "Notebook" | "Thư mục" | "Mã nguồn" | "Lời giải";
 export interface FileLink { label: FileLabel; url: string }
@@ -160,6 +162,7 @@ const ptnk25 = "Trường Phổ thông Năng khiếu, ĐHQG-TPHCM";
 export const camp2025: CampYear = {
   year: 2025,
   topic: { vi: "Toán học trong các Mô hình Tạo sinh", en: "The Mathematics of Generative Models" },
+  cover: cover2025,
   description: [
     "Toán học trong các Mô hình Tạo sinh (The Mathematics of Generative Models) là một chủ đề nằm ở giao điểm giữa Toán học, Khoa học Dữ liệu và Trí tuệ Nhân tạo. Mô hình tạo sinh là những hệ thống có khả năng học từ dữ liệu đã có để tạo ra dữ liệu mới theo yêu cầu của người dùng. Ví dụ điển hình là ChatGPT (tạo văn bản ngôn ngữ tự nhiên) và DALL-E (tạo hình ảnh từ văn bản). Đằng sau sức mạnh của các mô hình này là hệ thống các công cụ toán học và kỹ thuật lập trình sâu sắc. Những kiến thức đó được tích hợp để xử lý dữ liệu và huấn luyện mô hình. Qua đó, các kiến thức như đại số tuyến tính, vi tích phân và xác suất thống kê chính là nền tảng tạo nên trí tuệ của những hệ thống hiện đại này.",
   ],

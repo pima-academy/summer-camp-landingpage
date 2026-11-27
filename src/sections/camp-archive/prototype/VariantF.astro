@@ -397,6 +397,9 @@ const docs: { title: string; items?: DocItem[] }[] = [
   .cover-img {
     width: 100%;
     height: auto;
+    aspect-ratio: 12 / 5;
+    object-fit: cover;
+    object-position: center 35%;
   }
 
   .about {
@@ -563,6 +566,9 @@ const docs: { title: string; items?: DocItem[] }[] = [
     }
     .row-photos {
       grid-template-columns: repeat(2, 1fr);
+    }
+    .cover-img {
+      aspect-ratio: 4 / 3;
     }
   }
 </style>
