@@ -230,6 +230,10 @@
 
   /* Overlays. */
   --color-video-overlay: color-mix(in srgb, var(--black) 50%, transparent);
+  /* Behind an open lightbox: the page stays in view, dimmed and softened, under the photo. Dark
+     enough that white text on it passes WCAG AA over a white page. */
+  --color-lightbox-overlay: color-mix(in srgb, var(--black) 70%, transparent);
+  --blur-lightbox-overlay: 4px;
 
   /* Borders. A form field's border is its outline, so it needs 3:1. */
   --color-border: var(--gray-4);

@@ -73,8 +73,10 @@ const single = photos.length < 2;
 </dialog>
 
 <style>
-  /* The whole viewport, on the dark-green tone (its background and text roles). */
+  /* The whole viewport, see-through: the page stays in view behind it, dimmed (::backdrop). The
+     dark-green tone gives the text and control roles; its background is dropped. */
   .lightbox {
+    background-color: transparent;
     width: 100%;
     height: 100%;
     max-width: none;
@@ -88,6 +90,10 @@ const single = photos.length < 2;
   }
   .lightbox[open] {
     display: grid;
+  }
+  .lightbox::backdrop {
+    background-color: var(--color-lightbox-overlay);
+    backdrop-filter: blur(var(--blur-lightbox-overlay));
   }
 
   /* The page under an open lightbox does not scroll. */
