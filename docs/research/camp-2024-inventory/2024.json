@@ -1,0 +1,698 @@
+{
+  "year": "2024",
+  "sources": {
+    "drive_root": "https://drive.google.com/drive/folders/1RYiyfEmLyUEHL-zqhwAy_kQ2aZt_Rhfw",
+    "drive_checked": "2026-11-27: Google Drive connector (metadata, permissions, a visibility search) and one unauthenticated download per file, whose byte count matched Drive's fileSize",
+    "repo": "src/pages/chi-tiet-trai-he.astro, src/sections/chi-tiet-trai-he/*.astro, src/sections/trai-he-toan-hoc-pima/camp-topics.ts at origin/dev"
+  },
+  "summary": {
+    "folders": 5,
+    "files": 15,
+    "total_bytes": 8634965,
+    "lectures": 6,
+    "lecture_pdfs": 4,
+    "notebooks": 2,
+    "exercises": 3,
+    "projects": 6,
+    "campers": 24,
+    "photos": 0,
+    "entrance_exam": "pending"
+  },
+  "sharing_summary": {
+    "items": 20,
+    "anyone_with_link_reader": 20,
+    "restricted": 0,
+    "note": "The root and its 19 descendants all carry 'anyone with the link: reader' (inherited from the root; inheritedPermissionsDisabled is false on every item). Drive search \"visibility != 'anyoneWithLink'\" under the root returns nothing. Files and the root are also shared with 25 named accounts."
+  },
+  "owners": {
+    "khang.nguyenhoang.vn@gmail.com": {
+      "files": 9,
+      "folders": [
+        "Tài liệu chung"
+      ]
+    },
+    "cantranthanhtrung@gmail.com": {
+      "files": 5,
+      "folders": [
+        "4. Dự án nhóm"
+      ]
+    },
+    "danhtran1604@gmail.com": {
+      "files": 1,
+      "folders": []
+    },
+    "iamnmt03@gmail.com": {
+      "files": 0,
+      "folders": [
+        "1. Đề tuyển sinh",
+        "2. Bài giảng",
+        "3. Bài tập"
+      ]
+    },
+    "_note": "All personal Gmail accounts; none is pima.vn@gmail.com or a pimavn.com account (those are writers only)."
+  },
+  "folders": [
+    {
+      "path": "Tài liệu chung",
+      "id": "1RYiyfEmLyUEHL-zqhwAy_kQ2aZt_Rhfw",
+      "owner": "khang.nguyenhoang.vn@gmail.com",
+      "sharing": "anyone_with_link_reader",
+      "view_url": "https://drive.google.com/drive/folders/1RYiyfEmLyUEHL-zqhwAy_kQ2aZt_Rhfw",
+      "children": 4,
+      "note": "Root of the 2024 camp. Besides the link, shared with 25 named accounts (24 writers, 1 reader); every child inherits them."
+    },
+    {
+      "path": "Tài liệu chung/1. Đề tuyển sinh",
+      "id": "1py9_LSkcBZmuvRIu5NTYr6MzaS4VFYrT",
+      "owner": "iamnmt03@gmail.com",
+      "sharing": "anyone_with_link_reader",
+      "view_url": "https://drive.google.com/drive/folders/1py9_LSkcBZmuvRIu5NTYr6MzaS4VFYrT",
+      "created": "2026-11-27",
+      "children": 0,
+      "note": "Empty on 2026-11-27; the user uploads the 2024 entrance exam later."
+    },
+    {
+      "path": "Tài liệu chung/2. Bài giảng",
+      "id": "1sjEOOD00Y8E-DBhoLmffJtPiVm2r_Lbu",
+      "owner": "iamnmt03@gmail.com",
+      "sharing": "anyone_with_link_reader",
+      "view_url": "https://drive.google.com/drive/folders/1sjEOOD00Y8E-DBhoLmffJtPiVm2r_Lbu",
+      "created": "2026-11-27",
+      "children": 6
+    },
+    {
+      "path": "Tài liệu chung/3. Bài tập",
+      "id": "1eXlobHXMWNlziW2Y5hroO-ekiNOYp4PA",
+      "owner": "iamnmt03@gmail.com",
+      "sharing": "anyone_with_link_reader",
+      "view_url": "https://drive.google.com/drive/folders/1eXlobHXMWNlziW2Y5hroO-ekiNOYp4PA",
+      "created": "2026-11-27",
+      "children": 3
+    },
+    {
+      "path": "Tài liệu chung/4. Dự án nhóm",
+      "id": "1CQrLwkXUOR1-FEUMrMeANKmhIEVDptF0",
+      "owner": "cantranthanhtrung@gmail.com",
+      "sharing": "anyone_with_link_reader",
+      "view_url": "https://drive.google.com/drive/folders/1CQrLwkXUOR1-FEUMrMeANKmhIEVDptF0",
+      "created": "2024-09-25",
+      "children": 6,
+      "note": "The 2024 projects folder, renamed and kept by the reorganisation."
+    }
+  ],
+  "files": [
+    {
+      "path": "Tài liệu chung/2. Bài giảng/Đại số tuyến tính.pdf",
+      "id": "1f3jD_QA62ynBgB-j4Sv6f3yL4KWggjdV",
+      "mime_type": "application/pdf",
+      "size_bytes": 605056,
+      "owner": "khang.nguyenhoang.vn@gmail.com",
+      "sharing": "anyone_with_link_reader",
+      "created": "2024-07-21",
+      "modified": "2024-09-18",
+      "view_url": "https://drive.google.com/file/d/1f3jD_QA62ynBgB-j4Sv6f3yL4KWggjdV/view?usp=drivesdk",
+      "pages": 64
+    },
+    {
+      "path": "Tài liệu chung/2. Bài giảng/Giải tích.pdf",
+      "id": "1kEM0tjTHvzP9eWJuf1Hl5VuSwPSOIF9B",
+      "mime_type": "application/pdf",
+      "size_bytes": 902079,
+      "owner": "khang.nguyenhoang.vn@gmail.com",
+      "sharing": "anyone_with_link_reader",
+      "created": "2024-07-21",
+      "modified": "2024-09-18",
+      "view_url": "https://drive.google.com/file/d/1kEM0tjTHvzP9eWJuf1Hl5VuSwPSOIF9B/view?usp=drivesdk",
+      "pages": 36
+    },
+    {
+      "path": "Tài liệu chung/2. Bài giảng/Quy hoạch tuyến tính.pdf",
+      "id": "1dDLsjYKxoZTZYI17JUXaclPe4-JMr9WS",
+      "mime_type": "application/pdf",
+      "size_bytes": 389729,
+      "owner": "khang.nguyenhoang.vn@gmail.com",
+      "sharing": "anyone_with_link_reader",
+      "created": "2024-07-21",
+      "modified": "2024-09-18",
+      "view_url": "https://drive.google.com/file/d/1dDLsjYKxoZTZYI17JUXaclPe4-JMr9WS/view?usp=drivesdk",
+      "pages": 22
+    },
+    {
+      "path": "Tài liệu chung/2. Bài giảng/Soạn thảo văn bản bằng LaTeX.pdf",
+      "id": "175tYXTeXJ_kCHEay7YSyIQnvS86SQ7xA",
+      "mime_type": "application/pdf",
+      "size_bytes": 407769,
+      "owner": "danhtran1604@gmail.com",
+      "sharing": "anyone_with_link_reader",
+      "created": "2024-07-24",
+      "modified": "2024-09-18",
+      "view_url": "https://drive.google.com/file/d/175tYXTeXJ_kCHEay7YSyIQnvS86SQ7xA/view?usp=drivesdk",
+      "pages": 63
+    },
+    {
+      "path": "Tài liệu chung/2. Bài giảng/Thuật_toán_đơn_hình.ipynb",
+      "id": "1Qg3ZAY8npJDa_J8ydM87159yBWB7VSXP",
+      "mime_type": "application/octet-stream (.ipynb; the view URL opens Colab)",
+      "size_bytes": 53285,
+      "owner": "khang.nguyenhoang.vn@gmail.com",
+      "sharing": "anyone_with_link_reader",
+      "created": "2024-09-18",
+      "modified": "2024-09-18",
+      "view_url": "https://colab.research.google.com/drive/1Qg3ZAY8npJDa_J8ydM87159yBWB7VSXP"
+    },
+    {
+      "path": "Tài liệu chung/2. Bài giảng/Giải_các_bài_toán_quy_hoạch_tuyến_tính_bằng_scipy.ipynb",
+      "id": "1KcafShlLy8wFpJgojt94Wl4XszrZCKaB",
+      "mime_type": "application/octet-stream (.ipynb; the view URL opens Colab)",
+      "size_bytes": 109580,
+      "owner": "khang.nguyenhoang.vn@gmail.com",
+      "sharing": "anyone_with_link_reader",
+      "created": "2024-09-18",
+      "modified": "2024-09-18",
+      "view_url": "https://colab.research.google.com/drive/1KcafShlLy8wFpJgojt94Wl4XszrZCKaB"
+    },
+    {
+      "path": "Tài liệu chung/3. Bài tập/Đại số tuyến tính (bài tập).pdf",
+      "id": "1ZnzqgbDeV2MDeOV95O8BWhLBAA8eLEYZ",
+      "mime_type": "application/pdf",
+      "size_bytes": 531938,
+      "owner": "khang.nguyenhoang.vn@gmail.com",
+      "sharing": "anyone_with_link_reader",
+      "created": "2024-07-21",
+      "modified": "2024-09-18",
+      "view_url": "https://drive.google.com/file/d/1ZnzqgbDeV2MDeOV95O8BWhLBAA8eLEYZ/view?usp=drivesdk",
+      "pages": 4
+    },
+    {
+      "path": "Tài liệu chung/3. Bài tập/Quy hoạch tuyến tính (bài tập 1).pdf",
+      "id": "1tDawvKvVyQmkX_69QQXNhQa0iLrDa90l",
+      "mime_type": "application/pdf",
+      "size_bytes": 388982,
+      "owner": "khang.nguyenhoang.vn@gmail.com",
+      "sharing": "anyone_with_link_reader",
+      "created": "2024-07-21",
+      "modified": "2024-09-18",
+      "view_url": "https://drive.google.com/file/d/1tDawvKvVyQmkX_69QQXNhQa0iLrDa90l/view?usp=drivesdk",
+      "pages": 2
+    },
+    {
+      "path": "Tài liệu chung/3. Bài tập/Quy hoạch tuyến tính (bài tập 2).pdf",
+      "id": "1hjm0l0fez3ic77zbdwCWScHa9BHBDY5_",
+      "mime_type": "application/pdf",
+      "size_bytes": 404715,
+      "owner": "khang.nguyenhoang.vn@gmail.com",
+      "sharing": "anyone_with_link_reader",
+      "created": "2024-07-21",
+      "modified": "2024-09-18",
+      "view_url": "https://drive.google.com/file/d/1hjm0l0fez3ic77zbdwCWScHa9BHBDY5_/view?usp=drivesdk",
+      "pages": 2
+    },
+    {
+      "path": "Tài liệu chung/4. Dự án nhóm/Nhóm 1 - Duality.pdf",
+      "id": "15TCGC1dz9yCDUHTaJtmBiAu-fOLzXQQV",
+      "mime_type": "application/pdf",
+      "size_bytes": 744418,
+      "owner": "cantranthanhtrung@gmail.com",
+      "sharing": "anyone_with_link_reader",
+      "created": "2024-09-25",
+      "modified": "2024-09-25",
+      "view_url": "https://drive.google.com/file/d/15TCGC1dz9yCDUHTaJtmBiAu-fOLzXQQV/view?usp=drivesdk",
+      "pages": 18
+    },
+    {
+      "path": "Tài liệu chung/4. Dự án nhóm/Nhóm 2 - Data Science.pdf",
+      "id": "1VGh1ps_c0Zk9Hz7ig6-mVmLlBq3J9Lyi",
+      "mime_type": "application/pdf",
+      "size_bytes": 713731,
+      "owner": "cantranthanhtrung@gmail.com",
+      "sharing": "anyone_with_link_reader",
+      "created": "2024-09-25",
+      "modified": "2024-09-25",
+      "view_url": "https://drive.google.com/file/d/1VGh1ps_c0Zk9Hz7ig6-mVmLlBq3J9Lyi/view?usp=drivesdk",
+      "pages": 14
+    },
+    {
+      "path": "Tài liệu chung/4. Dự án nhóm/Nhóm 3 - Combinatorics.pdf",
+      "id": "1UQUbuLih1m6xrP4Uu1mI269Y9u6czlbC",
+      "mime_type": "application/pdf",
+      "size_bytes": 733436,
+      "owner": "khang.nguyenhoang.vn@gmail.com",
+      "sharing": "anyone_with_link_reader",
+      "created": "2024-09-28",
+      "modified": "2024-09-28",
+      "view_url": "https://drive.google.com/file/d/1UQUbuLih1m6xrP4Uu1mI269Y9u6czlbC/view?usp=drivesdk",
+      "pages": 26
+    },
+    {
+      "path": "Tài liệu chung/4. Dự án nhóm/Nhóm 4 - Game Theory.pdf",
+      "id": "1xwVHrAePSoiKFryAtPrdqs0jR54MmuD1",
+      "mime_type": "application/pdf",
+      "size_bytes": 1028526,
+      "owner": "cantranthanhtrung@gmail.com",
+      "sharing": "anyone_with_link_reader",
+      "created": "2024-09-25",
+      "modified": "2024-09-25",
+      "view_url": "https://drive.google.com/file/d/1xwVHrAePSoiKFryAtPrdqs0jR54MmuD1/view?usp=drivesdk",
+      "pages": 28
+    },
+    {
+      "path": "Tài liệu chung/4. Dự án nhóm/Nhóm 5 - Portfolio Optimization.pdf",
+      "id": "1X5QAU9lTy9mOibEGqr7lBu3VYOjbgyFc",
+      "mime_type": "application/pdf",
+      "size_bytes": 597275,
+      "owner": "cantranthanhtrung@gmail.com",
+      "sharing": "anyone_with_link_reader",
+      "created": "2024-09-25",
+      "modified": "2024-09-25",
+      "view_url": "https://drive.google.com/file/d/1X5QAU9lTy9mOibEGqr7lBu3VYOjbgyFc/view?usp=drivesdk",
+      "pages": 19
+    },
+    {
+      "path": "Tài liệu chung/4. Dự án nhóm/Nhóm 6 - Interior Point Method.pdf",
+      "id": "10zCbOi8SZIQYzXd7iQimc3W5xbKrZy0c",
+      "mime_type": "application/pdf",
+      "size_bytes": 1024446,
+      "owner": "cantranthanhtrung@gmail.com",
+      "sharing": "anyone_with_link_reader",
+      "created": "2024-09-25",
+      "modified": "2024-09-25",
+      "view_url": "https://drive.google.com/file/d/10zCbOi8SZIQYzXd7iQimc3W5xbKrZy0c/view?usp=drivesdk",
+      "pages": 26
+    }
+  ],
+  "entrance_exam": {
+    "status": "pending",
+    "note": "Folder '1. Đề tuyển sinh' is empty; the user uploads the exam later."
+  },
+  "lectures": [
+    {
+      "file": "Tài liệu chung/2. Bài giảng/Đại số tuyến tính.pdf",
+      "kind": "lecture notes",
+      "title_on_page": "ĐẠI SỐ TUYẾN TÍNH",
+      "series": "Projects in Mathematics and Applications",
+      "date": null,
+      "authors": [
+        {
+          "name": "Linh Tran",
+          "aff": "Yale University, USA"
+        },
+        {
+          "name": "Nghia Nguyen",
+          "aff": "Rutgers University, USA"
+        },
+        {
+          "name": "Trung Can",
+          "aff": "California Institute of Technology, USA"
+        }
+      ]
+    },
+    {
+      "file": "Tài liệu chung/2. Bài giảng/Giải tích.pdf",
+      "kind": "lecture notes",
+      "title_on_page": "VI TÍCH PHÂN",
+      "series": "Projects in Mathematics and Applications",
+      "date": "Ngày 19 tháng 7 năm 2024",
+      "authors": [
+        {
+          "name": "Trung Cấn",
+          "aff": "California Institute of Technology, USA"
+        },
+        {
+          "name": "Ngọc Phạm",
+          "aff": "Carnegie Mellon University, USA"
+        }
+      ],
+      "note": "The file is named 'Giải tích', the cover says 'VI TÍCH PHÂN'."
+    },
+    {
+      "file": "Tài liệu chung/2. Bài giảng/Quy hoạch tuyến tính.pdf",
+      "kind": "lecture notes",
+      "title_on_page": "QUY HOẠCH TUYẾN TÍNH",
+      "series": "Projects in Mathematics and Applications",
+      "date": "Ngày 23 tháng 7 năm 2024",
+      "authors": [
+        {
+          "name": "Linh Vo",
+          "aff": "University of Science, Viet Nam National University Ho Chi Minh City"
+        },
+        {
+          "name": "Quan Phung",
+          "aff": "Hanoi National University of Education"
+        },
+        {
+          "name": "Khang Nguyen",
+          "aff": "The University of California, Los Angeles, US"
+        }
+      ]
+    },
+    {
+      "file": "Tài liệu chung/2. Bài giảng/Soạn thảo văn bản bằng LaTeX.pdf",
+      "kind": "slides",
+      "title_on_page": "Seminar topic: Introduction to a Typesetting System",
+      "series": "PiMA Summer Camp",
+      "date": "July 23, 2024",
+      "authors": [
+        {
+          "name": "Long Nguyen",
+          "aff": null
+        },
+        {
+          "name": "Danh Tran",
+          "aff": null
+        }
+      ],
+      "note": "63-page slide deck in English; the PDF Author metadata is 'Long Nguyen, Danh Tran'."
+    },
+    {
+      "file": "Tài liệu chung/2. Bài giảng/Thuật_toán_đơn_hình.ipynb",
+      "kind": "notebook",
+      "title_on_page": null,
+      "first_heading": "1. Biểu diễn Quy hoạch tuyến tính",
+      "authors": [],
+      "note": "Colab notebook, 58 markdown and 28 code cells; no author or credit line."
+    },
+    {
+      "file": "Tài liệu chung/2. Bài giảng/Giải_các_bài_toán_quy_hoạch_tuyến_tính_bằng_scipy.ipynb",
+      "kind": "notebook",
+      "title_on_page": null,
+      "first_heading": "1. Sử dụng scipy và ví dụ",
+      "authors": [
+        {
+          "name": "Vũ Lê Thế Anh",
+          "aff": null
+        }
+      ],
+      "credit_line": "Được biên soạn bởi\n- Vũ Lê Thế Anh (vltanh@illinois.edu)\n\nnhằm phục vụ cho Trại hè Toán học và Ứng dụng PiMA 2024",
+      "updated": "22:45 23/07/2024 (GMT +7)",
+      "note": "Colab notebook, 42 markdown and 15 code cells."
+    }
+  ],
+  "exercises": [
+    {
+      "file": "Tài liệu chung/3. Bài tập/Đại số tuyến tính (bài tập).pdf",
+      "title_on_page": "Bài tập Đại số Tuyến tính",
+      "authors": [
+        "Đỗ Hoàng Việt",
+        "Võ Minh Quân"
+      ]
+    },
+    {
+      "file": "Tài liệu chung/3. Bài tập/Quy hoạch tuyến tính (bài tập 1).pdf",
+      "title_on_page": "Bài tập Quy hoạch tuyến tính 1",
+      "authors": [
+        "Nguyễn Hoàng Khang"
+      ]
+    },
+    {
+      "file": "Tài liệu chung/3. Bài tập/Quy hoạch tuyến tính (bài tập 2).pdf",
+      "title_on_page": "Bài tập Quy hoạch tuyến tính 2",
+      "authors": [
+        "Nguyễn Hoàng Khang",
+        "Võ Thị Khánh Linh"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "group": 1,
+      "file": "Tài liệu chung/4. Dự án nhóm/Nhóm 1 - Duality.pdf",
+      "file_topic": "Duality",
+      "title": "LÝ THUYẾT ĐỐI NGẪU VÀ ỨNG DỤNG",
+      "title_en": null,
+      "date": "Ngày 8 tháng 8 năm 2024",
+      "campers": [
+        {
+          "name": "Nguyễn Đức Nguyên",
+          "school": "King’s College London Mathematics School, London, Anh"
+        },
+        {
+          "name": "Huỳnh Hoàng Yến",
+          "school": "THPT Chuyên Quang Trung, Bình Phước"
+        },
+        {
+          "name": "Nguyễn Hữu Phước",
+          "school": "THPT Chuyên Lê Khiết, Quảng Ngãi"
+        },
+        {
+          "name": "Trần Lê Diễm Quỳnh",
+          "school": "THPT Thị xã Quảng Trị, Quảng Trị"
+        }
+      ],
+      "mentors": [
+        "Võ Thị Khánh Linh",
+        "Phùng Minh Quân"
+      ],
+      "mentors_source": "Lời cảm ơn"
+    },
+    {
+      "group": 2,
+      "file": "Tài liệu chung/4. Dự án nhóm/Nhóm 2 - Data Science.pdf",
+      "file_topic": "Data Science",
+      "title": "LINEAR PROGRAMMING FOR DATA SCIENCE",
+      "title_en": "LINEAR PROGRAMMING FOR DATA SCIENCE",
+      "date": "Ngày 8 tháng 8 năm 2024",
+      "campers": [
+        {
+          "name": "Lê Tiến Hợp",
+          "school": "Trường THPT Chuyên Phan Bội Châu - Nghệ An"
+        },
+        {
+          "name": "Trần Bảo Minh",
+          "school": "Trường THPT Chuyên Hùng Vương - Bình Dương"
+        },
+        {
+          "name": "Nguyễn Thị Bảo Tiên",
+          "school": "Trường THPT Chuyên Lương Văn Chánh - Phú Yên"
+        },
+        {
+          "name": "Nguyễn Mai Anh Thư",
+          "school": "Trường Phổ Thông Năng Khiếu - ĐHQG TP. Hồ Chí Minh"
+        }
+      ],
+      "mentors": [
+        "Nguyễn Ngọc Cảnh",
+        "Vòng Vĩnh Toàn"
+      ],
+      "mentors_source": "Lời cảm ơn"
+    },
+    {
+      "group": 3,
+      "file": "Tài liệu chung/4. Dự án nhóm/Nhóm 3 - Combinatorics.pdf",
+      "file_topic": "Combinatorics",
+      "title": "Tối ưu hóa tổ hợp và quy hoạch tuyến tính nguyên",
+      "title_en": null,
+      "date": "Ngày 28 tháng 9 năm 2024",
+      "campers": [
+        {
+          "name": "Quốc Bảo",
+          "school": "Trường THPT chuyên Lê Hồng Phong, TP HCM"
+        },
+        {
+          "name": "Thu Huế",
+          "school": "Trường THPT chuyên Lê Hồng Phong, Nam Định"
+        },
+        {
+          "name": "Ngọc Huy",
+          "school": "Trường THPT chuyên Nguyễn Bỉnh Khiêm, Quảng Nam"
+        },
+        {
+          "name": "Nam Kiệt",
+          "school": "Trường THPT chuyên Lê Quý Đôn, Khánh Hòa"
+        }
+      ],
+      "campers_note": "The cover gives the campers' given names only, no family names.",
+      "cover_mentor": {
+        "name": "Minh Quân",
+        "aff": "Đại học bang Illinois tại Urbana–Champaign"
+      },
+      "mentors": [
+        "Võ Minh Quân",
+        "Đỗ Hoàng Việt",
+        "Trần Hoàng Bảo Linh"
+      ],
+      "mentors_source": "Cover line 'Mentor: Minh Quân' and Lời cảm ơn"
+    },
+    {
+      "group": 4,
+      "file": "Tài liệu chung/4. Dự án nhóm/Nhóm 4 - Game Theory.pdf",
+      "file_topic": "Game Theory",
+      "title": "Cân bằng Nash trong Lý thuyết Trò chơi",
+      "title_en": null,
+      "date": "Ngày 9 tháng 8 năm 2024",
+      "campers": [
+        {
+          "name": "Hoàng Minh Thư",
+          "school": "Trường THPT Gia Định, TPHCM"
+        },
+        {
+          "name": "Đào Lâm Hoàng",
+          "school": "Trường THPT Chuyên Khoa học Tự nhiên, Hà Nội"
+        },
+        {
+          "name": "Nguyễn Kim Ngân",
+          "school": "Trường THPT Gò Công Đông, Tiền Giang"
+        },
+        {
+          "name": "Lý Trần Thái",
+          "school": "Trường Phổ Thông Năng Khiếu, ĐHQG-HCM"
+        }
+      ],
+      "mentors": [
+        "Vũ Lê Thế Anh",
+        "Nguyễn Minh Tú"
+      ],
+      "mentors_source": "Lời cảm ơn ('những mentor giám sát chính')"
+    },
+    {
+      "group": 5,
+      "file": "Tài liệu chung/4. Dự án nhóm/Nhóm 5 - Portfolio Optimization.pdf",
+      "file_topic": "Portfolio Optimization",
+      "title": "PORTFOLIO OPTIMIZATION",
+      "title_en": "PORTFOLIO OPTIMIZATION",
+      "date": "Ngày 8 tháng 8 năm 2024",
+      "campers": [
+        {
+          "name": "Nguyễn Hồng Ân",
+          "school": "Trường THPT Chuyên Lê Hồng Phong TP.HCM"
+        },
+        {
+          "name": "Nguyễn Vũ Bách",
+          "school": "Trường THPT Phan Đình Phùng, Đắk Lắk"
+        },
+        {
+          "name": "Nguyễn Trần Thùy Chi",
+          "school": "Trường THPT Chuyên ĐH Sư Phạm, Hà Nội"
+        },
+        {
+          "name": "Huỳnh Tuyết Oanh",
+          "school": "Trường THPT Chuyên Lê Quý Đôn, Đà Nẵng"
+        }
+      ],
+      "mentors": [],
+      "mentors_source": "Lời cảm ơn thanks 'Các anh chị Mentor' without naming them"
+    },
+    {
+      "group": 6,
+      "file": "Tài liệu chung/4. Dự án nhóm/Nhóm 6 - Interior Point Method.pdf",
+      "file_topic": "Interior Point Method",
+      "title": "Phương pháp điểm trong",
+      "title_en": "Interior Point Method",
+      "date": "Ngày 8 tháng 8 năm 2024",
+      "campers": [
+        {
+          "name": "Phạm Quốc Bình",
+          "school": "Trường THPT Thống Nhất B - Đồng Nai"
+        },
+        {
+          "name": "Bảo Quý Định Tân",
+          "school": "Trường THPT chuyên Lê Quý Đôn - Khánh Hòa"
+        },
+        {
+          "name": "Nguyễn Trần Hà Phương",
+          "school": "Wilbraham and Monson Academy"
+        },
+        {
+          "name": "Lê Minh Quý",
+          "school": "Trường THPT Gia Định"
+        }
+      ],
+      "mentors": [
+        "Trần Phan Anh Danh",
+        "Nguyễn Hoàng Khang",
+        "Vũ Lê Thế Anh"
+      ],
+      "mentors_source": "Lời cảm ơn ('các anh hướng dẫn')"
+    }
+  ],
+  "project_notes": [
+    "Each cover pairs a camper with a school through footnote marks (∗ † ‡ §) in a 2x2 grid: left top, right top, left bottom, right bottom. The pairs above follow the marks.",
+    "Every project is one report PDF: no slides, no notebook, no per-project folder.",
+    "Every report and three of the lecture notes carry the series line 'Projects in Mathematics and Applications'.",
+    "Titles are verbatim from the cover, including its capitalisation; title_en is set only where the cover itself is in English or bilingual."
+  ],
+  "existing_page": {
+    "route": "/chi-tiet-trai-he/",
+    "file": "src/pages/chi-tiet-trai-he.astro",
+    "status": "Published; its header comment says 'still an orphan'. CampHistory's 'Xem chi tiết' links have no target yet (ContentGap).",
+    "seo": {
+      "title": "Quy hoạch tuyến tính | Trại hè toán học PiMA 2024",
+      "description": "Trại hè PiMA 2024 với chủ đề Quy hoạch tuyến tính: trại sinh học đại số tuyến tính, mô hình hóa, lập trình Python và LaTeX, rồi cùng mentor hoàn thành một đề tài nhóm."
+    },
+    "hero": {
+      "breadcrumb": "PiMA academy > chương trình > trại hè 2024",
+      "h1": "Quy hoạch Tuyến tính- Linear Programming",
+      "note": "The h1 lacks a space before the hyphen; camp-topics.ts writes 'Quy hoạch Tuyến tính - Linear Programming'."
+    },
+    "topic": {
+      "heading": "Chủ đề",
+      "kind": "real content",
+      "text_html": "Quy hoạch tuyến tính (Linear Programming) là một lĩnh vực quan trọng của Toán học ứng dụng, chuyên nghiên cứu cách tối ưu hóa một đại lượng (như lợi nhuận, chi phí hoặc tài nguyên) trong điều kiện bị ràng buộc bởi một hệ thống các bất phương trình tuyến tính. Đây là một công cụ mạnh mẽ, được sử dụng rộng rãi trong nhiều lĩnh vực như kinh tế, kỹ thuật, vận tải, logistics, quản trị sản xuất, và cả trong nghiên cứu khoa học dữ liệu.<br>‍<br>Về mặt lý thuyết, quy hoạch tuyến tính xây dựng nên các mô hình toán học cho những bài toán ra quyết định trong điều kiện có giới hạn. Ví dụ, làm thế nào để một doanh nghiệp phân bổ nguyên vật liệu sao cho chi phí thấp nhất mà vẫn đáp ứng đủ nhu cầu sản xuất? Hoặc làm sao để tối ưu hóa lịch trình vận chuyển sao cho thời gian giao hàng ngắn nhất mà vẫn sử dụng số xe ít nhất? Từ đó, người ta thiết lập các hàm mục tiêu và các ràng buộc, rồi áp dụng các thuật toán hiệu quả như Simplex hay các phương pháp điểm trong để tìm lời giải tối ưu.<br><br>Quy hoạch tuyến tính còn là nền tảng của nhiều phương pháp mở rộng như quy hoạch nguyên, quy hoạch phi tuyến hay quy hoạch động – những công cụ đang được sử dụng trong trí tuệ nhân tạo, học máy, tối ưu hóa hệ thống và phân tích dữ liệu lớn.",
+      "note": "Three paragraphs in one <p>, joined by <br>; the first break holds a zero-width joiner (U+200D), a Webflow leftover."
+    },
+    "programme": {
+      "heading": "Nội dung chương trình",
+      "kind": "real content",
+      "items": [
+        "Tiếp thu các kiến thức về đại số tuyến tính, quy hoạch tuyến tính, và mô hình hóa;",
+        "Học được các kỹ năng cơ bản về lập trình với Python và soạn thảo văn bản với LaTeX;",
+        "Tìm hiểu cách ứng dụng các kiến thức trên vào việc khám phá các tính chất lý thuyết của quy hoạch tuyến tính hoặc mô hình hóa và giải quyết các bài toán trong thực tế;",
+        "Vận dụng các kiến thức và kĩ năng để hoàn thành một đề tài nhóm dưới sự hỗ trợ của các mentor đến từ các trường đại học lớn trong và ngoài nước."
+      ],
+      "note": "One <p>, the four items joined by <br>."
+    },
+    "content_gaps": [
+      {
+        "section": "CampInfo",
+        "heading": "Thông tin trại hè",
+        "state": "heading only"
+      },
+      {
+        "section": "Mentors",
+        "heading": "Đội ngũ hướng dẫn",
+        "state": "heading only"
+      },
+      {
+        "section": "Campers",
+        "heading": "Danh sách trại sinh",
+        "state": "heading only"
+      },
+      {
+        "section": "Documents",
+        "heading": "Tài liệu",
+        "state": "headings only, no links",
+        "subheadings": [
+          "Dự án nhóm của trại sinh",
+          "Bài giảng và tài liệu",
+          "Bài giảng toán cao cấp",
+          "Bài giảng khách mời",
+          "Đề tài dự án"
+        ]
+      },
+      {
+        "section": "Gallery",
+        "heading": "Hình ảnh trại hè",
+        "state": "6 placeholder SVG slides; lightbox links are '#'"
+      }
+    ],
+    "not_2024_specific": [
+      {
+        "section": "Testimonials (src/sections/Testimonials.astro)",
+        "note": "Shared with index and trai-he-toan-hoc-pima; not 2024 content."
+      }
+    ],
+    "camp_topics_ts": {
+      "file": "src/sections/trai-he-toan-hoc-pima/camp-topics.ts",
+      "entry": {
+        "year": "2024",
+        "topic": "Quy hoạch Tuyến tính - Linear Programming"
+      }
+    }
+  },
+  "missing_vs_2025": [
+    "Entrance exam: pending (folder empty).",
+    "Group projects: one report PDF each; no slides, notebooks or per-project folder with a Report.pdf.",
+    "Photos: none in the Drive folder; the existing page shows placeholders only.",
+    "No campus split: one flat set of lectures, exercises and projects.",
+    "Team: no organizers or advisors list; names appear only as lecture and exercise authors and in project acknowledgements."
+  ]
+}
