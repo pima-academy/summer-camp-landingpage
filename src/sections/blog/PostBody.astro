@@ -1,0 +1,109 @@
+---
+// PostBody: the text of a blog post (its Markdown, rendered at build time) on its page
+// (src/pages/blog/[slug].astro), in brand prose styles, and a link back to /blog/ at the end.
+// The Markdown's HTML carries no class, so the prose styles reach it with :global() under
+// `.prose`; authors start body headings at `##` (the post title is the h1).
+import { render } from "astro:content";
+import Button from "../../components/Button.astro";
+import Section from "../../components/Section.astro";
+import type { Post } from "./blog";
+
+interface Props {
+  post: Post;
+}
+
+const { Content } = await render(Astro.props.post);
+---
+
+<Section name="post-body" width="small" spacing="small">
+  <div class="prose">
+    <Content />
+  </div>
+  <div class="back">
+    <Button href="/blog/" variant="link">Tất cả bài viết</Button>
+  </div>
+</Section>
+
+<style>
+  /* Every :global() below reaches the rendered Markdown, which carries no scoped class. */
+
+  /* Headings: base.css gives each level its role; the prose adds room above. */
+  .prose :global(h2) {
+    margin-top: var(--space-10);
+    margin-bottom: var(--space-3);
+  }
+
+  /* h3 and h4. */
+  .prose :global(h3),
+  .prose :global(h4) {
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-3);
+  }
+
+  /* The rhythm between blocks. */
+  .prose :global(p),
+  .prose :global(ul),
+  .prose :global(ol),
+  .prose :global(blockquote),
+  .prose :global(table) {
+    margin-top: 0;
+    margin-bottom: var(--space-5);
+  }
+
+  /* Lists. */
+  .prose :global(ul),
+  .prose :global(ol) {
+    padding-left: var(--space-6);
+  }
+
+  /* List items. */
+  .prose :global(li + li) {
+    margin-top: var(--space-1);
+  }
+
+  /* A quote: the accent rule down its left. */
+  .prose :global(blockquote) {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: var(--space-5);
+    border-left: var(--border-width-rule-accent) solid var(--color-border-rule-accent);
+    color: var(--color-text-muted);
+  }
+
+  /* The quote's last block. */
+  .prose :global(blockquote > :last-child) {
+    margin-bottom: 0;
+  }
+
+  /* Tables (docs/brand.md, "Tables"): a dark-green header row with white bold text, data rows
+     separated by hairlines. A wide table scrolls inside its own box. */
+  .prose :global(table) {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Table cells. */
+  .prose :global(th),
+  .prose :global(td) {
+    padding: var(--space-2) var(--space-4);
+    border-bottom: 1px solid var(--color-border);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  /* The header row. */
+  .prose :global(th) {
+    background-color: var(--color-background-table-header);
+    color: var(--color-text-table-header);
+    font-weight: var(--font-weight-bold);
+  }
+
+  .back {
+    margin-top: var(--space-10);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+  }
+</style>

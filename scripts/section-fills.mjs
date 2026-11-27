@@ -15,6 +15,8 @@ export const SECTION_FILLS = {
   "--color-background-timeline-dot-idle": "timeline dot before it is reached",
   // The dev-only "No items found." box of an empty CMS list (content gaps only).
   "--color-background-empty-list": "dev-only empty-list box",
+  // The header row of a blog post's Markdown table (PostBody): generated markup takes no data-tone.
+  "--color-background-table-header": "table header row",
   // The dot between the marquee's claims.
   "--color-marquee-separator": "marquee separator dot",
 };

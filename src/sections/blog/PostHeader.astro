@@ -1,0 +1,92 @@
+---
+// PostHeader: the head of a blog post page (src/pages/blog/[slug].astro): a kicker breadcrumb
+// back to /blog/, the post title (the page's one h1), its date (dd/mm/yyyy), its author when
+// known, and its cover when it has one.
+import { Image } from "astro:assets";
+import BrandName from "../../components/BrandName.astro";
+import Kicker from "../../components/Kicker.astro";
+import Section from "../../components/Section.astro";
+import { fluidWidths } from "../../lib/image-widths";
+import type { Post } from "./blog";
+import { postDate } from "./post-text";
+
+interface Props {
+  post: Post;
+}
+
+const { title, date, author, cover } = Astro.props.post.data;
+---
+
+<Section name="post-header" width="small" spacing="none">
+  <div class="inner">
+    <div class="crumb">
+      <Kicker flush><BrandName /> academy &gt; <a href="/blog/" class="crumb-link">blog</a></Kicker>
+    </div>
+    <h1 class="title">{title}</h1>
+    <p class="meta">
+      <time datetime={date.toISOString().slice(0, 10)} class="date">{postDate(date)}</time>
+      {author && <span class="author">{author}</span>}
+    </p>
+    {
+      cover && (
+        <Image
+          src={cover}
+          alt=""
+          widths={fluidWidths(cover)}
+          sizes="(max-width: 767px) 90vw, 768px"
+          loading="eager"
+          class="cover"
+        />
+      )
+    }
+  </div>
+</Section>
+
+<style>
+  /* Room for the fixed nav above, as PageHeader. */
+  .inner {
+    padding-top: var(--space-28);
+  }
+
+  .crumb {
+    margin-bottom: var(--space-2);
+  }
+
+  .crumb-link {
+    color: var(--color-link);
+  }
+
+  .title {
+    margin-bottom: var(--space-3);
+  }
+
+  .meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-4);
+    margin-bottom: 0;
+    color: var(--color-text-muted);
+  }
+
+  .date {
+    color: var(--color-text-accent);
+    font-weight: var(--font-weight-extrabold);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .author {
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .cover {
+    display: block;
+    width: 100%;
+    margin-top: var(--space-8);
+  }
+
+  @media screen and (max-width: 991px) {
+    .inner {
+      padding-top: var(--space-24);
+    }
+  }
+</style>

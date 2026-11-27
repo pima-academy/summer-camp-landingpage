@@ -1,0 +1,18 @@
+---
+// Blog (spec #110): every published blog post, newest first. Its sections live in
+// src/sections/blog/; the posts in src/content/blog/ (ADR 0007).
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BlogHeader from "../../sections/blog/BlogHeader.astro";
+import PostGrid from "../../sections/blog/PostGrid.astro";
+import { publishedPosts } from "../../sections/blog/blog";
+
+const posts = await publishedPosts();
+---
+
+<BaseLayout
+  title="Blog - PiMA Academy"
+  description="Các bài viết của PiMA Academy về Toán học và Ứng dụng: bài toán, câu đố và câu chuyện từ các mùa Trại hè PiMA."
+>
+  <BlogHeader />
+  <PostGrid posts={posts} />
+</BaseLayout>
