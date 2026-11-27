@@ -131,15 +131,9 @@ test("the old favicon.png and webclip.png are gone", { skip }, () => {
   assert.equal(existsSync(join(dist, "webclip.png")), false);
 });
 
-test("an old PiMA logo export is left only while something imports it (the camp pages)", () => {
-  const images = join(root, "src/assets/images");
-  const old = readdirSync(images).filter((f) => /^logo-(1|horizontal)[.-]/.test(f));
-  const sources = walk(join(root, "src"))
-    .filter((f) => /\.(astro|ts|mjs|css)$/.test(f))
-    .map((f) => readFileSync(f, "utf8"))
-    .join("\n");
-  const unused = old.filter((f) => !sources.includes(`assets/images/${f}"`));
-  assert.deepEqual(unused, []);
+test("no old PiMA logo export is left", () => {
+  const old = readdirSync(join(root, "src/assets/images")).filter((f) => /^logo-(1|horizontal)[.-]/.test(f));
+  assert.deepEqual(old, []);
 });
 
 test("pages without a hero share the 1200 × 630 og:image: the horizontal logo on white", { skip }, () => {

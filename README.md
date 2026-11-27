@@ -1,6 +1,6 @@
 # pimavn.com
 
-The PiMA Academy website, rebuilt on [Astro](https://astro.build) from the old Webflow export ([spec #15](https://github.com/pima-academy/summer-camp-landingpage/issues/15)), then restructured into section files with scoped CSS and brought in line with PiMA's brand guidelines ([spec #56](https://github.com/pima-academy/summer-camp-landingpage/issues/56)). No Webflow CSS or class names remain outside the two frozen camp pages (`src/camp/`). Decisions are recorded in `docs/adr/`; terms are defined in `GLOSSARY.md`; the brand guidelines for the web are in `docs/brand.md`; how to build UI is in `CLAUDE.md` ("Building UI").
+The PiMA Academy website, rebuilt on [Astro](https://astro.build) from the old Webflow export ([spec #15](https://github.com/pima-academy/summer-camp-landingpage/issues/15)), then restructured into section files with scoped CSS and brought in line with PiMA's brand guidelines ([spec #56](https://github.com/pima-academy/summer-camp-landingpage/issues/56)). No Webflow CSS or class names remain. Decisions are recorded in `docs/adr/`; terms are defined in `GLOSSARY.md`; the brand guidelines for the web are in `docs/brand.md`; how to build UI is in `CLAUDE.md` ("Building UI").
 
 **`site/` is the old site** (the Webflow export). pimavn.com still serves it through GitHub Pages (`.github/workflows/pages.yml`) until the switch-over, a separate effort that deploys the rebuild and then deletes `site/`. Until then, treat `site/` as read-only: an archive, no longer the reference for the look (`docs/brand.md` is).
 
@@ -36,7 +36,6 @@ src/
   layouts/          BaseLayout, Head, Nav, Footer
   lib/              page scripts: scroll animations, current link, slider steps, image widths
   gap-pages/        pages whose content does not exist yet (served in dev only)
-  camp/             the frozen 2025/2026 camp pages' layout, components and old CSS (do not edit)
   data/site.ts      site-wide facts: contact details, social links, nav and footer links, form endpoint
   assets/images/    every image used in markup (rendered with astro:assets as WebP)
   assets/icons/     the Tabler SVGs drawn by Icon
