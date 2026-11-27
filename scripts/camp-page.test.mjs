@@ -59,6 +59,22 @@ test("camp history has a card per camp year, 2026 first, each linking its built 
   assert.doesNotMatch(html, /href="#"/);
 });
 
+test("the page header links every camp archive page, oldest first, so a visitor reaches a year without scrolling", { skip }, () => {
+  const header = html.match(/<section[^>]*data-section="page-header"[\s\S]*?<\/section>/)?.[0] ?? "";
+  const nav = header.match(/<nav[^>]*aria-label="Các mùa trại"[^>]*>([\s\S]*?)<\/nav>/)?.[1];
+  assert.ok(nav, "a 'Các mùa trại' nav inside the page header");
+  const links = [...nav.matchAll(/<a[^>]*href="([^"]*)"[^>]*>\s*(\d{4})\s*<\/a>/g)].map((m) => [m[1], m[2]]);
+  assert.deepEqual(
+    links.map(([, y]) => y),
+    ["2016", "2017", "2018", "2019", "2021", "2023", "2024", "2025", "2026"],
+  );
+  for (const [href, y] of links) {
+    assert.equal(href, `/trai-he-toan-hoc-pima/${y}/`);
+    assert.ok(readBuilt(`trai-he-toan-hoc-pima/${y}/index.html`), `${href} is built`);
+  }
+  assert.doesNotMatch(nav, /aria-current/);
+});
+
 test("camp page images all go through <Image> and none point into site/", { skip }, () => {
   const srcs = [...html.matchAll(/<img[^>]*\ssrc="([^"]+)"/g)].map((m) => m[1]);
   assert.ok(srcs.length > 10, `images found: ${srcs.length}`);

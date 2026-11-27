@@ -13,9 +13,12 @@
 // A year held at several campuses (2025) has one cover per campus: they crossfade every 7 s
 // with a campus tag, and the matching date block's rule and days turn Pale Lime in step.
 // Hover pauses; reduced motion shows the first cover only.
+// Above the frame, the row of every camp year (CampYearNav) with this one current: the frame's
+// viewport fit leaves room for its one line.
 // Used by trai-he-toan-hoc-pima/[year].
 import { Image } from "astro:assets";
 import BrandName from "../../components/BrandName.astro";
+import CampYearNav from "../../components/CampYearNav.astro";
 import Section from "../../components/Section.astro";
 import { calendarDates, countsSentence, coversOf, type CampYear } from "./camp-archive";
 
@@ -39,6 +42,9 @@ const wide = ratio >= 2;
 ---
 
 <Section name="cover" width="large" spacing="none">
+  <div class="years">
+    <CampYearNav current={camp.year} />
+  </div>
   <div class:list={["bookcover", { wide }]} data-tone="dark-green" data-covers={slides.length}>
     <div class:list={["photo", { rotating }]} style={`--cover-ratio: ${ratio}`}>
       <div class="fit">
@@ -131,9 +137,21 @@ const wide = ratio >= 2;
 </script>
 
 <style>
-  /* The book cover: one dark-green frame, as tall as its photo and text need. */
+  /* The year row (CampYearNav), under the fixed nav. */
+  .years {
+    margin-top: var(--space-24);
+  }
+
+  /* The book cover: one dark-green frame, as tall as its photo and text need. --year-nav-room is
+     what the year row adds above it, compared with a frame right under the nav: the row's one
+     line at >= 992 px (a year link's line, padding and rule), the gap under it and the extra top
+     room. The viewport fit below takes it off. */
   .bookcover {
-    margin-top: var(--space-20);
+    --year-nav-room: calc(
+      var(--font-size-body) * var(--line-height-body) + 2 * var(--space-1) + var(--border-width-rule-accent) + var(--space-4) +
+        var(--space-4)
+    );
+    margin-top: var(--space-4);
     margin-bottom: var(--space-16);
     padding: var(--space-6);
     border-radius: var(--radius);
@@ -346,7 +364,7 @@ const wide = ratio >= 2;
   }
   .bookcover .photo::before {
     max-height: calc(
-      100svh - var(--space-24) - 2 * var(--space-6) - 2 * var(--space-8) - var(--font-size-body) * var(--line-height-body) -
+      100svh - var(--space-24) - var(--year-nav-room) - 2 * var(--space-6) - 2 * var(--space-8) - var(--font-size-body) * var(--line-height-body) -
         3 * var(--space-3) - var(--space-4) - var(--font-size-h3) * var(--line-height-h3) - 2px
     );
   }
@@ -369,7 +387,7 @@ const wide = ratio >= 2;
       grid-template-columns: none;
       grid-template-rows: minmax(0, 1fr) auto;
       grid-template-areas: "photo" "text";
-      max-height: calc(100svh - var(--space-24));
+      max-height: calc(100svh - var(--space-24) - var(--year-nav-room));
     }
     .wide .photo::before {
       max-height: none;

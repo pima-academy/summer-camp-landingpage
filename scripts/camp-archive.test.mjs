@@ -270,6 +270,31 @@ test("the build has a camp archive page for each year file and no other", { skip
   assert.deepEqual(built, yearFiles);
 });
 
+test("every camp archive page opens with its parent and every year, its own marked current", { skip: distSkip }, () => {
+  const years = yearFiles.map((f) => f.replace(".ts", ""));
+  for (const year of years) {
+    const html = readBuilt(`trai-he-toan-hoc-pima/${year}/index.html`);
+    const nav = html.match(/<nav[^>]*aria-label="Các mùa trại"[^>]*>([\s\S]*?)<\/nav>/);
+    assert.ok(nav, `${year}: a 'Các mùa trại' nav`);
+    assert.ok(nav.index < html.indexOf("<h1"), `${year}: the nav comes before the cover's title`);
+    const links = [...nav[1].matchAll(/<a([^>]*)>\s*([^<]*?)\s*<\/a>/g)].map((m) => ({
+      href: m[1].match(/href="([^"]*)"/)?.[1],
+      current: /aria-current="page"/.test(m[1]),
+      text: m[2],
+    }));
+    assert.deepEqual(links[0], { href: "/trai-he-toan-hoc-pima/", current: false, text: "Trại hè Toán học" }, year);
+    assert.deepEqual(
+      links.slice(1).map((l) => l.text),
+      years,
+      year,
+    );
+    for (const l of links.slice(1)) {
+      assert.equal(l.href, `/trai-he-toan-hoc-pima/${l.text}/`);
+      assert.equal(l.current, l.text === year, `${year}: ${l.text} current`);
+    }
+  }
+});
+
 test("an item with no file shows its title and authors, with no link and no dotted leader (2017 'Tối ưu hóa')", { skip: distSkip }, () => {
   const html = readBuilt("trai-he-toan-hoc-pima/2017/index.html");
   const entries = [...html.matchAll(/<li[^>]*class="entry[^"]*"[^>]*>([\s\S]*?)<\/li>/g)].map((m) => m[1]);

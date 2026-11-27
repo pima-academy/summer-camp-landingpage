@@ -1,0 +1,105 @@
+---
+// CampYearNav: every camp year as a row of links, oldest first, each to its camp archive page
+// (/trai-he-toan-hoc-pima/<year>/), so a visitor reaches a year, or another year, in one click.
+// On the camp overview page it opens with the label "Các mùa trại"; on a camp archive page
+// (`current` set) with a link back to the overview, its parent, and the year on show is marked
+// with aria-current="page" and a short PiMA Green rule under it. Wraps on a narrow screen.
+// Used by PageHeader (trai-he-toan-hoc-pima, under the title) and camp-archive/Cover
+// (trai-he-toan-hoc-pima/[year], above the book cover). Cover's viewport fit (--year-nav-room)
+// counts on its one line at >= 992 px: a year link's line, padding and rule.
+import { campYears } from "../sections/camp-archive/camp-years";
+
+interface Props {
+  /** The year of the camp archive page it sits on; none on the overview page. */
+  current?: number;
+}
+
+const { current } = Astro.props;
+const years = campYears.map((c) => c.year);
+---
+
+<nav class="camp-years" aria-label="Các mùa trại">
+  {
+    current === undefined ? (
+      <span class="label">Các mùa trại</span>
+    ) : (
+      <a href="/trai-he-toan-hoc-pima/" class="parent">
+        Trại hè Toán học
+      </a>
+    )
+  }
+  <ul role="list" class="list">
+    {
+      years.map((y) => (
+        <li>
+          <a href={`/trai-he-toan-hoc-pima/${y}/`} class="year" aria-current={y === current ? "page" : undefined}>
+            {y}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
+
+<style>
+  .camp-years {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: var(--space-6);
+    row-gap: var(--space-2);
+  }
+  .label,
+  .parent {
+    font-weight: var(--font-weight-extrabold);
+  }
+  .label {
+    color: var(--color-text-heading);
+  }
+  .parent {
+    padding-right: var(--space-6);
+    border-right: 1px solid var(--color-border);
+    color: var(--color-link);
+  }
+  /* The years' padding hangs out to the left, so a year that wraps lines up with the label. */
+  .list {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: var(--space-2);
+    row-gap: var(--space-1);
+    margin: 0 0 0 calc(-1 * var(--space-2));
+    padding: 0;
+    list-style: none;
+  }
+  /* Every year keeps room for the rule, so the one on show does not sit higher. */
+  .year {
+    display: block;
+    padding: var(--space-1) var(--space-2);
+    border-bottom: var(--border-width-rule-accent) solid transparent;
+    color: var(--color-link);
+    font-weight: var(--font-weight-bold);
+    font-variant-numeric: tabular-nums;
+  }
+  .parent:hover,
+  .year:hover {
+    color: var(--color-link-hover);
+  }
+  .year[aria-current="page"] {
+    border-bottom-color: var(--color-border-rule-accent);
+    color: var(--color-text-heading);
+    font-weight: var(--font-weight-extrabold);
+    text-decoration: none;
+  }
+
+  /* The years go under the label or the parent link, so no rule between them. */
+  @media screen and (max-width: 767px) {
+    .camp-years {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .parent {
+      padding-right: 0;
+      border-right: 0;
+    }
+  }
+</style>
