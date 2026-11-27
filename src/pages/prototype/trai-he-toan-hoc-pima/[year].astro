@@ -1,0 +1,107 @@
+---
+// PROTOTYPE (throwaway, branch prototype/camp-archive-page; dev only): three layout variants of
+// the camp archive page (issue #89), on the real 2019 and 2025 data. /prototype/trai-he-toan-hoc-pima/2019/?variant=B
+// Every variant is rendered; the switcher bar shows the one named by ?variant= (A, B or C).
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import VariantA from "../../../sections/camp-archive/prototype/VariantA.astro";
+import VariantB from "../../../sections/camp-archive/prototype/VariantB.astro";
+import VariantC from "../../../sections/camp-archive/prototype/VariantC.astro";
+import { years, type CampYear } from "../../../sections/camp-archive/prototype/data";
+
+export function getStaticPaths() {
+  if (!import.meta.env.DEV) return [];
+  return Object.keys(years).map((year) => ({ params: { year }, props: { y: years[year] } }));
+}
+
+const { y } = Astro.props as { y: CampYear };
+---
+
+<BaseLayout title={`${y.topic.vi} | Trại hè PiMA ${y.year} (prototype)`} description="Prototype" noindex>
+  <div data-proto="A"><VariantA y={y} /></div>
+  <div data-proto="B" hidden><VariantB y={y} /></div>
+  <div data-proto="C" hidden><VariantC y={y} /></div>
+
+  <div class="proto-bar" role="toolbar" aria-label="Prototype variants">
+    <button type="button" data-step="-1" aria-label="Previous variant">←</button>
+    <span class="proto-label"></span>
+    <button type="button" data-step="1" aria-label="Next variant">→</button>
+    <span class="proto-sep"></span>
+    {Object.keys(years).map((yr) => <a href={`../${yr}/`} data-year={yr} aria-current={String(y.year) === yr ? "page" : undefined}>{yr}</a>)}
+  </div>
+</BaseLayout>
+
+<script>
+  const names: Record<string, string> = { A: "A · Hồ sơ", B: "B · Triển lãm", C: "C · Thư mục" };
+  const keys = Object.keys(names);
+  const label = document.querySelector(".proto-label")!;
+  function show(v: string) {
+    if (!keys.includes(v)) v = "A";
+    document.querySelectorAll<HTMLElement>("[data-proto]").forEach((el) => (el.hidden = el.dataset.proto !== v));
+    label.textContent = names[v];
+    const url = new URL(location.href);
+    url.searchParams.set("variant", v);
+    history.replaceState(null, "", url);
+    document.querySelectorAll<HTMLAnchorElement>(".proto-bar a[data-year]").forEach((a) => {
+      a.href = `../${a.dataset.year}/?variant=${v}`;
+    });
+  }
+  let current = new URL(location.href).searchParams.get("variant")?.toUpperCase() ?? "A";
+  show(current);
+  function step(d: number) {
+    const i = keys.indexOf(current);
+    current = keys[(i + d + keys.length) % keys.length];
+    show(current);
+    window.scrollTo(0, 0);
+  }
+  document.querySelectorAll<HTMLButtonElement>(".proto-bar button").forEach((b) => b.addEventListener("click", () => step(Number(b.dataset.step))));
+  document.addEventListener("keydown", (e) => {
+    const t = e.target as HTMLElement;
+    if (t.closest("input, textarea, [contenteditable]")) return;
+    if (e.key === "ArrowLeft") step(-1);
+    if (e.key === "ArrowRight") step(1);
+  });
+</script>
+
+<style>
+  /* Prototype chrome, deliberately off-brand so it reads as not part of the design. */
+  .proto-bar {
+    position: fixed;
+    left: 50%;
+    bottom: var(--space-4);
+    transform: translateX(-50%);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-circle);
+    background: var(--black);
+    color: var(--white);
+    box-shadow: var(--shadow-dropdown);
+    font-size: var(--font-size-small);
+    font-weight: var(--font-weight-bold);
+  }
+  .proto-bar button {
+    background: none;
+    border: 0;
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+    font-size: var(--font-size-body);
+  }
+  .proto-bar a {
+    color: var(--gray-3);
+  }
+  .proto-bar a[aria-current] {
+    color: var(--pima-green);
+  }
+  .proto-label {
+    min-width: 8rem;
+    text-align: center;
+  }
+  .proto-sep {
+    width: 1px;
+    align-self: stretch;
+    background: var(--gray-1);
+  }
+</style>

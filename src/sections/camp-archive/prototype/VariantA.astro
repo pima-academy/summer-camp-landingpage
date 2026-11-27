@@ -1,0 +1,536 @@
+---
+// PROTOTYPE variant A, "Hồ sơ" (archive record): a header with the cover beside the title, then
+// one long reading column with a sticky table of contents on the left (chips under the nav on
+// mobile). Lists are plain rows: title, authors, file links as text. Gallery: every section
+// shows its photos in a grid. Used by /prototype/trai-he-toan-hoc-pima/[year]/ only.
+import { Image } from "astro:assets";
+import BrandName from "../../../components/BrandName.astro";
+import Icon from "../../../components/Icon.astro";
+import Kicker from "../../../components/Kicker.astro";
+import Section from "../../../components/Section.astro";
+import { blocks, campusCount, iconFor, sectionPhotos, type CampYear, type DocItem, type FileLink } from "./data";
+
+interface Props { y: CampYear }
+const { y } = Astro.props;
+const toc = blocks(y);
+const multiCampus = campusCount(y) > 1;
+const campers = y.projects?.reduce((n, p) => n + p.groups.reduce((m, g) => m + g.campers.length, 0), 0) ?? 0;
+const photos = y.gallery?.reduce((n, s) => n + s.total, 0) ?? 0;
+const facts = [
+  y.lectures?.length && `${y.lectures.length} bài giảng`,
+  y.projects?.length && `${y.projects.length} dự án nhóm`,
+  campers && `${campers} trại sinh`,
+  photos && `${photos} ảnh`,
+].filter(Boolean);
+const docBlocks: { id: string; title: string; items?: DocItem[] }[] = [
+  { id: "de-tuyen-sinh", title: "Đề tuyển sinh", items: y.entranceExam },
+  { id: "bai-giang", title: "Bài giảng", items: y.lectures },
+  { id: "bai-tap", title: "Bài tập", items: y.exercises },
+  { id: "tai-lieu-doc-them", title: "Tài liệu đọc thêm", items: y.reading },
+];
+const fileText = (f: FileLink) => f.label;
+---
+
+<Section name="variant-a-header" tone="surface" spacing="none">
+  <div class:list={["head", { "has-cover": y.cover }]}>
+    <div class="head-text">
+      <Kicker flush>Trại hè <BrandName /> {y.year}</Kicker>
+      <h1>{y.topic.vi}</h1>
+      <p class="en">{y.topic.en}</p>
+      {
+        y.sessions && (
+          <ul class="sessions">
+            {y.sessions.map((s) => (
+              <li>
+                <Icon name="map-pin" size="text" class="ic" />
+                <strong>{s.campus}</strong>
+                {s.dates && <span>{s.dates}</span>}
+                {s.venue && <span class="muted">{s.venue}</span>}
+              </li>
+            ))}
+          </ul>
+        )
+      }
+      {facts.length > 0 && <p class="facts">{facts.join(" · ")}</p>}
+    </div>
+    {y.cover && <Image src={y.cover} alt={`Trại sinh và ban tổ chức Trại hè PiMA ${y.year}`} widths={[640, 960, 1280]} sizes="(max-width: 767px) 90vw, 40vw" class="cover" />}
+  </div>
+</Section>
+
+<Section name="variant-a-body" width="large" spacing="medium">
+  <div class="layout">
+    <nav class="toc" aria-label="Mục lục">
+      <p class="toc-title">Mục lục</p>
+      <ul>
+        {toc.map((b) => <li><a href={`#a-${b.id}`}>{b.title}{b.count ? <span class="count">{b.count}</span> : null}</a></li>)}
+      </ul>
+    </nav>
+
+    <div class="content">
+      <section id="a-chu-de" class="block">
+        <h2>Chủ đề</h2>
+        {y.description?.map((p) => <p class="prose">{p}</p>)}
+        {
+          y.programme && (
+            <>
+              <h3 class="sub">Nội dung chương trình</h3>
+              <ol class="programme">{y.programme.map((p) => <li>{p}</li>)}</ol>
+            </>
+          )
+        }
+        {!y.description && !y.programme && <p class="prose">{y.topic.vi} ({y.topic.en}).</p>}
+      </section>
+
+      {
+        y.team && (
+          <section id="a-ban-to-chuc" class="block">
+            <h2>Ban tổ chức</h2>
+            {y.team.map((t) => (
+              <>
+                <h3 class="sub">{t.name}</h3>
+                <ul class="team">
+                  {t.members.map((m) => (
+                    <li>
+                      {m.photo && <Image src={m.photo} alt={m.name} width={96} height={96} class="avatar" />}
+                      <div>
+                        <p class="name">{m.name}</p>
+                        {m.affiliation && <p class="muted small">{m.affiliation}</p>}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ))}
+          </section>
+        )
+      }
+
+      {
+        docBlocks.filter((b) => b.items?.length).map((b) => (
+          <section id={`a-${b.id}`} class="block">
+            <h2>{b.title}</h2>
+            <ol class="rows">
+              {b.items!.map((it) => (
+                <li class="row">
+                  <div class="row-main">
+                    <p class="row-title">
+                      {it.title}
+                      {it.fromYear && <span class="muted"> (từ trại hè {it.fromYear})</span>}
+                    </p>
+                    {it.authors.length > 0 && (
+                      <p class="muted small">{it.authors.map((a) => (a.affiliation ? `${a.name}, ${a.affiliation}` : a.name)).join(" · ")}</p>
+                    )}
+                  </div>
+                  <div class="links">
+                    {it.files.map((f) => (
+                      <a href={f.url} target="_blank" rel="noopener">
+                        <Icon name={iconFor[f.label]} size="16" />
+                        {fileText(f)}
+                      </a>
+                    ))}
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </section>
+        ))
+      }
+
+      {
+        y.projects && (
+          <section id="a-du-an-nhom" class="block">
+            <h2>Dự án nhóm</h2>
+            {y.projects.map((p) => (
+              <article class="project">
+                <div class="project-head">
+                  <h3>{p.title}</h3>
+                  {p.brief && (
+                    <a href={p.brief.url} target="_blank" rel="noopener" class="brief">
+                      <Icon name="file-text" size="16" /> Đề bài
+                    </a>
+                  )}
+                </div>
+                {p.description && <p class="prose small-prose">{p.description}</p>}
+                {p.groups.length === 0 && <p class="muted small">Không có báo cáo nhóm.</p>}
+                <ul class="groups">
+                  {p.groups.map((g, i) => (
+                    <li class="group">
+                      <div class="row-main">
+                        <p class="row-title">
+                          {g.reportTitle ?? `Nhóm ${i + 1}`}
+                          {multiCampus && g.campus && <span class="tag">{g.campus}</span>}
+                        </p>
+                        <p class="small">
+                          {g.campers.map((c, k) => (
+                            <>
+                              {k > 0 && " · "}
+                              <span class="camper">{c.name}</span> <span class="muted">({c.school})</span>
+                            </>
+                          ))}
+                        </p>
+                        {g.mentors.length > 0 && <p class="muted small">Mentor: {g.mentors.map((m) => m.name).join(", ")}</p>}
+                      </div>
+                      <div class="links">
+                        {g.files.map((f) => (
+                          <a href={f.url} target="_blank" rel="noopener">
+                            <Icon name={iconFor[f.label]} size="16" />
+                            {f.label === "PDF" ? "Báo cáo" : f.label}
+                          </a>
+                        ))}
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </section>
+        )
+      }
+
+      {
+        y.gallery && (
+          <section id="a-hinh-anh" class="block">
+            <h2>Hình ảnh</h2>
+            {y.gallery.map((s) => {
+              const list = sectionPhotos(y.year, s.folder);
+              return (
+                <div class="album">
+                  <h3 class="sub">
+                    {s.name} <span class="muted small">{s.total} ảnh</span>
+                  </h3>
+                  <div class="grid">
+                    {list.map((ph, k) => (
+                      <a href={ph.src} class="ph">
+                        <Image src={ph} alt="" widths={[320, 480]} sizes="(max-width: 767px) 45vw, 220px" class="ph-img" />
+                        {k === list.length - 1 && s.total > list.length && <span class="more">+{s.total - list.length}</span>}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </section>
+        )
+      }
+    </div>
+  </div>
+</Section>
+
+<style>
+  .head {
+    display: grid;
+    gap: var(--space-12);
+    align-items: center;
+    padding-top: var(--space-28);
+    padding-bottom: var(--space-16);
+  }
+  .head.has-cover {
+    grid-template-columns: 1fr 1fr;
+  }
+  .en {
+    margin-top: var(--space-2);
+    color: var(--color-text-muted);
+    font-size: var(--font-size-h3);
+    font-weight: var(--font-weight-semibold);
+  }
+  .sessions {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-6) 0 0;
+    display: grid;
+    gap: var(--space-2);
+  }
+  .sessions li {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    align-items: baseline;
+  }
+  .ic {
+    color: var(--color-icon-decorative);
+    align-self: center;
+  }
+  .facts {
+    margin-top: var(--space-4);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-heading);
+    font-variant-numeric: tabular-nums;
+  }
+  .cover {
+    width: 100%;
+    aspect-ratio: 16 / 7;
+    object-fit: cover;
+    object-position: top;
+  }
+  .muted {
+    color: var(--color-text-muted);
+  }
+  .small {
+    font-size: var(--font-size-small);
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: 14rem minmax(0, 1fr);
+    gap: var(--space-16);
+  }
+  .toc {
+    position: sticky;
+    top: var(--space-24);
+    align-self: start;
+  }
+  .toc-title {
+    font-size: var(--font-size-kicker);
+    font-weight: var(--font-weight-extrabold);
+    letter-spacing: var(--letter-spacing-kicker);
+    text-transform: uppercase;
+    margin-bottom: var(--space-3);
+  }
+  .toc ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-left: 2px solid var(--color-border);
+  }
+  .toc a {
+    display: flex;
+    justify-content: space-between;
+    padding: var(--space-2) var(--space-4);
+    color: var(--color-text-muted);
+    font-weight: var(--font-weight-semibold);
+    text-decoration: none;
+  }
+  .toc a:hover {
+    color: var(--color-text-heading);
+  }
+  .count {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .block {
+    scroll-margin-top: var(--space-24);
+    padding-bottom: var(--space-12);
+    margin-bottom: var(--space-12);
+    border-bottom: 1px solid var(--color-border);
+  }
+  .block:last-child {
+    border-bottom: 0;
+  }
+  .block > h2 {
+    margin-bottom: var(--space-6);
+  }
+  .sub {
+    margin: var(--space-8) 0 var(--space-4);
+  }
+  .prose {
+    max-width: 44rem;
+    margin-bottom: var(--space-4);
+  }
+  .small-prose {
+    font-size: var(--font-size-small);
+    color: var(--color-text-muted);
+  }
+  .programme {
+    padding-left: var(--space-6);
+    display: grid;
+    gap: var(--space-2);
+    max-width: 44rem;
+  }
+
+  .team {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-6);
+  }
+  .team li {
+    display: flex;
+    gap: var(--space-4);
+    align-items: center;
+  }
+  .avatar {
+    width: var(--space-20);
+    height: var(--space-20);
+    object-fit: cover;
+  }
+  .name {
+    font-weight: var(--font-weight-extrabold);
+    color: var(--color-text-heading);
+  }
+
+  .rows,
+  .groups {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .row,
+  .group {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-6);
+    padding: var(--space-4) 0;
+    border-top: 1px solid var(--color-border);
+  }
+  .rows {
+    counter-reset: row;
+  }
+  .row {
+    counter-increment: row;
+  }
+  .row .row-main::before {
+    content: counter(row, decimal-leading-zero);
+    float: left;
+    width: var(--space-10);
+    font-weight: var(--font-weight-extrabold);
+    color: var(--color-text-muted);
+    font-variant-numeric: tabular-nums;
+  }
+  .row .row-main > p {
+    margin-left: var(--space-10);
+  }
+  .row-title {
+    font-weight: var(--font-weight-bold);
+  }
+  .links {
+    display: flex;
+    gap: var(--space-4);
+    flex-shrink: 0;
+    align-items: flex-start;
+  }
+  .links a,
+  .brief {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    color: var(--color-link);
+    font-weight: var(--font-weight-bold);
+    font-size: var(--font-size-small);
+    white-space: nowrap;
+  }
+  .project {
+    margin-bottom: var(--space-10);
+  }
+  .project-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-4);
+    margin-bottom: var(--space-2);
+  }
+  .group {
+    padding-left: var(--space-4);
+    border-left: 3px solid var(--color-background-accent);
+    border-top: 0;
+    margin-top: var(--space-3);
+    padding-top: var(--space-2);
+    padding-bottom: var(--space-2);
+  }
+  .tag {
+    margin-left: var(--space-2);
+    padding: 0 var(--space-2);
+    border-radius: var(--radius);
+    background: var(--color-background-pale-lime);
+    font-size: var(--font-size-small);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--letter-spacing-tag);
+  }
+  .camper {
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .album {
+    margin-bottom: var(--space-6);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-2);
+  }
+  .ph {
+    position: relative;
+    display: block;
+    aspect-ratio: 3 / 2;
+  }
+  .ph-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .more {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    border-radius: var(--radius);
+    background: var(--color-video-overlay);
+    color: var(--color-text-on-dark);
+    font-size: var(--font-size-h3);
+    font-weight: var(--font-weight-extrabold);
+  }
+
+  @media screen and (max-width: 991px) {
+    .head.has-cover {
+      grid-template-columns: 1fr;
+    }
+    .layout {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-6);
+    }
+    .toc {
+      top: var(--space-16);
+      z-index: 1;
+      background: var(--color-background);
+      padding: var(--space-2) 0;
+    }
+    .toc-title {
+      display: none;
+    }
+    .toc ul {
+      display: flex;
+      overflow-x: auto;
+      border-left: 0;
+      gap: var(--space-2);
+    }
+    .toc a {
+      white-space: nowrap;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      gap: var(--space-2);
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .head {
+      padding-top: var(--space-24);
+      padding-bottom: var(--space-10);
+      gap: var(--space-6);
+    }
+    .row,
+    .group {
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+    .links {
+      flex-wrap: wrap;
+    }
+    .row .links {
+      margin-left: var(--space-10);
+    }
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .team {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<style>
+  /* base.css gives every img overflow: visible, which paints the part object-fit: cover crops. */
+  :global([data-proto] img) {
+    overflow: clip;
+  }
+</style>

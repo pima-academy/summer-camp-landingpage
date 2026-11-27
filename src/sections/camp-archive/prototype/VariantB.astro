@@ -1,0 +1,647 @@
+---
+// PROTOTYPE variant B, "Triển lãm" (showcase): a full-width cover band (a dark-green band when
+// the year has no cover), stat tiles, then blocks as cards. Lectures are a card grid showing the
+// first six with the rest behind "Xem tất cả"; each project topic is a large card whose groups
+// are sub-cards with camper chips. Gallery: one album cover per section. Files are chip buttons.
+// Used by /prototype/trai-he-toan-hoc-pima/[year]/ only.
+import { Image } from "astro:assets";
+import BrandName from "../../../components/BrandName.astro";
+import Icon from "../../../components/Icon.astro";
+import Kicker from "../../../components/Kicker.astro";
+import Section from "../../../components/Section.astro";
+import { campusCount, iconFor, sectionPhotos, type CampYear, type DocItem } from "./data";
+
+interface Props { y: CampYear }
+const { y } = Astro.props;
+const multiCampus = campusCount(y) > 1;
+const campers = y.projects?.reduce((n, p) => n + p.groups.reduce((m, g) => m + g.campers.length, 0), 0) ?? 0;
+const photos = y.gallery?.reduce((n, s) => n + s.total, 0) ?? 0;
+const stats = [
+  { n: y.lectures?.length ?? 0, label: "bài giảng" },
+  { n: y.projects?.length ?? 0, label: "dự án nhóm" },
+  { n: campers, label: "trại sinh" },
+  { n: photos, label: "ảnh" },
+].filter((s) => s.n > 0);
+const SHOWN = 6;
+const smallDocs: { title: string; items?: DocItem[] }[] = [
+  { title: "Đề tuyển sinh", items: y.entranceExam },
+  { title: "Bài tập", items: y.exercises },
+  { title: "Tài liệu đọc thêm", items: y.reading },
+].filter((b) => b.items?.length);
+---
+
+<section class:list={["hero", { "no-cover": !y.cover }]} data-section="variant-b-hero" data-tone="dark-green">
+  {y.cover && <Image src={y.cover} alt="" widths={[1080, 1600]} sizes="100vw" class="hero-img" loading="eager" />}
+  <div class="hero-panel" data-tone="dark-green">
+    <Kicker flush>Trại hè <BrandName /> {y.year}</Kicker>
+    <h1>{y.topic.vi}</h1>
+    <p class="hero-en">{y.topic.en}</p>
+    {
+      y.sessions && (
+        <div class="hero-sessions">
+          {y.sessions.map((s) => (
+            <p>
+              <strong>{s.campus}</strong> · {s.dates}
+            </p>
+          ))}
+        </div>
+      )
+    }
+  </div>
+</section>
+
+{
+  stats.length > 0 && (
+    <Section name="variant-b-stats" spacing="small">
+      <div class="stats">
+        {stats.map((s, i) => (
+          <div class="stat" data-fill={["green", "dark", "lime", "green"][i]}>
+            <span class="stat-n">{s.n}</span>
+            <span class="stat-l">{s.label}</span>
+          </div>
+        ))}
+      </div>
+    </Section>
+  )
+}
+
+{
+  (y.description || y.programme || y.sessions) && (
+    <Section name="variant-b-topic" spacing="medium">
+      <div class="topic">
+        <div>
+          <h2>Chủ đề</h2>
+          {y.description?.map((p) => <p class="lead">{p}</p>)}
+        </div>
+        {y.programme && (
+          <div class="programme" data-tone="surface">
+            <h3>Nội dung chương trình</h3>
+            <ol>
+              {y.programme.map((p, i) => (
+                <li>
+                  <span class="pn">{i + 1}</span>
+                  <span>{p}</span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        )}
+      </div>
+      {y.sessions && (
+        <div class="session-cards">
+          {y.sessions.map((s) => (
+            <div class="session" data-tone="pale-lime">
+              <Icon name="map-pin" size="24" class="deco" />
+              <h3>Trại {s.campus}</h3>
+              <p>
+                <Icon name="calendar" size="text" class="deco" /> {s.dates}
+              </p>
+              <p>{s.venue}</p>
+            </div>
+          ))}
+        </div>
+      )}
+    </Section>
+  )
+}
+
+{
+  y.team && (
+    <Section name="variant-b-team" spacing="medium" tone="pale-lime">
+      <h2>Ban tổ chức</h2>
+      <div class="team">
+        {y.team.flatMap((t) =>
+          t.members.map((m) => (
+            <figure class="member">
+              {m.photo && <Image src={m.photo} alt={m.name} widths={[240, 480]} sizes="240px" class="member-img" />}
+              <figcaption>
+                <span class="role">{t.name}</span>
+                <span class="member-name">{m.name}</span>
+                <span class="muted small">{m.affiliation}</span>
+              </figcaption>
+            </figure>
+          )),
+        )}
+      </div>
+    </Section>
+  )
+}
+
+{
+  y.lectures && (
+    <Section name="variant-b-lectures" spacing="medium">
+      <h2>Bài giảng</h2>
+      <div class="cards">
+        {y.lectures.slice(0, SHOWN).map((l, i) => (
+          <article class="card" data-tone="surface">
+            <span class="card-n">{String(i + 1).padStart(2, "0")}</span>
+            <h3 class="card-title">{l.title}</h3>
+            {l.fromYear && <p class="muted small">Từ trại hè {l.fromYear}</p>}
+            <p class="muted small authors">{l.authors.map((a) => a.name).join(", ")}</p>
+            <div class="chips">
+              {l.files.map((f) => (
+                <a href={f.url} target="_blank" rel="noopener" class="chip">
+                  <Icon name={iconFor[f.label]} size="16" /> {f.label}
+                </a>
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
+      {y.lectures.length > SHOWN && (
+        <details class="more">
+          <summary>Xem tất cả {y.lectures.length} bài giảng</summary>
+          <div class="cards">
+            {y.lectures.slice(SHOWN).map((l, i) => (
+              <article class="card" data-tone="surface">
+                <span class="card-n">{String(i + SHOWN + 1).padStart(2, "0")}</span>
+                <h3 class="card-title">{l.title}</h3>
+                <p class="muted small authors">{l.authors.map((a) => a.name).join(", ")}</p>
+                <div class="chips">
+                  {l.files.map((f) => (
+                    <a href={f.url} target="_blank" rel="noopener" class="chip">
+                      <Icon name={iconFor[f.label]} size="16" /> {f.label}
+                    </a>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
+        </details>
+      )}
+    </Section>
+  )
+}
+
+{
+  smallDocs.length > 0 && (
+    <Section name="variant-b-docs" spacing="small" tone="surface">
+      <div class="docs">
+        {smallDocs.map((b) => (
+          <div class="doc-col">
+            <h3>{b.title}</h3>
+            <ul>
+              {b.items!.map((it) => (
+                <li>
+                  <span>{it.title}</span>
+                  <span class="chips">
+                    {it.files.map((f) => (
+                      <a href={f.url} target="_blank" rel="noopener" class="chip" data-tone="white">
+                        <Icon name={iconFor[f.label]} size="16" /> {f.label}
+                      </a>
+                    ))}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </Section>
+  )
+}
+
+{
+  y.projects && (
+    <Section name="variant-b-projects" spacing="medium">
+      <h2>Dự án nhóm</h2>
+      <div class="projects">
+        {y.projects.map((p) => (
+          <article class="project" data-tone="surface">
+            <h3>{p.title}</h3>
+            {p.description && <p class="clamp">{p.description}</p>}
+            {p.brief && (
+              <a href={p.brief.url} target="_blank" rel="noopener" class="chip" data-tone="white">
+                <Icon name="file-text" size="16" /> Đề bài
+              </a>
+            )}
+            <div class="groups">
+              {p.groups.map((g) => (
+                <div class="group" data-tone="white">
+                  {multiCampus && g.campus && <span class="tag">{g.campus}</span>}
+                  {g.reportTitle && <p class="group-title">{g.reportTitle}</p>}
+                  <ul class="campers">
+                    {g.campers.map((c) => (
+                      <li title={c.school}>
+                        <Icon name="user" size="text" class="deco" />
+                        {c.name}
+                      </li>
+                    ))}
+                  </ul>
+                  {g.mentors.length > 0 && <p class="muted small">Mentor: {g.mentors.map((m) => m.name).join(", ")}</p>}
+                  <div class="chips">
+                    {g.files.map((f) => (
+                      <a href={f.url} target="_blank" rel="noopener" class="chip">
+                        <Icon name={iconFor[f.label]} size="16" /> {f.label === "PDF" ? "Báo cáo" : f.label}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
+    </Section>
+  )
+}
+
+{
+  y.gallery && (
+    <Section name="variant-b-gallery" spacing="medium" tone="dark-green">
+      <h2>Hình ảnh</h2>
+      <div class="albums">
+        {y.gallery.map((s, i) => {
+          const first = sectionPhotos(y.year, s.folder)[0];
+          return (
+            <a href="#" class:list={["album", { wide: i === 0 || i === 7 }]}>
+              {first && <Image src={first} alt="" widths={[480, 960]} sizes="(max-width: 767px) 90vw, 33vw" class="album-img" />}
+              <span class="album-label">
+                <strong>{s.name}</strong>
+                <span>{s.total} ảnh</span>
+              </span>
+            </a>
+          );
+        })}
+      </div>
+    </Section>
+  )
+}
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    min-height: 34rem;
+    display: flex;
+    align-items: flex-end;
+    padding: var(--space-28) var(--gutter-page) var(--space-12);
+  }
+  .hero.no-cover {
+    min-height: 0;
+  }
+  .hero-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 0;
+  }
+  .hero-panel {
+    position: relative;
+    max-width: 40rem;
+    padding: var(--space-8);
+    border-radius: var(--radius);
+  }
+  .no-cover .hero-panel {
+    padding: 0;
+    max-width: var(--width-large);
+  }
+  .hero-en {
+    margin-top: var(--space-2);
+    color: var(--color-text-accent);
+    font-size: var(--font-size-h3);
+    font-weight: var(--font-weight-semibold);
+  }
+  .hero-sessions {
+    margin-top: var(--space-4);
+    display: flex;
+    gap: var(--space-6);
+    flex-wrap: wrap;
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    gap: var(--space-4);
+  }
+  .stat {
+    padding: var(--space-6);
+    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+  }
+  .stat[data-fill="green"] {
+    background: var(--color-background-accent);
+    color: var(--color-text);
+  }
+  .stat[data-fill="dark"] {
+    background: var(--color-background-dark-green);
+    color: var(--color-text-on-dark);
+  }
+  .stat[data-fill="lime"] {
+    background: var(--color-background-pale-lime);
+    color: var(--color-text);
+  }
+  .stat-n {
+    font-size: var(--font-size-big-number);
+    font-weight: var(--font-weight-black);
+    line-height: 1.1;
+    font-variant-numeric: tabular-nums;
+  }
+  .stat-l {
+    font-weight: var(--font-weight-bold);
+  }
+
+  .topic {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: var(--space-12);
+    align-items: start;
+  }
+  .topic h2 {
+    margin-bottom: var(--space-6);
+  }
+  .lead {
+    font-size: var(--font-size-body);
+  }
+  .programme {
+    padding: var(--space-8);
+    border-radius: var(--radius);
+  }
+  .programme ol {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-4) 0 0;
+    display: grid;
+    gap: var(--space-4);
+  }
+  .programme li {
+    display: flex;
+    gap: var(--space-4);
+  }
+  .pn {
+    flex-shrink: 0;
+    width: var(--space-8);
+    height: var(--space-8);
+    border-radius: var(--radius-circle);
+    background: var(--color-background-accent);
+    display: grid;
+    place-items: center;
+    font-weight: var(--font-weight-extrabold);
+  }
+  .session-cards {
+    margin-top: var(--space-10);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: var(--space-6);
+  }
+  .session {
+    padding: var(--space-6);
+    border-radius: var(--radius);
+    display: grid;
+    gap: var(--space-2);
+  }
+  .deco {
+    color: var(--color-icon-decorative);
+  }
+
+  .team {
+    margin-top: var(--space-8);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-6);
+  }
+  .member {
+    margin: 0;
+  }
+  .member-img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+  .member figcaption {
+    display: grid;
+    gap: var(--space-1);
+    margin-top: var(--space-3);
+  }
+  .role {
+    font-size: var(--font-size-kicker);
+    font-weight: var(--font-weight-extrabold);
+    letter-spacing: var(--letter-spacing-kicker);
+    text-transform: uppercase;
+  }
+  .member-name {
+    font-weight: var(--font-weight-extrabold);
+    color: var(--color-text-heading);
+  }
+  .muted {
+    color: var(--color-text-muted);
+  }
+  .small {
+    font-size: var(--font-size-small);
+  }
+
+  .cards {
+    margin-top: var(--space-8);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-6);
+  }
+  .card {
+    padding: var(--space-6);
+    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .card-n {
+    font-size: var(--font-size-h2);
+    font-weight: var(--font-weight-black);
+    color: var(--color-text-heading);
+    font-variant-numeric: tabular-nums;
+  }
+  .authors {
+    flex-grow: 1;
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius);
+    background: var(--color-button-primary);
+    color: var(--color-button-primary-text);
+    font-size: var(--font-size-small);
+    font-weight: var(--font-weight-bold);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .chip:hover {
+    background: var(--color-button-primary-hover);
+    color: var(--color-button-primary-hover-text);
+  }
+  .more summary {
+    margin-top: var(--space-6);
+    cursor: pointer;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-link);
+  }
+
+  .docs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: var(--space-10);
+  }
+  .doc-col ul {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-4) 0 0;
+    display: grid;
+    gap: var(--space-3);
+  }
+  .doc-col li {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-3);
+    align-items: center;
+  }
+
+  .projects {
+    margin-top: var(--space-8);
+    display: grid;
+    gap: var(--space-6);
+  }
+  .project {
+    padding: var(--space-8);
+    border-radius: var(--radius);
+    display: grid;
+    gap: var(--space-3);
+    justify-items: start;
+  }
+  .clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    max-width: 52rem;
+  }
+  .groups {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    gap: var(--space-4);
+    margin-top: var(--space-2);
+  }
+  .group {
+    padding: var(--space-5);
+    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    align-items: flex-start;
+  }
+  .group-title {
+    font-weight: var(--font-weight-bold);
+  }
+  .tag {
+    padding: 0 var(--space-2);
+    border-radius: var(--radius);
+    background: var(--color-background-dark-green);
+    color: var(--color-text-on-dark);
+    font-size: var(--font-size-small);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--letter-spacing-tag);
+  }
+  .campers {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-1);
+    font-size: var(--font-size-small);
+    flex-grow: 1;
+  }
+
+  .albums {
+    margin-top: var(--space-8);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 14rem;
+    gap: var(--space-4);
+  }
+  .album {
+    position: relative;
+    display: block;
+    color: var(--color-text-on-dark);
+    text-decoration: none;
+  }
+  .album.wide {
+    grid-column: span 2;
+  }
+  .album-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .album-label {
+    position: absolute;
+    inset: auto 0 0 0;
+    padding: var(--space-4);
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-2);
+    background: var(--color-video-overlay);
+    border-radius: 0 0 var(--radius) var(--radius);
+  }
+
+  @media screen and (max-width: 991px) {
+    .topic {
+      grid-template-columns: 1fr;
+    }
+    .cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .team {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .albums {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .hero {
+      min-height: 0;
+      flex-direction: column;
+      align-items: stretch;
+      padding: var(--space-20) 0 0;
+    }
+    .hero-img {
+      position: static;
+      height: 14rem;
+    }
+    .hero-panel {
+      padding: var(--space-6) var(--gutter-page) var(--space-8);
+      border-radius: 0;
+    }
+    .no-cover .hero-panel {
+      padding: var(--space-6) var(--gutter-page) var(--space-8);
+    }
+    .cards,
+    .albums {
+      grid-template-columns: 1fr;
+    }
+    .album.wide {
+      grid-column: auto;
+    }
+    .project {
+      padding: var(--space-5);
+    }
+  }
+</style>
+
+<style>
+  /* base.css gives every img overflow: visible, which paints the part object-fit: cover crops. */
+  :global([data-proto] img) {
+    overflow: clip;
+  }
+</style>
