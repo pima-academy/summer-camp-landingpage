@@ -4,6 +4,10 @@
 // The Markdown's HTML carries no class, so the prose styles reach it with :global() under
 // `.prose`; authors start body headings at `##` (the post title is the h1). Body images are
 // figures (src/lib/rehype-figures.ts) that open the post's Lightbox, one set for the post.
+// Formulas are KaTeX's HTML, typeset at build time (src/lib/markdown-math.ts): KaTeX's own
+// stylesheet and maths fonts, bundled from the package, are the one exception to Nunito Sans
+// (scripts/fonts.test.mjs, PACKAGE_STYLESHEETS in scripts/guardrail-lib.mjs).
+import "katex/dist/katex.min.css";
 import { posix } from "node:path";
 import type { ImageMetadata } from "astro";
 import { render } from "astro:content";
@@ -115,6 +119,23 @@ const photos = figures.map(({ src, alt, caption }) => {
     background-color: var(--color-background-table-header);
     color: var(--color-text-table-header);
     font-weight: var(--font-weight-bold);
+  }
+
+  /* A link written as a bare URL (the references of the Jekyll site posts) breaks anywhere
+     rather than widening the page at 390 px. */
+  .prose :global(a) {
+    overflow-wrap: anywhere;
+  }
+
+  /* Formulas (KaTeX). A display formula is a block in the prose rhythm; a wide one scrolls
+     inside its own box rather than the page (390 px). Inline formulas keep KaTeX's own styles
+     and sit in the line. */
+  .prose :global(.katex-display) {
+    margin-top: 0;
+    margin-bottom: var(--space-5);
+    padding-block: var(--space-1);
+    overflow-x: auto;
+    overflow-y: hidden;
   }
 
   /* Figures (#113): a body image at the column's width at most, rounded like every photo, its

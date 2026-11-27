@@ -8,7 +8,8 @@ const SUMMARY_LENGTH = 180;
 /**
  * The card summary of a post, as plain text: its `description`, else the Markdown before
  * `<!--more-->`, else its first paragraph with text (headings and images skipped). Markup is
- * stripped (emphasis, links to their text, images, HTML tags and entities).
+ * stripped (emphasis, links to their text, images, HTML tags and entities) and formulas read as
+ * plain text (`$\alpha \approx 0.85$` → "α ≈ 0.85").
  */
 export function summaryOf(post: { description?: string; body?: string }): string {
   if (post.description) return cut(post.description.trim());
@@ -24,9 +25,12 @@ export function summaryOf(post: { description?: string; body?: string }): string
   return cut(plainText(source));
 }
 
-/** Markdown to plain text, enough for a summary: one line, markup dropped. */
+/** Markdown to plain text, enough for a summary: one line, markup dropped, formulas as text. */
 function plainText(markdown: string): string {
-  return markdown
+  // Formulas are set aside first, so the markup pass leaves their `_` and `*` alone.
+  const formulas: string[] = [];
+  const text = markdown
+    .replace(/\$\$([^$]+)\$\$|\$([^$]+)\$/g, (_, display, inline) => `\u0000${formulas.push(formulaText(display ?? inline)) - 1}\u0000`)
     .replace(/<!--[\s\S]*?-->/g, " ")
     .replace(/!\[[^\]]*\]\([^)]*\)/g, " ")
     .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
@@ -37,8 +41,32 @@ function plainText(markdown: string): string {
     .replace(/&amp;/g, "&")
     .replace(/&lt;/g, "<")
     .replace(/&gt;/g, ">")
-    .replace(/&quot;/g, '"')
+    .replace(/&quot;/g, '"');
+  return text
+    .replace(/\u0000(\d+)\u0000/g, (_, i) => formulas[Number(i)])
     .replace(/\s+/g, " ")
+    .trim();
+}
+
+// TeX commands a summary shows as their symbol; any other command shows its name.
+const TEX_SYMBOLS: Record<string, string> = {
+  dots: "…", ldots: "…", cdots: "⋯", alpha: "α", beta: "β", gamma: "γ", delta: "δ", epsilon: "ε",
+  theta: "θ", lambda: "λ", mu: "μ", pi: "π", sigma: "σ", phi: "φ", omega: "ω", Gamma: "Γ",
+  Delta: "Δ", Sigma: "Σ", Omega: "Ω", approx: "≈", le: "≤", leq: "≤", ge: "≥", geq: "≥",
+  neq: "≠", ne: "≠", times: "×", cdot: "·", infty: "∞", rightarrow: "→", to: "→", in: "∈",
+  sum: "∑", vert: "|", mid: "|",
+};
+
+/** A TeX formula as plain text: `\{ \}` as braces, known commands as symbols, grouping braces dropped. */
+function formulaText(tex: string): string {
+  return tex
+    .replace(/\\\{/g, "\u0001")
+    .replace(/\\\}/g, "\u0002")
+    .replace(/\\([A-Za-z]+)/g, (_, name) => TEX_SYMBOLS[name] ?? (/^(mathrm|text|mathbf|mathit|left|right)$/.test(name) ? "" : name))
+    .replace(/\\[,;:! ]/g, " ")
+    .replace(/[{}]/g, "")
+    .replace(/\u0001/g, "{")
+    .replace(/\u0002/g, "}")
     .trim();
 }
 
