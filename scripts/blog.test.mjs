@@ -160,8 +160,9 @@ test("a post page: one h1 (its title), its date, author when known, cover when p
   }
 });
 
-// The posts of the Jekyll site moved in so far (#111, #112), with their date, author and their
-// last sentence in the Jekyll site's text.
+// The Jekyll site posts moved in so far, with their date, author and a sentence from the Jekyll
+// site's text: the 7 text-only posts (#111), the 6 with formulas (#112), then the 5 with body
+// images (#113).
 const JEKYLL_POSTS = [
   ["phat-hien-gian-lan", "25/11/2017", "Nghia Nguyen", "Làm thế nào để phát hiện các công ty giả mạo sổ sách?", "tuy nhiên Benford cũng chưa hoàn toàn giải thích được hiện tượng này."],
   ["chuyen-xe-thien-vi", "27/11/2017", "Nghia Nguyen", "Những chuyến xe thiên vị", "Bạn có thể giúp Sơn giải thích điều này không? Hãy comment bên dưới nhé!"],
@@ -177,6 +178,12 @@ const JEKYLL_POSTS = [
   ["softmax", "29/07/2018", undefined, "Thuật toán One vs. All và Softmax Classification", "Nếu bạn có thể giúp Uyên, bạn sẽ chọn phương pháp nào, và vì sao?"],
   ["which-has-more-elements", "27/11/2018", undefined, "Tập nào nhiều số hơn?", "Theo bạn, bạn thấy ý kiến nào đúng và bạn có đoán được câu trả lời của thầy giáo chứ?"],
   ["perfect-strategy", "02/12/2018", undefined, "Chiến thuật đặt cược hoàn hảo?", "Liệu các bạn có đề xuất chiến thuật nào “có lợi hơn” trong trò chơi này?"],
+  // The 5 posts with body images (#113).
+  ["toan-ung-dung-hang-khong", "26/12/2017", "Anh Pham", "Toán ứng dụng trong ngành hàng không", "Viet JetAir cần có thêm những chuyên gia về mảng nào để khách hàng không bị ngồi lê ngồi lết ở sân bay nữa?"],
+  ["plato-1", "15/01/2019", undefined, "5 khối đa diện của Plato (Phần 1)", "Đây là lý do ta chỉ có đúng 5 loại khối đa diện lồi đều trong không gian 3 chiều."],
+  ["plato-2", "25/02/2019", undefined, "5 khối đa diện của Plato (Phần 2)", "Trong ảnh là hình chụp dưới kính hiển vi của một loại virus gọi là virus Adeno."],
+  ["reinforcement-learning-1", "15/06/2019", undefined, "Khám phá Reinforcement Learning (Kỳ 1)", "Vẽ lại sơ đồ cho Ví dụ 2 (gợi ý: kèm theo một giá trị xác suất cho mỗi mũi tên chuyển trạng thái)."],
+  ["reinforcement-learning-2", "25/06/2019", undefined, "Khám phá Reinforcement Learning (Kỳ 2)", "Kiểm tra tính toán của bé Trabbit (gợi ý: tính xác suất ngày thứ t có mưa theo t trước)"],
 ];
 
 for (const [slug, date, author, title, sentence] of JEKYLL_POSTS) {
@@ -236,6 +243,43 @@ test("a post page with formulas loads nothing from a third-party host (no KaTeX 
   const hosts = [...html.matchAll(/<(?!a\s)(\w+)[^>]*\s(?:src|href)="(https?:)?\/\/([^/"]+)/g)].map((m) => m[3]);
   assert.deepEqual(hosts.filter((h) => h !== "pimavn.com"), []);
   assert.match(html, /<link rel="stylesheet" href="\/_astro\/[^"]+\.css"/);
+});
+
+// ---- Body images: figures, captions, alt -----------------------------------------------------
+
+/** A post's Markdown images, in order: `![alt](src "title")`, the title optional. */
+const markdownImages = (file) =>
+  [...readFileSync(file, "utf8").matchAll(/!\[([^\]]*)\]\((\S+?)(?:\s+"([^"]*)")?\)/g)].map(([, alt, src, title]) => ({ alt, src, title }));
+const postFile = (slug) => [join(content, slug, "index.md"), join(content, `${slug}.md`)].find(existsSync);
+
+test("the 5 Jekyll site posts with images keep their images, each with non-empty alt text", () => {
+  const counts = { "toan-ung-dung-hang-khong": 1, "plato-1": 3, "plato-2": 4, "reinforcement-learning-1": 2, "reinforcement-learning-2": 1 };
+  for (const [slug, n] of Object.entries(counts)) {
+    const images = markdownImages(postFile(slug));
+    assert.equal(images.length, n, `${slug}: images`);
+    for (const { alt, src } of images) {
+      assert.ok(alt.trim(), `${slug}: ${src} has alt text`);
+      assert.ok(existsSync(join(content, slug, src)), `${slug}: ${src} is next to the post`);
+    }
+  }
+});
+
+test("every body image is a figure with non-empty alt; a Markdown title is its figcaption, not a title attribute", { skip }, () => {
+  for (const { slug } of published) {
+    const images = markdownImages(postFile(slug));
+    const body = sectionOf(readBuilt(`blog/${slug}/index.html`), "post-body").split("<dialog")[0]; // the Lightbox's own img aside
+    const figures = [...body.matchAll(/<figure\b[^>]*>([\s\S]*?)<\/figure>/g)].map(([, inner]) => inner);
+    assert.equal(figures.length, images.length, `${slug}: one figure per image`);
+    assert.equal([...body.matchAll(/<img\b/g)].length, images.length, `${slug}: no image outside a figure`);
+    images.forEach(({ alt, title }, k) => {
+      const img = figures[k].match(/<img\b[^>]*>/)?.[0] ?? "";
+      assert.match(img, /src="\/_astro\//, `${slug} image ${k + 1}: optimised by Astro`);
+      assert.equal(img.match(/\balt="([^"]*)"/)?.[1], alt, `${slug} image ${k + 1}: alt`);
+      assert.doesNotMatch(img, /\btitle=/, `${slug} image ${k + 1}: no title attribute`);
+      const caption = figures[k].match(/<figcaption\b[^>]*>([\s\S]*?)<\/figcaption>/)?.[1];
+      assert.equal(caption === undefined ? undefined : text(caption), title, `${slug} image ${k + 1}: figcaption`);
+    });
+  }
 });
 
 test("the sitemap lists /blog/ and every non-draft post, and no draft", { skip }, () => {

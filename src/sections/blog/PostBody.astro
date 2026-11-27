@@ -2,27 +2,43 @@
 // PostBody: the text of a blog post (its Markdown, rendered at build time) on its page
 // (src/pages/blog/[slug].astro), in brand prose styles, and a link back to /blog/ at the end.
 // The Markdown's HTML carries no class, so the prose styles reach it with :global() under
-// `.prose`; authors start body headings at `##` (the post title is the h1).
+// `.prose`; authors start body headings at `##` (the post title is the h1). Body images are
+// figures (src/lib/rehype-figures.ts) that open the post's Lightbox, one set for the post.
 // Formulas are KaTeX's HTML, typeset at build time (src/lib/markdown-math.ts): KaTeX's own
 // stylesheet and maths fonts, bundled from the package, are the one exception to Nunito Sans
 // (scripts/fonts.test.mjs, PACKAGE_STYLESHEETS in scripts/guardrail-lib.mjs).
 import "katex/dist/katex.min.css";
+import { posix } from "node:path";
+import type { ImageMetadata } from "astro";
 import { render } from "astro:content";
 import Button from "../../components/Button.astro";
+import Lightbox from "../../components/Lightbox.astro";
 import Section from "../../components/Section.astro";
+import { POST_LIGHTBOX, type Figure } from "../../lib/rehype-figures";
 import type { Post } from "./blog";
 
 interface Props {
   post: Post;
 }
 
-const { Content } = await render(Astro.props.post);
+const { post } = Astro.props;
+const { Content, remarkPluginFrontmatter } = await render(post);
+
+// The post's images (they sit next to it), keyed "/src/content/blog/<slug>/<file>".
+const images = import.meta.glob<ImageMetadata>("/src/content/blog/**/*.{png,jpg,jpeg,webp,avif,gif}", { eager: true, import: "default" });
+const figures: Figure[] = remarkPluginFrontmatter.figures ?? [];
+const photos = figures.map(({ src, alt, caption }) => {
+  const image = images["/" + posix.join(posix.dirname(post.filePath!), src)];
+  if (!image) throw new Error(`${post.filePath}: image ${src} not found next to the post`);
+  return { src: image, alt, caption };
+});
 ---
 
 <Section name="post-body" width="small" spacing="small">
   <div class="prose">
     <Content />
   </div>
+  {photos.length > 0 && <Lightbox id={POST_LIGHTBOX} label={post.data.title} photos={photos} />}
   <div class="back">
     <Button href="/blog/" variant="link">Tất cả bài viết</Button>
   </div>
@@ -120,6 +136,40 @@ const { Content } = await render(Astro.props.post);
     padding-block: var(--space-1);
     overflow-x: auto;
     overflow-y: hidden;
+  }
+
+  /* Figures (#113): a body image at the column's width at most, rounded like every photo, its
+     caption under it. The image is a button that opens the post's Lightbox at it. */
+  .prose :global(figure) {
+    margin: var(--space-8) 0;
+  }
+
+  /* The image's button: no chrome of its own. */
+  .prose :global(figure > button) {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius);
+    background: none;
+    cursor: zoom-in;
+  }
+
+  /* The image. */
+  .prose :global(figure img) {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+    border-radius: var(--radius);
+  }
+
+  /* The caption. */
+  .prose :global(figcaption) {
+    margin-top: var(--space-3);
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+    text-align: center;
   }
 
   /* A flex row, so the link button (itself a centred flex box) keeps to its text, on the left. */
