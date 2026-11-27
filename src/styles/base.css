@@ -124,7 +124,9 @@ img {
   height: auto;
   vertical-align: middle;
   border-radius: var(--radius);
-  overflow: visible;
+  /* An image with `object-fit: cover` paints its cropped part outside its box under
+     `overflow: visible`; clip keeps it inside (#95). */
+  overflow: clip;
 }
 
 /* Logos (PiMA's, partners', newspapers', universities') are never rounded or clipped: the

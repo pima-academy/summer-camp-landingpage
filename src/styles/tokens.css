@@ -46,8 +46,9 @@
 
   /*
    * Type (docs/brand.md, Typography). Five weights, each with a face in fonts.css. Roles: h1–h3,
-   * body, kicker, marquee, big numbers, small text. Every other heading level or size uses the
-   * nearest role. Sizes that change per breakpoint are redeclared in the media queries at the end.
+   * body, kicker, marquee, big numbers, small text, display. Every other heading level or size
+   * uses the nearest role. Sizes that change per breakpoint are redeclared in the media queries
+   * at the end.
    */
   --font-weight-regular: 400;
   --font-weight-semibold: 600;
@@ -68,6 +69,10 @@
   --font-size-kicker: 14px;
   --font-size-marquee: 15px;
   --font-size-big-number: 2.6rem;
+  /* Display: big type that is not a heading level (the camp archive page's topic and project
+     index). Fluid, so the same declaration serves every breakpoint. */
+  --font-size-display: clamp(2.75rem, 6.4vw, 6.5rem);
+  --font-size-display-2: clamp(1.75rem, 4.2vw, 4rem);
   /* Nav links in the open mobile menu. */
   --font-size-nav-menu: 1.13rem;
   /* The slider dots are 1em boxes; this sets their size, not text. */
@@ -79,13 +84,15 @@
   --line-height-h3: 1.3;
   --line-height-body: 1.6;
   --line-height-kicker: 1.4;
+  --line-height-display: 1.1;
   --line-height-button: 1.2;
   --line-height-button-link: 1;
   --line-height-field: 1.42857143;
   --line-height-form-control: normal;
 
-  /* Letter spacing: tightened h1, h2 and h4; tracked uppercase labels. */
+  /* Letter spacing: tightened h1, h2, h4 and display; tracked uppercase labels. */
   --letter-spacing-heading: -0.01em;
+  --letter-spacing-display: -0.025em;
   --letter-spacing-kicker: 0.08em;
   --letter-spacing-marquee: 0.03em;
   --letter-spacing-tag: 0.035em;
