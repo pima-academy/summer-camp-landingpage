@@ -254,7 +254,10 @@ export const camp2025: CampYear = {
   ],
 };
 
-export const years: Record<string, CampYear> = { "2019": camp2019, "2025": camp2025 };
+/** #87 amendment: a project topic is shown only when it has at least one group report. */
+const shown = (y: CampYear): CampYear => ({ ...y, projects: y.projects?.filter((p) => p.groups.length > 0) });
+
+export const years: Record<string, CampYear> = { "2019": shown(camp2019), "2025": shown(camp2025) };
 
 /** Photos of a 2019 gallery section, loaded by folder (as ADR 0006 plans). */
 const photoModules = import.meta.glob<{ default: ImageMetadata }>("../../../assets/camp-archive/*/*/*.jpg", { eager: true });
