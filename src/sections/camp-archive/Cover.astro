@@ -10,9 +10,9 @@
 // frame grows to hold them rather than run them into the counts. A wide photo (2:1 or wider: 2019, 2023, 2026) runs instead across the top with the
 // text under it when the viewport is 850 px tall or more, where that shows it larger. Below
 // 992 px the photo is always on top, at the frame's width.
-// A year held at several campuses (2025) has one cover per campus: they crossfade every 7 s
-// with a campus tag, and the matching date block's rule and days turn Pale Lime in step.
-// Hover pauses; reduced motion shows the first cover only.
+// A year held at several campuses (2025) has one cover per campus, all shown at once: on desktop
+// the season line runs across the top, the covers side by side under it, each with its own date
+// block under it, then the topic and the counts. Below 768 px the covers stack.
 // Above the frame, the row of every camp year (CampYearNav) with this one current: the frame's
 // viewport fit leaves room for its one line.
 // Used by trai-he-toan-hoc-pima/[year].
@@ -20,55 +20,87 @@ import { Image } from "astro:assets";
 import BrandName from "../../components/BrandName.astro";
 import CampYearNav from "../../components/CampYearNav.astro";
 import Section from "../../components/Section.astro";
-import { calendarDates, countsSentence, coversOf, type CampYear } from "./camp-archive";
+import { calendarDates, countsSentence, coversOf, type CampYear, type Session } from "./camp-archive";
 
 interface Props {
   camp: CampYear;
 }
 
 const { camp } = Astro.props;
-const slides = coversOf(camp);
-const rotating = slides.length > 1;
-/** The cover a session pairs with in a rotating hero, or undefined. */
-const slideOf = (campus?: string) => {
-  const i = rotating ? slides.findIndex((c) => c.campus === campus) : -1;
-  return i >= 0 ? i : undefined;
-};
+const covers = coversOf(camp);
+/** Several campuses: one cover per campus, side by side, each with its date block. */
+const multi = covers.length > 1;
+/** A session's date block: campus (or "Thời gian"), day range, month and year, venue. */
+const blockOf = (s: Session) => ({
+  label: s.campus ?? "Thời gian",
+  dates: s.start && s.end ? calendarDates(s.start, s.end) : undefined,
+  venue: s.venue,
+});
+const blocks = (camp.sessions ?? []).map(blockOf);
 const counts = countsSentence(camp);
-/** The first cover's aspect ratio, which the frame takes (a year's covers share one). */
-const ratio = slides[0].image.width / slides[0].image.height;
-/** A cover 2:1 or wider, on top of the text on a tall desktop viewport. */
-const wide = ratio >= 2;
+/** The single cover's aspect ratio, which the frame takes. */
+const ratio = covers[0].image.width / covers[0].image.height;
+/** A single cover 2:1 or wider, on top of the text on a tall desktop viewport. */
+const wide = !multi && ratio >= 2;
 ---
 
 <Section name="cover" width="large" spacing="none">
   <div class="years">
     <CampYearNav current={camp.year} />
   </div>
-  <div class:list={["bookcover", { wide }]} data-tone="dark-green" data-covers={slides.length}>
-    <div class:list={["photo", { rotating }]} style={`--cover-ratio: ${ratio}`}>
-      <div class="fit">
-      <div class="pic">
-      {
-        slides.map((c, i) => (
-          <figure class="slide" data-slide={i} data-active={i === 0 ? "" : undefined} aria-hidden={i > 0 ? "true" : undefined}>
-            {/* Desktop: 60 % of the frame's width beside the text, all of it for a wide photo on top. */}
-            <Image
-              src={c.image}
-              alt={c.campus ? `Trại sinh và ban tổ chức Trại hè PiMA ${camp.year} tại ${c.campus}` : `Trại sinh và ban tổ chức Trại hè PiMA ${camp.year}`}
-              widths={[800, 1200, 1600, 2000, 2400, 2880]}
-              sizes={wide ? "(max-width: 991px) 92vw, 1232px" : "(max-width: 991px) 92vw, 800px"}
-              quality={90}
-              class="img"
-              loading="eager"
-            />
-            {rotating && c.campus && <figcaption class="tag" data-tone="pale-lime">{c.campus}</figcaption>}
-          </figure>
-        ))
-      }
-      </div>
-      </div>
-    </div>
+  <div class:list={["bookcover", { wide, multi }]} data-tone="dark-green">
+    {
+      multi ? (
+        <div class="campuses">
+          {covers.map((c) => {
+            const s = camp.sessions?.find((x) => x.campus === c.campus);
+            const b = s && blockOf(s);
+            return (
+              <figure class="campus">
+                <Image
+                  src={c.image}
+                  alt={`Trại sinh và ban tổ chức Trại hè PiMA ${camp.year} tại ${c.campus}`}
+                  widths={[600, 800, 1200, 1600, 2000]}
+                  sizes="(max-width: 767px) 92vw, (max-width: 991px) 46vw, 600px"
+                  quality={90}
+                  class="img"
+                  loading="eager"
+                />
+                <figcaption>
+                  <dl class="dates">
+                    <div class="date">
+                      <dt>{b?.label ?? c.campus}</dt>
+                      <dd>
+                        {b?.dates && <span class="days">{b.dates.days}</span>}
+                        {b?.dates && <span class="month">{b.dates.rest}</span>}
+                        {b?.venue && <span class="venue">{b.venue}</span>}
+                      </dd>
+                    </div>
+                  </dl>
+                </figcaption>
+              </figure>
+            );
+          })}
+        </div>
+      ) : (
+        <div class="photo" style={`--cover-ratio: ${ratio}`}>
+          <div class="fit">
+            <div class="pic">
+              {/* Desktop: 60 % of the frame's width beside the text, all of it for a wide photo on top. */}
+              <Image
+                src={covers[0].image}
+                alt={`Trại sinh và ban tổ chức Trại hè PiMA ${camp.year}`}
+                widths={[800, 1200, 1600, 2000, 2400, 2880]}
+                sizes={wide ? "(max-width: 991px) 92vw, 1232px" : "(max-width: 991px) 92vw, 800px"}
+                quality={90}
+                class="img"
+                loading="eager"
+              />
+            </div>
+          </div>
+        </div>
+      )
+    }
     <div class="text">
       <p class="season">
         <span>Trại hè Toán học và Ứng dụng <BrandName /></span>
@@ -80,22 +112,18 @@ const wide = ratio >= 2;
         <p class="en">{camp.topic.en}</p>
       </div>
       {
-        camp.sessions && (
-          <dl class:list={["dates", { several: camp.sessions.length > 1 }]}>
-            {camp.sessions.map((s) => {
-              const d = s.start && s.end ? calendarDates(s.start, s.end) : undefined;
-              const slide = slideOf(s.campus);
-              return (
-                <div class="date" data-slide={slide} data-active={slide === 0 ? "" : undefined}>
-                  <dt>{s.campus ?? "Thời gian"}</dt>
-                  <dd>
-                    {d && <span class="days">{d.days}</span>}
-                    {d && <span class="month">{d.rest}</span>}
-                    {s.venue && <span class="venue">{s.venue}</span>}
-                  </dd>
-                </div>
-              );
-            })}
+        !multi && blocks.length > 0 && (
+          <dl class:list={["dates", { several: blocks.length > 1 }]}>
+            {blocks.map((b) => (
+              <div class="date">
+                <dt>{b.label}</dt>
+                <dd>
+                  {b.dates && <span class="days">{b.dates.days}</span>}
+                  {b.dates && <span class="month">{b.dates.rest}</span>}
+                  {b.venue && <span class="venue">{b.venue}</span>}
+                </dd>
+              </div>
+            ))}
           </dl>
         )
       }
@@ -108,33 +136,6 @@ const wide = ratio >= 2;
     </div>
   </div>
 </Section>
-
-<script>
-  // The campus covers take turns every 7 s; the date block of the showing cover is lit.
-  // Hover pauses; reduced motion keeps the first cover.
-  const STEP_MS = 7000;
-  for (const cover of document.querySelectorAll<HTMLElement>(".bookcover[data-covers]")) {
-    const count = Number(cover.dataset.covers);
-    if (count < 2 || matchMedia("(prefers-reduced-motion: reduce)").matches) continue;
-    let current = 0;
-    let paused = false;
-    cover.addEventListener("mouseenter", () => (paused = true));
-    cover.addEventListener("mouseleave", () => (paused = false));
-    setInterval(() => {
-      if (paused) return;
-      current = (current + 1) % count;
-      cover.querySelectorAll<HTMLElement>("[data-slide]").forEach((el) => {
-        const on = Number(el.dataset.slide) === current;
-        el.toggleAttribute("data-active", on);
-        // Only the cover on show is exposed to assistive technology.
-        if (el.matches(".slide")) {
-          if (on) el.removeAttribute("aria-hidden");
-          else el.setAttribute("aria-hidden", "true");
-        }
-      });
-    }, STEP_MS);
-  }
-</script>
 
 <style>
   /* The year row (CampYearNav), under the fixed nav. */
@@ -186,11 +187,6 @@ const wide = ratio >= 2;
     width: min(100cqw, 100cqh * var(--cover-ratio));
     aspect-ratio: var(--cover-ratio);
   }
-  .slide {
-    position: absolute;
-    inset: 0;
-    margin: 0;
-  }
   .img {
     position: absolute;
     inset: 0;
@@ -198,42 +194,29 @@ const wide = ratio >= 2;
     height: 100%;
     object-fit: cover;
   }
-  .tag {
-    position: absolute;
-    left: var(--space-4);
-    bottom: var(--space-4);
-    padding: var(--space-1) var(--space-3);
-    border-radius: var(--radius);
-    font-size: var(--font-size-small);
-    font-weight: var(--font-weight-extrabold);
-  }
 
-  /* Several covers: a 1 s crossfade; the lit date block's rule and days turn Pale Lime. */
-  .rotating .slide {
-    opacity: 0;
-    transition: opacity 1s ease;
+  /* Several campuses: the covers side by side, each whole at its column's width, with its date
+     block under it. */
+  .campuses {
+    grid-area: photo;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    gap: var(--space-8);
   }
-  .rotating .slide[data-active] {
-    opacity: 1;
+  .campus {
+    margin: 0;
+    display: grid;
+    align-content: start;
+    gap: var(--space-4);
   }
-  .date[data-slide] {
-    transition: border-color 1s ease;
+  .campus .img {
+    position: static;
+    display: block;
+    height: auto;
   }
-  .date[data-slide] .days {
-    transition: color 1s ease;
-  }
-  .date[data-active] {
-    border-left-color: var(--color-text-accent);
-  }
-  .date[data-active] .days {
-    color: var(--color-text-accent);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .rotating .slide,
-    .date[data-slide],
-    .date[data-slide] .days {
-      transition: none;
-    }
+  .campus .venue {
+    max-width: none;
   }
 
   .text {
@@ -379,6 +362,14 @@ const wide = ratio >= 2;
     gap: var(--space-5);
   }
 
+  /* Several campuses on desktop: the season line, the covers side by side, then the topic and
+     the counts, one column. The frame grows to hold them. Under 992 px the layout below takes
+     over. */
+  .multi {
+    grid-template-columns: none;
+    grid-template-areas: "season" "photo" "lead" "counts";
+  }
+
   /* breakpoint-exception: a wide photo is larger on top of the text once the viewport is tall
      enough; the width breakpoints below still put every photo on top under 992 px. The frame
      fits the viewport: the text keeps its height and the photo's row gets what is left. */
@@ -432,6 +423,10 @@ const wide = ratio >= 2;
     .dates {
       flex-direction: column;
       gap: var(--space-4);
+    }
+    .campuses {
+      grid-auto-flow: row;
+      gap: var(--space-6);
     }
   }
 </style>

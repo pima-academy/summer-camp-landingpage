@@ -1,12 +1,12 @@
 // Checks the camp archive page's cover (src/sections/camp-archive/Cover.astro) in a
-// browser: in a rotating cover the one on show is the only one exposed to assistive technology,
-// before and after a turn; no cover is cropped. Needs a fresh `npm run build`;
+// browser: a year held at several campuses shows every campus's cover at once, each with its own
+// date block; no cover is cropped. Needs a fresh `npm run build`;
 // skipped when dist/ is missing.
 import { test, before, after } from "node:test";
 import assert from "node:assert/strict";
 import { distSkip as skip, serveDist } from "./test-lib.mjs";
 
-/** A year held at several campuses, so its cover rotates. */
+/** A year held at several campuses. */
 const PATH = "/trai-he-toan-hoc-pima/2025/";
 
 let server, browser;
@@ -22,25 +22,21 @@ after(async () => {
   server?.close();
 });
 
-/** For each slide: whether it is on show and whether it is hidden from assistive technology. */
-const slides = (page) =>
-  page.$$eval(".bookcover .slide", (els) =>
-    els.map((el) => ({ active: el.hasAttribute("data-active"), hidden: el.getAttribute("aria-hidden") === "true" })),
-  );
-
-test("only the cover on show is exposed to assistive technology, after each turn too", { skip }, async () => {
-  const context = await browser.newContext({ viewport: { width: 1440, height: 900 } });
-  const page = await context.newPage();
-  await page.clock.install();
+test("a multi-campus year shows every campus cover, each with its own date block", { skip }, async () => {
+  const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
   await page.goto(server.origin + PATH, { waitUntil: "load" });
-  for (let turn = 0; turn < 3; turn++) {
-    const now = await slides(page);
-    assert.ok(now.length > 1, "the cover rotates");
-    assert.equal(now.filter((s) => s.active).length, 1, `turn ${turn}: one cover on show`);
-    for (const [i, s] of now.entries()) assert.equal(s.hidden, !s.active, `turn ${turn}, slide ${i}`);
-    await page.clock.runFor(7000);
+  const campuses = await page.$$eval(".bookcover .campus", (els) =>
+    els.map((el) => ({ img: el.querySelectorAll("img").length, campus: el.querySelector("dt")?.textContent, days: el.querySelector(".days")?.textContent })),
+  );
+  assert.deepEqual(
+    campuses.map((c) => c.campus),
+    ["TP.HCM", "Hà Nội"],
+  );
+  for (const c of campuses) {
+    assert.equal(c.img, 1, `${c.campus}: one cover`);
+    assert.ok(c.days, `${c.campus}: its dates`);
   }
-  await context.close();
+  await page.close();
 });
 
 test("no cover is cropped: each frame takes its photo's aspect ratio, at every width", { skip }, async () => {

@@ -136,7 +136,7 @@ export type Session = { campus?: Campus; venue?: string } & ({ start: string; en
 
 /**
  * The cover photo: one `cover`, or for a year held at several campuses one cover per campus
- * (`covers`, in the order of `sessions`), which the hero crossfades every 7 s. Covers live in
+ * (`covers`, in the order of `sessions`), which the hero shows side by side. Covers live in
  * src/assets/camp-archive/<year>/ (`cover.jpg`, or `cover-<campus>.jpg`), made by
  * `scripts/camp-photos.mjs cover`.
  */
