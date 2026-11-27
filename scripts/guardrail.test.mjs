@@ -207,6 +207,29 @@ test("the guardrail checks every .astro and .css file in src/ except tokens.css"
   assert.ok(guardrailFiles().includes("src/styles/base.css"), "base.css is checked");
 });
 
+test("packageStylesheets finds a stylesheet imported from a package, not a relative one", () => {
+  const { packageStylesheets } = guardrail;
+  assert.deepEqual(packageStylesheets('---\nimport "katex/dist/katex.min.css";\nimport "../styles/x.css";\n---'), ["katex/dist/katex.min.css"]);
+  assert.deepEqual(packageStylesheets('@import "./tokens.css";\n@import "some-lib/theme.css";'), ["some-lib/theme.css"]);
+  assert.deepEqual(packageStylesheets('@import url("@scope/pkg/a.css");'), ["@scope/pkg/a.css"]);
+  assert.deepEqual(packageStylesheets('src: url("@fontsource/nunito-sans/files/x.woff2");'), []);
+});
+
+// A package's stylesheet is outside src/, so the guardrail cannot check it: each one is allowed
+// by name, in the files listed. KaTeX's own (its maths fonts) is the one there is.
+test("a stylesheet from a package is imported only where PACKAGE_STYLESHEETS allows it", () => {
+  const { PACKAGE_STYLESHEETS, packageStylesheets } = guardrail;
+  assert.deepEqual(PACKAGE_STYLESHEETS, { "katex/dist/katex.min.css": ["src/sections/blog/PostBody.astro"] });
+  const found = walk(join(root, "src"))
+    .map((f) => f.slice(root.length).split("\\").join("/"))
+    .filter((path) => /\.(astro|css|ts|mjs|js)$/.test(path))
+    .flatMap((path) => packageStylesheets(readFileSync(join(root, path), "utf8")).map((sheet) => [path, sheet]));
+  for (const [path, sheet] of found) {
+    assert.ok(PACKAGE_STYLESHEETS[sheet]?.includes(path), `${path} imports ${sheet}`);
+  }
+  assert.deepEqual(found, [["src/sections/blog/PostBody.astro", "katex/dist/katex.min.css"]]);
+});
+
 // The repo itself: every file in scope passes.
 const tokens = tokenNames(readFileSync(join(root, "src/styles/tokens.css"), "utf8"));
 for (const path of guardrailFiles()) {

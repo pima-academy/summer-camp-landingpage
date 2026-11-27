@@ -225,6 +225,14 @@ test("no post page shows a raw $ delimiter or a KaTeX error", { skip }, () => {
   }
 });
 
+test("a post page with formulas loads nothing from a third-party host (no KaTeX CDN)", { skip }, () => {
+  // Every src/href but links out (<a>) and the absolute canonical / og URLs is on the site.
+  const html = readBuilt("blog/softmax/index.html");
+  const hosts = [...html.matchAll(/<(?!a\s)(\w+)[^>]*\s(?:src|href)="(https?:)?\/\/([^/"]+)/g)].map((m) => m[3]);
+  assert.deepEqual(hosts.filter((h) => h !== "pimavn.com"), []);
+  assert.match(html, /<link rel="stylesheet" href="\/_astro\/[^"]+\.css"/);
+});
+
 test("the sitemap lists /blog/ and every non-draft post, and no draft", { skip }, () => {
   const sitemap = readBuilt("sitemap-0.xml");
   assert.match(sitemap, /<loc>https:\/\/pimavn\.com\/blog\/<\/loc>/);
