@@ -99,7 +99,7 @@ The footer is a `--black` band: column headings `--pima-green`, text and links `
 | Body | `--font-size-body` | `--line-height-body` | regular | `--black` |
 | Kicker | `--font-size-kicker` | `--line-height-kicker` | extrabold, uppercase, `--letter-spacing-kicker` | `--black`, under a short `--pima-green` rule aligned with the block |
 | Big numbers | `--font-size-big-number` | | `--font-weight-black` | `--pima-dark-green` |
-| Display (big type that is not a heading level, such as the camp archive page's topic) | `--font-size-display`, or the smaller `--font-size-display-2` | `--line-height-display` | `--font-weight-black`, `--letter-spacing-display` | the text role of its tone (`--white` on the dark-green hero) |
+| Display (big type that is not a heading level, such as the camp archive page's topic) | `--font-size-display-2` (the topic), or the larger `--font-size-display` (unused so far) | `--line-height-display` | `--font-weight-black`, `--letter-spacing-display` | the text role of its tone (`--white` on the dark-green hero) |
 | Dates, names (milestones, testimonials) | `--font-size-body` | | extrabold | `--pima-dark-green` |
 | Marquee | `--font-size-marquee` | | bold, uppercase, `--letter-spacing-marquee` | `--white` on `--pima-dark-green` |
 | Nav links | | | semibold | `--gray-1` |

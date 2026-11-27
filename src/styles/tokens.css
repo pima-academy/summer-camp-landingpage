@@ -69,8 +69,9 @@
   --font-size-kicker: 14px;
   --font-size-marquee: 15px;
   --font-size-big-number: 2.6rem;
-  /* Display: big type that is not a heading level (the camp archive page's topic and project
-     index). Fluid, so the same declaration serves every breakpoint. */
+  /* Display: big type that is not a heading level. -display-2 sets the camp archive page's
+     topic; -display is the larger step above it, unused so far. Fluid, so the same
+     declaration serves every breakpoint. */
   --font-size-display: clamp(2.75rem, 6.4vw, 6.5rem);
   --font-size-display-2: clamp(1.75rem, 4.2vw, 4rem);
   /* Nav links in the open mobile menu. */
