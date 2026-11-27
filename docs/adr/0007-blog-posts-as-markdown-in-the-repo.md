@@ -10,6 +10,7 @@ The blog replaces the old site's empty "Sự kiện & Blog" page and takes in th
 - **Images** use Markdown syntax; the title becomes the caption (`![alt](./a.jpg "Caption")`) and a click opens the Lightbox, the post's images forming one set.
 - **Publishing**: the author uploads the folder on GitHub ("Add file → Upload files") into a new branch and opens a pull request. CI builds it, and a merge publishes it. Before the switch-over posts go to `dev` like code; after it they go straight to `main`, so a post never waits for a release, and `main` is merged back into `dev` after each release.
 - **Migration**: the Jekyll site's posts keep their text; only syntax changes (HTML images to Markdown with captions, kramdown's inline `$$` to `$`, `feature-img` to `cover`, the embedded Jupyter notebook converted once to Markdown). No redirects from the Jekyll site or from `/su-kien-blog/`.
+- **A post's downloadable source file** (the Jupyter post's `.ipynb`, 88 KB) goes in `public/blog/<slug>/` and is linked from the post, so it is served at `/blog/<slug>/<file>` next to the page. This is an exception to ADR 0006, where documents live on the shared drive: a file that is the post's own source belongs with the post, is small, and is reviewed in the same pull request. Larger documents (slides, datasets) still go on the drive.
 
 ## Considered Options
 
