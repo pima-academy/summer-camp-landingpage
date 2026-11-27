@@ -1,28 +1,45 @@
-// npm run shots [-- <page> ...] [--no-build]
+// npm run shots [-- <page> ...] [--base <ref>] [--no-build]
 //
-// Builds the rebuild, serves dist/ (new) and site/ (old) on two localhost ports, and saves
-// full-page screenshots of each page at 390, 820 and 1440 px into shots/ (git-ignored).
+// Compares a base ref with the working tree, page by page. Builds the base ref (default
+// origin/dev) in a temporary git worktree and the working tree (unless --no-build), serves each
+// dist/ on its own localhost port, and takes full-page screenshots of each page at 390, 820 and
+// 1440 px. Writes shots/<page>-<width>-base.png, -head.png and -diff.png (git-ignored) and prints
+// the share of differing pixels per page and width, plus the height difference when the page
+// heights differ. There is no threshold: the numbers are for the reader, the exit code ignores them.
+//
+// The base worktree reuses this checkout's node_modules when both package-lock.json files are
+// equal, and runs its own `npm ci` otherwise. It is removed afterwards, also on failure.
 // Pages come from PAGES in shots-lib.mjs; with no page names, every published page is shot.
 //
 // Safety (spec #15): only localhost URLs are opened, and every request that could deliver a
 // contact form submission is aborted (see isBlockedRequest).
 
 import { spawnSync } from "node:child_process";
-import { createReadStream, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, statSync } from "node:fs";
+import {
+  createReadStream,
+  existsSync,
+  lstatSync,
+  mkdirSync,
+  mkdtempSync,
+  readdirSync,
+  readFileSync,
+  rmSync,
+  statSync,
+  symlinkSync,
+  unlinkSync,
+  writeFileSync,
+} from "node:fs";
 import { createServer } from "node:http";
+import { tmpdir } from "node:os";
 import { extname, join, normalize, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import { chromium } from "playwright";
-import { assertLocalUrl, isBlockedRequest, selectPages, shotFileName } from "./shots-lib.mjs";
+import { assertLocalUrl, compareShots, formatComparison, isBlockedRequest, parseArgs, shotFileName } from "./shots-lib.mjs";
 
 const ROOT = resolve(fileURLToPath(import.meta.url), "../..");
 const OUT_DIR = join(ROOT, "shots");
 const WIDTHS = [390, 820, 1440];
 const VIEWPORT_HEIGHT = 900;
-const SIDES = [
-  { side: "old", dir: join(ROOT, "site"), pathOf: (page) => page.oldPath },
-  { side: "new", dir: join(ROOT, "dist"), pathOf: (page) => page.newPath },
-];
 
 const CONTENT_TYPES = {
   ".html": "text/html; charset=utf-8",
@@ -47,6 +64,14 @@ const CONTENT_TYPES = {
   ".webm": "video/webm",
 };
 
+/** Runs a command, streaming its output; throws when it fails. */
+function run(command, args, cwd) {
+  const result = spawnSync(command, args, { cwd, stdio: "inherit" });
+  if (result.status !== 0) {
+    throw new Error(`\`${command} ${args.join(" ")}\` failed in ${cwd} (${result.signal ?? `exit ${result.status}`})`);
+  }
+}
+
 /** The file a URL path maps to inside `dir` (`/x/` → `x/index.html`), or null if outside or missing. */
 function fileFor(dir, urlPath) {
   let path = decodeURIComponent(urlPath.split("?")[0]);
@@ -70,14 +95,51 @@ function serve(dir) {
   return new Promise((ok) => server.listen(0, "127.0.0.1", () => ok(server)));
 }
 
-/** URLs written next to an "endpoint" key in src/data/site.ts (the contact form endpoint), if any. */
-function formEndpointsFromSiteData() {
-  const file = join(ROOT, "src/data/site.ts");
+/** URLs written next to an "endpoint" key in `<root>/src/data/site.ts` (the contact form endpoint), if any. */
+function formEndpointsFromSiteData(root) {
+  const file = join(root, "src/data/site.ts");
   if (!existsSync(file)) return [];
   return readFileSync(file, "utf8")
     .split("\n")
     .filter((line) => /endpoint/i.test(line))
     .flatMap((line) => line.match(/https?:\/\/[^\s"'`]+/g) ?? []);
+}
+
+/** The commit `ref` names; throws when there is none. */
+function resolveRef(ref) {
+  const commit = spawnSync("git", ["rev-parse", "--verify", "--quiet", `${ref}^{commit}`], { cwd: ROOT, encoding: "utf8" });
+  if (commit.status !== 0) throw new Error(`Unknown base ref "${ref}". Fetch it or pass --base <ref>.`);
+  return commit.stdout.trim();
+}
+
+/** Deletes the base worktree at `dir`, if it exists. */
+function removeBaseWorktree(dir) {
+  if (!existsSync(dir)) return;
+  // Unlink a borrowed node_modules first, so nothing below can reach into this checkout's copy.
+  const modules = join(dir, "node_modules");
+  if (existsSync(modules) && lstatSync(modules).isSymbolicLink()) unlinkSync(modules);
+  const removed = spawnSync("git", ["worktree", "remove", "--force", dir], { cwd: ROOT, stdio: "ignore" });
+  if (removed.status !== 0) {
+    rmSync(dir, { recursive: true, force: true });
+    spawnSync("git", ["worktree", "prune"], { cwd: ROOT, stdio: "ignore" });
+  }
+}
+
+/** Checks out `sha` in the empty directory `dir` as a git worktree, installs and builds it. */
+function buildBase(sha, dir) {
+  run("git", ["worktree", "add", "--detach", dir, sha], ROOT);
+  const lock = (root) => {
+    const file = join(root, "package-lock.json");
+    return existsSync(file) ? readFileSync(file, "utf8") : null;
+  };
+  if (lock(dir) !== null && lock(dir) === lock(ROOT) && existsSync(join(ROOT, "node_modules"))) {
+    console.log("Base package-lock.json equals the head's: reusing node_modules");
+    symlinkSync(join(ROOT, "node_modules"), join(dir, "node_modules"), "dir");
+  } else {
+    console.log("Base package-lock.json differs from the head's: running npm ci in the base worktree");
+    run("npm", ["ci"], dir);
+  }
+  run("npm", ["run", "build"], dir);
 }
 
 /** Scroll to the bottom in steps so lazy images load and fade-ups play, then wait for them to settle. */
@@ -138,47 +200,75 @@ async function capture(browser, url, width, file, blockedUrls) {
   }
 }
 
-async function main() {
-  const args = process.argv.slice(2);
-  const pages = selectPages(args.filter((a) => !a.startsWith("--")));
-
-  if (!args.includes("--no-build")) {
-    const build = spawnSync("npm", ["run", "build"], { cwd: ROOT, stdio: "inherit" });
-    if (build.status !== 0) process.exit(build.status ?? 1);
-  }
-
+/** Shoots each page on every side ({ kind, root, dist }), writes the diffs, returns the report lines. */
+async function shoot(sides, pages) {
   mkdirSync(OUT_DIR, { recursive: true });
   for (const name of readdirSync(OUT_DIR)) {
-    if (pages.some((p) => name.startsWith(`${p.name}_`))) rmSync(join(OUT_DIR, name));
+    if (pages.some((p) => new RegExp(`^${p.name}-\\d+-(base|head|diff)\\.png$`).test(name))) rmSync(join(OUT_DIR, name));
   }
 
-  const blockedUrls = formEndpointsFromSiteData();
-  const servers = await Promise.all(SIDES.map((s) => serve(s.dir)));
+  const blockedUrls = sides.flatMap((s) => formEndpointsFromSiteData(s.root));
+  const servers = await Promise.all(sides.map((s) => serve(s.dist)));
   const browser = await chromium.launch({ headless: true });
-  const missing = [];
-  let saved = 0;
+  const lines = [];
   try {
     for (const page of pages) {
-      for (const [i, { side, dir, pathOf }] of SIDES.entries()) {
-        if (!fileFor(dir, pathOf(page))) {
-          missing.push(`${side} ${page.name}`);
-          continue;
+      const missing = sides.filter((s) => !fileFor(s.dist, page.path)).map((s) => s.kind);
+      if (missing.length) {
+        lines.push(`${page.name}: not built on ${missing.join(" and ")}, skipped`);
+        continue;
+      }
+      for (const width of WIDTHS) {
+        const files = {};
+        for (const [i, side] of sides.entries()) {
+          files[side.kind] = join(OUT_DIR, shotFileName(page.name, width, side.kind));
+          console.log(`${side.kind} ${page.name} @ ${width}px`);
+          const url = `http://localhost:${servers[i].address().port}${page.path}`;
+          await capture(browser, url, width, files[side.kind], blockedUrls);
         }
-        const url = `http://localhost:${servers[i].address().port}${pathOf(page)}`;
-        for (const width of WIDTHS) {
-          const file = join(OUT_DIR, shotFileName(page.name, width, side));
-          console.log(`${side} ${page.name} @ ${width}px`);
-          await capture(browser, url, width, file, blockedUrls);
-          saved++;
-        }
+        const result = compareShots(readFileSync(files.base), readFileSync(files.head));
+        writeFileSync(join(OUT_DIR, shotFileName(page.name, width, "diff")), result.diff);
+        lines.push(formatComparison({ page: page.name, width, ...result }));
       }
     }
   } finally {
     await browser.close();
     servers.forEach((s) => s.close());
   }
-  console.log(`\nSaved ${saved} screenshots to ${OUT_DIR}`);
-  if (missing.length) console.log(`Not built yet (skipped): ${missing.join(", ")}`);
+  return lines;
+}
+
+async function main() {
+  const { pages, base: ref, build } = parseArgs(process.argv.slice(2));
+
+  if (build) run("npm", ["run", "build"], ROOT);
+  if (!existsSync(join(ROOT, "dist"))) throw new Error("No dist/ to compare: run without --no-build");
+
+  const sha = resolveRef(ref);
+  const baseDir = mkdtempSync(join(tmpdir(), "pimavn-shots-base-"));
+  // Registered before the worktree exists: with a listener, Ctrl-C during a child build lets the
+  // child die and this process remove the worktree instead of exiting on the spot.
+  const onSignal = (signal) => {
+    removeBaseWorktree(baseDir);
+    process.exit(signal === "SIGINT" ? 130 : 143);
+  };
+  process.once("SIGINT", onSignal);
+  process.once("SIGTERM", onSignal);
+  try {
+    console.log(`\nBase: ${ref} (${sha.slice(0, 10)}) in ${baseDir}`);
+    buildBase(sha, baseDir);
+    const lines = await shoot(
+      [
+        { kind: "base", root: baseDir, dist: join(baseDir, "dist") },
+        { kind: "head", root: ROOT, dist: join(ROOT, "dist") },
+      ],
+      pages,
+    );
+    console.log(`\nDifferences between ${ref} (base) and the working tree (head), images in ${OUT_DIR}:`);
+    for (const line of lines) console.log(`  ${line}`);
+  } finally {
+    removeBaseWorktree(baseDir);
+  }
 }
 
 main().catch((error) => {

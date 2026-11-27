@@ -1,0 +1,121 @@
+// Icons (docs/brand.md, "Icons"; spec #56, "Brand look"): every icon outside the frozen camp
+// pages is a Tabler SVG from src/assets/icons/, drawn by the `Icon` primitive in currentColor;
+// contact and social icons sit in brand circles; no unused icon file is left behind.
+// The dist/ checks need a fresh `npm run build`; skipped when dist/ is missing.
+import { test } from "node:test";
+import assert from "node:assert/strict";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
+import { join, relative, sep } from "node:path";
+import { builtHtmlFiles, dist, distSkip as skip, readBuilt, root, walk } from "./test-lib.mjs";
+
+const iconsDir = join(root, "src/assets/icons");
+const iconFiles = existsSync(iconsDir) ? readdirSync(iconsDir).filter((f) => f.endsWith(".svg")) : [];
+const iconNames = iconFiles.map((f) => f.slice(0, -".svg".length));
+
+const rel = (file) => relative(root, file).split(sep).join("/");
+/** Frozen camp code (not brand-aligned): src/camp/ and the two camp page files. */
+const frozen = (path) =>
+  path.startsWith("src/camp/") || /^src\/pages\/trai-he-(toan-hoc-2025|pima-2026)\.astro$/.test(path);
+/** Every .astro and .ts file under src/ outside the frozen camp code, as [path, text]. */
+const aligned = walk(join(root, "src"))
+  .map(rel)
+  .filter((p) => /\.(astro|ts)$/.test(p) && !frozen(p))
+  .map((p) => [p, readFileSync(join(root, p), "utf8")]);
+const iconComponent = "src/components/Icon.astro";
+const cataloguePage = "src/pages/catalogue/[...path].astro";
+
+// The old raster and SVG icons (the inventory's icon list): the camp pages still use some.
+const OLD_ICONS = [
+  "fb.png",
+  "facebook.png",
+  "mail.png",
+  "mail-1.png",
+  "map-pin.png",
+  "map-draw.png",
+  "phone.png",
+  "phone-telephone.png",
+  "book-open.png",
+  "oval-love-two.png",
+  "gift.png",
+  "ellipse.svg",
+];
+
+test("src/assets/icons/ holds Tabler SVGs and their MIT licence", () => {
+  assert.ok(iconFiles.length > 0, "src/assets/icons/ has SVG files");
+  const licence = join(iconsDir, "LICENSE");
+  assert.ok(existsSync(licence), "src/assets/icons/LICENSE exists");
+  assert.match(readFileSync(licence, "utf8"), /MIT License[\s\S]*Paweł Kuna/);
+});
+
+test("every icon file draws in currentColor only, outline icons at stroke 1.5 on 24 px", () => {
+  for (const file of iconFiles) {
+    const svg = readFileSync(join(iconsDir, file), "utf8");
+    assert.match(svg, /viewBox="0 0 24 24"/, `${file}: 24 px grid`);
+    for (const [, attr, value] of svg.matchAll(/\b(fill|stroke)="([^"]*)"/g)) {
+      assert.ok(["currentColor", "none"].includes(value), `${file}: ${attr}="${value}"`);
+    }
+    if (file.endsWith("-filled.svg")) assert.match(svg, /<svg[^>]*fill="currentColor"/, `${file}: filled`);
+    else assert.match(svg, /<svg[^>]*stroke-width="1.5"/, `${file}: stroke 1.5`);
+  }
+});
+
+test("outside the camp pages, no file draws an icon itself: no inline <svg>, no old icon image", () => {
+  for (const [path, text] of aligned) {
+    if (path === iconComponent) continue;
+    assert.doesNotMatch(text, /<svg[\s>]/, `${path} has an inline <svg>: use <Icon>`);
+    for (const old of OLD_ICONS) assert.ok(!text.includes(`/${old}`), `${path} imports ${old}: use <Icon>`);
+  }
+});
+
+test("every icon file is used by a page (the catalogue does not count)", () => {
+  const used = aligned
+    .filter(([path]) => path !== cataloguePage)
+    .flatMap(([, text]) => [...text.matchAll(/<Icon\b[^>]*?\bname="([^"]+)"/g)].map((m) => m[1]))
+    .concat(aligned.flatMap(([, text]) => [...text.matchAll(/\bicon:\s*"([^"]+)"/g)].map((m) => m[1])));
+  for (const name of iconNames) assert.ok(used.includes(name), `src/assets/icons/${name}.svg is used by no page`);
+  for (const name of used) assert.ok(iconNames.includes(name), `<Icon name="${name}"> has no file`);
+});
+
+test("no old icon file is left that only the camp pages do not use", () => {
+  const camp = walk(join(root, "src"))
+    .map(rel)
+    .filter(frozen)
+    .map((p) => readFileSync(join(root, p), "utf8"))
+    .join("\n");
+  for (const old of OLD_ICONS) {
+    const file = join(root, "src/assets/images", old);
+    if (existsSync(file)) assert.ok(camp.includes(`/${old}`), `src/assets/images/${old} is unused: delete it`);
+  }
+});
+
+/** Published pages except the two frozen camp pages (and the dev-only gap pages, not built). */
+const pages = () =>
+  builtHtmlFiles()
+    .map((f) => relative(dist, f).split(sep).join("/"))
+    .filter((p) => !/^trai-he-(toan-hoc-2025|pima-2026)\//.test(p));
+
+test("every <svg> on a published page is an Icon", { skip }, () => {
+  for (const page of pages()) {
+    for (const [svg] of readBuilt(page).matchAll(/<svg\b[^>]*>/g)) {
+      assert.match(svg, /\bdata-icon="[\w-]+"/, `${page}: ${svg.slice(0, 120)}`);
+    }
+  }
+});
+
+/** The opening tags of the circled icons inside the first element matching `start`…`end`. */
+function circles(html, start, end) {
+  const i = html.indexOf(start);
+  const j = html.indexOf(end, i);
+  const part = i < 0 || j < 0 ? "" : html.slice(i, j);
+  return [...part.matchAll(/<span\b[^>]*\bdata-circle\b[^>]*>/g)].map((m) => m[0]);
+}
+
+test("contact and social icons sit in brand circles", { skip }, () => {
+  const home = readBuilt("index.html");
+  const lienHe = readBuilt("lien-he/index.html");
+  // Footer: Facebook, email, address and LinkedIn.
+  assert.equal(circles(home, "<footer", "</footer>").length, 4, "footer circles");
+  assert.equal(circles(home, 'data-section="contact-section"', "</section>").length, 3, "ContactSection circles");
+  assert.equal(circles(lienHe, 'data-section="contact-facts"', "</section>").length, 3, "ContactFacts circles");
+  assert.equal(circles(lienHe, 'data-section="social-links"', "</section>").length, 3, "SocialLinks circles");
+});

@@ -1,0 +1,120 @@
+---
+// CourseList: the "Danh sách các khóa học" list of course cards, as the old Webflow CMS
+// list rendered it with no course data (one empty card and "No items found."). Used by
+// khoa-hoc only (old `section_programs-overview` with a `w-dyn-list`), inside a content
+// gap, so it only shows in `npm run dev`. Fades up on scroll.
+import { Image } from "astro:assets";
+import Icon from "../../components/Icon.astro";
+import Section from "../../components/Section.astro";
+import placeholder from "../../assets/images/placeholder-image-landscape.svg";
+---
+
+<Section name="course-list" spacing="none" animate id="programs">
+  <div class="inner">
+    <h2 class="title">Danh sách các khóa học</h2>
+    <div class="list">
+      <div role="list" class="cards">
+        <div role="listitem" class="item">
+          <a href="#" class="card-link">
+            <div class="cover"><Image src={placeholder} alt="" class="unbound" /></div>
+          </a>
+          <div class="name-row">
+            <h3 class="unbound"></h3>
+            <div class="arrow">
+              <Icon name="arrow-right" size="24" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="empty">
+        <div>No items found.</div>
+      </div>
+    </div>
+  </div>
+</Section>
+
+<style>
+  .inner {
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-4);
+  }
+
+  .title {
+    max-width: 56rem;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  .list {
+    width: 100%;
+    max-width: 56rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: var(--space-8);
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .item {
+    padding-left: var(--space-3);
+    padding-right: var(--space-3);
+  }
+
+  .card-link {
+    display: block;
+    max-width: 100%;
+  }
+
+  .cover {
+    border-radius: var(--radius);
+    overflow: clip;
+  }
+
+  /* CMS fields with no data (old `w-dyn-bind-empty`): the cover image and the course name. */
+  .unbound {
+    display: none;
+  }
+
+  .name-row {
+    display: flex;
+    gap: var(--space-1);
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: var(--space-10);
+  }
+
+  .arrow {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 1.5rem;
+    height: 1.5rem;
+    color: var(--color-icon-decorative);
+  }
+
+  .empty {
+    padding: var(--space-3);
+    background-color: var(--color-background-empty-list);
+  }
+
+  @media screen and (max-width: 991px) {
+    .list {
+      padding-top: var(--space-6);
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .list {
+      padding-top: var(--space-5);
+    }
+
+    .cards {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

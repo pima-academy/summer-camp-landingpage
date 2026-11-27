@@ -1,13 +1,13 @@
 ---
 // Khóa học (old `site/khoa-hoc.html`): title header, intro, the CMS course list (a content
 // gap, hidden in production), trust bar, contact section.
-import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import PageHeader from "../components/PageHeader.astro";
-import TrustBar from "../components/TrustBar.astro";
-import ContactSection from "../components/ContactSection.astro";
+import PageHeader from "../sections/PageHeader.astro";
+import Intro from "../sections/khoa-hoc/Intro.astro";
+import CourseList from "../sections/khoa-hoc/CourseList.astro";
+import TrustBar from "../sections/TrustBar.astro";
+import ContactSection from "../sections/ContactSection.astro";
 import ContentGap from "../components/ContentGap.astro";
-import placeholder from "../assets/images/placeholder-image-landscape.svg";
 ---
 
 <BaseLayout
@@ -15,58 +15,9 @@ import placeholder from "../assets/images/placeholder-image-landscape.svg";
   description="Khóa học Toán ứng dụng tại PiMA dành cho học sinh, sinh viên yêu thích STEM: nền tảng Toán học vững chắc, lập trình, tư duy mô hình hóa và dự án thực tiễn cùng đội ngũ mentor quốc tế."
 >
   <PageHeader title="Khóa học" />
-  <header data-animate="fade-up" class="section_header64">
-    <div class="padding-global">
-      <div class="container-medium">
-        <div class="padding-section-small">
-          <div class="header64_component">
-            <div class="text-align-center">
-              <div class="max-width-large align-center">
-                <p class="text-size-medium text-align-center">Khóa học Toán ứng dụng tại PiMA được thiết kế dành cho học sinh và sinh viên yêu thích STEM, giúp bạn xây dựng nền tảng Toán học vững chắc, tiếp cận các mô hình hiện đại và rèn luyện kỹ năng lập trình, tư duy mô hình hóa. Tham gia khóa học, bạn sẽ được học tập cùng đội ngũ mentor quốc tế, làm dự án thực tiễn và khám phá ứng dụng Toán trong các lĩnh vực như AI, dữ liệu và khoa học tính toán.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
+  <Intro />
   <ContentGap name="khoa-hoc: Danh sách các khóa học">
-    <div id="programs" data-animate="fade-up" class="section_programs-overview">
-      <div class="padding-global">
-        <div class="container-medium">
-          <div class="padding-section-tiny">
-            <div class="text-align-center">
-              <div class="max-width-large align-center">
-                <div class="margin-bottom margin-small">
-                  <h2 class="heading-style-h3 text-align-center">Danh sách các khóa học</h2>
-                </div>
-              </div>
-            </div>
-            <div class="spacer-medium"></div>
-            <div class="max-width-large align-center">
-              <div class="w-dyn-list">
-                <div role="list" class="w-dyn-items w-row">
-                  <div role="listitem" class="w-dyn-item w-col w-col-6">
-                    <a href="#" class="course-listing-card w-inline-block">
-                      <div id="w-node-e3f1efae-2dfb-b8a9-e461-b414202f8672-31fa83df" class="course-listing-image-cover"><Image src={placeholder} alt="" class="card-row4_image-2 w-dyn-bind-empty" /></div>
-                    </a>
-                    <div class="course-listing-title">
-                      <h3 class="course-card-title w-dyn-bind-empty"></h3>
-                      <div class="icon-embed-xxsmall-3 w-embed"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" class="iconify iconify--bx" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                          <path fill="currentColor" d="m11.293 17.293l1.414 1.414L19.414 12l-6.707-6.707l-1.414 1.414L15.586 11H6v2h9.586z"></path>
-                        </svg></div>
-                    </div>
-                  </div>
-                </div>
-                <div class="w-dyn-empty">
-                  <div>No items found.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <CourseList />
   </ContentGap>
   <TrustBar />
   <ContactSection />

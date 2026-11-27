@@ -10,7 +10,7 @@ import { existsSync, readFileSync, statSync } from "node:fs";
 import { join, normalize, sep } from "node:path";
 import { chromium } from "playwright";
 import { contact } from "../src/data/site.ts";
-import { builtHtmlFiles, dist } from "./test-lib.mjs";
+import { buildSkip, builtHtmlFiles, dist } from "./test-lib.mjs";
 
 const ORIGIN = "http://127.0.0.1:9"; // never contacted: every request is routed
 const ENDPOINT = "https://contact-endpoint.test/exec"; // reserved .test TLD, mocked
@@ -38,7 +38,7 @@ function distFile(pathname) {
 }
 
 const pages = formPages();
-const skip = pages.length ? false : "no built page has ContactForm: run `npm run build` first";
+const skip = buildSkip(pages.length > 0, "no built page has ContactForm: run `npm run build` first");
 
 let browser;
 before(async () => {
@@ -84,8 +84,10 @@ async function open(path, { respond, endpoint = ENDPOINT } = {}) {
     page,
     requests,
     form,
-    done: page.locator("[data-contact-form] .w-form-done"),
-    fail: page.locator("[data-contact-form] .w-form-fail"),
+    wrapper: page.locator("[data-contact-form]"),
+    // The success message is a status, the error an alert; the wrapper's data-state says which shows.
+    done: page.locator("[data-contact-form] [role=\"status\"]"),
+    fail: page.locator("[data-contact-form] [role=\"alert\"]"),
     button: form.locator('input[type="submit"]'),
     close: () => context.close(),
   };
@@ -109,7 +111,7 @@ async function fillValid(form) {
 
 for (const [variant, path] of pages) {
   describe(`ContactForm (${variant}, ${path})`, { skip }, () => {
-    test("success: 'Đang gửi…' while sending, then the form hides and w-form-done shows", async () => {
+    test("success: 'Đang gửi…' while sending, then the form hides and the success message shows", async () => {
       let release;
       const held = new Promise((ok) => (release = ok));
       const f = await open(path, {
@@ -122,8 +124,13 @@ for (const [variant, path] of pages) {
         await fillValid(f.form);
         await f.button.click();
         await f.page.waitForFunction(() => document.querySelector('[data-contact-form] input[type="submit"]').value === "Đang gửi…");
+        assert.equal(await f.wrapper.getAttribute("data-state"), "sending");
+        assert.equal(await f.form.isVisible(), true);
+        assert.equal(await f.done.isVisible(), false);
+        assert.equal(await f.fail.isVisible(), false);
         release();
         await f.done.waitFor({ state: "visible" });
+        assert.equal(await f.wrapper.getAttribute("data-state"), "done");
         assert.equal(await f.form.isVisible(), false);
         assert.equal(await f.fail.isVisible(), false);
         assert.equal((await f.done.innerText()).trim(), "Lời nhắn của bạn đã được gửi đi!");
@@ -153,12 +160,13 @@ for (const [variant, path] of pages) {
       ["network error", (route) => route.abort("failed")],
       ["non-JSON answer", (route) => route.fulfill({ status: 200, headers: { "access-control-allow-origin": "*" }, body: "<html>" })],
     ]) {
-      test(`error (${name}): w-form-fail with email and phone, form and values kept`, async () => {
+      test(`error (${name}): the error message with email and phone, form and values kept`, async () => {
         const f = await open(path, { respond });
         try {
           await fillValid(f.form);
           await f.button.click();
           await f.fail.waitFor({ state: "visible" });
+          assert.equal(await f.wrapper.getAttribute("data-state"), "fail");
           const text = await f.fail.innerText();
           assert.ok(text.includes(contact.email), text);
           assert.ok(text.includes(contact.phone), text);
@@ -182,6 +190,7 @@ for (const [variant, path] of pages) {
         answer = { ok: true };
         await f.button.click();
         await f.done.waitFor({ state: "visible" });
+        assert.equal(await f.wrapper.getAttribute("data-state"), "done");
         assert.equal(await f.fail.isVisible(), false);
         assert.equal(f.requests.length, 2);
       } finally {
@@ -189,7 +198,7 @@ for (const [variant, path] of pages) {
       }
     });
 
-    test("empty endpoint: w-form-fail, no request sent", async () => {
+    test("empty endpoint: the error message, no request sent", async () => {
       const f = await open(path, { endpoint: "" });
       try {
         await fillValid(f.form);
@@ -220,6 +229,7 @@ for (const [variant, path] of pages) {
         await f.button.click();
         await f.page.waitForTimeout(300);
         assert.equal(f.requests.length, 0);
+        assert.equal(await f.wrapper.getAttribute("data-state"), null);
         assert.equal(await f.fail.isVisible(), false);
         assert.equal(await f.done.isVisible(), false);
         assert.equal(await f.form.locator('[name="email"]').evaluate((el) => el.validity.valid), false);

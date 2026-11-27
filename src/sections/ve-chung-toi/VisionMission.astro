@@ -1,0 +1,106 @@
+---
+// VisionMission: "Xuất phát điểm / Tầm nhìn / Sứ mệnh" in an Accordion, each panel with a
+// photo. Used by ve-chung-toi only (old `about-feature` / `layout351_*`); carries the footer
+// anchor "Tầm nhìn & Sứ mệnh". Fades up on scroll.
+import { Image } from "astro:assets";
+import Accordion from "../../components/Accordion.astro";
+import AccordionPanel from "../../components/AccordionPanel.astro";
+import Kicker from "../../components/Kicker.astro";
+import Section from "../../components/Section.astro";
+import { aboutAnchors } from "../../data/site";
+import { fluidWidths } from "../../lib/image-widths";
+import founders from "../../assets/images/impact-report-no-q-111sdfs.avif";
+import orientation2023 from "../../assets/images/481995832-1135445505045584-6318121554141229279-n.avif";
+import workshop from "../../assets/images/481775555-1135445305045604-7304032333989245886-n.avif";
+
+// Sizes measured on the old page at 390/820/1440.
+const photoSizes = "(max-width: 767px) calc(90vw - 36px), (max-width: 991px) 80vw, 708px";
+---
+
+<Section name="vision-mission" width="large" spacing="small" animate id={aboutAnchors.visionMission}>
+  <div class="panels">
+    <Accordion>
+      <AccordionPanel number="01" title="Xuất phát điểm" open>
+        <Kicker flush>Tầm nhìn, Sứ mệnh, Mục tiêu</Kicker>
+        <h3 class="heading">Xuất phát điểm</h3>
+        <p class="text">Với mong muốn giúp học sinh và sinh viên Việt Nam tiếp cận toán học không chỉ như một môn học trên lớp mà còn như một công cụ để khám phá thế giới, PiMA đã tổ chức trại hè đầu tiên vào năm 2016, đánh dấu bước khởi đầu cho hành trình đưa toán học đến gần hơn với thực tiễn.</p>
+        <div class="photo">
+          <Image src={founders} widths={fluidWidths(founders)} sizes={photoSizes} alt="Hai nhà đồng sáng lập PiMA" class="photo-img" />
+        </div>
+      </AccordionPanel>
+      <AccordionPanel number="02" title="Tầm nhìn">
+        <h3 class="heading">Tầm nhìn</h3>
+        <p class="text">Trở thành một tổ chức hàng đầu về giáo dục, nghiên cứu toán học và ứng dụng, nơi quy tụ và phát triển các tài năng trẻ, giúp họ phát huy tối đa tiềm năng và đóng góp vào sự phát triển bền vững của xã hội.</p>
+        <div class="photo">
+          <Image src={orientation2023} widths={fluidWidths(orientation2023)} sizes={photoSizes} alt="Học viên và ban tổ chức tại buổi định hướng Trại hè PiMA 2023" class="photo-img" />
+        </div>
+      </AccordionPanel>
+      <AccordionPanel number="03" title="Sứ mệnh">
+        <h3 class="heading">Xuất phát điểm</h3>
+        <p class="text">Phát triển giáo dục toán học tại Việt Nam thông qua các chương trình giảng dạy tiên tiến, lấy người học làm trọng tâm, và hướng tới việc giúp mọi người không chỉ hiểu sâu hơn về toán mà còn biết cách vận dụng để tạo ra những ứng dụng thực tiễn.</p>
+        <div class="photo">
+          <Image src={workshop} widths={fluidWidths(workshop)} sizes={photoSizes} alt="Mentor PiMA trao đổi với học viên trong một buổi workshop" class="photo-img" />
+        </div>
+      </AccordionPanel>
+    </Accordion>
+  </div>
+</Section>
+
+<style>
+  /* The old empty heading block above the accordion left this gap. */
+  .panels {
+    padding-top: var(--space-20);
+  }
+
+  .heading {
+    text-align: left;
+  }
+
+  .text {
+    margin-bottom: var(--space-4);
+    color: var(--color-text);
+    text-align: left;
+  }
+
+  .photo {
+    margin-bottom: var(--space-16);
+  }
+
+  .photo-img {
+    width: 130%;
+    max-width: none;
+    height: 100%;
+    object-fit: cover;
+    overflow: clip;
+  }
+
+  @media screen and (max-width: 991px) {
+    .panels {
+      padding-top: var(--space-16);
+    }
+
+    .photo {
+      margin-bottom: 0;
+    }
+
+    .photo-img {
+      width: 100%;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .panels {
+      padding-top: var(--space-12);
+    }
+
+    .photo-img {
+      height: 20rem;
+    }
+  }
+
+  @media screen and (max-width: 479px) {
+    .photo-img {
+      height: 12rem;
+    }
+  }
+</style>

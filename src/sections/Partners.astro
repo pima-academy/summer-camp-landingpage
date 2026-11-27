@@ -1,0 +1,65 @@
+---
+// Partners: "Đối tác của PiMA" section, with the partner logos from partners.ts. Used by
+// index, ve-chung-toi and trai-he-toan-hoc-pima (old `section_partners`). Fades up on scroll.
+import { Image } from "astro:assets";
+import BrandName from "../components/BrandName.astro";
+import Kicker from "../components/Kicker.astro";
+import Section from "../components/Section.astro";
+import { partnerLogos } from "./partners";
+
+interface Props {
+  /** Section id. The old markup used "doi-tac"; ve-chung-toi may pass its footer anchor instead. */
+  id?: string;
+}
+
+const { id = "doi-tac" } = Astro.props;
+---
+
+<Section name="partners" width="large" spacing="medium" animate id={id}>
+  <div class="intro">
+    <Kicker>đối tác của <BrandName /></Kicker>
+    <h2>Chúng tôi được tin tưởng bởi các tổ chức hàng đầu</h2>
+    <p class="lead">
+      Từ các trường đại học danh tiếng đến doanh nghiệp công nghệ và viện nghiên cứu, PiMA tự hào đồng hành cùng những
+      đối tác có chung sứ mệnh: nâng cao chất lượng giáo dục và ứng dụng Toán học vào thực tiễn.
+    </p>
+    <div class="logos">
+      {
+        partnerLogos.map((logo) => (
+          <div class="partner">
+            <Image src={logo.src} alt={logo.alt} width={logo.width} densities={[1, 2]} data-logo />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</Section>
+
+<style>
+  .intro {
+    width: 100%;
+    max-width: 56rem;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  .lead {
+    margin-bottom: var(--space-4);
+    color: var(--color-text);
+  }
+
+  .logos {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  /* Old `.logo-image-wrapper`: a huge width that the flex row shrinks to share the line. */
+  .partner {
+    width: 676.969rem;
+    height: auto;
+    max-height: 6rem;
+  }
+</style>

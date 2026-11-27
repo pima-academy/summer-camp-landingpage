@@ -1,0 +1,64 @@
+---
+/*
+  Primitive: Kicker, the short uppercase line right above a section heading
+  ("ĐỐI TÁC CỦA PiMA", "TÁC ĐỘNG"). Renders a <p>, not a heading, so the page's
+  heading outline stays correct. Put <BrandName /> inside for "PiMA".
+
+  Brand look (docs/brand.md, Typography): 14 px extrabold uppercase, letter-spaced, in the
+  text colour (black, white on the dark-green tone), under a 40 × 4 px PiMA Green rule. The
+  rule sits alone on the first line box, so the parent's `text-align` places it: left over
+  left-aligned text, centred over centred text, with --space-3 between rule and text and
+  --space-3 above and below the kicker; `flush` drops both margins (old `is-no-margin`), for a
+  kicker whose spacing comes from its parent.
+
+    <Kicker>đối tác của <BrandName /></Kicker>
+    <Kicker flush>trại hè toán học</Kicker>
+*/
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"p"> {
+  /** No top or bottom margin. */
+  flush?: boolean;
+}
+
+const { flush = false, class: className, ...attrs } = Astro.props;
+---
+
+<p class:list={["kicker", className]} data-flush={flush ? "" : undefined} {...attrs}>
+  <span class="text"><slot /></span>
+</p>
+
+<style>
+  .kicker {
+    margin-top: var(--space-3);
+    margin-bottom: var(--space-3);
+    color: var(--color-text);
+    font-size: var(--font-size-kicker);
+    font-weight: var(--font-weight-extrabold);
+    line-height: var(--line-height-kicker);
+    letter-spacing: var(--letter-spacing-kicker);
+    text-transform: uppercase;
+  }
+
+  /* The PiMA Green rule: an inline block alone on the first line, so it follows text-align. */
+  .kicker::before {
+    content: "";
+    display: inline-block;
+    width: 40px;
+    height: 4px;
+    vertical-align: top;
+    background-color: var(--color-background-accent);
+  }
+
+  /* The rule's line box is one line high (1lh); pull the text up to --space-3 under the rule,
+     which is --space-1 (4px) high. */
+  .text {
+    display: block;
+    margin-top: calc(var(--space-1) + var(--space-3) - 1lh);
+  }
+
+  .kicker[data-flush] {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+</style>

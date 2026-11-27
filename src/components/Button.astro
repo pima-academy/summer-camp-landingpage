@@ -1,0 +1,126 @@
+---
+/*
+  Primitive: Button, a link styled as a button (a call to action: "Tìm hiểu thêm",
+  "Câu chuyện về PiMA"). Use it for every button-looking link; never restyle an <a>
+  as a button in a section's CSS.
+
+  Variants, by role (docs/brand.md, "Sections, buttons and footer"):
+    primary    PiMA Green fill, black text; Dark Green fill, white text on hover. The default.
+               On the white, surface and pale-lime tones.
+    secondary  black fill, white text. On the white, surface and pale-lime tones.
+    on-dark    Pale Lime fill, black text. On the dark-green tone.
+    link       bold text and a chevron, no fill, both in the surrounding text colour
+               (`color` of the parent). Any tone.
+
+  Any other attribute (`target`, `class`, `id`, …) goes on the <a>.
+
+    <Button href="/ve-chung-toi/" variant="on-dark" target="_blank">Câu chuyện về PiMA</Button>
+*/
+import type { HTMLAttributes } from "astro/types";
+import Icon from "./Icon.astro";
+
+interface Props extends HTMLAttributes<"a"> {
+  href: string;
+  variant?: "primary" | "secondary" | "on-dark" | "link";
+}
+
+const { href, variant = "primary", class: className, ...attrs } = Astro.props;
+---
+
+<a href={href} class:list={["btn", className]} data-variant={variant} {...attrs}>
+  {
+    variant === "link" ? (
+      <>
+        <span>
+          <slot />
+        </span>
+        <Icon name="chevron-right" size="16" class="chevron" />
+      </>
+    ) : (
+      <slot />
+    )
+  }
+</a>
+
+<style>
+  .btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-4) var(--space-6);
+    border: 0 solid transparent;
+    border-radius: var(--radius);
+    background-image: none;
+    box-shadow: none;
+    font-size: var(--font-size-body);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-button);
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      border-color 0.2s,
+      color 0.2s,
+      background-color 0.2s cubic-bezier(0.165, 0.84, 0.44, 1),
+      box-shadow 0.2s;
+  }
+
+  .btn:focus {
+    outline: 2px solid var(--color-focus-ring);
+    outline-offset: 2px;
+  }
+
+  .btn[data-variant="primary"] {
+    background-color: var(--color-button-primary);
+    color: var(--color-button-primary-text);
+  }
+
+  .btn[data-variant="primary"]:hover {
+    background-color: var(--color-button-primary-hover);
+    color: var(--color-button-primary-hover-text);
+  }
+
+  .btn[data-variant="secondary"],
+  .btn[data-variant="secondary"]:hover {
+    background-color: var(--color-button-secondary);
+    color: var(--color-button-secondary-text);
+  }
+
+  .btn[data-variant="on-dark"],
+  .btn[data-variant="on-dark"]:hover {
+    background-color: var(--color-button-on-dark);
+    color: var(--color-button-on-dark-text);
+  }
+
+  .btn[data-variant="link"],
+  .btn[data-variant="link"]:hover {
+    display: flex;
+    max-width: 100%;
+    gap: var(--space-4);
+    padding: var(--space-1) 0;
+    border-style: none;
+    background-color: transparent;
+    color: inherit;
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-button-link);
+  }
+
+  .btn[data-variant="link"]:focus {
+    outline-style: none;
+  }
+
+  .chevron {
+    margin-top: var(--space-1);
+  }
+
+  @media screen and (max-width: 479px) {
+    .btn {
+      white-space: nowrap;
+    }
+
+    .btn[data-variant="link"] {
+      justify-content: flex-start;
+    }
+  }
+</style>

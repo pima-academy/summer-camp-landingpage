@@ -1,0 +1,16 @@
+/*
+ * FROZEN: do not edit; see src/camp/README.md. Deleted with the camp pages' own redesign.
+ * CSS entry of the 2025/2026 camp pages, imported once by CampLayout: a copy of the site's
+ * global.css and the files it loaded when the camp pages were frozen (#60). Literal values,
+ * no tokens. Same order: the fonts, the three Webflow stylesheets, the decorative animations.
+ */
+@import "./fonts.css";
+@import "./normalize.css";
+@import "./webflow.css";
+@import "./pima-website.webflow.css";
+@import "./animations.css";
+
+/* Marks this bundle in the build: scripts/camp-freeze.test.mjs looks for it. Not used. */
+:root {
+  --camp-frozen: 1;
+}

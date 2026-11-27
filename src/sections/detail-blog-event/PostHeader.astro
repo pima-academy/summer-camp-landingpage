@@ -1,0 +1,97 @@
+---
+/*
+  PostHeader: the post itself on the gap page /detail-blog-event/
+  (src/gap-pages/detail-blog-event.astro), a template for one post or event: image,
+  tag, title, "Ngày đăng:" date and body. Everything but the "Ngày đăng:" label is an
+  empty, `hidden` binding, as on the old site. Replaces the old `section_blogpost-header`
+  markup.
+
+  The post image was Webflow's CDN placeholder (140 x 140, hidden by `w-dyn-bind-empty`);
+  the local Webflow placeholder SVG stands in for it.
+*/
+import { Image } from "astro:assets";
+import Section from "../../components/Section.astro";
+import postPlaceholder from "../../assets/images/6191a88a1c0e39463c2bf022-placeholder-image.svg";
+---
+
+<Section name="post-header" width="small" spacing="none">
+  <div class="inner">
+    <Image src={postPlaceholder} alt="" width={140} densities={[1, 2]} hidden />
+    <div class="tag-row">
+      <div class="tag" data-tone="pale-lime" hidden></div>
+    </div>
+    <h1 hidden></h1>
+    <div class="date">
+      <div>Ngày đăng:</div>
+      <div hidden></div>
+    </div>
+    <div class="body">
+      <div hidden></div>
+    </div>
+  </div>
+</Section>
+
+<style>
+  .inner {
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-4);
+  }
+
+  .tag-row {
+    margin-bottom: var(--space-1);
+    padding-top: var(--space-8);
+  }
+
+  .tag {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-3);
+    border: 2px solid transparent;
+    border-radius: var(--radius);
+    color: var(--color-text);
+    font-size: var(--font-size-small);
+    letter-spacing: var(--letter-spacing-tag);
+    text-transform: uppercase;
+  }
+
+  .date {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: var(--space-1);
+  }
+
+  .body {
+    padding-top: var(--space-12);
+    padding-bottom: var(--space-12);
+  }
+
+  @media screen and (max-width: 991px) {
+    .tag-row {
+      padding-top: var(--space-6);
+    }
+
+    .body {
+      padding-top: var(--space-10);
+      padding-bottom: var(--space-10);
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .tag-row {
+      padding-top: var(--space-5);
+    }
+
+    .body {
+      padding-top: var(--space-6);
+      padding-bottom: var(--space-6);
+    }
+  }
+
+  /* Empty CMS bindings (old `w-dyn-bind-empty`); after the rules above so it wins. */
+  [hidden] {
+    display: none;
+  }
+</style>

@@ -1,0 +1,103 @@
+---
+// Hero: the home page's opening section, "PiMA ACADEMY", the h1, the lead, a button to
+// the programs and the hero photo. Used by index only (old `section_homepage_hero`).
+// Fades up on scroll. The hero photo loads eagerly (it is the LCP image).
+import { Image } from "astro:assets";
+import hero from "../../assets/images/hero-image-homepage.png";
+import BrandName from "../../components/BrandName.astro";
+import Button from "../../components/Button.astro";
+import Kicker from "../../components/Kicker.astro";
+import Section from "../../components/Section.astro";
+import { fluidWidths } from "../../lib/image-widths";
+---
+
+<Section name="hero" width="large" spacing="medium" animate>
+  <div class="layout">
+    <div class="intro">
+      <Kicker flush><BrandName /> ACADEMY</Kicker>
+      <h1>Khám phá những biên giới mới của toán học và ứng dụng</h1>
+      <p class="lead">
+        Biến đam mê toán học thành hành trình chinh phục trí tuệ nhân tạo, khoa học dữ liệu và công nghệ tương lai cùng
+        cộng đồng tài năng Việt Nam.
+      </p>
+      <div class="actions">
+        <Button href="#programs">Tìm hiểu thêm</Button>
+      </div>
+    </div>
+    <div class="photo">
+      <Image
+        src={hero}
+        alt="Học viên và giảng viên PiMA trong lớp học và các buổi thuyết trình"
+        widths={fluidWidths(hero)}
+        sizes="(max-width: 1155px) 90vw, 1040px"
+        loading="eager"
+        class="photo-img"
+      />
+    </div>
+  </div>
+</Section>
+
+<style>
+  .layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .intro {
+    width: 100%;
+    max-width: 56rem;
+    margin-bottom: var(--space-20);
+    text-align: center;
+  }
+
+  .lead {
+    margin-bottom: var(--space-4);
+    color: var(--color-text);
+  }
+
+  /* Old `.button-group.is-center`. */
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .photo {
+    overflow: hidden;
+  }
+
+  .photo-img {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    object-fit: none;
+  }
+
+  /* Defect fix: at ≤ 991 px the section's top padding is shorter than the 72 px fixed nav, so
+     the kicker sat under the nav (the old eyebrow was hidden there). Push the intro down until
+     the kicker clears the nav by 16-24 px. */
+  @media screen and (max-width: 991px) {
+    .intro {
+      margin-bottom: var(--space-16);
+      padding-top: var(--space-8);
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .intro {
+      margin-bottom: var(--space-12);
+      padding-top: var(--space-10);
+    }
+  }
+
+  @media screen and (max-width: 479px) {
+    .actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+</style>

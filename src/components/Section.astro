@@ -1,0 +1,179 @@
+---
+/*
+  Primitive: Section, the outer frame of every section (a full-width band of a page).
+  Every file in src/sections/ renders its content through it.
+
+  Renders <section data-section="<name>"> with the page gutter (--gutter-page each side), a
+  centred content column of the given `width` and the vertical padding of the given
+  `spacing`. It replaces the old `padding-global > container-* > padding-section-*`
+  wrapper and reproduces its values:
+
+    width   small --width-small | medium --width-medium (default) | large --width-large
+            max width (medium adds --gutter-medium side padding: --space-4 at ≤ 767 px only)
+    spacing none 0 | small --space-12 (--space-8 ≤ 767) | medium --space-20 (--space-16
+            ≤ 991, --space-12 ≤ 767) (default) | large --space-28 (--space-24 ≤ 991,
+            --space-16 ≤ 767), top and bottom
+    tone    white (default) | surface | pale-lime | dark-green: the band's background and
+            the text, heading, accent, link and focus colours that pass WCAG AA on it
+            (docs/brand.md, "Sections, buttons and footer"). A section never sets its own
+            background. Inside the section, use the role tokens (--color-text,
+            --color-text-heading, --color-text-accent, --color-text-muted, --color-link): the
+            dark-green tone re-points them. A card inside a section takes a tone with the
+            same `data-tone` attribute (FoundingStory's founder card).
+
+  `spacing="none"` is for sections whose content sets its own vertical padding.
+
+  Anything else about the band is set in the section file's own CSS through `class`, which
+  lands on the <section>:
+
+    <Section name="trust-bar" tone="dark-green" class="trust">…</Section>
+    <style>.trust { overflow: clip; }</style>
+
+  `name` is the section file's name in kebab case (FoundingStory.astro → "founding-story");
+  scripts/sections.test.mjs checks it. Tests find sections by `data-section`.
+*/
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"section"> {
+  /** The section file's name in kebab case. */
+  name: string;
+  /** Max width of the content column. */
+  width?: "small" | "medium" | "large";
+  /** Vertical padding of the content column. */
+  spacing?: "none" | "small" | "medium" | "large";
+  /** Background and the passing text colours on it. */
+  tone?: "white" | "surface" | "pale-lime" | "dark-green";
+  /** Fade the section up the first time it scrolls into view (src/lib/animate.ts). */
+  animate?: boolean;
+}
+
+const {
+  name,
+  width = "medium",
+  spacing = "medium",
+  tone = "white",
+  animate = false,
+  class: className,
+  ...attrs
+} = Astro.props;
+---
+
+<section
+  data-section={name}
+  data-tone={tone}
+  data-animate={animate ? "fade-up" : undefined}
+  class:list={["band", className]}
+  {...attrs}
+>
+  <div class="column" data-width={width} data-spacing={spacing}>
+    <slot />
+  </div>
+</section>
+
+<style>
+  /* Tones. Global so that a card inside a section can take one with data-tone. */
+  :global([data-tone]) {
+    color: var(--color-text);
+  }
+
+  /* The light tones keep the :root text roles. */
+  :global([data-tone="white"]) {
+    background-color: var(--color-background);
+  }
+
+  /* Surface tone (milestones). */
+  :global([data-tone="surface"]) {
+    background-color: var(--color-background-surface);
+  }
+
+  /* Pale-lime tone (philosophy, testimonials, contact). */
+  :global([data-tone="pale-lime"]) {
+    --color-icon-circle: var(--color-icon-circle-on-pale-lime);
+    --color-icon-circle-glyph: var(--color-icon-circle-glyph-on-pale-lime);
+    background-color: var(--color-background-pale-lime);
+  }
+
+  /* Dark-green tone (marquee, founder card): re-points the text roles for every descendant. */
+  :global([data-tone="dark-green"]) {
+    --color-text: var(--color-text-on-dark);
+    --color-text-heading: var(--color-text-on-dark);
+    --color-text-accent: var(--color-text-on-dark-accent);
+    --color-text-muted: var(--color-text-on-dark-muted);
+    --color-link: var(--color-link-on-dark);
+    --color-link-hover: var(--color-link-on-dark-hover);
+    --color-icon-control: var(--color-text-on-dark);
+    --color-icon-circle: var(--color-icon-circle-on-dark);
+    --color-icon-circle-glyph: var(--color-icon-circle-glyph-on-dark);
+    --color-focus-ring: var(--color-focus-ring-on-dark);
+    background-color: var(--color-background-dark-green);
+  }
+
+  .band {
+    padding-left: var(--gutter-page);
+    padding-right: var(--gutter-page);
+  }
+
+  .column {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .column[data-width="small"] {
+    max-width: var(--width-small);
+  }
+
+  .column[data-width="medium"] {
+    max-width: var(--width-medium);
+    padding-left: var(--gutter-medium);
+    padding-right: var(--gutter-medium);
+  }
+
+  .column[data-width="large"] {
+    max-width: var(--width-large);
+  }
+
+  .column[data-spacing="small"] {
+    padding-top: var(--space-12);
+    padding-bottom: var(--space-12);
+  }
+
+  .column[data-spacing="medium"] {
+    padding-top: var(--space-20);
+    padding-bottom: var(--space-20);
+  }
+
+  .column[data-spacing="large"] {
+    padding-top: var(--space-28);
+    padding-bottom: var(--space-28);
+  }
+
+  @media screen and (max-width: 991px) {
+    .column[data-spacing="medium"] {
+      padding-top: var(--space-16);
+      padding-bottom: var(--space-16);
+    }
+
+    .column[data-spacing="large"] {
+      padding-top: var(--space-24);
+      padding-bottom: var(--space-24);
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .column[data-spacing="small"] {
+      padding-top: var(--space-8);
+      padding-bottom: var(--space-8);
+    }
+
+    .column[data-spacing="medium"] {
+      padding-top: var(--space-12);
+      padding-bottom: var(--space-12);
+    }
+
+    .column[data-spacing="large"] {
+      padding-top: var(--space-16);
+      padding-bottom: var(--space-16);
+    }
+  }
+</style>

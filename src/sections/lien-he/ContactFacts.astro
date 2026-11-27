@@ -1,0 +1,94 @@
+---
+// ContactFacts: the lien-he page's heading "Liên hệ với PiMA" and its three contact facts
+// (Facebook, email, address), facts from site.ts. Used by lien-he only (old
+// `section-contact-info`). Fades up on scroll.
+import Icon from "../../components/Icon.astro";
+import Section from "../../components/Section.astro";
+import { contact, social } from "../../data/site";
+---
+
+<Section name="contact-facts" spacing="small" animate>
+  <div class="panel">
+    <h1 class="title">Liên hệ với PiMA</h1>
+    <div class="info">
+      <div>
+        <div class="icon-cell"><Icon name="brand-facebook-filled" size="40" circle /></div>
+        <div>
+          <div class="label">Facebook</div>
+          <div>{social.facebook.display}</div>
+        </div>
+      </div>
+      <div>
+        <div class="icon-cell"><Icon name="mail-filled" size="40" circle /></div>
+        <div>
+          <div class="label">Email</div>
+          <div>{contact.email}</div>
+        </div>
+      </div>
+      <div>
+        <div class="icon-cell"><Icon name="map-pin-filled" size="40" circle /></div>
+        <div>
+          <div class="label">Địa chỉ</div>
+          <div>{contact.address}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Section>
+
+<style>
+  .panel {
+    padding: var(--space-4) var(--space-16) var(--space-8);
+  }
+
+  /* The heading's margin plus the old 1rem spacer below it. */
+  .title {
+    margin-bottom: var(--space-8);
+    text-align: center;
+  }
+
+  .info {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: var(--space-4);
+    padding-bottom: var(--space-4);
+  }
+
+  .icon-cell {
+    margin-bottom: var(--space-1);
+  }
+
+  .label {
+    font-weight: var(--font-weight-bold);
+  }
+
+  @media screen and (max-width: 767px) {
+    .panel {
+      padding-bottom: var(--space-12);
+    }
+  }
+
+  @media screen and (max-width: 479px) {
+    .panel {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .info {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  /* Defect fix: from 480 to ~519 px the three-column facts row is wider than the viewport
+     (the unbreakable "fb.com/pima.academy.vn" sets its minimum), so the page scrolled
+     sideways. In that band the facts stack in one column, as at <= 479 px. 40 px of margin
+     above the measured 519 px covers font metric differences. */
+  /* breakpoint-exception: the 480–559 px band of the defect fix above. */
+  @media screen and (min-width: 480px) and (max-width: 559px) {
+    .info {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+</style>

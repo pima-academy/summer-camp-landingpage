@@ -1,0 +1,28 @@
+---
+/*
+  BlogHeader: the title band of the gap page /su-kien-blog/ (src/gap-pages/su-kien-blog.astro),
+  a "PiMA academy" tagline over the page heading on a pale lime band.
+  Replaces the old `section_blog-header` / `header45_component` markup.
+*/
+import Section from "../../components/Section.astro";
+import BrandName from "../../components/BrandName.astro";
+import Kicker from "../../components/Kicker.astro";
+---
+
+<Section name="blog-header" spacing="large" tone="surface" animate>
+  <div class="eyebrow">
+    <Kicker flush><BrandName /> academy</Kicker>
+  </div>
+  <h1 class="title">Sự kiện &amp; Blog</h1>
+</Section>
+
+<style>
+  .eyebrow {
+    margin-bottom: var(--space-2);
+  }
+
+  .title {
+    color: var(--color-text-heading);
+    text-transform: none;
+  }
+</style>

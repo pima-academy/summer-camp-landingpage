@@ -1,0 +1,82 @@
+---
+// Press: "Báo chí nói về PiMA", a slider of press quotes (press.ts), one at a time, each with
+// the newspaper's logo linking to the article. Used by index only (old `section_press`).
+// Fades up on scroll.
+import { Image } from "astro:assets";
+import Section from "../../components/Section.astro";
+import Slider from "../../components/Slider.astro";
+import { pressQuotes } from "./press";
+---
+
+<Section name="press" width="medium" spacing="small" animate>
+  <h2 class="heading">Báo chí nói về PiMA</h2>
+  <Slider layout="single" autoplay={5000} infinite label="Báo chí nói về PiMA">
+    {
+      pressQuotes.map((item) => (
+        <div>
+          <div class="quote">
+            <h3 class="text">"{item.quote}"</h3>
+            <div class="source">
+              <div class="client">
+                <a href={item.href} target="_blank" class="logo-link">
+                  <Image src={item.logo} alt={item.alt} width={96} densities={[1, 2]} class="logo-img" data-logo />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))
+    }
+  </Slider>
+</Section>
+
+<style>
+  .heading {
+    margin-top: 0;
+    margin-bottom: 0;
+    text-align: center;
+  }
+
+  .quote {
+    max-width: 48rem;
+    height: 100%;
+    max-height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  .text {
+    color: var(--color-text);
+    font-size: var(--font-size-body);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height-body);
+  }
+
+  .source {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .client {
+    margin-bottom: var(--space-2);
+  }
+
+  .logo-link {
+    display: inline-block;
+    max-width: 100%;
+  }
+
+  /* A logo: square corners (base CSS, data-logo) and the whole of it in its box, never cropped. */
+  .logo-img {
+    display: block;
+    width: 6rem;
+    min-width: 4rem;
+    max-width: 100%;
+    height: 3rem;
+    min-height: 4rem;
+    object-fit: contain;
+  }
+</style>

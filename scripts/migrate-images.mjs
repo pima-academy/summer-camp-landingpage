@@ -4,6 +4,9 @@
 // scripts/image-map.json (old markup path -> new file name).
 // Run: node scripts/migrate-images.mjs, then node scripts/check-image-map.mjs.
 // Deleted together with scripts/image-map.json in the switch-over cleanup.
+// Done; do not run it again: spec #56 (refactor and brand alignment) deleted or replaced some of
+// the files it copies (favicon.png, webclip.png, logo-horizontal.avif, logo-1-green.svg,
+// ellipse.svg, fb.png), and a new run would bring them back and rewrite image-map.json.
 import { readFileSync, readdirSync, writeFileSync, copyFileSync } from "node:fs";
 
 const root = new URL("..", import.meta.url).pathname;

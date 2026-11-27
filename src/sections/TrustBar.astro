@@ -1,0 +1,70 @@
+---
+// TrustBar: dark green band with the four claims looping right to left, 20 s per period.
+// Used by index (twice), ve-chung-toi, khoa-hoc, lien-he and trai-he-toan-hoc-pima (old
+// `section_trust-bar_dark-green`). Fades up on scroll.
+import Marquee from "../components/Marquee.astro";
+import Section from "../components/Section.astro";
+
+const claims = [
+  "Trại hè Toán học uy tín",
+  "Mentor từ các đại học hàng đầu",
+  "Nuôi dưỡng tài năng STEM trẻ",
+  "Mở rộng cơ hội học thuật quốc tế",
+];
+---
+
+<Section name="trust-bar" width="large" spacing="none" tone="dark-green" animate class="trust">
+  <div class="strip">
+    {/* 3 copies: 2 periods (~1900 px) always cover the 1280 px container while one scrolls out. */}
+    <Marquee class="claims" duration={20} copies={3}>
+      {
+        claims.map((claim) => (
+          <>
+            <div class="claim">{claim}</div>
+            <span class="dot" aria-hidden="true"></span>
+          </>
+        ))
+      }
+    </Marquee>
+  </div>
+</Section>
+
+<style>
+  .trust {
+    overflow: clip;
+  }
+
+  .strip {
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-4);
+  }
+
+  .claims {
+    gap: var(--space-4);
+  }
+
+  .claim {
+    flex: none;
+    color: var(--color-text);
+    font-size: var(--font-size-marquee);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--letter-spacing-marquee);
+    text-transform: uppercase;
+  }
+
+  /* The 8 px separator dot between claims (Pale Lime on dark green). */
+  .dot {
+    flex: none;
+    align-self: center;
+    width: 8px;
+    height: 8px;
+    border-radius: var(--radius-circle);
+    background-color: var(--color-marquee-separator);
+  }
+
+  @media screen and (max-width: 479px) {
+    .claims {
+      gap: var(--space-2);
+    }
+  }
+</style>

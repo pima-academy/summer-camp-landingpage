@@ -1,0 +1,405 @@
+---
+/*
+  Dev-only catalogue page, served at /catalogue/ by `npm run dev`: every primitive of
+  src/components/ (files whose header comment starts with "Primitive:") in every variant,
+  inside the site chrome. Use it to see what exists before building a section, and to
+  check a primitive change by eye.
+
+  Like the gap-page route, getStaticPaths returns no path outside dev, so the page is
+  never built or listed in the sitemap. scripts/catalogue.test.mjs fails when a
+  primitive, one of its variant values or one of its boolean props is missing here.
+
+  Adding a primitive: give it a "Primitive: …" header comment and add a block below
+  showing each variant, with its prop value written as a literal (variant="on-dark").
+*/
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import BrandName from "../../components/BrandName.astro";
+import Button from "../../components/Button.astro";
+import Icon from "../../components/Icon.astro";
+import Kicker from "../../components/Kicker.astro";
+import Section from "../../components/Section.astro";
+
+export function getStaticPaths() {
+  return import.meta.env.DEV ? [{ params: { path: undefined } }] : [];
+}
+
+const widths = ["small", "medium", "large"] as const;
+const spacings = ["none", "small", "medium", "large"] as const;
+const tones = ["white", "surface", "pale-lime", "dark-green"] as const;
+const icons = [
+  "arrow-left",
+  "arrow-right",
+  "atom",
+  "book",
+  "braces",
+  "chevron-down",
+  "chevron-left",
+  "chevron-right",
+  "clock",
+  "cube",
+  "menu-2",
+  "messages",
+  "school",
+  "target",
+  "user",
+  "world",
+] as const;
+const circleIcons = [
+  "brand-facebook-filled",
+  "brand-linkedin-filled",
+  "brand-youtube-filled",
+  "mail-filled",
+  "map-pin-filled",
+] as const;
+const iconSizes = ["text", "16", "24", "32", "40", "48"] as const;
+// The spacing scale of tokens.css: a step's number is its size in 4 px units.
+const spaceSteps = [1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24, 28, 32] as const;
+---
+
+<BaseLayout title="Catalogue" description="Every primitive in every variant (dev only)." noindex>
+  <Section name="catalogue-intro" spacing="small">
+    <h1>Catalogue</h1>
+    <p>
+      Every primitive in <code>src/components/</code> in every variant (dev only). Section frames below: the band is
+      gray, the content column pale lime.
+    </p>
+  </Section>
+
+  <Section name="catalogue-section-widths" spacing="small" class="title">
+    <h2>Section: width</h2>
+    <p>Each with <code>spacing="medium"</code> (the default).</p>
+  </Section>
+  {
+    widths.map((width) => (
+      <Section name={`catalogue-width-${width}`} width={width} class="demo">
+        <div class="content">width="{width}"</div>
+      </Section>
+    ))
+  }
+
+  <Section name="catalogue-section-spacings" spacing="small" class="title">
+    <h2>Section: spacing</h2>
+    <p>Each with <code>width="medium"</code> (the default).</p>
+  </Section>
+  {
+    spacings.map((spacing) => (
+      <Section name={`catalogue-spacing-${spacing}`} spacing={spacing} class="demo">
+        <div class="content">spacing="{spacing}"</div>
+      </Section>
+    ))
+  }
+  <Section name="catalogue-animate" animate class="demo">
+    <div class="content">animate (fades up on first scroll into view)</div>
+  </Section>
+
+  <Section name="catalogue-section-tones" spacing="small" class="title">
+    <h2>Section: tone</h2>
+    <p>
+      Background and the text colours on it. Each shows an h2, an h3, body text, muted text, accent text, a link, a
+      kicker and the buttons meant for that tone.
+    </p>
+  </Section>
+  {
+    tones.map((tone) => (
+      <Section name={`catalogue-tone-${tone}`} tone={tone} spacing="small">
+        <Kicker>kicker on {tone}</Kicker>
+        <h2>tone="{tone}"</h2>
+        <h3>An h3 heading</h3>
+        <p>
+          Body text. <span class="muted">Muted text.</span> <span class="accent">Accent text: dates, names.</span>{" "}
+          <a href="#">A link</a>.
+        </p>
+        <div class="row">
+          {tone === "dark-green" ? (
+            <Button href="#" variant="on-dark">on-dark</Button>
+          ) : (
+            <>
+              <Button href="#" variant="primary">primary</Button>
+              <Button href="#" variant="secondary">secondary</Button>
+            </>
+          )}
+          <Button href="#" variant="link">link</Button>
+        </div>
+      </Section>
+    ))
+  }
+
+  <Section name="catalogue-tone-card" spacing="small">
+    <p>A card inside a section takes a tone with the same attribute (the founder card):</p>
+    <div class="card" data-tone="dark-green">
+      <Kicker flush>data-tone="dark-green"</Kicker>
+      <h3>A card on Dark Green</h3>
+      <p>Body text. <span class="accent">Accent text.</span> <a href="#">A link</a>.</p>
+      <Button href="#" variant="on-dark">on-dark</Button>
+    </div>
+  </Section>
+
+  <Section name="catalogue-buttons" spacing="small">
+    <h2>Button</h2>
+    <div class="row">
+      <Button href="#" variant="primary">variant="primary"</Button>
+      <Button href="#" variant="secondary">variant="secondary"</Button>
+      <Button href="#" variant="link">variant="link"</Button>
+    </div>
+  </Section>
+  <Section name="catalogue-buttons-on-dark" spacing="small" tone="dark-green">
+    <div class="row">
+      <Button href="#" variant="on-dark">variant="on-dark"</Button>
+      <Button href="#" variant="link">variant="link" on dark green</Button>
+    </div>
+  </Section>
+
+  <Section name="catalogue-kicker" spacing="small">
+    <h2>Kicker</h2>
+    <div class="framed">
+      <Kicker>đối tác của <BrandName /></Kicker>
+      <h2>Kicker: --space-3 above and below</h2>
+    </div>
+    <div class="framed">
+      <Kicker flush>trại hè toán học (flush)</Kicker>
+      <h2>Kicker flush: no margins</h2>
+    </div>
+  </Section>
+
+  <Section name="catalogue-type" spacing="small">
+    <h2>Type roles</h2>
+    <p>Base CSS styles each heading level by its role (docs/brand.md, Typography); sections set no heading size.</p>
+    <div class="framed">
+      <h1>h1: Khám phá những biên giới mới</h1>
+      <h2>h2: Những con số nổi bật</h2>
+      <h3>h3: Kiến thức nền tảng &amp; ứng dụng</h3>
+      <h4>h4 takes the h3 role</h4>
+      <h5>h5: a bold label at body size</h5>
+      <p>Body: Nunito Sans regular, Vietnamese diacritics Ồ Ộ Ẫ ặ ữ.</p>
+      <p class="small">Small text: captions, form fields, tags, the footer credit.</p>
+      <p class="number">0123456789</p>
+    </div>
+  </Section>
+
+  <Section name="catalogue-spacing-scale" spacing="small">
+    <h2>Spacing scale</h2>
+    <p>Every margin, padding, gap and offset takes one of these steps (docs/brand.md, Spacing).</p>
+    <div class="framed">
+      {
+        spaceSteps.map((step) => (
+          <div class="space-row">
+            <code class="space-name">--space-{step}</code>
+            <span class="space-bar" data-step={step} />
+            <span class="muted">{step * 4} px</span>
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+
+  <Section name="catalogue-icon" spacing="small">
+    <h2>Icon</h2>
+    <p>Content icons (Tabler outline, stroke 1.5), bare, in the parent's colour; here decorative.</p>
+    <div class="row icons">
+      {
+        icons.map((name) => (
+          <figure class="icon-cell">
+            <Icon name={name} size="32" />
+            <figcaption>name="{name}"</figcaption>
+          </figure>
+        ))
+      }
+    </div>
+    <p>Sizes (box in px; "text" is 1em of the surrounding text), in the control colour:</p>
+    <div class="row control">
+      {
+        iconSizes.map((size) => (
+          <figure class="icon-cell">
+            <Icon name="chevron-right" size={size} />
+            <figcaption>size="{size}"</figcaption>
+          </figure>
+        ))
+      }
+    </div>
+  </Section>
+  {
+    tones.map((tone) => (
+      <Section name={`catalogue-icon-circle-${tone}`} tone={tone} spacing="small">
+        <p>circle on tone="{tone}" (contact and social icons, Tabler filled):</p>
+        <div class="row">
+          {circleIcons.map((name) => (
+            <Icon name={name} size="40" circle />
+          ))}
+        </div>
+      </Section>
+    ))
+  }
+  <Section name="catalogue-icon-circle-footer" spacing="small" class="on-black">
+    <p>circle on black (the footer re-points the circle colours):</p>
+    <div class="row">
+      {circleIcons.map((name) => <Icon name={name} size="40" circle />)}
+    </div>
+  </Section>
+
+  <Section name="catalogue-brand-name" spacing="small">
+    <h2>BrandName</h2>
+    <p class="upper">uppercased text: về <BrandName /> academy</p>
+    <p>plain text: <BrandName /> Academy</p>
+  </Section>
+</BaseLayout>
+
+<style>
+  .title {
+    padding-top: var(--space-8);
+  }
+
+  .demo {
+    background-color: var(--color-background-surface);
+  }
+
+  .demo + .demo {
+    margin-top: var(--space-1);
+  }
+
+  .content {
+    padding: var(--space-4);
+    background-color: var(--color-background-pale-lime);
+  }
+
+  .card {
+    padding: var(--space-6);
+    border-radius: var(--radius);
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    align-items: center;
+  }
+
+  .muted {
+    color: var(--color-text-muted);
+  }
+
+  .accent {
+    color: var(--color-text-accent);
+  }
+
+  .framed {
+    margin-top: var(--space-4);
+    outline: 1px dashed var(--color-text-muted);
+  }
+
+  .small {
+    font-size: var(--font-size-small);
+  }
+
+  .number {
+    color: var(--color-text-accent);
+    font-size: var(--font-size-big-number);
+    font-weight: var(--font-weight-black);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .upper {
+    text-transform: uppercase;
+  }
+
+  .space-row {
+    display: flex;
+    gap: var(--space-4);
+    align-items: center;
+  }
+
+  .space-name {
+    width: 7rem;
+  }
+
+  .space-bar {
+    height: var(--space-4);
+    background-color: var(--color-background-accent);
+  }
+
+  .space-bar[data-step="1"] {
+    width: var(--space-1);
+  }
+
+  .space-bar[data-step="2"] {
+    width: var(--space-2);
+  }
+
+  .space-bar[data-step="3"] {
+    width: var(--space-3);
+  }
+
+  .space-bar[data-step="4"] {
+    width: var(--space-4);
+  }
+
+  .space-bar[data-step="5"] {
+    width: var(--space-5);
+  }
+
+  .space-bar[data-step="6"] {
+    width: var(--space-6);
+  }
+
+  .space-bar[data-step="8"] {
+    width: var(--space-8);
+  }
+
+  .space-bar[data-step="10"] {
+    width: var(--space-10);
+  }
+
+  .space-bar[data-step="12"] {
+    width: var(--space-12);
+  }
+
+  .space-bar[data-step="16"] {
+    width: var(--space-16);
+  }
+
+  .space-bar[data-step="20"] {
+    width: var(--space-20);
+  }
+
+  .space-bar[data-step="24"] {
+    width: var(--space-24);
+  }
+
+  .space-bar[data-step="28"] {
+    width: var(--space-28);
+  }
+
+  .space-bar[data-step="32"] {
+    width: var(--space-32);
+  }
+
+  .icons {
+    color: var(--color-icon-decorative);
+  }
+
+  .control {
+    align-items: flex-end;
+    color: var(--color-icon-control);
+  }
+
+  .icon-cell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-1);
+    width: 9rem;
+    margin: 0;
+  }
+
+  .icon-cell figcaption {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+  }
+
+  /* The footer's black band and its circle pair (Footer.astro). */
+  .on-black {
+    --color-icon-circle: var(--color-icon-circle-footer);
+    --color-icon-circle-glyph: var(--color-icon-circle-glyph-footer);
+    color: var(--color-text-footer);
+    background-color: var(--color-background-footer);
+  }
+</style>

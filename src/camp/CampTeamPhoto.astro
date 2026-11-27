@@ -1,0 +1,45 @@
+---
+// The PiMA team photo next to the contact list of the 2025/2026 camp pages (old
+// `div.div-block-12`).
+//   <CampTeamPhoto alt="Đội ngũ PiMA" page={campPageIds[2025]} />
+import { Image } from "astro:assets";
+import { fluidWidths } from "./image-widths";
+import { wNodeId } from "./w-node";
+import teamPhoto from "../assets/images/pima-team.png";
+
+interface Props {
+  alt: string;
+  /** Webflow page id the old `w-node-*` id ends with. */
+  page: string;
+}
+
+const { alt, page } = Astro.props;
+---
+
+<div id={wNodeId("c3869bfa-88e3-04ed-529d-6f1b43d0eba1", page)} class="div-block-12">
+  <Image
+    src={teamPhoto}
+    alt={alt}
+    widths={fluidWidths(teamPhoto)}
+    sizes="(max-width: 479px) 82vw, (max-width: 2085px) 49vw, 1022px"
+    loading="eager"
+    class="team-image"
+  />
+</div>
+
+<style>
+  /* The old <img> had no width attribute, so its width came from its `sizes`
+     (100vw below 480 px, 49vw, 1022px from 2086 px), capped by `max-width: 100%`.
+     <Image>'s width attribute (1022) would make it fill the column instead. Below 480 px
+     the cap wins either way (the column is narrower than 100vw and 1022 px). */
+  @media (min-width: 480px) {
+    .div-block-12 :global(img.team-image) {
+      width: 49vw;
+    }
+  }
+  @media (min-width: 2086px) {
+    .div-block-12 :global(img.team-image) {
+      width: 1022px;
+    }
+  }
+</style>

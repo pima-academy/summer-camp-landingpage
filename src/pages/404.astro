@@ -1,11 +1,12 @@
 ---
 /*
-  Vietnamese 404 page (old site/404.html). Same utility-page wrapper as the old
-  page, now inside the site chrome; the Webflow illustration and English text
-  are dropped. Astro builds it to dist/404.html, which GitHub Pages (and
-  `astro preview`) serve for any missing URL. noindex, not in the sitemap.
+  Vietnamese 404 page (old site/404.html): one section inside the site chrome; the
+  Webflow illustration and English text of the old page are dropped. Astro builds it
+  to dist/404.html, which GitHub Pages (and `astro preview`) serve for any missing
+  URL. noindex, not in the sitemap.
 */
 import BaseLayout from "../layouts/BaseLayout.astro";
+import NotFound from "../sections/404/NotFound.astro";
 ---
 
 <BaseLayout
@@ -13,14 +14,5 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   description="Trang bạn tìm không tồn tại hoặc đã được chuyển đi."
   noindex
 >
-  <div class="utility-page-wrap">
-    <div class="utility-page-content">
-      <h1 class="heading-style-h2">Không tìm thấy trang</h1>
-      <div>Trang bạn tìm không tồn tại hoặc đã được chuyển đi.</div>
-      <div class="spacer-small"></div>
-      <div class="button-group is-center">
-        <a href="/" class="button is-dark-green w-button">Về trang chủ</a>
-      </div>
-    </div>
-  </div>
+  <NotFound />
 </BaseLayout>

@@ -32,21 +32,27 @@ test("home page has Open Graph tags with an absolute image at most 1200 px wide"
   assert.ok(existsSync(file), `og:image file ${file} exists`);
 });
 
-test("home page loads favicon, webclip and one site stylesheet", { skip }, () => {
-  assert.match(html, /<link rel="icon" href="\/favicon\.png"/);
-  assert.match(html, /<link rel="apple-touch-icon" href="\/webclip\.png"/);
-  const sheets = [...html.matchAll(/<link rel="stylesheet" href="([^"]+)"/g)].map((m) => m[1]);
-  assert.equal(sheets.length, 1, `one bundled stylesheet, got ${sheets}`);
-  const css = readFileSync(join(dist, sheets[0]), "utf8");
-  // Old order: fonts, normalize, webflow, pima-website.
+test("home page loads favicon, app icon and one site stylesheet", { skip }, () => {
+  // The icon files themselves: logo.test.mjs.
+  assert.match(html, /<link rel="icon" href="\/favicon-32\.png"/);
+  assert.match(html, /<link rel="apple-touch-icon" href="\/apple-touch-icon\.png"/);
+  // Astro may bundle a large component <style> (e.g. Slider's) into a sheet of its own;
+  // the site's global CSS is the one sheet with the font faces.
+  const sheets = [...html.matchAll(/<link rel="stylesheet" href="([^"]+)"/g)]
+    .map((m) => readFileSync(join(dist, m[1]), "utf8"))
+    .filter((css) => css.includes("@font-face"));
+  assert.equal(sheets.length, 1, `one site stylesheet, got ${sheets.length}`);
+  const css = sheets[0];
+  // global.css order: fonts, tokens, base, animations.
   const order = [
     css.indexOf("@font-face"),
-    css.indexOf("-webkit-text-size-adjust"), // normalize
-    css.indexOf(".w-inline-block"), // webflow.css
-    css.indexOf(".footer3_"), // pima-website.webflow.css
+    css.indexOf("--font-family-base:"), // tokens.css
+    css.indexOf("-webkit-text-size-adjust"), // base.css
+    css.indexOf("@keyframes marquee-x"), // animations.css
   ];
   assert.ok(order.every((i) => i >= 0), `all sheets present: ${order}`);
-  assert.deepEqual([...order].sort((a, b) => a - b), order, "sheets in old order");
+  assert.deepEqual([...order].sort((a, b) => a - b), order, "sheets in order");
+  assert.doesNotMatch(css, /\.w-[a-z]|\.padding-global|#w-node-/, "no Webflow rule");
 });
 
 test("home page has one <main> and the js-ready script", { skip }, () => {

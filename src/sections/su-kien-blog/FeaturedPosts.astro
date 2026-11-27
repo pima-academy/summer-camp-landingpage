@@ -1,0 +1,131 @@
+---
+/*
+  FeaturedPosts: "Bài viết nổi bật" on the gap page /su-kien-blog/
+  (src/gap-pages/su-kien-blog.astro). A template for one featured post (image, tag,
+  title, summary; all empty and `hidden`, as the old site's empty CMS bindings were)
+  and the empty-list box "No items found.". Replaces the old `section_blog-highlight`
+  markup and its nested `section_blog5` CMS item.
+*/
+import { Image } from "astro:assets";
+import Section from "../../components/Section.astro";
+import placeholder from "../../assets/images/placeholder-image-landscape.svg";
+---
+
+<Section name="featured-posts" spacing="none" animate>
+  <div class="intro">
+    <h2 class="title">Bài viết nổi bật</h2>
+  </div>
+  <div role="list">
+    <div role="listitem" class="item">
+      <a href="#" class="post-link">
+        <div class="post">
+          <div class="media">
+            <Image src={placeholder} alt="" class="cover" hidden />
+          </div>
+          <div class="content">
+            <div class="tag-row">
+              <div class="tag" data-tone="pale-lime" hidden></div>
+            </div>
+            <h3 hidden></h3>
+            <div class="summary" hidden></div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div class="empty">
+    <div>No items found.</div>
+  </div>
+</Section>
+
+<style>
+  .intro {
+    padding-top: var(--space-8);
+    padding-bottom: var(--space-2);
+  }
+
+  .title {
+    text-align: left;
+  }
+
+  .item {
+    padding-top: var(--space-4);
+    padding-bottom: var(--space-4);
+  }
+
+  .post-link {
+    display: inline-block;
+    max-width: 100%;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .post {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-auto-columns: 1fr;
+    align-items: center;
+    gap: var(--space-12);
+  }
+
+  .media {
+    width: 100%;
+    overflow: clip;
+  }
+
+  .cover {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    height: 100%;
+  }
+
+  .tag-row {
+    margin-bottom: var(--space-1);
+  }
+
+  .tag {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-3);
+    border: 2px solid transparent;
+    border-radius: var(--radius);
+    color: var(--color-text);
+    font-size: var(--font-size-small);
+    letter-spacing: var(--letter-spacing-tag);
+    text-transform: uppercase;
+  }
+
+  .summary {
+    font-size: var(--font-size-body);
+  }
+
+  /* An empty Webflow CMS list, kept from the old site; dev only like the whole gap page. */
+  .empty {
+    padding: var(--space-3);
+    background-color: var(--color-background-empty-list);
+  }
+
+  @media screen and (max-width: 767px) {
+    .post {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+  }
+
+  /* Empty CMS bindings (old `w-dyn-bind-empty`); after the rules above so it wins. */
+  [hidden] {
+    display: none;
+  }
+</style>

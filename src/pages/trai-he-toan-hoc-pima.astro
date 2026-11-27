@@ -1,56 +1,20 @@
 ---
-// Trại hè toán học PiMA (old `site/trai-he-toan-hoc-pima.html`).
-// One-off sections (camp intro, camp activity, camp history) are pasted as markup;
-// the rest are shared components. Testimonials, the second trust bar, SummerCamp and
-// the contact section sit inside `section_camp-history`, as on the old page.
-// Both "Định hướng học thuật, phát triển toàn diện" blocks stay (content work, spec #15).
-import { Image } from "astro:assets";
+// Trại hè toán học PiMA (old `site/trai-he-toan-hoc-pima.html`), the camp overview page.
+// Its own sections live in src/sections/trai-he-toan-hoc-pima/; the rest are shared.
+// Both "Định hướng học thuật, phát triển toàn diện" blocks (CampIntro, CampActivity) stay
+// (content work, spec #15).
 import BaseLayout from "../layouts/BaseLayout.astro";
-import ContactSection from "../components/ContactSection.astro";
-import ContentGap from "../components/ContentGap.astro";
-import Impact from "../components/Impact.astro";
-import PageHeader from "../components/PageHeader.astro";
-import Partners from "../components/Partners.astro";
-import SummerCamp from "../components/SummerCamp.astro";
-import Testimonials from "../components/Testimonials.astro";
-import TrustBar from "../components/TrustBar.astro";
-import { fluidWidths } from "../lib/image-widths";
+import ContactSection from "../sections/ContactSection.astro";
+import Impact from "../sections/Impact.astro";
+import PageHeader from "../sections/PageHeader.astro";
+import Partners from "../sections/Partners.astro";
+import SummerCamp from "../sections/SummerCamp.astro";
+import Testimonials from "../sections/Testimonials.astro";
+import TrustBar from "../sections/TrustBar.astro";
+import CampActivity from "../sections/trai-he-toan-hoc-pima/CampActivity.astro";
+import CampHistory from "../sections/trai-he-toan-hoc-pima/CampHistory.astro";
+import CampIntro from "../sections/trai-he-toan-hoc-pima/CampIntro.astro";
 import introPhoto from "../assets/images/38823662-1069309959900702-110915413000323072-n.avif";
-import featureLessons from "../assets/images/camp-feature-2.avif";
-import featureTalks from "../assets/images/camp-feature-3.avif";
-import featureProjects from "../assets/images/camp-feature-1.avif";
-
-const activities = [
-  {
-    image: featureLessons,
-    alt: "Trại sinh trong một buổi học Toán tại trại hè PiMA",
-    title: "Các buổi học về Toán cao cấp, các mô hình ứng dụng và kỹ năng lập trình",
-    text: "Học sinh được học các môn Toán học nền tảng như đại số tuyến tính, tối ưu hóa, xác suất thống kê cùng lập trình và mô hình ứng dụng, dưới sự hướng dẫn của đội ngũ mentor từ các trường đại học hàng đầu thế giới.",
-  },
-  {
-    image: featureTalks,
-    alt: "Buổi tọa đàm cùng diễn giả khách mời tại trại hè PiMA",
-    title: "Các buổi tọa đàm cùng diễn giả khách mời",
-    text: "Gặp gỡ các chuyên gia để lắng nghe chia sẻ thực tiễn về Toán học trong nghiên cứu và nghề nghiệp STEM, từ đó mở rộng góc nhìn, định hướng học tập và phát triển kỹ năng mềm.",
-  },
-  {
-    image: featureProjects,
-    alt: "Trại sinh làm dự án nghiên cứu theo nhóm",
-    title: "Hoạt động làm dự án nghiên cứu theo nhóm",
-    text: "Trại sinh áp dụng kiến thức đã học vào các bài toán thực tế, đồng thời rèn luyện kỹ năng nghiên cứu, làm việc nhóm, trình bày và quản lý thời gian trong môi trường học thuật chuyên nghiệp.",
-  },
-];
-
-// 2016-2024 camp list. `linkClass` and `itemClass` keep the old one-off classes.
-const camps = [
-  { year: "2024", topic: "Quy hoạch Tuyến tính - Linear Programming", itemClass: "content-item-1", linkClass: "camp-detail-link" },
-  { year: "2023", topic: "Toán học và Ứng dụng trong Tin Sinh học - Applied Mathematics in Bioinformatics", itemClass: "content-item-1", linkClass: "camp-detail-link" },
-  { year: "2021", topic: "Toán học trong Khoa học Dữ liệu - The Mathematics of Data Science", itemClass: "content-item-1", linkClass: "camp-detail-link" },
-  { year: "2019", topic: "Toán học trong Học sâu - The Mathematics of Deep Learning", itemClass: "content-item-1", linkClass: "camp-detail-link" },
-  { year: "2018", topic: "Toán học trong Học máy - The Mathematics of Machine Learning", itemClass: "content-item-1", linkClass: "camp-detail-link" },
-  { year: "2017", topic: "Các mô hình toán đa lĩnh vực - Mathematical and Multidisciplinary Models", itemClass: "content-item-1", linkClass: "camp-detail-link-2" },
-  { year: "2016", topic: "Toán mô hình - Mathematical Modeling", itemClass: "content-item-4", linkClass: "camp-detail-link-2" },
-];
 ---
 
 <BaseLayout
@@ -59,178 +23,14 @@ const camps = [
   hero={introPhoto}
 >
   <PageHeader title="Trại hè toán học PiMA" />
-  <div data-animate="fade-up" class="section_camp-intro">
-    <div class="padding-global">
-      <div class="container-medium">
-        <div class="padding-section-small">
-          <div class="layout9_component">
-            <div class="w-layout-grid layout9_content">
-              <div class="layout9_content-left">
-                <div class="margin-bottom margin-small">
-                  <h2 class="heading-style-h3-2">Định hướng học thuật, phát triển toàn diện</h2>
-                </div>
-                <div class="margin-bottom margin-medium">
-                  <p class="text-size-medium">
-                    Trại hè PiMA là chương trình trại hè hàng năm về Toán học và ứng dụng, diễn ra trong 2 tuần dưới
-                    hình thức học tập và sinh hoạt tập trung. Chương trình hỗ trợ toàn bộ chi phí học tập và sinh hoạt,
-                    dành cho học sinh THPT trên toàn quốc ứng tuyển tham gia, với mục tiêu:
-                  </p>
-                </div>
-                <div class="w-layout-grid layout9_item-list">
-                  <div id="w-node-_38f27596-0855-8703-ce19-eba5da8ae8ff-ca8a2c86" class="layout9_item">
-                    <div class="layout9_item-icon-wrapper">
-                      <div class="icon-embed-small w-embed">
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" class="iconify iconify--iconoir" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                          <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5">
-                            <path d="M21 7.353v9.294a.6.6 0 0 1-.309.525l-8.4 4.666a.6.6 0 0 1-.582 0l-8.4-4.666A.6.6 0 0 1 3 16.647V7.353a.6.6 0 0 1 .309-.524l8.4-4.667a.6.6 0 0 1 .582 0l8.4 4.667a.6.6 0 0 1 .309.524Z"></path>
-                            <path d="m3.528 7.294l8.18 4.544a.6.6 0 0 0 .583 0l8.209-4.56M12 21v-9"></path>
-                          </g>
-                        </svg>
-                      </div>
-                    </div>
-                    <div class="layout9_item-text-wrapper">
-                      <div class="margin-bottom margin-xsmall">
-                        <h3 class="heading-style-h6">Kiến thức nền tảng &amp; ứng dụng</h3>
-                      </div>
-                      <p>
-                        Trang bị kiến thức nền tảng về Toán học cao cấp và các mô hình ứng dụng thực tiễn trong khoa học và
-                        công nghệ.
-                      </p>
-                    </div>
-                  </div>
-                  <div id="w-node-_38f27596-0855-8703-ce19-eba5da8ae908-ca8a2c86" class="layout9_item">
-                    <div class="layout9_item-icon-wrapper">
-                      <div class="icon-embed-small w-embed">
-                        <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" class="iconify iconify--iconoir" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24">
-                          <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5">
-                            <path d="M4 19V5a2 2 0 0 1 2-2h13.4a.6.6 0 0 1 .6.6v13.114M6 17h14M6 21h14"></path>
-                            <path stroke-linejoin="round" d="M6 21a2 2 0 1 1 0-4"></path>
-                            <path d="M9 7h6"></path>
-                          </g>
-                        </svg>
-                      </div>
-                    </div>
-                    <div class="layout9_item-text-wrapper">
-                      <div class="margin-bottom margin-xsmall">
-                        <h3 class="heading-style-h6">Tư duy nghiên cứu &amp; hợp tác học thuật</h3>
-                      </div>
-                      <p>
-                        Phát triển tư duy nghiên cứu và kỹ năng làm việc nhóm thông qua các dự án học thuật mang tính ứng
-                        dụng cao.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="layout9_image-wrapper">
-                <Image
-                  src={introPhoto}
-                  alt="Trại sinh và mentor tại trại hè PiMA"
-                  widths={fluidWidths(introPhoto)}
-                  sizes="(max-width: 767px) 90vw, (max-width: 1120px) 42vw, 472px"
-                  class="layout9_image"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <CampIntro />
   <Impact />
   <TrustBar />
-  <div data-animate="fade-up" class="section_camp-activity">
-    <div class="padding-global">
-      <div class="container-medium">
-        <div class="padding-section-large">
-          <div class="layout9_content-left-wrapper">
-            <div id="w-node-_401c6030-5441-5545-0bbb-8b2144bd763c-ca8a2c86" class="layout9_content-left">
-              <div class="margin-bottom margin-small">
-                <h2>Định hướng học thuật, phát triển toàn diện</h2>
-              </div>
-              <div class="margin-bottom margin-medium">
-                <p class="text-size-medium">
-                  Trại hè PiMA là chương trình trại hè hàng năm về Toán học và ứng dụng, diễn ra trong 2 tuần dưới hình
-                  thức học tập và sinh hoạt tập trung. Chương trình hỗ trợ toàn bộ chi phí học tập và sinh hoạt, dành cho
-                  học sinh THPT trên toàn quốc ứng tuyển tham gia, với mục tiêu:
-                </p>
-              </div>
-            </div>
-          </div>
-          <div class="spacer-medium"></div>
-          <div class="layout131_component">
-            <div class="w-layout-grid layout131_content">
-              {
-                activities.map((a) => (
-                  <div class="layout131_item">
-                    <div class="margin-bottom margin-medium">
-                      <div class="layout131_image-wrapper">
-                        <Image
-                          src={a.image}
-                          alt={a.alt}
-                          widths={fluidWidths(a.image)}
-                          sizes="(max-width: 767px) 90vw, (max-width: 991px) 28vw, 299px"
-                          class="layout131_image"
-                        />
-                      </div>
-                    </div>
-                    <div class="margin-bottom margin-small">
-                      <h3 class="heading-style-h6">{a.title}</h3>
-                    </div>
-                    <p>{a.text}</p>
-                  </div>
-                ))
-              }
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+  <CampActivity />
   <Partners />
-  <section data-animate="fade-up" class="section_camp-history">
-    <div class="padding-global">
-      <div class="container-medium">
-        <div class="padding-section-large">
-          <div class="w-layout-grid layout353_component">
-            <div class="layout353_content-left">
-              <div class="margin-bottom margin-xsmall">
-                <div class="text-style-tagline text-block-8 text-style-green">Các chủ đề trại hè</div>
-              </div>
-              <div class="margin-bottom margin-small">
-                <h2 class="heading-style-h2">Hành trình học thuật qua các mùa trại</h2>
-              </div>
-              <p class="text-size-medium">
-                Mỗi trại hè PiMA mang một chủ đề riêng, xoay quanh các lĩnh vực Toán học hiện đại và ứng dụng thực tiễn.
-                Từ tối ưu hóa, học máy đến khoa học dữ liệu và sinh học tính toán, chương trình giúp học sinh khám phá
-                chiều sâu của Toán học và các hướng nghiên cứu liên ngành.
-              </p>
-            </div>
-            <div id="w-node-_56c493a0-0d3c-e487-ba12-f2cfdcd0004d-ca8a2c86" class="layout353_content-right">
-              {
-                camps.map((c) => (
-                  <div class={`layout353_content-item ${c.itemClass}`}>
-                    <div class="margin-bottom margin-xsmall">
-                      <h3 class="heading-style-h5 text-style-bold text-style-green">{c.year}</h3>
-                    </div>
-                    <p>{c.topic}</p>
-                    <ContentGap name={`trai-he-toan-hoc-pima: Xem chi tiết ${c.year}`} inline>
-                      <a href="#" class={c.linkClass}>Xem chi tiết &gt;</a>
-                      <Fragment slot="fallback">
-                        <span class={c.linkClass}>Xem chi tiết &gt;</span>
-                      </Fragment>
-                    </ContentGap>
-                  </div>
-                ))
-              }
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <Testimonials />
-    <TrustBar />
-    <SummerCamp />
-    <ContactSection />
-  </section>
+  <CampHistory />
+  <Testimonials />
+  <TrustBar />
+  <SummerCamp />
+  <ContactSection />
 </BaseLayout>

@@ -1,0 +1,115 @@
+---
+// SocialLinks: "Kết nối với chúng tôi qua" card with the Facebook, LinkedIn and Youtube
+// links (brand icon circle + name), links from site.ts. Used by lien-he only (old
+// `section-contact-social`). Fades up on scroll.
+import Icon from "../../components/Icon.astro";
+import Section from "../../components/Section.astro";
+import { social } from "../../data/site";
+---
+
+<Section name="social-links" spacing="none" animate>
+  <div class="frame">
+    <div class="box" data-tone="surface">
+      <h2 class="heading">Kết nối với chúng tôi qua</h2>
+      <div class="links">
+        <a href={social.facebook.href} class="link">
+          <Icon name="brand-facebook-filled" size="40" circle />
+          <span class="text">Facebook</span>
+        </a>
+        <a href={social.linkedin.href} class="link">
+          <Icon name="brand-linkedin-filled" size="40" circle />
+          <span class="text">LinkedIn</span>
+        </a>
+        <a href={social.youtube.href} class="link">
+          <Icon name="brand-youtube-filled" size="40" circle />
+          <span class="text">Youtube</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</Section>
+
+<style>
+  /* The old band (1rem) plus the old card frame (1rem 4rem 2rem). */
+  .frame {
+    padding: var(--space-8) var(--space-16) var(--space-12);
+  }
+
+  .box {
+    padding: var(--space-8) var(--space-16) var(--space-12);
+    border-radius: var(--radius);
+  }
+
+  /* The heading's margin plus the old 1rem spacer below it. */
+  .heading {
+    margin-bottom: var(--space-8);
+    text-align: center;
+  }
+
+  .links {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: var(--space-28);
+    padding-bottom: var(--space-4);
+  }
+
+  /* Icon circle + name (the old platform-coloured pills went with brand alignment). */
+  .link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    gap: var(--space-2);
+    max-width: 100%;
+    min-height: 44px;
+    color: var(--color-text-muted);
+  }
+
+  .link:hover {
+    color: var(--color-text);
+  }
+
+  .text {
+    text-decoration: none;
+  }
+
+  @media screen and (max-width: 767px) {
+    .frame {
+      padding-bottom: var(--space-16);
+    }
+  }
+
+  @media screen and (max-width: 479px) {
+    .frame {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-5);
+    }
+  }
+
+  /* Defect fix: from 480 to 991 px the three links did not fit the card's 3-column grid with
+     its --space-28 gaps, so "Youtube" overflowed the card (and the page scrolled sideways at
+     480–899 px). Here the links keep their size and wrap, spaced evenly, with the --space-5 gap
+     the mobile layout uses. Just above 480 px the card is too narrow even for one link, so
+     its side padding shrinks there (still --space-16 from ~560 px up, so no visible change
+     elsewhere). Mobile (<= 479) and desktop (>= 992) are unchanged. */
+  /* breakpoint-exception: the 480–991 px band of the defect fix above. */
+  @media screen and (min-width: 480px) and (max-width: 991px) {
+    .box {
+      padding-left: clamp(0px, calc(50% - var(--space-20)), var(--space-16));
+      padding-right: clamp(0px, calc(50% - var(--space-20)), var(--space-16));
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      gap: var(--space-5);
+    }
+  }
+</style>

@@ -1,0 +1,67 @@
+---
+// FROZEN copy of src/components/Marquee.astro for the camp components (#60): do not edit;
+// see src/camp/README.md.
+// Seamless infinite loop (spec #15 "Marquee"). The slot is ONE period of content; the
+// component renders it `copies` times (the extra copies aria-hidden + inert) inside a track
+// that animation `marquee-x`/`marquee-y` (animations.css) moves by one copy per `duration`.
+//
+//   <Marquee class="trust-bar_text-wrapper" duration={20}>…items…</Marquee>
+//
+// The track carries `class` (so the old Webflow class, its gap and its responsive rules
+// apply); each copy is a flex group that inherits the track's gap, and a zero-size spacer
+// closes the track so that track length = copies × (group + gap): -100%/copies is exactly
+// one period, whatever the gap at the current breakpoint.
+// Use enough copies that (copies - 1) periods cover the visible window at every width.
+// No motion with `prefers-reduced-motion: reduce` (first frame stays).
+interface Props {
+  /** "x": right-to-left row. "y": bottom-to-top column. */
+  direction?: "x" | "y";
+  /** Seconds per period (one copy of the slot). */
+  duration: number;
+  /** How many times the slot is rendered (>= 2). */
+  copies?: number;
+  /** Classes for the track element (the element that moves). */
+  class?: string;
+}
+
+const { direction = "x", duration, copies = 2, class: className } = Astro.props;
+const html = await Astro.slots.render("default");
+const extra = Array.from({ length: Math.max(2, copies) - 1 });
+---
+
+<div
+  class:list={[className, "marquee", `marquee--${direction}`]}
+  data-marquee={direction}
+  style={`--marquee-duration: ${duration}s; --marquee-copies: ${Math.max(2, copies)}`}
+>
+  <div class="marquee_group" set:html={html} />
+  {extra.map(() => <div class="marquee_group" aria-hidden="true" inert set:html={html} />)}
+  <span class="marquee_spacer" aria-hidden="true"></span>
+</div>
+
+<style>
+  .marquee {
+    display: flex;
+  }
+  .marquee--x {
+    flex-direction: row;
+    width: max-content;
+  }
+  .marquee--y {
+    flex-direction: column;
+  }
+  .marquee_group {
+    display: flex;
+    flex: none;
+    gap: inherit;
+    align-items: inherit;
+  }
+  .marquee--y > .marquee_group {
+    flex-direction: column;
+  }
+  .marquee_spacer {
+    flex: none;
+    width: 0;
+    height: 0;
+  }
+</style>

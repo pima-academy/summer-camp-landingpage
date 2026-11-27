@@ -1,164 +1,29 @@
 ---
 // Chi tiết trại hè: the 2024 camp detail page (Quy hoạch tuyến tính). Published, still an orphan.
-import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import BrandName from "../components/BrandName.astro";
 import ContentGap from "../components/ContentGap.astro";
-import Slider from "../components/Slider.astro";
-import Testimonials from "../components/Testimonials.astro";
-import { fluidWidths } from "../lib/image-widths";
-import placeholder from "../assets/images/6191a88a1c0e39463c2bf022-placeholder-image.svg";
-
-// Gallery image = slide width minus 2 x 1rem (0.75rem below 768) padding; the mask is
-// 50% of the 64rem container from 768 px up, 100% below.
-const gallerySizes = "(max-width: 767px) calc(100vw - 24px), (max-width: 1024px) calc(50vw - 32px), 480px";
-const gallerySlides = Array.from({ length: 6 });
+import Campers from "../sections/chi-tiet-trai-he/Campers.astro";
+import CampInfo from "../sections/chi-tiet-trai-he/CampInfo.astro";
+import Documents from "../sections/chi-tiet-trai-he/Documents.astro";
+import Gallery from "../sections/chi-tiet-trai-he/Gallery.astro";
+import Hero from "../sections/chi-tiet-trai-he/Hero.astro";
+import Mentors from "../sections/chi-tiet-trai-he/Mentors.astro";
+import ProgramContent from "../sections/chi-tiet-trai-he/ProgramContent.astro";
+import Topic from "../sections/chi-tiet-trai-he/Topic.astro";
+import Testimonials from "../sections/Testimonials.astro";
 ---
 
 <BaseLayout
   title="Quy hoạch tuyến tính | Trại hè toán học PiMA 2024"
   description="Trại hè PiMA 2024 với chủ đề Quy hoạch tuyến tính: trại sinh học đại số tuyến tính, mô hình hóa, lập trình Python và LaTeX, rồi cùng mentor hoàn thành một đề tài nhóm."
 >
-  <header class="section_camp-detail_hero text-color-white">
-    <div class="padding-medium is-bottom">
-      <div class="container-medium">
-        <div class="header7_content">
-          <div id="w-node-_73500b9e-e61e-03bb-1bff-cdc5d9ae114a-ac89abc9" class="max-width-medium">
-            <p class="text-size-medium text-style-allcaps text-style-lime">
-              <BrandName /> academy &gt; chương trình &gt; trại hè 2024
-            </p>
-            <div class="margin-bottom margin-small">
-              <h1 class="heading-style-h1 text-style-white">Quy hoạch Tuyến tính- Linear Programming</h1>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="header7_background-video-wrapper">
-      <div class="video-overlay-layer"></div>
-    </div>
-  </header>
-  <div class="section_camp-topic">
-    <div class="padding-section-small">
-      <div class="container-medium">
-        <div class="camp-topic_text-wrapper">
-          <h2>Chủ đề</h2>
-          <p>Quy hoạch tuyến tính (Linear Programming) là một lĩnh vực quan trọng của Toán học ứng dụng, chuyên nghiên cứu cách tối ưu hóa một đại lượng (như lợi nhuận, chi phí hoặc tài nguyên) trong điều kiện bị ràng buộc bởi một hệ thống các bất phương trình tuyến tính. Đây là một công cụ mạnh mẽ, được sử dụng rộng rãi trong nhiều lĩnh vực như kinh tế, kỹ thuật, vận tải, logistics, quản trị sản xuất, và cả trong nghiên cứu khoa học dữ liệu.<br>‍<br>Về mặt lý thuyết, quy hoạch tuyến tính xây dựng nên các mô hình toán học cho những bài toán ra quyết định trong điều kiện có giới hạn. Ví dụ, làm thế nào để một doanh nghiệp phân bổ nguyên vật liệu sao cho chi phí thấp nhất mà vẫn đáp ứng đủ nhu cầu sản xuất? Hoặc làm sao để tối ưu hóa lịch trình vận chuyển sao cho thời gian giao hàng ngắn nhất mà vẫn sử dụng số xe ít nhất? Từ đó, người ta thiết lập các hàm mục tiêu và các ràng buộc, rồi áp dụng các thuật toán hiệu quả như Simplex hay các phương pháp điểm trong để tìm lời giải tối ưu.<br><br>Quy hoạch tuyến tính còn là nền tảng của nhiều phương pháp mở rộng như quy hoạch nguyên, quy hoạch phi tuyến hay quy hoạch động – những công cụ đang được sử dụng trong trí tuệ nhân tạo, học máy, tối ưu hóa hệ thống và phân tích dữ liệu lớn.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <ContentGap name="chi-tiet-trai-he: Thông tin trại hè">
-    <div class="section_camp-info">
-      <div class="padding-section-small">
-        <div class="container-medium">
-          <div class="camp-topic_text-wrapper">
-            <h2>Thông tin trại hè</h2>
-          </div>
-        </div>
-      </div>
-    </div>
-  </ContentGap>
-  <div class="section_camp-content">
-    <div class="padding-section-small">
-      <div class="container-medium">
-        <div class="camp-content_content-wrapper">
-          <h2>Nội dung chương trình</h2>
-          <p>Tiếp thu các kiến thức về đại số tuyến tính, quy hoạch tuyến tính, và mô hình hóa;<br>Học được các kỹ năng cơ bản về lập trình với Python và soạn thảo văn bản với LaTeX;<br>Tìm hiểu cách ứng dụng các kiến thức trên vào việc khám phá các tính chất lý thuyết của quy hoạch tuyến tính hoặc mô hình hóa và giải quyết các bài toán trong thực tế;<br>Vận dụng các kiến thức và kĩ năng để hoàn thành một đề tài nhóm dưới sự hỗ trợ của các mentor đến từ các trường đại học lớn trong và ngoài nước.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-  <ContentGap name="chi-tiet-trai-he: Đội ngũ hướng dẫn">
-    <div class="section_camp-detail_mentor">
-      <div class="padding-section-small">
-        <div class="container-medium">
-          <div class="camp-detail_mentor_wrapper">
-            <h2>Đội ngũ hướng dẫn</h2>
-          </div>
-        </div>
-      </div>
-    </div>
-  </ContentGap>
-  <ContentGap name="chi-tiet-trai-he: Danh sách trại sinh">
-    <div class="section_camp-detail_mentee">
-      <div class="padding-section-medium">
-        <div class="container-medium">
-          <div class="camp-detail_mentee_wrapper">
-            <h2>Danh sách trại sinh</h2>
-          </div>
-        </div>
-      </div>
-    </div>
-  </ContentGap>
-  <ContentGap name="chi-tiet-trai-he: Tài liệu (items without links)">
-    <div class="section_camp-docs">
-      <div class="padding-section-small">
-        <div class="container-medium">
-          <div class="camp-docs_content-wrapper">
-            <h2>Tài liệu</h2>
-            <h3>Dự án nhóm của trại sinh</h3>
-            <h3>Bài giảng và tài liệu</h3>
-            <h4 class="doc-text-custom">Bài giảng toán cao cấp</h4>
-            <h4 class="doc-text-custom">Bài giảng khách mời</h4>
-            <h4 class="doc-text-custom">Đề tài dự án</h4>
-          </div>
-        </div>
-      </div>
-    </div>
-  </ContentGap>
+  <Hero />
+  <Topic />
+  <ContentGap name="chi-tiet-trai-he: Thông tin trại hè"><CampInfo /></ContentGap>
+  <ProgramContent />
+  <ContentGap name="chi-tiet-trai-he: Đội ngũ hướng dẫn"><Mentors /></ContentGap>
+  <ContentGap name="chi-tiet-trai-he: Danh sách trại sinh"><Campers /></ContentGap>
+  <ContentGap name="chi-tiet-trai-he: Tài liệu (items without links)"><Documents /></ContentGap>
   <Testimonials />
-  <ContentGap name="chi-tiet-trai-he: Hình ảnh trại hè gallery (placeholder images)">
-    <div class="section_camp-detail_certificates">
-      <div class="padding-section-medium">
-        <div class="container-medium">
-          <div class="camp-detail_certificates_wrapper">
-            <h2 class="text-align-center">Hình ảnh trại hè</h2>
-            <div class="gallery16_component">
-              <Slider
-                class="gallery16_slider"
-                maskClass="gallery16_mask"
-                navClass="gallery16_slide-nav"
-                arrows="centre"
-                label="Hình ảnh trại hè"
-              >
-                {
-                  gallerySlides.map(() => (
-                    <div class="gallery16_slide w-slide">
-                      <ContentGap name="chi-tiet-trai-he: certificate lightbox" inline>
-                        <a href="#" class="gallery16_lightbox-link w-inline-block w-lightbox">
-                          <div class="gallery16_image-wrapper">
-                            <Image
-                              src={placeholder}
-                              alt=""
-                              widths={fluidWidths(placeholder)}
-                              sizes={gallerySizes}
-                              class="gallery16_image"
-                            />
-                          </div>
-                        </a>
-                        <Fragment slot="fallback">
-                          <div class="gallery16_lightbox-link w-inline-block">
-                            <div class="gallery16_image-wrapper">
-                              <Image
-                                src={placeholder}
-                                alt=""
-                                widths={fluidWidths(placeholder)}
-                                sizes={gallerySizes}
-                                class="gallery16_image"
-                              />
-                            </div>
-                          </div>
-                        </Fragment>
-                      </ContentGap>
-                    </div>
-                  ))
-                }
-              </Slider>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </ContentGap>
+  <ContentGap name="chi-tiet-trai-he: Hình ảnh trại hè gallery (placeholder images)"><Gallery /></ContentGap>
 </BaseLayout>

@@ -1,0 +1,20 @@
+---
+// Intro: the centred paragraph under the khoa-hoc page title, introducing the applied
+// maths courses. Used by khoa-hoc only (old `section_header64`). Fades up on scroll.
+import Section from "../../components/Section.astro";
+---
+
+<Section name="intro" spacing="small" animate>
+  <p class="lead">Khóa học Toán ứng dụng tại PiMA được thiết kế dành cho học sinh và sinh viên yêu thích STEM, giúp bạn xây dựng nền tảng Toán học vững chắc, tiếp cận các mô hình hiện đại và rèn luyện kỹ năng lập trình, tư duy mô hình hóa. Tham gia khóa học, bạn sẽ được học tập cùng đội ngũ mentor quốc tế, làm dự án thực tiễn và khám phá ứng dụng Toán trong các lĩnh vực như AI, dữ liệu và khoa học tính toán.</p>
+</Section>
+
+<style>
+  .lead {
+    max-width: 56rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: var(--space-4);
+    color: var(--color-text);
+    text-align: center;
+  }
+</style>

@@ -1,86 +1,376 @@
 ---
 /*
-  Slider: the Webflow slider (`w-slider`) without webflow.js. One component for
-  every slider on the site; only the classes, timing and slides differ.
+  Widget: Slider, a row of slides moved one at a time by arrows, dots, swipe,
+  keyboard and optional autoplay. Every slider on the site uses it (home: Team,
+  SummerCamp and the press slider; chi-tiet-trai-he's gallery; gap page detail-course).
 
-  The slides go in the default slot, each an element with the `w-slide` class:
+  The slides go in the default slot, one element per slide, no class needed:
 
-    <Slider class="gallery25_slider" maskClass="gallery25_mask" navClass="gallery25_slide-nav"
-            arrows="bottom-left" autoplay={6000} infinite label="Hoạt động của đội ngũ">
-      <div class="gallery25_slide w-slide">…</div>
+    <Slider layout="wide" autoplay={6000} infinite label="Các chuyên gia đồng hành">
+      <div>…</div>
       …
     </Slider>
 
-  Behaviour (script below, same as webflow.js): 500 ms ease slide, arrows,
-  dots (`w-slider-dot`, `w-active`), swipe, keyboard-operable arrows and dots,
-  autoplay paused while hovered or focused and off under prefers-reduced-motion.
-  Without JS the first slide shows; arrows and dots do nothing / are absent.
+  `layout` sets the slide width, the gutter between slides and where the arrows and
+  dots sit (the four looks of the old Webflow sliders):
+
+    single  one slide fills the row, 4rem side gutters (none ≤ 767 px); arrows at
+            the sides (hidden ≤ 767 px), dots centred below (old testimonial7)
+    half    slides half the row (full ≤ 767 px), 1rem side gutters; arrows at the
+            sides (hidden ≤ 767 px), dots centred below (old gallery16)
+    third   slides a third of the row (half ≤ 767 px), 2rem right gutter; arrows
+            bottom right, dots bottom left (old gallery22)
+    wide    slides 80 % of the row (50 % ≤ 991, 80 % ≤ 767, 95 % ≤ 479 px), 2rem
+            right gutter, 5 % side padding ≤ 991 px; arrows bottom left, dots
+            bottom right (old gallery25)
+
+  `arrowStyle` "filled" (default): white 2.5rem arrows that tint on hover. "plain":
+  bare 3rem round arrows in the text colour (old slider-arrow-2).
+
+  Behaviour (script below, same as webflow.js): 500 ms ease slide, arrows, dots,
+  swipe, keyboard-operable arrows and dots, autoplay paused while hovered or
+  focused and off under prefers-reduced-motion. Without JS the first slide shows;
+  arrows and dots do nothing / are absent.
+
+  State is ARIA, and the CSS reads it: each slide is a group named "k / n" and
+  every slide but the shown one is aria-hidden; the current dot (a button named
+  "Hiện mục k / n") has aria-current="true".
 */
-interface Props {
-  /** Instance class on the `w-slider` element, e.g. "gallery25_slider". */
-  class: string;
-  /** Instance class on the `w-slider-mask` element, e.g. "gallery25_mask". */
-  maskClass: string;
-  /** Instance class on the `w-slider-nav` element, e.g. "gallery25_slide-nav". */
-  navClass: string;
-  /**
-   * Arrow placement, the old modifier classes:
-   * "bottom-left" = is-bottom-left-previous/-next, "bottom" = is-bottom-previous/-next,
-   * "centre" = is-centre-previous/-next + hide-mobile-landscape.
-   */
-  arrows: "bottom-left" | "bottom" | "centre";
-  /** Base class of both arrows: "slider-arrow" (default) or "slider-arrow-2" (detail_course). */
-  arrowClass?: "slider-arrow" | "slider-arrow-2";
-  /** Autoplay delay in ms (old `data-delay`). Omit for no autoplay. */
+import type { HTMLAttributes } from "astro/types";
+import Icon from "./Icon.astro";
+
+interface Props extends HTMLAttributes<"div"> {
+  /** Slide width, gutters and arrow and dot placement (see above). */
+  layout: "single" | "half" | "third" | "wide";
+  /** Look of the two arrows. */
+  arrowStyle?: "filled" | "plain";
+  /** Autoplay delay in ms. Omit for no autoplay. */
   autoplay?: number;
-  /** Wrap from the last slide to the first in the same direction (old `data-infinite`). */
+  /** Wrap from the last slide to the first in the same direction. */
   infinite?: boolean;
   /** Vietnamese accessible name of the slider region. */
   label: string;
 }
 
-const { class: className, maskClass, navClass, arrows, arrowClass = "slider-arrow", autoplay, infinite = false, label } =
-  Astro.props;
-
-const placement = {
-  "bottom-left": ["is-bottom-left-previous", "is-bottom-left-next"],
-  bottom: ["is-bottom-previous", "is-bottom-next"],
-  centre: ["is-centre-previous hide-mobile-landscape", "is-centre-next hide-mobile-landscape"],
-}[arrows];
+const { layout, arrowStyle = "filled", autoplay, infinite = false, label, class: className, ...attrs } = Astro.props;
 ---
 
 <div
-  class:list={[className, "w-slider"]}
+  class:list={["slider", className]}
   role="region"
   aria-label={label}
   data-slider
+  data-layout={layout}
   data-autoplay={autoplay}
   data-infinite={infinite ? "" : undefined}
+  {...attrs}
 >
-  <div class:list={[maskClass, "w-slider-mask"]}>
+  <div class="live" aria-live="off" aria-atomic="true"></div>
+  <div class="mask">
     <slot />
-    <div aria-live="off" aria-atomic="true" class="w-slider-aria-label"></div>
   </div>
-  <div class:list={[arrowClass, placement[0], "w-slider-arrow-left"]}>
-    <div class="slider-arrow-icon_default w-embed">
-      <svg width="100%" height="100%" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M3.31066 8.75001L9.03033 14.4697L7.96967 15.5303L0.439339 8.00001L7.96967 0.469676L9.03033 1.53034L3.31066 7.25001L15.5 7.25L15.5 8.75L3.31066 8.75001Z"
-          fill="currentColor"></path>
-      </svg>
-    </div>
+  <div class="arrow prev" data-style={arrowStyle}>
+    <Icon name="arrow-left" size="24" />
   </div>
-  <div class:list={[arrowClass, placement[1], "w-slider-arrow-right"]}>
-    <div class="slider-arrow-icon_default w-embed">
-      <svg width="100%" height="100%" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path
-          d="M12.6893 7.25L6.96967 1.53033L8.03033 0.469666L15.5607 8L8.03033 15.5303L6.96967 14.4697L12.6893 8.75H0.5V7.25H12.6893Z"
-          fill="currentColor"></path>
-      </svg>
-    </div>
+  <div class="arrow next" data-style={arrowStyle}>
+    <Icon name="arrow-right" size="24" />
   </div>
-  <div class:list={[navClass, "w-slider-nav w-slider-nav-invert w-round"]}></div>
+  <div class="dots"></div>
 </div>
+
+<style>
+  .slider {
+    position: relative;
+    clear: both;
+    padding-bottom: var(--space-16);
+    text-align: center;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .slider[data-layout="half"],
+  .slider[data-layout="wide"] {
+    overflow: hidden;
+  }
+
+  .slider[data-layout="third"] {
+    padding-bottom: var(--space-20);
+  }
+
+  /* Visually hidden live region: announces "Mục k / n." while the slider is engaged. */
+  .live {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    border: 0;
+  }
+
+  .mask {
+    position: relative;
+    z-index: 1;
+    display: block;
+    height: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  [data-layout="half"] > .mask {
+    width: 50%;
+    overflow: visible;
+  }
+
+  [data-layout="third"] > .mask {
+    width: 33.33%;
+    overflow: visible;
+  }
+
+  [data-layout="wide"] > .mask {
+    width: 80%;
+    overflow: visible;
+  }
+
+  /* The slides are the caller's elements (the slot), outside this file's scope. */
+  .mask > :global(*) {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    width: 100%;
+    height: 100%;
+    white-space: normal;
+    text-align: left;
+  }
+
+  /* Slide gutters (the caller's slide elements). */
+  [data-layout="single"] > .mask > :global(*) {
+    padding-left: var(--space-16);
+    padding-right: var(--space-16);
+  }
+
+  /* Slide gutters (the caller's slide elements). */
+  [data-layout="half"] > .mask > :global(*) {
+    padding-left: var(--space-4);
+    padding-right: var(--space-4);
+  }
+
+  /* Slide gutters (the caller's slide elements). */
+  [data-layout="third"] > .mask > :global(*),
+  [data-layout="wide"] > .mask > :global(*) {
+    padding-right: var(--space-8);
+  }
+
+  .arrow {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    overflow: hidden;
+    cursor: pointer;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .prev {
+    z-index: 3;
+    right: auto;
+  }
+
+  .next {
+    z-index: 4;
+    left: auto;
+  }
+
+  .arrow[data-style="filled"] {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--radius);
+    background-color: var(--color-background);
+    color: var(--color-icon-control);
+    transition-property: color, background-color;
+    transition-duration: 0.2s, 0.2s;
+    transition-timing-function: ease, ease;
+  }
+
+  .arrow[data-style="filled"]:hover {
+    background-color: color-mix(in srgb, currentColor 10%, transparent);
+  }
+
+  .arrow[data-style="plain"] {
+    width: 3rem;
+    height: 3rem;
+    border-radius: var(--radius-circle);
+  }
+
+  /* Arrows at the sides, centred on the slides (above the dots' 4rem). */
+  [data-layout="single"] > .arrow,
+  [data-layout="half"] > .arrow {
+    bottom: var(--space-16);
+  }
+
+  [data-layout="single"] > .arrow[data-style="filled"],
+  [data-layout="half"] > .arrow[data-style="filled"] {
+    border-radius: var(--radius);
+  }
+
+  [data-layout="third"] > .arrow,
+  [data-layout="wide"] > .arrow {
+    top: auto;
+    bottom: 0;
+  }
+
+  [data-layout="third"] > .prev {
+    left: auto;
+    right: var(--space-16);
+  }
+
+  [data-layout="third"] > .next {
+    right: 0;
+  }
+
+  [data-layout="wide"] > .prev {
+    left: 0;
+  }
+
+  [data-layout="wide"] > .next {
+    left: var(--space-16);
+    right: auto;
+  }
+
+  .dots {
+    position: absolute;
+    z-index: 2;
+    inset: auto 0 0 0;
+    height: 1.75rem;
+    margin: auto;
+    padding-top: var(--space-3);
+    font-size: var(--font-size-slider-nav);
+    text-align: center;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  [data-layout="third"] > .dots {
+    right: auto;
+  }
+
+  [data-layout="wide"] > .dots {
+    left: auto;
+    right: var(--space-16);
+  }
+
+  /* The dots are created by the script below, so they carry no scope attribute. */
+  .dots > :global(*) {
+    position: relative;
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    margin: 0 var(--space-1) var(--space-1);
+    border-radius: var(--radius-circle);
+    background-color: var(--color-background-slider-dot);
+    cursor: pointer;
+    transition:
+      background-color 100ms,
+      color 100ms;
+  }
+
+  /* Script-made dots (see above). */
+  .dots > :global([aria-current="true"]) {
+    background-color: var(--color-background-slider-dot-current);
+  }
+
+  /* Script-made dots (see above). */
+  .dots > :global(:focus) {
+    box-shadow: var(--shadow-slider-dot-focus);
+  }
+
+  /* Script-made dots (see above). */
+  .dots > :global([aria-current="true"]:focus) {
+    box-shadow: none;
+  }
+
+  @media screen and (max-width: 991px) {
+    .slider[data-layout="wide"] {
+      padding-left: 5%;
+      padding-right: 5%;
+    }
+
+    [data-layout="wide"] > .mask {
+      width: 50%;
+    }
+
+    /* The old rule was `left: auto`, i.e. the static position: the slider's 5 % padding. */
+    [data-layout="wide"] > .prev {
+      left: 5%;
+    }
+
+    [data-layout="wide"] > .next {
+      left: calc(5% + var(--space-16));
+    }
+
+    [data-layout="wide"] > .dots {
+      right: var(--space-8);
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .slider[data-layout="single"],
+    .slider[data-layout="half"] {
+      padding-bottom: var(--space-12);
+    }
+
+    [data-layout="single"] > .arrow,
+    [data-layout="half"] > .arrow {
+      display: none;
+    }
+
+    [data-layout="half"] > .mask {
+      width: 100%;
+    }
+
+    [data-layout="third"] > .mask {
+      width: 50%;
+    }
+
+    [data-layout="wide"] > .mask {
+      width: 80%;
+    }
+
+    /* Slide gutters (the caller's slide elements). */
+    [data-layout="single"] > .mask > :global(*) {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    /* Slide gutters (the caller's slide elements). */
+    [data-layout="half"] > .mask > :global(*) {
+      padding-left: var(--space-3);
+      padding-right: var(--space-3);
+    }
+
+    /* Slide gutters (the caller's slide elements). */
+    [data-layout="third"] > .mask > :global(*),
+    [data-layout="wide"] > .mask > :global(*) {
+      padding-right: var(--space-6);
+    }
+
+    [data-layout="wide"] > .dots {
+      right: 5%;
+    }
+  }
+
+  @media screen and (max-width: 479px) {
+    [data-layout="wide"] > .mask {
+      width: 95%;
+    }
+
+    [data-layout="wide"] > .next {
+      left: 24%;
+    }
+  }
+</style>
 
 <script>
   import { initialState, step, type SlideMove, type SliderState } from "../lib/slider-step";
@@ -91,12 +381,12 @@ const placement = {
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
   function setup(root: HTMLElement, n: number) {
-    const mask = root.querySelector<HTMLElement>(":scope > .w-slider-mask")!;
-    const left = root.querySelector<HTMLElement>(":scope > .w-slider-arrow-left")!;
-    const right = root.querySelector<HTMLElement>(":scope > .w-slider-arrow-right")!;
-    const nav = root.querySelector<HTMLElement>(":scope > .w-slider-nav")!;
-    const live = mask.querySelector<HTMLElement>(":scope > .w-slider-aria-label")!;
-    const slides = [...mask.querySelectorAll<HTMLElement>(":scope > .w-slide")];
+    const mask = root.querySelector<HTMLElement>(":scope > .mask")!;
+    const left = root.querySelector<HTMLElement>(":scope > .prev")!;
+    const right = root.querySelector<HTMLElement>(":scope > .next")!;
+    const nav = root.querySelector<HTMLElement>(":scope > .dots")!;
+    const live = root.querySelector<HTMLElement>(":scope > .live")!;
+    const slides = [...mask.children] as HTMLElement[];
     const count = slides.length;
     const infinite = root.hasAttribute("data-infinite");
     const delay = Number(root.dataset.autoplay) || 0;
@@ -105,7 +395,7 @@ const placement = {
     // Slides are inline-blocks in a nowrap mask: whitespace between them would
     // add a gap and break the 100%-per-slide offsets (webflow.js removed it too).
     for (const node of [...mask.childNodes]) if (node.nodeType === Node.TEXT_NODE) node.remove();
-    mask.id ||= `w-slider-mask-${n}`;
+    mask.id ||= `slider-mask-${n}`;
     mask.style.touchAction = "pan-y";
 
     slides.forEach((slide, k) => {
@@ -132,10 +422,9 @@ const placement = {
 
     const dots = slides.map((_, k) => {
       const dot = document.createElement("div");
-      dot.className = "w-slider-dot";
       dot.setAttribute("role", "button");
       dot.setAttribute("aria-label", `Hiện mục ${k + 1} / ${count}`);
-      dot.style.marginLeft = dot.style.marginRight = "3px"; // old data-nav-spacing="3"
+      dot.setAttribute("aria-controls", mask.id);
       dot.addEventListener("click", () => go(k));
       dot.addEventListener("keydown", (e) => {
         const focus = (i: number) => dots[Math.max(0, Math.min(count - 1, i))].focus();
@@ -162,10 +451,10 @@ const placement = {
         }
       });
       dots.forEach((dot, k) => {
-        const active = k === state.index;
-        dot.classList.toggle("w-active", active);
-        dot.setAttribute("aria-pressed", String(active));
-        dot.setAttribute("tabindex", active ? "0" : "-1");
+        const current = k === state.index;
+        if (current) dot.setAttribute("aria-current", "true");
+        else dot.removeAttribute("aria-current");
+        dot.setAttribute("tabindex", current ? "0" : "-1");
       });
     }
 
