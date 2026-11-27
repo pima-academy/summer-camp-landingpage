@@ -7,6 +7,8 @@
 // A year held at several campuses (2025) has one cover per campus: they crossfade every 7 s
 // with a campus tag, and the matching date block's rule and days turn Pale Lime in step.
 // Hover pauses; reduced motion shows the first cover only.
+// A square cover (2021's collage, which a wide frame would crop) is shown whole: on desktop it
+// sits beside the text, which stacks in a column; below 992 px its frame is square.
 // Used by trai-he-toan-hoc-pima/[year].
 import { Image } from "astro:assets";
 import BrandName from "../../components/BrandName.astro";
@@ -26,20 +28,23 @@ const slideOf = (campus?: string) => {
   return i >= 0 ? i : undefined;
 };
 const counts = countsSentence(camp);
+/** A cover about as tall as it is wide: framed square so nothing of it is cut. */
+const square = slides.every(({ image }) => Math.abs(image.width / image.height - 1) < 0.1);
 ---
 
 <Section name="cover" width="large" spacing="none">
-  <div class="bookcover" data-tone="dark-green" data-covers={slides.length}>
+  <div class:list={["bookcover", { square }]} data-tone="dark-green" data-covers={slides.length}>
     <div class:list={["photo", { rotating }]}>
       {
         slides.map((c, i) => (
           <figure class="slide" data-slide={i} data-active={i === 0 ? "" : undefined} aria-hidden={i > 0 ? "true" : undefined}>
-            {/* sizes 1600px, not the frame's width: on a tall viewport the frame crops the photo's sides. */}
+            {/* sizes 1600px, not the frame's width: on a tall viewport the frame crops the photo's sides.
+                A square cover is 60 % of the frame on desktop. */}
             <Image
               src={c.image}
               alt={c.campus ? `Trại sinh và ban tổ chức Trại hè PiMA ${camp.year} tại ${c.campus}` : `Trại sinh và ban tổ chức Trại hè PiMA ${camp.year}`}
               widths={[800, 1200, 1600, 2000, 2400, 2880]}
-              sizes="(max-width: 991px) 92vw, 1600px"
+              sizes={square ? "(max-width: 991px) 92vw, 800px" : "(max-width: 991px) 92vw, 1600px"}
               quality={90}
               class="img"
               loading="eager"
@@ -277,12 +282,33 @@ const counts = countsSentence(camp);
     font-variant-numeric: tabular-nums;
   }
 
+  /* A square cover: the photo whole, beside the text on desktop; the text stacks, the season
+     line on top and the rest at the foot of the photo. The frame takes the height it needs. */
+  .square {
+    height: auto;
+    max-height: none;
+    min-height: 0;
+    grid-template-rows: none;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+  }
+  .square .photo {
+    aspect-ratio: 1 / 1;
+  }
+  .square .text {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto 1fr auto auto;
+    grid-template-areas: "season" "title" "dates" "counts";
+  }
+
   @media screen and (max-width: 991px) {
     .bookcover {
       height: auto;
       max-height: none;
       min-height: 0;
       grid-template-rows: auto auto;
+    }
+    .square {
+      grid-template-columns: none;
     }
     .photo {
       aspect-ratio: 12 / 5;
