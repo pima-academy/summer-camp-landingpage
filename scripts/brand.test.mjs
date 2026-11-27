@@ -176,10 +176,24 @@ test("type tokens follow the spec's web scale", () => {
   }
 });
 
-test("every heading line height is 1.1 or more (stacked Vietnamese diacritics)", () => {
+test("display type tokens follow the camp archive design (spec #93, prototype #89)", () => {
+  // The sizes are fluid clamp()s, so desktop and mobile share one declaration.
+  const display = {
+    "--font-size-display": "clamp(2.75rem, 6.4vw, 6.5rem)",
+    "--font-size-display-2": "clamp(1.75rem, 4.2vw, 4rem)",
+    "--line-height-display": "1.1",
+    "--letter-spacing-display": "-0.025em",
+  };
+  for (const width of [1440, 390]) {
+    const tokens = tokensAt(tokensCss, width);
+    assert.deepEqual(Object.fromEntries(Object.keys(display).map((k) => [k, tokens[k]])), display, `at ${width}px`);
+  }
+});
+
+test("every heading and display line height is 1.1 or more (stacked Vietnamese diacritics)", () => {
   for (const width of [1440, 991, 767, 390]) {
     const low = Object.entries(tokensAt(tokensCss, width))
-      .filter(([k]) => /^--line-height-h\d$/.test(k))
+      .filter(([k]) => /^--line-height-(h\d|display)$/.test(k))
       .filter(([, v]) => !(Number(v) >= 1.1));
     assert.deepEqual(low, [], `at ${width}px`);
   }
