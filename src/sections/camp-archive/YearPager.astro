@@ -14,7 +14,7 @@ interface Props {
 }
 
 const { prev, next } = Astro.props;
-const href = (y: CampYear) => `/trai-he-toan-hoc-pima/${y.year}/`;
+const href = (camp: CampYear) => `/trai-he-toan-hoc-pima/${camp.year}/`;
 ---
 
 <Section name="year-pager" width="large" spacing="small">

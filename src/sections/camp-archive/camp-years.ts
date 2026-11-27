@@ -16,7 +16,7 @@ export interface Album {
 
 /** One camp year as its page renders it. */
 export interface ArchiveYear {
-  y: CampYear;
+  camp: CampYear;
   albums: Album[];
 }
 
@@ -26,9 +26,9 @@ type Modules<T> = Record<string, { default: T }>;
  * The albums of a year: for each gallery section, every photo whose glob key starts with
  * `<base>/<year>/<folder>/`. `photos` is an eager `import.meta.glob` of `<base>/*\/*\/*`.
  */
-export function albumsOf(y: CampYear, photos: Modules<ImageMetadata>, base: string): Album[] {
-  return (y.gallery ?? []).map((s) => {
-    const prefix = `${base}/${y.year}/${s.folder}/`;
+export function albumsOf(camp: CampYear, photos: Modules<ImageMetadata>, base: string): Album[] {
+  return (camp.gallery ?? []).map((s) => {
+    const prefix = `${base}/${camp.year}/${s.folder}/`;
     return {
       name: s.name,
       album: s.album,
@@ -52,4 +52,4 @@ export const campYears: CampYear[] = Object.values(years)
   .sort((a, b) => a.year - b.year);
 
 /** Every built year with its albums, oldest first. */
-export const archiveYears: ArchiveYear[] = campYears.map((y) => ({ y, albums: albumsOf(y, photos, "../../assets/camp-archive") }));
+export const archiveYears: ArchiveYear[] = campYears.map((camp) => ({ camp, albums: albumsOf(camp, photos, "../../assets/camp-archive") }));

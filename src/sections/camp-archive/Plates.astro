@@ -10,18 +10,18 @@ import type { CampYear } from "./camp-archive";
 import type { Album } from "./camp-years";
 
 interface Props {
-  y: CampYear;
+  camp: CampYear;
   /** The year's gallery sections with their photos (camp-years.ts). */
   albums: Album[];
 }
 
-const { y, albums } = Astro.props;
+const { camp, albums } = Astro.props;
 const shown = albums.filter((a) => a.photos.length > 0);
-const title = shown.length && y.video ? "Hình ảnh và video" : y.video ? "Video" : "Hình ảnh";
+const title = shown.length && camp.video ? "Hình ảnh và video" : camp.video ? "Video" : "Hình ảnh";
 ---
 
 {
-  (shown.length > 0 || y.video) && (
+  (shown.length > 0 || camp.video) && (
     <Section name="plates" width="large" spacing="medium">
       <h2>{title}</h2>
       {shown.map((a) => (
@@ -40,7 +40,7 @@ const title = shown.length && y.video ? "Hình ảnh và video" : y.video ? "Vid
               <div class:list={["cell", { lead: k === 0 }]}>
                 <Image
                   src={photo}
-                  alt={a.name ? `${a.name}, Trại hè PiMA ${y.year}` : `Trại hè PiMA ${y.year}`}
+                  alt={a.name ? `${a.name}, Trại hè PiMA ${camp.year}` : `Trại hè PiMA ${camp.year}`}
                   widths={[400, 800, 1200]}
                   sizes={k === 0 ? "(max-width: 767px) 90vw, 40vw" : "(max-width: 767px) 45vw, 20vw"}
                   class="img"
@@ -50,15 +50,15 @@ const title = shown.length && y.video ? "Hình ảnh và video" : y.video ? "Vid
           </div>
         </section>
       ))}
-      {y.video && (
+      {camp.video && (
         <section class="plate">
           <div>
             <h3 class="name">Video</h3>
           </div>
           <iframe
             class="video"
-            src={`https://www.youtube-nocookie.com/embed/${y.video.youtubeId}`}
-            title={`Video Trại hè PiMA ${y.year}`}
+            src={`https://www.youtube-nocookie.com/embed/${camp.video.youtubeId}`}
+            title={`Video Trại hè PiMA ${camp.year}`}
             loading="lazy"
             allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
             allowfullscreen

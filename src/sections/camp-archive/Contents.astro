@@ -10,15 +10,15 @@ import Section from "../../components/Section.astro";
 import { FILE_LINKS, type CampYear, type DocItem, type Person } from "./camp-archive";
 
 interface Props {
-  y: CampYear;
+  camp: CampYear;
 }
 
-const { y } = Astro.props;
+const { camp } = Astro.props;
 const parts: { title: string; items?: DocItem[]; numbered?: boolean }[] = [
-  { title: "Đề tuyển sinh", items: y.entranceExam },
-  { title: "Bài giảng", items: y.lectures, numbered: true },
-  { title: "Bài tập", items: y.exercises },
-  { title: "Tài liệu đọc thêm", items: y.reading },
+  { title: "Đề tuyển sinh", items: camp.entranceExam },
+  { title: "Bài giảng", items: camp.lectures, numbered: true },
+  { title: "Bài tập", items: camp.exercises },
+  { title: "Tài liệu đọc thêm", items: camp.reading },
 ].filter((p) => p.items?.length);
 const byline = (a: Person) => (a.affiliation ? `${a.name} (${a.affiliation})` : a.name);
 ---

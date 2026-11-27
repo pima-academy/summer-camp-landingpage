@@ -16,25 +16,25 @@ import { archiveYears, type ArchiveYear } from "../../sections/camp-archive/camp
 
 export function getStaticPaths() {
   return archiveYears.map((entry, i) => ({
-    params: { year: String(entry.y.year) },
-    props: { ...entry, prev: archiveYears[i - 1]?.y, next: archiveYears[i + 1]?.y },
+    params: { year: String(entry.camp.year) },
+    props: { ...entry, prev: archiveYears[i - 1]?.camp, next: archiveYears[i + 1]?.camp },
   }));
 }
 
 type Props = ArchiveYear & { prev?: CampYear; next?: CampYear };
 
-const { y, albums, prev, next } = Astro.props;
-const counts = countsSentence(y).join("");
-const title = `${y.topic.vi} | Trại hè Toán học PiMA ${y.year}`;
-const description = `Trại hè Toán học PiMA ${y.year}, chủ đề ${y.topic.vi} (${y.topic.en}).${counts ? ` ${counts}` : ""}`;
+const { camp, albums, prev, next } = Astro.props;
+const counts = countsSentence(camp).join("");
+const title = `${camp.topic.vi} | Trại hè Toán học PiMA ${camp.year}`;
+const description = `Trại hè Toán học PiMA ${camp.year}, chủ đề ${camp.topic.vi} (${camp.topic.en}).${counts ? ` ${counts}` : ""}`;
 ---
 
-<BaseLayout title={title} description={description} hero={coversOf(y)[0].image}>
-  <Cover y={y} />
-  <Preface y={y} />
-  <Credits y={y} />
-  <Contents y={y} />
-  <Projects y={y} />
-  <Plates y={y} albums={albums} />
+<BaseLayout title={title} description={description} hero={coversOf(camp)[0].image}>
+  <Cover camp={camp} />
+  <Preface camp={camp} />
+  <Credits camp={camp} />
+  <Contents camp={camp} />
+  <Projects camp={camp} />
+  <Plates camp={camp} albums={albums} />
   <YearPager prev={prev} next={next} />
 </BaseLayout>

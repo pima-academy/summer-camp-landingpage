@@ -10,20 +10,20 @@ import Section from "../../components/Section.astro";
 import { FILE_LINKS, isMultiCampus, type CampYear, type FileLabel } from "./camp-archive";
 
 interface Props {
-  y: CampYear;
+  camp: CampYear;
 }
 
-const { y } = Astro.props;
-const multiCampus = isMultiCampus(y);
+const { camp } = Astro.props;
+const multiCampus = isMultiCampus(camp);
 /** A file link's text: a group's PDF is its report. */
 const linkText = (label: FileLabel) => (label === "PDF" ? "Báo cáo" : FILE_LINKS[label].text);
 ---
 
 {
-  y.projects && (
+  camp.projects && (
     <Section name="projects" width="large" spacing="medium" tone="surface">
       <h2 class="title">Dự án nhóm</h2>
-      {y.projects.map((p) => (
+      {camp.projects.map((p) => (
         <article class="problem">
           <div class="statement">
             <h3>{p.title}</h3>

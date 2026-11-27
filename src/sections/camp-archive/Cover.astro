@@ -14,18 +14,18 @@ import Section from "../../components/Section.astro";
 import { calendarDates, countsSentence, coversOf, type CampYear } from "./camp-archive";
 
 interface Props {
-  y: CampYear;
+  camp: CampYear;
 }
 
-const { y } = Astro.props;
-const slides = coversOf(y);
+const { camp } = Astro.props;
+const slides = coversOf(camp);
 const rotating = slides.length > 1;
 /** The cover a session pairs with in a rotating hero, or undefined. */
 const slideOf = (campus?: string) => {
   const i = rotating ? slides.findIndex((c) => c.campus === campus) : -1;
   return i >= 0 ? i : undefined;
 };
-const counts = countsSentence(y);
+const counts = countsSentence(camp);
 ---
 
 <Section name="cover" width="large" spacing="none">
@@ -37,7 +37,7 @@ const counts = countsSentence(y);
             {/* sizes 1600px, not the frame's width: on a tall viewport the frame crops the photo's sides. */}
             <Image
               src={c.image}
-              alt={c.campus ? `Trại sinh và ban tổ chức Trại hè PiMA ${y.year} tại ${c.campus}` : `Trại sinh và ban tổ chức Trại hè PiMA ${y.year}`}
+              alt={c.campus ? `Trại sinh và ban tổ chức Trại hè PiMA ${camp.year} tại ${c.campus}` : `Trại sinh và ban tổ chức Trại hè PiMA ${camp.year}`}
               widths={[800, 1200, 1600, 2000, 2400, 2880]}
               sizes="(max-width: 991px) 92vw, 1600px"
               quality={90}
@@ -52,16 +52,16 @@ const counts = countsSentence(y);
     <div class="text">
       <p class="season">
         <span>Trại hè Toán học và Ứng dụng <BrandName /></span>
-        <span class="year">{y.year}</span>
+        <span class="year">{camp.year}</span>
       </p>
       <div class="title">
-        <h1 class="display">{y.topic.vi}</h1>
-        <p class="en">{y.topic.en}</p>
+        <h1 class="display">{camp.topic.vi}</h1>
+        <p class="en">{camp.topic.en}</p>
       </div>
       {
-        y.sessions && (
+        camp.sessions && (
           <dl class="dates">
-            {y.sessions.map((s) => {
+            {camp.sessions.map((s) => {
               const d = s.start && s.end ? calendarDates(s.start, s.end) : undefined;
               const slide = slideOf(s.campus);
               return (

@@ -7,10 +7,10 @@ import Section from "../../components/Section.astro";
 import type { CampYear } from "./camp-archive";
 
 interface Props {
-  y: CampYear;
+  camp: CampYear;
 }
 
-const { description, programme } = Astro.props.y;
+const { description, programme } = Astro.props.camp;
 ---
 
 {
