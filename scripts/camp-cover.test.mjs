@@ -1,6 +1,6 @@
 // Checks the camp archive page's cover (src/sections/camp-archive/Cover.astro) in a
 // browser: in a rotating cover the one on show is the only one exposed to assistive technology,
-// before and after a turn; a square cover is not cropped. Needs a fresh `npm run build`;
+// before and after a turn; no cover is cropped. Needs a fresh `npm run build`;
 // skipped when dist/ is missing.
 import { test, before, after } from "node:test";
 import assert from "node:assert/strict";
@@ -43,19 +43,34 @@ test("only the cover on show is exposed to assistive technology, after each turn
   await context.close();
 });
 
-test("a square cover (2021, 2024) is shown whole, its frame as square as the photo", { skip }, async () => {
-  for (const year of [2021, 2024]) {
-    for (const viewport of [{ width: 1440, height: 900 }, { width: 390, height: 844 }]) {
-      const context = await browser.newContext({ viewport });
-      const page = await context.newPage();
+test("no cover is cropped: each frame takes its photo's aspect ratio, at every width", { skip }, async () => {
+  const years = [2016, 2017, 2018, 2019, 2021, 2023, 2024, 2025, 2026];
+  const viewports = [
+    { width: 1920, height: 1080 },
+    { width: 1440, height: 900 },
+    { width: 1280, height: 720 },
+    { width: 1024, height: 768 },
+    { width: 768, height: 1024 },
+    { width: 390, height: 844 },
+  ];
+  for (const viewport of viewports) {
+    const context = await browser.newContext({ viewport });
+    const page = await context.newPage();
+    for (const year of years) {
       await page.goto(server.origin + `/trai-he-toan-hoc-pima/${year}/`, { waitUntil: "load" });
-      const { natural, shown } = await page.$eval(".bookcover .img", async (img) => {
-        await img.decode();
-        const r = img.getBoundingClientRect();
-        return { natural: img.naturalWidth / img.naturalHeight, shown: r.width / r.height };
-      });
-      assert.ok(Math.abs(shown - natural) < 0.01, `${year}, ${viewport.width} px: frame ${shown.toFixed(3)} vs photo ${natural.toFixed(3)}`);
-      await context.close();
+      const covers = await page.$$eval(".bookcover .img", (imgs) =>
+        Promise.all(
+          imgs.map(async (img) => {
+            await img.decode();
+            const r = img.getBoundingClientRect();
+            return { natural: img.naturalWidth / img.naturalHeight, shown: r.width / r.height };
+          }),
+        ),
+      );
+      for (const { natural, shown } of covers) {
+        assert.ok(Math.abs(shown / natural - 1) < 0.01, `${year}, ${viewport.width} px: frame ${shown.toFixed(3)} vs photo ${natural.toFixed(3)}`);
+      }
     }
+    await context.close();
   }
 });

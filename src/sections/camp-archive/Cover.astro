@@ -1,15 +1,16 @@
 ---
 // Cover: the hero of the camp archive page, a book cover (design D of #89). A dark-green
-// frame, a viewport tall on desktop, holding the cover photo (object-fit: cover in a fixed
-// frame), the season line with the year, the topic in display type with its English under it,
-// one calendar block per session and the counts sentence with its numbers set large. Missing
-// data drops out; the structure is the same every year.
+// frame holding the cover photo, the season line with the year, the topic in display type with
+// its English under it, one calendar block per session and the counts sentence with its numbers
+// set large. Missing data drops out; the structure is the same every year.
+// The photo is never cropped: its frame takes the photo's own aspect ratio, at every width. A
+// wide photo (2:1 or wider: 2019, 2023, 2026) runs across the top with the text under it; any
+// other (2016, 2017, 2018, 2021, 2024, 2025) sits beside the text on desktop, which stacks in a
+// column, the topic and dates centred between the season line and the counts. Below 992 px the
+// photo is always on top.
 // A year held at several campuses (2025) has one cover per campus: they crossfade every 7 s
 // with a campus tag, and the matching date block's rule and days turn Pale Lime in step.
 // Hover pauses; reduced motion shows the first cover only.
-// A square cover (2021's collage, 2024's group photo cropped square so no one is cut) is shown
-// whole: on desktop it sits beside the text, which stacks in a column; below 992 px its frame
-// is square.
 // Used by trai-he-toan-hoc-pima/[year].
 import { Image } from "astro:assets";
 import BrandName from "../../components/BrandName.astro";
@@ -29,23 +30,24 @@ const slideOf = (campus?: string) => {
   return i >= 0 ? i : undefined;
 };
 const counts = countsSentence(camp);
-/** A cover about as tall as it is wide: framed square so nothing of it is cut. */
-const square = slides.every(({ image }) => Math.abs(image.width / image.height - 1) < 0.1);
+/** The first cover's aspect ratio, which the frame takes (a year's covers share one). */
+const ratio = slides[0].image.width / slides[0].image.height;
+/** A cover narrower than 2:1 sits beside the text on desktop. */
+const beside = ratio < 2;
 ---
 
 <Section name="cover" width="large" spacing="none">
-  <div class:list={["bookcover", { square }]} data-tone="dark-green" data-covers={slides.length}>
-    <div class:list={["photo", { rotating }]}>
+  <div class:list={["bookcover", { beside }]} data-tone="dark-green" data-covers={slides.length}>
+    <div class:list={["photo", { rotating }]} style={`--cover-ratio: ${ratio}`}>
       {
         slides.map((c, i) => (
           <figure class="slide" data-slide={i} data-active={i === 0 ? "" : undefined} aria-hidden={i > 0 ? "true" : undefined}>
-            {/* sizes 1600px, not the frame's width: on a tall viewport the frame crops the photo's sides.
-                A square cover is 60 % of the frame on desktop. */}
+            {/* Desktop: the frame's width, 60 % of it beside the text. */}
             <Image
               src={c.image}
               alt={c.campus ? `Trại sinh và ban tổ chức Trại hè PiMA ${camp.year} tại ${c.campus}` : `Trại sinh và ban tổ chức Trại hè PiMA ${camp.year}`}
               widths={[800, 1200, 1600, 2000, 2400, 2880]}
-              sizes={square ? "(max-width: 991px) 92vw, 800px" : "(max-width: 991px) 92vw, 1600px"}
+              sizes={beside ? "(max-width: 991px) 92vw, 800px" : "(max-width: 991px) 92vw, 1232px"}
               quality={90}
               class="img"
               loading="eager"
@@ -121,22 +123,19 @@ const square = slides.every(({ image }) => Math.abs(image.width / image.height -
 </script>
 
 <style>
-  /* The book cover: one dark-green frame, a viewport tall on desktop. */
+  /* The book cover: one dark-green frame, as tall as its photo and text need. */
   .bookcover {
     margin-top: var(--space-20);
     margin-bottom: var(--space-16);
     padding: var(--space-6);
     border-radius: var(--radius);
     display: grid;
-    grid-template-rows: minmax(0, 1fr) auto;
     gap: var(--space-8);
-    height: calc(100svh - var(--space-24));
-    min-height: 40rem;
-    max-height: 60rem;
   }
+  /* The photo's own aspect ratio, so object-fit: cover cuts nothing. */
   .photo {
     position: relative;
-    min-height: 0;
+    aspect-ratio: var(--cover-ratio);
   }
   .slide {
     position: absolute;
@@ -149,7 +148,6 @@ const square = slides.every(({ image }) => Math.abs(image.width / image.height -
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center 35%;
   }
   .tag {
     position: absolute;
@@ -162,9 +160,6 @@ const square = slides.every(({ image }) => Math.abs(image.width / image.height -
   }
 
   /* Several covers: a 1 s crossfade; the lit date block's rule and days turn Pale Lime. */
-  .rotating .img {
-    object-position: center 60%;
-  }
   .rotating .slide {
     opacity: 0;
     transition: opacity 1s ease;
@@ -283,54 +278,41 @@ const square = slides.every(({ image }) => Math.abs(image.width / image.height -
     font-variant-numeric: tabular-nums;
   }
 
-  /* A square cover: the photo whole, beside the text on desktop; the text stacks, the season
-     line at the top of the photo, the counts at its foot and the topic with the dates centred
-     between them by two flexible empty rows; margins, not the row gap, space the rest, so the
-     empty rows add nothing when the column is full. The frame takes the height it needs. */
-  .square {
-    height: auto;
-    max-height: none;
-    min-height: 0;
-    grid-template-rows: none;
+  /* A cover beside the text: the text stacks, the season line at the top of the photo, the
+     counts at its foot and the topic with the dates centred between them by two flexible empty
+     rows; margins, not the row gap, space the rest, so the empty rows add nothing when the
+     column is full. A photo shorter than the text is centred on it. */
+  .beside {
     grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
   }
-  .square .photo {
-    aspect-ratio: 1 / 1;
+  .beside .photo {
+    align-self: center;
   }
-  .square .text {
+  .beside .text {
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: auto 1fr auto auto 1fr auto;
     grid-template-areas: "season" "." "title" "dates" "." "counts";
     row-gap: 0;
   }
-  .square .title,
-  .square .dates,
-  .square .counts {
+  .beside .title,
+  .beside .dates,
+  .beside .counts {
     margin-top: var(--space-5);
   }
 
   @media screen and (max-width: 991px) {
-    .bookcover {
-      height: auto;
-      max-height: none;
-      min-height: 0;
-      grid-template-rows: auto auto;
-    }
-    .square {
+    .beside {
       grid-template-columns: none;
     }
-    .square .text {
+    .beside .text {
       grid-template-rows: none;
       grid-template-areas: "season" "title" "dates" "counts";
       row-gap: var(--space-5);
     }
-    .square .title,
-    .square .dates,
-    .square .counts {
+    .beside .title,
+    .beside .dates,
+    .beside .counts {
       margin-top: 0;
-    }
-    .photo {
-      aspect-ratio: 12 / 5;
     }
     .text {
       grid-template-columns: 1fr;
@@ -341,9 +323,6 @@ const square = slides.every(({ image }) => Math.abs(image.width / image.height -
     .bookcover {
       padding: var(--space-3);
       gap: var(--space-5);
-    }
-    .photo {
-      aspect-ratio: 4 / 3;
     }
     .text {
       padding: 0 var(--space-2) var(--space-2);
