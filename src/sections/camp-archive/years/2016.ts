@@ -1,4 +1,4 @@
-// The 2016 camp (spec #93, #98): sources the old site pimavn/pimavn.github.io at 2b1a1fa
+// The 2016 camp (spec #93, #98): sources the Jekyll site pimavn/pimavn.github.io at 2b1a1fa
 // (summer_camps/2016/, _data/organizers.yaml, _data/banners.yaml) and the reports' title pages
 // for mentors. Documents and photo originals in the Drive folder 2016/ on "Trại hè PiMA - Lưu trữ".
 // No dates are known for 2016: the session shows campus and venue only.

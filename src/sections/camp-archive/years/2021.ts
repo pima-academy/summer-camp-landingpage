@@ -1,4 +1,4 @@
-// The 2021 camp (spec #93, issue #102), held online. Sources: the old site (pimavn/pimavn.github.io
+// The 2021 camp (spec #93, issue #102), held online. Sources: the Jekyll site (pimavn/pimavn.github.io
 // at 2b1a1fa, summer_camps/2021/, _data/organizers.yaml, _data/banners.yaml). Its ZIPs (five
 // lectures, eight group papers) were unpacked into one folder each in the Drive folder 2021/ on
 // "Trại hè PiMA - Lưu trữ", linked as "Thư mục"; a group's folder also holds its topic's brief.

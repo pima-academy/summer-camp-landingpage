@@ -1,10 +1,28 @@
 // @ts-check
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
+import { unified } from "@astrojs/markdown-remark";
+import { mathRehypePlugins, mathRemarkPlugins } from "./src/lib/markdown-math.ts";
+import rehypeFigures from "./src/lib/rehype-figures.ts";
 
 export default defineConfig({
   site: "https://pimavn.com",
   integrations: [sitemap()],
+  // Blog posts (src/content/blog/, ADR 0007) go through remark/rehype.
+  markdown: {
+    // Code blocks: Shiki colours them with CSS variables, which PostBody points at the brand's
+    // code colours (tokens.css), so they pass WCAG AA (#114).
+    shikiConfig: { theme: "css-variables" },
+    processor: unified({
+      // Formulas: `$…$` and `$$…$$` typeset by KaTeX at build time (#112).
+      remarkPlugins: [...mathRemarkPlugins],
+      rehypePlugins: [
+        ...mathRehypePlugins,
+        // Body images as figures opening the post's Lightbox (#113).
+        rehypeFigures,
+      ],
+    }),
+  },
   // The removed camp pages and /chi-tiet-trai-he/ (#107) point to their camp archive pages.
   // Astro builds each as an instant meta refresh with noindex and a canonical link, and the
   // sitemap leaves redirects out (scripts/redirects.test.mjs).

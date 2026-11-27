@@ -1,0 +1,240 @@
+---
+// PostBody: the text of a blog post (its Markdown, rendered at build time) on its page
+// (src/pages/blog/[slug].astro), in brand prose styles, and a link back to /blog/ at the end.
+// The Markdown's HTML carries no class, so the prose styles reach it with :global() under
+// `.prose`; authors start body headings at `##` (the post title is the h1). Body images are
+// figures (src/lib/rehype-figures.ts) that open the post's Lightbox, one set for the post.
+// Formulas are KaTeX's HTML, typeset at build time (src/lib/markdown-math.ts): KaTeX's own
+// stylesheet and maths fonts, bundled from the package, are the one exception to Nunito Sans
+// (scripts/fonts.test.mjs, PACKAGE_STYLESHEETS in scripts/guardrail-lib.mjs). Code blocks are
+// highlighted at build time by Shiki in the brand's code colours (tokens.css).
+import "katex/dist/katex.min.css";
+import { posix } from "node:path";
+import type { ImageMetadata } from "astro";
+import { render } from "astro:content";
+import Button from "../../components/Button.astro";
+import Lightbox from "../../components/Lightbox.astro";
+import Section from "../../components/Section.astro";
+import { POST_LIGHTBOX, type Figure } from "../../lib/rehype-figures";
+import { blogHref, type Post } from "./blog";
+
+interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+const { Content, remarkPluginFrontmatter } = await render(post);
+
+// The post's images (they sit next to it), keyed "/src/content/blog/<slug>/<file>". The glob is
+// case-sensitive and cameras name files IMG_0001.JPG, so both cases are listed.
+const images = import.meta.glob<ImageMetadata>("/src/content/blog/**/*.{png,jpg,jpeg,webp,avif,gif,PNG,JPG,JPEG,WEBP,AVIF,GIF}", {
+  eager: true,
+  import: "default",
+});
+const figures: Figure[] = remarkPluginFrontmatter.figures ?? [];
+const photos = figures.map(({ src, alt, caption }) => {
+  const image = images["/" + posix.join(posix.dirname(post.filePath!), src)];
+  if (!image) throw new Error(`${post.filePath}: image ${src} not found next to the post`);
+  return { src: image, alt, caption };
+});
+---
+
+<Section name="post-body" width="small" spacing="small">
+  <div class="prose">
+    <Content />
+  </div>
+  {photos.length > 0 && <Lightbox id={POST_LIGHTBOX} label={post.data.title} photos={photos} />}
+  <div class="back">
+    <Button href={blogHref} variant="link">Tất cả bài viết</Button>
+  </div>
+</Section>
+
+<style>
+  /* Every :global() below reaches the rendered Markdown, which carries no scoped class. */
+
+  /* Headings: base.css gives each level its role; the prose adds room above. */
+  .prose :global(h2) {
+    margin-top: var(--space-10);
+    margin-bottom: var(--space-3);
+  }
+
+  /* h3 to h6 (the Jupyter introduction's notebook goes down to h6). */
+  .prose :global(h3),
+  .prose :global(h4),
+  .prose :global(h5),
+  .prose :global(h6) {
+    margin-top: var(--space-8);
+    margin-bottom: var(--space-3);
+  }
+
+  /* The rhythm between blocks. */
+  .prose :global(p),
+  .prose :global(ul),
+  .prose :global(ol),
+  .prose :global(blockquote),
+  .prose :global(table) {
+    margin-top: 0;
+    margin-bottom: var(--space-5);
+  }
+
+  /* Lists. */
+  .prose :global(ul),
+  .prose :global(ol) {
+    padding-left: var(--space-6);
+  }
+
+  /* List items. */
+  .prose :global(li + li) {
+    margin-top: var(--space-1);
+  }
+
+  /* A quote: the accent rule down its left. */
+  .prose :global(blockquote) {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: var(--space-5);
+    border-left: var(--border-width-rule-accent) solid var(--color-border-rule-accent);
+    color: var(--color-text-muted);
+  }
+
+  /* The quote's last block. */
+  .prose :global(blockquote > :last-child) {
+    margin-bottom: 0;
+  }
+
+  /* Tables (docs/brand.md, "Tables"): a dark-green header row with white bold text, data rows
+     separated by hairlines. A wide table scrolls inside its own box. */
+  .prose :global(table) {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    border-collapse: collapse;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Table cells. */
+  .prose :global(th),
+  .prose :global(td) {
+    padding: var(--space-2) var(--space-4);
+    border-bottom: 1px solid var(--color-border);
+    vertical-align: top;
+  }
+
+  /* Cells are left-aligned (a th is centred by default), unless the Markdown aligns the column
+     (`---:` for numbers, `:-:`): the pipeline writes that as `align="…"`, applied here as plain
+     text-align (Chromium maps the attribute to -webkit-right / -webkit-center). */
+  .prose :global(:is(th, td):not([align])),
+  .prose :global(:is(th, td)[align="left"]) {
+    text-align: left;
+  }
+
+  /* A right-aligned column (numbers). */
+  .prose :global(:is(th, td)[align="right"]) {
+    text-align: right;
+  }
+
+  /* A centred column. */
+  .prose :global(:is(th, td)[align="center"]) {
+    text-align: center;
+  }
+
+  /* The header row. */
+  .prose :global(th) {
+    background-color: var(--color-background-table-header);
+    color: var(--color-text-table-header);
+    font-weight: var(--font-weight-bold);
+  }
+
+  /* A link written as a bare URL (the references of the Jekyll site posts) breaks anywhere
+     rather than widening the page at 390 px. */
+  .prose :global(a) {
+    overflow-wrap: anywhere;
+  }
+
+  /* Formulas (KaTeX). A display formula is a block in the prose rhythm; a wide one scrolls
+     inside its own box rather than the page (390 px). Inline formulas keep KaTeX's own styles
+     and sit in the line. */
+  .prose :global(.katex-display) {
+    margin-top: 0;
+    margin-bottom: var(--space-5);
+    padding-block: var(--space-1);
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+
+  /* Figures (#113): a body image at the column's width at most, rounded like every photo, its
+     caption under it. The image is a button that opens the post's Lightbox at it. */
+  .prose :global(figure) {
+    margin: var(--space-8) 0;
+  }
+
+  /* The image's button: no chrome of its own. */
+  .prose :global(figure > button) {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius);
+    background: none;
+    cursor: zoom-in;
+  }
+
+  /* The image. */
+  .prose :global(figure img) {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+    border-radius: var(--radius);
+  }
+
+  /* The caption. */
+  .prose :global(figcaption) {
+    margin-top: var(--space-3);
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+    text-align: center;
+  }
+
+  /* Code (#114). Shiki colours each block with CSS variables (astro.config.mjs, theme
+     css-variables), set here to the brand's code colours (tokens.css). */
+  .prose {
+    --astro-code-foreground: var(--color-text-code);
+    --astro-code-background: var(--color-background-code);
+    --astro-code-token-keyword: var(--color-code-keyword);
+    --astro-code-token-constant: var(--color-code-keyword);
+    --astro-code-token-string: var(--color-code-string);
+    --astro-code-token-string-expression: var(--color-code-string);
+    --astro-code-token-comment: var(--color-code-comment);
+    --astro-code-token-function: var(--color-text-code);
+    --astro-code-token-parameter: var(--color-text-code);
+    --astro-code-token-punctuation: var(--color-text-code);
+    --astro-code-token-link: var(--color-link);
+  }
+
+  /* A code block: a rounded panel in the prose rhythm, in the browser's monospace at the small
+     size. A long line scrolls inside the block (Shiki sets overflow-x), never the page. */
+  .prose :global(pre) {
+    margin-top: 0;
+    margin-bottom: var(--space-5);
+    padding: var(--space-4) var(--space-5);
+    border-radius: var(--radius);
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-code);
+  }
+
+  /* A text output (a notebook cell's printout, a ```text block): white with a hairline, so it
+     reads apart from the code above it. */
+  .prose :global(pre[data-language="text"]) {
+    --astro-code-background: var(--color-background-code-output);
+    border: 1px solid var(--color-border);
+  }
+
+  /* A flex row, so the link button (itself a centred flex box) keeps to its text, on the left. */
+  .back {
+    display: flex;
+    margin-top: var(--space-10);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+  }
+</style>

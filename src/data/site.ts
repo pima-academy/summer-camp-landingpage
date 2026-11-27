@@ -46,7 +46,7 @@ export const aboutAnchors = {
 
 const about = (id: string) => `/ve-chung-toi/#${id}`;
 
-/** Main nav, in old-site order. "Sự kiện & Blog" points at a gap page (`gap`). */
+/** Main nav, in old-site order; "Blog" replaced the old site's "Sự kiện & Blog" gap page (#110). */
 export const navItems: NavItem[] = [
   { label: "Trang chủ", href: "/" },
   { label: "Về chúng tôi", href: "/ve-chung-toi/" },
@@ -57,7 +57,7 @@ export const navItems: NavItem[] = [
       { label: "Khóa học", href: "/khoa-hoc/" },
     ],
   },
-  { label: "Sự kiện & Blog", href: "/su-kien-blog/", gap: true },
+  { label: "Blog", href: "/blog/" },
   { label: "Liên hệ", href: "/lien-he/" },
 ];
 

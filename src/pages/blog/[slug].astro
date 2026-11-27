@@ -1,0 +1,29 @@
+---
+// A blog post page, /blog/<slug>/ (spec #110): one page per published post in src/content/blog/
+// (drafts get none), from the sections in src/sections/blog/ and the shared ContactSection.
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ContactSection from "../../sections/ContactSection.astro";
+import PostBody from "../../sections/blog/PostBody.astro";
+import PostHeader from "../../sections/blog/PostHeader.astro";
+import { postSummary, publishedPosts, type Post } from "../../sections/blog/blog";
+
+export async function getStaticPaths() {
+  return (await publishedPosts()).map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+interface Props {
+  post: Post;
+}
+
+const { post } = Astro.props;
+---
+
+<BaseLayout
+  title={`${post.data.title} - PiMA Academy`}
+  description={postSummary(post)}
+  hero={post.data.cover}
+>
+  <PostHeader post={post} />
+  <PostBody post={post} />
+  <ContactSection />
+</BaseLayout>

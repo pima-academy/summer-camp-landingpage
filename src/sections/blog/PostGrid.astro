@@ -1,0 +1,113 @@
+---
+// PostGrid: the blog posts of /blog/ (src/pages/blog/index.astro), one grid of cards, newest
+// first (no featured post, no pagination). A card shows the post's cover, or a pale-lime block
+// with the PiMA logo at the same aspect ratio when it has none, then its date, title and summary
+// (post-text.ts); the whole card links to the post.
+import { Image } from "astro:assets";
+import Section from "../../components/Section.astro";
+import logo from "../../assets/logo/pima-logo-stacked-darkgreen.png";
+import { fluidWidths } from "../../lib/image-widths";
+import { postHref, postSummary, type Post } from "./blog";
+import { isoDate, postDate } from "./post-text";
+
+interface Props {
+  posts: Post[];
+}
+
+const { posts } = Astro.props;
+const sizes = "(max-width: 767px) 90vw, (max-width: 991px) 45vw, 400px";
+---
+
+<Section name="post-grid" width="large" spacing="medium">
+  <ul role="list" class="grid">
+    {
+      posts.map((post) => (
+        <li>
+          <a href={postHref(post)} class="card">
+            {post.data.cover ? (
+              <Image src={post.data.cover} alt="" widths={fluidWidths(post.data.cover)} sizes={sizes} class="cover" />
+            ) : (
+              <div class="cover no-cover" data-tone="pale-lime">
+                <Image src={logo} alt="" width={96} densities={[1, 2]} data-logo />
+              </div>
+            )}
+            <time datetime={isoDate(post.data.date)} class="date">
+              {postDate(post.data.date)}
+            </time>
+            <h2 class="title">{post.data.title}</h2>
+            <p class="summary">{postSummary(post)}</p>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</Section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-12) var(--space-8);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .card:hover .title {
+    color: var(--color-link);
+    text-decoration: underline;
+  }
+
+  .cover {
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    border-radius: var(--radius);
+  }
+
+  .no-cover {
+    display: grid;
+    place-items: center;
+  }
+
+  .date {
+    margin-top: var(--space-4);
+    color: var(--color-text-accent);
+    font-weight: var(--font-weight-extrabold);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* A card title: an h2 under the page's h1, at the h3 role's size. */
+  .title {
+    margin-top: var(--space-2);
+    margin-bottom: var(--space-2);
+    color: var(--color-text);
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+  }
+
+  .summary {
+    margin-bottom: 0;
+    color: var(--color-text-muted);
+  }
+
+  @media screen and (max-width: 991px) {
+    .grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-10);
+    }
+  }
+</style>

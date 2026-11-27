@@ -246,6 +246,20 @@ function checkInlineStyles(markup) {
   return out;
 }
 
+/**
+ * Stylesheets imported from a package, by name, with the files allowed to import each. The
+ * guardrail checks only src/, so a package stylesheet escapes every rule: none is allowed but
+ * these. KaTeX's (its formula layout and maths fonts) is the one exception to Nunito Sans
+ * (spec #110); scripts/fonts.test.mjs checks its fonts in the build.
+ */
+export const PACKAGE_STYLESHEETS = { "katex/dist/katex.min.css": ["src/sections/blog/PostBody.astro"] };
+
+/** The package stylesheets a source text imports (JS `import "pkg/x.css"`, CSS `@import`), not relative ones. */
+export function packageStylesheets(text) {
+  const imports = /(?:^|[\s;])@?import\s+(?:url\(\s*)?["']([^"'./][^"']*\.css)["']/gm;
+  return [...text.matchAll(imports)].map((m) => m[1]);
+}
+
 /** Files the guardrail never checks: the tokens themselves. */
 const SKIPPED = [/^src\/styles\/tokens\.css$/];
 

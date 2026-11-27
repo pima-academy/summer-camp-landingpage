@@ -35,7 +35,7 @@ Text that CSS uppercases (kickers, the marquee) would turn PiMA into PIMA, so wr
 | `--gray-5` | The `surface` section tone, alternate table rows, "other" in charts |
 | `--white` | Page background, text on dark backgrounds |
 
-Secondary colours, for charts, tables and infographics only (a category, a metric, an activity type), never for a section, heading, button or other large area: `--secondary-red`, `--secondary-orange`, `--secondary-yellow`, `--secondary-sky-blue`, `--secondary-blue`, `--secondary-pink`, `--secondary-purple`, `--secondary-brown`.
+Secondary colours, for charts, tables, infographics and code highlighting only (a category, a metric, an activity type, strings in code), never for a section, heading, button or other large area: `--secondary-red`, `--secondary-orange`, `--secondary-yellow`, `--secondary-sky-blue`, `--secondary-blue`, `--secondary-pink`, `--secondary-purple`, `--secondary-brown`.
 
 ### Contrast
 
@@ -83,6 +83,9 @@ The footer is a `--black` band: column headings `--pima-green`, text and links `
 ## Typography
 
 - Nunito Sans is the only font. `body` sets it with `--font-family-base` and every element inherits it, so component CSS never sets a font family.
+- Two exceptions, both in blog post bodies only, and neither set by our CSS:
+  - Formulas use KaTeX's maths fonts (`KaTeX_*`), from its own stylesheet, imported only by `PostBody` (`PACKAGE_STYLESHEETS` in `scripts/guardrail-lib.mjs`; `scripts/fonts.test.mjs` allows no other font face).
+  - Code blocks use the browser's monospace (see [Code blocks](#code-blocks)).
 - Five weights, each with a font face in `src/styles/fonts.css` (the browser fakes a weight that has none, so no other weight is used):
   - `--font-weight-regular`: body text, captions.
   - `--font-weight-semibold`: labels, nav links, light emphasis.
@@ -105,7 +108,7 @@ The footer is a `--black` band: column headings `--pima-green`, text and links `
 | Nav links | | | semibold | `--gray-1` |
 | Captions and small text (form fields, tags, the footer credit) | `--font-size-small` | | regular | `--gray-1` for captions |
 
-- Size tokens that change per breakpoint are redeclared in `tokens.css`; a component writes the token once. Headings take the role of their level from base CSS, so a section's `h1`, `h2` or `h3` sets no size or weight of its own. An `h4` takes the h3 role; an `h5` is a bold label at body size. A heading that is not a heading to the eye (a date, a big number, a quote, display type) sets the tokens of its role. Any other size maps to the nearest role.
+- Size tokens that change per breakpoint are redeclared in `tokens.css`; a component writes the token once. Headings take the role of their level from base CSS, so a section's `h1`, `h2` or `h3` sets no size or weight of its own. An `h4` takes the h3 role; an `h5` or `h6` is a bold label at body size. A heading that is not a heading to the eye (a date, a big number, a quote, display type) sets the tokens of its role. Any other size maps to the nearest role.
 - Small uppercase lines right above a heading (a tagline, a breadcrumb such as "PiMA academy > giới thiệu") are kickers: use the `Kicker` component. The footer's column headings take the kicker's size, weight and tracking in `--pima-green`, without the rule.
 - Headings are in sentence case. Uppercase is for short labels: kickers, the marquee.
 - Vietnamese stacks diacritics (Ồ, Ộ, Ẫ). Headings and display type keep a line height of 1.1 or more, so the marks are neither clipped nor touching the line above.
@@ -205,6 +208,12 @@ Prefer the green logo; where the background is not green, prefer black or white.
 - Numeric columns are right-aligned with `tabular-nums`.
 - The caption goes under the table: small, `--gray-1`, centred.
 - A schedule may colour activity types with secondary colours; its frame stays `--pima-dark-green` or `--pima-green`.
+
+## Code blocks
+
+- A blog post's code block is a `--gray-5` panel with `--radius` corners, in the browser's monospace at `--font-size-small`; a line wider than the column scrolls inside its block, never the page.
+- Highlighting (Shiki at build time, its css-variables theme pointed at tokens): `--black` text, `--pima-dark-green` keywords and constants, `--secondary-brown` strings, `--gray-2` comments, each 4.5:1 or more on `--gray-5`.
+- A text output (a ```` ```text ```` block, such as a notebook cell's printout) is a `--white` panel with a `--gray-4` hairline, so it reads apart from the code above it.
 
 ## Charts
 

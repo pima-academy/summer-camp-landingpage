@@ -10,6 +10,7 @@ The rebuild extracted a component only when two pages used it, so one-off sectio
   - `src/sections/`: sections used by two or more pages, with their `.ts` data files next to them.
   - `src/sections/<route-slug>/`: sections used by one page, in a folder named after the page's route (`ve-chung-toi`, `khoa-hoc`; the home page uses `home`). When a second page needs one, it moves up to `src/sections/`.
   - `src/sections/camp-archive/` is named after the template, not a route slug: one dynamic route (`trai-he-toan-hoc-pima/[year].astro`) serves every camp year from it.
+  - `src/sections/blog/` holds the sections of two routes, `/blog/` and `/blog/[slug]` (ADR 0007), with the data files they share (`blog.ts`, `post-text.ts`): both pages live under the `blog` URL prefix and read the same posts. A blog section a page outside `/blog/` needs moves up to `src/sections/`.
   - `src/layouts/`: `BaseLayout`, `Head`, `Nav` and `Footer`.
   - `src/camp/`: the two camp pages' frozen code (`CampLayout`, `CampFooter`, `VideoLightbox`, their other camp-only components and a copy of the old stylesheets; see ADR 0004, **Exception: camp pages**). Nothing else imports it, and it is not split into section files. Deleted with the camp pages (#107).
 - **Section files** are named in English PascalCase after their content (`Hero.astro`, `Press.astro`, `FoundingStory.astro`).

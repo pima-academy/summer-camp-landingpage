@@ -79,9 +79,15 @@ test("no old icon file is left", () => {
 /** Published pages (the dev-only gap pages are not built). */
 const pages = () => builtHtmlFiles().map((f) => relative(dist, f).split(sep).join("/"));
 
-test("every <svg> on a published page is an Icon", { skip }, () => {
+// KaTeX draws a few maths marks as SVG (the arrow of \vec in a blog post): part of a formula,
+// not an icon. Such an SVG sits right inside a span of KaTeX's own classes.
+const KATEX_SVG_PARENT = /<span class="(?:katex-[\w-]+|svg-align|hide-tail|stretchy)\b[^"]*"[^>]*>$/;
+
+test("every <svg> on a published page is an Icon (or part of a formula)", { skip }, () => {
   for (const page of pages()) {
-    for (const [svg] of readBuilt(page).matchAll(/<svg\b[^>]*>/g)) {
+    const html = readBuilt(page);
+    for (const { 0: svg, index } of html.matchAll(/<svg\b[^>]*>/g)) {
+      if (page.startsWith("blog/") && KATEX_SVG_PARENT.test(html.slice(Math.max(0, index - 200), index))) continue;
       assert.match(svg, /\bdata-icon="[\w-]+"/, `${page}: ${svg.slice(0, 120)}`);
     }
   }
