@@ -25,8 +25,12 @@ interface Props {
 const { post } = Astro.props;
 const { Content, remarkPluginFrontmatter } = await render(post);
 
-// The post's images (they sit next to it), keyed "/src/content/blog/<slug>/<file>".
-const images = import.meta.glob<ImageMetadata>("/src/content/blog/**/*.{png,jpg,jpeg,webp,avif,gif}", { eager: true, import: "default" });
+// The post's images (they sit next to it), keyed "/src/content/blog/<slug>/<file>". The glob is
+// case-sensitive and cameras name files IMG_0001.JPG, so both cases are listed.
+const images = import.meta.glob<ImageMetadata>("/src/content/blog/**/*.{png,jpg,jpeg,webp,avif,gif,PNG,JPG,JPEG,WEBP,AVIF,GIF}", {
+  eager: true,
+  import: "default",
+});
 const figures: Figure[] = remarkPluginFrontmatter.figures ?? [];
 const photos = figures.map(({ src, alt, caption }) => {
   const image = images["/" + posix.join(posix.dirname(post.filePath!), src)];

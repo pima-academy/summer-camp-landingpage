@@ -2,7 +2,7 @@
 
 ## Language
 
-- All repo documentation (this file, `docs/`, ADRs, `GLOSSARY.md`, GitHub issues and PR bodies) is written in English.
+- All repo documentation (this file, `docs/`, ADRs, `GLOSSARY.md`, GitHub issues and PR bodies) is written in English. The one exception is the blog author guide, `src/content/blog/README.md`, in Vietnamese for the people who write posts.
 - Website content in `site/` stays in Vietnamese. Don't translate it.
 
 ## Building UI

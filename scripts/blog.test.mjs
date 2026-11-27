@@ -288,6 +288,7 @@ test("every body image is a figure with non-empty alt; a Markdown title is its f
     images.forEach(({ alt, title }, k) => {
       const img = figures[k].match(/<img\b[^>]*>/)?.[0] ?? "";
       assert.match(img, /src="\/_astro\//, `${slug} image ${k + 1}: optimised by Astro`);
+      assert.ok(alt.trim(), `${slug} image ${k + 1}: alt text (the README asks for it)`);
       assert.equal(img.match(/\balt="([^"]*)"/)?.[1], alt, `${slug} image ${k + 1}: alt`);
       assert.doesNotMatch(img, /\btitle=/, `${slug} image ${k + 1}: no title attribute`);
       const caption = figures[k].match(/<figcaption\b[^>]*>([\s\S]*?)<\/figcaption>/)?.[1];
