@@ -117,8 +117,25 @@ const photos = figures.map(({ src, alt, caption }) => {
   .prose :global(td) {
     padding: var(--space-2) var(--space-4);
     border-bottom: 1px solid var(--color-border);
-    text-align: left;
     vertical-align: top;
+  }
+
+  /* Cells are left-aligned (a th is centred by default), unless the Markdown aligns the column
+     (`---:` for numbers, `:-:`): the pipeline writes that as `align="…"`, applied here as plain
+     text-align (Chromium maps the attribute to -webkit-right / -webkit-center). */
+  .prose :global(:is(th, td):not([align])),
+  .prose :global(:is(th, td)[align="left"]) {
+    text-align: left;
+  }
+
+  /* A right-aligned column (numbers). */
+  .prose :global(:is(th, td)[align="right"]) {
+    text-align: right;
+  }
+
+  /* A centred column. */
+  .prose :global(:is(th, td)[align="center"]) {
+    text-align: center;
   }
 
   /* The header row. */
