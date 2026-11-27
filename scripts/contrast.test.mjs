@@ -140,3 +140,43 @@ test("every icon that is a control's only label has 3:1 against its background",
     await page.context().close();
   }
 });
+
+// Section tones (src/components/Section.astro): a card takes a tone with data-tone wherever it
+// sits, so a light card inside a dark-green section has the roles it has on the page itself.
+const ROLES = [
+  "color",
+  "--color-text",
+  "--color-text-heading",
+  "--color-text-accent",
+  "--color-text-muted",
+  "--color-link",
+  "--color-link-hover",
+  "--color-icon-control",
+  "--color-icon-circle",
+  "--color-icon-circle-glyph",
+  "--color-focus-ring",
+];
+
+test("a light-tone card inside a dark-green section takes the light text roles", { skip }, async () => {
+  const page = await open("/", 1440);
+  const found = await page.evaluate((roles) => {
+    const read = (el) => {
+      const s = getComputedStyle(el);
+      return Object.fromEntries(roles.map((r) => [r, (r === "color" ? s.color : s.getPropertyValue(r)).trim()]));
+    };
+    const card = (tone, parent) => {
+      const el = document.createElement("div");
+      el.dataset.tone = tone;
+      parent.append(el);
+      return el;
+    };
+    const dark = card("dark-green", document.body);
+    return Object.fromEntries(
+      ["white", "surface", "pale-lime"].map((tone) => [tone, { alone: read(card(tone, document.body)), inDark: read(card(tone, dark)) }]),
+    );
+  }, ROLES);
+  for (const [tone, { alone, inDark }] of Object.entries(found)) {
+    assert.deepEqual(inDark, alone, `${tone} card inside dark-green`);
+  }
+  await page.context().close();
+});

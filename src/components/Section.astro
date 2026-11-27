@@ -17,9 +17,11 @@
             the text, heading, accent, link and focus colours that pass WCAG AA on it
             (docs/brand.md, "Sections, buttons and footer"). A section never sets its own
             background. Inside the section, use the role tokens (--color-text,
-            --color-text-heading, --color-text-accent, --color-text-muted, --color-link): the
-            dark-green tone re-points them. A card inside a section takes a tone with the
-            same `data-tone` attribute (FoundingStory's founder card).
+            --color-text-heading, --color-text-accent, --color-text-muted, --color-link): every
+            tone declares the full set (the dark-green tone the `-on-dark` values, the light
+            tones the `-on-light` ones). A card inside a section takes a tone with the same
+            `data-tone` attribute (FoundingStory's founder card, the cover's campus tag), and
+            gets its tone's roles whatever tone it sits in.
 
   `spacing="none"` is for sections whose content sets its own vertical padding.
 
@@ -76,7 +78,24 @@ const {
     color: var(--color-text);
   }
 
-  /* The light tones keep the :root text roles. */
+  /* The light tones re-declare the light role values (tokens.css, the `-on-light` tokens), so a
+     light card inside a dark-green section does not inherit the dark-green ones. */
+  :global([data-tone="white"]),
+  :global([data-tone="surface"]),
+  :global([data-tone="pale-lime"]) {
+    --color-text: var(--color-text-on-light);
+    --color-text-heading: var(--color-text-on-light-heading);
+    --color-text-accent: var(--color-text-on-light-accent);
+    --color-text-muted: var(--color-text-on-light-muted);
+    --color-link: var(--color-link-on-light);
+    --color-link-hover: var(--color-link-on-light-hover);
+    --color-icon-control: var(--color-icon-control-on-light);
+    --color-icon-circle: var(--color-icon-circle-on-light);
+    --color-icon-circle-glyph: var(--color-icon-circle-glyph-on-light);
+    --color-focus-ring: var(--color-focus-ring-on-light);
+  }
+
+  /* White tone (default). */
   :global([data-tone="white"]) {
     background-color: var(--color-background);
   }
@@ -86,14 +105,15 @@ const {
     background-color: var(--color-background-surface);
   }
 
-  /* Pale-lime tone (philosophy, testimonials, contact). */
+  /* Pale-lime tone (philosophy, testimonials, contact): its own icon-circle pair. */
   :global([data-tone="pale-lime"]) {
     --color-icon-circle: var(--color-icon-circle-on-pale-lime);
     --color-icon-circle-glyph: var(--color-icon-circle-glyph-on-pale-lime);
     background-color: var(--color-background-pale-lime);
   }
 
-  /* Dark-green tone (marquee, founder card): re-points the text roles for every descendant. */
+  /* Dark-green tone (marquee, founder card): re-points the text roles for its
+     descendants, down to a card of a light tone. */
   :global([data-tone="dark-green"]) {
     --color-text: var(--color-text-on-dark);
     --color-text-heading: var(--color-text-on-dark);

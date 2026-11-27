@@ -136,14 +136,20 @@
 
   /*
    * Colour roles. Each points at a brand palette colour; docs/brand.md lists the pairs that pass
-   * WCAG AA. The text, heading, accent, link and focus roles are the light-tone values: Section's
-   * `tone` (and `data-tone` on a card) re-points them on a dark green background.
+   * WCAG AA. The text, heading, accent, link, icon and focus roles take the light-tone values
+   * (the `-on-light` tokens) here; Section's `tone` (and `data-tone` on a card) re-points them:
+   * to the `-on-dark` tokens on the dark-green tone, back to the `-on-light` ones on a light
+   * tone, so a light card inside a dark-green section reads as on the page.
    */
   /* Text on the white, surface and pale-lime tones. */
-  --color-text: var(--black);
-  --color-text-heading: var(--pima-dark-green);
-  --color-text-accent: var(--pima-dark-green);
-  --color-text-muted: var(--gray-1);
+  --color-text-on-light: var(--black);
+  --color-text-on-light-heading: var(--pima-dark-green);
+  --color-text-on-light-accent: var(--pima-dark-green);
+  --color-text-on-light-muted: var(--gray-1);
+  --color-text: var(--color-text-on-light);
+  --color-text-heading: var(--color-text-on-light-heading);
+  --color-text-accent: var(--color-text-on-light-accent);
+  --color-text-muted: var(--color-text-on-light-muted);
   --color-text-placeholder: var(--gray-2);
   /* Text on the dark-green tone and on dark fills. */
   --color-text-on-dark: var(--white);
@@ -155,20 +161,25 @@
   --color-text-footer-hover: var(--white);
 
   /* Links. */
-  --color-link: var(--pima-dark-green);
-  --color-link-hover: var(--black);
+  --color-link-on-light: var(--pima-dark-green);
+  --color-link-on-light-hover: var(--black);
+  --color-link: var(--color-link-on-light);
+  --color-link-hover: var(--color-link-on-light-hover);
   --color-link-on-dark: var(--pima-pale-lime);
   --color-link-on-dark-hover: var(--white);
 
   /* Icons. A control's only label (hamburger, carets, arrows) needs 3:1; a decorative icon next
      to text does not, so it may be PiMA Green on white. */
-  --color-icon-control: var(--pima-dark-green);
+  --color-icon-control-on-light: var(--pima-dark-green);
+  --color-icon-control: var(--color-icon-control-on-light);
   --color-icon-decorative: var(--pima-green);
   /* Icon circles (contact and social icons, `<Icon circle>`): circle fill and glyph by
      background. The white pair is the default (also on surface); the pale-lime and dark-green
      tones (Section) and the footer re-point both. */
-  --color-icon-circle: var(--black);
-  --color-icon-circle-glyph: var(--white);
+  --color-icon-circle-on-light: var(--black);
+  --color-icon-circle-glyph-on-light: var(--white);
+  --color-icon-circle: var(--color-icon-circle-on-light);
+  --color-icon-circle-glyph: var(--color-icon-circle-glyph-on-light);
   --color-icon-circle-on-pale-lime: var(--pima-dark-green);
   --color-icon-circle-glyph-on-pale-lime: var(--pima-pale-lime);
   --color-icon-circle-on-dark: var(--pima-pale-lime);
@@ -215,7 +226,8 @@
   --color-border-footer: var(--gray-1);
 
   /* Focus outlines. */
-  --color-focus-ring: var(--pima-dark-green);
+  --color-focus-ring-on-light: var(--pima-dark-green);
+  --color-focus-ring: var(--color-focus-ring-on-light);
   --color-focus-ring-on-dark: var(--pima-pale-lime);
 
   /* Corner radii. One radius for buttons, cards, panels, inputs, photos (avatars too) and videos;
