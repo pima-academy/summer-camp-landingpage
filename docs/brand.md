@@ -83,6 +83,9 @@ The footer is a `--black` band: column headings `--pima-green`, text and links `
 ## Typography
 
 - Nunito Sans is the only font. `body` sets it with `--font-family-base` and every element inherits it, so component CSS never sets a font family.
+- Two exceptions, both in blog post bodies only, and neither set by our CSS:
+  - Formulas use KaTeX's maths fonts (`KaTeX_*`), from its own stylesheet, imported only by `PostBody` (`PACKAGE_STYLESHEETS` in `scripts/guardrail-lib.mjs`; `scripts/fonts.test.mjs` allows no other font face).
+  - Code blocks use the browser's monospace (see [Code blocks](#code-blocks)).
 - Five weights, each with a font face in `src/styles/fonts.css` (the browser fakes a weight that has none, so no other weight is used):
   - `--font-weight-regular`: body text, captions.
   - `--font-weight-semibold`: labels, nav links, light emphasis.
