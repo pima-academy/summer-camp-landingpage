@@ -1,9 +1,7 @@
 ---
-// The <head> contents shared by BaseLayout (site pages) and src/camp/CampLayout (the frozen
-// 2025/2026 camp pages): meta, canonical, Open Graph, icons and the JS-ready class.
-// No CSS here: each layout imports its own (global.css or the frozen camp.css).
-// The camp pages depend on this file: keep `html.js-ready` (animations.css hides the start
-// state of decorative animations under it) and keep their `npm run shots` diff at zero.
+// The <head> contents of BaseLayout (every site page): meta, canonical, Open Graph, icons and
+// the JS-ready class (animations.css hides the start state of decorative animations under
+// `html.js-ready`). No CSS here: BaseLayout imports global.css.
 import type { ImageMetadata } from "astro";
 import { getImage } from "astro:assets";
 // 1200 × 630, the horizontal logo on white (scripts/make-icons.mjs).
