@@ -2,6 +2,7 @@
 // (lectures_and_projects, student_papers, gallery), _data/organizers.yaml and _data/banners.yaml
 // (pimavn/pimavn.github.io @ 2b1a1fa), with mentors from each report's acknowledgements.
 // Drive folder 2018/ on "Trại hè PiMA - Lưu trữ". Its four lectures are relisted in 2019.
+// The cover is that drive's 04.jpg (file 1xNjudxwWefpIPWM-s_qFZ1TKzC3GmOPh), not the old banner.
 import type { CampYear, FileLink, Person } from "../camp-archive";
 import cover from "../../../assets/camp-archive/2018/cover.jpg";
 
