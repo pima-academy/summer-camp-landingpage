@@ -7,6 +7,7 @@
 // running to their files. Each project topic is a problem facing its solutions, the group
 // reports. Photos are plates at the back.
 // Used by /prototype/trai-he-toan-hoc-pima/[year]/ only.
+import type { ImageMetadata } from "astro";
 import { Image } from "astro:assets";
 import BrandName from "../../../components/BrandName.astro";
 import Icon from "../../../components/Icon.astro";
@@ -31,6 +32,9 @@ const counts = {
   groups,
   campers,
 };
+// The cover photos: one, or one per campus (2025), which then take turns.
+const slides: { image: ImageMetadata; campus?: string }[] = y.covers ?? (y.cover ? [{ image: y.cover }] : []);
+const slideOf = (campus?: string) => (slides.length > 1 ? slides.findIndex((c) => c.campus === campus) : -1);
 // A session's dates as a calendar block: "02–09" over "tháng 8 năm 2025" within one month,
 // "29/07–09/08" over "năm 2019" across two.
 const dateParts = (start: string, end: string) => {
@@ -53,9 +57,14 @@ const laterDocs: { title: string; items?: DocItem[] }[] = [
 <Section name="variant-d-cover" width="large" spacing="none">
   <div class="bookcover" data-tone="dark-green">
     {
-      y.cover && (
-        <div class="bc-photo">
-          <Image src={y.cover} alt={`Trại sinh và ban tổ chức Trại hè PiMA ${y.year}`} widths={[800, 1200, 1600, 2000, 2880]} sizes="(max-width: 1440px) 86vw, 1200px" class="bc-img" loading="eager" />
+      slides.length > 0 && (
+        <div class:list={["bc-photo", { "bc-rotating": slides.length > 1 }]} style={`--slides: ${slides.length}`}>
+          {slides.map((c, i) => (
+            <figure class="bc-slide" style={`--i: ${i}`} aria-hidden={i > 0 ? "true" : undefined}>
+              <Image src={c.image} alt={c.campus ? `Trại sinh và ban tổ chức Trại hè PiMA ${y.year} tại ${c.campus}` : `Trại sinh và ban tổ chức Trại hè PiMA ${y.year}`} widths={[800, 1200, 1600, 2000, 2880]} sizes="(max-width: 1440px) 86vw, 1200px" class="bc-img" loading="eager" />
+              {c.campus && <figcaption class="bc-tag">{c.campus}</figcaption>}
+            </figure>
+          ))}
         </div>
       )
     }
@@ -74,7 +83,7 @@ const laterDocs: { title: string; items?: DocItem[] }[] = [
             {y.sessions.map((s) => {
               const d = dateParts(s.start, s.end);
               return (
-                <div class="bc-date">
+                <div class:list={["bc-date", { "bc-paired": slideOf(s.campus) >= 0 }]} style={slideOf(s.campus) >= 0 ? `--i: ${slideOf(s.campus)}` : undefined}>
                   <dt>{s.campus ?? "Thời gian"}</dt>
                   <dd>
                     <span class="bc-days">{d.days}</span>
@@ -307,6 +316,11 @@ const laterDocs: { title: string; items?: DocItem[] }[] = [
     position: relative;
     min-height: 0;
   }
+  .bc-slide {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+  }
   .bc-img {
     position: absolute;
     inset: 0;
@@ -314,6 +328,66 @@ const laterDocs: { title: string; items?: DocItem[] }[] = [
     height: 100%;
     object-fit: cover;
     object-position: center 35%;
+  }
+  .bc-tag {
+    position: absolute;
+    left: var(--space-4);
+    bottom: var(--space-4);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius);
+    background: var(--color-button-on-dark);
+    color: var(--color-button-on-dark-text);
+    font-weight: var(--font-weight-extrabold);
+  }
+
+  /* 2025: the campus covers take turns (7 s each, a 1 s crossfade), and the matching date
+     block is lit while its photo shows. Hover pauses; reduced motion shows the first photo. */
+  .bc-rotating .bc-img {
+    object-position: center 60%;
+  }
+  .bc-rotating .bc-slide {
+    animation: bc-cover calc(var(--slides) * 7s) infinite;
+    animation-delay: calc(var(--i) * 7s - 1s);
+    opacity: 0;
+  }
+  .bc-rotating .bc-slide:first-child {
+    opacity: 1;
+  }
+  .bc-paired {
+    animation: bc-lit-bar 14s infinite;
+    animation-delay: calc(var(--i) * 7s - 1s);
+  }
+  .bc-paired .bc-days {
+    animation: bc-lit-days 14s infinite;
+    animation-delay: calc(var(--i) * 7s - 1s);
+  }
+  .bookcover:hover .bc-slide,
+  .bookcover:hover .bc-paired,
+  .bookcover:hover .bc-paired .bc-days {
+    animation-play-state: paused;
+  }
+  @keyframes bc-cover {
+    0% { opacity: 0; }
+    7%, 50% { opacity: 1; }
+    57%, 100% { opacity: 0; }
+  }
+  /* The lit block: its rule and its days turn Pale Lime; text contrast never drops. */
+  @keyframes bc-lit-bar {
+    0% { border-left-color: var(--color-background-accent); }
+    7%, 50% { border-left-color: var(--color-text-accent); }
+    57%, 100% { border-left-color: var(--color-background-accent); }
+  }
+  @keyframes bc-lit-days {
+    0% { color: var(--color-text); }
+    7%, 50% { color: var(--color-text-accent); }
+    57%, 100% { color: var(--color-text); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .bc-rotating .bc-slide,
+    .bc-paired,
+    .bc-paired .bc-days {
+      animation: none;
+    }
   }
   .bc-text {
     display: grid;
