@@ -59,3 +59,14 @@ test("a macro defined in one formula applies only inside it", async () => {
   await render("$\\gdef\\pimb{x} \\pimb$");
   await failsOnFormula("$\\pimb$");
 });
+
+test("a command KaTeX would show as red text (links, images, HTML, untrusted) fails the render", async () => {
+  await failsOnFormula("$\\href{https://pimavn.com}{PiMA}$");
+  await failsOnFormula("$\\url{https://pimavn.com}$");
+  await failsOnFormula("$$\n\\includegraphics{a.png}\n$$");
+  await failsOnFormula("$\\htmlClass{x}{y}$");
+  // A URL KaTeX rejects before asking whether to trust it.
+  await failsOnFormula("$\\url{a b:c}$");
+  // A colour the author asks for is fine, even KaTeX's error red.
+  assert.equal(count(await render("$\\textcolor{#cc0000}{x}$"), KATEX), 1);
+});
