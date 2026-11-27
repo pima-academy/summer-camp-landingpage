@@ -3,11 +3,13 @@
 // frame holding the cover photo, the season line with the year, the topic in display type with
 // its English under it, one calendar block per session and the counts sentence with its numbers
 // set large. Missing data drops out; the structure is the same every year.
-// The photo is never cropped: its frame takes the photo's own aspect ratio, at every width. A
-// wide photo (2:1 or wider: 2019, 2023, 2026) runs across the top with the text under it; any
-// other (2016, 2017, 2018, 2021, 2024, 2025) sits beside the text on desktop, which stacks in a
-// column, the topic and dates centred between the season line and the counts. Below 992 px the
-// photo is always on top.
+// The photo is never cropped: it keeps its own aspect ratio, at every size. On desktop the frame
+// fits the viewport: the season line runs across the top, the counts across the foot, and
+// between them the photo, shrunk whole to the height left, with the topic and the dates centred
+// beside it. Where the topic and the dates need more than that height (a short viewport), the
+// frame grows to hold them rather than run them into the counts. A wide photo (2:1 or wider: 2019, 2023, 2026) runs instead across the top with the
+// text under it when the viewport is 850 px tall or more, where that shows it larger. Below
+// 992 px the photo is always on top, at the frame's width.
 // A year held at several campuses (2025) has one cover per campus: they crossfade every 7 s
 // with a campus tag, and the matching date block's rule and days turn Pale Lime in step.
 // Hover pauses; reduced motion shows the first cover only.
@@ -32,22 +34,24 @@ const slideOf = (campus?: string) => {
 const counts = countsSentence(camp);
 /** The first cover's aspect ratio, which the frame takes (a year's covers share one). */
 const ratio = slides[0].image.width / slides[0].image.height;
-/** A cover narrower than 2:1 sits beside the text on desktop. */
-const beside = ratio < 2;
+/** A cover 2:1 or wider, on top of the text on a tall desktop viewport. */
+const wide = ratio >= 2;
 ---
 
 <Section name="cover" width="large" spacing="none">
-  <div class:list={["bookcover", { beside }]} data-tone="dark-green" data-covers={slides.length}>
+  <div class:list={["bookcover", { wide }]} data-tone="dark-green" data-covers={slides.length}>
     <div class:list={["photo", { rotating }]} style={`--cover-ratio: ${ratio}`}>
+      <div class="fit">
+      <div class="pic">
       {
         slides.map((c, i) => (
           <figure class="slide" data-slide={i} data-active={i === 0 ? "" : undefined} aria-hidden={i > 0 ? "true" : undefined}>
-            {/* Desktop: the frame's width, 60 % of it beside the text. */}
+            {/* Desktop: 60 % of the frame's width beside the text, all of it for a wide photo on top. */}
             <Image
               src={c.image}
               alt={c.campus ? `Trại sinh và ban tổ chức Trại hè PiMA ${camp.year} tại ${c.campus}` : `Trại sinh và ban tổ chức Trại hè PiMA ${camp.year}`}
               widths={[800, 1200, 1600, 2000, 2400, 2880]}
-              sizes={beside ? "(max-width: 991px) 92vw, 800px" : "(max-width: 991px) 92vw, 1232px"}
+              sizes={wide ? "(max-width: 991px) 92vw, 1232px" : "(max-width: 991px) 92vw, 800px"}
               quality={90}
               class="img"
               loading="eager"
@@ -56,12 +60,15 @@ const beside = ratio < 2;
           </figure>
         ))
       }
+      </div>
+      </div>
     </div>
     <div class="text">
       <p class="season">
         <span>Trại hè Toán học và Ứng dụng <BrandName /></span>
         <span class="year">{camp.year}</span>
       </p>
+      <div class="lead">
       <div class="title">
         <h1 class="display">{camp.topic.vi}</h1>
         <p class="en">{camp.topic.en}</p>
@@ -86,6 +93,7 @@ const beside = ratio < 2;
           </dl>
         )
       }
+      </div>
       {
         counts.length > 0 && (
           <p class="counts">{counts.map((piece) => (typeof piece === "number" ? <b>{piece}</b> : piece))}</p>
@@ -130,11 +138,34 @@ const beside = ratio < 2;
     padding: var(--space-6);
     border-radius: var(--radius);
     display: grid;
+    grid-template-areas: "photo" "text";
     gap: var(--space-8);
   }
-  /* The photo's own aspect ratio, so object-fit: cover cuts nothing. */
+  /* The photo's cell asks, through an empty box of the photo's aspect ratio, for the photo's
+     height at the cell's width, held under what the viewport leaves (see the layouts below). The
+     photo is the largest box of its own aspect ratio that fits the cell (so object-fit: cover
+     cuts nothing), centred in it. */
   .photo {
+    grid-area: photo;
     position: relative;
+    min-height: 0;
+    overflow: clip;
+  }
+  .photo::before {
+    content: "";
+    display: block;
+    aspect-ratio: var(--cover-ratio);
+  }
+  .fit {
+    position: absolute;
+    inset: 0;
+    container-type: size;
+    display: grid;
+    place-items: center;
+  }
+  .pic {
+    position: relative;
+    width: min(100cqw, 100cqh * var(--cover-ratio));
     aspect-ratio: var(--cover-ratio);
   }
   .slide {
@@ -188,6 +219,7 @@ const beside = ratio < 2;
   }
 
   .text {
+    grid-area: text;
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     grid-template-areas:
@@ -198,6 +230,10 @@ const beside = ratio < 2;
     row-gap: var(--space-5);
     align-items: end;
     padding: 0 var(--space-4) var(--space-4);
+  }
+  /* The topic and the dates: two cells of the text's grid, or beside the photo one column. */
+  .lead {
+    display: contents;
   }
   .season {
     grid-area: season;
@@ -293,41 +329,74 @@ const beside = ratio < 2;
     font-variant-numeric: tabular-nums;
   }
 
-  /* A cover beside the text: the text stacks, the season line at the top of the photo, the
-     counts at its foot and the topic with the dates centred between them by two flexible empty
-     rows; margins, not the row gap, space the rest, so the empty rows add nothing when the
-     column is full. A photo shorter than the text is centred on it. */
-  .beside {
+  /* Above, the photo on top of the text (a wide photo on a tall viewport, every photo under
+     992 px). On desktop the photo sits beside the text: the season line runs across the top and
+     the counts across the foot; between them the photo, and the topic with the dates centred
+     beside it. The photo asks for no more than the viewport leaves once the frame's padding,
+     gaps, season line and one line of counts (each a <p> with its margin and a 1 px rule) are
+     taken; the row is as tall as the photo or the
+     text, whichever is taller, so the text never runs into the counts (a short viewport then
+     scrolls the frame). */
+  .bookcover {
     grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    grid-template-areas:
+      "season season"
+      "photo lead"
+      "counts counts";
   }
-  .beside .photo {
-    align-self: center;
+  .bookcover .photo::before {
+    max-height: calc(
+      100svh - var(--space-24) - 2 * var(--space-6) - 2 * var(--space-8) - var(--font-size-body) * var(--line-height-body) -
+        3 * var(--space-3) - var(--space-4) - var(--font-size-h3) * var(--line-height-h3) - 2px
+    );
   }
-  .beside .text {
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: auto 1fr auto auto 1fr auto;
-    grid-template-areas: "season" "." "title" "dates" "." "counts";
-    row-gap: 0;
+  .bookcover .text {
+    display: contents;
   }
-  .beside .title,
-  .beside .dates,
-  .beside .counts {
-    margin-top: var(--space-5);
+  .bookcover .lead {
+    grid-area: lead;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--space-5);
+  }
+
+  /* breakpoint-exception: a wide photo is larger on top of the text once the viewport is tall
+     enough; the width breakpoints below still put every photo on top under 992 px. The frame
+     fits the viewport: the text keeps its height and the photo's row gets what is left. */
+  @media screen and (min-height: 850px) {
+    .wide {
+      grid-template-columns: none;
+      grid-template-rows: minmax(0, 1fr) auto;
+      grid-template-areas: "photo" "text";
+      max-height: calc(100svh - var(--space-24));
+    }
+    .wide .photo::before {
+      max-height: none;
+    }
+    .wide .text {
+      display: grid;
+    }
+    .wide .lead {
+      display: contents;
+    }
   }
 
   @media screen and (max-width: 991px) {
-    .beside {
+    .bookcover {
+      max-height: none;
       grid-template-columns: none;
-    }
-    .beside .text {
       grid-template-rows: none;
-      grid-template-areas: "season" "title" "dates" "counts";
-      row-gap: var(--space-5);
+      grid-template-areas: "photo" "text";
     }
-    .beside .title,
-    .beside .dates,
-    .beside .counts {
-      margin-top: 0;
+    .bookcover .photo::before {
+      max-height: none;
+    }
+    .bookcover .text {
+      display: grid;
+    }
+    .bookcover .lead {
+      display: contents;
     }
     .text {
       grid-template-columns: 1fr;
