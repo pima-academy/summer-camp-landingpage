@@ -10,7 +10,7 @@ import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { calendarDates, countsSentence } from "../src/sections/camp-archive/camp-archive.ts";
 import { loadYearFile, yearProblems } from "./camp-archive-lib.mjs";
-import { root } from "./test-lib.mjs";
+import { dist, distSkip, root } from "./test-lib.mjs";
 
 test("the counts sentence of 2019: lectures, topics, and group reports of their campers", () => {
   const camper = { name: "A", school: "B" };
@@ -258,6 +258,16 @@ for (const f of yearFiles) {
     assert.deepEqual(yearProblems(y, { file: f }), []);
   });
 }
+
+test("the build has a camp archive page for each year file and no other (the dev sample stays out)", { skip: distSkip }, () => {
+  const built = readdirSync(join(dist, "trai-he-toan-hoc-pima"), { withFileTypes: true })
+    .filter((e) => e.isDirectory() && existsSync(join(dist, "trai-he-toan-hoc-pima", e.name, "index.html")))
+    .map((e) => `${e.name}.ts`)
+    .sort();
+  assert.deepEqual(built, yearFiles);
+  // No sample photo reaches the build (sample/2019/<album>/0N.jpg would be emitted as 0N.<hash>.jpg).
+  assert.deepEqual(readdirSync(join(dist, "_astro")).filter((f) => /^\d\d\.[\w-]+\.(jpg|webp)$/.test(f)), []);
+});
 
 test("the dev-only sample loads like a year file and differs from one only by its '#' links", async () => {
   const sampleDir = join(root, "src/sections/camp-archive/sample");

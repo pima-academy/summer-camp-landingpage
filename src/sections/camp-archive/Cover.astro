@@ -1,0 +1,304 @@
+---
+// Cover: the hero of the camp archive page, a book cover (design D of #89). A dark-green
+// frame, a viewport tall on desktop, holding the cover photo (object-fit: cover in a fixed
+// frame), the season line with the year, the topic in display type with its English under it,
+// one calendar block per session and the counts sentence with its numbers set large. Missing
+// data drops out; the structure is the same every year.
+// A year held at several campuses (2025) has one cover per campus: they crossfade every 7 s
+// with a campus tag, and the matching date block's rule and days turn Pale Lime in step.
+// Hover pauses; reduced motion shows the first cover only.
+// Used by trai-he-toan-hoc-pima/[year].
+import { Image } from "astro:assets";
+import BrandName from "../../components/BrandName.astro";
+import Section from "../../components/Section.astro";
+import { calendarDates, countsSentence, coversOf, type CampYear } from "./camp-archive";
+
+interface Props {
+  y: CampYear;
+}
+
+const { y } = Astro.props;
+const slides = coversOf(y);
+const rotating = slides.length > 1;
+/** The cover a session pairs with in a rotating hero, or undefined. */
+const slideOf = (campus?: string) => {
+  const i = rotating ? slides.findIndex((c) => c.campus === campus) : -1;
+  return i >= 0 ? i : undefined;
+};
+const counts = countsSentence(y);
+---
+
+<Section name="cover" width="large" spacing="none">
+  <div class="bookcover" data-tone="dark-green" data-covers={slides.length}>
+    <div class:list={["photo", { rotating }]}>
+      {
+        slides.map((c, i) => (
+          <figure class="slide" data-slide={i} data-active={i === 0 ? "" : undefined} aria-hidden={i > 0 ? "true" : undefined}>
+            {/* sizes 1600px, not the frame's width: on a tall viewport the frame crops the photo's sides. */}
+            <Image
+              src={c.image}
+              alt={c.campus ? `Trại sinh và ban tổ chức Trại hè PiMA ${y.year} tại ${c.campus}` : `Trại sinh và ban tổ chức Trại hè PiMA ${y.year}`}
+              widths={[800, 1200, 1600, 2000, 2400, 2880]}
+              sizes="(max-width: 991px) 92vw, 1600px"
+              quality={90}
+              class="img"
+              loading="eager"
+            />
+            {rotating && c.campus && <figcaption class="tag" data-tone="pale-lime">{c.campus}</figcaption>}
+          </figure>
+        ))
+      }
+    </div>
+    <div class="text">
+      <p class="season">
+        <span>Trại hè Toán học và Ứng dụng <BrandName /></span>
+        <span class="year">{y.year}</span>
+      </p>
+      <div class="title">
+        <h1 class="display">{y.topic.vi}</h1>
+        <p class="en">{y.topic.en}</p>
+      </div>
+      {
+        y.sessions && (
+          <dl class="dates">
+            {y.sessions.map((s) => {
+              const d = s.start && s.end ? calendarDates(s.start, s.end) : undefined;
+              const slide = slideOf(s.campus);
+              return (
+                <div class="date" data-slide={slide} data-active={slide === 0 ? "" : undefined}>
+                  <dt>{s.campus ?? "Thời gian"}</dt>
+                  <dd>
+                    {d && <span class="days">{d.days}</span>}
+                    {d && <span class="month">{d.rest}</span>}
+                    {s.venue && <span class="venue">{s.venue}</span>}
+                  </dd>
+                </div>
+              );
+            })}
+          </dl>
+        )
+      }
+      {
+        counts.length > 0 && (
+          <p class="counts">{counts.map((piece) => (typeof piece === "number" ? <b>{piece}</b> : piece))}</p>
+        )
+      }
+    </div>
+  </div>
+</Section>
+
+<script>
+  // The campus covers take turns every 7 s; the date block of the showing cover is lit.
+  // Hover pauses; reduced motion keeps the first cover.
+  const STEP_MS = 7000;
+  for (const cover of document.querySelectorAll<HTMLElement>(".bookcover[data-covers]")) {
+    const count = Number(cover.dataset.covers);
+    if (count < 2 || matchMedia("(prefers-reduced-motion: reduce)").matches) continue;
+    let current = 0;
+    let paused = false;
+    cover.addEventListener("mouseenter", () => (paused = true));
+    cover.addEventListener("mouseleave", () => (paused = false));
+    setInterval(() => {
+      if (paused) return;
+      current = (current + 1) % count;
+      cover.querySelectorAll<HTMLElement>("[data-slide]").forEach((el) => {
+        el.toggleAttribute("data-active", Number(el.dataset.slide) === current);
+      });
+    }, STEP_MS);
+  }
+</script>
+
+<style>
+  /* The book cover: one dark-green frame, a viewport tall on desktop. */
+  .bookcover {
+    margin-top: var(--space-20);
+    margin-bottom: var(--space-16);
+    padding: var(--space-6);
+    border-radius: var(--radius);
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
+    gap: var(--space-8);
+    height: calc(100svh - var(--space-24));
+    min-height: 40rem;
+    max-height: 60rem;
+  }
+  .photo {
+    position: relative;
+    min-height: 0;
+  }
+  .slide {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+  }
+  .img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 35%;
+  }
+  .tag {
+    position: absolute;
+    left: var(--space-4);
+    bottom: var(--space-4);
+    padding: var(--space-1) var(--space-3);
+    border-radius: var(--radius);
+    font-weight: var(--font-weight-extrabold);
+  }
+
+  /* Several covers: a 1 s crossfade; the lit date block's rule and days turn Pale Lime. */
+  .rotating .img {
+    object-position: center 60%;
+  }
+  .rotating .slide {
+    opacity: 0;
+    transition: opacity 1s ease;
+  }
+  .rotating .slide[data-active] {
+    opacity: 1;
+  }
+  .date[data-slide] {
+    transition: border-color 1s ease;
+  }
+  .date[data-slide] .days {
+    transition: color 1s ease;
+  }
+  .date[data-active] {
+    border-left-color: var(--color-text-accent);
+  }
+  .date[data-active] .days {
+    color: var(--color-text-accent);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .rotating .slide,
+    .date[data-slide],
+    .date[data-slide] .days {
+      transition: none;
+    }
+  }
+
+  .text {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "season season"
+      "title dates"
+      "counts counts";
+    column-gap: var(--space-12);
+    row-gap: var(--space-5);
+    align-items: end;
+    padding: 0 var(--space-4) var(--space-4);
+  }
+  .season {
+    grid-area: season;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-4);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--color-text-accent);
+    color: var(--color-text-accent);
+    font-weight: var(--font-weight-bold);
+  }
+  .year {
+    font-weight: var(--font-weight-black);
+    font-variant-numeric: tabular-nums;
+  }
+  .title {
+    grid-area: title;
+  }
+  /* Display type: the topic is the page's h1, but not a heading to the eye. */
+  .display {
+    color: var(--color-text);
+    font-size: var(--font-size-display-2);
+    line-height: var(--line-height-display);
+    letter-spacing: var(--letter-spacing-display);
+    font-weight: var(--font-weight-black);
+    text-wrap: balance;
+  }
+  .en {
+    margin-top: var(--space-2);
+    color: var(--color-text-accent);
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+    font-weight: var(--font-weight-semibold);
+  }
+  .dates {
+    grid-area: dates;
+    display: flex;
+    gap: var(--space-8);
+    margin: 0;
+  }
+  .date {
+    padding-left: var(--space-4);
+    border-left: var(--space-1) solid var(--color-background-accent);
+  }
+  .date dt {
+    color: var(--color-text-accent);
+    font-weight: var(--font-weight-extrabold);
+  }
+  .date dd {
+    margin: 0;
+    display: grid;
+  }
+  .days {
+    font-size: var(--font-size-h2);
+    line-height: var(--line-height-h2);
+    font-weight: var(--font-weight-black);
+    font-variant-numeric: tabular-nums;
+  }
+  .month,
+  .venue {
+    font-size: var(--font-size-small);
+  }
+  .venue {
+    color: var(--color-text-muted);
+    max-width: 16rem;
+  }
+  .counts {
+    grid-area: counts;
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-text-accent);
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+  }
+  .counts b {
+    color: var(--color-text-accent);
+    font-weight: var(--font-weight-black);
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media screen and (max-width: 991px) {
+    .bookcover {
+      height: auto;
+      max-height: none;
+      min-height: 0;
+      grid-template-rows: auto auto;
+    }
+    .photo {
+      aspect-ratio: 12 / 5;
+    }
+    .text {
+      grid-template-columns: 1fr;
+      grid-template-areas: "season" "title" "dates" "counts";
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .bookcover {
+      padding: var(--space-3);
+      gap: var(--space-5);
+    }
+    .photo {
+      aspect-ratio: 4 / 3;
+    }
+    .text {
+      padding: 0 var(--space-2) var(--space-2);
+    }
+    .dates {
+      flex-direction: column;
+      gap: var(--space-4);
+    }
+  }
+</style>
