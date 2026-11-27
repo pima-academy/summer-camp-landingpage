@@ -83,3 +83,6 @@ export function postDate(date: Date): string {
   const pad = (n: number) => String(n).padStart(2, "0");
   return `${pad(date.getUTCDate())}/${pad(date.getUTCMonth() + 1)}/${date.getUTCFullYear()}`;
 }
+
+/** A post date as yyyy-mm-dd, for `<time datetime>`. */
+export const isoDate = (date: Date): string => date.toISOString().slice(0, 10);

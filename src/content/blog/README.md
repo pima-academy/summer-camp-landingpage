@@ -122,7 +122,7 @@ KaTeX chỉ hiểu phần **chế độ toán (math mode)** của LaTeX, không 
 - `\label`, `\ref`, `\eqref`: đánh số tay bằng `\tag{…}` và nhắc tới công thức bằng chữ, ví dụ "theo (1)".
 - `multline` (dùng `align` hoặc `gather`).
 - Một lệnh định nghĩa ở công thức này rồi dùng ở công thức khác: mỗi công thức tự định nghĩa lại lệnh của mình.
-- `\href`, `\url`, `\includegraphics` trong công thức: CI **không** báo lỗi, nhưng site hiện lệnh thành chữ đỏ. Dùng link và ảnh Markdown thay thế.
+- `\href`, `\url`, `\includegraphics` (và các lệnh HTML như `\htmlClass`) trong công thức: dùng link và ảnh Markdown thay thế.
 
 **Quy tắc Markdown cho công thức:**
 
