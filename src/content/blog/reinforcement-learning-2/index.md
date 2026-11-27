@@ -18,7 +18,7 @@ $$Pr(S_{t+1} | S_t , S_{t-1}, …, S_0) = Pr(S_{t+1} | S_t)$$
 
 Ví dụ 3: Giả sử ngày mai có mưa hay không chỉ phụ thuộc vào thời tiết hôm nay. Bé Trabbit (mới 5 tuổi) nhận ra nếu hôm nay không mưa thì khả năng 80% ngày mai cũng không mưa, còn nếu hôm nay mưa thì khả năng 40% ngày mai cũng sẽ mưa.
 
-- &nbsp;$S =$ {không mưa, mưa}, $Pr (S_\{t+1\} = $ không mưa $\vert S_t =$ không mưa) = 80%;  
+- &nbsp;$S =$ {không mưa, mưa}, $Pr (S_{t+1} = $ không mưa $\vert S_t =$ không mưa) = 80%;  
 - &nbsp;$Pr (S_{t+1} =$ mưa $\vert S_t =$ không mưa) = 20%, $Pr (S_{t+1}$ = mưa $\vert S_t =$ mưa) = 40%;
 - &nbsp;$Pr (S_{t+1} =$ không mưa $\vert S_t =$ mưa) = 60%.
 

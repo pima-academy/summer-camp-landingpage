@@ -8,7 +8,10 @@ import { chromium } from "playwright";
 import { distSkip as skip, serveDist } from "./test-lib.mjs";
 
 // The posts with formulas; perfect-strategy's display formula is wider than a phone.
-const POSTS = ["calculus-war", "pagerank", "max-speed-animals", "softmax", "which-has-more-elements", "perfect-strategy"];
+const POSTS = [
+  "calculus-war", "pagerank", "max-speed-animals", "softmax", "which-has-more-elements", "perfect-strategy",
+  "reinforcement-learning-1", "reinforcement-learning-2",
+];
 
 let server, browser;
 

@@ -203,7 +203,7 @@ for (const [slug, date, author, title, sentence] of JEKYLL_POSTS) {
 // ---- Formulas (#112) --------------------------------------------------------------------------
 
 // The display ($$…$$ on a line of its own) and inline ($…$) formulas of each post with maths,
-// counted in the Jekyll site's text: 21 in all.
+// counted in the Jekyll site's text: 21 in the 6 posts of #112, 36 in the two with images (#113).
 const FORMULAS = {
   "calculus-war": { display: 1, inline: 0 },
   pagerank: { display: 0, inline: 1 },
@@ -211,6 +211,8 @@ const FORMULAS = {
   softmax: { display: 2, inline: 8 },
   "which-has-more-elements": { display: 0, inline: 2 },
   "perfect-strategy": { display: 1, inline: 3 },
+  "reinforcement-learning-1": { display: 0, inline: 20 },
+  "reinforcement-learning-2": { display: 1, inline: 15 },
 };
 
 /** A post body's formulas: KaTeX's display blocks and its inline spans (not inside a display). */
@@ -229,12 +231,16 @@ for (const [slug, expected] of Object.entries(FORMULAS)) {
   });
 }
 
-test("no post page shows a raw $ delimiter or a KaTeX error", { skip }, () => {
+test("no post page shows a raw $ delimiter or a KaTeX error; a lone dollar sign stays text", { skip }, () => {
   for (const { slug } of published) {
-    const body = sectionOf(readBuilt(`blog/${slug}/index.html`), "post-body");
-    assert.ok(!text(body).includes("$"), `${slug}: raw $`);
+    // The Lightbox's script aside.
+    const body = sectionOf(readBuilt(`blog/${slug}/index.html`), "post-body").replace(/<script\b[\s\S]*?<\/script>/g, "");
+    // A dollar sign before an amount ("$10 million") is not a delimiter.
+    assert.ok(!text(body).replace(/\$(?=\d)/g, "").includes("$"), `${slug}: raw $`);
     assert.doesNotMatch(body, /katex-error/, `${slug}: KaTeX error`);
   }
+  const plane = text(sectionOf(readBuilt("blog/toan-ung-dung-hang-khong/index.html"), "post-body"));
+  assert.ok(plane.includes("could cost American $10 million, analyst estimates"), "the lone $ of toan-ung-dung-hang-khong");
 });
 
 test("a post page with formulas loads nothing from a third-party host (no KaTeX CDN)", { skip }, () => {
