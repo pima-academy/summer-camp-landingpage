@@ -1,0 +1,556 @@
+---
+// PROTOTYPE variant E, "Kỷ yếu": the year as a yearbook, people first. The group photo runs edge
+// to edge with the title set under it. The bold piece is the wall of campers: every name large,
+// grouped by project, with a search box so an alumnus finds their own name and report. Lecturers
+// are listed by person, each with the lectures they gave. Photos fall in uncropped columns.
+// Used by /prototype/trai-he-toan-hoc-pima/[year]/ only.
+import { Image } from "astro:assets";
+import BrandName from "../../../components/BrandName.astro";
+import Icon from "../../../components/Icon.astro";
+import Section from "../../../components/Section.astro";
+import { campusCount, iconFor, sectionPhotos, type CampYear, type DocItem } from "./data";
+
+interface Props { y: CampYear }
+const { y } = Astro.props;
+const multiCampus = campusCount(y) > 1;
+const campers = y.projects?.reduce((n, p) => n + p.groups.reduce((m, g) => m + g.campers.length, 0), 0) ?? 0;
+
+// Lecturers by person, in order of first appearance.
+const byPerson = new Map<string, { name: string; affiliation?: string; lectures: { title: string; url?: string; label?: string; fromYear?: number }[] }>();
+for (const l of y.lectures ?? []) {
+  for (const a of l.authors) {
+    const p = byPerson.get(a.name) ?? { name: a.name, affiliation: a.affiliation, lectures: [] };
+    p.lectures.push({ title: l.title, url: l.files[0]?.url, label: l.files[0]?.label, fromYear: l.fromYear });
+    byPerson.set(a.name, p);
+  }
+}
+const lecturers = [...byPerson.values()];
+const docs: { title: string; items?: DocItem[] }[] = [
+  { title: "Đề tuyển sinh", items: y.entranceExam },
+  { title: "Bài tập", items: y.exercises },
+  { title: "Tài liệu đọc thêm", items: y.reading },
+].filter((b) => b.items?.length);
+---
+
+{
+  y.cover && (
+    <div class="bleed">
+      <Image src={y.cover} alt={`Trại sinh và ban tổ chức Trại hè PiMA ${y.year}`} widths={[800, 1200, 1600, 2000, 2880]} sizes="100vw" class="bleed-img" loading="eager" />
+    </div>
+  )
+}
+
+<Section name="variant-e-title" width="large" spacing="none" tone={y.cover ? "white" : "pale-lime"}>
+  <div class:list={["title", { "no-cover": !y.cover }]}>
+    <p class="year">Trại hè <BrandName /> {y.year}</p>
+    <h1 class="display">{y.topic.vi}</h1>
+    <p class="en">{y.topic.en}</p>
+    {
+      y.sessions && (
+        <p class="where">
+          {y.sessions.map((s) => (
+            <span>
+              <Icon name="map-pin" size="text" class="pin" /> {s.campus}, {s.dates}, {s.venue}
+            </span>
+          ))}
+        </p>
+      )
+    }
+  </div>
+</Section>
+
+{
+  (y.description || y.team) && (
+    <Section name="variant-e-about" width="large" spacing="medium">
+      <div class="about">
+        {y.description && (
+          <div class="about-text">
+            {y.description.map((p) => <p>{p}</p>)}
+          </div>
+        )}
+        {y.team && (
+          <div class="team">
+            {y.team.map((t) => (
+              <div class="team-group">
+                <h2 class="team-role">{t.name}</h2>
+                <div class="team-people">
+                  {t.members.map((m) => (
+                    <figure class="person">
+                      {m.photo && <Image src={m.photo} alt="" widths={[200, 400]} sizes="160px" class="person-img" />}
+                      <figcaption>
+                        <strong>{m.name}</strong>
+                        <span class="muted small">{m.affiliation}</span>
+                      </figcaption>
+                    </figure>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </Section>
+  )
+}
+
+{
+  y.projects && (
+    <Section name="variant-e-wall" width="large" spacing="medium" tone="pale-lime">
+      <div class="wall-head">
+        <h2>{campers} trại sinh, {y.projects.length} đề tài</h2>
+        <label class="search">
+          <span class="search-label">Tìm tên hoặc trường</span>
+          <input type="search" data-wall-search placeholder="Ví dụ: Thảo, Năng khiếu" autocomplete="off" />
+        </label>
+      </div>
+      <p class="wall-status small" data-wall-status aria-live="polite" hidden></p>
+      <div class="wall">
+        {y.projects.map((p) => (
+          <section class="topic" data-wall-topic>
+            <h3 class="topic-name">{p.title}</h3>
+            {p.groups.length === 0 && <p class="muted small">Đề tài này không có báo cáo nhóm.</p>}
+            {p.groups.map((g) => (
+              <div class="team-card" data-wall-group>
+                <p class="report">
+                  {g.reportTitle && g.reportTitle !== p.title && <span class="report-title">{g.reportTitle}</span>}
+                  {multiCampus && g.campus && <span class="campus">{g.campus}</span>}
+                </p>
+                <ul class="names">
+                  {g.campers.map((c) => (
+                    <li data-wall-camper>
+                      <span class="name">{c.name}</span>
+                      <span class="school">{c.school}</span>
+                    </li>
+                  ))}
+                </ul>
+                {g.mentors.length > 0 && <p class="small mentor">Mentor {g.mentors.map((m) => m.name).join(", ")}</p>}
+                <p class="links">
+                  {g.files.map((f) => (
+                    <a href={f.url} target="_blank" rel="noopener">
+                      <Icon name={iconFor[f.label]} size="16" />
+                      {f.label === "PDF" ? "Báo cáo" : f.label}
+                    </a>
+                  ))}
+                </p>
+              </div>
+            ))}
+            {p.brief && (
+              <a href={p.brief.url} target="_blank" rel="noopener" class="brief small">
+                Đề bài của đề tài
+              </a>
+            )}
+          </section>
+        ))}
+      </div>
+    </Section>
+  )
+}
+
+{
+  lecturers.length > 0 && (
+    <Section name="variant-e-lecturers" width="large" spacing="medium">
+      <h2>Người đứng lớp</h2>
+      <p class="lede muted">{y.lectures!.length} bài giảng của {lecturers.length} giảng viên.</p>
+      <div class="lecturers">
+        {lecturers.map((p) => (
+          <div class="lecturer">
+            <p class="lecturer-name">{p.name}</p>
+            {p.affiliation && <p class="muted small">{p.affiliation}</p>}
+            <ul class="taught">
+              {p.lectures.map((l) => (
+                <li>
+                  <a href={l.url} target="_blank" rel="noopener">{l.title}</a>
+                  {l.fromYear && <span class="muted small"> (từ trại hè {l.fromYear})</span>}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+      {docs.length > 0 && (
+        <div class="docs">
+          {docs.map((b) => (
+            <div>
+              <h3 class="docs-title">{b.title}</h3>
+              <ul class="taught">
+                {b.items!.map((it) => (
+                  <li>
+                    {it.files.map((f, k) => (
+                      <a href={f.url} target="_blank" rel="noopener">
+                        {k === 0 ? it.title : f.label}
+                      </a>
+                    ))}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      )}
+    </Section>
+  )
+}
+
+{
+  y.gallery && (
+    <Section name="variant-e-photos" width="large" spacing="medium">
+      <h2>Hình ảnh</h2>
+      <div class="masonry">
+        {y.gallery.map((s) => (
+          <>
+            <p class="album-name">
+              <strong>{s.name}</strong>
+              <a href="#" class="small">{s.total} ảnh</a>
+            </p>
+            {sectionPhotos(y.year, s.folder).slice(0, 3).map((ph) => (
+              <a href={ph.src} class="m-ph">
+                <Image src={ph} alt="" widths={[400, 800]} sizes="(max-width: 767px) 90vw, 30vw" class="m-img" />
+              </a>
+            ))}
+          </>
+        ))}
+      </div>
+    </Section>
+  )
+}
+
+<script>
+  const fold = (s: string) => s.normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/đ/gi, "d").toLowerCase();
+  document.querySelectorAll<HTMLInputElement>("[data-wall-search]").forEach((input) => {
+    const root = input.closest("section")!;
+    const status = root.querySelector<HTMLElement>("[data-wall-status]")!;
+    const campers = [...root.querySelectorAll<HTMLElement>("[data-wall-camper]")];
+    input.addEventListener("input", () => {
+      const q = fold(input.value.trim());
+      let hits = 0;
+      for (const c of campers) {
+        const match = !q || fold(c.textContent ?? "").includes(q);
+        c.toggleAttribute("data-dim", !!q && !match);
+        c.toggleAttribute("data-hit", !!q && match);
+        if (q && match) hits++;
+      }
+      root.querySelectorAll<HTMLElement>("[data-wall-group]").forEach((g) => {
+        g.toggleAttribute("data-dim", !!q && !g.querySelector("[data-hit]"));
+      });
+      status.hidden = !q;
+      status.textContent = hits ? `${hits} trại sinh khớp với “${input.value.trim()}”.` : `Không có trại sinh nào khớp với “${input.value.trim()}”. Thử tên riêng hoặc tên trường.`;
+    });
+  });
+</script>
+
+<style>
+  .muted {
+    color: var(--color-text-muted);
+  }
+  .small {
+    font-size: var(--font-size-small);
+  }
+
+  .bleed {
+    padding-top: var(--space-20);
+  }
+  .bleed-img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: 82vh;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 0;
+  }
+  .title {
+    padding-top: var(--space-10);
+    padding-bottom: var(--space-12);
+  }
+  .title.no-cover {
+    padding-top: var(--space-32);
+  }
+  .year {
+    font-weight: var(--font-weight-bold);
+  }
+  .display {
+    margin-top: var(--space-2);
+    max-width: 14em;
+    font-size: var(--font-size-display);
+    line-height: var(--line-height-display);
+    letter-spacing: var(--letter-spacing-display);
+    font-weight: var(--font-weight-black);
+    text-wrap: balance;
+  }
+  .en {
+    margin-top: var(--space-3);
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+    color: var(--color-text-muted);
+  }
+  .where {
+    margin-top: var(--space-6);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-8);
+  }
+  .pin {
+    color: var(--color-icon-decorative);
+  }
+
+  .about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-16);
+  }
+  .about-text p + p {
+    margin-top: var(--space-4);
+  }
+  .team {
+    display: grid;
+    gap: var(--space-8);
+  }
+  .team-role {
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+    color: var(--color-text);
+  }
+  .team-people {
+    margin-top: var(--space-3);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+  }
+  .person {
+    margin: 0;
+    display: flex;
+    gap: var(--space-4);
+    align-items: center;
+  }
+  .person-img {
+    width: var(--space-20);
+    height: var(--space-20);
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+  .person figcaption {
+    display: grid;
+  }
+
+  /* The wall. */
+  .wall-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: var(--space-8);
+    flex-wrap: wrap;
+  }
+  .search {
+    display: grid;
+    gap: var(--space-1);
+    min-width: 18rem;
+  }
+  .search-label {
+    font-size: var(--font-size-small);
+    font-weight: var(--font-weight-bold);
+  }
+  .search input {
+    font: inherit;
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--color-border-field);
+    border-radius: var(--radius);
+    background: var(--color-background);
+    color: var(--color-text);
+  }
+  .search input:focus-visible {
+    outline: 2px solid var(--color-focus-ring);
+    outline-offset: 2px;
+  }
+  .wall-status {
+    margin-top: var(--space-3);
+    font-weight: var(--font-weight-bold);
+  }
+  .wall {
+    margin-top: var(--space-10);
+    display: grid;
+    gap: var(--space-12);
+  }
+  .topic {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+    gap: var(--space-6) var(--space-10);
+    padding-top: var(--space-4);
+    border-top: 2px solid var(--color-text-heading);
+  }
+  .topic-name {
+    grid-column: 1 / -1;
+    color: var(--color-text-heading);
+  }
+  .report {
+    display: flex;
+    gap: var(--space-3);
+    align-items: baseline;
+    flex-wrap: wrap;
+    min-height: 0;
+  }
+  .report-title {
+    font-weight: var(--font-weight-bold);
+  }
+  .campus {
+    font-size: var(--font-size-small);
+    font-weight: var(--font-weight-extrabold);
+    color: var(--color-text-heading);
+  }
+  .names {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-2) 0 0;
+    display: grid;
+    gap: var(--space-2);
+  }
+  .names li {
+    display: grid;
+    transition: opacity 0.2s;
+  }
+  .name {
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+    font-weight: var(--font-weight-extrabold);
+  }
+  .school {
+    font-size: var(--font-size-small);
+    color: var(--color-text-muted);
+  }
+  [data-wall-camper][data-hit] .name {
+    color: var(--color-text-heading);
+    text-decoration: underline;
+    text-decoration-color: var(--color-background-accent);
+    text-decoration-thickness: var(--space-1);
+    text-underline-offset: var(--space-1);
+  }
+  [data-wall-camper][data-dim],
+  [data-wall-group][data-dim] {
+    opacity: 0.3;
+  }
+  .mentor {
+    margin-top: var(--space-2);
+  }
+  .links {
+    margin-top: var(--space-3);
+    display: flex;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+    font-size: var(--font-size-small);
+  }
+  .links a,
+  .brief {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    font-weight: var(--font-weight-extrabold);
+    color: var(--color-link);
+  }
+  .brief {
+    grid-column: 1 / -1;
+  }
+
+  /* Lecturers. */
+  .lede {
+    margin-top: var(--space-2);
+  }
+  .lecturers {
+    margin-top: var(--space-8);
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(17rem, 1fr));
+    gap: var(--space-8) var(--space-10);
+  }
+  .lecturer-name {
+    font-weight: var(--font-weight-extrabold);
+    color: var(--color-text-heading);
+  }
+  .taught {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-2) 0 0;
+    display: grid;
+    gap: var(--space-1);
+  }
+  .taught a {
+    color: var(--color-link);
+    font-weight: var(--font-weight-semibold);
+  }
+  .taught a + a {
+    margin-left: var(--space-3);
+    font-size: var(--font-size-small);
+  }
+  .docs {
+    margin-top: var(--space-12);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: var(--space-10);
+  }
+  .docs-title {
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+  }
+
+  /* Photos. */
+  .masonry {
+    margin-top: var(--space-8);
+    columns: 3 18rem;
+    column-gap: var(--space-4);
+  }
+  .album-name {
+    break-inside: avoid;
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-2);
+    padding: var(--space-3) 0 var(--space-2);
+    border-top: 1px solid var(--color-border);
+  }
+  .album-name a {
+    color: var(--color-link);
+    font-weight: var(--font-weight-bold);
+    white-space: nowrap;
+  }
+  .m-ph {
+    display: block;
+    break-inside: avoid;
+    margin-bottom: var(--space-4);
+  }
+  .m-img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .names li {
+      transition: none;
+    }
+  }
+  @media screen and (max-width: 991px) {
+    .about {
+      grid-template-columns: 1fr;
+      gap: var(--space-10);
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .bleed {
+      padding-top: var(--space-16);
+    }
+    .title.no-cover {
+      padding-top: var(--space-24);
+    }
+    .team-people {
+      grid-template-columns: 1fr;
+    }
+    .search {
+      min-width: 0;
+      width: 100%;
+    }
+  }
+</style>
+
+<style>
+  :global([data-proto] img) {
+    overflow: clip;
+  }
+</style>

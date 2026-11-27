@@ -1,0 +1,574 @@
+---
+// PROTOTYPE variant F, "Áp phích": the year as a poster of its projects, the work campers made.
+// The dark-green band carries the topic and then the bold piece: every project topic stacked in
+// display type, each one opening (one at a time) onto its brief and group reports. Everything
+// after the band is quiet: the cover photo, a three-column lecture index, the other documents,
+// then photo rows. Used by /prototype/trai-he-toan-hoc-pima/[year]/ only.
+import { Image } from "astro:assets";
+import BrandName from "../../../components/BrandName.astro";
+import Icon from "../../../components/Icon.astro";
+import Section from "../../../components/Section.astro";
+import { campusCount, iconFor, sectionPhotos, type CampYear, type DocItem } from "./data";
+
+interface Props { y: CampYear }
+const { y } = Astro.props;
+const multiCampus = campusCount(y) > 1;
+const docs: { title: string; items?: DocItem[] }[] = [
+  { title: "Đề tuyển sinh", items: y.entranceExam },
+  { title: "Bài tập", items: y.exercises },
+  { title: "Tài liệu đọc thêm", items: y.reading },
+].filter((b) => b.items?.length);
+---
+
+<Section name="variant-f-poster" width="large" spacing="none" tone="dark-green">
+  <div class="poster">
+    <header class="masthead">
+      <p class="year">Trại hè <BrandName /> {y.year}</p>
+      <h1 class="topic">{y.topic.vi}</h1>
+      <p class="en">{y.topic.en}</p>
+      {
+        y.sessions && (
+          <ul class="sessions">
+            {y.sessions.map((s) => (
+              <li>
+                <strong>{s.campus}</strong> {s.dates}
+                <br />
+                <span>{s.venue}</span>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </header>
+
+    {
+      y.projects && (
+        <div class="index">
+          <h2 class="index-title">Dự án nhóm</h2>
+          {y.projects.map((p, i) => (
+            <details class="proj" name={`projects-${y.year}`} open={i === 0}>
+              <summary>
+                <span class="proj-title">{p.title}</span>
+                <span class="proj-count">{p.groups.length ? `${p.groups.length} nhóm` : "Chưa có báo cáo"}</span>
+              </summary>
+              <div class="proj-body">
+                {(p.description || p.brief) && (
+                  <div class="proj-brief">
+                    {p.description && <p>{p.description}</p>}
+                    {p.brief && (
+                      <a href={p.brief.url} target="_blank" rel="noopener" class="on-dark-link">
+                        <Icon name="file-text" size="16" /> Đọc đề bài
+                      </a>
+                    )}
+                  </div>
+                )}
+                <div class="proj-groups">
+                  {p.groups.map((g) => (
+                    <div class="grp">
+                      <p class="grp-head">
+                        {multiCampus && g.campus && <span class="campus">{g.campus}</span>}
+                        <span>{g.reportTitle ?? p.title}</span>
+                      </p>
+                      <ul class="grp-campers">
+                        {g.campers.map((c) => (
+                          <li>
+                            {c.name}
+                            <span>{c.school}</span>
+                          </li>
+                        ))}
+                      </ul>
+                      {g.mentors.length > 0 && <p class="grp-mentor">Mentor {g.mentors.map((m) => m.name).join(", ")}</p>}
+                      <p class="grp-files">
+                        {g.files.map((f) => (
+                          <a href={f.url} target="_blank" rel="noopener">
+                            <Icon name={iconFor[f.label]} size="16" />
+                            {f.label === "PDF" ? "Báo cáo" : f.label}
+                          </a>
+                        ))}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </details>
+          ))}
+        </div>
+      )
+    }
+  </div>
+</Section>
+
+{
+  y.cover && (
+    <Section name="variant-f-cover" width="large" spacing="none">
+      <figure class="cover">
+        <Image src={y.cover} alt={`Trại sinh và ban tổ chức Trại hè PiMA ${y.year}`} widths={[800, 1200, 1600, 2000, 2880]} sizes="(max-width: 1440px) 90vw, 1280px" class="cover-img" />
+        <figcaption class="small muted">Trại sinh và ban tổ chức, {y.year}.</figcaption>
+      </figure>
+    </Section>
+  )
+}
+
+{
+  (y.description || y.programme || y.team) && (
+    <Section name="variant-f-about" width="large" spacing="medium">
+      <div class="about">
+        {y.description && (
+          <div>
+            <h2>Chủ đề</h2>
+            {y.description.map((p) => <p class="about-p">{p}</p>)}
+          </div>
+        )}
+        {y.programme && (
+          <div>
+            <h3 class="col-title">Trại sinh được học</h3>
+            <ul class="plain">{y.programme.map((p) => <li>{p}</li>)}</ul>
+          </div>
+        )}
+      </div>
+      {y.team && (
+        <div class="team">
+          {y.team.map((t) => (
+            <div>
+              <h3 class="col-title">{t.name}</h3>
+              <ul class="plain">
+                {t.members.map((m) => (
+                  <li class="member">
+                    {m.photo && <Image src={m.photo} alt="" width={96} height={96} class="member-img" />}
+                    <span>
+                      <strong>{m.name}</strong>
+                      <br />
+                      <span class="small muted">{m.affiliation}</span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      )}
+    </Section>
+  )
+}
+
+{
+  y.lectures && (
+    <Section name="variant-f-lectures" width="large" spacing="medium" tone="surface">
+      <h2>Bài giảng</h2>
+      <ol class="lectures">
+        {y.lectures.map((l) => (
+          <li>
+            <a href={l.files[0]?.url} target="_blank" rel="noopener" class="lec-title">
+              {l.title}
+            </a>
+            {l.fromYear && <span class="small muted"> (từ trại hè {l.fromYear})</span>}
+            <span class="small muted lec-by">{l.authors.map((a) => a.name).join(", ")}</span>
+          </li>
+        ))}
+      </ol>
+      {docs.length > 0 && (
+        <div class="docs">
+          {docs.map((b) => (
+            <div>
+              <h3 class="col-title">{b.title}</h3>
+              <ul class="plain">
+                {b.items!.map((it) => (
+                  <li>
+                    {it.files.map((f, k) => (
+                      <a href={f.url} target="_blank" rel="noopener" class="doc-link">
+                        {k === 0 ? it.title : f.label}
+                      </a>
+                    ))}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      )}
+    </Section>
+  )
+}
+
+{
+  y.gallery && (
+    <Section name="variant-f-photos" width="large" spacing="medium">
+      <h2>Hình ảnh</h2>
+      <div class="rows">
+        {y.gallery.map((s) => (
+          <div class="row">
+            <p class="row-name">
+              {s.name}
+              <a href="#" class="small">{s.total} ảnh</a>
+            </p>
+            <div class="row-photos">
+              {sectionPhotos(y.year, s.folder).slice(0, 4).map((ph) => (
+                <a href={ph.src} class="r-ph">
+                  <Image src={ph} alt="" widths={[400, 800]} sizes="(max-width: 767px) 45vw, 20vw" class="r-img" />
+                </a>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </Section>
+  )
+}
+
+<style>
+  .muted {
+    color: var(--color-text-muted);
+  }
+  .small {
+    font-size: var(--font-size-small);
+  }
+
+  .poster {
+    padding-top: var(--space-32);
+    padding-bottom: var(--space-20);
+  }
+  .masthead {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    column-gap: var(--space-12);
+    align-items: end;
+  }
+  .year {
+    grid-column: 1 / -1;
+    color: var(--color-text-accent);
+    font-weight: var(--font-weight-bold);
+  }
+  .topic {
+    grid-column: 1;
+    margin-top: var(--space-3);
+    font-size: var(--font-size-h1);
+    line-height: var(--line-height-h1);
+    color: var(--color-text);
+    text-wrap: balance;
+  }
+  .en {
+    grid-column: 1;
+    margin-top: var(--space-2);
+    color: var(--color-text-accent);
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+  }
+  .sessions {
+    grid-column: 2;
+    grid-row: 2 / span 2;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-3);
+    font-size: var(--font-size-small);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .index {
+    margin-top: var(--space-20);
+  }
+  .index-title {
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+    color: var(--color-text-accent);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--color-text-accent);
+  }
+  .proj {
+    border-bottom: 1px solid var(--color-text-accent);
+    interpolate-size: allow-keywords;
+  }
+  .proj::details-content {
+    block-size: 0;
+    overflow: clip;
+    transition: block-size 0.35s ease, content-visibility 0.35s allow-discrete;
+  }
+  .proj[open]::details-content {
+    block-size: auto;
+  }
+  .proj > summary {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-6);
+    padding: var(--space-4) 0;
+    cursor: pointer;
+  }
+  .proj > summary::-webkit-details-marker {
+    display: none;
+  }
+  .proj > summary:focus-visible {
+    outline: 2px solid var(--color-focus-ring-on-dark);
+    outline-offset: var(--space-1);
+  }
+  .proj-title {
+    font-size: var(--font-size-display-2);
+    line-height: var(--line-height-display);
+    letter-spacing: var(--letter-spacing-display);
+    font-weight: var(--font-weight-black);
+    color: var(--color-text-accent);
+    transition: color 0.2s;
+  }
+  .proj:not([open]) .proj-title {
+    color: var(--color-text);
+  }
+  .proj > summary:hover .proj-title {
+    color: var(--color-text-accent);
+  }
+  .proj-count {
+    flex-shrink: 0;
+    font-weight: var(--font-weight-bold);
+    font-variant-numeric: tabular-nums;
+  }
+  .proj-body {
+    display: grid;
+    grid-template-columns: 4fr 8fr;
+    gap: var(--space-12);
+    padding: var(--space-4) 0 var(--space-12);
+  }
+  .proj-brief p {
+    max-width: 36rem;
+  }
+  .on-dark-link,
+  .grp-files a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    color: var(--color-text-accent);
+    font-weight: var(--font-weight-extrabold);
+  }
+  .on-dark-link {
+    margin-top: var(--space-4);
+  }
+  .proj-groups {
+    grid-column: 2;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+    gap: var(--space-8);
+  }
+  .proj-brief + .proj-groups {
+    grid-column: auto;
+  }
+  .grp-head {
+    display: flex;
+    gap: var(--space-3);
+    align-items: baseline;
+    flex-wrap: wrap;
+    font-weight: var(--font-weight-extrabold);
+  }
+  .campus {
+    padding: 0 var(--space-2);
+    border-radius: var(--radius);
+    background: var(--color-button-on-dark);
+    color: var(--color-button-on-dark-text);
+    font-size: var(--font-size-small);
+    letter-spacing: var(--letter-spacing-tag);
+  }
+  .grp-campers {
+    list-style: none;
+    padding: 0;
+    margin: var(--space-3) 0;
+    display: grid;
+    gap: var(--space-2);
+  }
+  .grp-campers li {
+    display: grid;
+  }
+  .grp-campers span,
+  .grp-mentor {
+    font-size: var(--font-size-small);
+    color: var(--color-text-muted);
+  }
+  .grp-files {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    font-size: var(--font-size-small);
+  }
+
+  .cover {
+    margin: 0;
+    margin-top: var(--space-16);
+    display: grid;
+    gap: var(--space-3);
+  }
+  .cover-img {
+    width: 100%;
+    height: auto;
+  }
+
+  .about {
+    display: grid;
+    grid-template-columns: 3fr 2fr;
+    gap: var(--space-16);
+  }
+  .about-p {
+    margin-top: var(--space-4);
+    max-width: 40rem;
+  }
+  .col-title {
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+    margin-bottom: var(--space-3);
+  }
+  .plain {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-3);
+  }
+  .about .plain li {
+    padding-left: var(--space-4);
+    border-left: var(--space-1) solid var(--color-background-accent);
+  }
+  .team {
+    margin-top: var(--space-12);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-12);
+  }
+  .member {
+    display: flex;
+    gap: var(--space-4);
+    align-items: center;
+  }
+  .member-img {
+    width: var(--space-16);
+    height: var(--space-16);
+    object-fit: cover;
+    flex-shrink: 0;
+  }
+
+  .lectures {
+    margin: var(--space-8) 0 0;
+    padding-left: var(--space-8);
+    columns: 3 16rem;
+    column-gap: var(--space-10);
+  }
+  .lectures li {
+    break-inside: avoid;
+    margin-bottom: var(--space-4);
+  }
+  .lectures li::marker {
+    font-weight: var(--font-weight-black);
+    color: var(--color-text-heading);
+  }
+  .lec-title {
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text);
+    text-decoration-color: var(--color-background-accent);
+    text-decoration-thickness: 2px;
+    text-underline-offset: var(--space-1);
+  }
+  .lec-title:hover {
+    color: var(--color-link);
+  }
+  .lec-by {
+    display: block;
+  }
+  .docs {
+    margin-top: var(--space-10);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border-field);
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: var(--space-10);
+  }
+  .doc-link {
+    color: var(--color-link);
+    font-weight: var(--font-weight-semibold);
+  }
+  .doc-link + .doc-link {
+    margin-left: var(--space-3);
+    font-size: var(--font-size-small);
+  }
+
+  .rows {
+    margin-top: var(--space-8);
+    display: grid;
+    gap: var(--space-8);
+  }
+  .row {
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    gap: var(--space-6);
+    align-items: start;
+  }
+  .row-name {
+    display: grid;
+    gap: var(--space-1);
+    font-weight: var(--font-weight-bold);
+  }
+  .row-name a {
+    color: var(--color-link);
+  }
+  .row-photos {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-2);
+  }
+  .r-ph {
+    position: relative;
+    display: block;
+    aspect-ratio: 1;
+  }
+  .r-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .proj::details-content,
+    .proj-title {
+      transition: none;
+    }
+  }
+  @media screen and (max-width: 991px) {
+    .masthead,
+    .proj-body,
+    .about,
+    .team {
+      grid-template-columns: 1fr;
+    }
+    .sessions {
+      grid-column: 1;
+      grid-row: auto;
+      margin-top: var(--space-6);
+    }
+    .proj-groups {
+      grid-column: 1;
+    }
+    .row {
+      grid-template-columns: 1fr;
+      gap: var(--space-2);
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .poster {
+      padding-top: var(--space-24);
+      padding-bottom: var(--space-12);
+    }
+    .index {
+      margin-top: var(--space-12);
+    }
+    .proj > summary {
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+    .row-photos {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
+
+<style>
+  :global([data-proto] img) {
+    overflow: clip;
+  }
+</style>

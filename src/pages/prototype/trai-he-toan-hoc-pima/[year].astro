@@ -1,11 +1,14 @@
 ---
 // PROTOTYPE (throwaway, branch prototype/camp-archive-page; dev only): three layout variants of
 // the camp archive page (issue #89), on the real 2019 and 2025 data. /prototype/trai-he-toan-hoc-pima/2019/?variant=B
-// Every variant is rendered; the switcher bar shows the one named by ?variant= (A, B or C).
+// Every variant is rendered; the switcher bar shows the one named by ?variant= (D, E, F from round 2; A, B, C from round 1).
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import VariantA from "../../../sections/camp-archive/prototype/VariantA.astro";
 import VariantB from "../../../sections/camp-archive/prototype/VariantB.astro";
 import VariantC from "../../../sections/camp-archive/prototype/VariantC.astro";
+import VariantD from "../../../sections/camp-archive/prototype/VariantD.astro";
+import VariantE from "../../../sections/camp-archive/prototype/VariantE.astro";
+import VariantF from "../../../sections/camp-archive/prototype/VariantF.astro";
 import { years, type CampYear } from "../../../sections/camp-archive/prototype/data";
 
 export function getStaticPaths() {
@@ -17,7 +20,10 @@ const { y } = Astro.props as { y: CampYear };
 ---
 
 <BaseLayout title={`${y.topic.vi} | Trại hè PiMA ${y.year} (prototype)`} description="Prototype" noindex>
-  <div data-proto="A"><VariantA y={y} /></div>
+  <div data-proto="D"><VariantD y={y} /></div>
+  <div data-proto="E" hidden><VariantE y={y} /></div>
+  <div data-proto="F" hidden><VariantF y={y} /></div>
+  <div data-proto="A" hidden><VariantA y={y} /></div>
   <div data-proto="B" hidden><VariantB y={y} /></div>
   <div data-proto="C" hidden><VariantC y={y} /></div>
 
@@ -31,11 +37,11 @@ const { y } = Astro.props as { y: CampYear };
 </BaseLayout>
 
 <script>
-  const names: Record<string, string> = { A: "A · Hồ sơ", B: "B · Triển lãm", C: "C · Thư mục" };
+  const names: Record<string, string> = { D: "D · Giáo trình", E: "E · Kỷ yếu", F: "F · Áp phích", A: "A · Hồ sơ (vòng 1)", B: "B · Triển lãm (vòng 1)", C: "C · Thư mục (vòng 1)" };
   const keys = Object.keys(names);
   const label = document.querySelector(".proto-label")!;
   function show(v: string) {
-    if (!keys.includes(v)) v = "A";
+    if (!keys.includes(v)) v = "D";
     document.querySelectorAll<HTMLElement>("[data-proto]").forEach((el) => (el.hidden = el.dataset.proto !== v));
     label.textContent = names[v];
     const url = new URL(location.href);
@@ -45,7 +51,7 @@ const { y } = Astro.props as { y: CampYear };
       a.href = `../${a.dataset.year}/?variant=${v}`;
     });
   }
-  let current = new URL(location.href).searchParams.get("variant")?.toUpperCase() ?? "A";
+  let current = new URL(location.href).searchParams.get("variant")?.toUpperCase() ?? "D";
   show(current);
   function step(d: number) {
     const i = keys.indexOf(current);

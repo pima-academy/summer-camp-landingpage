@@ -68,6 +68,11 @@
   --font-size-kicker: 14px;
   --font-size-marquee: 15px;
   --font-size-big-number: 2.6rem;
+  /* PROTOTYPE proposal (#89): display sizes for the camp archive page's title and project index. */
+  --font-size-display: clamp(2.75rem, 6.4vw, 6.5rem);
+  --font-size-display-2: clamp(1.75rem, 4.2vw, 4rem);
+  --line-height-display: 1.1;
+  --letter-spacing-display: -0.025em;
   /* Nav links in the open mobile menu. */
   --font-size-nav-menu: 1.13rem;
   /* The slider dots are 1em boxes; this sets their size, not text. */
