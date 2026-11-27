@@ -24,6 +24,13 @@ const camp: CampYear = {
   year: 2026,
   topic: { vi: "Toán học trong Trí tuệ Nhân tạo", en: "Mathematics in Artificial Intelligence" },
   cover,
+  // Written for the archive: the 2026 camp page reused the 2025 description word for word.
+  // The second paragraph names the six project topics below.
+  description: [
+    "Toán học trong Trí tuệ Nhân tạo (Mathematics in Artificial Intelligence) là chủ đề tìm hiểu nền tảng toán học đằng sau các hệ thống trí tuệ nhân tạo. Học máy (Machine Learning), nhánh trung tâm của trí tuệ nhân tạo, nghiên cứu cách xây dựng những mô hình tự rút ra quy luật từ dữ liệu thay vì được lập trình sẵn từng quy tắc. Nhờ đó, máy tính phân loại được thư rác, nhận dạng chữ viết tay, gợi ý nội dung phù hợp cho người dùng hay chơi cờ ở trình độ cao.",
+    "Mỗi mô hình học máy là một đối tượng toán học. Dữ liệu được biểu diễn bằng vector và ma trận của đại số tuyến tính. Quá trình huấn luyện là một bài toán tối ưu, được giải bằng đạo hàm và gradient của giải tích nhiều biến. Xác suất giúp mô hình xử lý sự bất định của dữ liệu và đưa ra dự đoán. Các mô hình kinh điển như cây quyết định, máy vector hỗ trợ, perceptron nhiều lớp, phân tích thành phần chính, mô hình Markov ẩn và học tăng cường đều được xây dựng từ những công cụ này.",
+    "Khi nắm được phần toán học này, người học giải thích được vì sao một mô hình hoạt động, khi nào mô hình cho kết quả sai và cần thay đổi điều gì để cải thiện mô hình.",
+  ],
   programme: [
     "Tiếp thu các kiến thức về đại số tuyến tính, xác suất thống kê và trí tuệ nhân tạo.",
     "Học được các kỹ năng cơ bản về lập trình với Python và soạn thảo văn bản với LaTeX.",
