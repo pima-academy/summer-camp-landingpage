@@ -1,5 +1,5 @@
 // The end state of the Webflow migration (ADR 0004, #73): global CSS is only the font faces,
-// the tokens, the base and the animations, and nothing outside the frozen camp pages names a
+// the tokens, the base and the animations, and no source file names a
 // Webflow class, `w-node` id, utility wrapper, `--ai-gen-…` variable or `-wf-` token.
 import { test } from "node:test";
 import assert from "node:assert/strict";
@@ -51,13 +51,10 @@ test("webflowNames finds Webflow classes, ids and variables but not lookalikes o
   assert.deepEqual(webflowNames("<!-- was padding-global --><p>x</p>\n// old w-slider\n"), []);
 });
 
-const frozen = (path) =>
-  path.startsWith("src/camp/") || /^src\/pages\/trai-he-(toan-hoc-2025|pima-2026)\.astro$/.test(path);
-
-test("no file outside src/camp/ names a Webflow class, id, utility class or variable", () => {
+test("no source file names a Webflow class, id, utility class or variable", () => {
   const files = walk(join(root, "src"))
     .map((f) => relative(root, f).split(sep).join("/"))
-    .filter((path) => /\.(astro|css|ts|mjs|js)$/.test(path) && !frozen(path));
+    .filter((path) => /\.(astro|css|ts|mjs|js)$/.test(path));
   assert.ok(files.length > 50, `scans the site sources (${files.length})`);
   const found = files.flatMap((path) =>
     webflowNames(readFileSync(join(root, path), "utf8")).map((name) => `${path}: ${name}`),

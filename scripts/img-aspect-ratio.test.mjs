@@ -36,7 +36,7 @@ const targetsImg = (selector) =>
   });
 
 test("the image class scan finds the classes used on <Image>", () => {
-  assert.ok(imgClasses.has("header76_image"), "expected header76_image among the img classes");
+  assert.ok(imgClasses.has("avatar-img"), "expected avatar-img (Testimonials) among the img classes");
 });
 
 test("no stylesheet rule sets aspect-ratio: auto on an <img>", () => {

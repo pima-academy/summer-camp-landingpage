@@ -11,9 +11,6 @@ export const PAGES = [
   { name: "khoa-hoc", path: "/khoa-hoc/" },
   { name: "lien-he", path: "/lien-he/" },
   { name: "trai-he-toan-hoc-pima", path: "/trai-he-toan-hoc-pima/" },
-  { name: "trai-he-toan-hoc-2025", path: "/trai-he-toan-hoc-2025/" },
-  { name: "trai-he-pima-2026", path: "/trai-he-pima-2026/" },
-  { name: "chi-tiet-trai-he", path: "/chi-tiet-trai-he/" },
   { name: "404", path: "/404.html" },
 ];
 

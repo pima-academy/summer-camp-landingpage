@@ -43,13 +43,10 @@ test("a page that lists sections passes; markup, <style> or a non-section compon
 });
 
 /**
- * Page files left out: the two frozen camp pages, the dev-only catalogue (it shows the
- * primitives, not sections) and the dev-only gap route (it renders each gap page, which is
- * checked itself).
+ * Page files left out: the dev-only catalogue (it shows the primitives, not sections) and
+ * the dev-only gap route (it renders each gap page, which is checked itself).
  */
 const NOT_SECTION_LISTS = [
-  "src/pages/trai-he-toan-hoc-2025.astro",
-  "src/pages/trai-he-pima-2026.astro",
   "src/pages/catalogue/[...path].astro",
   "src/pages/[...gap].astro",
 ];
@@ -60,7 +57,7 @@ const files = [...walk(join(root, "src/pages")), ...walk(join(root, "src/gap-pag
   .filter((path) => !NOT_SECTION_LISTS.includes(path));
 
 test("the page files under test include every site page", () => {
-  for (const page of ["index", "ve-chung-toi", "khoa-hoc", "lien-he", "trai-he-toan-hoc-pima", "chi-tiet-trai-he", "404"]) {
+  for (const page of ["index", "ve-chung-toi", "khoa-hoc", "lien-he", "trai-he-toan-hoc-pima", "404"]) {
     assert.ok(files.includes(`src/pages/${page}.astro`), page);
   }
 });

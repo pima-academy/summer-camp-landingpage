@@ -1,5 +1,5 @@
 // The 2024 camp (spec #93, ticket #103): sources the Drive folder "Tài liệu chung" (personal
-// accounts, inventory #92) and the text of /chi-tiet-trai-he/; every file copied into the
+// accounts, inventory #92) and the text of the removed 2024 camp detail page; every file copied into the
 // Drive folder 2024/ on "Trại hè PiMA - Lưu trữ".
 // Authors: full names only where the 2024 sources give them (lecture covers write "Trung Can",
 // the exercise sheets and report acknowledgements give the full names); otherwise as on the cover.

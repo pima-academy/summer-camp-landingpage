@@ -164,15 +164,8 @@ test("var(--…) must name a token of tokens.css (or an allowed inline custom pr
   assert.deepEqual(check(".card { animation-duration: var(--marquee-duration); }"), []);
 });
 
-test("the guardrail skips tokens.css and the frozen camp files", () => {
-  for (const path of [
-    "src/styles/tokens.css",
-    "src/camp/styles/webflow.css",
-    "src/camp/CampFooter.astro",
-    "src/pages/trai-he-toan-hoc-2025.astro",
-    "src/pages/trai-he-pima-2026.astro",
-    "src/lib/animate.ts",
-  ]) {
+test("the guardrail skips tokens.css and files other than .astro and .css", () => {
+  for (const path of ["src/styles/tokens.css", "src/lib/animate.ts"]) {
     assert.equal(inScope(path), false, path);
   }
   for (const path of ["src/components/Nav.astro", "src/styles/global.css", "src/pages/index.astro"]) {
@@ -206,15 +199,11 @@ test("every stylesheet gets every rule: no file is allowed its old media queries
   }
 });
 
-test("the guardrail checks every .astro and .css file in src/ except tokens.css and the frozen camp files", () => {
-  const frozen = (path) =>
-    path === "src/styles/tokens.css" ||
-    path.startsWith("src/camp/") ||
-    /^src\/pages\/trai-he-(toan-hoc-2025|pima-2026)\.astro$/.test(path);
+test("the guardrail checks every .astro and .css file in src/ except tokens.css", () => {
   const all = walk(join(root, "src"))
     .map((f) => f.slice(root.length).split("\\").join("/"))
     .filter((path) => /\.(astro|css)$/.test(path));
-  assert.deepEqual(guardrailFiles(), all.filter((path) => !frozen(path)).sort());
+  assert.deepEqual(guardrailFiles(), all.filter((path) => path !== "src/styles/tokens.css").sort());
   assert.ok(guardrailFiles().includes("src/styles/base.css"), "base.css is checked");
 });
 

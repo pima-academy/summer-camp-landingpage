@@ -19,9 +19,6 @@ test("no arguments selects every published page of the spec's page table", () =>
     "khoa-hoc",
     "lien-he",
     "trai-he-toan-hoc-pima",
-    "trai-he-toan-hoc-2025",
-    "trai-he-pima-2026",
-    "chi-tiet-trai-he",
     "404",
   ]);
 });
@@ -46,7 +43,7 @@ test("an unknown page name is refused", () => {
 
 test("shots are named <page>-<width>-<base|head|diff>.png", () => {
   assert.equal(shotFileName("index", 390, "base"), "index-390-base.png");
-  assert.equal(shotFileName("trai-he-pima-2026", 1440, "head"), "trai-he-pima-2026-1440-head.png");
+  assert.equal(shotFileName("lien-he", 1440, "head"), "lien-he-1440-head.png");
   assert.equal(shotFileName("404", 820, "diff"), "404-820-diff.png");
 });
 
@@ -54,7 +51,7 @@ test("with no arguments, every page is compared against origin/dev and the head 
   const options = parseArgs([]);
   assert.equal(options.base, "origin/dev");
   assert.equal(options.build, true);
-  assert.equal(options.pages.length, 9);
+  assert.equal(options.pages.length, 6);
 });
 
 test("--base picks another base ref, --no-build reuses the head's dist/, names limit the pages", () => {

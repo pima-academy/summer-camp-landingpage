@@ -7,16 +7,14 @@
 // Text axe cannot decide (over an image, a gradient or a pseudo-element: its "incomplete"
 // results) is listed as a test diagnostic and checked by eye.
 //
-// Adding a page: add its path to PAGES. The two camp pages are frozen (not brand-aligned)
-// and stay out. Needs a fresh `npm run build`; skipped when dist/ is missing (fails in CI).
+// Adding a page: add its path to PAGES. Needs a fresh `npm run build`; skipped when dist/ is missing (fails in CI).
 import { test, before, after } from "node:test";
 import assert from "node:assert/strict";
 import { createRequire } from "node:module";
 import { readFileSync } from "node:fs";
 import { distSkip as skip, serveDist } from "./test-lib.mjs";
 
-/** Every published page except the two frozen camp pages. */
-const PAGES = ["/", "/ve-chung-toi/", "/khoa-hoc/", "/trai-he-toan-hoc-pima/", "/lien-he/", "/chi-tiet-trai-he/", "/404.html"];
+const PAGES = ["/", "/ve-chung-toi/", "/khoa-hoc/", "/trai-he-toan-hoc-pima/", "/lien-he/", "/404.html"];
 const WIDTHS = [390, 1440];
 
 const axeSource = readFileSync(createRequire(import.meta.url).resolve("axe-core/axe.min.js"), "utf8");
