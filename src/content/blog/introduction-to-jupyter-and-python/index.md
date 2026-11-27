@@ -111,7 +111,7 @@ Tạo danh sách không thứ tự (unordered list) bằng cách thêm dấu tr�
     
 Các công thức toán học có thể trình bày ở chế độ inline (không xuống dòng), ví dụ $E=mc^2$, hoặc ở chế độ display (tách dòng), ví dụ
 
-$$i\hbar {\frac {\partial }{\partial t}}\vert\psi (t)\rangle ={\hat {H}}\vert\psi (t)\rangle$$
+$$i\hbar {\frac {\partial }{\partial t}}|\psi (t)\rangle ={\hat {H}}|\psi (t)\rangle.$$
 
 Tương tự, trong Markdown nếu bạn có nhu cầu trích dẫn một đoạn code ngắn, cũng có chế độ inline, ví dụ `inline_code`, và chế độ block code, ví dụ:
 
