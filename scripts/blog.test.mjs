@@ -25,6 +25,11 @@ test("else the first paragraph with text, after any heading or image", () => {
   assert.equal(summaryOf({ body: '![Ảnh](./a.jpg "Chú thích")\n\nĐoạn đầu <em>nhấn</em>.\n\nĐoạn hai.' }), "Đoạn đầu nhấn.");
 });
 
+test("a formula in the summary reads as plain text, without its $ delimiters", () => {
+  const body = "Hai tập $\\{1, 2, 3, \\dots\\}$ và $$\\{1, 4, 9, \\dots\\}$$, hệ số $\\alpha \\approx 0.85$, $x_{\\mathrm{max}} \\le \\infty$.\n\n<!--more-->";
+  assert.equal(summaryOf({ body }), "Hai tập {1, 2, 3, …} và {1, 4, 9, …}, hệ số α ≈ 0.85, x_max ≤ ∞.");
+});
+
 test("a long summary is cut at a word to at most 180 characters, ending in an ellipsis", () => {
   const summary = summaryOf({ body: "Toán học và ứng dụng. ".repeat(20) });
   assert.ok(summary.length <= 181, `${summary.length} characters`);
