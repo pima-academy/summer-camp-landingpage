@@ -8,7 +8,7 @@ import Kicker from "../../components/Kicker.astro";
 import Section from "../../components/Section.astro";
 import { fluidWidths } from "../../lib/image-widths";
 import type { Post } from "./blog";
-import { postDate } from "./post-text";
+import { isoDate, postDate } from "./post-text";
 
 interface Props {
   post: Post;
@@ -24,7 +24,7 @@ const { title, date, author, cover } = Astro.props.post.data;
     </div>
     <h1 class="title">{title}</h1>
     <p class="meta">
-      <time datetime={date.toISOString().slice(0, 10)} class="date">{postDate(date)}</time>
+      <time datetime={isoDate(date)} class="date">{postDate(date)}</time>
       {author && <span class="author">{author}</span>}
     </p>
     {
