@@ -284,7 +284,9 @@ const square = slides.every(({ image }) => Math.abs(image.width / image.height -
   }
 
   /* A square cover: the photo whole, beside the text on desktop; the text stacks, the season
-     line on top and the rest at the foot of the photo. The frame takes the height it needs. */
+     line at the top of the photo, the counts at its foot and the topic with the dates centred
+     between them by two flexible empty rows; margins, not the row gap, space the rest, so the
+     empty rows add nothing when the column is full. The frame takes the height it needs. */
   .square {
     height: auto;
     max-height: none;
@@ -297,8 +299,14 @@ const square = slides.every(({ image }) => Math.abs(image.width / image.height -
   }
   .square .text {
     grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: auto 1fr auto auto;
-    grid-template-areas: "season" "title" "dates" "counts";
+    grid-template-rows: auto 1fr auto auto 1fr auto;
+    grid-template-areas: "season" "." "title" "dates" "." "counts";
+    row-gap: 0;
+  }
+  .square .title,
+  .square .dates,
+  .square .counts {
+    margin-top: var(--space-5);
   }
 
   @media screen and (max-width: 991px) {
@@ -310,6 +318,16 @@ const square = slides.every(({ image }) => Math.abs(image.width / image.height -
     }
     .square {
       grid-template-columns: none;
+    }
+    .square .text {
+      grid-template-rows: none;
+      grid-template-areas: "season" "title" "dates" "counts";
+      row-gap: var(--space-5);
+    }
+    .square .title,
+    .square .dates,
+    .square .counts {
+      margin-top: 0;
     }
     .photo {
       aspect-ratio: 12 / 5;
