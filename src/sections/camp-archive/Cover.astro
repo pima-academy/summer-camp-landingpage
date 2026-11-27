@@ -145,6 +145,9 @@ const counts = countsSentence(y);
     bottom: var(--space-4);
     padding: var(--space-1) var(--space-3);
     border-radius: var(--radius);
+    /* The pale-lime tone keeps the inherited text roles, which the dark-green frame re-points
+       to white: set the black of the on-dark pair (Pale Lime + black) instead. */
+    color: var(--color-button-on-dark-text);
     font-weight: var(--font-weight-extrabold);
   }
 
