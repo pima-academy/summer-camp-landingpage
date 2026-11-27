@@ -151,13 +151,16 @@ test("every file link is a Drive viewer URL", () => {
   assert.equal(check(y).length, 2);
 });
 
-test("a file label outside the list, or an item with no file, is reported", () => {
+test("a file label outside the list is reported", () => {
   const y = oneCampus();
   y.reading[0].files[0].label = "Pdf";
-  y.exercises[0].files = [];
-  const problems = check(y).join("\n");
-  assert.match(problems, /reading\[0\]\.files\[0\]\.label: "Pdf" is not one of/);
-  assert.match(problems, /exercises\[0\]\.files: empty/);
+  assert.match(check(y).join("\n"), /reading\[0\]\.files\[0\]\.label: "Pdf" is not one of/);
+});
+
+test("an item with no file passes: it shows its title and authors with no link (2017 'Tối ưu hóa', #87)", () => {
+  const y = oneCampus();
+  y.lectures[0].files = [];
+  assert.deepEqual(check(y), []);
 });
 
 test("every gallery folder exists and holds photos", () => {
