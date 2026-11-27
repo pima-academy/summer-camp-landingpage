@@ -136,6 +136,18 @@
   --scroll-offset-nav: var(--space-20);
 
   /*
+   * Sizes of things that are not spacing (docs/brand.md, "Spacing"): a box, a column, a rule.
+   */
+  /* A portrait beside a name in a list (the camp archive page's credits). */
+  --size-portrait-small: 3rem;
+  /* The number column of a numbered table of contents (the camp archive page's lectures)
+     and the shortest dotted leader between an entry and its links; redeclared at the end. */
+  --width-toc-number: 2.5rem;
+  --width-toc-leader-min: 2rem;
+  /* The accent rule down the left of a block (a camp archive cover date, a project solution). */
+  --border-width-rule-accent: 4px;
+
+  /*
    * Colour roles. Each points at a brand palette colour; docs/brand.md lists the pairs that pass
    * WCAG AA. The text, heading, accent, link, icon and focus roles take the light-tone values
    * (the `-on-light` tokens) here; Section's `tone` (and `data-tone` on a card) re-points them:
@@ -225,6 +237,8 @@
   --color-border-field: var(--gray-2);
   --color-border-field-focus: var(--pima-dark-green);
   --color-border-footer: var(--gray-1);
+  /* The accent rule down the left of a block (--border-width-rule-accent). */
+  --color-border-rule-accent: var(--pima-green);
 
   /* Focus outlines. */
   --color-focus-ring-on-light: var(--pima-dark-green);
@@ -254,6 +268,7 @@
     --font-size-h2: 26px;
     --font-size-h3: 19px;
     --gutter-medium: var(--space-4);
+    --width-toc-number: 2rem;
   }
 }
 

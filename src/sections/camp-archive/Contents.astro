@@ -75,13 +75,13 @@ const byline = (a: Person) => (a.affiliation ? `${a.name} (${a.affiliation})` : 
   }
   .entry {
     display: grid;
-    grid-template-columns: auto minmax(var(--space-8), 1fr) auto;
+    grid-template-columns: auto minmax(var(--width-toc-leader-min), 1fr) auto;
     column-gap: var(--space-3);
     align-items: baseline;
     padding: var(--space-3) 0;
   }
   .numbered .entry {
-    grid-template-columns: var(--space-10) auto minmax(var(--space-8), 1fr) auto;
+    grid-template-columns: var(--width-toc-number) auto minmax(var(--width-toc-leader-min), 1fr) auto;
   }
   .num {
     font-weight: var(--font-weight-black);
@@ -123,7 +123,7 @@ const byline = (a: Person) => (a.affiliation ? `${a.name} (${a.affiliation})` : 
       row-gap: var(--space-1);
     }
     .numbered .entry {
-      grid-template-columns: var(--space-8) 1fr;
+      grid-template-columns: var(--width-toc-number) 1fr;
     }
     .leader {
       display: none;
