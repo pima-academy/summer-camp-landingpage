@@ -10,6 +10,9 @@ export default defineConfig({
   integrations: [sitemap()],
   // Blog posts (src/content/blog/, ADR 0007) go through remark/rehype.
   markdown: {
+    // Code blocks: Shiki colours them with CSS variables, which PostBody points at the brand's
+    // code colours (tokens.css), so they pass WCAG AA (#114).
+    shikiConfig: { theme: "css-variables" },
     processor: unified({
       // Formulas: `$…$` and `$$…$$` typeset by KaTeX at build time (#112).
       remarkPlugins: [...mathRemarkPlugins],

@@ -8,7 +8,7 @@ import { test, before, after } from "node:test";
 import assert from "node:assert/strict";
 import { distSkip as skip, serveDist } from "./test-lib.mjs";
 
-const PAGES = ["/", "/ve-chung-toi/", "/khoa-hoc/", "/trai-he-toan-hoc-pima/", "/lien-he/", "/404.html", "/blog/", "/blog/phat-hien-gian-lan/", "/blog/plato-2/"];
+const PAGES = ["/", "/ve-chung-toi/", "/khoa-hoc/", "/trai-he-toan-hoc-pima/", "/lien-he/", "/404.html", "/blog/", "/blog/phat-hien-gian-lan/", "/blog/plato-2/", "/blog/introduction-to-jupyter-and-python/"];
 const WIDTHS = [390, 1440];
 
 let server, browser;

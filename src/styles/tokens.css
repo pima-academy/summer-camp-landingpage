@@ -85,6 +85,8 @@
   --line-height-h3: 1.3;
   --line-height-body: 1.6;
   --line-height-kicker: 1.4;
+  /* Code blocks (a blog post's): tighter than body text. */
+  --line-height-code: 1.5;
   --line-height-display: 1.1;
   --line-height-button: 1.2;
   --line-height-button-link: 1;
@@ -220,6 +222,15 @@
   /* The header row of a table (docs/brand.md, "Tables"): a blog post's Markdown tables. */
   --color-background-table-header: var(--pima-dark-green);
   --color-text-table-header: var(--white);
+  /* Code blocks in a blog post (PostBody, through Shiki's css-variables theme): a gray-5 panel
+     with black text, Dark Green keywords and constants, brown strings and gray-2 comments, each
+     4.5:1 or more on gray-5. A text output (a ```text block) is a white panel with a hairline. */
+  --color-background-code: var(--gray-5);
+  --color-background-code-output: var(--white);
+  --color-text-code: var(--black);
+  --color-code-keyword: var(--pima-dark-green);
+  --color-code-string: var(--secondary-brown);
+  --color-code-comment: var(--gray-2);
 
   /* Buttons (Button variants and the contact form's submit). */
   --color-button-primary: var(--pima-green);
