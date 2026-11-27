@@ -1,10 +1,13 @@
 ---
 // Plates: the camp archive page's photos, as plates at the back of a book (design D of #89).
-// One plate per album: its name and photo count, "Xem cả album" (the album's Drive folder,
-// until the tailoring pass, #108, adds a lightbox), and one large and four small photos. The
-// year's video, when it has one, follows as a last plate. Renders nothing without either.
+// One plate per album: its name and photo count, "Xem cả album", and one large and four small
+// photos. A click on a photo opens the album's Lightbox at it, "Xem cả album" at its first photo;
+// the lightbox steps through every photo of the album, not only the five shown. The album's Drive
+// folder (`album` in the year's data) holds the originals and is not linked. The year's video,
+// when it has one, follows as a last plate. Renders nothing without either.
 // Used by trai-he-toan-hoc-pima/[year].
 import { Image } from "astro:assets";
+import Lightbox from "../../components/Lightbox.astro";
 import Section from "../../components/Section.astro";
 import type { CampYear } from "./camp-archive";
 import type { Album } from "./camp-years";
@@ -18,36 +21,43 @@ interface Props {
 const { camp, albums } = Astro.props;
 const shown = albums.filter((a) => a.photos.length > 0);
 const title = shown.length && camp.video ? "Hình ảnh và video" : camp.video ? "Video" : "Hình ảnh";
+/** Every photo of an album shares its alt text. */
+const altOf = (a: Album) => (a.name ? `${a.name}, Trại hè PiMA ${camp.year}` : `Trại hè PiMA ${camp.year}`);
 ---
 
 {
   (shown.length > 0 || camp.video) && (
     <Section name="plates" width="large" spacing="medium">
       <h2>{title}</h2>
-      {shown.map((a) => (
+      {shown.map((a, i) => (
         <section class="plate">
           <div>
             {a.name && <h3 class="name">{a.name}</h3>}
             <p class="count">{a.photos.length} ảnh</p>
-            {a.album && (
-              <a href={a.album} target="_blank" rel="noopener" class="all">
-                Xem cả album
-              </a>
-            )}
+            <button type="button" class="all" data-lightbox-open={`album-${i + 1}`}>
+              Xem cả album
+            </button>
           </div>
           <div class="grid">
             {a.photos.slice(0, 5).map((photo, k) => (
-              <div class:list={["cell", { lead: k === 0 }]}>
+              <button
+                type="button"
+                class:list={["cell", { lead: k === 0 }]}
+                data-lightbox-open={`album-${i + 1}`}
+                data-index={k}
+                aria-label={`Phóng to ảnh ${k + 1} / ${a.photos.length}: ${altOf(a)}`}
+              >
                 <Image
                   src={photo}
-                  alt={a.name ? `${a.name}, Trại hè PiMA ${camp.year}` : `Trại hè PiMA ${camp.year}`}
+                  alt=""
                   widths={[400, 800, 1200]}
                   sizes={k === 0 ? "(max-width: 767px) 90vw, 40vw" : "(max-width: 767px) 45vw, 20vw"}
                   class="img"
                 />
-              </div>
+              </button>
             ))}
           </div>
+          <Lightbox id={`album-${i + 1}`} label={a.name ?? `Trại hè PiMA ${camp.year}`} photos={a.photos.map((src) => ({ src, alt: altOf(a) }))} />
         </section>
       ))}
       {camp.video && (
@@ -89,12 +99,21 @@ const title = shown.length && camp.video ? "Hình ảnh và video" : camp.video 
     color: var(--color-text-muted);
     font-size: var(--font-size-small);
   }
+  /* "Xem cả album": a button set as a link. */
   .all {
     display: inline-block;
     margin-top: var(--space-2);
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    text-decoration: underline;
     font-size: var(--font-size-small);
     font-weight: var(--font-weight-bold);
     color: var(--color-link);
+  }
+  .all:hover {
+    color: var(--color-link-hover);
   }
   .grid {
     display: grid;
@@ -103,9 +122,15 @@ const title = shown.length && camp.video ? "Hình ảnh và video" : camp.video 
     gap: var(--space-2);
     aspect-ratio: 3 / 1.2;
   }
+  /* A photo is a button that opens the lightbox at it. */
   .cell {
     position: relative;
     min-height: 0;
+    padding: 0;
+    border: 0;
+    border-radius: var(--radius);
+    background: none;
+    cursor: zoom-in;
   }
   .cell.lead {
     grid-row: span 2;
