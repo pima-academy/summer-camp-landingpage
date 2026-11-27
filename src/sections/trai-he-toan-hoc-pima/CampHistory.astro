@@ -2,7 +2,8 @@
 /*
   CampHistory: "Hành trình học thuật qua các mùa trại", a sticky intro next to a stack of
   sticky cards, one per camp year of the camp archive (src/sections/camp-archive/years/),
-  newest first. Each card's "Xem chi tiết" links that year's camp archive page. Used by
+  newest first. Each card's "Xem chi tiết" links that year's camp archive page, and stretches
+  over the whole card, so a click anywhere on it opens that page. Used by
   trai-he-toan-hoc-pima (old `section_camp-history`). Fades up on scroll.
 */
 import Kicker from "../../components/Kicker.astro";
@@ -98,6 +99,18 @@ const newestFirst = [...campYears].reverse();
   .more {
     color: var(--color-text);
     font-weight: var(--font-weight-bold);
+  }
+
+  /* The link covers its card (positioned: sticky), so the whole card is the target. */
+  .more::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius);
+  }
+
+  .camp:hover .more {
+    color: var(--color-link-hover);
   }
 
   @media screen and (max-width: 991px) {
