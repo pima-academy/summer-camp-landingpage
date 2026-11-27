@@ -1,0 +1,743 @@
+{
+  "year": 2021,
+  "source": {
+    "repo": "pimavn/pimavn.github.io",
+    "branch": "master",
+    "commit": "2b1a1fa2a62254e46ad8eba9c9fe7f8c6f733076",
+    "pages": {
+      "index": "summer_camps/2021/index.html",
+      "lectures_and_projects": "summer_camps/2021/lectures_and_projects.html",
+      "student_papers": "summer_camps/2021/student_papers.html",
+      "organizing_team": "summer_camps/2021/organizing_team.html"
+    }
+  },
+  "notes": [
+    "Projects carry no authors in the front matter or layout.",
+    "No gallery page: summer_camps/2021/gallery.html does not exist; the index disables the gallery section."
+  ],
+  "banner": {
+    "title": "PiMA Virtual Summer Camp 2021",
+    "subtitle": "The Mathematics of Data Science",
+    "img": {
+      "path": "images/2021/banner.jpg",
+      "in_repo": true,
+      "size": 9315629
+    }
+  },
+  "index": {
+    "layout": "index-year",
+    "sections": [
+      {
+        "title": "Student Papers",
+        "description": "Khi tham gia PiMA, các trại sinh sẽ được chia thành nhóm từ 3 đến 4 người. Học sinh sẽ vận dụng các mô hình đã học để làm một đề án nhóm của riêng mình dưới sự hỗ trợ của các mentor. Ở ngày tổng kết –  ngày cuối cùng của trại hè, từng thành viên trong nhóm sẽ thuyết trình về project của nhóm mình trước tất cả những trại sinh và mentor khác của trại.",
+        "img": {
+          "path": "images/2021/student_papers.jpg",
+          "in_repo": true,
+          "size": 225179
+        },
+        "href": "student_papers",
+        "learn_more_opens": "https://pimavn.github.io/summer_camps/2021/student_papers"
+      },
+      {
+        "title": "Lectures and Projects",
+        "description": "Tổng hợp những file bài giảng và tài liệu được phát và giảng dạy cho trại sinh trong thời gian diễn ra trại hè, được biên soạn và trình bày bởi các thành viên trong Ban tổ chức của PiMA. Trại sinh sẽ được cung cấp một số kiến thức toán nền tảng và kĩ năng cần thiết như làm việc nhóm, thuyết trình, đọc hiểu tài liệu học thuật…",
+        "img": {
+          "path": "images/2021/lectures_and_projects.jpg",
+          "in_repo": true,
+          "size": 142865
+        },
+        "href": "lectures_and_projects",
+        "learn_more_opens": "https://pimavn.github.io/summer_camps/2021/lectures_and_projects"
+      }
+    ],
+    "gallery_section": {
+      "disabled": true
+    }
+  },
+  "lectures": [
+    {
+      "title": "Đại số tuyến tính",
+      "title_plain": "Đại số tuyến tính",
+      "authors": [
+        {
+          "id": "thu",
+          "resolved": true,
+          "name": "Nguyễn Thị Minh Thư",
+          "aff": "International University - VNU"
+        },
+        {
+          "id": "phuong",
+          "resolved": true,
+          "name": "Đinh Lâm Kiều Phương",
+          "aff": "VNUHCM University of Science, Vietnam"
+        },
+        {
+          "id": "ntrung",
+          "resolved": true,
+          "name": "Nguyễn Mạc Nam Trung",
+          "aff": "VNUHCM University of Science, Vietnam"
+        },
+        {
+          "id": "linh_2",
+          "resolved": true,
+          "name": "Trần Hoàng Bảo Linh",
+          "aff": "Yale University"
+        }
+      ],
+      "file": {
+        "path": "pdf/2021/lectures-and-projects/linearalgebra.zip",
+        "in_repo": true,
+        "size": 14506513,
+        "kind": "repo",
+        "rendered_url": "https://pimavn.github.io/pdf/2021/lectures-and-projects/linearalgebra.zip"
+      }
+    },
+    {
+      "title": "Giải tích - Vi tích phân",
+      "title_plain": "Giải tích - Vi tích phân",
+      "authors": [
+        {
+          "id": "ngng2",
+          "resolved": true,
+          "name": "Nguyễn Nguyễn",
+          "aff": "Duke University, USA"
+        },
+        {
+          "id": "trung",
+          "resolved": true,
+          "name": "Cấn Trần Thành Trung",
+          "aff": "Caltech",
+          "info": "PhD Student",
+          "img": {
+            "path": "images/organizers/trung.jpg",
+            "in_repo": true,
+            "size": 7437
+          }
+        }
+      ],
+      "file": {
+        "path": "pdf/2021/lectures-and-projects/calculus.zip",
+        "in_repo": true,
+        "size": 12608714,
+        "kind": "repo",
+        "rendered_url": "https://pimavn.github.io/pdf/2021/lectures-and-projects/calculus.zip"
+      }
+    },
+    {
+      "title": "Xác suất Thống kê",
+      "title_plain": "Xác suất Thống kê",
+      "authors": [
+        {
+          "id": "thu",
+          "resolved": true,
+          "name": "Nguyễn Thị Minh Thư",
+          "aff": "International University - VNU"
+        },
+        {
+          "id": "ntrung",
+          "resolved": true,
+          "name": "Nguyễn Mạc Nam Trung",
+          "aff": "VNUHCM University of Science, Vietnam"
+        },
+        {
+          "id": "theanh_2",
+          "resolved": true,
+          "name": "Vũ Lê Thế Anh",
+          "aff": "University of Illinois Urbana-Champaign, USA"
+        }
+      ],
+      "file": {
+        "path": "pdf/2021/lectures-and-projects/probabilityandstatistics.zip",
+        "in_repo": true,
+        "size": 1895138,
+        "kind": "repo",
+        "rendered_url": "https://pimavn.github.io/pdf/2021/lectures-and-projects/probabilityandstatistics.zip"
+      }
+    },
+    {
+      "title": "Python và LaTeX",
+      "title_plain": "Python và LaTeX",
+      "authors": [
+        {
+          "id": "long",
+          "resolved": true,
+          "name": "Nguyễn Hồ Thăng Long",
+          "aff": "VNUHCM University of Science, Vietnam"
+        },
+        {
+          "id": "thuc",
+          "resolved": true,
+          "name": "Lê Duy Thức",
+          "aff": "VNUHCM University of Science, Vietnam"
+        },
+        {
+          "id": "phuc",
+          "resolved": true,
+          "name": "Nguyễn Đình Hoàng Phúc",
+          "aff": "VNUHCM University of Science, Vietnam"
+        }
+      ],
+      "file": {
+        "path": "pdf/2021/lectures-and-projects/pythonandlatex.zip",
+        "in_repo": true,
+        "size": 4544887,
+        "kind": "repo",
+        "rendered_url": "https://pimavn.github.io/pdf/2021/lectures-and-projects/pythonandlatex.zip"
+      }
+    },
+    {
+      "title": "Khoa học Dữ liệu",
+      "title_plain": "Khoa học Dữ liệu",
+      "authors": [
+        {
+          "id": "lthien",
+          "resolved": true,
+          "name": "Lê Thiện",
+          "aff": "Massachusetts Institute of Technology, USA"
+        },
+        {
+          "id": "linh_2",
+          "resolved": true,
+          "name": "Trần Hoàng Bảo Linh",
+          "aff": "Yale University"
+        },
+        {
+          "id": "trung",
+          "resolved": true,
+          "name": "Cấn Trần Thành Trung",
+          "aff": "Caltech",
+          "info": "PhD Student",
+          "img": {
+            "path": "images/organizers/trung.jpg",
+            "in_repo": true,
+            "size": 7437
+          }
+        },
+        {
+          "id": "theanh_2",
+          "resolved": true,
+          "name": "Vũ Lê Thế Anh",
+          "aff": "University of Illinois Urbana-Champaign, USA"
+        }
+      ],
+      "file": {
+        "path": "pdf/2021/lectures-and-projects/datascience.zip",
+        "in_repo": true,
+        "size": 4597004,
+        "kind": "repo",
+        "rendered_url": "https://pimavn.github.io/pdf/2021/lectures-and-projects/datascience.zip"
+      }
+    }
+  ],
+  "projects": [
+    {
+      "title": "Gaussian Mixture Models",
+      "title_plain": "Gaussian Mixture Models",
+      "desc": "Gaussian mixture model (GMM) là mô hình xác suất miêu tả các quần thể con của một tập dữ liệu không gắn nhãn. GMM được phát biểu lần đầu bởi Karl Pearsons vào năm 1894. Về sau, với sự phát triển và phổ biến của maximum likelihood estimation, mô hình này được nghiên cứu và ứng dụng trong các bài toán như phân cụm dữ liệu (clustering), nhận dạng chữ viết tay (handwriting recognition), phân đoạn hình ảnh (image segmentation). Trong dự án này, chúng ta sẽ tìm hiểu về ứng dụng của GMM trong clustering và cách cập nhật các tham số của phân phối Gaussian và các cụm dữ liệu với thuật toán expectation maximization (EM algorithm).",
+      "authors": null,
+      "file": {
+        "path": "pdf/2021/lectures-and-projects/GaussianMixtureModel.pdf",
+        "in_repo": true,
+        "size": 319264,
+        "kind": "repo",
+        "rendered_url": "/pdf/2021/lectures-and-projects/GaussianMixtureModel.pdf"
+      }
+    },
+    {
+      "title": "Generalized Linear Model",
+      "title_plain": "Generalized Linear Model",
+      "desc": "Generalized Linear Model (GLM) là những mô hình thống kê nâng cao tổng quát hóa từ mô hình Hồi quy Tuyến tính (Linear Regression, LR). GLM được phát minh bởi John Nelder và Robert Wedderburn vào năm 1972. Mô hình này được dùng rất nhiều trong các bài toán hồi quy và phân lớp dữ liệu. Trong dự án này, ta sẽ tìm hiểu về cấu trúc của GLM và áp dụng vào bài toán thực tế thông qua việc chọn mô hình, ước lượng tham số trong mô hỉnh, dự đoán kết quả và đánh giá.",
+      "authors": null,
+      "file": {
+        "path": "pdf/2021/lectures-and-projects/GeneralizedLinearModel.pdf",
+        "in_repo": true,
+        "size": 319980,
+        "kind": "repo",
+        "rendered_url": "/pdf/2021/lectures-and-projects/GeneralizedLinearModel.pdf"
+      }
+    },
+    {
+      "title": "Isomap",
+      "title_plain": "Isomap",
+      "desc": "Manifold Learning (“Học đa tạp”) là tên một nhóm các thuật toán giảm chiều dữ liệu không giám sát với điểm chung là bắt đầu với giả thiết các điểm dữ liệu trong không gian D chiều đều nằm trên một manifold (đa tạp) d chiều với d < D, và sử dụng các tính chất cục bộ (local properties) của manifold để tìm ra biểu diễn d chiều của các điểm dữ liệu ban đầu. Thuật toán Isomap (Isometric mapping - “Ánh xạ đẳng cự”) là một thuật toán Manifold Learning với mục tiêu bảo toàn khoảng cách địa lý (geodesic distance) giữa mọi cặp điểm trong input data, tận dụng hình dạng hình học của manifold.",
+      "authors": null,
+      "file": {
+        "path": "pdf/2021/lectures-and-projects/Isomap.pdf",
+        "in_repo": true,
+        "size": 323027,
+        "kind": "repo",
+        "rendered_url": "/pdf/2021/lectures-and-projects/Isomap.pdf"
+      }
+    },
+    {
+      "title": "Locally Linear Embedding",
+      "title_plain": "Locally Linear Embedding",
+      "desc": "Manifold Learning (“Học đa tạp”) là tên một nhóm các thuật toán giảm chiều dữ liệu không giám sát với điểm chung là bắt đầu với giả thiết các điểm dữ liệu trong không gian D chiều đều nằm trên một manifold (đa tạp) d chiều với d < D, và sử dụng các tính chất cục bộ (local properties) của manifold để tìm ra biểu diễn d chiều của các điểm dữ liệu ban đầu. Thuật toán Locally Linear Embedding (“Phép nhúng tuyến tính địa phương/cục bộ”) là một thuật toán Manifold Learning với mục tiêu bảo toàn các quan hệ tuyến tính giữa các điểm gần nhau, lợi dụng tính chất tuyến tính cục bộ của manifolds.",
+      "authors": null,
+      "file": {
+        "path": "pdf/2021/lectures-and-projects/LocallyLinearEmbedding.pdf",
+        "in_repo": true,
+        "size": 325781,
+        "kind": "repo",
+        "rendered_url": "/pdf/2021/lectures-and-projects/LocallyLinearEmbedding.pdf"
+      }
+    },
+    {
+      "title": "Mean Shift",
+      "title_plain": "Mean Shift",
+      "desc": "Mean shift là một ý tưởng thuật toán được phát minh bởi Fukunaga và Hostetler vào năm 1975. Thuật toán này và các phiên bản hoàn thiện hơn của nó thường được ứng dụng vào các bài toán: phân cụm dữ liệu (clustering), phân mảng hình ảnh (image segmentation), dò theo đối tượng hình ảnh (object tracking). Trong dự án này, chúng ta sẽ tìm hiểu cơ sở lý thuyết và ứng dụng cụ thể của mean shift.",
+      "authors": null,
+      "file": {
+        "path": "pdf/2021/lectures-and-projects/MeanShift.pdf",
+        "in_repo": true,
+        "size": 319553,
+        "kind": "repo",
+        "rendered_url": "/pdf/2021/lectures-and-projects/MeanShift.pdf"
+      }
+    },
+    {
+      "title": "Principal Component Analysis",
+      "title_plain": "Principal Component Analysis",
+      "desc": "Thuật toán Principal Component Analysis (“Phân tích chiều chính”) là một trong những thuật toán giảm chiều dữ liệu không giám sát được phát minh sớm nhất mà vẫn được dùng rộng rãi tới ngày nay. Mục tiêu của PCA là tìm một phép chiếu trên không gian ít chiều sao cho hình chiếu của dữ liệu mới qua phép chiếu này có các tính chất tối ưu nhất định.",
+      "authors": null,
+      "file": {
+        "path": "pdf/2021/lectures-and-projects/PrincipalComponentAnalysis.pdf",
+        "in_repo": true,
+        "size": 315537,
+        "kind": "repo",
+        "rendered_url": "/pdf/2021/lectures-and-projects/PrincipalComponentAnalysis.pdf"
+      }
+    },
+    {
+      "title": "Spectral Clustering",
+      "title_plain": "Spectral Clustering",
+      "desc": "Mô hình Spectral Clustering trong Machine Learning được phổ biến bởi Shi, Malik (2000) và Ng, Jordan, Weiss (2002). Mô hình này lấy ý tưởng từ việc biểu diễn dữ liệu dưới dạng đồ thị và sử dụng thông tin về dữ liệu thông qua các ma trận đặc biệt từ đồ thị đó. Trong dự án này, chúng ta sẽ tìm hiểu về thuật toán Spectral Clustering.",
+      "authors": null,
+      "file": {
+        "path": "pdf/2021/lectures-and-projects/SpectralClustering.pdf",
+        "in_repo": true,
+        "size": 312813,
+        "kind": "repo",
+        "rendered_url": "/pdf/2021/lectures-and-projects/SpectralClustering.pdf"
+      }
+    },
+    {
+      "title": "Support Vector Machine",
+      "title_plain": "Support Vector Machine",
+      "desc": "Support Vector Machine (SVM) là mô hình học có giám sát được phát minh bởi Vladimir Naumovich Vapnik và Alexey Yakovlevich Chervonenkis năm 1963. Mô hình này được dùng chủ yếu là trong bài toán phân lớp (classification) dữ liệu. Trong dự án này, các bạn sẽ tìm hiểu hiểu về SVM và các biến thể của nó áp dụng trong bài toán phân lớp nhị phân sử dụng một siêu phẳng phân tách.",
+      "authors": null,
+      "file": {
+        "path": "pdf/2021/lectures-and-projects/SupportVectorMachine.pdf",
+        "in_repo": true,
+        "size": 316220,
+        "kind": "repo",
+        "rendered_url": "/pdf/2021/lectures-and-projects/SupportVectorMachine.pdf"
+      }
+    }
+  ],
+  "student_papers": [
+    {
+      "title": "Gaussian Mixture Models",
+      "title_plain": "Gaussian Mixture Models",
+      "authors": [
+        {
+          "name": "Châu Đăng Minh",
+          "school": "Trường Đại học Bách Khoa, ĐHQG-HCM"
+        },
+        {
+          "name": "Nguyễn Đức Triều",
+          "school": "THPT Chuyên Hà Nội - Amsterdam, Hà Nội"
+        },
+        {
+          "name": "Nguyễn Minh Tú",
+          "school": "Phổ Thông Năng Khiếu, ĐHQG-HCM"
+        },
+        {
+          "name": "Huỳnh Tiến Dũng",
+          "school": "THPT Chuyên Bảo Lộc, Lâm Đồng"
+        }
+      ],
+      "file": {
+        "path": "pdf/2021/student-papers/GaussianMixture.zip",
+        "in_repo": true,
+        "size": 13338235,
+        "kind": "repo",
+        "rendered_url": "/pdf/2021/student-papers/GaussianMixture.zip"
+      }
+    },
+    {
+      "title": "Generalized Linear Model",
+      "title_plain": "Generalized Linear Model",
+      "authors": [
+        {
+          "name": "Nguyễn Tư Thành Nhân",
+          "school": "Trường Đại học Công nghệ Thông tin, ĐHQG-HCM"
+        },
+        {
+          "name": "Nguyễn Thị Mai Anh",
+          "school": "THPT Chuyên Phan Bội Châu, Nghệ An"
+        },
+        {
+          "name": "Bùi Nguyễn Đức Tân",
+          "school": "Phổ Thông Năng Khiếu, ĐHQG-HCM"
+        },
+        {
+          "name": "Châu Thanh Văn",
+          "school": "Phổ Thông Năng Khiếu, ĐHQG-HCM"
+        }
+      ],
+      "file": {
+        "path": "pdf/2021/student-papers/GLM.zip",
+        "in_repo": true,
+        "size": 994283,
+        "kind": "repo",
+        "rendered_url": "/pdf/2021/student-papers/GLM.zip"
+      }
+    },
+    {
+      "title": "Isomap",
+      "title_plain": "Isomap",
+      "authors": [
+        {
+          "name": "Phan Chí Thọ",
+          "school": "THPT Chuyên Lê Hồng Phong, TPHCM"
+        },
+        {
+          "name": "Võ Thị Khánh Linh",
+          "school": "THPT Chuyên Nguyễn Bỉnh Khiêm, Quảng Nam"
+        },
+        {
+          "name": "Nguyễn Xuân Minh",
+          "school": "THPT Chuyên Trần Đại Nghĩa, TPHCM"
+        },
+        {
+          "name": "Dương Lê Đình Thuận",
+          "school": "20CNTN - Đại học Khoa học Tự nhiên, ĐHQG-HCM"
+        }
+      ],
+      "file": {
+        "path": "pdf/2021/student-papers/Isomap.zip",
+        "in_repo": true,
+        "size": 7806255,
+        "kind": "repo",
+        "rendered_url": "/pdf/2021/student-papers/Isomap.zip"
+      }
+    },
+    {
+      "title": "Locally Linear Embedding",
+      "title_plain": "Locally Linear Embedding",
+      "authors": [
+        {
+          "name": "Đặng Đức Trường",
+          "school": "THPT Chuyên Lê Hồng Phong, TPHCM"
+        },
+        {
+          "name": "Phạm Duy Tùng",
+          "school": "Đại học Bách khoa Hà Nội"
+        },
+        {
+          "name": "Phan Hoàng Quân",
+          "school": "Phổ Thông Năng Khiếu, ĐHQG-HCM"
+        },
+        {
+          "name": "Mai Kiến Quốc",
+          "school": "THPT Chuyên Lê Hồng Phong, TP.HCM"
+        }
+      ],
+      "file": {
+        "path": "pdf/2021/student-papers/LLE.zip",
+        "in_repo": true,
+        "size": 6976633,
+        "kind": "repo",
+        "rendered_url": "/pdf/2021/student-papers/LLE.zip"
+      }
+    },
+    {
+      "title": "Mean Shift",
+      "title_plain": "Mean Shift",
+      "authors": [
+        {
+          "name": "Nguyễn Lương Thắng",
+          "school": "Phổ Thông Năng Khiếu, ĐHQG-HCM"
+        },
+        {
+          "name": "Nguyễn Nhật Nam",
+          "school": "THPT Chuyên Hùng Vương, Bình Dương"
+        },
+        {
+          "name": "Huỳnh Quỳnh Anh",
+          "school": "Phổ Thông Năng Khiếu, ĐHQG-HCM"
+        },
+        {
+          "name": "Trần Hoài An",
+          "school": "THPT Hoàng Lê Kha, Tây Ninh"
+        }
+      ],
+      "file": {
+        "path": "pdf/2021/student-papers/MeanShift.zip",
+        "in_repo": true,
+        "size": 6457072,
+        "kind": "repo",
+        "rendered_url": "/pdf/2021/student-papers/MeanShift.zip"
+      }
+    },
+    {
+      "title": "Principal Component Analysis",
+      "title_plain": "Principal Component Analysis",
+      "authors": [
+        {
+          "name": "Dương Quang Thành",
+          "school": "24 Gettysburg College, Mỹ"
+        },
+        {
+          "name": "Hoàng Huyền Trang",
+          "school": "THPT Chuyên Tuyên Quang, Tuyên Quang"
+        },
+        {
+          "name": "Trần Phan Anh Danh",
+          "school": "Phổ Thông Năng Khiếu, ĐHQG-HCM"
+        }
+      ],
+      "file": {
+        "path": "pdf/2021/student-papers/PCA.zip",
+        "in_repo": true,
+        "size": 4596752,
+        "kind": "repo",
+        "rendered_url": "/pdf/2021/student-papers/PCA.zip"
+      }
+    },
+    {
+      "title": "Spectral Clustering",
+      "title_plain": "Spectral Clustering",
+      "authors": [
+        {
+          "name": "Võ Minh Quân",
+          "school": "THPT Chuyên Hùng Vương, Bình Dương"
+        },
+        {
+          "name": "Vũ Phan Thăng Long",
+          "school": "École Polytechnique, Pháp"
+        },
+        {
+          "name": "Vòng Vĩnh Toàn",
+          "school": "THPT Chuyên Hùng Vương, Bình Dương"
+        },
+        {
+          "name": "Nguyễn Bá Khôi Nguyên",
+          "school": "Đại học Khoa học Tự nhiên, ĐHQG-HCM"
+        }
+      ],
+      "file": {
+        "path": "pdf/2021/student-papers/SpectralClustering.zip",
+        "in_repo": true,
+        "size": 3071759,
+        "kind": "repo",
+        "rendered_url": "/pdf/2021/student-papers/SpectralClustering.zip"
+      }
+    },
+    {
+      "title": "Support Vector Machine",
+      "title_plain": "Support Vector Machine",
+      "authors": [
+        {
+          "name": "Phan Trường Trí",
+          "school": "THPT Chuyên Bạc Liêu, Bạc Liêu"
+        },
+        {
+          "name": "Phạm Tiến Sơn",
+          "school": "Đại học Bách khoa Hà Nội"
+        },
+        {
+          "name": "Vũ Đình Bách",
+          "school": "Đại học Bách Khoa Hà Nội"
+        },
+        {
+          "name": "Hoàng Khánh Linh",
+          "school": "Phổ Thông Năng Khiếu, ĐHQG-HCM"
+        }
+      ],
+      "file": {
+        "path": "pdf/2021/student-papers/SVM.zip",
+        "in_repo": true,
+        "size": 3495400,
+        "kind": "repo",
+        "rendered_url": "/pdf/2021/student-papers/SVM.zip"
+      }
+    }
+  ],
+  "gallery": null,
+  "organizing_team": {
+    "front_matter_year": 2021,
+    "teams": [
+      {
+        "team_name": "Ban nội dung",
+        "members": [
+          {
+            "id": "trung",
+            "resolved": true,
+            "name": "Cấn Trần Thành Trung",
+            "aff": "Caltech",
+            "info": "PhD Student",
+            "img": {
+              "path": "images/organizers/trung.jpg",
+              "in_repo": true,
+              "size": 7437
+            }
+          },
+          {
+            "id": "theanh",
+            "resolved": true,
+            "name": "Vũ Lê Thế Anh",
+            "aff": "VNUHCM University of Science, Vietnam",
+            "img": {
+              "path": "images/organizers/theanh.jpg",
+              "in_repo": true,
+              "size": 106018
+            }
+          },
+          {
+            "id": "nghia",
+            "resolved": true,
+            "name": "Nguyễn Trung Nghĩa",
+            "aff": "VNUHCM University of Science, Vietnam"
+          },
+          {
+            "id": "nhat",
+            "resolved": true,
+            "name": "Phạm Hoàng Nhật",
+            "aff": "University of Washington"
+          },
+          {
+            "id": "trong",
+            "resolved": true,
+            "name": "Dương Đình Trọng",
+            "aff": "International University, VNU"
+          },
+          {
+            "id": "linh",
+            "resolved": true,
+            "name": "Trần Hoàng Bảo Linh",
+            "aff": "National University of Singapore",
+            "img": {
+              "path": "images/organizers/linh.jpg",
+              "in_repo": true,
+              "size": 15562
+            }
+          },
+          {
+            "id": "manh",
+            "resolved": true,
+            "name": "Phạm Nguyễn Mạnh",
+            "aff": "Minerva Schools at KGI, USA",
+            "img": {
+              "path": "images/organizers/manh.jpg",
+              "in_repo": true,
+              "size": 13257
+            }
+          },
+          {
+            "id": "truonghai",
+            "resolved": true,
+            "name": "Nguyễn Trường Hải",
+            "aff": "VNUHCM University of Science, Vietnam"
+          }
+        ]
+      },
+      {
+        "team_name": "Ban truyền thông",
+        "members": [
+          {
+            "id": "tien",
+            "resolved": true,
+            "name": "Phan Ngọc Tiên",
+            "aff": "York University, Canada",
+            "img": {
+              "path": "images/organizers/tien.jpg",
+              "in_repo": true,
+              "size": 45586
+            }
+          },
+          {
+            "id": "nhu",
+            "resolved": true,
+            "name": "Bùi Trần Thục Như",
+            "aff": "Fulbright University Vietnam"
+          },
+          {
+            "id": "phuong",
+            "resolved": true,
+            "name": "Đinh Lâm Kiều Phương",
+            "aff": "VNUHCM University of Science, Vietnam"
+          }
+        ]
+      },
+      {
+        "team_name": "Ban hậu cần",
+        "members": [
+          {
+            "id": "minh",
+            "resolved": true,
+            "name": "Lê Ngọc Minh",
+            "aff": "Union College, class of 2020",
+            "info": "B.S., Economics and Computer Science",
+            "img": {
+              "path": "images/organizers/minh.jpg",
+              "in_repo": true,
+              "size": 61696
+            }
+          },
+          {
+            "id": "phu",
+            "resolved": true,
+            "name": "Đỗ Hoàng Gia Phú",
+            "aff": "Pham Ngoc Thach University of Medical, Vietnam",
+            "img": {
+              "path": "images/organizers/phu.jpg",
+              "in_repo": true,
+              "size": 46253
+            }
+          }
+        ]
+      }
+    ],
+    "carry_over": false
+  },
+  "rendering": {
+    "banner": "summer_camp_banner.html on every page: banners.yaml title (h1), subtitle (h2, italic), desc (p, only 2018), img at 50% opacity",
+    "html_title": "<page title> - PiMA 2021; the index has no title, so 'PiMA 2021'",
+    "page_heading": "post layout prints front matter `title` as h2 (Lectures and Projects, Student Papers, Gallery, Organizing Team)",
+    "lectures_page": "fixed h3 headings 'Lectures' and 'Projects'; per lecture: title (h3, raw HTML), one li per author '<strong>name</strong>, aff' (info and img not shown; unresolved id prints 'Cannot find field <id> in organizers.yaml'), a 'Link' button: relative href prefixed with site.url, empty href gives a disabled button to the site root; per project: title, desc, 'Link' button with href as is",
+    "student_papers_page": "per paper: title (h3), one li per author '<strong>name</strong>, school', a 'Link' button",
+    "gallery_page": "per section: h2 section-name, 3-column table of images; lightbox caption is 'section-name<br>caption' (no gallery-page image has a caption)",
+    "index_page": "per section: h2 title, p description, image, 'Learn More' button to href (relative to the year folder); then, unless disabled, a Gallery block with title, description, 'Learn More' and the preview images with captions",
+    "front_matter_text": "Liquid outputs front matter strings raw: <br> renders as a line break, '<' in text stays literal; no Markdown processing"
+  },
+  "files": {
+    "pdf_dir": {
+      "count": 21,
+      "bytes": 87440820,
+      "by_ext": {
+        ".pdf": 8,
+        ".zip": 13
+      },
+      "unreferenced": []
+    },
+    "referenced_repo_files": {
+      "count": 21,
+      "bytes": 87440820,
+      "missing": [],
+      "outside_this_year": []
+    },
+    "google_drive_links": 0,
+    "images_dir": {
+      "count": 3,
+      "bytes": 9683673,
+      "unreferenced": []
+    },
+    "referenced_images": {
+      "count": 3,
+      "bytes": 9683673,
+      "missing": []
+    }
+  }
+}

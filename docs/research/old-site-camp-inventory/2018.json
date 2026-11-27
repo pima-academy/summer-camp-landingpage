@@ -1,0 +1,1842 @@
+{
+  "year": 2018,
+  "source": {
+    "repo": "pimavn/pimavn.github.io",
+    "branch": "master",
+    "commit": "2b1a1fa2a62254e46ad8eba9c9fe7f8c6f733076",
+    "pages": {
+      "index": "summer_camps/2018/index.html",
+      "lectures_and_projects": "summer_camps/2018/lectures_and_projects.html",
+      "student_papers": "summer_camps/2018/student_papers.html",
+      "gallery": "summer_camps/2018/gallery.html",
+      "organizing_team": "summer_camps/2018/organizing_team.html"
+    }
+  },
+  "notes": [
+    "Projects carry no authors in the front matter or layout."
+  ],
+  "banner": {
+    "title": "PiMA Summer Camp 2018",
+    "subtitle": "The Mathematics of Machine Learning",
+    "desc": "Machine Learning is on the rise because of its significant applications such as Data Analysis, Image Recognition, and Artificial Intelligence. Led by the seniors who are studying and working in top universities around the world, PiMA Summer Camp 2018 aims at bringing to Vietnamese highschoolers an opportunity to learn Advanced Mathematics concepts and their applications in Machine Learning.",
+    "img": {
+      "path": "images/2018/banner.jpg",
+      "in_repo": true,
+      "size": 615738
+    }
+  },
+  "index": {
+    "layout": "index-year",
+    "sections": [
+      {
+        "title": "Student Papers",
+        "description": "Khi tham gia PiMA, các trại sinh sẽ được chia thành nhóm từ 3 đến 4 người. Học sinh sẽ vận dụng các mô hình đã học để làm một đề án nhóm của riêng mình dưới sự hỗ trợ của các mentor. Ở ngày tổng kết –  ngày cuối cùng của trại hè, từng thành viên trong nhóm sẽ thuyết trình về project của nhóm mình trước tất cả những trại sinh và mentor khác của trại.",
+        "img": {
+          "path": "images/2018/student_papers.jpg",
+          "in_repo": true,
+          "size": 733813
+        },
+        "href": "student_papers",
+        "learn_more_opens": "https://pimavn.github.io/summer_camps/2018/student_papers"
+      },
+      {
+        "title": "Lectures and Projects",
+        "description": "Tổng hợp những file bài giảng và tài liệu được phát và giảng dạy cho trại sinh trong thời gian diễn ra trại hè, được biên soạn và trình bày bởi các thành viên trong Ban tổ chức của PiMA. Trại sinh sẽ được cung cấp một số kiến thức toán nền tảng và kĩ năng cần thiết như làm việc nhóm, thuyết trình, đọc hiểu tài liệu học thuật…",
+        "img": {
+          "path": "images/2018/lectures_and_projects.jpg",
+          "in_repo": true,
+          "size": 847583
+        },
+        "href": "lectures_and_projects",
+        "learn_more_opens": "https://pimavn.github.io/summer_camps/2018/lectures_and_projects"
+      },
+      {
+        "title": "Organizing Team",
+        "description": "Giới thiệu về các thành viên trong Ban tổ chức của PiMA, gồm các Ban Truyền thông, Ban Nội dung và Ban Hậu cần.",
+        "img": {
+          "path": "images/2018/organizing_team.jpg",
+          "in_repo": true,
+          "size": 484013
+        },
+        "href": "organizing_team",
+        "learn_more_opens": "https://pimavn.github.io/summer_camps/2018/organizing_team"
+      }
+    ],
+    "gallery_section": {
+      "disabled": false,
+      "title": "Gallery",
+      "description": "Tổng hợp những tấm ảnh ghi lại những khoảnh khắc của trại hè xuyên suốt thời gian diễn ra trại. Ngoài thời gian tập trung vào các bài học trên lớp và việc hoàn thành project, PiMA còn rất nhiều khoảnh khắc đáng nhớ khác. Đó là những buổi giao lưu cùng các du học sinh, sinh viên, diễn giả chuyên ngành Toán và Tin học, và đặc biệt là những buổi trò chuyện, gắn kết giữa mọi người trong PiMA.",
+      "href": "gallery",
+      "learn_more_opens": "https://pimavn.github.io/summer_camps/2018/gallery"
+    },
+    "gallery_preview": [
+      {
+        "img": {
+          "path": "images/2018/1/10.jpg",
+          "in_repo": true,
+          "size": 191666
+        },
+        "caption": "Giao lưu với GS. Hồ Tú Bảo"
+      },
+      {
+        "img": {
+          "path": "images/2018/4/1.jpg",
+          "in_repo": true,
+          "size": 163285
+        },
+        "caption": "Bên trong lớp học"
+      },
+      {
+        "img": {
+          "path": "images/2018/5/12.jpg",
+          "in_repo": true,
+          "size": 218767
+        },
+        "caption": "Giao lưu với PGS. Đình Điền"
+      },
+      {
+        "img": {
+          "path": "images/2018/11/17.jpg",
+          "in_repo": true,
+          "size": 100178
+        },
+        "caption": "Buổi thuyết trình của các bạn học sinh"
+      }
+    ]
+  },
+  "lectures": [
+    {
+      "title": "Đại số tuyến tính",
+      "title_plain": "Đại số tuyến tính",
+      "authors": [
+        {
+          "id": "linh",
+          "resolved": true,
+          "name": "Trần Hoàng Bảo Linh",
+          "aff": "National University of Singapore",
+          "img": {
+            "path": "images/organizers/linh.jpg",
+            "in_repo": true,
+            "size": 15562
+          }
+        },
+        {
+          "id": "nghia",
+          "resolved": true,
+          "name": "Nguyễn Trung Nghĩa",
+          "aff": "VNUHCM University of Science, Vietnam"
+        },
+        {
+          "id": "trung",
+          "resolved": true,
+          "name": "Cấn Trần Thành Trung",
+          "aff": "Caltech",
+          "info": "PhD Student",
+          "img": {
+            "path": "images/organizers/trung.jpg",
+            "in_repo": true,
+            "size": 7437
+          }
+        }
+      ],
+      "file": {
+        "path": "pdf/2018/lectures-and-projects/linearalgebra.pdf",
+        "in_repo": true,
+        "size": 574815,
+        "kind": "repo",
+        "rendered_url": "https://pimavn.github.io/pdf/2018/lectures-and-projects/linearalgebra.pdf"
+      }
+    },
+    {
+      "title": "Tối ưu hóa",
+      "title_plain": "Tối ưu hóa",
+      "authors": [
+        {
+          "id": "nhat",
+          "resolved": true,
+          "name": "Phạm Hoàng Nhật",
+          "aff": "University of Washington"
+        }
+      ],
+      "file": {
+        "path": "pdf/2018/lectures-and-projects/optimization.pdf",
+        "in_repo": true,
+        "size": 1608469,
+        "kind": "repo",
+        "rendered_url": "https://pimavn.github.io/pdf/2018/lectures-and-projects/optimization.pdf"
+      }
+    },
+    {
+      "title": "Giải tích",
+      "title_plain": "Giải tích",
+      "authors": [
+        {
+          "id": "trong",
+          "resolved": true,
+          "name": "Dương Đình Trọng",
+          "aff": "International University, VNU"
+        },
+        {
+          "id": "linh",
+          "resolved": true,
+          "name": "Trần Hoàng Bảo Linh",
+          "aff": "National University of Singapore",
+          "img": {
+            "path": "images/organizers/linh.jpg",
+            "in_repo": true,
+            "size": 15562
+          }
+        }
+      ],
+      "file": {
+        "path": "pdf/2018/lectures-and-projects/calculus.pdf",
+        "in_repo": true,
+        "size": 868400,
+        "kind": "repo",
+        "rendered_url": "https://pimavn.github.io/pdf/2018/lectures-and-projects/calculus.pdf"
+      }
+    },
+    {
+      "title": "Xác suất và phân phối",
+      "title_plain": "Xác suất và phân phối",
+      "authors": [
+        {
+          "id": "theanh",
+          "resolved": true,
+          "name": "Vũ Lê Thế Anh",
+          "aff": "VNUHCM University of Science, Vietnam",
+          "img": {
+            "path": "images/organizers/theanh.jpg",
+            "in_repo": true,
+            "size": 106018
+          }
+        },
+        {
+          "id": "linh",
+          "resolved": true,
+          "name": "Trần Hoàng Bảo Linh",
+          "aff": "National University of Singapore",
+          "img": {
+            "path": "images/organizers/linh.jpg",
+            "in_repo": true,
+            "size": 15562
+          }
+        },
+        {
+          "id": "manh",
+          "resolved": true,
+          "name": "Phạm Nguyễn Mạnh",
+          "aff": "Minerva Schools at KGI, USA",
+          "img": {
+            "path": "images/organizers/manh.jpg",
+            "in_repo": true,
+            "size": 13257
+          }
+        }
+      ],
+      "file": {
+        "path": "pdf/2018/lectures-and-projects/probability_distribution.pdf",
+        "in_repo": true,
+        "size": 559111,
+        "kind": "repo",
+        "rendered_url": "https://pimavn.github.io/pdf/2018/lectures-and-projects/probability_distribution.pdf"
+      }
+    }
+  ],
+  "projects": [
+    {
+      "title": "Neural Network",
+      "title_plain": "Neural Network",
+      "desc": "Năm 1958, Frank Rosenblatt mô tả thuật toán perceptron, tiền thân của neural network. Trải qua hơn nửa thế kỉ phát triển, với biết bao thăng trầm, hiện nay neural network là một trong những mô hình phổ biến nhất của trí tuệ nhân tạo và máy học, cơ sở của các thành tựu trong học sâu (deep learning). Ở dự án này, các bạn sẽ sử dụng các kiến thức toán đã được học để nghiên cứu về mạng nơron có nhiều lớp (multilayer perceptron).",
+      "authors": null,
+      "file": {
+        "path": "pdf/2018/lectures-and-projects/neural-network-project-pima-2018.pdf",
+        "in_repo": true,
+        "size": 297726,
+        "kind": "repo",
+        "rendered_url": "/pdf/2018/lectures-and-projects/neural-network-project-pima-2018.pdf"
+      }
+    },
+    {
+      "title": "Support Vector Machine",
+      "title_plain": "Support Vector Machine",
+      "desc": "Support Vector Machines (SVMs) là những mô hình học có giám sát được phát minh bởi Vladimir Naumovich Vapnik và Alexey Yakovlevich Chervonenkis năm 1963. Mô hình này được dùng rất nhiều trong bài toán phân lớp dữ liệu (được áp dụng trong cả bài toán phân loại lẫn hồi quy). Ở phiên bản gốc, SVMs là một mô hình nhị phân gồm một hệ điểm dữ liệu (được gắn nhãn 1 hoặc −1) biểu diễn trên một không gian nhiều chiều, SVMs hỗ trợ xây dựng một siêu phẳng để phân hệ dữ liệu trên thành hai lớp (mỗi lớp tương ứng với một nhãn). Không chỉ dừng lại ở bài toán phân lớp, SVMs yêu cầu các điểm dữ liệu nằm càng xa siêu phẳng càng tốt.",
+      "authors": null,
+      "file": {
+        "path": "pdf/2018/lectures-and-projects/svm-project-pima-2018.pdf",
+        "in_repo": true,
+        "size": 320382,
+        "kind": "repo",
+        "rendered_url": "/pdf/2018/lectures-and-projects/svm-project-pima-2018.pdf"
+      }
+    },
+    {
+      "title": "Principal Component Analysis",
+      "title_plain": "Principal Component Analysis",
+      "desc": "Principal Component Analysis (PCA) là một trong những kỹ thuật làm giảm số chiều (dimension reduction) của không gian dữ liệu đang xét, rất thông dụng trong thống kê (statistics), học máy (machine learning), hay lý thuyết thông tin (information theory). Công cụ chính để xây dựng phương pháp này là ma trận và cơ sở tương ứng với vector riêng trong Đại số Tuyến tính. Ý tưởng chính là biểu diễn lại các vector dữ liệu trong một cơ sở con thích hợp (cơ sở ứng với các giá trị riêng lớn nhất) để chỉ cần lưu lại những thông tin trọng yếu của toàn bộ dữ liệu. Trong dự án này, các bạn sẽ tìm hiểu nền tảng lý thuyết của PCA và áp dụng công cụ này vào một dữ liệu cụ thể.",
+      "authors": null,
+      "file": {
+        "path": "pdf/2018/lectures-and-projects/pca-project-pima-2018.pdf",
+        "in_repo": true,
+        "size": 311048,
+        "kind": "repo",
+        "rendered_url": "/pdf/2018/lectures-and-projects/pca-project-pima-2018.pdf"
+      }
+    },
+    {
+      "title": "Naive Bayes",
+      "title_plain": "Naive Bayes",
+      "desc": "Được nghiên cứu rộng rãi từ thập niên 50, Naive Bayes là một phương pháp phân loại bắt nguồn từ lí thuyết Bayes và điều giả sử rằng các sự kiện trong điểm dữ liệu đều phân biệt. Phương pháp này nổi tiếng về việc có mô hình đơn giản và tương đối hiệu quả với những vấn đề mà ta không có quá nhiều dữ liệu. Trong trại hè PIMA, các bạn sẽ được học về Naive Bayes và cách áp dụng phương pháp này cho mục đích phân loại.",
+      "authors": null,
+      "file": {
+        "path": "pdf/2018/lectures-and-projects/naive-bayes-project-pima-2018.pdf",
+        "in_repo": true,
+        "size": 296096,
+        "kind": "repo",
+        "rendered_url": "/pdf/2018/lectures-and-projects/naive-bayes-project-pima-2018.pdf"
+      }
+    }
+  ],
+  "student_papers": [
+    {
+      "title": "Naive-Bayes",
+      "title_plain": "Naive-Bayes",
+      "authors": [
+        {
+          "name": "Nguyễn Nguyễn",
+          "school": "Trường Phổ thông Năng khiếu, Đại học Quốc gia TP. HCM"
+        },
+        {
+          "name": "Huỳnh Phạm Phương Mai",
+          "school": "Trường THPT Chuyên Lê Hồng Phong, TP. HCM"
+        },
+        {
+          "name": "Nguyễn Tất Đạt",
+          "school": "Trường THPT Chuyên Sư Phạm, Hà Nội"
+        },
+        {
+          "name": "Nguyễn An Tường",
+          "school": "Trường THPT Chuyên Nguyễn Tất Thành, Kon Tum"
+        }
+      ],
+      "file": {
+        "path": "pdf/2018/student-papers/naive-bayes.pdf",
+        "in_repo": true,
+        "size": 385709,
+        "kind": "repo",
+        "rendered_url": "/pdf/2018/student-papers/naive-bayes.pdf"
+      }
+    },
+    {
+      "title": "Principal Component Analysis",
+      "title_plain": "Principal Component Analysis",
+      "authors": [
+        {
+          "name": "Trần Thanh Bình",
+          "school": "Trường Phổ thông Năng khiếu, Đại học Quốc gia TP. HCM"
+        },
+        {
+          "name": "Võ Thục Khánh Huyền",
+          "school": "Trường THPT Chuyên Lê Quý Đôn, Quảng Trị"
+        },
+        {
+          "name": "Lê Quang Kỳ",
+          "school": "Trường THPT Chuyên Hoàng Lê Kha, Tây Ninh"
+        },
+        {
+          "name": "Đỗ Nhật Hoàng",
+          "school": "Trường Phổ thông Năng khiếu, Đại học Quốc gia TP. HCM"
+        }
+      ],
+      "file": {
+        "path": "pdf/2018/student-papers/pca.pdf",
+        "in_repo": true,
+        "size": 1078730,
+        "kind": "repo",
+        "rendered_url": "/pdf/2018/student-papers/pca.pdf"
+      }
+    },
+    {
+      "title": "Support Vector Machine",
+      "title_plain": "Support Vector Machine",
+      "authors": [
+        {
+          "name": "Phạm Quốc Việt",
+          "school": "Trường THPT Chuyên Amsterdam,  Hà Nội",
+          "text_flags": [
+            "school:double-space"
+          ]
+        },
+        {
+          "name": "Nguyễn Hà Minh",
+          "school": "Trường THPT Nguyễn Bỉnh Khiêm, Gia Lai"
+        },
+        {
+          "name": "Nguyễn Đình Bảo Ngọc",
+          "school": "Trường Phổ thông Năng khiếu, Đại học Quốc gia TP. HCM"
+        },
+        {
+          "name": "Nguyễn Huy Anh",
+          "school": "Campbell County Comprehensive High School, USA"
+        }
+      ],
+      "file": {
+        "path": "pdf/2018/student-papers/svm-1.pdf",
+        "in_repo": true,
+        "size": 1287069,
+        "kind": "repo",
+        "rendered_url": "/pdf/2018/student-papers/svm-1.pdf"
+      }
+    },
+    {
+      "title": "Support Vector Machine",
+      "title_plain": "Support Vector Machine",
+      "authors": [
+        {
+          "name": "Nguyễn Minh Hải",
+          "school": "Trường THPT Chuyên Quốc Học,  Huế",
+          "text_flags": [
+            "school:double-space"
+          ]
+        },
+        {
+          "name": "Trần Minh Thảo",
+          "school": "Trường THPT Phạm Văn Đồng, Quảng Ngãi"
+        },
+        {
+          "name": "Trần Thanh Thiện",
+          "school": "Trường Phổ thông Năng khiếu, Đại học Quốc gia TP. HCM"
+        },
+        {
+          "name": "Đắc Tùng Dương",
+          "school": "Trường THPT Chuyên Khoa Học Tự Nhiên, Hà Nội"
+        }
+      ],
+      "file": {
+        "path": "pdf/2018/student-papers/svm-2.pdf",
+        "in_repo": true,
+        "size": 601690,
+        "kind": "repo",
+        "rendered_url": "/pdf/2018/student-papers/svm-2.pdf"
+      }
+    },
+    {
+      "title": "Neural Network",
+      "title_plain": "Neural Network",
+      "authors": [
+        {
+          "name": "Lại Ngọc Tân",
+          "school": "Trường THPT Chuyên Trần Phú, Hải Phòng"
+        },
+        {
+          "name": "Hà Phương Uyên",
+          "school": "Trường THPT Chuyên Phan Ngọc Hiển, Cà Mau"
+        },
+        {
+          "name": "Phạm Nguyễn Hoàng Duy",
+          "school": "Trường THPT Chuyên Nguyễn Thị Minh Khai, Sóc Trăng"
+        },
+        {
+          "name": "Nguyễn Trung Kiên",
+          "school": "Trường Phổ thông Năng khiếu, Đại học Quốc gia TP. HCM"
+        }
+      ],
+      "file": {
+        "path": "pdf/2018/student-papers/neural-network-1.pdf",
+        "in_repo": true,
+        "size": 780080,
+        "kind": "repo",
+        "rendered_url": "/pdf/2018/student-papers/neural-network-1.pdf"
+      }
+    },
+    {
+      "title": "Neural Network",
+      "title_plain": "Neural Network",
+      "authors": [
+        {
+          "name": "Phạm Anh Tuấn",
+          "school": "Trường Phổ thông Năng khiếu, Đại học Quốc gia TP. HCM"
+        },
+        {
+          "name": "Nguyễn Hồ Thăng Long",
+          "school": "Trường THPT Gia Định, TP. HCM"
+        },
+        {
+          "name": "Tạ Lê Ngọc Sáng",
+          "school": "Trường THPT Chuyên Amsterdam,  Hà Nội",
+          "text_flags": [
+            "school:double-space"
+          ]
+        },
+        {
+          "name": "Nguyễn Quốc Hoàn",
+          "school": "Trường THPT Chuyên Nguyễn Du, Đắk Lắk"
+        }
+      ],
+      "file": {
+        "path": "pdf/2018/student-papers/neural-network-2.pdf",
+        "in_repo": true,
+        "size": 3169261,
+        "kind": "repo",
+        "rendered_url": "/pdf/2018/student-papers/neural-network-2.pdf"
+      }
+    },
+    {
+      "title": "Neural Network",
+      "title_plain": "Neural Network",
+      "authors": [
+        {
+          "name": "Hoàng Quốc Thái",
+          "school": "University of Washington, USA"
+        },
+        {
+          "name": "Nguyễn Nhật Minh Khôi",
+          "school": "Trường THPT Chuyên Hoàng Lê Kha, Tây Ninh"
+        },
+        {
+          "name": "Trần Gia Phong",
+          "school": "Trường Phổ thông Năng khiếu, Đại học Quốc gia TP. HCM"
+        },
+        {
+          "name": "Phan Thị Mỹ Linh",
+          "school": "Trường THPT Gia Định, TP. HCM"
+        }
+      ],
+      "file": {
+        "path": "pdf/2018/student-papers/neural-network-3.pdf",
+        "in_repo": true,
+        "size": 918813,
+        "kind": "repo",
+        "rendered_url": "/pdf/2018/student-papers/neural-network-3.pdf"
+      }
+    }
+  ],
+  "gallery": {
+    "sections": [
+      {
+        "name": "1. Khai mạc - Giao lưu với GS. Hồ Tú Bảo (VIASM)",
+        "images": [
+          {
+            "path": "images/2018/1/1.jpg",
+            "in_repo": true,
+            "size": 222136
+          },
+          {
+            "path": "images/2018/1/10.jpg",
+            "in_repo": true,
+            "size": 191666
+          },
+          {
+            "path": "images/2018/1/11.jpg",
+            "in_repo": true,
+            "size": 196775
+          },
+          {
+            "path": "images/2018/1/12.jpg",
+            "in_repo": true,
+            "size": 161763
+          },
+          {
+            "path": "images/2018/1/13.jpg",
+            "in_repo": true,
+            "size": 156700
+          },
+          {
+            "path": "images/2018/1/14.jpg",
+            "in_repo": true,
+            "size": 179205
+          },
+          {
+            "path": "images/2018/1/15.jpg",
+            "in_repo": true,
+            "size": 177298
+          },
+          {
+            "path": "images/2018/1/2.jpg",
+            "in_repo": true,
+            "size": 174945
+          },
+          {
+            "path": "images/2018/1/3.jpg",
+            "in_repo": true,
+            "size": 197642
+          },
+          {
+            "path": "images/2018/1/4.jpg",
+            "in_repo": true,
+            "size": 295922
+          },
+          {
+            "path": "images/2018/1/5.jpg",
+            "in_repo": true,
+            "size": 407746
+          },
+          {
+            "path": "images/2018/1/6.jpg",
+            "in_repo": true,
+            "size": 213161
+          },
+          {
+            "path": "images/2018/1/7.jpg",
+            "in_repo": true,
+            "size": 234029
+          },
+          {
+            "path": "images/2018/1/8.jpg",
+            "in_repo": true,
+            "size": 208515
+          },
+          {
+            "path": "images/2018/1/9.jpg",
+            "in_repo": true,
+            "size": 210371
+          }
+        ]
+      },
+      {
+        "name": "2. Buổi học Đại số Tuyến tính do mentor Nguyễn Trung Nghĩa phụ trách",
+        "images": [
+          {
+            "path": "images/2018/2/1.jpg",
+            "in_repo": true,
+            "size": 96678
+          },
+          {
+            "path": "images/2018/2/2.jpg",
+            "in_repo": true,
+            "size": 150517
+          },
+          {
+            "path": "images/2018/2/3.jpg",
+            "in_repo": true,
+            "size": 204272
+          },
+          {
+            "path": "images/2018/2/4.jpg",
+            "in_repo": true,
+            "size": 153330
+          },
+          {
+            "path": "images/2018/2/5.jpg",
+            "in_repo": true,
+            "size": 204279
+          }
+        ]
+      },
+      {
+        "name": "3. Trò chơi nhỏ sau buổi học đầu tiên",
+        "images": [
+          {
+            "path": "images/2018/3/1.jpg",
+            "in_repo": true,
+            "size": 188540
+          },
+          {
+            "path": "images/2018/3/10.jpg",
+            "in_repo": true,
+            "size": 219034
+          },
+          {
+            "path": "images/2018/3/11.jpg",
+            "in_repo": true,
+            "size": 201195
+          },
+          {
+            "path": "images/2018/3/12.jpg",
+            "in_repo": true,
+            "size": 230018
+          },
+          {
+            "path": "images/2018/3/13.jpg",
+            "in_repo": true,
+            "size": 202591
+          },
+          {
+            "path": "images/2018/3/14.jpg",
+            "in_repo": true,
+            "size": 232298
+          },
+          {
+            "path": "images/2018/3/15.jpg",
+            "in_repo": true,
+            "size": 236843
+          },
+          {
+            "path": "images/2018/3/16.jpg",
+            "in_repo": true,
+            "size": 222693
+          },
+          {
+            "path": "images/2018/3/17.jpg",
+            "in_repo": true,
+            "size": 261358
+          },
+          {
+            "path": "images/2018/3/18.jpg",
+            "in_repo": true,
+            "size": 267139
+          },
+          {
+            "path": "images/2018/3/2.jpg",
+            "in_repo": true,
+            "size": 169828
+          },
+          {
+            "path": "images/2018/3/3.jpg",
+            "in_repo": true,
+            "size": 109214
+          },
+          {
+            "path": "images/2018/3/4.jpg",
+            "in_repo": true,
+            "size": 236183
+          },
+          {
+            "path": "images/2018/3/5.jpg",
+            "in_repo": true,
+            "size": 231682
+          },
+          {
+            "path": "images/2018/3/6.jpg",
+            "in_repo": true,
+            "size": 259350
+          },
+          {
+            "path": "images/2018/3/7.jpg",
+            "in_repo": true,
+            "size": 276553
+          },
+          {
+            "path": "images/2018/3/8.jpg",
+            "in_repo": true,
+            "size": 165197
+          },
+          {
+            "path": "images/2018/3/9.jpg",
+            "in_repo": true,
+            "size": 200199
+          }
+        ]
+      },
+      {
+        "name": "4. Bên trong lớp học",
+        "images": [
+          {
+            "path": "images/2018/4/1.jpg",
+            "in_repo": true,
+            "size": 163285
+          },
+          {
+            "path": "images/2018/4/2.jpg",
+            "in_repo": true,
+            "size": 124422
+          },
+          {
+            "path": "images/2018/4/3.jpg",
+            "in_repo": true,
+            "size": 124920
+          },
+          {
+            "path": "images/2018/4/4.jpg",
+            "in_repo": true,
+            "size": 123296
+          },
+          {
+            "path": "images/2018/4/5.jpg",
+            "in_repo": true,
+            "size": 183620,
+            "identical_to": [
+              "images/2018/5/5.jpg"
+            ]
+          },
+          {
+            "path": "images/2018/4/6.jpg",
+            "in_repo": true,
+            "size": 103056
+          },
+          {
+            "path": "images/2018/4/7.jpg",
+            "in_repo": true,
+            "size": 156390
+          },
+          {
+            "path": "images/2018/4/8.jpg",
+            "in_repo": true,
+            "size": 144260
+          },
+          {
+            "path": "images/2018/4/9.jpg",
+            "in_repo": true,
+            "size": 152656
+          },
+          {
+            "path": "images/2018/4/10.jpg",
+            "in_repo": true,
+            "size": 182618
+          },
+          {
+            "path": "images/2018/4/11.jpg",
+            "in_repo": true,
+            "size": 181637
+          },
+          {
+            "path": "images/2018/4/12.jpg",
+            "in_repo": true,
+            "size": 175674
+          },
+          {
+            "path": "images/2018/4/13.jpg",
+            "in_repo": true,
+            "size": 187913
+          },
+          {
+            "path": "images/2018/4/14.jpg",
+            "in_repo": true,
+            "size": 101262
+          },
+          {
+            "path": "images/2018/4/15.jpg",
+            "in_repo": true,
+            "size": 221268
+          },
+          {
+            "path": "images/2018/4/16.jpg",
+            "in_repo": true,
+            "size": 192782
+          },
+          {
+            "path": "images/2018/4/17.jpg",
+            "in_repo": true,
+            "size": 121170
+          },
+          {
+            "path": "images/2018/4/18.jpg",
+            "in_repo": true,
+            "size": 132279
+          },
+          {
+            "path": "images/2018/4/19.jpg",
+            "in_repo": true,
+            "size": 159193
+          },
+          {
+            "path": "images/2018/4/20.jpg",
+            "in_repo": true,
+            "size": 235686
+          },
+          {
+            "path": "images/2018/4/21.jpg",
+            "in_repo": true,
+            "size": 234639
+          },
+          {
+            "path": "images/2018/4/22.jpg",
+            "in_repo": true,
+            "size": 187910
+          },
+          {
+            "path": "images/2018/4/23.jpg",
+            "in_repo": true,
+            "size": 149948
+          },
+          {
+            "path": "images/2018/4/24.jpg",
+            "in_repo": true,
+            "size": 196859
+          },
+          {
+            "path": "images/2018/4/25.jpg",
+            "in_repo": true,
+            "size": 205701
+          },
+          {
+            "path": "images/2018/4/26.jpg",
+            "in_repo": true,
+            "size": 183108
+          },
+          {
+            "path": "images/2018/4/27.jpg",
+            "in_repo": true,
+            "size": 168818
+          },
+          {
+            "path": "images/2018/4/28.jpg",
+            "in_repo": true,
+            "size": 166684
+          },
+          {
+            "path": "images/2018/4/29.jpg",
+            "in_repo": true,
+            "size": 248283
+          },
+          {
+            "path": "images/2018/4/30.jpg",
+            "in_repo": true,
+            "size": 243321
+          },
+          {
+            "path": "images/2018/4/31.jpg",
+            "in_repo": true,
+            "size": 234457
+          },
+          {
+            "path": "images/2018/4/32.jpg",
+            "in_repo": true,
+            "size": 209094
+          },
+          {
+            "path": "images/2018/4/33.jpg",
+            "in_repo": true,
+            "size": 127122
+          },
+          {
+            "path": "images/2018/4/34.jpg",
+            "in_repo": true,
+            "size": 124371
+          },
+          {
+            "path": "images/2018/4/35.jpg",
+            "in_repo": true,
+            "size": 205058
+          },
+          {
+            "path": "images/2018/4/36.jpg",
+            "in_repo": true,
+            "size": 206710
+          },
+          {
+            "path": "images/2018/4/37.jpg",
+            "in_repo": true,
+            "size": 183447
+          },
+          {
+            "path": "images/2018/4/38.jpg",
+            "in_repo": true,
+            "size": 223977
+          },
+          {
+            "path": "images/2018/4/39.jpg",
+            "in_repo": true,
+            "size": 140010
+          },
+          {
+            "path": "images/2018/4/40.jpg",
+            "in_repo": true,
+            "size": 188975
+          }
+        ]
+      },
+      {
+        "name": "5. Giao lưu với PGS. Đình Điền",
+        "images": [
+          {
+            "path": "images/2018/5/1.jpg",
+            "in_repo": true,
+            "size": 100729
+          },
+          {
+            "path": "images/2018/5/2.jpg",
+            "in_repo": true,
+            "size": 177767
+          },
+          {
+            "path": "images/2018/5/3.jpg",
+            "in_repo": true,
+            "size": 124544
+          },
+          {
+            "path": "images/2018/5/4.jpg",
+            "in_repo": true,
+            "size": 117314
+          },
+          {
+            "path": "images/2018/5/5.jpg",
+            "in_repo": true,
+            "size": 183620,
+            "identical_to": [
+              "images/2018/4/5.jpg"
+            ]
+          },
+          {
+            "path": "images/2018/5/6.jpg",
+            "in_repo": true,
+            "size": 108644
+          },
+          {
+            "path": "images/2018/5/7.jpg",
+            "in_repo": true,
+            "size": 113280
+          },
+          {
+            "path": "images/2018/5/8.jpg",
+            "in_repo": true,
+            "size": 128183
+          },
+          {
+            "path": "images/2018/5/9.jpg",
+            "in_repo": true,
+            "size": 141815
+          },
+          {
+            "path": "images/2018/5/10.jpg",
+            "in_repo": true,
+            "size": 118631
+          },
+          {
+            "path": "images/2018/5/11.jpg",
+            "in_repo": true,
+            "size": 118122
+          },
+          {
+            "path": "images/2018/5/12.jpg",
+            "in_repo": true,
+            "size": 218767
+          }
+        ]
+      },
+      {
+        "name": "6. Giao lưu với PGS. Nguyễn Đức Hoàng Hà",
+        "images": [
+          {
+            "path": "images/2018/6/1.jpg",
+            "in_repo": true,
+            "size": 158911
+          },
+          {
+            "path": "images/2018/6/2.jpg",
+            "in_repo": true,
+            "size": 135493
+          },
+          {
+            "path": "images/2018/6/3.jpg",
+            "in_repo": true,
+            "size": 202996
+          },
+          {
+            "path": "images/2018/6/4.jpg",
+            "in_repo": true,
+            "size": 195832
+          },
+          {
+            "path": "images/2018/6/5.jpg",
+            "in_repo": true,
+            "size": 187386
+          },
+          {
+            "path": "images/2018/6/6.jpg",
+            "in_repo": true,
+            "size": 157997
+          },
+          {
+            "path": "images/2018/6/7.jpg",
+            "in_repo": true,
+            "size": 165106
+          },
+          {
+            "path": "images/2018/6/8.jpg",
+            "in_repo": true,
+            "size": 111153
+          }
+        ]
+      },
+      {
+        "name": "7. Giao lưu với GS. Lý Quốc Ngọc",
+        "images": [
+          {
+            "path": "images/2018/7/1.jpg",
+            "in_repo": true,
+            "size": 140777
+          },
+          {
+            "path": "images/2018/7/2.jpg",
+            "in_repo": true,
+            "size": 105323
+          },
+          {
+            "path": "images/2018/7/3.jpg",
+            "in_repo": true,
+            "size": 99406
+          },
+          {
+            "path": "images/2018/7/4.jpg",
+            "in_repo": true,
+            "size": 199365
+          }
+        ]
+      },
+      {
+        "name": "8. Giao lưu với PGS. Nguyễn Minh Triết",
+        "images": [
+          {
+            "path": "images/2018/8/1.jpg",
+            "in_repo": true,
+            "size": 132595
+          },
+          {
+            "path": "images/2018/8/2.jpg",
+            "in_repo": true,
+            "size": 146686
+          },
+          {
+            "path": "images/2018/8/3.jpg",
+            "in_repo": true,
+            "size": 131617
+          },
+          {
+            "path": "images/2018/8/4.jpg",
+            "in_repo": true,
+            "size": 122227
+          },
+          {
+            "path": "images/2018/8/5.jpg",
+            "in_repo": true,
+            "size": 115584
+          }
+        ]
+      },
+      {
+        "name": "9. Sau giờ học",
+        "images": [
+          {
+            "path": "images/2018/9/1.jpg",
+            "in_repo": true,
+            "size": 256041
+          },
+          {
+            "path": "images/2018/9/2.jpg",
+            "in_repo": true,
+            "size": 206421
+          },
+          {
+            "path": "images/2018/9/3.jpg",
+            "in_repo": true,
+            "size": 167429
+          },
+          {
+            "path": "images/2018/9/4.jpg",
+            "in_repo": true,
+            "size": 178144
+          },
+          {
+            "path": "images/2018/9/5.jpg",
+            "in_repo": true,
+            "size": 214651
+          },
+          {
+            "path": "images/2018/9/6.jpg",
+            "in_repo": true,
+            "size": 198025
+          },
+          {
+            "path": "images/2018/9/7.jpg",
+            "in_repo": true,
+            "size": 156686
+          },
+          {
+            "path": "images/2018/9/8.jpg",
+            "in_repo": true,
+            "size": 141920
+          },
+          {
+            "path": "images/2018/9/9.jpg",
+            "in_repo": true,
+            "size": 129341
+          }
+        ]
+      },
+      {
+        "name": "10. Trò chơi lớn",
+        "images": [
+          {
+            "path": "images/2018/10/1.jpg",
+            "in_repo": true,
+            "size": 184548
+          },
+          {
+            "path": "images/2018/10/2.jpg",
+            "in_repo": true,
+            "size": 175090
+          },
+          {
+            "path": "images/2018/10/3.jpg",
+            "in_repo": true,
+            "size": 188737
+          },
+          {
+            "path": "images/2018/10/4.jpg",
+            "in_repo": true,
+            "size": 214160
+          },
+          {
+            "path": "images/2018/10/5.jpg",
+            "in_repo": true,
+            "size": 120700
+          },
+          {
+            "path": "images/2018/10/6.jpg",
+            "in_repo": true,
+            "size": 168564
+          },
+          {
+            "path": "images/2018/10/7.jpg",
+            "in_repo": true,
+            "size": 202055
+          },
+          {
+            "path": "images/2018/10/8.jpg",
+            "in_repo": true,
+            "size": 176547
+          },
+          {
+            "path": "images/2018/10/9.jpg",
+            "in_repo": true,
+            "size": 199101
+          },
+          {
+            "path": "images/2018/10/10.jpg",
+            "in_repo": true,
+            "size": 200885
+          },
+          {
+            "path": "images/2018/10/11.jpg",
+            "in_repo": true,
+            "size": 193082
+          },
+          {
+            "path": "images/2018/10/12.jpg",
+            "in_repo": true,
+            "size": 212034
+          },
+          {
+            "path": "images/2018/10/13.jpg",
+            "in_repo": true,
+            "size": 182770
+          },
+          {
+            "path": "images/2018/10/14.jpg",
+            "in_repo": true,
+            "size": 216945
+          },
+          {
+            "path": "images/2018/10/15.jpg",
+            "in_repo": true,
+            "size": 108641
+          },
+          {
+            "path": "images/2018/10/16.jpg",
+            "in_repo": true,
+            "size": 131185
+          },
+          {
+            "path": "images/2018/10/17.jpg",
+            "in_repo": true,
+            "size": 210383
+          },
+          {
+            "path": "images/2018/10/18.jpg",
+            "in_repo": true,
+            "size": 200536
+          },
+          {
+            "path": "images/2018/10/19.jpg",
+            "in_repo": true,
+            "size": 144350
+          },
+          {
+            "path": "images/2018/10/20.jpg",
+            "in_repo": true,
+            "size": 240367
+          },
+          {
+            "path": "images/2018/10/21.jpg",
+            "in_repo": true,
+            "size": 261579
+          },
+          {
+            "path": "images/2018/10/22.jpg",
+            "in_repo": true,
+            "size": 288250
+          },
+          {
+            "path": "images/2018/10/23.jpg",
+            "in_repo": true,
+            "size": 242609
+          },
+          {
+            "path": "images/2018/10/24.jpg",
+            "in_repo": true,
+            "size": 132081
+          },
+          {
+            "path": "images/2018/10/25.jpg",
+            "in_repo": true,
+            "size": 215888
+          },
+          {
+            "path": "images/2018/10/26.jpg",
+            "in_repo": true,
+            "size": 158037
+          },
+          {
+            "path": "images/2018/10/27.jpg",
+            "in_repo": true,
+            "size": 141922
+          },
+          {
+            "path": "images/2018/10/28.jpg",
+            "in_repo": true,
+            "size": 183975
+          },
+          {
+            "path": "images/2018/10/29.jpg",
+            "in_repo": true,
+            "size": 225785
+          },
+          {
+            "path": "images/2018/10/30.jpg",
+            "in_repo": true,
+            "size": 163709
+          },
+          {
+            "path": "images/2018/10/31.jpg",
+            "in_repo": true,
+            "size": 146146
+          },
+          {
+            "path": "images/2018/10/32.jpg",
+            "in_repo": true,
+            "size": 149362
+          },
+          {
+            "path": "images/2018/10/33.jpg",
+            "in_repo": true,
+            "size": 161312
+          }
+        ]
+      },
+      {
+        "name": "11. Thuyết trình",
+        "images": [
+          {
+            "path": "images/2018/11/1.jpg",
+            "in_repo": true,
+            "size": 106927
+          },
+          {
+            "path": "images/2018/11/2.jpg",
+            "in_repo": true,
+            "size": 84979
+          },
+          {
+            "path": "images/2018/11/3.jpg",
+            "in_repo": true,
+            "size": 140668
+          },
+          {
+            "path": "images/2018/11/4.jpg",
+            "in_repo": true,
+            "size": 115149
+          },
+          {
+            "path": "images/2018/11/5.jpg",
+            "in_repo": true,
+            "size": 157318
+          },
+          {
+            "path": "images/2018/11/6.jpg",
+            "in_repo": true,
+            "size": 98878
+          },
+          {
+            "path": "images/2018/11/7.jpg",
+            "in_repo": true,
+            "size": 108758
+          },
+          {
+            "path": "images/2018/11/8.jpg",
+            "in_repo": true,
+            "size": 120817
+          },
+          {
+            "path": "images/2018/11/9.jpg",
+            "in_repo": true,
+            "size": 148209
+          },
+          {
+            "path": "images/2018/11/10.jpg",
+            "in_repo": true,
+            "size": 104659
+          },
+          {
+            "path": "images/2018/11/11.jpg",
+            "in_repo": true,
+            "size": 188542
+          },
+          {
+            "path": "images/2018/11/12.jpg",
+            "in_repo": true,
+            "size": 148396
+          },
+          {
+            "path": "images/2018/11/13.jpg",
+            "in_repo": true,
+            "size": 106716
+          },
+          {
+            "path": "images/2018/11/14.jpg",
+            "in_repo": true,
+            "size": 100524
+          },
+          {
+            "path": "images/2018/11/15.jpg",
+            "in_repo": true,
+            "size": 136072
+          },
+          {
+            "path": "images/2018/11/16.jpg",
+            "in_repo": true,
+            "size": 117349
+          },
+          {
+            "path": "images/2018/11/17.jpg",
+            "in_repo": true,
+            "size": 100178
+          },
+          {
+            "path": "images/2018/11/18.jpg",
+            "in_repo": true,
+            "size": 91137
+          },
+          {
+            "path": "images/2018/11/19.jpg",
+            "in_repo": true,
+            "size": 87934
+          },
+          {
+            "path": "images/2018/11/20.jpg",
+            "in_repo": true,
+            "size": 123609
+          },
+          {
+            "path": "images/2018/11/21.jpg",
+            "in_repo": true,
+            "size": 97639
+          },
+          {
+            "path": "images/2018/11/22.jpg",
+            "in_repo": true,
+            "size": 95741
+          },
+          {
+            "path": "images/2018/11/23.jpg",
+            "in_repo": true,
+            "size": 96231
+          },
+          {
+            "path": "images/2018/11/24.jpg",
+            "in_repo": true,
+            "size": 165353
+          },
+          {
+            "path": "images/2018/11/25.jpg",
+            "in_repo": true,
+            "size": 109473
+          },
+          {
+            "path": "images/2018/11/26.jpg",
+            "in_repo": true,
+            "size": 93734
+          },
+          {
+            "path": "images/2018/11/27.jpg",
+            "in_repo": true,
+            "size": 104074
+          },
+          {
+            "path": "images/2018/11/28.jpg",
+            "in_repo": true,
+            "size": 101393
+          },
+          {
+            "path": "images/2018/11/29.jpg",
+            "in_repo": true,
+            "size": 102869
+          },
+          {
+            "path": "images/2018/11/30.jpg",
+            "in_repo": true,
+            "size": 104564
+          },
+          {
+            "path": "images/2018/11/31.jpg",
+            "in_repo": true,
+            "size": 104385
+          },
+          {
+            "path": "images/2018/11/32.jpg",
+            "in_repo": true,
+            "size": 96993
+          },
+          {
+            "path": "images/2018/11/33.jpg",
+            "in_repo": true,
+            "size": 100863
+          },
+          {
+            "path": "images/2018/11/34.jpg",
+            "in_repo": true,
+            "size": 107349
+          },
+          {
+            "path": "images/2018/11/35.jpg",
+            "in_repo": true,
+            "size": 104663
+          },
+          {
+            "path": "images/2018/11/36.jpg",
+            "in_repo": true,
+            "size": 93411
+          },
+          {
+            "path": "images/2018/11/37.jpg",
+            "in_repo": true,
+            "size": 107451
+          },
+          {
+            "path": "images/2018/11/38.jpg",
+            "in_repo": true,
+            "size": 107614
+          },
+          {
+            "path": "images/2018/11/39.jpg",
+            "in_repo": true,
+            "size": 102809
+          },
+          {
+            "path": "images/2018/11/40.jpg",
+            "in_repo": true,
+            "size": 96167
+          },
+          {
+            "path": "images/2018/11/41.jpg",
+            "in_repo": true,
+            "size": 103800
+          },
+          {
+            "path": "images/2018/11/42.jpg",
+            "in_repo": true,
+            "size": 92650
+          },
+          {
+            "path": "images/2018/11/43.jpg",
+            "in_repo": true,
+            "size": 100362
+          },
+          {
+            "path": "images/2018/11/44.jpg",
+            "in_repo": true,
+            "size": 99984
+          },
+          {
+            "path": "images/2018/11/45.jpg",
+            "in_repo": true,
+            "size": 100824
+          },
+          {
+            "path": "images/2018/11/46.jpg",
+            "in_repo": true,
+            "size": 93286
+          }
+        ]
+      },
+      {
+        "name": "12. Bế mạc",
+        "images": [
+          {
+            "path": "images/2018/12/1.jpg",
+            "in_repo": true,
+            "size": 145367
+          },
+          {
+            "path": "images/2018/12/2.jpg",
+            "in_repo": true,
+            "size": 200293
+          },
+          {
+            "path": "images/2018/12/3.jpg",
+            "in_repo": true,
+            "size": 179159
+          },
+          {
+            "path": "images/2018/12/4.jpg",
+            "in_repo": true,
+            "size": 175419
+          },
+          {
+            "path": "images/2018/12/5.jpg",
+            "in_repo": true,
+            "size": 182068
+          },
+          {
+            "path": "images/2018/12/6.jpg",
+            "in_repo": true,
+            "size": 225677
+          },
+          {
+            "path": "images/2018/12/7.jpg",
+            "in_repo": true,
+            "size": 139215
+          },
+          {
+            "path": "images/2018/12/8.jpg",
+            "in_repo": true,
+            "size": 141297
+          },
+          {
+            "path": "images/2018/12/9.jpg",
+            "in_repo": true,
+            "size": 156926
+          },
+          {
+            "path": "images/2018/12/10.jpg",
+            "in_repo": true,
+            "size": 157306
+          },
+          {
+            "path": "images/2018/12/11.jpg",
+            "in_repo": true,
+            "size": 152508
+          },
+          {
+            "path": "images/2018/12/12.jpg",
+            "in_repo": true,
+            "size": 148960
+          },
+          {
+            "path": "images/2018/12/13.jpg",
+            "in_repo": true,
+            "size": 168958
+          },
+          {
+            "path": "images/2018/12/14.jpg",
+            "in_repo": true,
+            "size": 199769
+          },
+          {
+            "path": "images/2018/12/15.jpg",
+            "in_repo": true,
+            "size": 202159
+          },
+          {
+            "path": "images/2018/12/16.jpg",
+            "in_repo": true,
+            "size": 135241
+          },
+          {
+            "path": "images/2018/12/17.jpg",
+            "in_repo": true,
+            "size": 180492
+          },
+          {
+            "path": "images/2018/12/18.jpg",
+            "in_repo": true,
+            "size": 156896
+          },
+          {
+            "path": "images/2018/12/19.jpg",
+            "in_repo": true,
+            "size": 141777
+          },
+          {
+            "path": "images/2018/12/20.jpg",
+            "in_repo": true,
+            "size": 177595
+          },
+          {
+            "path": "images/2018/12/21.jpg",
+            "in_repo": true,
+            "size": 109300
+          },
+          {
+            "path": "images/2018/12/22.jpg",
+            "in_repo": true,
+            "size": 99868
+          }
+        ]
+      }
+    ]
+  },
+  "organizing_team": {
+    "front_matter_year": 2018,
+    "teams": [
+      {
+        "team_name": "Ban nội dung",
+        "members": [
+          {
+            "id": "trung",
+            "resolved": true,
+            "name": "Cấn Trần Thành Trung",
+            "aff": "Caltech",
+            "info": "PhD Student",
+            "img": {
+              "path": "images/organizers/trung.jpg",
+              "in_repo": true,
+              "size": 7437
+            }
+          },
+          {
+            "id": "theanh",
+            "resolved": true,
+            "name": "Vũ Lê Thế Anh",
+            "aff": "VNUHCM University of Science, Vietnam",
+            "img": {
+              "path": "images/organizers/theanh.jpg",
+              "in_repo": true,
+              "size": 106018
+            }
+          },
+          {
+            "id": "nghia",
+            "resolved": true,
+            "name": "Nguyễn Trung Nghĩa",
+            "aff": "VNUHCM University of Science, Vietnam"
+          },
+          {
+            "id": "nhat",
+            "resolved": true,
+            "name": "Phạm Hoàng Nhật",
+            "aff": "University of Washington"
+          },
+          {
+            "id": "trong",
+            "resolved": true,
+            "name": "Dương Đình Trọng",
+            "aff": "International University, VNU"
+          },
+          {
+            "id": "linh",
+            "resolved": true,
+            "name": "Trần Hoàng Bảo Linh",
+            "aff": "National University of Singapore",
+            "img": {
+              "path": "images/organizers/linh.jpg",
+              "in_repo": true,
+              "size": 15562
+            }
+          },
+          {
+            "id": "manh",
+            "resolved": true,
+            "name": "Phạm Nguyễn Mạnh",
+            "aff": "Minerva Schools at KGI, USA",
+            "img": {
+              "path": "images/organizers/manh.jpg",
+              "in_repo": true,
+              "size": 13257
+            }
+          },
+          {
+            "id": "truonghai",
+            "resolved": true,
+            "name": "Nguyễn Trường Hải",
+            "aff": "VNUHCM University of Science, Vietnam"
+          }
+        ]
+      },
+      {
+        "team_name": "Ban truyền thông",
+        "members": [
+          {
+            "id": "tien",
+            "resolved": true,
+            "name": "Phan Ngọc Tiên",
+            "aff": "York University, Canada",
+            "img": {
+              "path": "images/organizers/tien.jpg",
+              "in_repo": true,
+              "size": 45586
+            }
+          },
+          {
+            "id": "nhu",
+            "resolved": true,
+            "name": "Bùi Trần Thục Như",
+            "aff": "Fulbright University Vietnam"
+          },
+          {
+            "id": "phuong",
+            "resolved": true,
+            "name": "Đinh Lâm Kiều Phương",
+            "aff": "VNUHCM University of Science, Vietnam"
+          }
+        ]
+      },
+      {
+        "team_name": "Ban hậu cần",
+        "members": [
+          {
+            "id": "minh",
+            "resolved": true,
+            "name": "Lê Ngọc Minh",
+            "aff": "Union College, class of 2020",
+            "info": "B.S., Economics and Computer Science",
+            "img": {
+              "path": "images/organizers/minh.jpg",
+              "in_repo": true,
+              "size": 61696
+            }
+          },
+          {
+            "id": "phu",
+            "resolved": true,
+            "name": "Đỗ Hoàng Gia Phú",
+            "aff": "Pham Ngoc Thach University of Medical, Vietnam",
+            "img": {
+              "path": "images/organizers/phu.jpg",
+              "in_repo": true,
+              "size": 46253
+            }
+          }
+        ]
+      }
+    ],
+    "carry_over": false
+  },
+  "rendering": {
+    "banner": "summer_camp_banner.html on every page: banners.yaml title (h1), subtitle (h2, italic), desc (p, only 2018), img at 50% opacity",
+    "html_title": "<page title> - PiMA 2018; the index has no title, so 'PiMA 2018'",
+    "page_heading": "post layout prints front matter `title` as h2 (Lectures and Projects, Student Papers, Gallery, Organizing Team)",
+    "lectures_page": "fixed h3 headings 'Lectures' and 'Projects'; per lecture: title (h3, raw HTML), one li per author '<strong>name</strong>, aff' (info and img not shown; unresolved id prints 'Cannot find field <id> in organizers.yaml'), a 'Link' button: relative href prefixed with site.url, empty href gives a disabled button to the site root; per project: title, desc, 'Link' button with href as is",
+    "student_papers_page": "per paper: title (h3), one li per author '<strong>name</strong>, school', a 'Link' button",
+    "gallery_page": "per section: h2 section-name, 3-column table of images; lightbox caption is 'section-name<br>caption' (no gallery-page image has a caption)",
+    "index_page": "per section: h2 title, p description, image, 'Learn More' button to href (relative to the year folder); then, unless disabled, a Gallery block with title, description, 'Learn More' and the preview images with captions",
+    "front_matter_text": "Liquid outputs front matter strings raw: <br> renders as a line break, '<' in text stays literal; no Markdown processing"
+  },
+  "files": {
+    "pdf_dir": {
+      "count": 15,
+      "bytes": 13057399,
+      "by_ext": {
+        ".pdf": 15
+      },
+      "unreferenced": []
+    },
+    "referenced_repo_files": {
+      "count": 15,
+      "bytes": 13057399,
+      "missing": [],
+      "outside_this_year": []
+    },
+    "google_drive_links": 0,
+    "images_dir": {
+      "count": 221,
+      "bytes": 38220505,
+      "unreferenced": []
+    },
+    "referenced_images": {
+      "count": 221,
+      "bytes": 38220505,
+      "missing": []
+    }
+  }
+}

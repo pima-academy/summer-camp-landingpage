@@ -1,0 +1,1243 @@
+{
+  "year": 2016,
+  "source": {
+    "repo": "pimavn/pimavn.github.io",
+    "branch": "master",
+    "commit": "2b1a1fa2a62254e46ad8eba9c9fe7f8c6f733076",
+    "pages": {
+      "index": "summer_camps/2016/index.html",
+      "lectures_and_projects": "summer_camps/2016/lectures_and_projects.html",
+      "student_papers": "summer_camps/2016/student_papers.html",
+      "gallery": "summer_camps/2016/gallery.html",
+      "organizing_team": "summer_camps/2016/organizing_team.html"
+    }
+  },
+  "notes": [
+    "Projects carry no authors in the front matter or layout."
+  ],
+  "banner": {
+    "title": "PiMA Summer Camp 2016",
+    "subtitle": "Mathematical Modelling",
+    "img": {
+      "path": "images/2016/img7-16.jpg",
+      "in_repo": true,
+      "size": 278754
+    }
+  },
+  "index": {
+    "layout": "index-year",
+    "sections": [
+      {
+        "title": "Student Papers",
+        "description": "Khi tham gia PiMA, các trại sinh sẽ được chia thành nhóm từ 3 đến 4 người. Học sinh sẽ vận dụng các mô hình đã học để làm một đề án nhóm của riêng mình dưới sự hỗ trợ của các mentor. Ở ngày tổng kết –  ngày cuối cùng của trại hè, từng thành viên trong nhóm sẽ thuyết trình về project của nhóm mình trước tất cả những trại sinh và mentor khác của trại.",
+        "img": {
+          "path": "images/2016/img6-13.jpg",
+          "in_repo": true,
+          "size": 108803
+        },
+        "href": "student_papers",
+        "learn_more_opens": "https://pimavn.github.io/summer_camps/2016/student_papers"
+      },
+      {
+        "title": "Lectures and Projects",
+        "description": "Tổng hợp những file bài giảng và tài liệu được phát và giảng dạy cho trại sinh trong thời gian diễn ra trại hè, được biên soạn và trình bày bởi các thành viên trong Ban tổ chức của PiMA. Trại sinh sẽ được cung cấp một số kiến thức toán nền tảng và kĩ năng cần thiết như làm việc nhóm, thuyết trình, đọc hiểu tài liệu học thuật,...",
+        "img": {
+          "path": "images/2016/img2-6.jpg",
+          "in_repo": true,
+          "size": 142171
+        },
+        "href": "lectures_and_projects",
+        "learn_more_opens": "https://pimavn.github.io/summer_camps/2016/lectures_and_projects"
+      },
+      {
+        "title": "Organizing Team",
+        "description": "Giới thiệu về các thành viên trong Ban tổ chức của PiMA, gồm các Ban Truyền thông, Ban Nội dung và Ban Hậu cần.",
+        "img": {
+          "path": "images/2016/img2-9.jpg",
+          "in_repo": true,
+          "size": 124360
+        },
+        "href": "organizing_team",
+        "learn_more_opens": "https://pimavn.github.io/summer_camps/2016/organizing_team"
+      }
+    ],
+    "gallery_section": {
+      "disabled": false,
+      "title": "Gallery",
+      "description": "Tổng hợp những tấm ảnh ghi lại những khoảnh khắc của trại hè xuyên suốt thời gian diễn ra trại. Ngoài thời gian tập trung vào các bài học trên lớp và việc hoàn thành project, PiMA còn rất nhiều khoảnh khắc đáng nhớ khác. Đó là những buổi giao lưu cùng các du học sinh, sinh viên, diễn giả chuyên ngành Toán và Tin học, và đặc biệt là những buổi trò chuyện, gắn kết giữa mọi người trong PiMA.",
+      "href": "gallery",
+      "learn_more_opens": "https://pimavn.github.io/summer_camps/2016/gallery"
+    },
+    "gallery_preview": [
+      {
+        "img": {
+          "path": "images/2016/img1-7.jpg",
+          "in_repo": true,
+          "size": 161161
+        },
+        "caption": "Cấn Trần Thành Trung, đồng sáng lập PiMA, tuyên bố phát biểu khai mạc"
+      },
+      {
+        "img": {
+          "path": "images/2016/img2-1.jpg",
+          "in_repo": true,
+          "size": 183404
+        },
+        "caption": "Lớp học Xác suất Thống kê do mentor Phạm Tấn Anh Quân phụ trách"
+      },
+      {
+        "img": {
+          "path": "images/2016/img4-6.jpg",
+          "in_repo": true,
+          "size": 382577
+        },
+        "caption": "Các bạn học sinh tham gia các hoạt động giao lưu và vui chơi giải trí sau giờ học"
+      },
+      {
+        "img": {
+          "path": "images/2016/img6-11.jpg",
+          "in_repo": true,
+          "size": 146537
+        },
+        "caption": "Buổi thuyết trình dự án nhóm của trại"
+      },
+      {
+        "img": {
+          "path": "images/2016/img6-15.jpg",
+          "in_repo": true,
+          "size": 174344
+        },
+        "caption": "Thầy Trần Nam Dũng nhận xét project của các nhóm"
+      }
+    ]
+  },
+  "lectures": [
+    {
+      "title": "Xác suất Thống kê",
+      "title_plain": "Xác suất Thống kê",
+      "authors": [
+        {
+          "id": "quan",
+          "resolved": true,
+          "name": "Phạm Tấn Anh Quân",
+          "aff": "VNUHCM University of Science, Vietnam",
+          "img": {
+            "path": "images/organizers/anhquan.jpg",
+            "in_repo": true,
+            "size": 62731
+          }
+        }
+      ],
+      "file": {
+        "path": "pdf/2016/lectures-and-projects/probability_and_statistics.pdf",
+        "in_repo": true,
+        "size": 406249,
+        "kind": "repo",
+        "rendered_url": "https://pimavn.github.io/pdf/2016/lectures-and-projects/probability_and_statistics.pdf"
+      }
+    },
+    {
+      "title": "Đồ thị",
+      "title_plain": "Đồ thị",
+      "authors": [
+        {
+          "id": "hung",
+          "resolved": true,
+          "name": "Hồ Quốc Đăng Hưng",
+          "aff": "University of Chicago, USA"
+        }
+      ],
+      "file": {
+        "path": "pdf/2016/lectures-and-projects/graph_theory.pdf",
+        "in_repo": true,
+        "size": 1005102,
+        "kind": "repo",
+        "rendered_url": "https://pimavn.github.io/pdf/2016/lectures-and-projects/graph_theory.pdf"
+      }
+    },
+    {
+      "title": "Quy hoạch tuyến tính",
+      "title_plain": "Quy hoạch tuyến tính",
+      "authors": [
+        {
+          "id": "linh",
+          "resolved": true,
+          "name": "Trần Hoàng Bảo Linh",
+          "aff": "National University of Singapore",
+          "img": {
+            "path": "images/organizers/linh.jpg",
+            "in_repo": true,
+            "size": 15562
+          }
+        }
+      ],
+      "file": {
+        "path": "pdf/2016/lectures-and-projects/linear_programming.pdf",
+        "in_repo": true,
+        "size": 445112,
+        "kind": "repo",
+        "rendered_url": "https://pimavn.github.io/pdf/2016/lectures-and-projects/linear_programming.pdf"
+      }
+    },
+    {
+      "title": "MATLAB và LaTeX",
+      "title_plain": "MATLAB và LaTeX",
+      "authors": [
+        {
+          "id": "hai",
+          "resolved": true,
+          "name": "Lê Việt Hải",
+          "aff": "Pennsylvania State University",
+          "info": "PhD Student",
+          "img": {
+            "path": "images/organizers/hai.jpeg",
+            "in_repo": true,
+            "size": 9010
+          }
+        },
+        {
+          "id": "khang",
+          "resolved": true,
+          "name": "Nguyễn Vĩnh Khang",
+          "aff": "Liberty University, USA",
+          "img": {
+            "path": "images/organizers/khang.jpeg",
+            "in_repo": true,
+            "size": 9525
+          }
+        }
+      ],
+      "file": {
+        "path": "pdf/2016/lectures-and-projects/matlab_pima.pdf",
+        "in_repo": true,
+        "size": 2663075,
+        "kind": "repo",
+        "rendered_url": "https://pimavn.github.io/pdf/2016/lectures-and-projects/matlab_pima.pdf"
+      }
+    },
+    {
+      "title": "Giới thiệu về toán mô hình",
+      "title_plain": "Giới thiệu về toán mô hình",
+      "authors": [
+        {
+          "id": "trung",
+          "resolved": true,
+          "name": "Cấn Trần Thành Trung",
+          "aff": "Caltech",
+          "info": "PhD Student",
+          "img": {
+            "path": "images/organizers/trung.jpg",
+            "in_repo": true,
+            "size": 7437
+          }
+        }
+      ],
+      "file": {
+        "path": "pdf/2016/lectures-and-projects/math_modelling_introduction.pdf",
+        "in_repo": true,
+        "size": 2636876,
+        "kind": "repo",
+        "rendered_url": "https://pimavn.github.io/pdf/2016/lectures-and-projects/math_modelling_introduction.pdf"
+      }
+    }
+  ],
+  "projects": [
+    {
+      "title": "Bố trí xe cứu thương",
+      "title_plain": "Bố trí xe cứu thương",
+      "desc": "Phải làm sao để Trạm Y Tế có thể đảm bảo huy động xe cứu thương đến nơi cần thiết trong thời gian ngắn nhất?",
+      "authors": null,
+      "file": {
+        "path": "pdf/2016/lectures-and-projects/xe_cuu_thuong.pdf",
+        "in_repo": true,
+        "size": 298570,
+        "kind": "repo",
+        "rendered_url": "/pdf/2016/lectures-and-projects/xe_cuu_thuong.pdf"
+      }
+    },
+    {
+      "title": "Phân tuyến cho học sinh vào lớp 6",
+      "title_plain": "Phân tuyến cho học sinh vào lớp 6",
+      "desc": "Làm sao để Bộ Giáo Dục có thể đảm bảo các bạn học sinh đều được đi học phù hợp với địa điểm của mình.",
+      "authors": null,
+      "file": {
+        "path": "pdf/2016/lectures-and-projects/phan_tuyen_hoc_sinh.pdf",
+        "in_repo": true,
+        "size": 309823,
+        "kind": "repo",
+        "rendered_url": "/pdf/2016/lectures-and-projects/phan_tuyen_hoc_sinh.pdf"
+      }
+    },
+    {
+      "title": "Sắp xếp lịch chiếu phim",
+      "title_plain": "Sắp xếp lịch chiếu phim",
+      "desc": "Làm sao để các rạp chiếu phim sắp xếp các bộ phim để trình chiếu đến cho khán giả?",
+      "authors": null,
+      "file": {
+        "path": "pdf/2016/lectures-and-projects/lich_chieu_phim.pdf",
+        "in_repo": true,
+        "size": 307631,
+        "kind": "repo",
+        "rendered_url": "/pdf/2016/lectures-and-projects/lich_chieu_phim.pdf"
+      }
+    },
+    {
+      "title": "Thiết kế hệ thống tàu điện ngầm",
+      "title_plain": "Thiết kế hệ thống tàu điện ngầm",
+      "desc": "Làm sao để TP. HCM có được một hệ thống tàu điện ngầm như các nước phát triển?",
+      "authors": null,
+      "file": {
+        "path": "pdf/2016/lectures-and-projects/tau_dien_ngam.pdf",
+        "in_repo": true,
+        "size": 3117344,
+        "kind": "repo",
+        "rendered_url": "/pdf/2016/lectures-and-projects/tau_dien_ngam.pdf"
+      }
+    }
+  ],
+  "student_papers": [
+    {
+      "title": "​Phân tuyến học sinh vào lớp 6",
+      "title_plain": "Phân tuyến học sinh vào lớp 6",
+      "authors": [
+        {
+          "name": "Vũ Lê Thế Anh",
+          "school": "Trường Phổ thông Năng Khiếu, Đại học Quốc gia TP. HCM"
+        },
+        {
+          "name": "Đinh Lâm Kiều Phương",
+          "school": "Trường THPT Chuyên Nguyễn Thị Minh Khai, tỉnh Sóc Trăng"
+        },
+        {
+          "name": "Dương Anh Kiệt​",
+          "school": "Trường THPT Chuyên Hoàng Lê Kha, tỉnh Tây Ninh",
+          "text_flags": [
+            "zero-width-space"
+          ]
+        }
+      ],
+      "file": {
+        "path": "pdf/2016/student-papers/phan_tuyen_hoc_sinh_lop_6.pdf",
+        "in_repo": true,
+        "size": 942446,
+        "kind": "repo",
+        "rendered_url": "/pdf/2016/student-papers/phan_tuyen_hoc_sinh_lop_6.pdf"
+      },
+      "text_flags": [
+        "zero-width-space"
+      ]
+    },
+    {
+      "title": "Phân tuyến học sinh vào lớp 6",
+      "title_plain": "Phân tuyến học sinh vào lớp 6",
+      "authors": [
+        {
+          "name": "Phan Minh Hoàng",
+          "school": "Trường Phổ thông Năng Khiếu, Đại học Quốc gia TP. HCM"
+        },
+        {
+          "name": "Nguyễn Hoàng Minh Hiếu",
+          "school": "Trường THPT Phan Bội Châu, tỉnh Lâm Đồng"
+        },
+        {
+          "name": "Vũ Hùng",
+          "school": "Trường Phổ thông Năng Khiếu, Đại học Quốc gia TP. HCM"
+        }
+      ],
+      "file": {
+        "path": "pdf/2016/student-papers/mo_hinh_phan_tuyen_lop_6.pdf",
+        "in_repo": true,
+        "size": 872375,
+        "kind": "repo",
+        "rendered_url": "/pdf/2016/student-papers/mo_hinh_phan_tuyen_lop_6.pdf"
+      }
+    },
+    {
+      "title": "Hệ thống tàu điện ngầm ở TP. HCM",
+      "title_plain": "Hệ thống tàu điện ngầm ở TP. HCM",
+      "authors": [
+        {
+          "name": "Võ Hiển Thông",
+          "school": "Trường Phổ thông Năng khiếu, Đại học Quốc gia TP. HCM"
+        },
+        {
+          "name": "Phạm Hoàng Nhật",
+          "school": "Phillips Academy Andover, USA"
+        },
+        {
+          "name": "Phan Ngọc Tiên",
+          "school": "Trường Phổ thông Năng khiếu, Đại học Quốc gia TP. HCM"
+        },
+        {
+          "name": "Trần Minh Nguyên​",
+          "school": "Trường Phổ thông Năng khiếu, Đại học Quốc gia TP. HCM",
+          "text_flags": [
+            "zero-width-space"
+          ]
+        }
+      ],
+      "file": {
+        "path": "pdf/2016/student-papers/thiet_ke_tau_dien_ngam.pdf",
+        "in_repo": true,
+        "size": 1757666,
+        "kind": "repo",
+        "rendered_url": "/pdf/2016/student-papers/thiet_ke_tau_dien_ngam.pdf"
+      }
+    },
+    {
+      "title": "Hệ thống tàu điện ngầm ở TP. HCM",
+      "title_plain": "Hệ thống tàu điện ngầm ở TP. HCM",
+      "authors": [
+        {
+          "name": "Phạm Nguyễn Mạnh",
+          "school": "Trường Phổ thông Năng khiếu, Đại học Quốc gia TP. HCM"
+        },
+        {
+          "name": "Hoàng Văn Thiên",
+          "school": "Trường THPT Chuyên Lý Tự Trọng, Cần Thơ"
+        }
+      ],
+      "file": {
+        "path": "pdf/2016/student-papers/dien_ngam.pdf",
+        "in_repo": true,
+        "size": 1090638,
+        "kind": "repo",
+        "rendered_url": "/pdf/2016/student-papers/dien_ngam.pdf"
+      }
+    },
+    {
+      "title": "​Hệ thống tàu điện ngầm ở TP. HCM",
+      "title_plain": "Hệ thống tàu điện ngầm ở TP. HCM",
+      "authors": [
+        {
+          "name": "Trần Quốc Cơ",
+          "school": "Trường THPT Chuyên Lê Hồng Phong, TP. HCM"
+        },
+        {
+          "name": "Tạ Thị Phương Liên",
+          "school": "Trường THPT Chuyên Lương Thế Vinh, Đồng Nai"
+        },
+        {
+          "name": "Phan Văn Trường",
+          "school": "Trường THPT Chuyên Nguyễn Du, Đak Lak"
+        }
+      ],
+      "file": {
+        "path": "pdf/2016/student-papers/tau_dien_ngam_tphcm.pdf",
+        "in_repo": true,
+        "size": 2174714,
+        "kind": "repo",
+        "rendered_url": "/pdf/2016/student-papers/tau_dien_ngam_tphcm.pdf"
+      },
+      "text_flags": [
+        "zero-width-space"
+      ]
+    }
+  ],
+  "gallery": {
+    "sections": [
+      {
+        "name": "Opening Ceremony",
+        "images": [
+          {
+            "path": "images/2016/img1-1.jpg",
+            "in_repo": true,
+            "size": 238182
+          },
+          {
+            "path": "images/2016/img1-2.jpg",
+            "in_repo": true,
+            "size": 196878
+          },
+          {
+            "path": "images/2016/img1-3.jpg",
+            "in_repo": true,
+            "size": 214610
+          },
+          {
+            "path": "images/2016/img1-4.jpg",
+            "in_repo": true,
+            "size": 228182
+          },
+          {
+            "path": "images/2016/img1-5.jpg",
+            "in_repo": true,
+            "size": 255158
+          },
+          {
+            "path": "images/2016/img1-6.jpg",
+            "in_repo": true,
+            "size": 175599
+          },
+          {
+            "path": "images/2016/img1-7.jpg",
+            "in_repo": true,
+            "size": 161161
+          },
+          {
+            "path": "images/2016/img1-8.jpg",
+            "in_repo": true,
+            "size": 139901
+          }
+        ]
+      },
+      {
+        "name": "First classes",
+        "images": [
+          {
+            "path": "images/2016/img2-1.jpg",
+            "in_repo": true,
+            "size": 183404
+          },
+          {
+            "path": "images/2016/img2-2.jpg",
+            "in_repo": true,
+            "size": 165397
+          },
+          {
+            "path": "images/2016/img2-3.jpg",
+            "in_repo": true,
+            "size": 215436
+          },
+          {
+            "path": "images/2016/img2-4.jpg",
+            "in_repo": true,
+            "size": 169814
+          },
+          {
+            "path": "images/2016/img2-5.jpg",
+            "in_repo": true,
+            "size": 181751
+          },
+          {
+            "path": "images/2016/img2-6.jpg",
+            "in_repo": true,
+            "size": 142171
+          },
+          {
+            "path": "images/2016/img2-7.jpg",
+            "in_repo": true,
+            "size": 157149
+          },
+          {
+            "path": "images/2016/img2-8.jpg",
+            "in_repo": true,
+            "size": 164246
+          },
+          {
+            "path": "images/2016/img2-9.jpg",
+            "in_repo": true,
+            "size": 124360
+          },
+          {
+            "path": "images/2016/img2-10.jpg",
+            "in_repo": true,
+            "size": 183648
+          },
+          {
+            "path": "images/2016/img2-11.jpg",
+            "in_repo": true,
+            "size": 174690
+          }
+        ]
+      },
+      {
+        "name": "Computer lab",
+        "images": [
+          {
+            "path": "images/2016/img3-1.jpg",
+            "in_repo": true,
+            "size": 204154
+          },
+          {
+            "path": "images/2016/img3-3.jpg",
+            "in_repo": true,
+            "size": 278546
+          },
+          {
+            "path": "images/2016/img3-4.jpg",
+            "in_repo": true,
+            "size": 254507
+          },
+          {
+            "path": "images/2016/img3-5.jpg",
+            "in_repo": true,
+            "size": 202179
+          },
+          {
+            "path": "images/2016/img3-7.jpg",
+            "in_repo": true,
+            "size": 211765
+          },
+          {
+            "path": "images/2016/img3-8.jpg",
+            "in_repo": true,
+            "size": 278044
+          },
+          {
+            "path": "images/2016/img3-9.jpg",
+            "in_repo": true,
+            "size": 207963
+          },
+          {
+            "path": "images/2016/img3-10.jpg",
+            "in_repo": true,
+            "size": 252671
+          },
+          {
+            "path": "images/2016/img3-11.jpg",
+            "in_repo": true,
+            "size": 249064
+          },
+          {
+            "path": "images/2016/img3-12.jpg",
+            "in_repo": true,
+            "size": 205834
+          },
+          {
+            "path": "images/2016/img3-13.jpg",
+            "in_repo": true,
+            "size": 229760
+          }
+        ],
+        "commented_out": [
+          {
+            "img": "images/2016/img3-2.jpg",
+            "comment": "TODO: Change the ratio to 3:2"
+          }
+        ]
+      },
+      {
+        "name": "The Big Game",
+        "images": [
+          {
+            "path": "images/2016/img4-1.jpg",
+            "in_repo": true,
+            "size": 203555
+          },
+          {
+            "path": "images/2016/img4-2.jpg",
+            "in_repo": true,
+            "size": 291102
+          },
+          {
+            "path": "images/2016/img4-3.jpg",
+            "in_repo": true,
+            "size": 293737
+          },
+          {
+            "path": "images/2016/img4-4.jpg",
+            "in_repo": true,
+            "size": 329107
+          },
+          {
+            "path": "images/2016/img4-5.jpg",
+            "in_repo": true,
+            "size": 247463
+          },
+          {
+            "path": "images/2016/img4-6.jpg",
+            "in_repo": true,
+            "size": 382577
+          },
+          {
+            "path": "images/2016/img4-7.jpg",
+            "in_repo": true,
+            "size": 233016
+          },
+          {
+            "path": "images/2016/img4-8.jpg",
+            "in_repo": true,
+            "size": 269170
+          },
+          {
+            "path": "images/2016/img4-9.jpg",
+            "in_repo": true,
+            "size": 260016
+          },
+          {
+            "path": "images/2016/img4-10.jpg",
+            "in_repo": true,
+            "size": 356577
+          },
+          {
+            "path": "images/2016/img4-11.jpg",
+            "in_repo": true,
+            "size": 239253
+          },
+          {
+            "path": "images/2016/img4-12.jpg",
+            "in_repo": true,
+            "size": 227979
+          },
+          {
+            "path": "images/2016/img4-13.jpg",
+            "in_repo": true,
+            "size": 410275
+          },
+          {
+            "path": "images/2016/img4-14.jpg",
+            "in_repo": true,
+            "size": 189088
+          },
+          {
+            "path": "images/2016/img4-15.jpg",
+            "in_repo": true,
+            "size": 137138
+          },
+          {
+            "path": "images/2016/img4-16.jpg",
+            "in_repo": true,
+            "size": 200164
+          },
+          {
+            "path": "images/2016/img4-17.jpg",
+            "in_repo": true,
+            "size": 286930
+          },
+          {
+            "path": "images/2016/img4-18.jpg",
+            "in_repo": true,
+            "size": 204752
+          },
+          {
+            "path": "images/2016/img4-19.jpg",
+            "in_repo": true,
+            "size": 161993
+          },
+          {
+            "path": "images/2016/img4-20.jpg",
+            "in_repo": true,
+            "size": 256059
+          },
+          {
+            "path": "images/2016/img4-21.jpg",
+            "in_repo": true,
+            "size": 269148
+          },
+          {
+            "path": "images/2016/img4-22.jpg",
+            "in_repo": true,
+            "size": 212571
+          },
+          {
+            "path": "images/2016/img4-23.jpg",
+            "in_repo": true,
+            "size": 191855
+          },
+          {
+            "path": "images/2016/img4-24.jpg",
+            "in_repo": true,
+            "size": 210681
+          },
+          {
+            "path": "images/2016/img4-25.jpg",
+            "in_repo": true,
+            "size": 229502
+          },
+          {
+            "path": "images/2016/img4-26.jpg",
+            "in_repo": true,
+            "size": 151297
+          },
+          {
+            "path": "images/2016/img4-27.jpg",
+            "in_repo": true,
+            "size": 253845
+          },
+          {
+            "path": "images/2016/img4-28.jpg",
+            "in_repo": true,
+            "size": 307778
+          },
+          {
+            "path": "images/2016/img4-29.jpg",
+            "in_repo": true,
+            "size": 304561
+          },
+          {
+            "path": "images/2016/img4-30.jpg",
+            "in_repo": true,
+            "size": 278387
+          },
+          {
+            "path": "images/2016/img4-31.jpg",
+            "in_repo": true,
+            "size": 256734
+          }
+        ]
+      },
+      {
+        "name": "Group Activities",
+        "images": [
+          {
+            "path": "images/2016/img5-1.jpg",
+            "in_repo": true,
+            "size": 180523
+          },
+          {
+            "path": "images/2016/img5-2.jpg",
+            "in_repo": true,
+            "size": 103663
+          },
+          {
+            "path": "images/2016/img5-3.jpg",
+            "in_repo": true,
+            "size": 140330
+          },
+          {
+            "path": "images/2016/img5-4.jpg",
+            "in_repo": true,
+            "size": 166776
+          },
+          {
+            "path": "images/2016/img5-5.jpg",
+            "in_repo": true,
+            "size": 190965
+          },
+          {
+            "path": "images/2016/img5-6.jpg",
+            "in_repo": true,
+            "size": 241945
+          },
+          {
+            "path": "images/2016/img5-7.jpg",
+            "in_repo": true,
+            "size": 233483
+          },
+          {
+            "path": "images/2016/img5-8.jpg",
+            "in_repo": true,
+            "size": 193204
+          },
+          {
+            "path": "images/2016/img5-9.jpg",
+            "in_repo": true,
+            "size": 160043
+          },
+          {
+            "path": "images/2016/img5-12.jpg",
+            "in_repo": true,
+            "size": 245882
+          },
+          {
+            "path": "images/2016/img5-13.jpg",
+            "in_repo": true,
+            "size": 160168
+          },
+          {
+            "path": "images/2016/img5-14.jpg",
+            "in_repo": true,
+            "size": 231995
+          },
+          {
+            "path": "images/2016/img5-15.jpg",
+            "in_repo": true,
+            "size": 223982
+          },
+          {
+            "path": "images/2016/img5-16.jpg",
+            "in_repo": true,
+            "size": 215802
+          },
+          {
+            "path": "images/2016/img5-17.jpg",
+            "in_repo": true,
+            "size": 208880
+          },
+          {
+            "path": "images/2016/img5-18.jpg",
+            "in_repo": true,
+            "size": 220297
+          },
+          {
+            "path": "images/2016/img5-19.jpg",
+            "in_repo": true,
+            "size": 199119
+          },
+          {
+            "path": "images/2016/img5-20.jpg",
+            "in_repo": true,
+            "size": 206862
+          }
+        ],
+        "commented_out": [
+          {
+            "img": "images/2016/img5-10.jpg",
+            "comment": "TODO: Change ratio to 3:2"
+          },
+          {
+            "img": "images/2016/img5-11.jpg",
+            "comment": "TODO: Change ratio to 3:2"
+          }
+        ]
+      },
+      {
+        "name": "Presentation",
+        "images": [
+          {
+            "path": "images/2016/img6-1.jpg",
+            "in_repo": true,
+            "size": 174710
+          },
+          {
+            "path": "images/2016/img6-2.jpg",
+            "in_repo": true,
+            "size": 166490
+          },
+          {
+            "path": "images/2016/img6-3.jpg",
+            "in_repo": true,
+            "size": 163395
+          },
+          {
+            "path": "images/2016/img6-4.jpg",
+            "in_repo": true,
+            "size": 170159
+          },
+          {
+            "path": "images/2016/img6-5.jpg",
+            "in_repo": true,
+            "size": 220105
+          },
+          {
+            "path": "images/2016/img6-6.jpg",
+            "in_repo": true,
+            "size": 213995
+          },
+          {
+            "path": "images/2016/img6-7.jpg",
+            "in_repo": true,
+            "size": 205323
+          },
+          {
+            "path": "images/2016/img6-8.jpg",
+            "in_repo": true,
+            "size": 130853
+          },
+          {
+            "path": "images/2016/img6-9.jpg",
+            "in_repo": true,
+            "size": 154886
+          },
+          {
+            "path": "images/2016/img6-10.jpg",
+            "in_repo": true,
+            "size": 177373
+          },
+          {
+            "path": "images/2016/img6-11.jpg",
+            "in_repo": true,
+            "size": 146537
+          },
+          {
+            "path": "images/2016/img6-12.jpg",
+            "in_repo": true,
+            "size": 170919
+          },
+          {
+            "path": "images/2016/img6-13.jpg",
+            "in_repo": true,
+            "size": 108803
+          },
+          {
+            "path": "images/2016/img6-14.jpg",
+            "in_repo": true,
+            "size": 176524
+          },
+          {
+            "path": "images/2016/img6-15.jpg",
+            "in_repo": true,
+            "size": 174344
+          },
+          {
+            "path": "images/2016/img6-16.jpg",
+            "in_repo": true,
+            "size": 144888
+          },
+          {
+            "path": "images/2016/img6-17.jpg",
+            "in_repo": true,
+            "size": 159378
+          },
+          {
+            "path": "images/2016/img6-18.jpg",
+            "in_repo": true,
+            "size": 167536
+          },
+          {
+            "path": "images/2016/img6-19.jpg",
+            "in_repo": true,
+            "size": 147131
+          },
+          {
+            "path": "images/2016/img6-20.jpg",
+            "in_repo": true,
+            "size": 170968
+          },
+          {
+            "path": "images/2016/img6-21.jpg",
+            "in_repo": true,
+            "size": 180628
+          }
+        ]
+      },
+      {
+        "name": "Closing Ceremony",
+        "images": [
+          {
+            "path": "images/2016/img7-2.jpg",
+            "in_repo": true,
+            "size": 177843
+          },
+          {
+            "path": "images/2016/img7-4.jpg",
+            "in_repo": true,
+            "size": 298105
+          },
+          {
+            "path": "images/2016/img7-5.jpg",
+            "in_repo": true,
+            "size": 214022
+          },
+          {
+            "path": "images/2016/img7-6.jpg",
+            "in_repo": true,
+            "size": 198047
+          },
+          {
+            "path": "images/2016/img7-7.jpg",
+            "in_repo": true,
+            "size": 200754
+          },
+          {
+            "path": "images/2016/img7-8.jpg",
+            "in_repo": true,
+            "size": 204525
+          },
+          {
+            "path": "images/2016/img7-9.jpg",
+            "in_repo": true,
+            "size": 202827
+          },
+          {
+            "path": "images/2016/img7-10.jpg",
+            "in_repo": true,
+            "size": 184358
+          },
+          {
+            "path": "images/2016/img7-11.jpg",
+            "in_repo": true,
+            "size": 180858
+          },
+          {
+            "path": "images/2016/img7-12.jpg",
+            "in_repo": true,
+            "size": 215085
+          },
+          {
+            "path": "images/2016/img7-13.jpg",
+            "in_repo": true,
+            "size": 234887
+          },
+          {
+            "path": "images/2016/img7-14.jpg",
+            "in_repo": true,
+            "size": 274266
+          },
+          {
+            "path": "images/2016/img7-15.jpg",
+            "in_repo": true,
+            "size": 201695
+          },
+          {
+            "path": "images/2016/img7-16.jpg",
+            "in_repo": true,
+            "size": 278754
+          }
+        ],
+        "commented_out": [
+          {
+            "img": "images/2016/img7-1.jpg",
+            "comment": "TODO: Change ratio to 3:2"
+          },
+          {
+            "img": "images/2016/img7-3.jpg",
+            "comment": "TODO: Change ratio to 3:2"
+          }
+        ]
+      }
+    ]
+  },
+  "organizing_team": {
+    "front_matter_year": 2016,
+    "teams": [
+      {
+        "team_name": "",
+        "members": [
+          {
+            "id": "trung",
+            "resolved": true,
+            "name": "Cấn Trần Thành Trung",
+            "aff": "Caltech",
+            "info": "PhD Student",
+            "img": {
+              "path": "images/organizers/trung.jpg",
+              "in_repo": true,
+              "size": 7437
+            }
+          },
+          {
+            "id": "linh",
+            "resolved": true,
+            "name": "Trần Hoàng Bảo Linh",
+            "aff": "National University of Singapore",
+            "img": {
+              "path": "images/organizers/linh.jpg",
+              "in_repo": true,
+              "size": 15562
+            }
+          },
+          {
+            "id": "quan",
+            "resolved": true,
+            "name": "Phạm Tấn Anh Quân",
+            "aff": "VNUHCM University of Science, Vietnam",
+            "img": {
+              "path": "images/organizers/anhquan.jpg",
+              "in_repo": true,
+              "size": 62731
+            }
+          },
+          {
+            "id": "khang",
+            "resolved": true,
+            "name": "Nguyễn Vĩnh Khang",
+            "aff": "Liberty University, USA",
+            "img": {
+              "path": "images/organizers/khang.jpeg",
+              "in_repo": true,
+              "size": 9525
+            }
+          },
+          {
+            "id": "huyhoang",
+            "resolved": true,
+            "name": "Nguyễn Huy Hoàng",
+            "aff": "Minerva Schools at KGI"
+          },
+          {
+            "id": "lien",
+            "resolved": true,
+            "name": "Trần Thị Diệu Liên",
+            "aff": "Harvard University, USA",
+            "img": {
+              "path": "images/organizers/lien.jpg",
+              "in_repo": true,
+              "size": 70723
+            }
+          },
+          {
+            "id": "tu",
+            "resolved": true,
+            "name": "Nguyễn Ngọc Minh Tú",
+            "aff": "Minerva Schools at KGI, Class of 2020",
+            "img": {
+              "path": "images/organizers/tu.jpg",
+              "in_repo": true,
+              "size": 18340
+            }
+          },
+          {
+            "id": "tuananh",
+            "resolved": true,
+            "name": "Phạm Nguyễn Tuấn Anh",
+            "aff": "​Nanyang Technological University, Singapore",
+            "img": {
+              "path": "images/organizers/tuananh.jpg",
+              "in_repo": true,
+              "size": 117177
+            },
+            "text_flags": [
+              "aff:zero-width-space"
+            ]
+          }
+        ]
+      }
+    ],
+    "carry_over": false
+  },
+  "rendering": {
+    "banner": "summer_camp_banner.html on every page: banners.yaml title (h1), subtitle (h2, italic), desc (p, only 2018), img at 50% opacity",
+    "html_title": "<page title> - PiMA 2016; the index has no title, so 'PiMA 2016'",
+    "page_heading": "post layout prints front matter `title` as h2 (Lectures and Projects, Student Papers, Gallery, Organizing Team)",
+    "lectures_page": "fixed h3 headings 'Lectures' and 'Projects'; per lecture: title (h3, raw HTML), one li per author '<strong>name</strong>, aff' (info and img not shown; unresolved id prints 'Cannot find field <id> in organizers.yaml'), a 'Link' button: relative href prefixed with site.url, empty href gives a disabled button to the site root; per project: title, desc, 'Link' button with href as is",
+    "student_papers_page": "per paper: title (h3), one li per author '<strong>name</strong>, school', a 'Link' button",
+    "gallery_page": "per section: h2 section-name, 3-column table of images; lightbox caption is 'section-name<br>caption' (no gallery-page image has a caption)",
+    "index_page": "per section: h2 title, p description, image, 'Learn More' button to href (relative to the year folder); then, unless disabled, a Gallery block with title, description, 'Learn More' and the preview images with captions",
+    "front_matter_text": "Liquid outputs front matter strings raw: <br> renders as a line break, '<' in text stays literal; no Markdown processing"
+  },
+  "files": {
+    "pdf_dir": {
+      "count": 14,
+      "bytes": 18027621,
+      "by_ext": {
+        ".pdf": 14
+      },
+      "unreferenced": []
+    },
+    "referenced_repo_files": {
+      "count": 14,
+      "bytes": 18027621,
+      "missing": [],
+      "outside_this_year": []
+    },
+    "google_drive_links": 0,
+    "images_dir": {
+      "count": 121,
+      "bytes": 25280253,
+      "unreferenced": [
+        {
+          "path": "images/2016/images.txt",
+          "in_repo": true,
+          "size": 1389
+        },
+        {
+          "path": "images/2016/img3-2.jpg",
+          "in_repo": true,
+          "size": 188196
+        },
+        {
+          "path": "images/2016/img3-6.jpg",
+          "in_repo": true,
+          "size": 275971
+        },
+        {
+          "path": "images/2016/img5-10.jpg",
+          "in_repo": true,
+          "size": 211331
+        },
+        {
+          "path": "images/2016/img5-11.jpg",
+          "in_repo": true,
+          "size": 184656
+        },
+        {
+          "path": "images/2016/img7-1.jpg",
+          "in_repo": true,
+          "size": 195374
+        },
+        {
+          "path": "images/2016/img7-3.jpg",
+          "in_repo": true,
+          "size": 215912
+        }
+      ]
+    },
+    "referenced_images": {
+      "count": 114,
+      "bytes": 24007424,
+      "missing": []
+    }
+  }
+}

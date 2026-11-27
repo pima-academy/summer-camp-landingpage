@@ -1,0 +1,502 @@
+{
+  "year": 2023,
+  "source": {
+    "repo": "pimavn/pimavn.github.io",
+    "branch": "master",
+    "commit": "2b1a1fa2a62254e46ad8eba9c9fe7f8c6f733076",
+    "pages": {
+      "index": "summer_camps/2023/index.html",
+      "lectures_and_projects": "summer_camps/2023/lectures_and_projects.html",
+      "student_papers": "summer_camps/2023/student_papers.html",
+      "organizing_team": "summer_camps/2023/organizing_team.html"
+    }
+  },
+  "notes": [
+    "Projects carry no authors in the front matter or layout.",
+    "No gallery page: summer_camps/2023/gallery.html does not exist; the index disables the gallery section."
+  ],
+  "banner": {
+    "title": "PiMA Virtual Summer Camp 2023",
+    "subtitle": "The Mathematics of Bioinformatics",
+    "img": {
+      "path": "images/2023/banner.jpg",
+      "in_repo": true,
+      "size": 34208940
+    }
+  },
+  "index": {
+    "layout": "index-year",
+    "sections": [
+      {
+        "title": "Student Papers",
+        "description": "Khi tham gia PiMA, các trại sinh sẽ được chia thành nhóm 4 người. Học sinh sẽ vận dụng các mô hình đã học để làm một đề án nhóm của riêng mình dưới sự hỗ trợ của các mentor. Ở ngày tổng kết –  ngày cuối cùng của trại hè, từng thành viên trong nhóm sẽ thuyết trình về project của nhóm mình trước tất cả những trại sinh và mentor khác của trại.",
+        "img": {
+          "path": "images/2023/student_papers.jpg",
+          "in_repo": true,
+          "size": 1257766
+        },
+        "href": "student_papers",
+        "learn_more_opens": "https://pimavn.github.io/summer_camps/2023/student_papers"
+      },
+      {
+        "title": "Lectures and Projects",
+        "description": "Tổng hợp những file bài giảng và tài liệu được phát và giảng dạy cho trại sinh trong thời gian diễn ra trại hè, được biên soạn và trình bày bởi các thành viên trong Ban tổ chức của PiMA. Trại sinh sẽ được cung cấp một số kiến thức toán nền tảng và kĩ năng cần thiết như làm việc nhóm, thuyết trình, đọc hiểu tài liệu học thuật…",
+        "img": {
+          "path": "images/2023/lectures_and_projects.jpg",
+          "in_repo": true,
+          "size": 1215478
+        },
+        "href": "lectures_and_projects",
+        "learn_more_opens": "https://pimavn.github.io/summer_camps/2023/lectures_and_projects"
+      }
+    ],
+    "gallery_section": {
+      "disabled": true
+    }
+  },
+  "lectures": [
+    {
+      "title": "Xác suất Thống kê",
+      "title_plain": "Xác suất Thống kê",
+      "authors": [
+        {
+          "id": "danh",
+          "resolved": true,
+          "name": "Trần Phan Anh Danh",
+          "aff": "Nanyang Technological University, Singapore"
+        },
+        {
+          "id": "huyen",
+          "resolved": true,
+          "name": "Võ Thục Khánh Huyền",
+          "aff": "Max Planck Institute for Informatics, Germany"
+        },
+        {
+          "id": "theanh_2",
+          "resolved": true,
+          "name": "Vũ Lê Thế Anh",
+          "aff": "University of Illinois Urbana-Champaign, USA"
+        }
+      ],
+      "file": {
+        "kind": "google-drive",
+        "url": "https://drive.google.com/drive/folders/1c4Dl98LWcCI-j7De6xUZqu9pr5vr1emz",
+        "size": null,
+        "http_check": {
+          "checked": "2026-11-27",
+          "http_status": 200,
+          "public": true,
+          "drive_title": "Xác suất Thống kê",
+          "folder_files_seen": [
+            "PiMA_2023_XSTK_BienNgauNhien_PhanPhoi.pdf",
+            "PiMA_2023_XSTK_UocLuongThamSo.pdf",
+            "PiMA_2023_XSTK_XacSuatCoBan.pdf",
+            "PiMA_2023_XSTK_XacSuatCoDieuKien.pdf"
+          ],
+          "note": "names parsed from the public folder page; sizes not exposed there"
+        }
+      }
+    },
+    {
+      "title": "Đại số tuyến tính",
+      "title_plain": "Đại số tuyến tính",
+      "authors": [
+        {
+          "id": "nghia",
+          "resolved": true,
+          "name": "Nguyễn Trung Nghĩa",
+          "aff": "VNUHCM University of Science, Vietnam"
+        }
+      ],
+      "file": {
+        "kind": "google-drive",
+        "url": "https://drive.google.com/drive/folders/1RUhnton8D6dHRsuXqKql6M9yzC9azWe7",
+        "size": null,
+        "http_check": {
+          "checked": "2026-11-27",
+          "http_status": 200,
+          "public": true,
+          "drive_title": "Đại số Tuyến tính",
+          "folder_files_seen": [
+            "PiMA_2023_DSTT_DaiSoTuyenTinhCoBan.pdf"
+          ],
+          "note": "names parsed from the public folder page; sizes not exposed there"
+        }
+      }
+    },
+    {
+      "title": "Cấu trúc Dữ liệu và Giải thuật",
+      "title_plain": "Cấu trúc Dữ liệu và Giải thuật",
+      "authors": [
+        {
+          "id": "toan",
+          "resolved": true,
+          "name": "Vòng Vĩnh Toàn",
+          "aff": "VNUHCM University of Science, Vietnam"
+        },
+        {
+          "id": "tu_2",
+          "resolved": true,
+          "name": "Nguyễn Minh Tú",
+          "aff": "VNUHCM University of Science, Vietnam"
+        }
+      ],
+      "file": {
+        "kind": "google-drive",
+        "url": "https://drive.google.com/drive/folders/1x2y40WrVAOSHQy-UbezBqOajVPHWW7zN",
+        "size": null,
+        "http_check": {
+          "checked": "2026-11-27",
+          "http_status": 200,
+          "public": true,
+          "drive_title": "Cấu trúc Dữ liệu và Giải thuật",
+          "folder_files_seen": [
+            "PiMA_2023_CTDLGT_LyThuyetDoThi.pdf",
+            "PiMA_2023_CTDLGT_QuyHoachDong.pdf"
+          ],
+          "note": "names parsed from the public folder page; sizes not exposed there"
+        }
+      }
+    },
+    {
+      "title": "Tin Sinh học (Khách mời)",
+      "title_plain": "Tin Sinh học (Khách mời)",
+      "authors": [
+        {
+          "id": "hy",
+          "resolved": true,
+          "name": "Vương Hy",
+          "aff": "BioTuring"
+        },
+        {
+          "id": "lthien",
+          "resolved": true,
+          "name": "Lê Thiện",
+          "aff": "Massachusetts Institute of Technology, USA"
+        }
+      ],
+      "file": {
+        "kind": "google-drive",
+        "url": "https://drive.google.com/drive/folders/1gLe2AsaVb1dq5y-EdGpVjEZDWwoTIvOB",
+        "size": null,
+        "http_check": {
+          "checked": "2026-11-27",
+          "http_status": 200,
+          "public": true,
+          "drive_title": "Tin Sinh học (Khách mời)",
+          "folder_files_seen": [
+            "PiMA_2023_TinSinh_NghienCuuDonTeBao.pdf",
+            "PiMA_2023_TinSinh_PhatSinhChungLoai.pdf"
+          ],
+          "note": "names parsed from the public folder page; sizes not exposed there"
+        }
+      }
+    }
+  ],
+  "projects": [
+    {
+      "title": "Bulk RNASeq <br/> Quantification",
+      "title_plain": "Bulk RNASeq Quantification",
+      "desc": "Dự án này nhằm mục đích ước tính mức của các loại protein bằng cách định lượng lượng mRNA của từng loại transcript.",
+      "authors": null,
+      "file": {
+        "kind": "google-drive",
+        "url": "https://drive.google.com/file/d/1xxaTkkO8GGH7qqFKqrWvXwo0by-rHCXy/",
+        "size": null,
+        "http_check": {
+          "checked": "2026-11-27",
+          "http_status": 200,
+          "public": true,
+          "drive_title": "PiMA_2023_DuAn_MoTa_BulkRNASeqQuantification.pdf"
+        }
+      },
+      "text_flags": [
+        "html-br"
+      ]
+    },
+    {
+      "title": "Rarefaction",
+      "title_plain": "Rarefaction",
+      "desc": "Dự án này nhằm mục đích ước tính số lượng loại tế bào T trong cá thế dựa dữ liệu quan sát được.",
+      "authors": null,
+      "file": {
+        "kind": "google-drive",
+        "url": "https://drive.google.com/file/d/1n_sPGycdOCEyJWzN6O4lK22z7Bc_PstE/",
+        "size": null,
+        "http_check": {
+          "checked": "2026-11-27",
+          "http_status": 200,
+          "public": true,
+          "drive_title": "PiMA_2023_DuAn_MoTa_Rarefaction.pdf"
+        }
+      }
+    },
+    {
+      "title": "De Novo Assembly",
+      "title_plain": "De Novo Assembly",
+      "desc": "Dự án này nhằm mục đích tái tạo genome gốc dựa vào các đoạn DNA ngắn.",
+      "authors": null,
+      "file": {
+        "kind": "google-drive",
+        "url": "https://drive.google.com/file/d/1lhLz6Ax4T86-8BQPXQt0LINGgC4vkQYK/",
+        "size": null,
+        "http_check": {
+          "checked": "2026-11-27",
+          "http_status": 200,
+          "public": true,
+          "drive_title": "PiMA_2023_DuAn_MoTa_DeNovoAssembly.pdf"
+        }
+      }
+    },
+    {
+      "title": "Sequence Alignment",
+      "title_plain": "Sequence Alignment",
+      "desc": "Dự án này nhằm mục đíhc tìm vị trí có khả năng cao nhất của một đoạn DNA trong một genome.",
+      "authors": null,
+      "file": {
+        "kind": "google-drive",
+        "url": "https://drive.google.com/file/d/17KYmZWyJg4qBWO_RYgwOT2KY5d69EabT/",
+        "size": null,
+        "http_check": {
+          "checked": "2026-11-27",
+          "http_status": 200,
+          "public": true,
+          "drive_title": "PiMA_2023_DuAn_MoTa_SequenceAlignment.pdf"
+        }
+      }
+    }
+  ],
+  "student_papers": [
+    {
+      "title": "Bulk RNASeq <br/> Quantification",
+      "title_plain": "Bulk RNASeq Quantification",
+      "authors": [
+        {
+          "name": "Võ Hoàng An",
+          "school": "THPT Chuyên Thái Nguyên, Thái Nguyên"
+        },
+        {
+          "name": "Nguyễn Yên Giang",
+          "school": "Phổ Thông Năng Khiếu, TPHCM"
+        },
+        {
+          "name": "Trần Nguyễn Thanh Danh",
+          "school": "Phổ Thông Năng Khiếu, TPHCM"
+        },
+        {
+          "name": "Nguyễn Thị Chi Mai",
+          "school": "THPT Chuyên Phan Bội Châu, Nghệ An"
+        }
+      ],
+      "file": {
+        "kind": "google-drive",
+        "url": "https://drive.google.com/drive/folders/1J_8GQoeF9ThxCEtkrPlrXG8Fi3K02jl0",
+        "size": null,
+        "http_check": {
+          "checked": "2026-11-27",
+          "http_status": 200,
+          "public": true,
+          "drive_title": "Bulk RNASeq Quantification",
+          "folder_files_seen": [
+            "PiMA_2023_DuAn_BaoCao_BulkRNASeqQuantification.pdf",
+            "PiMA_2023_DuAn_MoTa_BulkRNASeqQuantification.pdf",
+            "PiMA_2023_DuAn_Slide_BulkRNASeqQuantification.pdf"
+          ],
+          "note": "names parsed from the public folder page; sizes not exposed there"
+        }
+      },
+      "text_flags": [
+        "html-br"
+      ]
+    },
+    {
+      "title": "Rarefaction",
+      "title_plain": "Rarefaction",
+      "authors": [
+        {
+          "name": "Nguyễn Gia Bách",
+          "school": "THPT Chuyên Đại học Sư phạm Hà Nội, Hà Nội"
+        },
+        {
+          "name": "Tào Phương Hồng Ngọc",
+          "school": "Chelsea High School, Michigan, USA"
+        },
+        {
+          "name": "Phùng Minh Quân",
+          "school": "THPT Lê Thị Riêng, Bạc Liêu"
+        },
+        {
+          "name": "Đỗ Lê Tuyết Ly",
+          "school": "THPT Chuyên Lê Quý Đôn, Đà Nẵng"
+        }
+      ],
+      "file": {
+        "kind": "google-drive",
+        "url": "https://drive.google.com/drive/folders/1T5hkl6uq4BQP3y06Dg0pcVo73918YGf2",
+        "size": null,
+        "http_check": {
+          "checked": "2026-11-27",
+          "http_status": 200,
+          "public": true,
+          "drive_title": "Rarefaction",
+          "folder_files_seen": [
+            "PiMA_2023_DuAn_BaoCao_Rarefaction.pdf",
+            "PiMA_2023_DuAn_MoTa_Rarefaction.pdf",
+            "PiMA_2023_DuAn_Slide_Rarefaction.pdf"
+          ],
+          "note": "names parsed from the public folder page; sizes not exposed there"
+        }
+      }
+    },
+    {
+      "title": "De Novo Assembly",
+      "title_plain": "De Novo Assembly",
+      "authors": [
+        {
+          "name": "Đặng Hữu Quyền",
+          "school": "THPT Chuyên Lê Hồng Phong, Nam Định"
+        },
+        {
+          "name": "Trần Gia Hân",
+          "school": "Phổ Thông Năng Khiếu, TPHCM"
+        },
+        {
+          "name": "Hoàng Ngọc Dung",
+          "school": "THPT Chuyên Lê Quý Đôn, Khánh Hoà"
+        },
+        {
+          "name": "Nguyễn Ngọc Cảnh",
+          "school": "THPT Xuân Lộc, Đồng Nai"
+        }
+      ],
+      "file": {
+        "kind": "google-drive",
+        "url": "https://drive.google.com/drive/folders/1MxPOIGu39dPxSu_tB9R_Xm-x-cx4lrf0",
+        "size": null,
+        "http_check": {
+          "checked": "2026-11-27",
+          "http_status": 200,
+          "public": true,
+          "drive_title": "De Novo Assembly",
+          "folder_files_seen": [
+            "PiMA_2023_DuAn_BaoCao_DeNovoAssembly.pdf",
+            "PiMA_2023_DuAn_MoTa_DeNovoAssembly.pdf",
+            "PiMA_2023_DuAn_Slide_DeNovoAssembly.pdf"
+          ],
+          "note": "names parsed from the public folder page; sizes not exposed there"
+        }
+      }
+    },
+    {
+      "title": "Sequence Alignment",
+      "title_plain": "Sequence Alignment",
+      "authors": [
+        {
+          "name": "Nguyễn Hoàng Hưng",
+          "school": "THPT Bắc Giang, Bắc Giang"
+        },
+        {
+          "name": "Phạm Phúc Nguyên",
+          "school": "THPT Trần Văn Ơn, Bình Dương"
+        },
+        {
+          "name": "Đỗ Uyên",
+          "school": "Phổ Thông Năng Khiếu, TPHCM"
+        },
+        {
+          "name": "Phạm Thị Hoài Thu",
+          "school": "THPT Chuyên Lê Hồng Phong, Nam Định"
+        }
+      ],
+      "file": {
+        "kind": "google-drive",
+        "url": "https://drive.google.com/drive/folders/11YvgO1Ee2BCLiJ0pX0xnK9QRBDa9UMkg",
+        "size": null,
+        "http_check": {
+          "checked": "2026-11-27",
+          "http_status": 200,
+          "public": true,
+          "drive_title": "Sequence Alignment",
+          "folder_files_seen": [
+            "PiMA_2023_DuAn_BaoCao_SequenceAlignment.pdf",
+            "PiMA_2023_DuAn_MoTa_SequenceAlignment.pdf",
+            "PiMA_2023_DuAn_Slide_SequenceAlignment.pdf"
+          ],
+          "note": "names parsed from the public folder page; sizes not exposed there"
+        }
+      }
+    }
+  ],
+  "gallery": null,
+  "organizing_team": {
+    "front_matter_year": 2023,
+    "teams": [
+      {
+        "team_name": "Ban nội dung",
+        "members": [
+          {
+            "id": "theanh",
+            "resolved": true,
+            "name": "Vũ Lê Thế Anh",
+            "aff": "VNUHCM University of Science, Vietnam",
+            "img": {
+              "path": "images/organizers/theanh.jpg",
+              "in_repo": true,
+              "size": 106018
+            }
+          },
+          {
+            "id": "nghia",
+            "resolved": true,
+            "name": "Nguyễn Trung Nghĩa",
+            "aff": "VNUHCM University of Science, Vietnam"
+          }
+        ]
+      },
+      {
+        "team_name": "Ban truyền thông",
+        "members": []
+      },
+      {
+        "team_name": "Ban hậu cần",
+        "members": []
+      }
+    ],
+    "carry_over": false
+  },
+  "rendering": {
+    "banner": "summer_camp_banner.html on every page: banners.yaml title (h1), subtitle (h2, italic), desc (p, only 2018), img at 50% opacity",
+    "html_title": "<page title> - PiMA 2023; the index has no title, so 'PiMA 2023'",
+    "page_heading": "post layout prints front matter `title` as h2 (Lectures and Projects, Student Papers, Gallery, Organizing Team)",
+    "lectures_page": "fixed h3 headings 'Lectures' and 'Projects'; per lecture: title (h3, raw HTML), one li per author '<strong>name</strong>, aff' (info and img not shown; unresolved id prints 'Cannot find field <id> in organizers.yaml'), a 'Link' button: relative href prefixed with site.url, empty href gives a disabled button to the site root; per project: title, desc, 'Link' button with href as is",
+    "student_papers_page": "per paper: title (h3), one li per author '<strong>name</strong>, school', a 'Link' button",
+    "gallery_page": "per section: h2 section-name, 3-column table of images; lightbox caption is 'section-name<br>caption' (no gallery-page image has a caption)",
+    "index_page": "per section: h2 title, p description, image, 'Learn More' button to href (relative to the year folder); then, unless disabled, a Gallery block with title, description, 'Learn More' and the preview images with captions",
+    "front_matter_text": "Liquid outputs front matter strings raw: <br> renders as a line break, '<' in text stays literal; no Markdown processing"
+  },
+  "files": {
+    "pdf_dir": {
+      "count": 0,
+      "bytes": 0,
+      "by_ext": {},
+      "unreferenced": []
+    },
+    "referenced_repo_files": {
+      "count": 0,
+      "bytes": 0,
+      "missing": [],
+      "outside_this_year": []
+    },
+    "google_drive_links": 12,
+    "images_dir": {
+      "count": 3,
+      "bytes": 36682184,
+      "unreferenced": []
+    },
+    "referenced_images": {
+      "count": 3,
+      "bytes": 36682184,
+      "missing": []
+    }
+  }
+}

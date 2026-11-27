@@ -1,0 +1,1358 @@
+{
+  "year": 2017,
+  "source": {
+    "repo": "pimavn/pimavn.github.io",
+    "branch": "master",
+    "commit": "2b1a1fa2a62254e46ad8eba9c9fe7f8c6f733076",
+    "pages": {
+      "index": "summer_camps/2017/index.html",
+      "lectures_and_projects": "summer_camps/2017/lectures_and_projects.html",
+      "student_papers": "summer_camps/2017/student_papers.html",
+      "gallery": "summer_camps/2017/gallery.html",
+      "organizing_team": "summer_camps/2017/organizing_team.html"
+    }
+  },
+  "notes": [
+    "Projects carry no authors in the front matter or layout."
+  ],
+  "banner": {
+    "title": "PiMA Summer Camp 2017",
+    "subtitle": "Mathematical and Multidisciplinary Models",
+    "img": {
+      "path": "images/2017/img8-23.jpg",
+      "in_repo": true,
+      "size": 155541
+    }
+  },
+  "index": {
+    "layout": "index-year",
+    "sections": [
+      {
+        "title": "Student Papers",
+        "description": "Khi tham gia PiMA, các trại sinh sẽ được chia thành nhóm từ 3 đến 4 người. Học sinh sẽ vận dụng các mô hình đã học để làm một đề án nhóm của riêng mình dưới sự hỗ trợ của các mentor. Ở ngày tổng kết –  ngày cuối cùng của trại hè, từng thành viên trong nhóm sẽ thuyết trình về project của nhóm mình trước tất cả những trại sinh và mentor khác của trại.",
+        "img": {
+          "path": "images/2017/img8-19.jpg",
+          "in_repo": true,
+          "size": 94497
+        },
+        "href": "student_papers",
+        "learn_more_opens": "https://pimavn.github.io/summer_camps/2017/student_papers"
+      },
+      {
+        "title": "Lectures and Projects",
+        "description": "Tổng hợp những file bài giảng và tài liệu được phát và giảng dạy cho trại sinh trong thời gian diễn ra trại hè, được biên soạn và trình bày bởi các thành viên trong Ban tổ chức của PiMA. Trại sinh sẽ được cung cấp một số kiến thức toán nền tảng và kĩ năng cần thiết như làm việc nhóm, thuyết trình, đọc hiểu tài liệu học thuật,...",
+        "img": {
+          "path": "images/2017/img3-18.jpg",
+          "in_repo": true,
+          "size": 120039
+        },
+        "href": "lectures_and_projects",
+        "learn_more_opens": "https://pimavn.github.io/summer_camps/2017/lectures_and_projects"
+      },
+      {
+        "title": "Organizing Team",
+        "description": "Giới thiệu về các thành viên trong Ban tổ chức của PiMA, gồm các Ban Truyền thông, Ban Nội dung và Ban Hậu cần.",
+        "img": {
+          "path": "images/2017/img9-13.jpg",
+          "in_repo": true,
+          "size": 140558
+        },
+        "href": "organizing_team",
+        "learn_more_opens": "https://pimavn.github.io/summer_camps/2017/organizing_team"
+      }
+    ],
+    "gallery_section": {
+      "disabled": false,
+      "title": "Gallery",
+      "description": "Tổng hợp những tấm ảnh ghi lại những khoảnh khắc của trại hè xuyên suốt thời gian diễn ra trại. Ngoài thời gian tập trung vào các bài học trên lớp và việc hoàn thành project, PiMA còn rất nhiều khoảnh khắc đáng nhớ khác. Đó là những buổi giao lưu cùng các du học sinh, sinh viên, diễn giả chuyên ngành Toán và Tin học, và đặc biệt là những buổi trò chuyện, gắn kết giữa mọi người trong PiMA.",
+      "href": "gallery",
+      "learn_more_opens": "https://pimavn.github.io/summer_camps/2017/gallery"
+    },
+    "gallery_preview": [
+      {
+        "img": {
+          "path": "images/2017/img2-2.jpg",
+          "in_repo": true,
+          "size": 151959
+        },
+        "caption": "Giáo sư Võ Văn Tới, trưởng khoa Y Sinh Đại học Quốc tế, giới thiệu các phòng lab ở trường cho các học sinh PiMA"
+      },
+      {
+        "img": {
+          "path": "images/2017/img3-22.jpg",
+          "in_repo": true,
+          "size": 118012
+        },
+        "caption": "Lớp học lập trình Python căn bản"
+      },
+      {
+        "img": {
+          "path": "images/2017/img6-3.jpg",
+          "in_repo": true,
+          "size": 141208
+        },
+        "caption": "Các bạn học sinh tham gia giải mật thư trong Trò chơi Lớn"
+      },
+      {
+        "img": {
+          "path": "images/2017/img8-20.jpg",
+          "in_repo": true,
+          "size": 87585
+        },
+        "caption": "Buổi thuyết trình cuối trại của các bạn học sinh"
+      }
+    ]
+  },
+  "lectures": [
+    {
+      "title": "Đại số tuyến tính",
+      "title_plain": "Đại số tuyến tính",
+      "authors": [
+        {
+          "id": "khang",
+          "resolved": true,
+          "name": "Nguyễn Vĩnh Khang",
+          "aff": "Liberty University, USA",
+          "img": {
+            "path": "images/organizers/khang.jpeg",
+            "in_repo": true,
+            "size": 9525
+          }
+        }
+      ],
+      "file": {
+        "path": "pdf/2017/lectures-and-projects/daisotuyentinh-khang.pdf",
+        "in_repo": true,
+        "size": 377446,
+        "kind": "repo",
+        "rendered_url": "https://pimavn.github.io/pdf/2017/lectures-and-projects/daisotuyentinh-khang.pdf"
+      }
+    },
+    {
+      "title": "Đồ thị",
+      "title_plain": "Đồ thị",
+      "authors": [
+        {
+          "id": "hoang",
+          "resolved": false,
+          "rendered": "Cannot find field hoang in organizers.yaml",
+          "likely_id": "minhhoang",
+          "likely_name": "Phan Minh Hoàng",
+          "likely_reason": "organizer 'minhhoang' uses photo images/organizers/hoang.jpg; the lecture file name also carries the name"
+        }
+      ],
+      "file": {
+        "path": "pdf/2017/lectures-and-projects/dothithuattoan-minhhoang.pdf",
+        "in_repo": true,
+        "size": 1045303,
+        "kind": "repo",
+        "rendered_url": "https://pimavn.github.io/pdf/2017/lectures-and-projects/dothithuattoan-minhhoang.pdf"
+      }
+    },
+    {
+      "title": "Giải tích một và nhiều biến",
+      "title_plain": "Giải tích một và nhiều biến",
+      "authors": [
+        {
+          "id": "tai",
+          "resolved": true,
+          "name": "Vũ Đức Tài",
+          "aff": "​Hanoi University of Science",
+          "img": {
+            "path": "images/organizers/tai.jpg",
+            "in_repo": true,
+            "size": 76365
+          },
+          "text_flags": [
+            "aff:zero-width-space"
+          ]
+        }
+      ],
+      "file": {
+        "path": "pdf/2017/lectures-and-projects/giaitich-tai.pdf",
+        "in_repo": true,
+        "size": 1158627,
+        "kind": "repo",
+        "rendered_url": "https://pimavn.github.io/pdf/2017/lectures-and-projects/giaitich-tai.pdf"
+      }
+    },
+    {
+      "title": "Phương trình vi phân",
+      "title_plain": "Phương trình vi phân",
+      "authors": [
+        {
+          "id": "theanh",
+          "resolved": true,
+          "name": "Vũ Lê Thế Anh",
+          "aff": "VNUHCM University of Science, Vietnam",
+          "img": {
+            "path": "images/organizers/theanh.jpg",
+            "in_repo": true,
+            "size": 106018
+          }
+        }
+      ],
+      "file": {
+        "path": "pdf/2017/lectures-and-projects/phuongtrinhviphan-theanh.pdf",
+        "in_repo": true,
+        "size": 961606,
+        "kind": "repo",
+        "rendered_url": "https://pimavn.github.io/pdf/2017/lectures-and-projects/phuongtrinhviphan-theanh.pdf"
+      }
+    },
+    {
+      "title": "Giới thiệu về toán mô hình",
+      "title_plain": "Giới thiệu về toán mô hình",
+      "authors": [
+        {
+          "id": "trung",
+          "resolved": true,
+          "name": "Cấn Trần Thành Trung",
+          "aff": "Caltech",
+          "info": "PhD Student",
+          "img": {
+            "path": "images/organizers/trung.jpg",
+            "in_repo": true,
+            "size": 7437
+          }
+        }
+      ],
+      "file": {
+        "path": "pdf/2017/lectures-and-projects/toanmohinh-trung.pdf",
+        "in_repo": true,
+        "size": 2658796,
+        "kind": "repo",
+        "rendered_url": "https://pimavn.github.io/pdf/2017/lectures-and-projects/toanmohinh-trung.pdf"
+      }
+    },
+    {
+      "title": "Xác suất thống kê",
+      "title_plain": "Xác suất thống kê",
+      "authors": [
+        {
+          "id": "manh",
+          "resolved": true,
+          "name": "Phạm Nguyễn Mạnh",
+          "aff": "Minerva Schools at KGI, USA",
+          "img": {
+            "path": "images/organizers/manh.jpg",
+            "in_repo": true,
+            "size": 13257
+          }
+        }
+      ],
+      "file": {
+        "path": "pdf/2017/lectures-and-projects/xacsuat-manh.pdf",
+        "in_repo": true,
+        "size": 1131686,
+        "kind": "repo",
+        "rendered_url": "https://pimavn.github.io/pdf/2017/lectures-and-projects/xacsuat-manh.pdf"
+      }
+    },
+    {
+      "title": "Tối ưu hóa",
+      "title_plain": "Tối ưu hóa",
+      "authors": [
+        {
+          "id": "nhat",
+          "resolved": true,
+          "name": "Phạm Hoàng Nhật",
+          "aff": "University of Washington"
+        }
+      ],
+      "file": {
+        "kind": "none",
+        "href": null,
+        "rendered": "disabled button (no link)"
+      }
+    },
+    {
+      "title": "Lý thuyết trò chơi",
+      "title_plain": "Lý thuyết trò chơi",
+      "authors": [
+        {
+          "id": "maianh",
+          "resolved": true,
+          "name": "Nguyễn Thị Mai Anh",
+          "aff": "Massachusetts Institute of Technology, USA"
+        }
+      ],
+      "file": {
+        "path": "pdf/2017/lectures-and-projects/lythuyettrochoi-maianh.pdf",
+        "in_repo": true,
+        "size": 404589,
+        "kind": "repo",
+        "rendered_url": "https://pimavn.github.io/pdf/2017/lectures-and-projects/lythuyettrochoi-maianh.pdf"
+      }
+    },
+    {
+      "title": "Giới thiệu về Python",
+      "title_plain": "Giới thiệu về Python",
+      "authors": [
+        {
+          "id": "thien",
+          "resolved": true,
+          "name": "Hoàng Văn Thiên",
+          "aff": "Vietnamese-German University - Frankfurt UAS",
+          "info": "Bachelor of Computer Science",
+          "img": {
+            "path": "images/organizers/thien.jpg",
+            "in_repo": true,
+            "size": 898528
+          }
+        }
+      ],
+      "file": {
+        "kind": "external",
+        "url": "https://github.com/hoangvanthien/Python-workshop-PiMA-2017",
+        "size": null
+      }
+    }
+  ],
+  "projects": [
+    {
+      "title": "Đánh giá thiết bị y sinh",
+      "title_plain": "Đánh giá thiết bị y sinh",
+      "desc": "Ở Việt Nam, thiết bị y sinh có tiềm năng rất lớn để phát triển và đầu tư và khoa Kỹ thuật y sinh của đại học Quốc Tế là một trong những đơn vị tiên phong trong lĩnh vực này. Tuy nhiên, quá trình hoàn thiện thiết kế và thử nghiệm kéo dài và rất tốn kém cả về thời gian lẫn kinh phí. Do đó, cần có những mô hình Toán học có thể đánh giá và giúp cho việc đưa ra quyết định tạm ngưng hay tiếp tục hoàn thiện sản phẩm để đưa vào sử dụng, với hai yếu tố quyết định là hiệu quả sử dụng và kinh phí đầu tư.",
+      "authors": null,
+      "file": {
+        "path": "pdf/2017/lectures-and-projects/danhgiathietbiysinh.pdf",
+        "in_repo": true,
+        "size": 298320,
+        "kind": "repo",
+        "rendered_url": "/pdf/2017/lectures-and-projects/danhgiathietbiysinh.pdf"
+      }
+    },
+    {
+      "title": "Nước thải ô nhiễm trên sông",
+      "title_plain": "Nước thải ô nhiễm trên sông",
+      "desc": "Những năm qua, sự cẩu thả và vô trách nhiệm trong khâu xử lý nước thải độc hại trước khi xả ra sông/biển từ các nhà máy, như các vụ việc Vedan và Formosa, là một trong những nguyên nhân chính làm đầu độc nguồn nước và gây ô nhiễm, ảnh hưởng nghiêm trọng đến môi trường. Hãy sử dụng những mô hình Toán học để giúp bộ Tài Nguyên và Môi Trường về vấn đề này.",
+      "authors": null,
+      "file": {
+        "path": "pdf/2017/lectures-and-projects/onhiemtrensong.pdf",
+        "in_repo": true,
+        "size": 297889,
+        "kind": "repo",
+        "rendered_url": "/pdf/2017/lectures-and-projects/onhiemtrensong.pdf"
+      }
+    },
+    {
+      "title": "Số lượng xe buýt ở TP. HCM",
+      "title_plain": "Số lượng xe buýt ở TP. HCM",
+      "desc": "Ở TP. HCM, xe buýt đóng vai trò vô cùng quan trọng để phục vụ nhu cầu đi lại của người dân và ảnh hưởng trực tiếp đến hệ thống giao thông. Tuy nhiên, các đề án để xây dựng một hệ thống hoàn chỉnh vẫn còn nhiều điểm chưa hợp lý và cần cải thiện. Hãy xây dựng những mô hình Toán để giúp sở Giao Thông Vận Tải về vấn đề này.",
+      "authors": null,
+      "file": {
+        "path": "pdf/2017/lectures-and-projects/xebuyttphcm.pdf",
+        "in_repo": true,
+        "size": 298905,
+        "kind": "repo",
+        "rendered_url": "/pdf/2017/lectures-and-projects/xebuyttphcm.pdf"
+      }
+    }
+  ],
+  "student_papers": [
+    {
+      "title": "Phân tuyến xe buýt ở TP. HCM",
+      "title_plain": "Phân tuyến xe buýt ở TP. HCM",
+      "authors": [
+        {
+          "name": "Nguyễn Trường Hải",
+          "school": "Trường THPT Chuyên Trần Hưng Đạo, tỉnh Bình Thuận"
+        },
+        {
+          "name": "Tiêu Phát Đạt",
+          "school": "Trường Phổ thông Năng Khiếu, Đại học Quốc gia TP. HCM"
+        },
+        {
+          "name": "Phạm Thanh Ngọc",
+          "school": "Trường Quốc tế Anh - Việt, TP. HCM"
+        }
+      ],
+      "file": {
+        "path": "pdf/2017/student-papers/nhom_1.pdf",
+        "in_repo": true,
+        "size": 1840721,
+        "kind": "repo",
+        "rendered_url": "/pdf/2017/student-papers/nhom_1.pdf"
+      }
+    },
+    {
+      "title": "Đánh giá thiết bị y sinh",
+      "title_plain": "Đánh giá thiết bị y sinh",
+      "authors": [
+        {
+          "name": "Hồ Đắc Thanh Chương",
+          "school": "Trường THPT Chuyên Quốc học Huế"
+        },
+        {
+          "name": "Nguyễn Duy",
+          "school": "Trường THPT Chuyên Thái Bình, tỉnh Thái Bình"
+        },
+        {
+          "name": "Bùi Trần Thục Như",
+          "school": "Trường THPT Gia Định, TP. HCM"
+        },
+        {
+          "name": "Dương Đình Trọng",
+          "school": "Trường Phổ thông Năng khiếu, Đại học Quốc gia TP. HCM"
+        }
+      ],
+      "file": {
+        "path": "pdf/2017/student-papers/nhom_4.pdf",
+        "in_repo": true,
+        "size": 1024443,
+        "kind": "repo",
+        "rendered_url": "/pdf/2017/student-papers/nhom_4.pdf"
+      }
+    },
+    {
+      "title": "Số lượng xe buýt ở TP. HCM",
+      "title_plain": "Số lượng xe buýt ở TP. HCM",
+      "authors": [
+        {
+          "name": "Nguyễn Cao Nhật Long",
+          "school": "Trường THPT Chuyên Lê Hồng Phong, TP. HCM"
+        },
+        {
+          "name": "Nguyễn Trung Nghĩa",
+          "school": "Trường THPT Thực hành Sư phạm, TP. HCM"
+        },
+        {
+          "name": "Lâm Hữu Phúc",
+          "school": "Trường Phổ thông Năng khiếu, Đại học Quốc gia TP. HCM"
+        }
+      ],
+      "file": {
+        "path": "pdf/2017/student-papers/nhom_5.pdf",
+        "in_repo": true,
+        "size": 867337,
+        "kind": "repo",
+        "rendered_url": "/pdf/2017/student-papers/nhom_5.pdf"
+      }
+    },
+    {
+      "title": "Đánh giá thiết bị y sinh",
+      "title_plain": "Đánh giá thiết bị y sinh",
+      "authors": [
+        {
+          "name": "Trần Dương Việt Hoàng",
+          "school": "Trường Phổ thông Năng khiếu, Đại học Quốc gia TP. HCM"
+        },
+        {
+          "name": "Bùi Minh Kiệt",
+          "school": "Trường Phổ thông Năng khiếu, Đại học Quốc gia TP. HCM"
+        },
+        {
+          "name": "Hà Nhật Nam",
+          "school": "Trường THPT Gia Định, TP. HCM"
+        }
+      ],
+      "file": {
+        "path": "pdf/2017/student-papers/nhom_6.pdf",
+        "in_repo": true,
+        "size": 574237,
+        "kind": "repo",
+        "rendered_url": "/pdf/2017/student-papers/nhom_6.pdf"
+      }
+    },
+    {
+      "title": "Khảo sát ô nhiễm môi trường nước",
+      "title_plain": "Khảo sát ô nhiễm môi trường nước",
+      "authors": [
+        {
+          "name": "Nguyễn Tường Duy Bảo",
+          "school": "Trường THPT Chuyên Lê Quý Đôn, TP. Đà Nẵng"
+        },
+        {
+          "name": "Nguyễn Khánh Duy",
+          "school": "Trường THPT Nguyễn Hữu Cầu, TP. HCM"
+        },
+        {
+          "name": "Nguyễn Lý Nhật Quỳnh",
+          "school": "Trường Phổ thông Năng khiếu, Đại học Quốc gia TP. HCM"
+        }
+      ],
+      "file": {
+        "path": "pdf/2017/student-papers/nhom_2.pdf",
+        "in_repo": true,
+        "size": 434709,
+        "kind": "repo",
+        "rendered_url": "/pdf/2017/student-papers/nhom_2.pdf"
+      }
+    },
+    {
+      "title": "Đánh giá thiết bị y sinh",
+      "title_plain": "Đánh giá thiết bị y sinh",
+      "authors": [
+        {
+          "name": "Võ Minh Thiên Long",
+          "school": "Trường THPT Chuyên Lý Tự Trọng, TP. Cần Thơ"
+        },
+        {
+          "name": "Nguyễn Hưng Quang Khải",
+          "school": "Trường THPT Chuyên Lương Văn Chánh"
+        },
+        {
+          "name": "Nguyễn Hoàng Sơn",
+          "school": "Trường THPT Chuyên Đại học Sư Phạm"
+        }
+      ],
+      "file": {
+        "path": "pdf/2017/student-papers/nhom_3.pdf",
+        "in_repo": true,
+        "size": 1088170,
+        "kind": "repo",
+        "rendered_url": "/pdf/2017/student-papers/nhom_3.pdf"
+      }
+    }
+  ],
+  "gallery": {
+    "sections": [
+      {
+        "name": "Khai mạc",
+        "images": [
+          {
+            "path": "images/2017/img1-3.jpg",
+            "in_repo": true,
+            "size": 147830
+          },
+          {
+            "path": "images/2017/img1-4.jpg",
+            "in_repo": true,
+            "size": 125637
+          },
+          {
+            "path": "images/2017/img1-5.jpg",
+            "in_repo": true,
+            "size": 114103
+          }
+        ]
+      },
+      {
+        "name": "Tham quan trường Đại học Quốc tế",
+        "images": [
+          {
+            "path": "images/2017/img2-1.jpg",
+            "in_repo": true,
+            "size": 155312
+          },
+          {
+            "path": "images/2017/img2-2.jpg",
+            "in_repo": true,
+            "size": 151959
+          },
+          {
+            "path": "images/2017/img2-3.jpg",
+            "in_repo": true,
+            "size": 179324
+          },
+          {
+            "path": "images/2017/img2-4.jpg",
+            "in_repo": true,
+            "size": 162691
+          },
+          {
+            "path": "images/2017/img2-5.jpg",
+            "in_repo": true,
+            "size": 182630
+          },
+          {
+            "path": "images/2017/img2-6.jpg",
+            "in_repo": true,
+            "size": 151579
+          },
+          {
+            "path": "images/2017/img2-7.jpg",
+            "in_repo": true,
+            "size": 178046
+          }
+        ]
+      },
+      {
+        "name": "Bên trong lớp học",
+        "images": [
+          {
+            "path": "images/2017/img3-1.jpg",
+            "in_repo": true,
+            "size": 140544
+          },
+          {
+            "path": "images/2017/img3-10.jpg",
+            "in_repo": true,
+            "size": 59055
+          },
+          {
+            "path": "images/2017/img3-11.jpg",
+            "in_repo": true,
+            "size": 53043
+          },
+          {
+            "path": "images/2017/img3-12.jpg",
+            "in_repo": true,
+            "size": 39301
+          },
+          {
+            "path": "images/2017/img3-13.jpg",
+            "in_repo": true,
+            "size": 53555
+          },
+          {
+            "path": "images/2017/img3-14.jpg",
+            "in_repo": true,
+            "size": 57088
+          },
+          {
+            "path": "images/2017/img3-15.jpg",
+            "in_repo": true,
+            "size": 150766
+          },
+          {
+            "path": "images/2017/img3-16.jpg",
+            "in_repo": true,
+            "size": 169385
+          },
+          {
+            "path": "images/2017/img3-17.jpg",
+            "in_repo": true,
+            "size": 109903
+          },
+          {
+            "path": "images/2017/img3-18.jpg",
+            "in_repo": true,
+            "size": 120039
+          },
+          {
+            "path": "images/2017/img3-19.jpg",
+            "in_repo": true,
+            "size": 57967
+          },
+          {
+            "path": "images/2017/img3-2.jpg",
+            "in_repo": true,
+            "size": 190408
+          },
+          {
+            "path": "images/2017/img3-20.jpg",
+            "in_repo": true,
+            "size": 118542
+          },
+          {
+            "path": "images/2017/img3-21.jpg",
+            "in_repo": true,
+            "size": 137285
+          },
+          {
+            "path": "images/2017/img3-22.jpg",
+            "in_repo": true,
+            "size": 118012
+          },
+          {
+            "path": "images/2017/img3-23.jpg",
+            "in_repo": true,
+            "size": 166154
+          },
+          {
+            "path": "images/2017/img3-24.jpg",
+            "in_repo": true,
+            "size": 168648
+          },
+          {
+            "path": "images/2017/img3-3.jpg",
+            "in_repo": true,
+            "size": 58446
+          },
+          {
+            "path": "images/2017/img3-4.jpg",
+            "in_repo": true,
+            "size": 42021
+          },
+          {
+            "path": "images/2017/img3-5.jpg",
+            "in_repo": true,
+            "size": 32503
+          },
+          {
+            "path": "images/2017/img3-7.jpg",
+            "in_repo": true,
+            "size": 54708
+          },
+          {
+            "path": "images/2017/img3-8.jpg",
+            "in_repo": true,
+            "size": 53745
+          },
+          {
+            "path": "images/2017/img3-9.jpg",
+            "in_repo": true,
+            "size": 60480
+          }
+        ]
+      },
+      {
+        "name": "Buổi giao lưu với thầy Bùi Tá Long (Envim Lab)",
+        "images": [
+          {
+            "path": "images/2017/img4-1.jpg",
+            "in_repo": true,
+            "size": 117744
+          },
+          {
+            "path": "images/2017/img4-2.jpg",
+            "in_repo": true,
+            "size": 128765
+          },
+          {
+            "path": "images/2017/img4-3.jpg",
+            "in_repo": true,
+            "size": 117851
+          },
+          {
+            "path": "images/2017/img4-4.jpg",
+            "in_repo": true,
+            "size": 155419
+          },
+          {
+            "path": "images/2017/img4-5.jpg",
+            "in_repo": true,
+            "size": 178379
+          }
+        ]
+      },
+      {
+        "name": "Buổi giao lưu với chị Giang Thúy Minh (Vietname Journal of Science)",
+        "images": [
+          {
+            "path": "images/2017/img5-1.jpg",
+            "in_repo": true,
+            "size": 79260
+          },
+          {
+            "path": "images/2017/img5-2.jpg",
+            "in_repo": true,
+            "size": 83101
+          },
+          {
+            "path": "images/2017/img5-3.jpg",
+            "in_repo": true,
+            "size": 130669
+          },
+          {
+            "path": "images/2017/img5-4.jpg",
+            "in_repo": true,
+            "size": 120145
+          },
+          {
+            "path": "images/2017/img5-5.jpg",
+            "in_repo": true,
+            "size": 152007
+          },
+          {
+            "path": "images/2017/img5-6.jpg",
+            "in_repo": true,
+            "size": 158800
+          }
+        ]
+      },
+      {
+        "name": "Trò chơi lớn",
+        "images": [
+          {
+            "path": "images/2017/img6-1.jpg",
+            "in_repo": true,
+            "size": 189758
+          },
+          {
+            "path": "images/2017/img6-2.jpg",
+            "in_repo": true,
+            "size": 200040
+          },
+          {
+            "path": "images/2017/img6-3.jpg",
+            "in_repo": true,
+            "size": 141208
+          },
+          {
+            "path": "images/2017/img6-4.jpg",
+            "in_repo": true,
+            "size": 299286
+          },
+          {
+            "path": "images/2017/img6-5.jpg",
+            "in_repo": true,
+            "size": 262028
+          },
+          {
+            "path": "images/2017/img6-6.jpg",
+            "in_repo": true,
+            "size": 250741
+          }
+        ]
+      },
+      {
+        "name": "Làm việc với các dự án",
+        "images": [
+          {
+            "path": "images/2017/img7-1.jpg",
+            "in_repo": true,
+            "size": 105140
+          },
+          {
+            "path": "images/2017/img7-10.jpg",
+            "in_repo": true,
+            "size": 61714
+          },
+          {
+            "path": "images/2017/img7-11.jpg",
+            "in_repo": true,
+            "size": 61278
+          },
+          {
+            "path": "images/2017/img7-12.jpg",
+            "in_repo": true,
+            "size": 91166
+          },
+          {
+            "path": "images/2017/img7-2.jpg",
+            "in_repo": true,
+            "size": 67155
+          },
+          {
+            "path": "images/2017/img7-3.jpg",
+            "in_repo": true,
+            "size": 78207
+          },
+          {
+            "path": "images/2017/img7-4.jpg",
+            "in_repo": true,
+            "size": 83627
+          },
+          {
+            "path": "images/2017/img7-5.jpg",
+            "in_repo": true,
+            "size": 84827
+          },
+          {
+            "path": "images/2017/img7-6.jpg",
+            "in_repo": true,
+            "size": 79640
+          },
+          {
+            "path": "images/2017/img7-7.jpg",
+            "in_repo": true,
+            "size": 68358
+          },
+          {
+            "path": "images/2017/img7-8.jpg",
+            "in_repo": true,
+            "size": 61915
+          },
+          {
+            "path": "images/2017/img7-9.jpg",
+            "in_repo": true,
+            "size": 68132
+          }
+        ]
+      },
+      {
+        "name": "Buổi thuyết trình",
+        "images": [
+          {
+            "path": "images/2017/img8-1.jpg",
+            "in_repo": true,
+            "size": 107634
+          },
+          {
+            "path": "images/2017/img8-10.jpg",
+            "in_repo": true,
+            "size": 94845
+          },
+          {
+            "path": "images/2017/img8-11.jpg",
+            "in_repo": true,
+            "size": 100607
+          },
+          {
+            "path": "images/2017/img8-12.jpg",
+            "in_repo": true,
+            "size": 94528
+          },
+          {
+            "path": "images/2017/img8-13.jpg",
+            "in_repo": true,
+            "size": 109649
+          },
+          {
+            "path": "images/2017/img8-14.jpg",
+            "in_repo": true,
+            "size": 98598
+          },
+          {
+            "path": "images/2017/img8-15.jpg",
+            "in_repo": true,
+            "size": 99240
+          },
+          {
+            "path": "images/2017/img8-16.jpg",
+            "in_repo": true,
+            "size": 101257
+          },
+          {
+            "path": "images/2017/img8-17.jpg",
+            "in_repo": true,
+            "size": 98201
+          },
+          {
+            "path": "images/2017/img8-18.jpg",
+            "in_repo": true,
+            "size": 96087
+          },
+          {
+            "path": "images/2017/img8-19.jpg",
+            "in_repo": true,
+            "size": 94497
+          },
+          {
+            "path": "images/2017/img8-2.jpg",
+            "in_repo": true,
+            "size": 123283
+          },
+          {
+            "path": "images/2017/img8-20.jpg",
+            "in_repo": true,
+            "size": 87585
+          },
+          {
+            "path": "images/2017/img8-21.jpg",
+            "in_repo": true,
+            "size": 179248
+          },
+          {
+            "path": "images/2017/img8-22.jpg",
+            "in_repo": true,
+            "size": 110895
+          },
+          {
+            "path": "images/2017/img8-23.jpg",
+            "in_repo": true,
+            "size": 155541
+          },
+          {
+            "path": "images/2017/img8-24.jpg",
+            "in_repo": true,
+            "size": 177326
+          },
+          {
+            "path": "images/2017/img8-25.jpg",
+            "in_repo": true,
+            "size": 173648
+          },
+          {
+            "path": "images/2017/img8-3.jpg",
+            "in_repo": true,
+            "size": 115431
+          },
+          {
+            "path": "images/2017/img8-4.jpg",
+            "in_repo": true,
+            "size": 104941
+          },
+          {
+            "path": "images/2017/img8-5.jpg",
+            "in_repo": true,
+            "size": 128508
+          },
+          {
+            "path": "images/2017/img8-8.jpg",
+            "in_repo": true,
+            "size": 111696
+          },
+          {
+            "path": "images/2017/img8-9.jpg",
+            "in_repo": true,
+            "size": 113924
+          }
+        ]
+      },
+      {
+        "name": "Bế mạc chương trình",
+        "images": [
+          {
+            "path": "images/2017/img9-1.jpg",
+            "in_repo": true,
+            "size": 166527
+          },
+          {
+            "path": "images/2017/img9-2.jpg",
+            "in_repo": true,
+            "size": 164745
+          },
+          {
+            "path": "images/2017/img9-3.jpg",
+            "in_repo": true,
+            "size": 176998
+          },
+          {
+            "path": "images/2017/img9-4.jpg",
+            "in_repo": true,
+            "size": 172244
+          },
+          {
+            "path": "images/2017/img9-5.jpg",
+            "in_repo": true,
+            "size": 164913
+          },
+          {
+            "path": "images/2017/img9-6.jpg",
+            "in_repo": true,
+            "size": 167592
+          },
+          {
+            "path": "images/2017/img9-7.jpg",
+            "in_repo": true,
+            "size": 143337
+          },
+          {
+            "path": "images/2017/img9-8.jpg",
+            "in_repo": true,
+            "size": 128790
+          },
+          {
+            "path": "images/2017/img9-9.jpg",
+            "in_repo": true,
+            "size": 133979
+          },
+          {
+            "path": "images/2017/img9-10.jpg",
+            "in_repo": true,
+            "size": 114414
+          },
+          {
+            "path": "images/2017/img9-11.jpg",
+            "in_repo": true,
+            "size": 103768
+          },
+          {
+            "path": "images/2017/img9-12.jpg",
+            "in_repo": true,
+            "size": 120203
+          },
+          {
+            "path": "images/2017/img9-13.jpg",
+            "in_repo": true,
+            "size": 140558
+          },
+          {
+            "path": "images/2017/img9-14.jpg",
+            "in_repo": true,
+            "size": 108886
+          },
+          {
+            "path": "images/2017/img9-15.jpg",
+            "in_repo": true,
+            "size": 114628
+          },
+          {
+            "path": "images/2017/img9-16.jpg",
+            "in_repo": true,
+            "size": 163265
+          },
+          {
+            "path": "images/2017/img9-17.jpg",
+            "in_repo": true,
+            "size": 149159
+          },
+          {
+            "path": "images/2017/img9-18.jpg",
+            "in_repo": true,
+            "size": 145222
+          },
+          {
+            "path": "images/2017/img9-19.jpg",
+            "in_repo": true,
+            "size": 145077
+          },
+          {
+            "path": "images/2017/img9-20.jpg",
+            "in_repo": true,
+            "size": 103896
+          },
+          {
+            "path": "images/2017/img9-21.jpg",
+            "in_repo": true,
+            "size": 137912
+          },
+          {
+            "path": "images/2017/img9-22.jpg",
+            "in_repo": true,
+            "size": 127325
+          },
+          {
+            "path": "images/2017/img9-23.jpg",
+            "in_repo": true,
+            "size": 101264
+          },
+          {
+            "path": "images/2017/img9-24.jpg",
+            "in_repo": true,
+            "size": 171292
+          },
+          {
+            "path": "images/2017/img9-25.jpg",
+            "in_repo": true,
+            "size": 170723
+          },
+          {
+            "path": "images/2017/img9-26.jpg",
+            "in_repo": true,
+            "size": 119891
+          },
+          {
+            "path": "images/2017/img9-27.jpg",
+            "in_repo": true,
+            "size": 128330
+          },
+          {
+            "path": "images/2017/img9-28.jpg",
+            "in_repo": true,
+            "size": 174318
+          },
+          {
+            "path": "images/2017/img9-29.jpg",
+            "in_repo": true,
+            "size": 131693
+          },
+          {
+            "path": "images/2017/img9-30.jpg",
+            "in_repo": true,
+            "size": 175867
+          },
+          {
+            "path": "images/2017/img10-1.jpg",
+            "in_repo": true,
+            "size": 176453
+          }
+        ]
+      }
+    ]
+  },
+  "organizing_team": {
+    "front_matter_year": 2017,
+    "teams": [
+      {
+        "team_name": "Ban nội dung",
+        "members": [
+          {
+            "id": "linh",
+            "resolved": true,
+            "name": "Trần Hoàng Bảo Linh",
+            "aff": "National University of Singapore",
+            "img": {
+              "path": "images/organizers/linh.jpg",
+              "in_repo": true,
+              "size": 15562
+            }
+          },
+          {
+            "id": "thien",
+            "resolved": true,
+            "name": "Hoàng Văn Thiên",
+            "aff": "Vietnamese-German University - Frankfurt UAS",
+            "info": "Bachelor of Computer Science",
+            "img": {
+              "path": "images/organizers/thien.jpg",
+              "in_repo": true,
+              "size": 898528
+            }
+          },
+          {
+            "id": "trung",
+            "resolved": true,
+            "name": "Cấn Trần Thành Trung",
+            "aff": "Caltech",
+            "info": "PhD Student",
+            "img": {
+              "path": "images/organizers/trung.jpg",
+              "in_repo": true,
+              "size": 7437
+            }
+          },
+          {
+            "id": "minhhoang",
+            "resolved": true,
+            "name": "Phan Minh Hoàng",
+            "aff": "University of Waterloo",
+            "img": {
+              "path": "images/organizers/hoang.jpg",
+              "in_repo": true,
+              "size": 18896
+            }
+          },
+          {
+            "id": "manh",
+            "resolved": true,
+            "name": "Phạm Nguyễn Mạnh",
+            "aff": "Minerva Schools at KGI, USA",
+            "img": {
+              "path": "images/organizers/manh.jpg",
+              "in_repo": true,
+              "size": 13257
+            }
+          },
+          {
+            "id": "khang",
+            "resolved": true,
+            "name": "Nguyễn Vĩnh Khang",
+            "aff": "Liberty University, USA",
+            "img": {
+              "path": "images/organizers/khang.jpeg",
+              "in_repo": true,
+              "size": 9525
+            }
+          },
+          {
+            "id": "theanh",
+            "resolved": true,
+            "name": "Vũ Lê Thế Anh",
+            "aff": "VNUHCM University of Science, Vietnam",
+            "img": {
+              "path": "images/organizers/theanh.jpg",
+              "in_repo": true,
+              "size": 106018
+            }
+          },
+          {
+            "id": "nhat",
+            "resolved": true,
+            "name": "Phạm Hoàng Nhật",
+            "aff": "University of Washington"
+          },
+          {
+            "id": "tai",
+            "resolved": true,
+            "name": "Vũ Đức Tài",
+            "aff": "​Hanoi University of Science",
+            "img": {
+              "path": "images/organizers/tai.jpg",
+              "in_repo": true,
+              "size": 76365
+            },
+            "text_flags": [
+              "aff:zero-width-space"
+            ]
+          }
+        ]
+      },
+      {
+        "team_name": "Ban hậu cần",
+        "members": [
+          {
+            "id": "phu",
+            "resolved": true,
+            "name": "Đỗ Hoàng Gia Phú",
+            "aff": "Pham Ngoc Thach University of Medical, Vietnam",
+            "img": {
+              "path": "images/organizers/phu.jpg",
+              "in_repo": true,
+              "size": 46253
+            }
+          },
+          {
+            "id": "huyhoang",
+            "resolved": true,
+            "name": "Nguyễn Huy Hoàng",
+            "aff": "Minerva Schools at KGI"
+          },
+          {
+            "id": "minh",
+            "resolved": true,
+            "name": "Lê Ngọc Minh",
+            "aff": "Union College, class of 2020",
+            "info": "B.S., Economics and Computer Science",
+            "img": {
+              "path": "images/organizers/minh.jpg",
+              "in_repo": true,
+              "size": 61696
+            }
+          }
+        ]
+      },
+      {
+        "team_name": "Ban truyền thông",
+        "members": [
+          {
+            "id": "tu",
+            "resolved": true,
+            "name": "Nguyễn Ngọc Minh Tú",
+            "aff": "Minerva Schools at KGI, Class of 2020",
+            "img": {
+              "path": "images/organizers/tu.jpg",
+              "in_repo": true,
+              "size": 18340
+            }
+          },
+          {
+            "id": "phuong",
+            "resolved": true,
+            "name": "Đinh Lâm Kiều Phương",
+            "aff": "VNUHCM University of Science, Vietnam"
+          },
+          {
+            "id": "tien",
+            "resolved": true,
+            "name": "Phan Ngọc Tiên",
+            "aff": "York University, Canada",
+            "img": {
+              "path": "images/organizers/tien.jpg",
+              "in_repo": true,
+              "size": 45586
+            }
+          }
+        ]
+      }
+    ],
+    "carry_over": false
+  },
+  "rendering": {
+    "banner": "summer_camp_banner.html on every page: banners.yaml title (h1), subtitle (h2, italic), desc (p, only 2018), img at 50% opacity",
+    "html_title": "<page title> - PiMA 2017; the index has no title, so 'PiMA 2017'",
+    "page_heading": "post layout prints front matter `title` as h2 (Lectures and Projects, Student Papers, Gallery, Organizing Team)",
+    "lectures_page": "fixed h3 headings 'Lectures' and 'Projects'; per lecture: title (h3, raw HTML), one li per author '<strong>name</strong>, aff' (info and img not shown; unresolved id prints 'Cannot find field <id> in organizers.yaml'), a 'Link' button: relative href prefixed with site.url, empty href gives a disabled button to the site root; per project: title, desc, 'Link' button with href as is",
+    "student_papers_page": "per paper: title (h3), one li per author '<strong>name</strong>, school', a 'Link' button",
+    "gallery_page": "per section: h2 section-name, 3-column table of images; lightbox caption is 'section-name<br>caption' (no gallery-page image has a caption)",
+    "index_page": "per section: h2 title, p description, image, 'Learn More' button to href (relative to the year folder); then, unless disabled, a Gallery block with title, description, 'Learn More' and the preview images with captions",
+    "front_matter_text": "Liquid outputs front matter strings raw: <br> renders as a line break, '<' in text stays literal; no Markdown processing"
+  },
+  "files": {
+    "pdf_dir": {
+      "count": 16,
+      "bytes": 14462784,
+      "by_ext": {
+        ".pdf": 16
+      },
+      "unreferenced": []
+    },
+    "referenced_repo_files": {
+      "count": 16,
+      "bytes": 14462784,
+      "missing": [],
+      "outside_this_year": []
+    },
+    "google_drive_links": 0,
+    "images_dir": {
+      "count": 117,
+      "bytes": 14558850,
+      "unreferenced": [
+        {
+          "path": "images/2017/images.txt",
+          "in_repo": true,
+          "size": 1343
+        }
+      ]
+    },
+    "referenced_images": {
+      "count": 116,
+      "bytes": 14557507,
+      "missing": []
+    }
+  }
+}
