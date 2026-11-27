@@ -6,7 +6,7 @@ import Kicker from "../../components/Kicker.astro";
 import Section from "../../components/Section.astro";
 ---
 
-<Section name="blog-header" spacing="none" tone="surface" animate>
+<Section name="blog-header" width="large" spacing="none" tone="surface" animate>
   <div class="inner">
     <div class="crumb">
       <Kicker flush><BrandName /> academy</Kicker>
@@ -16,7 +16,7 @@ import Section from "../../components/Section.astro";
 </Section>
 
 <style>
-  /* Room for the fixed nav above, as PageHeader. */
+  /* Room for the fixed nav above, as PageHeader; the large column lines up with PostGrid. */
   .inner {
     padding-top: var(--space-28);
     padding-bottom: var(--space-16);
