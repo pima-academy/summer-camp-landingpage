@@ -74,7 +74,8 @@ const camp: CampYear = {
             { name: "Lê Hoàng Mai Linh", school: "Trường THPT Bỉm Sơn" },
             { name: "Đoàn Nhật Anh", school: "Trường THPT Chuyên Hùng Vương" },
           ],
-          mentors: [],
+          // The report thanks "anh Lâm Hoàng và chị Ngọc Dung"; full names confirmed by the user.
+          mentors: [{ name: "Đào Lâm Hoàng" }, { name: "Hoàng Ngọc Dung" }],
           files: [pdf("1YRfDVwRerGf4t4dDTBSanmMFTIhzHxMv"), slide("17L48gue-Bw0CkWj3LJiFPoEC5bXlaO_h")],
         },
       ],
