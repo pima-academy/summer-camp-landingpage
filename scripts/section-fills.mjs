@@ -17,11 +17,15 @@ export const SECTION_FILLS = {
   "--color-background-empty-list": "dev-only empty-list box",
   // The header row of a blog post's Markdown table (PostBody): generated markup takes no data-tone.
   "--color-background-table-header": "table header row",
+  // A blog post's code blocks (PostBody): Shiki paints them through --astro-code-background.
+  "--color-background-code": "code block panel",
+  "--color-background-code-output": "code output panel",
   // The dot between the marquee's claims.
   "--color-marquee-separator": "marquee separator dot",
 };
 
-const BACKGROUND = /^background(-color)?$/;
+// Shiki's css-variables theme paints a code block with --astro-code-background, so setting it is a fill.
+const BACKGROUND = /^(background(-color)?|--astro-code-background)$/;
 
 /** The background declarations of a section file that are not an allowed fill, as messages. */
 export function sectionFillProblems(path, text) {

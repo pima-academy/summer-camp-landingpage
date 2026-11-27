@@ -57,6 +57,7 @@ Tóm tắt hiện dưới dạng chữ thường (định dạng bị bỏ, côn
 - Tiêu đề trong bài **bắt đầu từ `##`**, rồi `###`, `####`. Tiêu đề lớn `#` đã dành cho `title` của bài.
 - Đoạn văn cách nhau bằng một dòng trống.
 - Dùng được các cú pháp Markdown quen thuộc: **đậm** (`**…**`), *nghiêng* (`*…*`), danh sách (`-` hoặc `1.`), trích dẫn (`>`), bảng, link (`[chữ hiện ra](https://…)`), code (đặt giữa hai dòng ```` ``` ````, ghi tên ngôn ngữ ngay sau, ví dụ ```` ```python ````).
+- Code được tô màu theo ngôn ngữ ghi sau ```` ``` ````. Kết quả chạy code (output) đặt trong một khối ```` ```text ```` riêng ngay dưới khối code: khối này có nền trắng và viền mảnh, tách khỏi code phía trên. Dòng code dài cuộn ngang trong khung, không làm tràn trang trên điện thoại.
 
 ## 4. Ảnh
 
