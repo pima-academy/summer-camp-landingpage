@@ -32,7 +32,9 @@ const counts = {
   groups,
   campers,
 };
-// The cover photos: one, or one per campus (2025), which then take turns.
+// The cover photos: one, or one per campus (2025), which then take turns. `sizes` is 1600px,
+// not the frame's 1232px: on a tall viewport the frame crops the photo's sides, so the photo
+// is drawn wider than the frame. Quality 90: the sources are already lossy JPEGs.
 const slides: { image: ImageMetadata; campus?: string }[] = y.covers ?? (y.cover ? [{ image: y.cover }] : []);
 const slideOf = (campus?: string) => (slides.length > 1 ? slides.findIndex((c) => c.campus === campus) : -1);
 // A session's dates as a calendar block: "02–09" over "tháng 8 năm 2025" within one month,
@@ -61,7 +63,7 @@ const laterDocs: { title: string; items?: DocItem[] }[] = [
         <div class:list={["bc-photo", { "bc-rotating": slides.length > 1 }]} style={`--slides: ${slides.length}`}>
           {slides.map((c, i) => (
             <figure class="bc-slide" style={`--i: ${i}`} aria-hidden={i > 0 ? "true" : undefined}>
-              <Image src={c.image} alt={c.campus ? `Trại sinh và ban tổ chức Trại hè PiMA ${y.year} tại ${c.campus}` : `Trại sinh và ban tổ chức Trại hè PiMA ${y.year}`} widths={[800, 1200, 1600, 2000, 2880]} sizes="(max-width: 1440px) 86vw, 1200px" class="bc-img" loading="eager" />
+              <Image src={c.image} alt={c.campus ? `Trại sinh và ban tổ chức Trại hè PiMA ${y.year} tại ${c.campus}` : `Trại sinh và ban tổ chức Trại hè PiMA ${y.year}`} widths={[800, 1200, 1600, 2000, 2400, 2880]} sizes="(max-width: 991px) 92vw, 1600px" quality={90} class="bc-img" loading="eager" />
               {c.campus && <figcaption class="bc-tag">{c.campus}</figcaption>}
             </figure>
           ))}
