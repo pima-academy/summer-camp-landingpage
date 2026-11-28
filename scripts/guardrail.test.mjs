@@ -46,6 +46,9 @@ test("type, radius and shadow values must come through var(--…)", () => {
     "font-family: Arial, sans-serif",
     "font-size: calc(var(--font-size-body) * 2)",
     "font-size: max(var(--font-size-h1), 3rem)",
+    // min() and max() of tokens are for type only, never a radius or a shadow.
+    "border-radius: max(var(--radius), var(--radius-circle))",
+    "box-shadow: min(var(--shadow-card), var(--shadow-focus))",
   ]) {
     assert.deepEqual(check(bad), ["not-a-token"], bad);
   }
@@ -59,13 +62,13 @@ test("type, radius and shadow values must come through var(--…)", () => {
     "font: inherit",
     "font-family: var(--font-family-base)",
     "letter-spacing: var(--letter-spacing-kicker)",
-    // The larger (or smaller) of two tokens is still a token: display type never below the h1.
-    "font-size: max(var(--font-size-h1), var(--font-size-display-2))",
     "letter-spacing: 0",
     "letter-spacing: normal",
     // The larger (or smaller) of two tokens is still a token value: a display title never below h1.
     "font-size: max(var(--font-size-h1), var(--font-size-display-2))",
     "font-size: min(var(--font-size-h1), var(--font-size-display-2))",
+    "line-height: max(var(--line-height-h1), var(--line-height-display))",
+    "letter-spacing: min(var(--letter-spacing-heading), var(--letter-spacing-display))",
   ]) {
     assert.deepEqual(check(good), [], good);
   }
@@ -88,6 +91,9 @@ test("margins, paddings, gaps and offsets take a step of the spacing scale", () 
     "scroll-padding-top: 4.5rem",
     "padding-left: calc(5% + 4rem)",
     "margin-bottom: calc(var(--space-4) + 10px)",
+    // The larger of two steps is not a step of the scale.
+    "margin-top: max(var(--space-4), var(--space-8))",
+    "gap: min(var(--space-6), var(--space-12))",
   ]) {
     assert.deepEqual(check(bad), ["literal-spacing"], bad);
   }
