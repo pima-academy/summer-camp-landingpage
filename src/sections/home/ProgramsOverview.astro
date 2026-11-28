@@ -1,0 +1,165 @@
+---
+// ProgramsOverview: "Các chương trình của chúng tôi", PiMA's two programmes as twin white cards
+// on the surface tone: a photo on top, name, text, three activities, figures and a button to the
+// camp or the course page. Used by index only.
+// id="programs" is the target of the home hero's in-page "#programs" link.
+import { Image } from "astro:assets";
+import group2025 from "../../assets/camp-archive/2025/cover-tphcm.jpg";
+import blackboard from "../../assets/images/dan-cristian-padure-h3kuhyuce9a-unsplash.avif";
+import BrandName from "../../components/BrandName.astro";
+import Button from "../../components/Button.astro";
+import Kicker from "../../components/Kicker.astro";
+import Section from "../../components/Section.astro";
+import { fluidWidths } from "../../lib/image-widths";
+
+// The camp from report ch. 05.1, the course from /khoa-hoc/; figures as of October 2026.
+const programs = [
+  {
+    photo: { src: group2025, alt: "Trại sinh và ban tổ chức Trại hè PiMA 2025 tại TP.HCM" },
+    name: "Trại hè Toán học và Ứng dụng",
+    text: "Trại hè học thuật 8–10 ngày, học tập và sinh hoạt tập trung, dành cho học sinh THPT trên toàn quốc.",
+    activities: [
+      "Các buổi học Toán cao cấp, mô hình ứng dụng và lập trình",
+      "Tham quan công ty công nghệ và tọa đàm với diễn giả khách mời",
+      "Làm dự án nghiên cứu theo nhóm",
+    ],
+    facts: [{ value: "10", label: "mùa trại từ 2016" }],
+    cta: { label: "Tìm hiểu về trại hè", href: "/trai-he-toan-hoc-pima/" },
+  },
+  {
+    photo: { src: blackboard, alt: "Bảng đen với các công thức toán" },
+    name: "Khóa học trực tuyến",
+    text: "Khóa Math Modeling 4 tuần giới thiệu mô hình toán học qua các ví dụ, dành cho học sinh THPT và sinh viên.",
+    activities: [
+      "Bài giảng bắt đầu từ tình huống cụ thể",
+      "Trao đổi và thảo luận trên Discord của PiMA",
+      "Cuộc thi PiMA Modelling Challenge cuối khóa",
+    ],
+    facts: [
+      { value: "4", label: "khóa học trực tuyến" },
+      { value: "500+", label: "học viên Math Modeling" },
+    ],
+    cta: { label: "Xem các khóa học", href: "/khoa-hoc/" },
+  },
+];
+---
+
+<Section name="programs-overview" tone="surface" width="large" spacing="medium" id="programs">
+  <div class="head">
+    <Kicker><BrandName /> academy</Kicker>
+    <h2>Các chương trình của chúng tôi</h2>
+    <p>PiMA tổ chức hai chương trình chính: trại hè cho học sinh THPT và các khóa học trực tuyến.</p>
+  </div>
+  <div class="programs">
+    {
+      programs.map((p) => (
+        <article class="program" data-tone="white">
+          <Image
+            src={p.photo.src}
+            alt={p.photo.alt}
+            widths={fluidWidths(p.photo.src)}
+            sizes="(max-width: 767px) 90vw, 600px"
+            class="photo"
+          />
+          <div class="body">
+            <h3>{p.name}</h3>
+            <p>{p.text}</p>
+            <ul class="activities">
+              {p.activities.map((a) => (
+                <li>{a}</li>
+              ))}
+            </ul>
+            <dl class="facts">
+              {p.facts.map((f) => (
+                <div>
+                  <dt>{f.value}</dt>
+                  <dd>{f.label}</dd>
+                </div>
+              ))}
+            </dl>
+            <Button href={p.cta.href}>{p.cta.label}</Button>
+          </div>
+        </article>
+      ))
+    }
+  </div>
+</Section>
+
+<style>
+  .head {
+    max-width: var(--width-small);
+    margin: 0 auto var(--space-12);
+    text-align: center;
+  }
+
+  .programs {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-8);
+  }
+
+  .program {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: var(--radius);
+  }
+
+  .photo {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  .body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: var(--space-8);
+  }
+
+  .body h3 {
+    margin-top: 0;
+  }
+
+  .activities {
+    margin: 0 0 var(--space-6);
+    padding-left: var(--space-5);
+  }
+
+  .activities li::marker {
+    color: var(--color-icon-decorative);
+  }
+
+  /* The figures sit at the card's foot, so the two buttons line up. */
+  .facts {
+    display: flex;
+    gap: var(--space-8);
+    margin: auto 0 var(--space-6);
+  }
+
+  .facts dt {
+    color: var(--color-text-accent);
+    font-size: var(--font-size-h2);
+    font-weight: var(--font-weight-black);
+    line-height: var(--line-height-display);
+  }
+
+  .facts dd {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+  }
+
+  @media screen and (max-width: 767px) {
+    .programs {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .body {
+      padding: var(--space-6);
+    }
+  }
+</style>

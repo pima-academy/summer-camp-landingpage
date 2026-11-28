@@ -4,10 +4,10 @@
 // Most tests need a fresh `npm run build`; skipped when dist/ is missing.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { existsSync, readdirSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { join, relative } from "node:path";
-import { postDate, summaryOf } from "../src/sections/blog/post-text.ts";
-import { builtHtmlFiles, dist, distSkip as skip, mainOf, readBuilt, root } from "./test-lib.mjs";
+import { postDate, summaryOf } from "../src/sections/post-text.ts";
+import { blogPosts, builtHtmlFiles, dist, distSkip as skip, mainOf, publishedBlogPosts, readBuilt, root, sectionOf, textOf as text } from "./test-lib.mjs";
 
 // ---- Card summary and date ------------------------------------------------------------------
 
@@ -49,10 +49,6 @@ const between = (page, start, end) => {
 };
 const anchors = (s) => [...s.matchAll(/<a\b[^>]*>([\s\S]*?)<\/a>/g)];
 const href = (tag) => tag.match(/href="([^"]*)"/)?.[1];
-// Tags out, then the entities Astro escapes in text ("&" in a title) back to their characters.
-const ENTITIES = { "&amp;": "&", "&lt;": "<", "&gt;": ">", "&quot;": '"', "&#39;": "'" };
-const decode = (s) => s.replace(/&(?:amp|lt|gt|quot|#39);/g, (e) => ENTITIES[e]);
-const text = (html) => decode(html.replace(/<[^>]*>/g, "")).replace(/\s+/g, " ").trim();
 
 test("the main nav shows Blog, linking to /blog/", { skip }, () => {
   const nav = between(readBuilt("index.html"), "<header", "</header>");
@@ -82,25 +78,8 @@ test("no built page links to /su-kien-blog/ or /detail-blog-event/", { skip }, (
 // ---- The posts, read from the content folder ------------------------------------------------
 
 const content = join(root, "src/content/blog");
-
-/** The scalar fields of a post's front matter (enough YAML for `key: value` lines). */
-function frontMatter(file) {
-  const yaml = readFileSync(file, "utf8").match(/^---\n([\s\S]*?)\n---/)?.[1] ?? "";
-  return Object.fromEntries(
-    [...yaml.matchAll(/^(\w+):\s*(.*?)\s*$/gm)].map(([, key, value]) => [key, value.replace(/^(["'])(.*)\1$/, "$2")]),
-  );
-}
-
-/** Every post: `<slug>/index.md` or `<slug>.md` (not the author guide, README.md). */
-const posts = (existsSync(content) ? readdirSync(content, { withFileTypes: true }) : [])
-  .map((e) =>
-    e.isDirectory()
-      ? { slug: e.name, file: join(content, e.name, "index.md") }
-      : { slug: e.name.replace(/\.md$/, ""), file: join(content, e.name) },
-  )
-  .filter(({ file }) => file.endsWith(".md") && !file.endsWith("README.md") && existsSync(file))
-  .map(({ slug, file }) => ({ slug, ...frontMatter(file) }));
-const published = posts.filter((p) => p.draft !== "true").sort((a, b) => b.date.localeCompare(a.date));
+const posts = blogPosts(content);
+const published = publishedBlogPosts();
 const drafts = posts.filter((p) => p.draft === "true");
 
 test("the content folder holds at least the 7 text-only Jekyll site posts and a draft", () => {
@@ -121,8 +100,6 @@ test("/blog/ lists exactly the non-draft posts, newest first, each linking to /b
   assert.deepEqual(listed(), published.map((p) => `/blog/${p.slug}/`));
 });
 
-/** The markup of the section `name` of a built page ("" when missing). */
-const sectionOf = (html, name) => between(html, `data-section="${name}"`, "</section>");
 const ddmmyyyy = (iso) => iso.split("-").reverse().join("/");
 
 test("each /blog/ card shows a cover or the pale-lime logo block, the date, the title and a summary", { skip }, () => {
@@ -295,7 +272,7 @@ test("every body image is a figure with non-empty alt; a Markdown title is its f
       const img = figures[k].match(/<img\b[^>]*>/)?.[0] ?? "";
       assert.match(img, /src="\/_astro\//, `${slug} image ${k + 1}: optimised by Astro`);
       assert.ok(alt.trim(), `${slug} image ${k + 1}: alt text (the README asks for it)`);
-      assert.equal(decode(img.match(/\balt="([^"]*)"/)?.[1] ?? ""), alt, `${slug} image ${k + 1}: alt`);
+      assert.equal(text(img.match(/\balt="([^"]*)"/)?.[1] ?? ""), alt, `${slug} image ${k + 1}: alt`);
       assert.doesNotMatch(img, /\btitle=/, `${slug} image ${k + 1}: no title attribute`);
       const caption = figures[k].match(/<figcaption\b[^>]*>([\s\S]*?)<\/figcaption>/)?.[1];
       assert.equal(caption === undefined ? undefined : text(caption), title, `${slug} image ${k + 1}: figcaption`);

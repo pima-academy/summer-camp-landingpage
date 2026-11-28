@@ -133,11 +133,20 @@ const SPACING_PROPS =
   /^((margin|padding|scroll-margin|scroll-padding|inset)(-[\w-]+)?|gap|row-gap|column-gap|grid-gap|grid-row-gap|grid-column-gap|top|right|bottom|left)$/;
 const LENGTH = /(?<![\w.-])-?(\d*\.?\d+)(px|r?em|ch|r?ex|pt|pc|cm|mm|in|q)(?![\w-])/gi;
 
-/** The first literal spacing length in a value (var(--…) references and zero lengths ignored), or null. */
+/**
+ * The first literal spacing length in a value (var(--…) references and zero lengths ignored), or
+ * a min() or max(), which picks a value between steps rather than one step; else null.
+ */
 export function literalSpacing(value) {
+  const minMax = value.match(/\b(?:min|max)\(/i)?.[0];
+  if (minMax) return minMax;
   const bare = value.replace(/var\(\s*--[\w-]+\s*\)/g, "");
   return [...bare.matchAll(LENGTH)].find((m) => Number(m[1]) !== 0)?.[0] ?? null;
 }
+
+// Type properties whose value may be the min() or max() of tokens (display type never below the h1
+// size); a radius, shadow or spacing value may not.
+const MIN_MAX_PROPS = /^(font-size|line-height|letter-spacing)$/;
 
 /** Whether a value is only var(--…) references (and commas, `!important`) or an allowed keyword. */
 export function isTokenValue(prop, value) {
@@ -149,6 +158,8 @@ export function isTokenValue(prop, value) {
   for (let prev; prev !== rest; ) {
     prev = rest;
     rest = rest.replace(/var\(\s*--[\w-]+\s*(,[^()]*)?\)/g, "");
+    // min() or max() of tokens only, for type (MIN_MAX_PROPS).
+    if (MIN_MAX_PROPS.test(prop)) rest = rest.replace(/\b(?:min|max)\(\s*(?:,\s*)*\)/g, "");
   }
   return rest !== v && /^[\s,]*$/.test(rest);
 }
@@ -218,7 +229,7 @@ function checkNodes(nodes, known) {
 }
 
 /** Custom properties an inline `style` may set: per-instance values, not design values. */
-export const INLINE_STYLE_ALLOWED = ["--marquee-duration", "--marquee-copies", "--cover-ratio", "--photo-ratio"];
+export const INLINE_STYLE_ALLOWED = ["--cover-ratio", "--photo-ratio"];
 // Properties that carry a design value in inline style, whatever their value.
 const DESIGN_PROPS = /^(color|background(-color|-image)?|border(-[\w-]+)?|outline(-color)?|fill|stroke)$/;
 

@@ -1,44 +1,29 @@
 ---
-// "Về chúng tôi" (old site/ve-chung-toi.html). The six "Về PiMA" footer anchors
-// (`aboutAnchors` in site.ts) sit on the matching sections.
+// "Về chúng tôi": BaseLayout, the SEO data and the page's eight sections (spec #131). Sections
+// 1–7 carry the seven "Về PiMA" footer anchors (`aboutAnchors` in site.ts).
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ContactSection from "../sections/ContactSection.astro";
-import Impact from "../sections/Impact.astro";
-import Milestone from "../sections/Milestone.astro";
-import Partners from "../sections/Partners.astro";
-import Philosophy from "../sections/Philosophy.astro";
-import ProgramsOverview from "../sections/ProgramsOverview.astro";
-import Team from "../sections/Team.astro";
-import TrustBar from "../sections/TrustBar.astro";
-import Actions from "../sections/ve-chung-toi/Actions.astro";
+import Experts from "../sections/ve-chung-toi/Experts.astro";
 import FounderStory from "../sections/ve-chung-toi/FounderStory.astro";
 import FuturePlans from "../sections/ve-chung-toi/FuturePlans.astro";
-import Header from "../sections/ve-chung-toi/Header.astro";
-import Intro from "../sections/ve-chung-toi/Intro.astro";
-import MemberUniversities from "../sections/ve-chung-toi/MemberUniversities.astro";
+import Milestone from "../sections/ve-chung-toi/Milestone.astro";
+import Opening from "../sections/ve-chung-toi/Opening.astro";
+import TalentNetwork from "../sections/ve-chung-toi/TalentNetwork.astro";
 import VisionMission from "../sections/ve-chung-toi/VisionMission.astro";
-import { aboutAnchors } from "../data/site";
 import introPhoto from "../assets/images/screenshot-5.avif";
 ---
 
 <BaseLayout
   title="Về chúng tôi - PiMA Academy"
-  description="PiMA (Projects in Mathematics and Applications) là tổ chức giáo dục toán học và ứng dụng do các nhà toán học Việt Nam thành lập năm 2016: tầm nhìn, sứ mệnh, câu chuyện nhà sáng lập và kế hoạch tương lai."
+  description="PiMA (Projects in Mathematics and Applications) là tổ chức giáo dục toán học và ứng dụng do các nhà toán học Việt Nam thành lập năm 2016: tầm nhìn, sứ mệnh, câu chuyện nhà sáng lập, các cột mốc, mạng lưới nhân tài, chuyên gia đồng hành và kế hoạch tương lai."
   hero={introPhoto}
 >
-  <Header />
-  <Intro />
+  <Opening />
   <VisionMission />
-  <ProgramsOverview />
-  <Impact id={aboutAnchors.impact} />
-  <Actions />
-  <Milestone />
-  <TrustBar />
-  <Partners id={aboutAnchors.partners} />
-  <Philosophy />
-  <Team />
-  <MemberUniversities />
   <FounderStory />
+  <Milestone />
+  <TalentNetwork />
+  <Experts />
   <FuturePlans />
   <ContactSection />
 </BaseLayout>

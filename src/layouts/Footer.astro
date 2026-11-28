@@ -18,7 +18,7 @@ const current = (href: string) => (isCurrent(href, pathname) ? ("page" as const)
 const headingParts = (heading: string) => heading.split(/pima/i);
 ---
 
-<footer data-animate="fade-up">
+<footer>
   <div class="inner">
     <div class="top">
       <div class="brand">
@@ -166,7 +166,8 @@ const headingParts = (heading: string) => heading.split(/pima/i);
     text-decoration: none;
   }
 
-  .muted:hover {
+  /* Only links change colour: the labels and the address are text. */
+  a.muted:hover {
     color: var(--color-text-footer-hover);
   }
 
@@ -219,9 +220,14 @@ const headingParts = (heading: string) => heading.split(/pima/i);
       padding-bottom: var(--space-16);
     }
 
+    /* One column: the link columns take one track, so the brand cell spans the row. */
     .top {
       grid-template-columns: 1fr;
       row-gap: var(--space-16);
+    }
+
+    .columns {
+      grid-column: auto;
     }
 
     .bottom {
@@ -252,10 +258,6 @@ const headingParts = (heading: string) => heading.split(/pima/i);
   }
 
   @media screen and (max-width: 479px) {
-    .brand {
-      grid-column: span 2;
-    }
-
     .logo-link {
       display: flex;
     }

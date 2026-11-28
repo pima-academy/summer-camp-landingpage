@@ -1,105 +1,178 @@
 ---
-// Impact: "Tác động" section, the impact report link and six highlight numbers. Used by
-// index, ve-chung-toi and trai-he-toan-hoc-pima (old `section_impact`). Fades up on scroll.
+// Impact: "Những con số nổi bật", the six cleared figures as one ruled row (6 / 3 / 2 columns)
+// with their source line, and the impact report as a wide surface card (real cover, text in
+// HTML, link to Issuu). Content in impact.ts. Used by index and trai-he-toan-hoc-pima.
 import { Image } from "astro:assets";
-import report from "../assets/images/pima-impact-report.png";
 import Kicker from "../components/Kicker.astro";
 import Section from "../components/Section.astro";
-import { fluidWidths } from "../lib/image-widths";
-
-interface Props {
-  /** Section id. The old markup used "tac-dong"; ve-chung-toi may pass its footer anchor instead. */
-  id?: string;
-}
-
-const { id = "tac-dong" } = Astro.props;
-
-const numbers = [
-  { value: "1000+", label: "Người tham gia" },
-  { value: "9", label: "Trại hè Toán học và Ứng dụng" },
-  { value: "50+", label: "Dự án học thuật của học sinh được hoàn thành" },
-  { value: "80+", label: "Bài giảng về Toán cao cấp và Ứng dụng" },
-  { value: "6", label: "Workshop tại các trường THPT trọng điểm tại TP.HCM" },
-  { value: "200+", label: "Trại sinh THPT tài năng được tuyển chọn" },
-];
+import { figures, figuresSource, report } from "./impact";
 ---
 
-<Section name="impact" spacing="medium" animate id={id}>
-  <div class="layout">
+<Section name="impact" width="large" spacing="medium">
+  <div class="head">
     <div>
       <Kicker>tác động</Kicker>
-      <h2 class="title">Những con số<br />nổi bật</h2>
-      <div class="report">
-        <a href="https://issuu.com/pimavn/docs/pima_impact_report_2016-2024_vietnamese_version_" class="report-link">
-          <Image
-            src={report}
-            alt="Báo cáo tác động PiMA 2016–2024"
-            widths={fluidWidths(report)}
-            sizes="(max-width: 479px) 100vw, (max-width: 991px) 30vw, 331px"
-          />
-        </a>
-      </div>
+      <h2 class="title">Những con số nổi bật</h2>
     </div>
-    <div class="numbers">
-      {
-        numbers.map(({ value, label }) => (
-          <div>
-            <h4 class="value">{value}</h4>
-            <div>{label}</div>
-          </div>
-        ))
-      }
-    </div>
+    <p class="source">{figuresSource}</p>
   </div>
+  <ul role="list" class="figures">
+    {
+      figures.map((f) => (
+        <li>
+          <span class="value">{f.value}</span>
+          <span class="label">{f.label}</span>
+          <span class="detail">{f.detail}</span>
+        </li>
+      ))
+    }
+  </ul>
+  <a href={report.href} class="report" data-tone="surface">
+    <Image src={report.cover} alt="" widths={[96, 192]} sizes="96px" class="report-cover" />
+    <span class="report-text">
+      <span class="report-title">{report.title}</span>
+      <span>{report.text}</span>
+      <span class="report-cta">{report.cta}</span>
+    </span>
+  </a>
 </Section>
 
 <style>
-  .layout {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: var(--space-4);
+  /* Kicker and heading left, the source line right, on the heading's baseline side. */
+  .head {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: var(--space-8);
+    margin-bottom: var(--space-10);
   }
 
   .title {
-    margin-top: 0;
-    margin-bottom: 0;
+    margin: 0;
   }
 
-  /* 1rem gap under the heading (the old spacer). */
-  .report {
-    padding-top: var(--space-4);
+  .source {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
   }
 
-  .report-link {
-    display: inline-block;
-    max-width: 100%;
-  }
-
-  .numbers {
+  /* One ruled row: a thin rule before every figure but the first of a row. */
+  .figures {
     display: grid;
-    grid-column: span 2;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--space-4);
-    padding-left: var(--space-16);
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    margin: 0 0 var(--space-10);
+    padding: 0;
+    list-style: none;
+  }
+
+  .figures li {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-2) var(--space-4);
+    border-left: 1px solid var(--color-border);
+  }
+
+  .figures li:first-child {
+    padding-left: 0;
+    border-left: 0;
   }
 
   .value {
-    margin-top: 0;
-    margin-bottom: 0;
     color: var(--color-text-accent);
     font-size: var(--font-size-big-number);
     font-weight: var(--font-weight-black);
+    line-height: var(--line-height-display);
     font-variant-numeric: tabular-nums;
   }
 
-  @media screen and (max-width: 479px) {
-    .layout {
-      display: flex;
-      flex-direction: column;
+  .label {
+    font-weight: var(--font-weight-extrabold);
+  }
+
+  .detail {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+  }
+
+  /* The report: the whole card is the link; its last line looks like one. */
+  .report {
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+    padding: var(--space-6);
+    border-radius: var(--radius);
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .report-cover {
+    width: 6rem;
+    height: auto;
+    box-shadow: var(--shadow-dropdown);
+  }
+
+  .report-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .report-title {
+    color: var(--color-text-heading);
+    font-size: var(--font-size-h3);
+    font-weight: var(--font-weight-extrabold);
+    line-height: var(--line-height-h3);
+  }
+
+  .report-cta {
+    color: var(--color-link);
+    font-weight: var(--font-weight-bold);
+    text-decoration: underline;
+  }
+
+  .report:hover .report-cta {
+    color: var(--color-link-hover);
+  }
+
+  @media screen and (max-width: 991px) {
+    .figures {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      row-gap: var(--space-8);
     }
 
-    .numbers {
+    .figures li:nth-child(3n + 1) {
       padding-left: 0;
+      border-left: 0;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .head {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-2);
+    }
+
+    .figures {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .figures li:nth-child(3n + 1) {
+      padding-left: var(--space-4);
+      border-left: 1px solid var(--color-border);
+    }
+
+    .figures li:nth-child(odd) {
+      padding-left: 0;
+      border-left: 0;
+    }
+
+    .report {
+      align-items: flex-start;
+      gap: var(--space-4);
+      padding: var(--space-4);
     }
   }
 </style>

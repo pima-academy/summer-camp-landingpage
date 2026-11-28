@@ -1,9 +1,8 @@
 /*
  * Site-wide CSS entry, imported once by BaseLayout: the font faces, the design tokens, the base
- * (reset and element typography) and the decorative animations. Everything else is scoped to the
- * file that owns the markup (ADR 0004).
+ * (reset and element typography). Everything else is scoped to the file that owns the markup
+ * (ADR 0004).
  */
 @import "./fonts.css";
 @import "./tokens.css";
 @import "./base.css";
-@import "./animations.css";

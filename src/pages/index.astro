@@ -1,49 +1,30 @@
 ---
-// Home page (/): BaseLayout, the SEO data and the ordered list of its sections. Its own
-// sections live in src/sections/home/, the shared ones in src/sections/.
+// Home page (/): BaseLayout, the SEO data and the ordered list of its sections (spec #131,
+// "Home"). Its own sections live in src/sections/home/, the shared ones in src/sections/.
 import BaseLayout from "../layouts/BaseLayout.astro";
-import ContentGap from "../components/ContentGap.astro";
 import ContactSection from "../sections/ContactSection.astro";
 import Impact from "../sections/Impact.astro";
-import Milestone from "../sections/Milestone.astro";
 import Partners from "../sections/Partners.astro";
-import Philosophy from "../sections/Philosophy.astro";
-import ProgramsOverview from "../sections/ProgramsOverview.astro";
-import SummerCamp from "../sections/SummerCamp.astro";
-import Team from "../sections/Team.astro";
 import Testimonials from "../sections/Testimonials.astro";
-import TrustBar from "../sections/TrustBar.astro";
-import FoundingStory from "../sections/home/FoundingStory.astro";
+import BlogTeaser from "../sections/home/BlogTeaser.astro";
 import Hero from "../sections/home/Hero.astro";
-import News from "../sections/home/News.astro";
 import Press from "../sections/home/Press.astro";
-import UpcomingEvents from "../sections/home/UpcomingEvents.astro";
-import hero from "../assets/images/hero-image-homepage.png";
+import ProgramsOverview from "../sections/home/ProgramsOverview.astro";
+// The hero has no photo: og:image is the camp card's 2025 group photo.
+import ogPhoto from "../assets/camp-archive/2025/cover-tphcm.jpg";
 ---
 
 <BaseLayout
   title="PiMA Academy - Học viện Toán học và Ứng dụng"
-  description="PiMA Academy phát triển giáo dục toán học và ứng dụng tại Việt Nam: trại hè toán học, khóa học và cộng đồng tài năng STEM trẻ, cùng mentor từ các đại học hàng đầu."
-  hero={hero}
+  description="PiMA là tổ chức giáo dục toán học và ứng dụng, được các nhà toán học Việt Nam thành lập năm 2016: trại hè cho học sinh THPT, các khóa học trực tuyến và bài viết về toán ứng dụng."
+  hero={ogPhoto}
 >
   <Hero />
-  <TrustBar />
-  <Partners />
-  <Philosophy />
   <Impact />
   <ProgramsOverview />
-  <ContentGap name="index: Sự kiện sắp tới">
-    <UpcomingEvents />
-  </ContentGap>
-  <FoundingStory />
-  <Milestone />
-  <Team />
-  <TrustBar />
   <Testimonials />
-  <SummerCamp />
+  <Partners />
   <Press />
+  <BlogTeaser />
   <ContactSection />
-  <ContentGap name="index: Thông tin mới nhất">
-    <News />
-  </ContentGap>
 </BaseLayout>

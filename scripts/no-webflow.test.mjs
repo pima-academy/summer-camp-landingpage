@@ -1,5 +1,5 @@
 // The end state of the Webflow migration (ADR 0004, #73): global CSS is only the font faces,
-// the tokens, the base and the animations, and no source file names a
+// the tokens and the base, and no source file names a
 // Webflow class, `w-node` id, utility wrapper, `--ai-gen-…` variable or `-wf-` token.
 import { test } from "node:test";
 import assert from "node:assert/strict";
@@ -7,12 +7,12 @@ import { readdirSync, readFileSync } from "node:fs";
 import { join, relative, sep } from "node:path";
 import { root, walk } from "./test-lib.mjs";
 
-test("global CSS is fonts, tokens, base and animations, in that order", () => {
+test("global CSS is fonts, tokens and base, in that order", () => {
   const global = readFileSync(join(root, "src/styles/global.css"), "utf8");
   const imports = [...global.matchAll(/@import\s+["']([^"']+)["']/g)].map((m) => m[1]);
-  assert.deepEqual(imports, ["./fonts.css", "./tokens.css", "./base.css", "./animations.css"]);
+  assert.deepEqual(imports, ["./fonts.css", "./tokens.css", "./base.css"]);
   const sheets = readdirSync(join(root, "src/styles")).sort();
-  assert.deepEqual(sheets, ["animations.css", "base.css", "fonts.css", "global.css", "tokens.css"]);
+  assert.deepEqual(sheets, ["base.css", "fonts.css", "global.css", "tokens.css"]);
 });
 
 /** Source with its comments blanked out: comments may name old classes to explain history. */

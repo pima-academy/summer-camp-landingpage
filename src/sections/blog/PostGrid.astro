@@ -8,8 +8,8 @@ import { Image } from "astro:assets";
 import Section from "../../components/Section.astro";
 import logo from "../../assets/logo/pima-logo-stacked-darkgreen.png";
 import { fluidWidths } from "../../lib/image-widths";
-import { postHref, postSummary, type Post } from "./blog";
-import { isoDate, postDate } from "./post-text";
+import { postHref, postSummary, type Post } from "../blog-posts";
+import { isoDate, postDate } from "../post-text";
 
 interface Props {
   posts: Post[];

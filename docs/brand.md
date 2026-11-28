@@ -16,7 +16,7 @@ How PiMA looks on this site: naming, colour, type, shapes, logo, icons, photos a
 | PiMA Academy | Pima academy |
 | Trại hè PiMA, in full Trại hè Toán học và Ứng dụng PiMA | "PiMA camp" in Vietnamese text |
 
-Text that CSS uppercases (kickers, the marquee) would turn PiMA into PIMA, so wrap the name in the `BrandName` component there.
+Text that CSS uppercases (kickers) would turn PiMA into PIMA, so wrap the name in the `BrandName` component there.
 
 ## Colour
 
@@ -60,14 +60,14 @@ PiMA Green appears as a fill: buttons, kicker rules, the timeline, the logo, dec
 
 ## Sections, buttons and footer
 
-`Section` takes a `tone`, which sets the background and the passing text colours on it. A section whose background is none of these takes the nearest one. A section never sets its own background, and neither does a card: a card with a fill of its own takes one of the four tones with the `data-tone` attribute (`surface` cards on white, `white` cards on Pale Lime, the founder card on `dark-green`). Every tone declares the full set of text, link, icon and focus roles, so a card reads as its tone wherever it sits (a Pale Lime tag on the dark-green cover keeps black text). Only small marks that are no tone keep a fill of their own, from a role token: the timeline's axis and dots, the marquee's separator dot. `scripts/sections.test.mjs` checks.
+`Section` takes a `tone`, which sets the background and the passing text colours on it. A section whose background is none of these takes the nearest one. A section never sets its own background, and neither does a card: a card with a fill of its own takes one of the four tones with the `data-tone` attribute (`surface` cards on white, `white` cards on Pale Lime or surface). Every tone declares the full set of text, link, icon and focus roles, so a card reads as its tone wherever it sits (a Pale Lime tag on the dark-green cover keeps black text). Only small marks that are no tone keep a fill of their own, from a role token: the timeline's axis and dots. `scripts/sections.test.mjs` checks.
 
 | `tone` | Background | Text | Used for |
 |---|---|---|---|
 | `white` (default) | `--white` | `--black`, headings `--pima-dark-green` | most sections |
-| `surface` | `--gray-5` | `--black`, headings `--pima-dark-green` | milestones |
-| `pale-lime` | `--pima-pale-lime` | `--black`, headings `--pima-dark-green` | philosophy, testimonials, contact |
-| `dark-green` | `--pima-dark-green` | `--white`, accents `--pima-pale-lime` | marquee, founder card |
+| `surface` | `--gray-5` | `--black`, headings `--pima-dark-green` | page headers (`PageHeader` on Khóa học and Trại hè, `BlogHeader`), home programmes and blog teaser, camp page activities, camp archive projects, Về chúng tôi founder story and experts |
+| `pale-lime` | `--pima-pale-lime` | `--black`, headings `--pima-dark-green` | Về chúng tôi opening, testimonials, the contact block (`ContactSection`) |
+| `dark-green` | `--pima-dark-green` | `--white`, accents `--pima-pale-lime` | home hero, Về chúng tôi talent network, the Liên hệ page (`ContactSection variant="page"`), the camp archive cover (a card) |
 
 `Button` takes a `variant`. Every button has `--radius` corners and `--font-weight-bold` text.
 
@@ -89,7 +89,7 @@ The footer is a `--black` band: column headings `--pima-green`, text and links `
 - Five weights, each with a font face in `src/styles/fonts.css` (the browser fakes a weight that has none, so no other weight is used):
   - `--font-weight-regular`: body text, captions.
   - `--font-weight-semibold`: labels, nav links, light emphasis.
-  - `--font-weight-bold`: buttons, the marquee, small labels.
+  - `--font-weight-bold`: buttons, small labels.
   - `--font-weight-extrabold`: h1–h3, kickers, dates and names, strong emphasis.
   - `--font-weight-black`: big numbers, display type.
 - Hierarchy comes from size, weight and colour.
@@ -102,15 +102,14 @@ The footer is a `--black` band: column headings `--pima-green`, text and links `
 | Body | `--font-size-body` | `--line-height-body` | regular | `--black` |
 | Kicker | `--font-size-kicker` | `--line-height-kicker` | extrabold, uppercase, `--letter-spacing-kicker` | `--black`, under a short `--pima-green` rule aligned with the block |
 | Big numbers | `--font-size-big-number` | | `--font-weight-black` | `--pima-dark-green` |
-| Display (big type that is not a heading level, such as the camp archive page's topic) | `--font-size-display-2` (the topic), or the larger `--font-size-display` (unused so far) | `--line-height-display` | `--font-weight-black`, `--letter-spacing-display` | the text role of its tone (`--white` on the dark-green hero) |
+| Display (big type that is not a heading level, or a page's one big title) | `--font-size-display-2`: page titles (the `PageTitle` primitive, never below `--font-size-h1`), the camp archive page's topic, the Về chúng tôi closing line; the larger `--font-size-display`: the talent network's big number | `--line-height-display` | `--font-weight-black`, `--letter-spacing-display` | a text role of its tone (`--white` or `--pima-pale-lime` on dark green) |
 | Dates, names (milestones, testimonials) | `--font-size-body` | | extrabold | `--pima-dark-green` |
-| Marquee | `--font-size-marquee` | | bold, uppercase, `--letter-spacing-marquee` | `--white` on `--pima-dark-green` |
 | Nav links | | | semibold | `--gray-1` |
 | Captions and small text (form fields, tags, the footer credit) | `--font-size-small` | | regular | `--gray-1` for captions |
 
 - Size tokens that change per breakpoint are redeclared in `tokens.css`; a component writes the token once. Headings take the role of their level from base CSS, so a section's `h1`, `h2` or `h3` sets no size or weight of its own. An `h4` takes the h3 role; an `h5` or `h6` is a bold label at body size. A heading that is not a heading to the eye (a date, a big number, a quote, display type) sets the tokens of its role. Any other size maps to the nearest role.
 - Small uppercase lines right above a heading (a tagline, a breadcrumb such as "PiMA academy > giới thiệu") are kickers: use the `Kicker` component. The footer's column headings take the kicker's size, weight and tracking in `--pima-green`, without the rule.
-- Headings are in sentence case. Uppercase is for short labels: kickers, the marquee.
+- Headings are in sentence case. Uppercase is for short labels: kickers.
 - Vietnamese stacks diacritics (Ồ, Ộ, Ẫ). Headings and display type keep a line height of 1.1 or more, so the marks are neither clipped nor touching the line above.
 - Figures that line up or change (stats, tables, dates, counters) use `font-variant-numeric: tabular-nums`.
 
@@ -121,13 +120,13 @@ The footer is a `--black` band: column headings `--pima-green`, text and links `
 - `0`, `auto`, percentages (the 5 % page gutter) and layout widths (`max-width` of a column) are not spacing.
 - Neither is the size of a thing: a box, a column or a rule takes a size token named for its role (`--size-portrait-small`, `--width-toc-number`, `--border-width-rule-accent`), never a step of the spacing scale. A rule's colour is a border role (`--color-border-rule-accent`), not a background one.
 - A section's vertical padding comes from `Section`'s `spacing`; a kicker brings its own margins (`--space-3` above and below, `--space-3` between rule and text); `<Kicker flush>` drops the margins above and below when its parent sets the spacing.
-- Letter spacing is a type value: `--letter-spacing-heading` (h1, h2, h4), `--letter-spacing-display`, `--letter-spacing-kicker`, `--letter-spacing-marquee`, `--letter-spacing-tag`.
+- Letter spacing is a type value: `--letter-spacing-heading` (h1, h2, h4), `--letter-spacing-display`, `--letter-spacing-kicker`, `--letter-spacing-tag`.
 
 ## Shapes
 
 - One corner radius, `--radius`, for buttons, cards, panels, inputs, tags, menus and every photo and video, portraits and avatars included. Base CSS gives every `img` `--radius`.
-- Square corners for full-width bands (sections, the marquee, the footer), rules and dividers (the kicker rule too), chart bars and legend swatches.
-- The only other radius token, `--radius-circle`, is for shapes that are not photos: icon circles, the timeline's and the marquee's dots, the slider's dots and arrows.
+- Square corners for full-width bands (sections, the footer), rules and dividers (the kicker rule too), chart bars and legend swatches.
+- The only other radius token, `--radius-circle`, is for shapes that are not photos: icon circles, the timeline's dots, the slider's dots and arrows.
 - Logos (PiMA's, partners', newspapers', universities') are never rounded or cropped: the logo's `img` carries `data-logo`, which base CSS keeps square, and a logo in a fixed box takes `object-fit: contain`.
 - `scripts/radius.test.mjs` checks every aligned page: `--radius` or a circle on any rounded element, `--radius` on every photo, square logos.
 
@@ -190,7 +189,7 @@ Prefer the green logo; where the background is not green, prefer black or white.
 | `--pima-dark-green` | `--pima-pale-lime` | `--pima-dark-green` |
 | `--pima-pale-lime` | `--pima-dark-green` | `--pima-pale-lime` |
 
-`<Icon circle>` takes the pair from `--color-icon-circle` and `--color-icon-circle-glyph`: the white pair is the default (also on `--gray-5`), `Section`'s pale-lime and dark-green tones and the footer re-point them. A small separator mark (the marquee's dot) is a CSS shape coloured from a token, not an icon file.
+`<Icon circle>` takes the pair from `--color-icon-circle` and `--color-icon-circle-glyph`: the white pair is the default (also on `--gray-5`), `Section`'s pale-lime and dark-green tones and the footer re-point them.
 
 ## Photos
 

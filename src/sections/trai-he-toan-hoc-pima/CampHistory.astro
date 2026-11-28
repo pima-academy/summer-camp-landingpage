@@ -4,8 +4,9 @@
   sticky cards, one per camp year of the camp archive (src/sections/camp-archive/years/),
   newest first. Each card's "Xem chi tiết" links that year's camp archive page, and stretches
   over the whole card, so a click anywhere on it opens that page. Used by
-  trai-he-toan-hoc-pima (old `section_camp-history`). Fades up on scroll.
+  trai-he-toan-hoc-pima (old `section_camp-history`).
 */
+import Button from "../../components/Button.astro";
 import Kicker from "../../components/Kicker.astro";
 import Section from "../../components/Section.astro";
 import { campYears } from "../camp-archive/camp-years";
@@ -13,7 +14,7 @@ import { campYears } from "../camp-archive/camp-years";
 const newestFirst = [...campYears].reverse();
 ---
 
-<Section name="camp-history" id="cac-mua-trai" spacing="large" animate>
+<Section name="camp-history" id="cac-mua-trai" spacing="large">
   <div class="layout">
     <div class="intro">
       <div class="crumb">
@@ -34,9 +35,9 @@ const newestFirst = [...campYears].reverse();
             <p>
               {y.topic.vi} - {y.topic.en}
             </p>
-            <a href={`/trai-he-toan-hoc-pima/${y.year}/`} class="more">
-              Xem chi tiết &gt;
-            </a>
+            <Button href={`/trai-he-toan-hoc-pima/${y.year}/`} variant="link" class="more">
+              Xem chi tiết
+            </Button>
           </div>
         ))
       }
@@ -96,9 +97,9 @@ const newestFirst = [...campYears].reverse();
     font-variant-numeric: tabular-nums;
   }
 
+  /* The link Button is a flex row: as wide as its text, so it sits left under the topic. */
   .more {
-    color: var(--color-text);
-    font-weight: var(--font-weight-bold);
+    width: fit-content;
   }
 
   /* The link covers its card (positioned: sticky), so the whole card is the target. */

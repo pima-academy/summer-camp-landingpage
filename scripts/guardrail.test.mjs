@@ -45,6 +45,10 @@ test("type, radius and shadow values must come through var(--…)", () => {
     "font: 700 11px/1.3 monospace",
     "font-family: Arial, sans-serif",
     "font-size: calc(var(--font-size-body) * 2)",
+    "font-size: max(var(--font-size-h1), 3rem)",
+    // min() and max() of tokens are for type only, never a radius or a shadow.
+    "border-radius: max(var(--radius), var(--radius-circle))",
+    "box-shadow: min(var(--shadow-card), var(--shadow-focus))",
   ]) {
     assert.deepEqual(check(bad), ["not-a-token"], bad);
   }
@@ -60,6 +64,11 @@ test("type, radius and shadow values must come through var(--…)", () => {
     "letter-spacing: var(--letter-spacing-kicker)",
     "letter-spacing: 0",
     "letter-spacing: normal",
+    // The larger (or smaller) of two tokens is still a token value: a display title never below h1.
+    "font-size: max(var(--font-size-h1), var(--font-size-display-2))",
+    "font-size: min(var(--font-size-h1), var(--font-size-display-2))",
+    "line-height: max(var(--line-height-h1), var(--line-height-display))",
+    "letter-spacing: min(var(--letter-spacing-heading), var(--letter-spacing-display))",
   ]) {
     assert.deepEqual(check(good), [], good);
   }
@@ -82,6 +91,9 @@ test("margins, paddings, gaps and offsets take a step of the spacing scale", () 
     "scroll-padding-top: 4.5rem",
     "padding-left: calc(5% + 4rem)",
     "margin-bottom: calc(var(--space-4) + 10px)",
+    // The larger of two steps is not a step of the scale.
+    "margin-top: max(var(--space-4), var(--space-8))",
+    "gap: min(var(--space-6), var(--space-12))",
   ]) {
     assert.deepEqual(check(bad), ["literal-spacing"], bad);
   }
@@ -147,7 +159,7 @@ test("inline style carries no design values (only the allowed custom properties)
   assert.deepEqual(page('style="border-radius: var(--radius-card)"'), ["inline-style"]);
   assert.deepEqual(page("style='--accent: #50b448'"), ["inline-style"]);
   assert.deepEqual(page('style={`--gap: ${d}rem`}'), ["inline-style"]);
-  assert.deepEqual(page('style={`--marquee-duration: ${d}s; --marquee-copies: ${Math.max(2, d)}`}'), []);
+  assert.deepEqual(page('style={`--cover-ratio: ${d}; --photo-ratio: ${Math.max(2, d)}`}'), []);
   assert.deepEqual(page('style="display: none"'), []);
 });
 
@@ -161,11 +173,11 @@ test("var(--…) must name a token of tokens.css (or an allowed inline custom pr
   const check = (css) => checkFile("src/components/Card.astro", astro(css), { tokens }).map((v) => v.rule);
   assert.deepEqual(check(".card { color: var(--color-txet); }"), ["unknown-token"]);
   assert.deepEqual(check(".card { color: var(--color-text); font-size: var(--font-size-h2); }"), []);
-  assert.deepEqual(check(".card { animation-duration: var(--marquee-duration); }"), []);
+  assert.deepEqual(check(".card { aspect-ratio: var(--cover-ratio); }"), []);
 });
 
 test("the guardrail skips tokens.css and files other than .astro and .css", () => {
-  for (const path of ["src/styles/tokens.css", "src/lib/animate.ts"]) {
+  for (const path of ["src/styles/tokens.css", "src/lib/image-widths.ts"]) {
     assert.equal(inScope(path), false, path);
   }
   for (const path of ["src/components/Nav.astro", "src/styles/global.css", "src/pages/index.astro"]) {
@@ -194,7 +206,7 @@ test("CSS outside tokens.css uses role tokens, never the brand palette", () => {
 test("every stylesheet gets every rule: no file is allowed its old media queries", () => {
   assert.equal("WEBFLOW_FILES" in guardrail, false, "no Webflow-file exemption left");
   const css = "@media (min-width: 768px) { a { color: #fff; font-size: 1rem; } }";
-  for (const path of ["src/styles/base.css", "src/styles/animations.css"]) {
+  for (const path of ["src/styles/base.css", "src/styles/global.css"]) {
     assert.deepEqual(rules(path, css), ["media-query", "literal-colour", "not-a-token"], path);
   }
 });

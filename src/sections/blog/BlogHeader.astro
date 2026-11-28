@@ -1,6 +1,6 @@
 ---
 // BlogHeader: the title band of /blog/ (src/pages/blog/index.astro), the "PiMA academy" kicker
-// over the "Blog" heading. Fades up on scroll. Not PageHeader: besides its breadcrumb ("PiMA
+// over the "Blog" heading. Not PageHeader: besides its breadcrumb ("PiMA
 // academy", no "> chương trình"), it takes the large column to line up with PostGrid and a
 // shorter bottom padding, since the grid follows with its own.
 import BrandName from "../../components/BrandName.astro";
@@ -8,7 +8,7 @@ import Kicker from "../../components/Kicker.astro";
 import Section from "../../components/Section.astro";
 ---
 
-<Section name="blog-header" width="large" spacing="none" tone="surface" animate>
+<Section name="blog-header" width="large" spacing="none" tone="surface">
   <div class="inner">
     <div class="crumb">
       <Kicker flush><BrandName /> academy</Kicker>

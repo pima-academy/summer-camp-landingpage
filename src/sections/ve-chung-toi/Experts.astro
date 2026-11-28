@@ -1,0 +1,102 @@
+---
+// Experts: "Các chuyên gia đồng hành" (once part of Team). Kicker, h2 and lead, then the six
+// experts as a 3 × 2 grid of white cards on a surface band (2 columns ≤ 991 px, 1 ≤ 767 px):
+// the report's activity photo at 16:10, name with title, role, and under a rule what they
+// talked about. No slider. Content in experts.ts. Used by ve-chung-toi only; carries the
+// footer anchor "Chuyên gia đồng hành".
+import { Image } from "astro:assets";
+import Kicker from "../../components/Kicker.astro";
+import Section from "../../components/Section.astro";
+import { aboutAnchors } from "../../data/site";
+import { fluidWidths } from "../../lib/image-widths";
+import { experts, expertsLead } from "./experts";
+---
+
+<Section name="experts" tone="surface" width="large" spacing="medium" id={aboutAnchors.experts}>
+  <div class="head">
+    <Kicker>chuyên gia</Kicker>
+    <h2>Các chuyên gia đồng hành</h2>
+    <p class="lead">{expertsLead}</p>
+  </div>
+  <ul role="list" class="grid">
+    {
+      experts.map((e) => (
+        <li class="card" data-tone="white">
+          <Image src={e.photo} alt={e.alt} widths={fluidWidths(e.photo)} sizes="(max-width: 767px) 90vw, (max-width: 991px) 45vw, 26rem" class="photo" />
+          <div class="body">
+            <h3 class="name">{e.name}</h3>
+            <p class="role">{e.role}</p>
+            <p class="topic">{e.topic}</p>
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+</Section>
+
+<style>
+  .head {
+    max-width: var(--width-small);
+    margin-bottom: var(--space-12);
+  }
+
+  .lead {
+    margin-bottom: 0;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-8);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: var(--radius);
+  }
+
+  /* Flush with the card top; base CSS rounds the photo like every photo. */
+  .photo {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+
+  .body {
+    padding: var(--space-6);
+  }
+
+  .name {
+    margin: 0 0 var(--space-2);
+  }
+
+  .role {
+    margin: 0 0 var(--space-4);
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+  }
+
+  .topic {
+    margin: 0;
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+  }
+
+  @media screen and (max-width: 991px) {
+    .grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -17,7 +17,6 @@ const section = (name) => `---\nimport Section from "../../components/Section.as
 test("kebab case of a PascalCase file name", () => {
   assert.equal(kebabCase("Hero"), "hero");
   assert.equal(kebabCase("FoundingStory"), "founding-story");
-  assert.equal(kebabCase("TrustBar"), "trust-bar");
   assert.equal(kebabCase("FAQ"), "faq");
   assert.equal(kebabCase("PressFAQ"), "press-faq");
   assert.equal(kebabCase("Camp2025Photos"), "camp2025-photos");
@@ -63,15 +62,9 @@ test("a section file may only use classes it styles itself, none a global styles
 
 /** The sections more than one page uses (#65). */
 const SHARED = [
-  "TrustBar",
   "Partners",
   "Impact",
   "Testimonials",
-  "ProgramsOverview",
-  "Philosophy",
-  "Milestone",
-  "Team",
-  "SummerCamp",
   "ContactSection",
   "PageHeader",
 ];
@@ -109,7 +102,6 @@ test("a section file paints no background of its own; a card takes a tone with d
   for (const good of [
     ".card { border-radius: var(--radius); }",
     ".axis { background-color: var(--color-background-accent); }",
-    ".dot { background-color: color-mix(in srgb, var(--color-background-accent) calc(var(--p) * 100%), var(--color-background-timeline-dot-idle)); }",
     ".card { background-color: transparent; }",
   ]) {
     assert.deepEqual(sectionFillProblems(path, file(good)), [], good);

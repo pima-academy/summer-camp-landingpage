@@ -46,7 +46,7 @@
 
   /*
    * Type (docs/brand.md, Typography). Five weights, each with a face in fonts.css. Roles: h1–h3,
-   * body, kicker, marquee, big numbers, small text, display. Every other heading level or size
+   * body, kicker, big numbers, small text, display. Every other heading level or size
    * uses the nearest role. Sizes that change per breakpoint are redeclared in the media queries
    * at the end.
    */
@@ -67,11 +67,11 @@
   /* Captions, form fields, tags, pagination, the footer credit. */
   --font-size-small: 14px;
   --font-size-kicker: 14px;
-  --font-size-marquee: 15px;
   --font-size-big-number: 2.6rem;
-  /* Display: big type that is not a heading level. -display-2 sets the camp archive page's
-     topic; -display is the larger step above it, unused so far. Fluid, so the same
-     declaration serves every breakpoint. */
+  /* Display: big type that is not a heading level. -display-2 sets the page titles
+     (PageTitle, never below the h1 size), the camp archive page's topic and the Về chúng tôi
+     closing line; -display, the larger step, the talent network's big number. Fluid, so the
+     same declaration serves every breakpoint. */
   --font-size-display: clamp(2.75rem, 6.4vw, 6.5rem);
   --font-size-display-2: clamp(1.75rem, 4.2vw, 4rem);
   /* Nav links in the open mobile menu. */
@@ -97,7 +97,6 @@
   --letter-spacing-heading: -0.01em;
   --letter-spacing-display: -0.025em;
   --letter-spacing-kicker: 0.08em;
-  --letter-spacing-marquee: 0.03em;
   --letter-spacing-tag: 0.035em;
 
   /*
@@ -165,7 +164,6 @@
   --color-text-heading: var(--color-text-on-light-heading);
   --color-text-accent: var(--color-text-on-light-accent);
   --color-text-muted: var(--color-text-on-light-muted);
-  --color-text-placeholder: var(--gray-2);
   /* Text on the dark-green tone and on dark fills. */
   --color-text-on-dark: var(--white);
   --color-text-on-dark-muted: var(--gray-4);
@@ -213,12 +211,8 @@
   --color-background-form-error: var(--gray-5);
   /* The "No items found." box of a dev-only empty list (old `.w-dyn-empty`). */
   --color-background-empty-list: var(--gray-4);
-  /* A ve-chung-toi founder timeline dot the page has not scrolled to yet (PiMA Green once it has). */
-  --color-background-timeline-dot-idle: var(--gray-4);
   --color-background-slider-dot: var(--gray-2);
   --color-background-slider-dot-current: var(--black);
-  /* The dot between the marquee's claims; the marquee is always on the dark-green tone. */
-  --color-marquee-separator: var(--pima-pale-lime);
   /* The header row of a table (docs/brand.md, "Tables"): a blog post's Markdown tables. */
   --color-background-table-header: var(--pima-dark-green);
   --color-text-table-header: var(--white);

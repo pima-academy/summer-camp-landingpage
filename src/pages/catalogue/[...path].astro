@@ -17,6 +17,7 @@ import BrandName from "../../components/BrandName.astro";
 import Button from "../../components/Button.astro";
 import Icon from "../../components/Icon.astro";
 import Kicker from "../../components/Kicker.astro";
+import PageTitle from "../../components/PageTitle.astro";
 import Section from "../../components/Section.astro";
 
 export function getStaticPaths() {
@@ -94,9 +95,6 @@ const spaceSteps = [1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24, 28, 32] as const;
       </Section>
     ))
   }
-  <Section name="catalogue-animate" animate class="demo">
-    <div class="content">animate (fades up on first scroll into view)</div>
-  </Section>
 
   <Section name="catalogue-section-tones" spacing="small" class="title">
     <h2>Section: tone</h2>
@@ -131,7 +129,7 @@ const spaceSteps = [1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24, 28, 32] as const;
   }
 
   <Section name="catalogue-tone-card" spacing="small">
-    <p>A card inside a section takes a tone with the same attribute (the founder card):</p>
+    <p>A card inside a section takes a tone with the same attribute:</p>
     <div class="card" data-tone="dark-green">
       <Kicker flush>data-tone="dark-green"</Kicker>
       <h3>A card on Dark Green</h3>
@@ -164,6 +162,20 @@ const spaceSteps = [1, 2, 3, 4, 5, 6, 8, 10, 12, 16, 20, 24, 28, 32] as const;
     <div class="framed">
       <Kicker flush>trại hè toán học (flush)</Kicker>
       <h2>Kicker flush: no margins</h2>
+    </div>
+  </Section>
+
+  <Section name="catalogue-page-title" spacing="small" tone="surface">
+    <h2>PageTitle</h2>
+    <p>A page's opening: the breadcrumb kicker over the h1 in display-2, never below the h1 size.</p>
+    <div class="framed">
+      <PageTitle crumb="chương trình">Trại hè toán học PiMA</PageTitle>
+    </div>
+  </Section>
+
+  <Section name="catalogue-page-title-on-dark" spacing="small" tone="dark-green">
+    <div class="framed">
+      <PageTitle crumb="liên hệ">Liên hệ với PiMA</PageTitle>
     </div>
   </Section>
 

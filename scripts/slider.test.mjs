@@ -1,4 +1,4 @@
-// Drives every Slider on the built / page in headless
+// Drives every Slider on the built pages (INSTANCES) in headless
 // Chromium: arrows, dots, swipe, keyboard, autoplay, wrap and reduced motion.
 // slider-step.test.mjs covers the stepping maths; this covers the wiring.
 // Needs a fresh `npm run build`; skipped when dist/ is missing.
@@ -6,13 +6,14 @@ import { test, before, after } from "node:test";
 import assert from "node:assert/strict";
 import { distSkip as skip, serveDist } from "./test-lib.mjs";
 
-// Every slider on the page, from its source.
+// Every slider on the pages, from its source.
 const INSTANCES = [
-  { path: "/", name: "Các chuyên gia đồng hành", autoplay: 6000, infinite: true },
-  { path: "/", name: "Ảnh trại hè toán học", autoplay: 6000, infinite: false },
+  { path: "/", name: "Cảm nhận của cựu trại sinh", infinite: true },
   { path: "/", name: "Báo chí nói về PiMA", autoplay: 5000, infinite: true },
+  { path: "/trai-he-toan-hoc-pima/", name: "Cảm nhận của cựu trại sinh", infinite: true },
+  { path: "/trai-he-toan-hoc-pima/", name: "Ảnh trại hè toán học", autoplay: 6000, infinite: false },
 ];
-const PAGES = ["/"];
+const PAGES = [...new Set(INSTANCES.map((i) => i.path))];
 
 // ---------------------------------------------------------------------------
 // Markup helpers: the only place that knows how a slider is built. The Slider
@@ -107,7 +108,7 @@ const firstSlideComesFrom = (slider) =>
     return dx > 1 ? "right" : dx < -1 ? "left" : "in place";
   });
 
-test("lists every slider on /", { skip }, async () => {
+test("lists every slider on each page", { skip }, async () => {
   for (const path of PAGES) {
     const page = await open(path);
     const names = await sliders(page).evaluateAll((all) => all.map((s) => s.getAttribute("aria-label")));

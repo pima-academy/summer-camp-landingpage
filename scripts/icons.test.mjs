@@ -108,7 +108,7 @@ test("contact and social icons sit in brand circles", { skip }, () => {
   const lienHe = readBuilt("lien-he/index.html");
   // Footer: Facebook, email, address and LinkedIn.
   assert.equal(circles(home, "<footer", "</footer>").length, 4, "footer circles");
-  assert.equal(circles(home, 'data-section="contact-section"', "</section>").length, 3, "ContactSection circles");
-  assert.equal(circles(lienHe, 'data-section="contact-facts"', "</section>").length, 3, "ContactFacts circles");
-  assert.equal(circles(lienHe, 'data-section="social-links"', "</section>").length, 3, "SocialLinks circles");
+  // ContactSection: email, Facebook, LinkedIn, YouTube and address, on both of its uses.
+  assert.equal(circles(home, 'data-section="contact-section"', "</section>").length, 5, "ContactSection circles (home)");
+  assert.equal(circles(lienHe, 'data-section="contact-section"', "</section>").length, 5, "ContactSection circles (lien-he)");
 });

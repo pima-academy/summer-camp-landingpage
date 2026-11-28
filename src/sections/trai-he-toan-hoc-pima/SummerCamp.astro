@@ -1,0 +1,145 @@
+---
+/*
+  SummerCamp: "Trại hè toán học" section, the camp intro (impact report ch. 05.1), a photo
+  slider (6 s autoplay, not infinite; photos in summer-camp-photos.ts) and a link to the camp page
+  (aria-current there). Used by trai-he-toan-hoc-pima only (old `section_summer-camp`). Each photo's lightbox
+  was empty on the old site, so the link is an inline content gap; production shows
+  the photo without the click.
+*/
+import { Image } from "astro:assets";
+import Button from "../../components/Button.astro";
+import ContentGap from "../../components/ContentGap.astro";
+import Kicker from "../../components/Kicker.astro";
+import Section from "../../components/Section.astro";
+import Slider from "../../components/Slider.astro";
+import { isCurrent } from "../../lib/current-link";
+import { fluidWidths } from "../../lib/image-widths";
+import { summerCampPhotos } from "./summer-camp-photos";
+
+const campHref = "/trai-he-toan-hoc-pima/";
+const campCurrent = isCurrent(campHref, Astro.url.pathname);
+const sizes = "(max-width: 479px) 39vw, (max-width: 991px) 26vw, 309px";
+---
+
+<Section name="summer-camp" spacing="medium">
+  <div class="content">
+    <div class="intro">
+      <Kicker flush>trại hè toán học</Kicker>
+      <h2 class="title">Nơi Toán học gặp thực tiễn</h2>
+      <p class="lead">
+        Trại hè PiMA là trại hè học thuật về Toán học và ứng dụng, kéo dài 8–10 ngày dưới hình thức học tập và sinh hoạt
+        tập trung, dành cho học sinh THPT trên toàn quốc. Trại sinh học Toán cao cấp nền tảng và các mô hình ứng dụng,
+        rồi rèn luyện kỹ năng nghiên cứu qua các dự án học thuật theo nhóm.
+      </p>
+    </div>
+    <div class="gallery">
+      <Slider layout="third" autoplay={6000} label="Ảnh trại hè toán học">
+        {
+          summerCampPhotos.map(({ image, alt }) => (
+            <div>
+              <ContentGap name="SummerCamp: photo lightbox" inline>
+                <a href="#" class="photo-link">
+                  <div class="photo">
+                    <Image src={image} alt={alt} widths={fluidWidths(image)} sizes={sizes} class="photo-img" />
+                  </div>
+                </a>
+                {/* Same box as the link (inline-block, full width), so the slide keeps its height. */}
+                <div slot="fallback" class="photo-link">
+                  <div class="photo">
+                    <Image src={image} alt={alt} widths={fluidWidths(image)} sizes={sizes} class="photo-img" />
+                  </div>
+                </div>
+              </ContentGap>
+            </div>
+          ))
+        }
+      </Slider>
+    </div>
+    <div class="actions">
+      <Button href={campHref} variant="secondary" aria-current={campCurrent ? "page" : undefined}>
+        Tìm hiểu thêm về trại hè
+      </Button>
+    </div>
+  </div>
+</Section>
+
+<style>
+  .content {
+    overflow: clip;
+  }
+
+  .intro {
+    width: 100%;
+    max-width: 56rem;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
+  /* 1rem above and below the heading (the old spacers). */
+  .title {
+    margin-top: var(--space-4);
+    margin-bottom: var(--space-4);
+  }
+
+  .lead {
+    margin-bottom: var(--space-4);
+    color: var(--color-text);
+  }
+
+  /* The old spacers (2rem) above and below the slider. */
+  .gallery,
+  .actions {
+    padding-top: var(--space-8);
+  }
+
+  .photo-link {
+    display: inline-block;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .photo {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .photo-img {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    overflow: clip;
+    border-radius: var(--radius);
+    aspect-ratio: 1;
+    object-fit: cover;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  @media screen and (max-width: 991px) {
+    .gallery,
+    .actions {
+      padding-top: var(--space-6);
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .gallery,
+    .actions {
+      padding-top: var(--space-5);
+    }
+  }
+
+  @media screen and (max-width: 479px) {
+    .actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+</style>

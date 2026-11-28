@@ -27,6 +27,8 @@ The 2025 and 2026 camp pages are left out of both phases: they will be redesigne
 
 Update (#107): the camp pages and their frozen code are deleted; camp archive pages replace them and the old URLs redirect there. The guardrail now scans every `.astro` and `.css` file except `tokens.css`.
 
+Update (2026-11, spec #131): the Marquee is deleted, and with it the guardrail's `--marquee-duration` and `--marquee-copies` inline-style allowance. The guardrail accepts the `min()` or `max()` of tokens for type properties only (`font-size`, `line-height`, `letter-spacing`), for display type that never drops below the h1 size (`PageTitle`); in a radius, a shadow or a spacing value it is still a violation.
+
 ## Considered Options
 
 - **Tailwind**: rejected. Every page's markup would be rewritten, the long class strings are hard to read for a non-front-end maintainer, and the refactor would fill the markup with arbitrary values like `p-[14.9px]`.

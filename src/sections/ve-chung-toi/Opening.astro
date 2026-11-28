@@ -1,0 +1,65 @@
+---
+// Opening: the top of ve-chung-toi, "Về chúng tôi". A Pale Lime band: the breadcrumb kicker
+// and h1 left, the lead (report ch. 02) right, aligned to the bottom; the team cut-out
+// (pima-team.png, a transparent PNG cut at the waist) stands on the band's bottom edge.
+// Used by ve-chung-toi only; carries the footer anchor "Giới thiệu".
+import { Image } from "astro:assets";
+import PageTitle from "../../components/PageTitle.astro";
+import Section from "../../components/Section.astro";
+import { aboutAnchors } from "../../data/site";
+import team from "../../assets/images/pima-team.png";
+
+/** Report ch. 02, without "tổ chức tiên phong" and "những trường đại học hàng đầu thế giới". */
+const lead =
+  "PiMA (Projects in Mathematics and Applications) là tổ chức giáo dục toán học và ứng dụng, được thành lập năm 2016 bởi các nhà toán học Việt Nam. Với mong muốn mở ra cơ hội tiếp cận toán học theo hướng thực tiễn, PiMA là cầu nối giữa tri thức học thuật và các ứng dụng trong khoa học, công nghệ và đời sống.";
+---
+
+<Section name="opening" tone="pale-lime" width="large" spacing="none" id={aboutAnchors.intro}>
+  <div class="head">
+    <div>
+      <PageTitle crumb="giới thiệu">Về chúng tôi</PageTitle>
+    </div>
+    <p class="lead">{lead}</p>
+  </div>
+  <Image src={team} alt="Thành viên PiMA" widths={[640, 1022]} sizes="(max-width: 767px) 100vw, 64rem" loading="eager" class="team" />
+</Section>
+
+<style>
+  .head {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    align-items: end;
+    gap: var(--space-12);
+    padding-top: var(--space-32);
+    padding-bottom: var(--space-12);
+  }
+
+  .lead {
+    max-width: 38rem;
+    margin: 0;
+  }
+
+  /* A transparent cut-out flush on the band's bottom edge: its base-CSS radius frames nothing. */
+  .team {
+    display: block;
+    width: 100%;
+    max-width: var(--width-medium);
+    height: auto;
+    margin: 0 auto;
+  }
+
+  @media screen and (max-width: 991px) {
+    .head {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+      padding-top: var(--space-28);
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .head {
+      padding-top: var(--space-24);
+      padding-bottom: var(--space-8);
+    }
+  }
+</style>

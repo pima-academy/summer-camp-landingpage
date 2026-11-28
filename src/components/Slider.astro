@@ -1,28 +1,24 @@
 ---
 /*
   Widget: Slider, a row of slides moved one at a time by arrows, dots, swipe,
-  keyboard and optional autoplay. Every slider on the site uses it (home: Team,
-  SummerCamp and the press slider; gap page detail-course).
+  keyboard and optional autoplay. Every slider on the site uses it (home: the press
+  slider; trai-he-toan-hoc-pima: SummerCamp; Testimonials on home and
+  trai-he-toan-hoc-pima; gap page detail-course).
 
   The slides go in the default slot, one element per slide, no class needed:
 
-    <Slider layout="wide" autoplay={6000} infinite label="Các chuyên gia đồng hành">
+    <Slider layout="single" autoplay={5000} infinite label="Báo chí nói về PiMA">
       <div>…</div>
       …
     </Slider>
 
   `layout` sets the slide width, the gutter between slides and where the arrows and
-  dots sit (the four looks of the old Webflow sliders):
+  dots sit (two of the old Webflow sliders' looks):
 
     single  one slide fills the row, 4rem side gutters (none ≤ 767 px); arrows at
             the sides (hidden ≤ 767 px), dots centred below (old testimonial7)
-    half    slides half the row (full ≤ 767 px), 1rem side gutters; arrows at the
-            sides (hidden ≤ 767 px), dots centred below (old gallery16)
     third   slides a third of the row (half ≤ 767 px), 2rem right gutter; arrows
             bottom right, dots bottom left (old gallery22)
-    wide    slides 80 % of the row (50 % ≤ 991, 80 % ≤ 767, 95 % ≤ 479 px), 2rem
-            right gutter, 5 % side padding ≤ 991 px; arrows bottom left, dots
-            bottom right (old gallery25)
 
   `arrowStyle` "filled" (default): white 2.5rem arrows that tint on hover. "plain":
   bare 3rem round arrows in the text colour (old slider-arrow-2).
@@ -41,7 +37,7 @@ import Icon from "./Icon.astro";
 
 interface Props extends HTMLAttributes<"div"> {
   /** Slide width, gutters and arrow and dot placement (see above). */
-  layout: "single" | "half" | "third" | "wide";
+  layout: "single" | "third";
   /** Look of the two arrows. */
   arrowStyle?: "filled" | "plain";
   /** Autoplay delay in ms. Omit for no autoplay. */
@@ -87,11 +83,6 @@ const { layout, arrowStyle = "filled", autoplay, infinite = false, label, class:
     -webkit-tap-highlight-color: transparent;
   }
 
-  .slider[data-layout="half"],
-  .slider[data-layout="wide"] {
-    overflow: hidden;
-  }
-
   .slider[data-layout="third"] {
     padding-bottom: var(--space-20);
   }
@@ -117,18 +108,8 @@ const { layout, arrowStyle = "filled", autoplay, infinite = false, label, class:
     white-space: nowrap;
   }
 
-  [data-layout="half"] > .mask {
-    width: 50%;
-    overflow: visible;
-  }
-
   [data-layout="third"] > .mask {
     width: 33.33%;
-    overflow: visible;
-  }
-
-  [data-layout="wide"] > .mask {
-    width: 80%;
     overflow: visible;
   }
 
@@ -150,14 +131,7 @@ const { layout, arrowStyle = "filled", autoplay, infinite = false, label, class:
   }
 
   /* Slide gutters (the caller's slide elements). */
-  [data-layout="half"] > .mask > :global(*) {
-    padding-left: var(--space-4);
-    padding-right: var(--space-4);
-  }
-
-  /* Slide gutters (the caller's slide elements). */
-  [data-layout="third"] > .mask > :global(*),
-  [data-layout="wide"] > .mask > :global(*) {
+  [data-layout="third"] > .mask > :global(*) {
     padding-right: var(--space-8);
   }
 
@@ -206,18 +180,15 @@ const { layout, arrowStyle = "filled", autoplay, infinite = false, label, class:
   }
 
   /* Arrows at the sides, centred on the slides (above the dots' 4rem). */
-  [data-layout="single"] > .arrow,
-  [data-layout="half"] > .arrow {
+  [data-layout="single"] > .arrow {
     bottom: var(--space-16);
   }
 
-  [data-layout="single"] > .arrow[data-style="filled"],
-  [data-layout="half"] > .arrow[data-style="filled"] {
+  [data-layout="single"] > .arrow[data-style="filled"] {
     border-radius: var(--radius);
   }
 
-  [data-layout="third"] > .arrow,
-  [data-layout="wide"] > .arrow {
+  [data-layout="third"] > .arrow {
     top: auto;
     bottom: 0;
   }
@@ -229,15 +200,6 @@ const { layout, arrowStyle = "filled", autoplay, infinite = false, label, class:
 
   [data-layout="third"] > .next {
     right: 0;
-  }
-
-  [data-layout="wide"] > .prev {
-    left: 0;
-  }
-
-  [data-layout="wide"] > .next {
-    left: var(--space-16);
-    right: auto;
   }
 
   .dots {
@@ -254,11 +216,6 @@ const { layout, arrowStyle = "filled", autoplay, infinite = false, label, class:
 
   [data-layout="third"] > .dots {
     right: auto;
-  }
-
-  [data-layout="wide"] > .dots {
-    left: auto;
-    right: var(--space-16);
   }
 
   /* The dots are created by the script below, so they carry no scope attribute. */
@@ -291,51 +248,17 @@ const { layout, arrowStyle = "filled", autoplay, infinite = false, label, class:
     box-shadow: none;
   }
 
-  @media screen and (max-width: 991px) {
-    .slider[data-layout="wide"] {
-      padding-left: 5%;
-      padding-right: 5%;
-    }
-
-    [data-layout="wide"] > .mask {
-      width: 50%;
-    }
-
-    /* The old rule was `left: auto`, i.e. the static position: the slider's 5 % padding. */
-    [data-layout="wide"] > .prev {
-      left: 5%;
-    }
-
-    [data-layout="wide"] > .next {
-      left: calc(5% + var(--space-16));
-    }
-
-    [data-layout="wide"] > .dots {
-      right: var(--space-8);
-    }
-  }
-
   @media screen and (max-width: 767px) {
-    .slider[data-layout="single"],
-    .slider[data-layout="half"] {
+    .slider[data-layout="single"] {
       padding-bottom: var(--space-12);
     }
 
-    [data-layout="single"] > .arrow,
-    [data-layout="half"] > .arrow {
+    [data-layout="single"] > .arrow {
       display: none;
-    }
-
-    [data-layout="half"] > .mask {
-      width: 100%;
     }
 
     [data-layout="third"] > .mask {
       width: 50%;
-    }
-
-    [data-layout="wide"] > .mask {
-      width: 80%;
     }
 
     /* Slide gutters (the caller's slide elements). */
@@ -345,29 +268,8 @@ const { layout, arrowStyle = "filled", autoplay, infinite = false, label, class:
     }
 
     /* Slide gutters (the caller's slide elements). */
-    [data-layout="half"] > .mask > :global(*) {
-      padding-left: var(--space-3);
-      padding-right: var(--space-3);
-    }
-
-    /* Slide gutters (the caller's slide elements). */
-    [data-layout="third"] > .mask > :global(*),
-    [data-layout="wide"] > .mask > :global(*) {
+    [data-layout="third"] > .mask > :global(*) {
       padding-right: var(--space-6);
-    }
-
-    [data-layout="wide"] > .dots {
-      right: 5%;
-    }
-  }
-
-  @media screen and (max-width: 479px) {
-    [data-layout="wide"] > .mask {
-      width: 95%;
-    }
-
-    [data-layout="wide"] > .next {
-      left: 24%;
     }
   }
 </style>

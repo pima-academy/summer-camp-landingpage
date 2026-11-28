@@ -107,9 +107,10 @@ test("footer links: logo, about anchors, products, Facebook, email, LinkedIn", {
   assert.deepEqual(about, [
     "/ve-chung-toi/#gioi-thieu",
     "/ve-chung-toi/#tam-nhin-su-menh",
-    "/ve-chung-toi/#doi-tac-mang-luoi-nhan-tai",
-    "/ve-chung-toi/#cac-tac-dong-tich-cuc",
     "/ve-chung-toi/#cau-chuyen-nha-sang-lap",
+    "/ve-chung-toi/#cac-cot-moc",
+    "/ve-chung-toi/#mang-luoi-nhan-tai",
+    "/ve-chung-toi/#chuyen-gia-dong-hanh",
     "/ve-chung-toi/#ke-hoach-tuong-lai",
   ]);
   assert.ok(hrefs.includes("/khoa-hoc/"));

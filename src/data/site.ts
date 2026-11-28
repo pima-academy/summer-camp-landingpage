@@ -21,8 +21,6 @@ export interface FooterColumn {
 }
 
 export const contact = {
-  phone: "+84 90 955 1721",
-  phoneHref: "tel:+84909551721",
   email: "contact@pimavn.com",
   emailHref: "mailto:contact@pimavn.com",
   address: "35 Văn Chung, Phường Tân Bình, Thành phố Hồ Chí Minh, Việt Nam",
@@ -34,13 +32,14 @@ export const social = {
   youtube: { href: "https://www.youtube.com/@pimavn" },
 } as const;
 
-/** Anchor ids of the ve-chung-toi sections the "Về PiMA" footer links point at. */
+/** Anchor ids of the ve-chung-toi sections 1–7, which the "Về PiMA" footer links point at (spec #131). */
 export const aboutAnchors = {
   intro: "gioi-thieu",
   visionMission: "tam-nhin-su-menh",
-  partners: "doi-tac-mang-luoi-nhan-tai",
-  impact: "cac-tac-dong-tich-cuc",
   founderStory: "cau-chuyen-nha-sang-lap",
+  milestones: "cac-cot-moc",
+  talentNetwork: "mang-luoi-nhan-tai",
+  experts: "chuyen-gia-dong-hanh",
   futurePlans: "ke-hoach-tuong-lai",
 } as const;
 
@@ -68,9 +67,10 @@ export const footerColumns: FooterColumn[] = [
     links: [
       { label: "Giới thiệu", href: about(aboutAnchors.intro) },
       { label: "Tầm nhìn & Sứ mệnh", href: about(aboutAnchors.visionMission) },
-      { label: "Đối tác & Mạng lưới nhân tài", href: about(aboutAnchors.partners) },
-      { label: "Các tác động tích cực", href: about(aboutAnchors.impact) },
-      { label: "Câu chuyện của nhà sáng lập", href: about(aboutAnchors.founderStory) },
+      { label: "Câu chuyện nhà sáng lập", href: about(aboutAnchors.founderStory) },
+      { label: "Các cột mốc", href: about(aboutAnchors.milestones) },
+      { label: "Mạng lưới nhân tài", href: about(aboutAnchors.talentNetwork) },
+      { label: "Chuyên gia đồng hành", href: about(aboutAnchors.experts) },
       { label: "Kế hoạch tương lai", href: about(aboutAnchors.futurePlans) },
     ],
   },

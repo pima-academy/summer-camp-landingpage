@@ -1,4 +1,4 @@
-// Cards of the `Testimonials` section, in the old site's order.
+// Slides of the `Testimonials` section, in the old site's order.
 import type { ImageMetadata } from "astro";
 import avatar2 from "../assets/images/artboard-2-4x.avif";
 import avatar3 from "../assets/images/artboard-3-4x.avif";
@@ -10,7 +10,7 @@ import avatar7 from "../assets/images/artboard-7-4x.avif";
 export interface Testimonial {
   quote: string;
   name: string;
-  /** Role lines, rendered with <br> between them. */
+  /** Role lines (the camp year, then what they do now), one line each. */
   role: string[];
   avatar: ImageMetadata;
 }
@@ -27,7 +27,7 @@ export const testimonials: Testimonial[] = [
     quote:
       "PiMA ảnh hưởng rất nhiều đến mình về quyết định chọn ngành học. Mình được mentor truyền cảm hứng rất nhiều về việc học toán trong trại và qua project nhóm mình làm. Đó cũng là động lực giúp mình mong muốn học sâu hơn về Toán.",
     name: "Nguyễn Mạc Nam Trung",
-    role: ["Trại sinh PIMA 2019", "Học viên thạc sĩ Toán học, ĐH Paris Cité, Pháp"],
+    role: ["Trại sinh PiMA 2019", "Học viên thạc sĩ Toán học, ĐH Paris Cité, Pháp"],
     avatar: avatar5,
   },
   {
@@ -55,7 +55,7 @@ export const testimonials: Testimonial[] = [
     quote:
       "Tám ngày làm trại sinh tại PiMA là khoảng thời gian tuyệt vời nhất trong mùa hè của em. Em đã có những niềm vui, những buổi thức đêm ‘làm nghiên cứu’ ly kỳ hấp dẫn. Và PiMA cho em thấy rằng đây không chỉ là trại hè khoa học đơn thuần, mà còn là nơi giúp em tìm được thế mạnh của bản thân, làm quen với những người bạn, người anh, người chị rất giỏi. Em rất trân trọng những trải nghiệm và cơ hội có được tại đây.",
     name: "Hoàng Ngọc Dung",
-    role: ["Trại sinh PIMA 2023", "SV năm hai ngành Hệ thống nhúng và IoT, Trường ĐH Sư phạm Kỹ thuật, TPHCM"],
+    role: ["Trại sinh PiMA 2023", "SV năm hai ngành Hệ thống nhúng và IoT, Trường ĐH Sư phạm Kỹ thuật, TPHCM"],
     avatar: avatar7,
   },
 ];

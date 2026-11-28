@@ -1,9 +1,8 @@
 ---
 /*
-  CampActivity: "Định hướng học thuật, phát triển toàn diện" on a light lime band, then the
-  three camp activities (photo, title, text) from camp-activities.ts. Used by
-  trai-he-toan-hoc-pima (old `section_camp-activity`). Its heading and lead repeat
-  CampIntro's, as on the old page (content work, spec #15). Fades up on scroll.
+  CampActivity: "Các hoạt động chính" on a light lime band, a lead-in from the impact report
+  (ch. 05.1), then the three camp activities (photo, title, text) from camp-activities.ts.
+  Used by trai-he-toan-hoc-pima (old `section_camp-activity`).
 */
 import { Image } from "astro:assets";
 import Section from "../../components/Section.astro";
@@ -11,14 +10,13 @@ import { fluidWidths } from "../../lib/image-widths";
 import { campActivities } from "./camp-activities";
 ---
 
-<Section name="camp-activity" spacing="large" tone="surface" animate>
+<Section name="camp-activity" spacing="large" tone="surface">
   <div class="intro">
     <div class="text">
-      <h2>Định hướng học thuật, phát triển toàn diện</h2>
+      <h2>Các hoạt động chính</h2>
       <p class="lead">
-        Trại hè PiMA là chương trình trại hè hàng năm về Toán học và ứng dụng, diễn ra trong 2 tuần dưới hình thức học
-        tập và sinh hoạt tập trung. Chương trình hỗ trợ toàn bộ chi phí học tập và sinh hoạt, dành cho học sinh THPT
-        trên toàn quốc ứng tuyển tham gia, với mục tiêu:
+        Trại hè PiMA gồm ba hoạt động chính: các buổi học về Toán cao cấp, mô hình ứng dụng và lập trình, các buổi tọa
+        đàm với diễn giả khách mời, và hoạt động làm dự án nghiên cứu theo nhóm.
       </p>
     </div>
   </div>

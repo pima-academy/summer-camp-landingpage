@@ -6,7 +6,7 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 import { root } from "./test-lib.mjs";
 
-const WIDGETS = ["Slider", "Marquee", "ContactForm", "Lightbox"];
+const WIDGETS = ["Slider", "ContactForm", "Lightbox"];
 
 for (const name of WIDGETS) {
   test(`${name} has no Webflow class, id or state class`, () => {

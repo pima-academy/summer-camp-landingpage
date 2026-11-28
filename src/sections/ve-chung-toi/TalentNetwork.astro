@@ -1,0 +1,304 @@
+---
+// TalentNetwork: "Mạng lưới nhân tài", the page's one bold moment on a dark-green band.
+// "250+" in Pale Lime display type with who and where beside it; under a rule, the 22 places
+// where members study and work as one run of names split by Pale Lime slashes (no logos, no
+// count); the members' achievements as five ruled columns; under a rule, the two ch. 07
+// paragraphs left and, right, the community figures and a small white impact report card
+// (the shared cover, impact.ts). Content in talent-network.ts. Used by ve-chung-toi only;
+// carries the footer anchor "Mạng lưới nhân tài".
+import { Image } from "astro:assets";
+import BrandName from "../../components/BrandName.astro";
+import Kicker from "../../components/Kicker.astro";
+import Section from "../../components/Section.astro";
+import { aboutAnchors } from "../../data/site";
+import { report } from "../impact";
+import { achievements, community, headline, paragraphs, places, source } from "./talent-network";
+---
+
+<Section name="talent-network" tone="dark-green" width="large" spacing="large" id={aboutAnchors.talentNetwork}>
+  <Kicker flush>cộng đồng <BrandName /></Kicker>
+  <h2 class="title">Mạng lưới nhân tài</h2>
+  <div class="headline">
+    <span class="big">{headline.value}</span>
+    <p class="who">
+      {headline.text}
+      <span class="source">{source}</span>
+    </p>
+  </div>
+
+  <div class="places">
+    <h3 class="small-head">Đang học tập và làm việc tại</h3>
+    <p class="names">
+      {
+        places.map((n, i) => (
+          <>
+            <span class="name">{n}</span>
+            {i < places.length - 1 && <span class="sep" aria-hidden="true">/</span>}{" "}
+          </>
+        ))
+      }
+    </p>
+  </div>
+
+  <h3 class="small-head">Thành tích của các thành viên</h3>
+  <ul role="list" class="achievements">
+    {
+      achievements.map((a) => (
+        <li>
+          <span class="value">{a.value}</span>
+          <span>{a.label}</span>
+        </li>
+      ))
+    }
+  </ul>
+
+  <div class="bottom">
+    <div class="texts">
+      {paragraphs.map((t) => <p>{t}</p>)}
+    </div>
+    <div>
+      <ul role="list" class="community">
+        {
+          community.map((f) => (
+            <li>
+              <span class="value">{f.value}</span>
+              <span>
+                <span class="label">{f.label}</span>
+                <span class="detail">{f.detail}</span>
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+      <a href={report.href} class="report" data-tone="white">
+        <Image src={report.cover} alt="" widths={[64, 128]} sizes="4rem" class="report-cover" />
+        <span class="report-text">
+          <span class="report-title">{report.title}</span>
+          <span class="report-cta">{report.cta}</span>
+        </span>
+      </a>
+    </div>
+  </div>
+</Section>
+
+<style>
+  .title {
+    margin: var(--space-4) 0 var(--space-10);
+  }
+
+  .headline {
+    display: flex;
+    align-items: flex-end;
+    gap: var(--space-8);
+    margin-bottom: var(--space-16);
+  }
+
+  .big {
+    color: var(--color-text-accent);
+    font-size: var(--font-size-display);
+    font-weight: var(--font-weight-black);
+    letter-spacing: var(--letter-spacing-display);
+    line-height: var(--line-height-display);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .who {
+    max-width: 22rem;
+    margin: 0 0 var(--space-3);
+    font-size: var(--font-size-h3);
+    font-weight: var(--font-weight-extrabold);
+    line-height: var(--line-height-h3);
+  }
+
+  .source {
+    display: block;
+    margin-top: var(--space-2);
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+    font-weight: var(--font-weight-regular);
+  }
+
+  /* Small accent labels: headings to the outline, not to the eye. */
+  .small-head {
+    margin: 0 0 var(--space-4);
+    color: var(--color-text-accent);
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+  }
+
+  .places {
+    margin-bottom: var(--space-16);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border-accent);
+  }
+
+  .names {
+    margin: 0;
+    font-size: var(--font-size-h2);
+    font-weight: var(--font-weight-extrabold);
+    line-height: var(--line-height-h2);
+  }
+
+  /* Each name stays on one line; the run breaks only at the slashes. */
+  .name {
+    white-space: nowrap;
+  }
+
+  .sep {
+    margin-left: var(--space-2);
+    color: var(--color-text-accent);
+    font-weight: var(--font-weight-regular);
+  }
+
+  .achievements {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    margin: 0 0 var(--space-16);
+    padding: 0;
+    list-style: none;
+  }
+
+  .achievements li {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-2) var(--space-6);
+    border-left: 1px solid var(--color-border-accent);
+  }
+
+  .achievements li:first-child {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  .value {
+    color: var(--color-text-accent);
+    font-size: var(--font-size-big-number);
+    font-weight: var(--font-weight-black);
+    line-height: var(--line-height-display);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .bottom {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    gap: var(--space-16);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border-accent);
+  }
+
+  .texts p {
+    margin: 0 0 var(--space-4);
+  }
+
+  .community {
+    margin: 0 0 var(--space-8);
+    padding: 0;
+    list-style: none;
+  }
+
+  .community li {
+    display: grid;
+    grid-template-columns: 12rem 1fr;
+    align-items: center;
+    gap: var(--space-4);
+    margin-bottom: var(--space-4);
+  }
+
+  .label {
+    display: block;
+    font-weight: var(--font-weight-extrabold);
+  }
+
+  .detail {
+    display: block;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+  }
+
+  /* The report: the whole card is the link; its last line looks like one. */
+  .report {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    padding: var(--space-4);
+    border-radius: var(--radius);
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .report-cover {
+    width: 4rem;
+    height: auto;
+  }
+
+  .report-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .report-title {
+    color: var(--color-text-heading);
+    font-weight: var(--font-weight-extrabold);
+  }
+
+  .report-cta {
+    color: var(--color-link);
+    font-weight: var(--font-weight-bold);
+    text-decoration: underline;
+  }
+
+  .report:hover .report-cta {
+    color: var(--color-link-hover);
+  }
+
+  @media screen and (max-width: 991px) {
+    .achievements {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      row-gap: var(--space-8);
+    }
+
+    .achievements li:nth-child(4) {
+      padding-left: 0;
+      border-left: 0;
+    }
+
+    .bottom {
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .headline {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-2);
+    }
+
+    .names {
+      font-size: var(--font-size-h3);
+      line-height: var(--line-height-h3);
+    }
+
+    .achievements {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .achievements li:nth-child(4) {
+      padding-left: var(--space-6);
+      border-left: 1px solid var(--color-border-accent);
+    }
+
+    .achievements li:nth-child(odd) {
+      padding-left: 0;
+      border-left: 0;
+    }
+
+    .community li {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+  }
+</style>

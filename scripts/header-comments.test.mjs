@@ -19,7 +19,7 @@ test("every section, component and layout file starts with a header comment", ()
   const files = ["src/sections", "src/components", "src/layouts"]
     .flatMap((dir) => walk(join(root, dir)))
     .filter((f) => f.endsWith(".astro"));
-  assert.ok(files.length > 50, `${files.length} files`);
+  assert.ok(files.length > 40, `${files.length} files`);
   const missing = files.filter((f) => !headerComment(readFileSync(f, "utf8"))).map((f) => relative(root, f));
   assert.deepEqual(missing, []);
 });
