@@ -65,9 +65,9 @@ PiMA Green appears as a fill: buttons, kicker rules, the timeline, the logo, dec
 | `tone` | Background | Text | Used for |
 |---|---|---|---|
 | `white` (default) | `--white` | `--black`, headings `--pima-dark-green` | most sections |
-| `surface` | `--gray-5` | `--black`, headings `--pima-dark-green` | milestones |
-| `pale-lime` | `--pima-pale-lime` | `--black`, headings `--pima-dark-green` | philosophy, testimonials, contact |
-| `dark-green` | `--pima-dark-green` | `--white`, accents `--pima-pale-lime` | Về chúng tôi header, founder card |
+| `surface` | `--gray-5` | `--black`, headings `--pima-dark-green` | Về chúng tôi founder story and experts |
+| `pale-lime` | `--pima-pale-lime` | `--black`, headings `--pima-dark-green` | Về chúng tôi opening, testimonials, contact |
+| `dark-green` | `--pima-dark-green` | `--white`, accents `--pima-pale-lime` | Về chúng tôi talent network, founder card |
 
 `Button` takes a `variant`. Every button has `--radius` corners and `--font-weight-bold` text.
 
