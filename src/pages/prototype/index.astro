@@ -1,0 +1,90 @@
+---
+// PROTOTYPE (throwaway, branch prototype/home-redesign; dev only): three variants of the
+// redesigned home page (issue #124), on the sections decided in #122 and real content.
+// /prototype/?variant=A | B | C. Every variant is rendered; the bar shows the one named by ?variant=.
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import VariantA from "../../sections/home/prototype/VariantA.astro";
+import VariantB from "../../sections/home/prototype/VariantB.astro";
+import VariantC from "../../sections/home/prototype/VariantC.astro";
+import { publishedPosts } from "../../sections/blog/blog";
+
+export function getStaticPaths() {
+  return import.meta.env.DEV ? [{ params: {} }] : [];
+}
+
+const posts = (await publishedPosts()).slice(0, 3);
+---
+
+<BaseLayout title="Trang chủ (prototype)" description="Prototype" noindex>
+  <div data-proto="A"><VariantA posts={posts} /></div>
+  <div data-proto="B" hidden><VariantB posts={posts} /></div>
+  <div data-proto="C" hidden><VariantC posts={posts} /></div>
+
+  <div class="proto-bar" role="toolbar" aria-label="Prototype variants">
+    <button type="button" data-step="-1" aria-label="Previous variant">←</button>
+    <span class="proto-label"></span>
+    <button type="button" data-step="1" aria-label="Next variant">→</button>
+  </div>
+</BaseLayout>
+
+<script>
+  const names: Record<string, string> = { A: "A · Hình học", B: "B · Album ảnh", C: "C · Mục lục" };
+  const keys = Object.keys(names);
+  const label = document.querySelector(".proto-label")!;
+  let current = new URL(location.href).searchParams.get("variant")?.toUpperCase() ?? "A";
+  function show(v: string) {
+    if (!keys.includes(v)) v = "A";
+    current = v;
+    document.querySelectorAll<HTMLElement>("[data-proto]").forEach((el) => (el.hidden = el.dataset.proto !== v));
+    label.textContent = names[v];
+    const url = new URL(location.href);
+    url.searchParams.set("variant", v);
+    history.replaceState(null, "", url);
+  }
+  show(current);
+  function step(d: number) {
+    const i = keys.indexOf(current);
+    show(keys[(i + d + keys.length) % keys.length]);
+    window.scrollTo(0, 0);
+  }
+  document.querySelectorAll<HTMLButtonElement>(".proto-bar button").forEach((b) => b.addEventListener("click", () => step(Number(b.dataset.step))));
+  document.addEventListener("keydown", (e) => {
+    const t = e.target as HTMLElement;
+    if (t.closest("input, textarea, select, [contenteditable]")) return;
+    if (e.key === "ArrowLeft") step(-1);
+    if (e.key === "ArrowRight") step(1);
+  });
+</script>
+
+<style>
+  /* Prototype chrome, deliberately off-brand so it reads as not part of the design. */
+  .proto-bar {
+    position: fixed;
+    left: 50%;
+    bottom: var(--space-4);
+    transform: translateX(-50%);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius);
+    background: var(--black);
+    color: var(--white);
+    box-shadow: var(--shadow-dropdown);
+    font-size: var(--font-size-small);
+    font-weight: var(--font-weight-bold);
+  }
+  .proto-bar button {
+    background: none;
+    border: 0;
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+    font-size: var(--font-size-body);
+  }
+  .proto-label {
+    min-width: 8rem;
+    text-align: center;
+  }
+</style>

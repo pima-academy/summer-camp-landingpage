@@ -1,0 +1,585 @@
+---
+// PROTOTYPE B · Album ảnh (throwaway, branch prototype/home-redesign; dev only, issue #124).
+// The one bold move: real camp photos carry the page. Today's baked collage becomes four
+// separate photos laid out in HTML; the two programmes become wide alternating photo rows
+// (the course row takes the stock blackboard already in the repo, option b for the course
+// image); the figures are the brand's stat tiles. Proof is shown all at once, never in a slider.
+import { Image } from "astro:assets";
+import BrandName from "../../../components/BrandName.astro";
+import Button from "../../../components/Button.astro";
+import Kicker from "../../../components/Kicker.astro";
+import Section from "../../../components/Section.astro";
+import ContactSection from "../../ContactSection.astro";
+import { postHref, postSummary, type Post } from "../../blog/blog";
+import { isoDate, postDate } from "../../blog/post-text";
+import { fluidWidths } from "../../../lib/image-widths";
+import {
+  camp,
+  course,
+  figures,
+  figuresSource,
+  hero,
+  partners,
+  photos,
+  pressQuotes,
+  programsLead,
+  report,
+  reportCover,
+  stockBlackboard,
+  testimonials,
+} from "./data";
+
+interface Props {
+  posts: Post[];
+}
+const { posts } = Astro.props;
+const mosaic = [photos.discussion2016, photos.classroom2018, photos.blackboard2016, photos.talk2019];
+const rows = [
+  { p: camp, img: photos.whiteboard2018 },
+  { p: course, img: { src: stockBlackboard, alt: "Bảng đen với các công thức toán" } },
+];
+const [first, ...rest] = posts;
+---
+
+<div class="variant">
+  <Section name="hero" width="large" spacing="large" class="hero">
+    <div class="hero-text">
+      <Kicker flush><BrandName /> Academy</Kicker>
+      <h1>{hero.title}</h1>
+      <p class="lead">{hero.lead}</p>
+      <div class="actions">
+        <Button href={hero.primary.href}>{hero.primary.label}</Button>
+        <Button href={hero.secondary.href} variant="secondary">{hero.secondary.label}</Button>
+      </div>
+    </div>
+    <div class="mosaic">
+      {
+        mosaic.map((ph, i) => (
+          <Image
+            src={ph.src}
+            alt={ph.alt}
+            widths={fluidWidths(ph.src)}
+            sizes={i === 0 ? "(max-width: 767px) 90vw, 640px" : "(max-width: 767px) 45vw, 320px"}
+            loading={i === 0 ? "eager" : "lazy"}
+            class={`tile tile-${i}`}
+          />
+        ))
+      }
+    </div>
+  </Section>
+
+  <Section name="impact" width="large" spacing="medium" id="tac-dong">
+    <div class="center-head">
+      <Kicker>tác động</Kicker>
+      <h2>Những con số nổi bật</h2>
+    </div>
+    <div class="tiles">
+      {
+        figures.map((f, i) => (
+          <div class="stat" data-tone={i % 2 === 0 ? "dark-green" : "pale-lime"}>
+            <span class="stat-value">{f.value}</span>
+            <span class="stat-label">
+              {f.label} {f.detail}
+            </span>
+          </div>
+        ))
+      }
+      <a href={report.href} class="stat stat-report" data-tone="surface">
+        <Image src={reportCover} alt="" widths={[200, 400]} sizes="120px" class="report-cover" />
+        <span class="report-text">
+          <span class="report-title">{report.title}</span>
+          <span class="report-cta">{report.cta}</span>
+        </span>
+      </a>
+    </div>
+    <p class="source">{figuresSource}</p>
+  </Section>
+
+  <Section name="programs-overview" width="large" spacing="medium" id="programs">
+    <div class="center-head">
+      <Kicker><BrandName /> academy</Kicker>
+      <h2>Các chương trình của chúng tôi</h2>
+      <p>{programsLead}</p>
+    </div>
+    {
+      rows.map(({ p, img }, i) => (
+        <article class:list={["row", { flip: i % 2 === 1 }]}>
+          <Image src={img.src} alt={img.alt} widths={fluidWidths(img.src)} sizes="(max-width: 767px) 90vw, 700px" class="row-img" />
+          <div class="row-text">
+            <h3>{p.name}</h3>
+            <p>{p.text}</p>
+            <ul class="activities">
+              {p.activities.map((a) => (
+                <li>{a}</li>
+              ))}
+            </ul>
+            <p class="row-facts">
+              {p.facts.map((f) => (
+                <span>
+                  <strong>{f.value}</strong> {f.label}
+                </span>
+              ))}
+            </p>
+            <Button href={p.cta.href}>{p.cta.label}</Button>
+          </div>
+        </article>
+      ))
+    }
+  </Section>
+
+  <Section name="testimonials" tone="pale-lime" width="large" spacing="medium">
+    <h2 class="center-title">Cảm nhận của cựu trại sinh</h2>
+    <ul role="list" class="strip">
+      {
+        testimonials.map((t) => (
+          <li class="t-card" data-tone="white">
+            <Image src={t.avatar} alt="" width={96} densities={[1, 2]} class="t-avatar" />
+            <span class="t-name">{t.name}</span>
+            <span class="t-role">{t.role.join(" · ")}</span>
+            <blockquote>“{t.quote}”</blockquote>
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+
+  <Section name="partners" width="large" spacing="medium" id="doi-tac">
+    <div class="center-head">
+      <Kicker>đối tác của <BrandName /></Kicker>
+      <h2>Những đơn vị đã đồng hành cùng PiMA</h2>
+    </div>
+    <div class="partner-cards">
+      {
+        partners.map((p) => (
+          <div class="partner" data-tone="surface">
+            <Image src={p.logo} alt={p.alt} width={180} densities={[1, 2]} data-logo class="partner-logo" />
+            <span class="partner-name">{p.name}</span>
+            <span>{p.role}</span>
+            <span class="muted">{p.years}</span>
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+
+  <Section name="press" width="large" spacing="medium" tone="surface">
+    <h2 class="center-title">Báo chí nói về PiMA</h2>
+    <div class="press-grid">
+      {
+        pressQuotes.map((q) => (
+          <a href={q.href} target="_blank" class="press-card" data-tone="white">
+            <Image src={q.logo} alt={q.alt} width={112} densities={[1, 2]} data-logo class="press-logo" />
+            <span>“{q.quote}”</span>
+          </a>
+        ))
+      }
+    </div>
+  </Section>
+
+  <Section name="blog-teaser" width="large" spacing="medium">
+    <div class="split-head">
+      <h2>Bài viết mới nhất</h2>
+      <Button href="/blog/" variant="link">Tất cả bài viết</Button>
+    </div>
+    <div class="blog">
+      {
+        first && (
+          <a href={postHref(first)} class="post post-lead">
+            {first.data.cover && (
+              <Image src={first.data.cover} alt="" widths={[600, 1200]} sizes="(max-width: 767px) 90vw, 700px" class="post-cover" data-tone="surface" />
+            )}
+            <time datetime={isoDate(first.data.date)} class="muted">{postDate(first.data.date)}</time>
+            <span class="post-title">{first.data.title}</span>
+            <span>{postSummary(first)}</span>
+          </a>
+        )
+      }
+      <div class="post-side">
+        {
+          rest.map((post) => (
+            <a href={postHref(post)} class="post post-small">
+              {post.data.cover && (
+                <Image src={post.data.cover} alt="" widths={[300, 600]} sizes="200px" class="post-thumb" />
+              )}
+              <span class="post-small-text">
+                <time datetime={isoDate(post.data.date)} class="muted">{postDate(post.data.date)}</time>
+                <span class="post-title">{post.data.title}</span>
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </Section>
+
+  <ContactSection />
+</div>
+
+<style>
+  /* Hero: centred text over a four-photo mosaic (one large, three small). */
+  .hero-text {
+    max-width: var(--width-small);
+    margin: 0 auto var(--space-12);
+    text-align: center;
+  }
+  .hero-text h1 {
+    margin-top: var(--space-4);
+  }
+  .lead {
+    margin-bottom: var(--space-8);
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-4);
+  }
+  .mosaic {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: var(--space-4);
+    aspect-ratio: 2 / 1;
+  }
+  .tile {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .tile-0 {
+    grid-row: span 2;
+  }
+  .tile-3 {
+    grid-column: span 2;
+  }
+
+  /* Impact: stat tiles, the report as the seventh tile. */
+  .center-head,
+  .center-title {
+    max-width: var(--width-small);
+    margin: 0 auto var(--space-10);
+    text-align: center;
+  }
+  .tiles {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-4);
+  }
+  .stat {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--space-4);
+    min-height: 10rem;
+    padding: var(--space-6);
+    border-radius: var(--radius);
+  }
+  .stat-value {
+    color: var(--color-text-heading);
+    font-size: var(--font-size-h1);
+    font-weight: var(--font-weight-black);
+    line-height: var(--line-height-display);
+    font-variant-numeric: tabular-nums;
+  }
+  .stat-report {
+    grid-column: span 2;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+  .report-cover {
+    width: 5rem;
+    height: auto;
+  }
+  .report-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .report-title {
+    font-weight: var(--font-weight-extrabold);
+    color: var(--color-text-heading);
+  }
+  .report-cta {
+    color: var(--color-link);
+    font-weight: var(--font-weight-bold);
+    text-decoration: underline;
+  }
+  .source,
+  .muted {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+  }
+  .source {
+    margin-top: var(--space-4);
+  }
+
+  /* Programmes: alternating photo rows. */
+  .row {
+    display: grid;
+    grid-template-columns: 7fr 5fr;
+    align-items: center;
+    gap: var(--space-12);
+  }
+  .row + .row {
+    margin-top: var(--space-16);
+  }
+  .flip {
+    grid-template-columns: 5fr 7fr;
+  }
+  .flip .row-img {
+    order: 2;
+  }
+  .row-img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    height: auto;
+    object-fit: cover;
+  }
+  .row-text h3 {
+    margin-top: 0;
+  }
+  .activities {
+    margin: 0 0 var(--space-4);
+    padding-left: var(--space-5);
+  }
+  .activities li::marker {
+    color: var(--color-icon-decorative);
+  }
+  .row-facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-6);
+    margin-bottom: var(--space-6);
+  }
+  .row-facts strong {
+    color: var(--color-text-accent);
+    font-weight: var(--font-weight-black);
+  }
+
+  /* Testimonials: a horizontal strip of cards, scroll-snapped. */
+  .strip {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(18rem, 1fr);
+    gap: var(--space-6);
+    margin: 0;
+    padding: 0 0 var(--space-4);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    list-style: none;
+  }
+  .t-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-6);
+    border-radius: var(--radius);
+    scroll-snap-align: start;
+  }
+  .t-avatar {
+    width: 4rem;
+    height: 4rem;
+    margin-bottom: var(--space-3);
+    object-fit: cover;
+  }
+  .t-name {
+    color: var(--color-text-accent);
+    font-weight: var(--font-weight-extrabold);
+  }
+  .t-role {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+  }
+  .t-card blockquote {
+    margin: var(--space-4) 0 0;
+  }
+
+  /* Partners: two cards. */
+  .partner-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+    max-width: var(--width-medium);
+    margin: 0 auto;
+  }
+  .partner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-1);
+    padding: var(--space-8);
+    border-radius: var(--radius);
+    text-align: center;
+  }
+  .partner-logo {
+    width: 10rem;
+    height: 5rem;
+    margin-bottom: var(--space-4);
+    object-fit: contain;
+  }
+  .partner-name {
+    color: var(--color-text-accent);
+    font-weight: var(--font-weight-extrabold);
+  }
+
+  /* Press: all five quotes at once, in columns. */
+  .press-grid {
+    column-count: 3;
+    column-gap: var(--space-6);
+  }
+  .press-card {
+    display: inline-flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    width: 100%;
+    margin-bottom: var(--space-6);
+    padding: var(--space-6);
+    border-radius: var(--radius);
+    color: var(--color-text);
+    text-decoration: none;
+  }
+  .press-logo {
+    width: 7rem;
+    height: 2.5rem;
+    object-fit: contain;
+    object-position: left;
+  }
+
+  /* Blog: one lead post, two small. */
+  .split-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: var(--space-8);
+  }
+  .split-head h2 {
+    margin: 0;
+  }
+  .blog {
+    display: grid;
+    grid-template-columns: 7fr 5fr;
+    gap: var(--space-8);
+  }
+  .post {
+    display: flex;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+  .post-lead {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .post-cover {
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    height: auto;
+    margin-bottom: var(--space-2);
+    object-fit: contain;
+  }
+  .post-title {
+    font-size: var(--font-size-h3);
+    font-weight: var(--font-weight-extrabold);
+    line-height: var(--line-height-h3);
+  }
+  .post:hover .post-title {
+    color: var(--color-link);
+    text-decoration: underline;
+  }
+  .post-side {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+  .post-small {
+    gap: var(--space-4);
+    align-items: flex-start;
+  }
+  .post-thumb {
+    width: 8rem;
+    flex: none;
+    aspect-ratio: 1;
+    height: auto;
+    object-fit: cover;
+  }
+  .post-small-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  @media screen and (max-width: 991px) {
+    .tiles {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .press-grid {
+      column-count: 2;
+    }
+    .blog {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .mosaic {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto;
+      aspect-ratio: auto;
+    }
+    .tile {
+      aspect-ratio: 1;
+    }
+    .tile-0 {
+      grid-row: auto;
+      grid-column: span 2;
+      aspect-ratio: 3 / 2;
+    }
+    .tile-3 {
+      display: none;
+    }
+    .actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+    .row,
+    .flip {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+    .flip .row-img {
+      order: 0;
+    }
+    .stat {
+      min-height: 0;
+      padding: var(--space-4);
+    }
+    .stat-value {
+      font-size: var(--font-size-h2);
+    }
+    .partner-cards {
+      grid-template-columns: 1fr;
+    }
+    .press-grid {
+      column-count: 1;
+    }
+    .split-head {
+      flex-direction: column;
+    }
+    .post-thumb {
+      width: 7rem;
+    }
+  }
+  /* The fixed nav is taller than the section's top padding at ≤ 991 px (as today's Hero). */
+  @media screen and (max-width: 991px) {
+    .hero-text {
+      padding-top: var(--space-8);
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .hero-text {
+      padding-top: var(--space-10);
+    }
+  }
+</style>

@@ -1,0 +1,634 @@
+---
+// PROTOTYPE A · Hình học (throwaway, branch prototype/home-redesign; dev only, issue #124).
+// The one bold move: the impact report's geodesic sphere line art, PiMA's own brand graphic,
+// large on a dark-green hero, drawn in Pale Lime through a CSS mask so its colour stays a token.
+// Everything after the hero is quiet white: figures as one ruled row, the two programmes as
+// twin cards (the course card takes the sphere too, since no course photo exists), proof as
+// one quote at a time, the blog as three cards.
+import { Image } from "astro:assets";
+import BrandName from "../../../components/BrandName.astro";
+import Button from "../../../components/Button.astro";
+import Kicker from "../../../components/Kicker.astro";
+import Section from "../../../components/Section.astro";
+import Slider from "../../../components/Slider.astro";
+import ContactSection from "../../ContactSection.astro";
+import { postHref, postSummary, type Post } from "../../blog/blog";
+import { isoDate, postDate } from "../../blog/post-text";
+import { fluidWidths } from "../../../lib/image-widths";
+import {
+  camp,
+  course,
+  figures,
+  figuresSource,
+  hero,
+  partners,
+  photos,
+  pressQuotes,
+  programsLead,
+  report,
+  reportCover,
+
+  testimonials,
+} from "./data";
+
+interface Props {
+  posts: Post[];
+}
+const { posts } = Astro.props;
+---
+
+<div class="variant">
+  <Section name="hero" tone="dark-green" width="large" spacing="large" class="hero">
+    <div class="hero-grid">
+      <div class="hero-text">
+        <Kicker flush><BrandName /> Academy</Kicker>
+        <h1>{hero.title}</h1>
+        <p class="lead">{hero.lead}</p>
+        <div class="actions">
+          <Button href={hero.primary.href} variant="on-dark">{hero.primary.label}</Button>
+          <Button href={hero.secondary.href} variant="link">{hero.secondary.label}</Button>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true"></div>
+    </div>
+  </Section>
+
+  <Section name="impact" width="large" spacing="medium" id="tac-dong">
+    <div class="impact-head">
+      <div>
+        <Kicker>tác động</Kicker>
+        <h2>Những con số nổi bật</h2>
+      </div>
+      <p class="source">{figuresSource}</p>
+    </div>
+    <ul role="list" class="ruler">
+      {
+        figures.map((f) => (
+          <li>
+            <span class="value">{f.value}</span>
+            <span class="label">{f.label}</span>
+            <span class="detail">{f.detail}</span>
+          </li>
+        ))
+      }
+    </ul>
+    <a href={report.href} class="report" data-tone="surface">
+      <Image src={reportCover} alt="" widths={[160, 320]} sizes="160px" class="report-cover" />
+      <span class="report-text">
+        <span class="report-title">{report.title}</span>
+        <span>{report.text}</span>
+        <span class="report-cta">{report.cta}</span>
+      </span>
+    </a>
+  </Section>
+
+  <Section name="programs-overview" tone="surface" width="large" spacing="medium" id="programs">
+    <div class="center-head">
+      <Kicker><BrandName /> academy</Kicker>
+      <h2>Các chương trình của chúng tôi</h2>
+      <p>{programsLead}</p>
+    </div>
+    <div class="programs">
+      {
+        [camp, course].map((p, i) => (
+          <article class="program" data-tone="white">
+            {i === 0 ? (
+              <Image
+                src={photos.group2025.src}
+                alt={photos.group2025.alt}
+                widths={fluidWidths(photos.group2025.src)}
+                sizes="(max-width: 767px) 90vw, 600px"
+                class="program-media"
+              />
+            ) : (
+              <div class="program-media program-art" data-tone="dark-green" aria-hidden="true" />
+            )}
+            <div class="program-body">
+              <h3>{p.name}</h3>
+              <p>{p.text}</p>
+              <ul class="activities">
+                {p.activities.map((a) => (
+                  <li>{a}</li>
+                ))}
+              </ul>
+              <dl class="program-facts">
+                {p.facts.map((f) => (
+                  <div>
+                    <dt>{f.value}</dt>
+                    <dd>{f.label}</dd>
+                  </div>
+                ))}
+              </dl>
+              <Button href={p.cta.href}>{p.cta.label}</Button>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </Section>
+
+  <Section name="testimonials" tone="pale-lime" width="medium" spacing="medium">
+    <h2 class="centered">Cảm nhận của cựu trại sinh</h2>
+    <Slider layout="single" infinite label="Cảm nhận của cựu trại sinh" arrowStyle="plain">
+      {
+        testimonials.map((t) => (
+          <div><figure class="quote">
+            <blockquote>“{t.quote}”</blockquote>
+            <figcaption>
+              <Image src={t.avatar} alt="" width={64} densities={[1, 2]} class="avatar" />
+              <span>
+                <span class="name">{t.name}</span>
+                <span class="role">{t.role.join(" · ")}</span>
+              </span>
+            </figcaption>
+          </figure></div>
+        ))
+      }
+    </Slider>
+  </Section>
+
+  <Section name="partners" width="large" spacing="medium" id="doi-tac">
+    <div class="proof">
+      <div>
+        <Kicker>đối tác của <BrandName /></Kicker>
+        <h2>Những đơn vị đã đồng hành cùng <span class="nowrap">PiMA</span></h2>
+      </div>
+      <ul role="list" class="partner-list">
+        {
+          partners.map((p) => (
+            <li>
+              <Image src={p.logo} alt={p.alt} width={140} densities={[1, 2]} data-logo class="partner-logo" />
+              <span>
+                <span class="partner-name">{p.name}</span>
+                <span>{p.role}</span>
+                <span class="muted">{p.years}</span>
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </Section>
+
+  <Section name="press" width="medium" spacing="small">
+    <h2 class="centered">Báo chí nói về PiMA</h2>
+    <Slider layout="single" autoplay={6000} infinite label="Báo chí nói về PiMA">
+      {
+        pressQuotes.map((q) => (
+          <div><figure class="press">
+            <a href={q.href} target="_blank" class="press-logo">
+              <Image src={q.logo} alt={q.alt} width={112} densities={[1, 2]} data-logo />
+            </a>
+            <blockquote>“{q.quote}”</blockquote>
+          </figure></div>
+        ))
+      }
+    </Slider>
+  </Section>
+
+  <Section name="blog-teaser" tone="surface" width="large" spacing="medium">
+    <div class="split-head">
+      <h2>Bài viết mới nhất</h2>
+      <Button href="/blog/" variant="link">Tất cả bài viết</Button>
+    </div>
+    <ul role="list" class="posts">
+      {
+        posts.map((post) => (
+          <li>
+            <a href={postHref(post)} class="post" data-tone="white">
+              {post.data.cover && (
+                <Image src={post.data.cover} alt="" widths={[400, 800]} sizes="(max-width: 767px) 90vw, 400px" class="post-cover" />
+              )}
+              <span class="post-body">
+                <time datetime={isoDate(post.data.date)} class="muted">{postDate(post.data.date)}</time>
+                <span class="post-title">{post.data.title}</span>
+                <span class="post-summary">{postSummary(post)}</span>
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+
+  <ContactSection />
+</div>
+
+<style>
+  /* Hero: text left, the sphere right, bleeding off the band's right edge. */
+  .hero {
+    overflow: clip;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    align-items: center;
+    gap: var(--space-12);
+  }
+  .hero-text h1 {
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-6);
+  }
+  .lead {
+    max-width: 36rem;
+    margin-bottom: var(--space-8);
+  }
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-8);
+  }
+  .hero-art {
+    width: 150%;
+    aspect-ratio: 1;
+    background-color: var(--color-text-accent);
+    mask: url("./sphere-mask.png") center / contain no-repeat;
+  }
+
+  /* Impact: one ruled row of six figures, the report as a wide card under it. */
+  .impact-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: var(--space-8);
+    margin-bottom: var(--space-10);
+  }
+  .impact-head h2 {
+    margin: 0;
+  }
+  .source,
+  .muted {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+  }
+  .ruler {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    margin: 0 0 var(--space-10);
+    padding: 0;
+    list-style: none;
+  }
+  .ruler li {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-2) var(--space-4);
+    border-left: 1px solid var(--color-border);
+  }
+  .ruler li:first-child {
+    padding-left: 0;
+    border-left: 0;
+  }
+  .value {
+    color: var(--color-text-accent);
+    font-size: var(--font-size-big-number);
+    font-weight: var(--font-weight-black);
+    line-height: var(--line-height-display);
+    font-variant-numeric: tabular-nums;
+  }
+  .label {
+    font-weight: var(--font-weight-extrabold);
+  }
+  .detail {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+  }
+  .report {
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+    padding: var(--space-6);
+    border-radius: var(--radius);
+    color: var(--color-text);
+    text-decoration: none;
+  }
+  .report-cover {
+    width: 6rem;
+    height: auto;
+    box-shadow: var(--shadow-dropdown);
+  }
+  .report-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+  .report-title {
+    color: var(--color-text-heading);
+    font-size: var(--font-size-h3);
+    font-weight: var(--font-weight-extrabold);
+  }
+  .report-cta {
+    color: var(--color-link);
+    font-weight: var(--font-weight-bold);
+    text-decoration: underline;
+  }
+
+  /* Programmes: twin cards. */
+  .center-head {
+    max-width: var(--width-small);
+    margin: 0 auto var(--space-12);
+    text-align: center;
+  }
+  .programs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-8);
+  }
+  .program {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: var(--radius);
+  }
+  .program-media {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    height: auto;
+    object-fit: cover;
+    border-radius: 0;
+  }
+  .program-art {
+    background-image: none;
+    position: relative;
+  }
+  .program-art::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: var(--color-text-accent);
+    mask: url("./sphere-mask.png") center / 70% no-repeat;
+  }
+  .program-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: flex-start;
+    padding: var(--space-8);
+  }
+  .program-body h3 {
+    margin-top: 0;
+  }
+  .activities {
+    margin: 0 0 var(--space-6);
+    padding-left: var(--space-5);
+  }
+  .activities li::marker {
+    color: var(--color-icon-decorative);
+  }
+  .program-facts {
+    display: flex;
+    gap: var(--space-8);
+    margin: auto 0 var(--space-6);
+  }
+  .program-facts dt {
+    color: var(--color-text-accent);
+    font-size: var(--font-size-h2);
+    font-weight: var(--font-weight-black);
+    line-height: var(--line-height-display);
+  }
+  .program-facts dd {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+  }
+
+  /* Testimonials: one quote at a time. */
+  .centered {
+    margin-bottom: var(--space-8);
+    text-align: center;
+  }
+  .quote {
+    max-width: var(--width-small);
+    margin: 0 auto;
+    text-align: center;
+  }
+  .quote blockquote {
+    margin: 0 0 var(--space-6);
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+  }
+  .quote figcaption {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-4);
+    text-align: left;
+  }
+  .avatar {
+    width: 4rem;
+    height: 4rem;
+    object-fit: cover;
+  }
+  .name,
+  .partner-name,
+  .role {
+    display: block;
+  }
+  .name,
+  .partner-name {
+    color: var(--color-text-accent);
+    font-weight: var(--font-weight-extrabold);
+  }
+  .role {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+  }
+
+  /* Partners: heading left, the two partners as rows right. */
+  .proof {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    gap: var(--space-12);
+    align-items: center;
+  }
+  .nowrap {
+    white-space: nowrap;
+  }
+  .partner-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .partner-list li {
+    display: grid;
+    grid-template-columns: 10rem 1fr;
+    align-items: center;
+    gap: var(--space-8);
+    padding: var(--space-6) 0;
+    border-top: 1px solid var(--color-border);
+  }
+  .partner-list li:last-child {
+    border-bottom: 1px solid var(--color-border);
+  }
+  .partner-list li > span {
+    display: flex;
+    flex-direction: column;
+  }
+  .partner-logo {
+    width: 100%;
+    height: 4rem;
+    object-fit: contain;
+  }
+
+  /* Press: logo above the quote. */
+  .press {
+    max-width: var(--width-small);
+    margin: 0 auto;
+    text-align: center;
+  }
+  .press-logo img {
+    width: 7rem;
+    height: 3rem;
+    object-fit: contain;
+  }
+  .press blockquote {
+    margin: var(--space-4) 0 0;
+  }
+
+  /* Blog: three cards. */
+  .split-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-4);
+    margin-bottom: var(--space-8);
+  }
+  .split-head h2 {
+    margin: 0;
+  }
+  .posts {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-8);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .post {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    border-radius: var(--radius);
+    color: var(--color-text);
+    text-decoration: none;
+  }
+  .post-cover {
+    width: 100%;
+    aspect-ratio: 1;
+    height: auto;
+    object-fit: cover;
+    border-radius: 0;
+  }
+  .post-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-6);
+  }
+  .post-title {
+    font-size: var(--font-size-h3);
+    font-weight: var(--font-weight-extrabold);
+    line-height: var(--line-height-h3);
+  }
+  .post:hover .post-title {
+    color: var(--color-link);
+    text-decoration: underline;
+  }
+  .post-summary {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+
+  @media screen and (max-width: 991px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+    }
+    .hero-art {
+      width: 100%;
+      max-width: 28rem;
+      margin: 0 auto;
+    }
+    .ruler {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      row-gap: var(--space-8);
+    }
+    .ruler li:nth-child(4) {
+      padding-left: 0;
+      border-left: 0;
+    }
+    .proof {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .impact-head {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .ruler {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .ruler li:nth-child(4) {
+      padding-left: var(--space-4);
+      border-left: 1px solid var(--color-border);
+    }
+    .ruler li:nth-child(odd) {
+      padding-left: 0;
+      border-left: 0;
+    }
+    .programs,
+    .posts {
+      grid-template-columns: 1fr;
+    }
+    .program-body {
+      padding: var(--space-6);
+    }
+    .report {
+      align-items: flex-start;
+      gap: var(--space-4);
+      padding: var(--space-4);
+    }
+    .quote blockquote {
+      font-size: var(--font-size-body);
+      line-height: var(--line-height-body);
+    }
+    .partner-list li {
+      grid-template-columns: 6rem 1fr;
+      gap: var(--space-4);
+    }
+    .split-head {
+      flex-direction: column;
+    }
+    .post {
+      flex-direction: row;
+    }
+    .post-cover {
+      width: 6rem;
+      flex: none;
+      align-self: flex-start;
+      margin: var(--space-4) 0 0 var(--space-4);
+      border-radius: var(--radius);
+    }
+    .post-body {
+      padding: var(--space-4);
+    }
+    .post-summary {
+      display: none;
+    }
+  }
+  /* The fixed nav is taller than the section's top padding at ≤ 991 px (as today's Hero). */
+  @media screen and (max-width: 991px) {
+    .hero-text {
+      padding-top: var(--space-8);
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .hero-text {
+      padding-top: var(--space-10);
+    }
+  }
+</style>
