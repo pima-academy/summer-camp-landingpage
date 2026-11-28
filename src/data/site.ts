@@ -21,8 +21,6 @@ export interface FooterColumn {
 }
 
 export const contact = {
-  phone: "+84 90 955 1721",
-  phoneHref: "tel:+84909551721",
   email: "contact@pimavn.com",
   emailHref: "mailto:contact@pimavn.com",
   address: "35 Văn Chung, Phường Tân Bình, Thành phố Hồ Chí Minh, Việt Nam",
