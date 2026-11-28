@@ -45,6 +45,7 @@ test("type, radius and shadow values must come through var(--…)", () => {
     "font: 700 11px/1.3 monospace",
     "font-family: Arial, sans-serif",
     "font-size: calc(var(--font-size-body) * 2)",
+    "font-size: max(var(--font-size-h1), 3rem)",
   ]) {
     assert.deepEqual(check(bad), ["not-a-token"], bad);
   }
@@ -58,6 +59,8 @@ test("type, radius and shadow values must come through var(--…)", () => {
     "font: inherit",
     "font-family: var(--font-family-base)",
     "letter-spacing: var(--letter-spacing-kicker)",
+    // The larger (or smaller) of two tokens is still a token: display type never below the h1.
+    "font-size: max(var(--font-size-h1), var(--font-size-display-2))",
     "letter-spacing: 0",
     "letter-spacing: normal",
   ]) {
