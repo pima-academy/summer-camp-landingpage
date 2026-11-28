@@ -12,7 +12,7 @@ Bài toán tô màu đồ thị bắt nguồn từ những vấn đề trong cu�
 
 Sudoku là một biến thể của bài toán tô màu đồ thị trong đó mỗi ô đại diện cho một đỉnh của đồ thị. Những cặp đỉnh nào có ràng buộc sẽ có cạnh giữa chúng, cụ thể là giữa hai đỉnh sẽ có một cạnh nếu chúng ở cùng một hàng hoặc cùng một cột hoặc cùng một khối. Bài toán được giải quyết khi các ô tương ứng với các đỉnh cùng màu thì được điền cùng một số. Ví dụ trong hình đầu bài là một ô sudoku kích thước $4 \times 4$.
 
-Tô màu các nước trên bản đồ cũng là một bài toán tô màu đồ thị: có thể dùng ít nhất bao nhiêu màu để tô màu một bản đồ sao cho các miền kề nhau không cùng một màu? Bài toán này dẫn đến định lí Five Coloring: cần không quá 5 màu để tô, và định lí Four Coloring: cần đúng 4 màu để tô. Một điều rất thú vị là trong khi định lí đầu có thể được chứng minh rất đơn giản bằng kiến thức toán sơ cấp, định lí sau phức tạp hơn rất nhiều và cần đến sự trợ giúp của máy tính trong chứng minh!
+Tô màu các nước trên bản đồ cũng là một bài toán tô màu đồ thị: có thể dùng ít nhất bao nhiêu màu để tô màu một bản đồ sao cho các miền kề nhau không cùng một màu? Bài toán này dẫn đến định lí Five Coloring: cần không quá 5 màu để tô, và định lí Four Coloring: cần không quá 4 màu để tô. Một điều rất thú vị là trong khi định lí đầu có thể được chứng minh rất đơn giản bằng kiến thức toán sơ cấp, định lí sau phức tạp hơn rất nhiều và cần đến sự trợ giúp của máy tính trong chứng minh!
 
 ![Đồ thị 6 đỉnh A, B, C, D, E, F và bốn bước tô màu: bước 2 tô đỏ A và E, bước 2(1) tô xanh dương B và C, bước 2(2) tô xanh lá D, bước 2(3) tô vàng F](./hinh-1.jpg)
 
