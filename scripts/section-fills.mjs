@@ -29,8 +29,7 @@ export function sectionFillProblems(path, text) {
   const visit = (nodes) =>
     nodes.forEach((n) => {
       if (n.type === "decl" && BACKGROUND.test(n.prop)) {
-        // Colour tokens only (a mix may take a number, like the timeline dot's progress);
-        // literal colours are the guardrail's business.
+        // Colour tokens only; literal colours are the guardrail's business.
         const colours = [...n.value.matchAll(/var\(\s*(--color-[\w-]+)/g)].map((m) => m[1]);
         const ok = colours.every((name) => name in SECTION_FILLS);
         if (!ok) out.push(`${path}:${n.line} ${n.prop}: ${n.value} (use Section's tone or data-tone)`);
