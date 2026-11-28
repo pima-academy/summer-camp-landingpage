@@ -211,8 +211,6 @@
   --color-background-form-error: var(--gray-5);
   /* The "No items found." box of a dev-only empty list (old `.w-dyn-empty`). */
   --color-background-empty-list: var(--gray-4);
-  /* A ve-chung-toi founder timeline dot the page has not scrolled to yet (PiMA Green once it has). */
-  --color-background-timeline-dot-idle: var(--gray-4);
   --color-background-slider-dot: var(--gray-2);
   --color-background-slider-dot-current: var(--black);
   /* The header row of a table (docs/brand.md, "Tables"): a blog post's Markdown tables. */

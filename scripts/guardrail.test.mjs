@@ -171,7 +171,7 @@ test("var(--…) must name a token of tokens.css (or an allowed inline custom pr
 });
 
 test("the guardrail skips tokens.css and files other than .astro and .css", () => {
-  for (const path of ["src/styles/tokens.css", "src/lib/timeline-dots.ts"]) {
+  for (const path of ["src/styles/tokens.css", "src/lib/image-widths.ts"]) {
     assert.equal(inScope(path), false, path);
   }
   for (const path of ["src/components/Nav.astro", "src/styles/global.css", "src/pages/index.astro"]) {

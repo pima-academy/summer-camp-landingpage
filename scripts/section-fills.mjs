@@ -9,10 +9,8 @@ import { parseCss } from "./guardrail-lib.mjs";
  * band or a card. Each needs a reason here.
  */
 export const SECTION_FILLS = {
-  // PiMA Green marks: the timeline axis and dots (Milestone, FounderStory).
+  // PiMA Green marks: the timeline axis and dots (Milestone).
   "--color-background-accent": "timeline axis and dots",
-  // A founder timeline dot the page has not scrolled to yet.
-  "--color-background-timeline-dot-idle": "timeline dot before it is reached",
   // The dev-only "No items found." box of an empty CMS list (content gaps only).
   "--color-background-empty-list": "dev-only empty-list box",
   // The header row of a blog post's Markdown table (PostBody): generated markup takes no data-tone.
