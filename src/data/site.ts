@@ -85,7 +85,7 @@ export const footerColumns: FooterColumn[] = [
 
 /**
  * Contact form backend: the web app URL (`https://script.google.com/macros/s/<id>/exec`) of
- * apps-script/Code.gs. Empty until it is deployed (#30); ContactForm then shows its error state.
+ * apps-script/Code.gs. Deployed in #30; if it is ever emptied, ContactForm shows its error state.
  * Keep the URL on the same line as the word "endpoint": `npm run shots` blocks it from that line.
  */
-export const contactFormEndpoint = "";
+export const contactFormEndpoint = "https://script.google.com/macros/s/AKfycbwqii7LIdqEVjz7wZETZ-29TNgf2KAnwfBIYCXnZt7uu0aJEuKoKw2qrPZFWJBiV6Z7lQ/exec";
