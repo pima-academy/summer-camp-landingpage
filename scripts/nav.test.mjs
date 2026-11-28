@@ -90,6 +90,34 @@ test("a menu opened on mobile is back in the header bar at desktop width", { ski
   await page.context().close();
 });
 
+// The colour a visitor sees is the label's (the text inside the link), compared with the
+// link-hover role token resolved on the page.
+for (const width of [390, 1440]) {
+  test(`at ${width} px hovering a nav link turns its text the link-hover colour`, { skip }, async () => {
+    const page = await open({ width });
+    if (width < 992) {
+      await page.click(button);
+      await settle(page);
+    }
+    const link = page.locator(`${menu} a[href="/ve-chung-toi/"]`);
+    const textColour = () => link.evaluate((a) => getComputedStyle(a.firstElementChild).color);
+    const hoverColour = await page.evaluate(() => {
+      const probe = document.createElement("span");
+      probe.style.color = "var(--color-link-hover)";
+      document.querySelector("header").append(probe);
+      const c = getComputedStyle(probe).color;
+      probe.remove();
+      return c;
+    });
+    const before = await textColour();
+    assert.notEqual(before, hoverColour, "not the hover colour at rest");
+    await link.hover();
+    await page.waitForTimeout(300);
+    assert.equal(await textColour(), hoverColour);
+    await page.context().close();
+  });
+}
+
 test("the hamburger works from the keyboard and Esc closes the menu", { skip }, async () => {
   const page = await open({ width: 390 });
   await page.focus(button);
