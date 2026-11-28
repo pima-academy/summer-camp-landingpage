@@ -1,6 +1,8 @@
 ---
-// PageHeader: the page title band with the "PiMA academy > chương trình" breadcrumb. Used by
-// khoa-hoc and trai-he-toan-hoc-pima (old `section_camp-header`). Besides the title,
+// PageHeader: the page's opening on a surface band, in the grammar of the Về chúng tôi and
+// Liên hệ openings: the "PiMA academy > chương trình" breadcrumb kicker over the page title,
+// an h1 in display type (display-2, never below the h1 size). Used by khoa-hoc and
+// trai-he-toan-hoc-pima (old `section_camp-header`). Besides the title,
 // trai-he-toan-hoc-pima asks for the camp years, linked under the title (CampYearNav).
 import BrandName from "../components/BrandName.astro";
 import CampYearNav from "../components/CampYearNav.astro";
@@ -19,9 +21,7 @@ const { title, campYears } = Astro.props;
 
 <Section name="page-header" spacing="none" tone="surface">
   <div class="inner">
-    <div class="crumb">
-      <Kicker flush><BrandName /> academy &gt; chương trình</Kicker>
-    </div>
+    <Kicker flush><BrandName /> academy &gt; chương trình</Kicker>
     <h1 class="title">{title}</h1>
     {
       campYears && (
@@ -34,38 +34,44 @@ const { title, campYears } = Astro.props;
 </Section>
 
 <style>
-  /* Section's spacing="large", except at ≤ 767 px (see below). */
+  /* The top padding clears the fixed nav, as in the Về chúng tôi opening. */
   .inner {
-    position: relative;
-    padding-top: var(--space-28);
-    padding-bottom: var(--space-28);
+    padding-top: var(--space-32);
+    padding-bottom: var(--space-16);
   }
 
-  .crumb {
-    margin-bottom: var(--space-2);
-  }
-
+  /* Display type, not the h1 role: the page's one big moment (docs/brand.md, Display). */
   .title {
+    margin: var(--space-4) 0 0;
     color: var(--color-text-heading);
+    font-size: max(var(--font-size-h1), var(--font-size-display-2));
+    font-weight: var(--font-weight-black);
+    letter-spacing: var(--letter-spacing-display);
+    line-height: var(--line-height-display);
   }
 
   .years {
-    margin-top: var(--space-6);
+    margin-top: var(--space-10);
   }
 
   @media screen and (max-width: 991px) {
     .inner {
-      padding-top: var(--space-24);
-      padding-bottom: var(--space-24);
+      padding-top: var(--space-28);
+      padding-bottom: var(--space-12);
+    }
+
+    .years {
+      margin-top: var(--space-8);
     }
   }
 
-  /* Defect fix: the old 4rem top padding at ≤ 767 px put the breadcrumb under the 72 px
-     fixed nav. Keep the tablet top padding (6rem) here: the breadcrumb clears the nav by
-     24 px, as it does at 768-991 px. */
   @media screen and (max-width: 767px) {
     .inner {
-      padding-bottom: var(--space-16);
+      padding-top: var(--space-24);
+    }
+
+    .years {
+      margin-top: var(--space-6);
     }
   }
 </style>
