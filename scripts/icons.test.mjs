@@ -79,9 +79,11 @@ test("no old icon file is left", () => {
 /** Published pages (the dev-only gap pages are not built). */
 const pages = () => builtHtmlFiles().map((f) => relative(dist, f).split(sep).join("/"));
 
-// KaTeX draws a few maths marks as SVG (the arrow of \vec in a blog post): part of a formula,
-// not an icon. Such an SVG sits right inside a span of KaTeX's own classes.
-const KATEX_SVG_PARENT = /<span class="(?:katex-[\w-]+|svg-align|hide-tail|stretchy)\b[^"]*"[^>]*>$/;
+// KaTeX draws a few maths marks as SVG (the arrow of \vec, a tall bracket in a blog post): part
+// of a formula, not an icon. Such an SVG sits right inside a span of KaTeX's own classes, or, for
+// a tall delimiter, inside the sized span that follows KaTeX's `pstrut`.
+const KATEX_SVG_PARENT =
+  /<span class="(?:katex-[\w-]+|svg-align|hide-tail|stretchy)\b[^"]*"[^>]*>$|<span class="pstrut" style="height:[\d.]+em;"><\/span><span style="(?:width|height):[\d.]+em;(?:width|height):[\d.]+em;">$/;
 
 test("every <svg> on a published page is an Icon (or part of a formula)", { skip }, () => {
   for (const page of pages()) {
