@@ -65,9 +65,9 @@ PiMA Green appears as a fill: buttons, kicker rules, the timeline, the logo, dec
 | `tone` | Background | Text | Used for |
 |---|---|---|---|
 | `white` (default) | `--white` | `--black`, headings `--pima-dark-green` | most sections |
-| `surface` | `--gray-5` | `--black`, headings `--pima-dark-green` | Về chúng tôi founder story and experts |
-| `pale-lime` | `--pima-pale-lime` | `--black`, headings `--pima-dark-green` | Về chúng tôi opening, testimonials, contact |
-| `dark-green` | `--pima-dark-green` | `--white`, accents `--pima-pale-lime` | home hero, Về chúng tôi talent network |
+| `surface` | `--gray-5` | `--black`, headings `--pima-dark-green` | page headers (`PageHeader` on Khóa học and Trại hè, `BlogHeader`), home programmes and blog teaser, camp page activities, camp archive projects, Về chúng tôi founder story and experts |
+| `pale-lime` | `--pima-pale-lime` | `--black`, headings `--pima-dark-green` | Về chúng tôi opening, testimonials, the contact block (`ContactSection`) |
+| `dark-green` | `--pima-dark-green` | `--white`, accents `--pima-pale-lime` | home hero, Về chúng tôi talent network, the Liên hệ page (`ContactSection variant="page"`), the camp archive cover (a card) |
 
 `Button` takes a `variant`. Every button has `--radius` corners and `--font-weight-bold` text.
 
@@ -102,7 +102,7 @@ The footer is a `--black` band: column headings `--pima-green`, text and links `
 | Body | `--font-size-body` | `--line-height-body` | regular | `--black` |
 | Kicker | `--font-size-kicker` | `--line-height-kicker` | extrabold, uppercase, `--letter-spacing-kicker` | `--black`, under a short `--pima-green` rule aligned with the block |
 | Big numbers | `--font-size-big-number` | | `--font-weight-black` | `--pima-dark-green` |
-| Display (big type that is not a heading level, such as the camp archive page's topic) | `--font-size-display-2` (the topic), or the larger `--font-size-display` (unused so far) | `--line-height-display` | `--font-weight-black`, `--letter-spacing-display` | the text role of its tone (`--white` on the dark-green hero) |
+| Display (big type that is not a heading level, or a page's one big title) | `--font-size-display-2`: page titles (the `PageTitle` primitive, never below `--font-size-h1`), the camp archive page's topic, the Về chúng tôi closing line; the larger `--font-size-display`: the talent network's big number | `--line-height-display` | `--font-weight-black`, `--letter-spacing-display` | a text role of its tone (`--white` or `--pima-pale-lime` on dark green) |
 | Dates, names (milestones, testimonials) | `--font-size-body` | | extrabold | `--pima-dark-green` |
 | Nav links | | | semibold | `--gray-1` |
 | Captions and small text (form fields, tags, the footer credit) | `--font-size-small` | | regular | `--gray-1` for captions |

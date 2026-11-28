@@ -31,10 +31,11 @@ src/
                     404.astro, [...gap].astro (gap pages) and catalogue/ (every primitive), both dev only
   sections/         sections used by 2+ pages, with their .ts data files
   sections/<slug>/  sections used by one page (home for /)
-  components/       primitives (Section, Button, Kicker, BrandName, Icon) and widgets (Slider, Marquee,
-                    Accordion, ContactForm, ContentGap)
+  components/       primitives (Section, Button, Kicker, BrandName, Icon, PageTitle) and widgets
+                    (Slider, Lightbox, CampYearNav, ContactForm, ContentGap)
   layouts/          BaseLayout, Head, Nav, Footer
-  lib/              page scripts: timeline dots, current link, slider steps, image widths
+  lib/              page and build helpers: current link, slider steps, image widths, gap pages,
+                    the blog's Markdown plugins (formulas, figures)
   gap-pages/        pages whose content does not exist yet (served in dev only)
   data/site.ts      site-wide facts: contact details, social links, nav and footer links, form endpoint
   assets/images/    every image used in markup (rendered with astro:assets as WebP)

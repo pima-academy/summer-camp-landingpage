@@ -33,11 +33,11 @@ A full-width band of a page with one purpose (hero, partners, press, contact for
 _Avoid_: block, module, row
 
 **Primitive**:
-One of the small fixed set of building blocks that carry a brand rule and repeat across sections: `Section`, `Button`, `Kicker`, `BrandName`, `Icon`. A new one needs a pattern repeated in two or more places and a brand rule; every primitive is shown on the catalogue page.
+One of the small fixed set of building blocks that carry a brand rule and repeat across sections: `Section`, `Button`, `Kicker`, `BrandName`, `Icon`, `PageTitle`. A new one needs a pattern repeated in two or more places and a brand rule; every primitive is shown on the catalogue page.
 _Avoid_: base component, atom, design-system component
 
 **Widget**:
-A reusable component with behaviour or a fixed structure of its own but no brand rule to carry (`Slider`, `Marquee`, `ContactForm`, `ContentGap`). Lives next to the primitives, is not one.
+A reusable component with behaviour or a fixed structure of its own but no brand rule to carry (`Slider`, `Lightbox`, `CampYearNav`, `ContactForm`, `ContentGap`). Lives next to the primitives, is not one.
 _Avoid_: primitive (for these), plugin
 
 **Tone**:
