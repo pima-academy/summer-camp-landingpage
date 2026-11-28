@@ -70,7 +70,6 @@ const SHARED = [
   "Philosophy",
   "Milestone",
   "Team",
-  "SummerCamp",
   "ContactSection",
   "PageHeader",
 ];

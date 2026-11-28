@@ -1,11 +1,11 @@
 // Slides of the SummerCamp section's photo slider, in old-site order.
 import type { ImageMetadata } from "astro";
-import traiHe1 from "../assets/images/trai-he-pima-1.avif";
-import traiHe2 from "../assets/images/trai-he-pima-2.avif";
-import traiHe3 from "../assets/images/trai-he-pima-3.avif";
-import traiHe5 from "../assets/images/trai-he-pima-5.avif";
-import traiHe6 from "../assets/images/trai-he-pima-6.avif";
-import traiHe8 from "../assets/images/trai-he-pima-8.avif";
+import traiHe1 from "../../assets/images/trai-he-pima-1.avif";
+import traiHe2 from "../../assets/images/trai-he-pima-2.avif";
+import traiHe3 from "../../assets/images/trai-he-pima-3.avif";
+import traiHe5 from "../../assets/images/trai-he-pima-5.avif";
+import traiHe6 from "../../assets/images/trai-he-pima-6.avif";
+import traiHe8 from "../../assets/images/trai-he-pima-8.avif";
 
 export interface SummerCampPhoto {
   image: ImageMetadata;
