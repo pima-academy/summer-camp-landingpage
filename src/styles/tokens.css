@@ -46,7 +46,7 @@
 
   /*
    * Type (docs/brand.md, Typography). Five weights, each with a face in fonts.css. Roles: h1–h3,
-   * body, kicker, marquee, big numbers, small text, display. Every other heading level or size
+   * body, kicker, big numbers, small text, display. Every other heading level or size
    * uses the nearest role. Sizes that change per breakpoint are redeclared in the media queries
    * at the end.
    */
@@ -67,7 +67,6 @@
   /* Captions, form fields, tags, pagination, the footer credit. */
   --font-size-small: 14px;
   --font-size-kicker: 14px;
-  --font-size-marquee: 15px;
   --font-size-big-number: 2.6rem;
   /* Display: big type that is not a heading level. -display-2 sets the camp archive page's
      topic; -display is the larger step above it, unused so far. Fluid, so the same
@@ -97,7 +96,6 @@
   --letter-spacing-heading: -0.01em;
   --letter-spacing-display: -0.025em;
   --letter-spacing-kicker: 0.08em;
-  --letter-spacing-marquee: 0.03em;
   --letter-spacing-tag: 0.035em;
 
   /*
@@ -217,8 +215,6 @@
   --color-background-timeline-dot-idle: var(--gray-4);
   --color-background-slider-dot: var(--gray-2);
   --color-background-slider-dot-current: var(--black);
-  /* The dot between the marquee's claims; the marquee is always on the dark-green tone. */
-  --color-marquee-separator: var(--pima-pale-lime);
   /* The header row of a table (docs/brand.md, "Tables"): a blog post's Markdown tables. */
   --color-background-table-header: var(--pima-dark-green);
   --color-text-table-header: var(--white);

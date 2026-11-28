@@ -28,8 +28,8 @@
   Anything else about the band is set in the section file's own CSS through `class`, which
   lands on the <section>:
 
-    <Section name="trust-bar" tone="dark-green" class="trust">…</Section>
-    <style>.trust { overflow: clip; }</style>
+    <Section name="press" class="press">…</Section>
+    <style>.press { overflow: clip; }</style>
 
   `name` is the section file's name in kebab case (FoundingStory.astro → "founding-story");
   scripts/sections.test.mjs checks it. Tests find sections by `data-section`.
@@ -45,8 +45,6 @@ interface Props extends HTMLAttributes<"section"> {
   spacing?: "none" | "small" | "medium" | "large";
   /** Background and the passing text colours on it. */
   tone?: "white" | "surface" | "pale-lime" | "dark-green";
-  /** Fade the section up the first time it scrolls into view (src/lib/animate.ts). */
-  animate?: boolean;
 }
 
 const {
@@ -54,7 +52,6 @@ const {
   width = "medium",
   spacing = "medium",
   tone = "white",
-  animate = false,
   class: className,
   ...attrs
 } = Astro.props;
@@ -63,7 +60,6 @@ const {
 <section
   data-section={name}
   data-tone={tone}
-  data-animate={animate ? "fade-up" : undefined}
   class:list={["band", className]}
   {...attrs}
 >
@@ -112,7 +108,7 @@ const {
     background-color: var(--color-background-pale-lime);
   }
 
-  /* Dark-green tone (marquee, founder card): re-points the text roles for its
+  /* Dark-green tone (ve-chung-toi header, founder card): re-points the text roles for its
      descendants, down to a card of a light tone. */
   :global([data-tone="dark-green"]) {
     --color-text: var(--color-text-on-dark);

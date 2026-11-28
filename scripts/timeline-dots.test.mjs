@@ -4,7 +4,7 @@
 // CSS turns the progress into a colour (idle grey -> PiMA Green, see FounderStory.astro).
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { timelineDotProgress } from "../src/lib/animate.ts";
+import { timelineDotProgress } from "../src/lib/timeline-dots.ts";
 
 // A 15 px dot in a 1000 px viewport: scroll position = (1000 - top) / 1015.
 const dot = (top) => ({ top, height: 15 });

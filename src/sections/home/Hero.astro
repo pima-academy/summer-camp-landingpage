@@ -1,7 +1,7 @@
 ---
 // Hero: the home page's opening section, "PiMA ACADEMY", the h1, the lead, a button to
 // the programs and the hero photo. Used by index only (old `section_homepage_hero`).
-// Fades up on scroll. The hero photo loads eagerly (it is the LCP image).
+// The hero photo loads eagerly (it is the LCP image).
 import { Image } from "astro:assets";
 import hero from "../../assets/images/hero-image-homepage.png";
 import BrandName from "../../components/BrandName.astro";
@@ -11,7 +11,7 @@ import Section from "../../components/Section.astro";
 import { fluidWidths } from "../../lib/image-widths";
 ---
 
-<Section name="hero" width="large" spacing="medium" animate>
+<Section name="hero" width="large" spacing="medium">
   <div class="layout">
     <div class="intro">
       <Kicker flush><BrandName /> ACADEMY</Kicker>

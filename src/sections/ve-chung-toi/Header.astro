@@ -1,14 +1,14 @@
 ---
 // Header: the dark green title band "Về chúng tôi" with the "PiMA academy > giới thiệu"
 // breadcrumb. Used by ve-chung-toi only (old `section_about-header`); carries the footer
-// anchor "Giới thiệu". Fades up on scroll.
+// anchor "Giới thiệu".
 import BrandName from "../../components/BrandName.astro";
 import Kicker from "../../components/Kicker.astro";
 import Section from "../../components/Section.astro";
 import { aboutAnchors } from "../../data/site";
 ---
 
-<Section name="header" width="large" spacing="none" tone="dark-green" animate id={aboutAnchors.intro}>
+<Section name="header" width="large" spacing="none" tone="dark-green" id={aboutAnchors.intro}>
   <div class="inner">
     <div class="crumb"><Kicker flush><BrandName /> academy &gt; giới thiệu</Kicker></div>
     <h1 class="title">Về chúng tôi</h1>

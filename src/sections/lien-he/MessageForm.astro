@@ -1,7 +1,7 @@
 ---
 // MessageForm: the lien-he page's "Hoặc để lại lời nhắn" block, an illustration next to the
 // ContactForm (lien-he variant). Used by lien-he only (old `section_contact-form` with its
-// image-and-form grid). Fades up on scroll.
+// image-and-form grid).
 import { Image } from "astro:assets";
 import Section from "../../components/Section.astro";
 import ContactForm from "../../components/ContactForm.astro";
@@ -9,7 +9,7 @@ import { fluidWidths } from "../../lib/image-widths";
 import contactIllustration from "../../assets/images/frame-28135.avif";
 ---
 
-<Section name="message-form" spacing="none" tone="pale-lime" animate id="contact-form">
+<Section name="message-form" spacing="none" tone="pale-lime" id="contact-form">
   <div class="layout">
     <div class="illustration">
       {/* width 443 as the old attribute: it caps the illustration where the cell is wider. */}

@@ -1,14 +1,13 @@
 ---
 // Press: "Báo chí nói về PiMA", a slider of press quotes (press.ts), one at a time, each with
 // the newspaper's logo linking to the article. Used by index only (old `section_press`).
-// Fades up on scroll.
 import { Image } from "astro:assets";
 import Section from "../../components/Section.astro";
 import Slider from "../../components/Slider.astro";
 import { pressQuotes } from "./press";
 ---
 
-<Section name="press" width="medium" spacing="small" animate>
+<Section name="press" width="medium" spacing="small">
   <h2 class="heading">Báo chí nói về PiMA</h2>
   <Slider layout="single" autoplay={5000} infinite label="Báo chí nói về PiMA">
     {

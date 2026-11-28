@@ -1,7 +1,7 @@
 ---
 // VisionMission: "Xuất phát điểm / Tầm nhìn / Sứ mệnh" in an Accordion, each panel with a
 // photo. Used by ve-chung-toi only (old `about-feature` / `layout351_*`); carries the footer
-// anchor "Tầm nhìn & Sứ mệnh". Fades up on scroll.
+// anchor "Tầm nhìn & Sứ mệnh".
 import { Image } from "astro:assets";
 import Accordion from "../../components/Accordion.astro";
 import AccordionPanel from "../../components/AccordionPanel.astro";
@@ -17,7 +17,7 @@ import workshop from "../../assets/images/481775555-1135445305045604-73040323339
 const photoSizes = "(max-width: 767px) calc(90vw - 36px), (max-width: 991px) 80vw, 708px";
 ---
 
-<Section name="vision-mission" width="large" spacing="small" animate id={aboutAnchors.visionMission}>
+<Section name="vision-mission" width="large" spacing="small" id={aboutAnchors.visionMission}>
   <div class="panels">
     <Accordion>
       <AccordionPanel number="01" title="Xuất phát điểm" open>

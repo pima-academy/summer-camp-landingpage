@@ -1,7 +1,7 @@
 ---
 // ProgramsOverview: "Các chương trình của chúng tôi" section, banners linking to the camp
 // and the course pages. Used by index and ve-chung-toi (old `section_programs-overview`).
-// id="programs" is the target of index's in-page "#programs" link. Fades up on scroll.
+// id="programs" is the target of index's in-page "#programs" link.
 import { Image } from "astro:assets";
 import campBanner from "../assets/images/trai-he-toan-hoc.png";
 import courseBanner from "../assets/images/khoa-hoc-toan-mo-hinh.png";
@@ -13,7 +13,7 @@ import { fluidWidths } from "../lib/image-widths";
 const sizes = "(max-width: 991px) 45vw, 440px";
 ---
 
-<Section name="programs-overview" spacing="small" animate id="programs">
+<Section name="programs-overview" spacing="small" id="programs">
   <div class="intro">
     <Kicker flush><BrandName /> academy</Kicker>
     <h2 class="title">Các chương trình của chúng tôi</h2>

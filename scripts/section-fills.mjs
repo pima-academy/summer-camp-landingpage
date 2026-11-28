@@ -20,8 +20,6 @@ export const SECTION_FILLS = {
   // A blog post's code blocks (PostBody): Shiki paints them through --astro-code-background.
   "--color-background-code": "code block panel",
   "--color-background-code-output": "code output panel",
-  // The dot between the marquee's claims.
-  "--color-marquee-separator": "marquee separator dot",
 };
 
 // Shiki's css-variables theme paints a code block with --astro-code-background, so setting it is a fill.

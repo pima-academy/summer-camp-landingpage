@@ -3,7 +3,6 @@
   CampIntro: "Định hướng học thuật, phát triển toàn diện", the camp's goals (two items with
   an icon) next to a square photo. Used by trai-he-toan-hoc-pima (old `section_camp-intro`).
   Its heading and lead repeat in CampActivity, as on the old page (content work, spec #15).
-  Fades up on scroll.
 */
 import { Image } from "astro:assets";
 import Icon from "../../components/Icon.astro";
@@ -12,7 +11,7 @@ import { fluidWidths } from "../../lib/image-widths";
 import introPhoto from "../../assets/images/38823662-1069309959900702-110915413000323072-n.avif";
 ---
 
-<Section name="camp-intro" spacing="small" animate>
+<Section name="camp-intro" spacing="small">
   <div class="layout">
     <div>
       <h2 class="title">Định hướng học thuật, phát triển toàn diện</h2>

@@ -3,12 +3,12 @@
 // card (only its "Xem thêm" link shows) and the "No items found." line. Used by index only
 // (old `section_upcoming-events`), inside a ContentGap, so it never reaches the build.
 // The old card's date tag, image, title and summary were empty CMS fields; they come back
-// with the content. Fades up on scroll.
+// with the content.
 import Button from "../../components/Button.astro";
 import Section from "../../components/Section.astro";
 ---
 
-<Section name="upcoming-events" width="medium" spacing="none" animate>
+<Section name="upcoming-events" width="medium" spacing="none">
   <div class="head">
     <h2 class="heading">Sự kiện sắp tới</h2>
   </div>

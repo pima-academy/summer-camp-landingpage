@@ -18,12 +18,10 @@ test("camp page has its sections in the old order", { skip }, () => {
     "page-header",
     "camp-intro",
     "impact",
-    "trust-bar",
     "camp-activity",
     "partners",
     "camp-history",
     "testimonials",
-    "trust-bar",
     "summer-camp",
     "contact-section",
   ];
@@ -91,10 +89,4 @@ test("camp page loads no third-party script or font and no Webflow leftovers", {
   assert.doesNotMatch(html, /<link[^>]*href="https?:\/\/(?!pimavn\.com)[^"]*"[^>]*rel="(stylesheet|preload)"/);
   assert.doesNotMatch(html, /<link[^>]*rel="(stylesheet|preload)"[^>]*href="https?:/);
   assert.doesNotMatch(html, /data-w-id|data-wf-|translate3d\(0, 50px/);
-});
-
-test("the page's own sections fade up", { skip }, () => {
-  for (const name of ["camp-intro", "camp-activity", "camp-history"]) {
-    assert.match(html, new RegExp(`<section[^>]*data-section="${name}"[^>]*data-animate="fade-up"`), name);
-  }
 });

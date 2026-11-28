@@ -26,7 +26,6 @@ test("ve-chung-toi sections are in the old order", { skip }, () => {
     "impact",
     "actions",
     "milestone",
-    "trust-bar",
     "partners",
     "philosophy",
     "team",
@@ -61,9 +60,8 @@ test("every founder timeline dot has the scroll colour hook", { skip }, () => {
   assert.equal(sectionHtml("founder-story").match(/data-timeline-dot/g)?.length, 6);
 });
 
-test("member university logos slide in from the left, the second copy is hidden", { skip }, () => {
+test("member university logos: the second copy is hidden", { skip }, () => {
   const logos = sectionHtml("member-universities");
-  assert.equal(logos.match(/data-animate="slide-in-left"/g)?.length, 1);
   assert.equal(logos.match(/aria-hidden="true"/g)?.length, 1);
   assert.equal(logos.match(/<img\b/g)?.length, 16);
 });

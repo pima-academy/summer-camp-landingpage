@@ -1,6 +1,6 @@
 ---
-// Layout of every site page: the shared <head>, Nav, the page, Footer and the decorative
-// animations.
+// Layout of every site page: the shared <head>, Nav, the page, Footer and the founder
+// timeline's scroll-driven dots (src/lib/timeline-dots.ts).
 import Footer from "./Footer.astro";
 import Nav from "./Nav.astro";
 import Head, { type Props as HeadProps } from "./Head.astro";
@@ -21,8 +21,8 @@ type Props = HeadProps;
     </main>
     <Footer />
     <script>
-      import { initAnimations } from "../lib/animate";
-      initAnimations();
+      import { initTimelineDots } from "../lib/timeline-dots";
+      initTimelineDots();
     </script>
   </body>
 </html>

@@ -1,6 +1,6 @@
 ---
 // Partners: "Đối tác của PiMA" section, with the partner logos from partners.ts. Used by
-// index, ve-chung-toi and trai-he-toan-hoc-pima (old `section_partners`). Fades up on scroll.
+// index, ve-chung-toi and trai-he-toan-hoc-pima (old `section_partners`).
 import { Image } from "astro:assets";
 import BrandName from "../components/BrandName.astro";
 import Kicker from "../components/Kicker.astro";
@@ -15,7 +15,7 @@ interface Props {
 const { id = "doi-tac" } = Astro.props;
 ---
 
-<Section name="partners" width="large" spacing="medium" animate id={id}>
+<Section name="partners" width="large" spacing="medium" id={id}>
   <div class="intro">
     <Kicker>đối tác của <BrandName /></Kicker>
     <h2>Chúng tôi được tin tưởng bởi các tổ chức hàng đầu</h2>

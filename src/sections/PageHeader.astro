@@ -2,7 +2,6 @@
 // PageHeader: the page title band with the "PiMA academy > chương trình" breadcrumb. Used by
 // khoa-hoc and trai-he-toan-hoc-pima (old `section_camp-header`). Besides the title,
 // trai-he-toan-hoc-pima asks for the camp years, linked under the title (CampYearNav).
-// Fades up on scroll.
 import BrandName from "../components/BrandName.astro";
 import CampYearNav from "../components/CampYearNav.astro";
 import Kicker from "../components/Kicker.astro";
@@ -18,7 +17,7 @@ interface Props {
 const { title, campYears } = Astro.props;
 ---
 
-<Section name="page-header" spacing="none" tone="surface" animate>
+<Section name="page-header" spacing="none" tone="surface">
   <div class="inner">
     <div class="crumb">
       <Kicker flush><BrandName /> academy &gt; chương trình</Kicker>

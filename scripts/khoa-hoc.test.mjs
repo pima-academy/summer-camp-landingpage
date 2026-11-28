@@ -16,21 +16,16 @@ test("khoa-hoc has a specific title, description and canonical", { skip }, () =>
   assert.match(html, /<link rel="canonical" href="https:\/\/pimavn\.com\/khoa-hoc\/">/);
 });
 
-test("khoa-hoc renders header, intro, trust bar and contact form in the old order", { skip }, () => {
+test("khoa-hoc renders header, intro and contact form in the old order", { skip }, () => {
   const order = [
     'data-section="page-header"',
     ">Khóa học</h1>",
     'data-section="intro"',
     "Khóa học Toán ứng dụng tại PiMA được thiết kế",
-    'data-section="trust-bar"',
     'data-section="contact-section"',
   ].map((s) => main.indexOf(s));
   assert.ok(order.every((i) => i >= 0), `all sections present: ${order}`);
   assert.deepEqual([...order].sort((a, b) => a - b), order, "sections in order");
-});
-
-test("khoa-hoc intro fades up like the other sections", { skip }, () => {
-  assert.match(main, /<section data-section="intro"[^>]*data-animate="fade-up"/);
 });
 
 test("khoa-hoc hides the CMS course list in production", { skip }, () => {

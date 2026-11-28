@@ -2,14 +2,14 @@
 // CourseList: the "Danh sách các khóa học" list of course cards, as the old Webflow CMS
 // list rendered it with no course data (one empty card and "No items found."). Used by
 // khoa-hoc only (old `section_programs-overview` with a `w-dyn-list`), inside a content
-// gap, so it only shows in `npm run dev`. Fades up on scroll.
+// gap, so it only shows in `npm run dev`.
 import { Image } from "astro:assets";
 import Icon from "../../components/Icon.astro";
 import Section from "../../components/Section.astro";
 import placeholder from "../../assets/images/placeholder-image-landscape.svg";
 ---
 
-<Section name="course-list" spacing="none" animate id="programs">
+<Section name="course-list" spacing="none" id="programs">
   <div class="inner">
     <h2 class="title">Danh sách các khóa học</h2>
     <div class="list">

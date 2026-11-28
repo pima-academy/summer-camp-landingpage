@@ -17,7 +17,7 @@ const section = (name) => `---\nimport Section from "../../components/Section.as
 test("kebab case of a PascalCase file name", () => {
   assert.equal(kebabCase("Hero"), "hero");
   assert.equal(kebabCase("FoundingStory"), "founding-story");
-  assert.equal(kebabCase("TrustBar"), "trust-bar");
+  assert.equal(kebabCase("FoundingStory"), "founding-story");
   assert.equal(kebabCase("FAQ"), "faq");
   assert.equal(kebabCase("PressFAQ"), "press-faq");
   assert.equal(kebabCase("Camp2025Photos"), "camp2025-photos");
@@ -63,7 +63,6 @@ test("a section file may only use classes it styles itself, none a global styles
 
 /** The sections more than one page uses (#65). */
 const SHARED = [
-  "TrustBar",
   "Partners",
   "Impact",
   "Testimonials",

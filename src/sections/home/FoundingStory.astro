@@ -1,7 +1,6 @@
 ---
 // FoundingStory: "Câu chuyện nhà sáng lập", a dark green panel (the dark-green tone on a card) with a short text, a link to
 // ve-chung-toi and the founder's photo. Used by index only (old `section_founding-story`).
-// Fades up on scroll.
 import { Image } from "astro:assets";
 import founder from "../../assets/images/pima-founder.png";
 import Button from "../../components/Button.astro";
@@ -9,7 +8,7 @@ import Kicker from "../../components/Kicker.astro";
 import Section from "../../components/Section.astro";
 ---
 
-<Section name="founding-story" width="medium" spacing="medium" animate>
+<Section name="founding-story" width="medium" spacing="medium">
   <div class="panel" data-tone="dark-green">
     <div class="story">
       <Kicker>Câu chuyện nhà sáng lập</Kicker>

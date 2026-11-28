@@ -2,14 +2,14 @@
 // ContactSection: "Liên hệ với PiMA" section, the contact channels and the ContactForm.
 // Used by index, ve-chung-toi, khoa-hoc, trai-he-toan-hoc-pima, blog/[slug] and the gap page
 // detail-course (old `section_contact-form`). Facebook and email stay
-// plain text here, as on the old site; facts come from site.ts. Fades up on scroll.
+// plain text here, as on the old site; facts come from site.ts.
 import ContactForm from "../components/ContactForm.astro";
 import Icon from "../components/Icon.astro";
 import Section from "../components/Section.astro";
 import { contact, social } from "../data/site";
 ---
 
-<Section name="contact-section" spacing="small" tone="pale-lime" animate id="contact-form">
+<Section name="contact-section" spacing="small" tone="pale-lime" id="contact-form">
   <div class="panel">
     <h3 class="head">Liên hệ với PiMA</h3>
     <div class="info">

@@ -3,12 +3,12 @@
 // (blank space where its cover image goes), the "No items found." line and a button to all
 // news. Used by index only (old `section_news`), inside a ContentGap, so it never reaches the
 // build. The old card's cover image, date tag, title and summary were empty CMS fields; they
-// come back with the content. Fades up on scroll.
+// come back with the content.
 import Button from "../../components/Button.astro";
 import Section from "../../components/Section.astro";
 ---
 
-<Section name="news" width="medium" spacing="medium" animate>
+<Section name="news" width="medium" spacing="medium">
   <h2 class="heading">Thông tin mới nhất</h2>
   <div role="list" class="posts">
     <div role="listitem" class="post">

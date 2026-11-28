@@ -16,7 +16,7 @@ const { pathname } = Astro.url;
 const current = (href: string) => (isCurrent(href, pathname) ? ("page" as const) : undefined);
 ---
 
-<header data-animate="fade-up">
+<header>
   <div class="bar">
     <div class="left">
       <a href="/" class="logo-link" aria-current={current("/")} aria-label="PiMA, trang chủ">

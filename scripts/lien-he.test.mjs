@@ -28,10 +28,10 @@ async function open(width) {
   return page;
 }
 
-test("lien-he renders contact facts, social links, trust bar and message form in the old order", { skip }, async () => {
+test("lien-he renders contact facts, social links and message form in the old order", { skip }, async () => {
   const page = await open(1440);
   const names = await page.locator("main [data-section]").evaluateAll((els) => els.map((e) => e.dataset.section));
-  assert.deepEqual(names, ["contact-facts", "social-links", "trust-bar", "message-form"]);
+  assert.deepEqual(names, ["contact-facts", "social-links", "message-form"]);
   assert.equal(await page.locator('[data-section="message-form"]').getAttribute("id"), "contact-form");
   assert.equal(await page.locator('[data-section="message-form"] [data-contact-form]').count(), 1);
   await page.close();

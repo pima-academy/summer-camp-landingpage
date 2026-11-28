@@ -25,7 +25,6 @@ test("the page file is BaseLayout, its SEO data and the ordered list of its sect
 test("home page sections are in the old order", { skip }, () => {
   const order = [
     'data-section="hero"',
-    'data-section="trust-bar"',
     'data-section="partners"',
     'data-section="philosophy"',
     'data-section="impact"',
@@ -41,8 +40,7 @@ test("home page sections are in the old order", { skip }, () => {
   const at = order.map((c) => main.indexOf(c));
   assert.ok(at.every((i) => i >= 0), `all sections present: ${order.filter((_, i) => at[i] < 0)}`);
   assert.deepEqual([...at].sort((a, b) => a - b), at, "sections in old order");
-  assert.equal(main.match(/data-section="trust-bar"/g)?.length, 2, "two trust bars");
-  assert.equal(main.match(/data-section=/g)?.length, order.length + 1, "no other section");
+  assert.equal(main.match(/data-section=/g)?.length, order.length, "no other section");
 });
 
 test("home page hides its content gaps in production", { skip }, () => {
@@ -51,11 +49,7 @@ test("home page hides its content gaps in production", { skip }, () => {
   assert.doesNotMatch(main, /No items found/);
 });
 
-test("hero, founding story, press and contact sections fade up; #programs link has a target", { skip }, () => {
-  for (const name of ["hero", "founding-story", "press", "contact-section"]) {
-    const tag = main.match(new RegExp(`<section[^>]*data-section="${name}"[^>]*>`))?.[0] ?? "";
-    assert.match(tag, /data-animate="fade-up"/, `${name} fades up`);
-  }
+test("the in-page #programs link has a target", { skip }, () => {
   assert.match(main, /href="#programs"/);
   assert.match(main, /id="programs"/);
   assert.doesNotMatch(html, /style="[^"]*opacity:\s*0/);

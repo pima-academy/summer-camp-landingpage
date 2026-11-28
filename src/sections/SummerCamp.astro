@@ -4,7 +4,7 @@
   not infinite; photos in summer-camp-photos.ts) and a link to the camp page. Used by
   index and trai-he-toan-hoc-pima (old `section_summer-camp`). Each photo's lightbox
   was empty on the old site, so the link is an inline content gap; production shows
-  the photo without the click. Fades up on scroll.
+  the photo without the click.
 */
 import { Image } from "astro:assets";
 import Button from "../components/Button.astro";
@@ -21,7 +21,7 @@ const campCurrent = isCurrent(campHref, Astro.url.pathname);
 const sizes = "(max-width: 479px) 39vw, (max-width: 991px) 26vw, 309px";
 ---
 
-<Section name="summer-camp" spacing="medium" animate>
+<Section name="summer-camp" spacing="medium">
   <div class="content">
     <div class="intro">
       <Kicker flush>trại hè toán học</Kicker>

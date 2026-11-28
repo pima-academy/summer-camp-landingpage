@@ -43,12 +43,11 @@ test("home page loads favicon, app icon and one site stylesheet", { skip }, () =
     .filter((css) => css.includes("@font-face"));
   assert.equal(sheets.length, 1, `one site stylesheet, got ${sheets.length}`);
   const css = sheets[0];
-  // global.css order: fonts, tokens, base, animations.
+  // global.css order: fonts, tokens, base.
   const order = [
     css.indexOf("@font-face"),
     css.indexOf("--font-family-base:"), // tokens.css
     css.indexOf("-webkit-text-size-adjust"), // base.css
-    css.indexOf("@keyframes marquee-x"), // animations.css
   ];
   assert.ok(order.every((i) => i >= 0), `all sheets present: ${order}`);
   assert.deepEqual([...order].sort((a, b) => a - b), order, "sheets in order");

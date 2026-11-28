@@ -164,7 +164,6 @@ test("type tokens follow the spec's web scale", () => {
     "--letter-spacing-kicker": ["0.08em", "0.08em"],
     "--font-weight-extrabold": ["800", "800"],
     "--font-weight-black": ["900", "900"],
-    "--font-size-marquee": ["15px", "15px"],
     "--font-weight-semibold": ["600", "600"],
     "--font-weight-bold": ["700", "700"],
   };

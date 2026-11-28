@@ -2,7 +2,7 @@
 // Philosophy: "Học viên chính là động lực và trọng tâm" section, the mission text, a link
 // to the story and the team photo. Used by index and ve-chung-toi (old `section_philosophy`).
 // The button is a plain link on every page (old ve-chung-toi only had `w--current` on it
-// because webflow.js added it). Fades up on scroll.
+// because webflow.js added it).
 import { Image } from "astro:assets";
 import team from "../assets/images/pima-team.png";
 import Button from "../components/Button.astro";
@@ -10,7 +10,7 @@ import Section from "../components/Section.astro";
 import { fluidWidths } from "../lib/image-widths";
 ---
 
-<Section name="philosophy" width="large" spacing="none" tone="pale-lime" animate>
+<Section name="philosophy" width="large" spacing="none" tone="pale-lime">
   <div class="intro">
     <h2>Học viên chính là động lực và trọng tâm</h2>
     <p class="lead">

@@ -1,6 +1,6 @@
 ---
-// MemberUniversities: "Thành viên của chúng tôi đến từ", a row of university logos that
-// slides in from the left (a second, hidden copy follows it). Used by ve-chung-toi only
+// MemberUniversities: "Thành viên của chúng tôi đến từ", a row of university logos
+// (a second, hidden copy follows it). Used by ve-chung-toi only
 // (old `section_about-member-uni` / `logo3_*`).
 import { Image } from "astro:assets";
 import Section from "../../components/Section.astro";
@@ -37,7 +37,6 @@ const universities = [
         [0, 1].map((copy) => (
           <div
             class="list"
-            data-animate={copy === 0 ? "slide-in-left" : undefined}
             aria-hidden={copy === 1 ? "true" : undefined}
           >
             {universities.map((u) => (

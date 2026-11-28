@@ -1,8 +1,8 @@
 ---
 // FounderStory: "Câu chuyện của nhà sáng lập", the founders' photo (sticky on desktop) next
 // to a six-step timeline whose dots turn PiMA Green as they scroll past (`data-timeline-dot`, see
-// src/lib/animate.ts). Used by ve-chung-toi only (old `section_about-timeline` /
-// `timeline1_*`); carries the footer anchor "Câu chuyện nhà sáng lập". Fades up on scroll.
+// src/lib/timeline-dots.ts). Used by ve-chung-toi only (old `section_about-timeline` /
+// `timeline1_*`); carries the footer anchor "Câu chuyện nhà sáng lập".
 import { Image } from "astro:assets";
 import Section from "../../components/Section.astro";
 import { aboutAnchors } from "../../data/site";
@@ -37,7 +37,7 @@ const timeline = [
 ];
 ---
 
-<Section name="founder-story" width="medium" spacing="medium" animate id={aboutAnchors.founderStory}>
+<Section name="founder-story" width="medium" spacing="medium" id={aboutAnchors.founderStory}>
   <div class="layout">
     <div class="aside">
       <div class="aside-inner">
@@ -152,7 +152,7 @@ const timeline = [
     margin-left: calc(-1 * var(--space-32));
   }
 
-  /* Idle grey until the page scrolls to it, then PiMA Green: src/lib/animate.ts sets
+  /* Idle grey until the page scrolls to it, then PiMA Green: src/lib/timeline-dots.ts sets
      --timeline-dot-progress (0 to 1). Without the script the dot stays green. */
   .dot {
     --timeline-dot-progress: 1;

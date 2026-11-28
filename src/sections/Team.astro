@@ -3,7 +3,7 @@
   Team: "Đội ngũ của PiMA" section, the team intro, the experts' activity slider (6 s
   autoplay, infinite; slides in team-activities.ts) and a link to the story. Used by
   index and ve-chung-toi (old `section_team`). The team member list was an empty CMS
-  list on the old site: it is a content gap. Fades up on scroll.
+  list on the old site: it is a content gap.
 */
 import { Image } from "astro:assets";
 import BrandName from "../components/BrandName.astro";
@@ -21,7 +21,7 @@ const storyHref = "/ve-chung-toi/";
 const storyCurrent = isCurrent(storyHref, Astro.url.pathname);
 ---
 
-<Section name="team" spacing="medium" animate>
+<Section name="team" spacing="medium">
   <div class="intro">
     <Kicker flush>Đội ngũ của <BrandName /></Kicker>
     <h2 class="title">Kết nối tài năng Việt Nam toàn cầu</h2>

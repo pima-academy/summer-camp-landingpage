@@ -34,13 +34,13 @@ src/
   components/       primitives (Section, Button, Kicker, BrandName, Icon) and widgets (Slider, Marquee,
                     Accordion, ContactForm, ContentGap)
   layouts/          BaseLayout, Head, Nav, Footer
-  lib/              page scripts: scroll animations, current link, slider steps, image widths
+  lib/              page scripts: timeline dots, current link, slider steps, image widths
   gap-pages/        pages whose content does not exist yet (served in dev only)
   data/site.ts      site-wide facts: contact details, social links, nav and footer links, form endpoint
   assets/images/    every image used in markup (rendered with astro:assets as WebP)
   assets/icons/     the Tabler SVGs drawn by Icon
   assets/logo/      the ten brand logo files (see docs/brand.md)
-  styles/           global CSS: fonts.css, tokens.css (every design value), base.css, animations.css
+  styles/           global CSS: fonts.css, tokens.css (every design value), base.css
 public/             favicons and apple-touch-icon (from scripts/make-icons.mjs), robots.txt
 apps-script/        Code.gs, the contact form backend (Google Apps Script)
 scripts/            tests, the screenshot script, make-icons.mjs, the one-off image migration scripts
