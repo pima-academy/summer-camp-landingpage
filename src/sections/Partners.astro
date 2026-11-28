@@ -1,14 +1,15 @@
 ---
-// Partners: "Đối tác của PiMA" section, with the partner logos from partners.ts. Used by
-// index, ve-chung-toi and trai-he-toan-hoc-pima (old `section_partners`).
+// Partners: "Những đơn vị đã đồng hành cùng PiMA", kicker and heading left, the partners right
+// as ruled rows (logo in a fixed box, name, role, years; partners.ts). Two columns, one at
+// ≤ 991 px. Used by index, ve-chung-toi and trai-he-toan-hoc-pima.
 import { Image } from "astro:assets";
 import BrandName from "../components/BrandName.astro";
 import Kicker from "../components/Kicker.astro";
 import Section from "../components/Section.astro";
-import { partnerLogos } from "./partners";
+import { partners } from "./partners";
 
 interface Props {
-  /** Section id. The old markup used "doi-tac"; ve-chung-toi may pass its footer anchor instead. */
+  /** Section id. "doi-tac" by default; ve-chung-toi passes its footer anchor instead. */
   id?: string;
 }
 
@@ -16,50 +17,98 @@ const { id = "doi-tac" } = Astro.props;
 ---
 
 <Section name="partners" width="large" spacing="medium" id={id}>
-  <div class="intro">
-    <Kicker>đối tác của <BrandName /></Kicker>
-    <h2>Chúng tôi được tin tưởng bởi các tổ chức hàng đầu</h2>
-    <p class="lead">
-      Từ các trường đại học danh tiếng đến doanh nghiệp công nghệ và viện nghiên cứu, PiMA tự hào đồng hành cùng những
-      đối tác có chung sứ mệnh: nâng cao chất lượng giáo dục và ứng dụng Toán học vào thực tiễn.
-    </p>
-    <div class="logos">
+  <div class="layout">
+    <div>
+      <Kicker>đối tác của <BrandName /></Kicker>
+      <h2 class="title">Những đơn vị đã đồng hành cùng <span class="nowrap">PiMA</span></h2>
+    </div>
+    <ul role="list" class="rows">
       {
-        partnerLogos.map((logo) => (
-          <div class="partner">
-            <Image src={logo.src} alt={logo.alt} width={logo.width} densities={[1, 2]} data-logo />
-          </div>
+        partners.map((p) => (
+          <li>
+            <Image src={p.logo} alt={p.alt} width={160} densities={[1, 2]} data-logo class="logo" />
+            <span class="text">
+              <span class="name">{p.name}</span>
+              <span>{p.role}</span>
+              <span class="years">{p.years}</span>
+            </span>
+          </li>
         ))
       }
-    </div>
+    </ul>
   </div>
 </Section>
 
 <style>
-  .intro {
-    width: 100%;
-    max-width: 56rem;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-  }
-
-  .lead {
-    margin-bottom: var(--space-4);
-    color: var(--color-text);
-  }
-
-  .logos {
-    display: flex;
-    justify-content: flex-start;
+  .layout {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
     align-items: center;
-    gap: var(--space-4);
+    gap: var(--space-12);
   }
 
-  /* Old `.logo-image-wrapper`: a huge width that the flex row shrinks to share the line. */
-  .partner {
-    width: 676.969rem;
-    height: auto;
-    max-height: 6rem;
+  .title {
+    margin: 0;
+  }
+
+  .nowrap {
+    white-space: nowrap;
+  }
+
+  .rows {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* A rule above every row and under the last. */
+  .rows li {
+    display: grid;
+    grid-template-columns: 10rem 1fr;
+    align-items: center;
+    gap: var(--space-8);
+    padding: var(--space-6) 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .rows li:last-child {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  /* The logo fills a fixed box, never cropped (docs/brand.md, Shapes). */
+  .logo {
+    width: 100%;
+    height: 4rem;
+    object-fit: contain;
+  }
+
+  .text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Names are extrabold Dark Green (docs/brand.md, Typography). */
+  .name {
+    color: var(--color-text-accent);
+    font-weight: var(--font-weight-extrabold);
+  }
+
+  .years {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+  }
+
+  @media screen and (max-width: 991px) {
+    .layout {
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+    }
+  }
+
+  @media screen and (max-width: 767px) {
+    .rows li {
+      grid-template-columns: 6rem 1fr;
+      gap: var(--space-4);
+    }
   }
 </style>

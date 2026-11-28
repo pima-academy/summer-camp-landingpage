@@ -2,32 +2,34 @@
 // Every request is answered by Playwright route interception: pages and assets
 // from dist/, the endpoint by the mock, anything else aborted. Nothing reaches
 // the network, so no real Apps Script is ever called.
-// Runs on every built page that has the form (both variants when present).
+// Runs on the Liên hệ page and home (the block's two uses); every page with the form has the
+// one version.
 // Needs a fresh `npm run build`; skipped when no built page has the form.
 import { after, before, describe, test } from "node:test";
 import assert from "node:assert/strict";
 import { existsSync, readFileSync, statSync } from "node:fs";
 import { join, normalize, sep } from "node:path";
 import { chromium } from "playwright";
-import { contact } from "../src/data/site.ts";
 import { buildSkip, builtHtmlFiles, dist } from "./test-lib.mjs";
 
 const ORIGIN = "http://127.0.0.1:9"; // never contacted: every request is routed
 const ENDPOINT = "https://contact-endpoint.test/exec"; // reserved .test TLD, mocked
 
-/** One built page per form variant: "section" (textarea) and "lien-he" (single-line message). */
-function formPages() {
-  const pages = new Map();
+/** The built pages with the form; every one must be the same single version (a multi-line message). */
+function formFiles() {
+  const files = new Map();
   for (const file of builtHtmlFiles()) {
     const html = readFileSync(file, "utf8");
     if (!html.includes("data-contact-form")) continue;
-    const variant = /<textarea[^>]*name="message"/.test(html) ? "section" : "lien-he";
-    if (pages.has(variant)) continue;
     const rel = file.slice(dist.length).split(sep).join("/");
-    pages.set(variant, "/" + rel.replace(/(^|\/)index\.html$/, "$1"));
+    files.set("/" + rel.replace(/(^|\/)index\.html$/, "$1"), html);
   }
-  return [...pages];
+  return files;
 }
+
+const files = formFiles();
+// Both uses of the block: the Liên hệ page (dark-green) and the band on every other page.
+const pages = ["/lien-he/", "/"].filter((p) => files.has(p));
 
 function distFile(pathname) {
   let path = decodeURIComponent(pathname);
@@ -37,7 +39,6 @@ function distFile(pathname) {
   return existsSync(file) && statSync(file).isFile() ? file : null;
 }
 
-const pages = formPages();
 const skip = buildSkip(pages.length > 0, "no built page has ContactForm: run `npm run build` first");
 
 let browser;
@@ -89,6 +90,7 @@ async function open(path, { respond, endpoint = ENDPOINT } = {}) {
     done: page.locator("[data-contact-form] [role=\"status\"]"),
     fail: page.locator("[data-contact-form] [role=\"alert\"]"),
     button: form.locator('input[type="submit"]'),
+    again: page.getByRole("button", { name: "Gửi lời nhắn khác" }),
     close: () => context.close(),
   };
 }
@@ -109,8 +111,8 @@ async function fillValid(form) {
   await form.locator('[name="message"]').fill("Xin chào PiMA");
 }
 
-for (const [variant, path] of pages) {
-  describe(`ContactForm (${variant}, ${path})`, { skip }, () => {
+for (const path of pages) {
+  describe(`ContactForm (${path})`, { skip }, () => {
     test("success: 'Đang gửi…' while sending, then the form hides and the success message shows", async () => {
       let release;
       const held = new Promise((ok) => (release = ok));
@@ -133,7 +135,8 @@ for (const [variant, path] of pages) {
         assert.equal(await f.wrapper.getAttribute("data-state"), "done");
         assert.equal(await f.form.isVisible(), false);
         assert.equal(await f.fail.isVisible(), false);
-        assert.equal((await f.done.innerText()).trim(), "Lời nhắn của bạn đã được gửi đi!");
+        assert.equal(await f.done.getByRole("heading", { level: 3 }).innerText(), "Đã gửi lời nhắn");
+        assert.match(await f.done.innerText(), /Cảm ơn bạn đã liên hệ với PiMA\./);
 
         assert.equal(f.requests.length, 1);
         const [req] = f.requests;
@@ -160,7 +163,7 @@ for (const [variant, path] of pages) {
       ["network error", (route) => route.abort("failed")],
       ["non-JSON answer", (route) => route.fulfill({ status: 200, headers: { "access-control-allow-origin": "*" }, body: "<html>" })],
     ]) {
-      test(`error (${name}): the error message with email and phone, form and values kept`, async () => {
+      test(`error (${name}): the error message with the email and no phone, above the button, form and values kept`, async () => {
         const f = await open(path, { respond });
         try {
           await fillValid(f.form);
@@ -168,12 +171,14 @@ for (const [variant, path] of pages) {
           await f.fail.waitFor({ state: "visible" });
           assert.equal(await f.wrapper.getAttribute("data-state"), "fail");
           const text = await f.fail.innerText();
-          assert.ok(text.includes(contact.email), text);
-          assert.ok(text.includes(contact.phone), text);
+          assert.equal(text.trim(), "Chưa gửi được lời nhắn. Bạn vui lòng thử lại, hoặc gửi email cho PiMA tại contact@pimavn.com.");
+          assert.equal(await f.fail.locator("a").getAttribute("href"), "mailto:contact@pimavn.com");
+          const [alert, button] = [await f.fail.boundingBox(), await f.button.boundingBox()];
+          assert.ok(alert.y + alert.height <= button.y, `alert ${JSON.stringify(alert)} above button ${JSON.stringify(button)}`);
           assert.equal(await f.form.isVisible(), true);
           assert.equal(await f.done.isVisible(), false);
           assert.equal(await f.form.locator('[name="message"]').inputValue(), "Xin chào PiMA");
-          assert.equal(await f.button.inputValue(), "Gửi yêu cầu");
+          assert.equal(await f.button.inputValue(), "Gửi lời nhắn");
         } finally {
           await f.close();
         }
@@ -242,11 +247,11 @@ for (const [variant, path] of pages) {
       const f = await open(path);
       try {
         for (const [field, label] of [
-          ["name", "Họ và tên (*)"],
-          ["email", "Email (*)"],
-          ["phone", "Số điện thoại"],
-          ["organization", "Đơn vị/Tổ chức"],
-          ["message", "Nội dung liên hệ (*)"],
+          ["name", "Họ và tên"],
+          ["email", "Email"],
+          ["phone", "Số điện thoại (không bắt buộc)"],
+          ["organization", "Đơn vị hoặc tổ chức (không bắt buộc)"],
+          ["message", "Nội dung"],
         ]) {
           assert.equal(await f.page.getByLabel(label, { exact: true }).getAttribute("name"), field);
         }
@@ -275,6 +280,65 @@ for (const [variant, path] of pages) {
     });
   });
 }
+
+for (const path of pages) {
+  describe(`ContactForm layout and sent state (${path})`, { skip }, () => {
+    test("sent: 'Gửi lời nhắn khác' brings back an empty form", async () => {
+      const f = await open(path, { respond: json({ ok: true }) });
+      try {
+        await fillValid(f.form);
+        await f.button.click();
+        await f.done.waitFor({ state: "visible" });
+        await f.again.click();
+        await f.form.waitFor({ state: "visible" });
+        assert.equal(await f.wrapper.getAttribute("data-state"), null);
+        assert.equal(await f.done.isVisible(), false);
+        for (const field of ["name", "email", "phone", "organization", "message"]) {
+          assert.equal(await f.form.locator(`[name="${field}"]`).inputValue(), "", field);
+        }
+        assert.equal(await f.page.evaluate(() => document.activeElement?.getAttribute("name")), "name");
+      } finally {
+        await f.close();
+      }
+    });
+
+    test("fields: 48 px tall, no placeholders, two per row (one ≤ 479 px), a visible focus ring", async () => {
+      for (const width of [1440, 820, 390]) {
+        const f = await open(path);
+        try {
+          await f.page.setViewportSize({ width, height: 900 });
+          const boxes = {};
+          for (const field of ["name", "email", "phone", "organization", "message"]) {
+            const el = f.form.locator(`[name="${field}"]`);
+            assert.equal(await el.getAttribute("placeholder"), null, `${field} placeholder`);
+            boxes[field] = await el.boundingBox();
+          }
+          for (const field of ["name", "email", "phone", "organization"]) {
+            assert.equal(Math.round(boxes[field].height), 48, `${width} px: ${field} is ${boxes[field].height} px tall`);
+          }
+          assert.ok(boxes.message.height > 48, `${width} px: the message box takes several lines`);
+          if (width > 479) {
+            assert.equal(boxes.name.y, boxes.email.y, `${width} px: name and email side by side`);
+            assert.equal(boxes.phone.y, boxes.organization.y, `${width} px: phone and organisation side by side`);
+            assert.ok(Math.abs(boxes.message.width - (boxes.email.x + boxes.email.width - boxes.name.x)) < 1, `${width} px: message across both`);
+          } else {
+            assert.ok(boxes.email.y > boxes.name.y && boxes.organization.y > boxes.phone.y, `${width} px: one column`);
+          }
+          await f.form.locator('[name="name"]').focus();
+          await f.page.keyboard.press("Tab");
+          const ring = await f.form.locator('[name="email"]').evaluate((el) => getComputedStyle(el).outlineStyle);
+          assert.notEqual(ring, "none", `${width} px: focus ring`);
+        } finally {
+          await f.close();
+        }
+      }
+    });
+  });
+}
+
+test("one version of the form: every page with it has the multi-line message box", { skip }, () => {
+  for (const [path, html] of files) assert.match(html, /<textarea[^>]*name="message"/, path);
+});
 
 test("ContactForm pages found in dist/", { skip }, () => {
   assert.ok(pages.length > 0);

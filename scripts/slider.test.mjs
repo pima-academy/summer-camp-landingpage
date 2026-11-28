@@ -8,9 +8,11 @@ import { distSkip as skip, serveDist } from "./test-lib.mjs";
 
 // Every slider on the pages, from its source.
 const INSTANCES = [
-  { path: "/ve-chung-toi/", name: "Các chuyên gia đồng hành", autoplay: 6000, infinite: true },
-  { path: "/trai-he-toan-hoc-pima/", name: "Ảnh trại hè toán học", autoplay: 6000, infinite: false },
+  { path: "/", name: "Cảm nhận của cựu trại sinh", infinite: true },
   { path: "/", name: "Báo chí nói về PiMA", autoplay: 5000, infinite: true },
+  { path: "/ve-chung-toi/", name: "Các chuyên gia đồng hành", autoplay: 6000, infinite: true },
+  { path: "/trai-he-toan-hoc-pima/", name: "Cảm nhận của cựu trại sinh", infinite: true },
+  { path: "/trai-he-toan-hoc-pima/", name: "Ảnh trại hè toán học", autoplay: 6000, infinite: false },
 ];
 const PAGES = [...new Set(INSTANCES.map((i) => i.path))];
 
