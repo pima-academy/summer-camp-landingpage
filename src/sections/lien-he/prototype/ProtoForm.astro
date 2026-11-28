@@ -1,0 +1,174 @@
+---
+// PROTOTYPE (throwaway, #126): the redesigned contact form, a STUB. It has no action and sends
+// nothing: submitting fakes "sending" for a moment, then "done". The page's prototype bar can
+// also force each state (form, sending, done, fail) so all four can be judged.
+// Changes against ContactForm: one version for every page (no "lien-he" variant), a real
+// multi-line message box, optional fields marked "(không bắt buộc)" instead of "(*)" on the
+// required ones, the button "Gửi lời nhắn" matching the success line, no phone number in the
+// error text. Same five fields, so the Apps Script contract stays.
+import { contact } from "../../../data/site";
+
+interface Props {
+  id: string;
+}
+const { id } = Astro.props;
+const f = (name: string) => `${id}-${name}`;
+---
+
+<div class="proto-form" data-proto-form>
+  <form class="form" novalidate>
+    <div class="fields">
+      <div class="field">
+        <label for={f("name")}>Họ và tên</label>
+        <input id={f("name")} name="name" type="text" autocomplete="name" required />
+      </div>
+      <div class="field">
+        <label for={f("email")}>Email</label>
+        <input id={f("email")} name="email" type="email" autocomplete="email" required />
+      </div>
+      <div class="field">
+        <label for={f("phone")}>Số điện thoại <span class="optional">(không bắt buộc)</span></label>
+        <input id={f("phone")} name="phone" type="tel" autocomplete="tel" />
+      </div>
+      <div class="field">
+        <label for={f("organization")}>Đơn vị hoặc tổ chức <span class="optional">(không bắt buộc)</span></label>
+        <input id={f("organization")} name="organization" type="text" autocomplete="organization" />
+      </div>
+      <div class="field wide">
+        <label for={f("message")}>Nội dung</label>
+        <textarea id={f("message")} name="message" rows="5" required></textarea>
+      </div>
+    </div>
+    <div class="fail" role="alert">
+      Chưa gửi được lời nhắn. Bạn vui lòng thử lại, hoặc gửi email cho PiMA tại <a href={contact.emailHref}
+        >{contact.email}</a
+      >.
+    </div>
+    <button type="submit" class="submit"><span class="idle">Gửi lời nhắn</span><span class="wait">Đang gửi…</span></button>
+  </form>
+  <div class="done" role="status">
+    <h3>Đã gửi lời nhắn</h3>
+    <p>Cảm ơn bạn đã liên hệ với PiMA.</p>
+    <button type="button" class="again">Gửi lời nhắn khác</button>
+  </div>
+</div>
+
+<style>
+  .fields {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-5) var(--space-4);
+  }
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .wide {
+    grid-column: 1 / -1;
+  }
+  label {
+    font-weight: var(--font-weight-semibold);
+  }
+  .optional {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+    font-weight: var(--font-weight-regular);
+  }
+  input,
+  textarea {
+    width: 100%;
+    min-height: 48px;
+    padding: var(--space-3) var(--space-4);
+    border: 1px solid var(--color-border-field);
+    border-radius: var(--radius);
+    background-color: var(--color-background);
+    color: var(--color-text);
+    font: inherit;
+    line-height: var(--line-height-field);
+  }
+  textarea {
+    resize: vertical;
+  }
+  input:focus-visible,
+  textarea:focus-visible {
+    border-color: var(--color-border-field-focus);
+    outline: 2px solid var(--color-focus-ring);
+    outline-offset: 1px;
+  }
+  .submit,
+  .again {
+    margin-top: var(--space-8);
+    padding: var(--space-3) var(--space-8);
+    border: 0;
+    border-radius: var(--radius);
+    background-color: var(--color-button-primary);
+    color: var(--color-button-primary-text);
+    font: inherit;
+    font-weight: var(--font-weight-bold);
+    cursor: pointer;
+  }
+  .submit:hover,
+  .again:hover {
+    background-color: var(--color-button-primary-hover);
+    color: var(--color-button-primary-hover-text);
+  }
+  .wait,
+  [data-state="sending"] .idle {
+    display: none;
+  }
+  [data-state="sending"] .wait {
+    display: inline;
+  }
+  [data-state="sending"] .submit {
+    cursor: progress;
+  }
+  .fail {
+    display: none;
+    margin-top: var(--space-6);
+    padding: var(--space-4);
+    border-radius: var(--radius);
+    background-color: var(--color-background-form-error);
+  }
+  [data-state="fail"] .fail {
+    display: block;
+  }
+  .done {
+    display: none;
+  }
+  [data-state="done"] .form {
+    display: none;
+  }
+  [data-state="done"] .done {
+    display: block;
+  }
+  .done h3 {
+    margin: 0 0 var(--space-3);
+  }
+  .done p {
+    margin: 0;
+  }
+  @media screen and (max-width: 479px) {
+    .fields {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  // Stub: no network. A valid submit shows "sending" for 1.2 s, then "done".
+  for (const wrapper of document.querySelectorAll<HTMLElement>("[data-proto-form]")) {
+    const form = wrapper.querySelector("form")!;
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      if (!form.reportValidity()) return;
+      wrapper.dataset.state = "sending";
+      setTimeout(() => (wrapper.dataset.state = "done"), 1200);
+    });
+    wrapper.querySelector(".again")!.addEventListener("click", () => {
+      form.reset();
+      delete wrapper.dataset.state;
+      form.querySelector("input")?.focus();
+    });
+  }
+</script>

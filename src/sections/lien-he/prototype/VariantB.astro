@@ -1,0 +1,216 @@
+---
+// PROTOTYPE B · Thư (throwaway, #126; dev only). Two bands, email first. A quiet white opening
+// whose bold moment is typographic: the email address set in display type as a mailto link,
+// with a copy button; the other channels and the address as one ruled row of four under it.
+// Then the form in its own Pale Lime band (the contact tone the site already uses): heading
+// and line left, the form in a white card right.
+import BrandName from "../../../components/BrandName.astro";
+import Icon from "../../../components/Icon.astro";
+import Kicker from "../../../components/Kicker.astro";
+import Section from "../../../components/Section.astro";
+import ProtoForm from "./ProtoForm.astro";
+import { address, channels, email, form, page } from "./data";
+---
+
+<Section name="contact-opening" width="large" spacing="large">
+  <Kicker flush><BrandName /> academy &gt; liên hệ</Kicker>
+  <h1>{page.title}</h1>
+  <p class="lead">{page.lead}</p>
+  <div class="mail">
+    <a class="address-big" href={email.href}>{email.value}</a>
+    <button type="button" class="copy" data-copy={email.value}>
+      <span class="idle">Sao chép email</span><span class="ok" aria-live="polite"></span>
+    </button>
+  </div>
+  <ul class="row">
+    {
+      channels.map((c) => (
+        <li>
+          <Icon name={c.icon} size="40" circle />
+          <div class="label">{c.label}</div>
+          <a class="value" href={c.href}>
+            {c.value}
+          </a>
+        </li>
+      ))
+    }
+    <li>
+      <Icon name="map-pin-filled" size="40" circle />
+      <div class="label">{address.label}</div>
+      <div class="value">{address.value}</div>
+    </li>
+  </ul>
+</Section>
+
+<Section name="message-form" tone="pale-lime" width="large" spacing="large" id="contact-form">
+  <div class="form-grid">
+    <div>
+      <h2>{form.title}</h2>
+      <p>{form.note}</p>
+    </div>
+    <div class="card" data-tone="white">
+      <ProtoForm id="b" />
+    </div>
+  </div>
+</Section>
+
+<style>
+  h1 {
+    margin: var(--space-4) 0 var(--space-4);
+  }
+  .lead {
+    max-width: 36rem;
+    margin: 0;
+  }
+  .mail {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-4) var(--space-8);
+    margin: var(--space-12) 0 var(--space-16);
+  }
+  .address-big {
+    color: var(--color-text-heading);
+    font-size: var(--font-size-display);
+    font-weight: var(--font-weight-black);
+    letter-spacing: var(--letter-spacing-display);
+    line-height: var(--line-height-display);
+    text-decoration-thickness: var(--border-width-rule-accent);
+    text-decoration-color: var(--color-border-rule-accent);
+    text-underline-offset: 0.12em;
+    overflow-wrap: anywhere;
+  }
+  .address-big:hover {
+    color: var(--color-text);
+  }
+  .copy {
+    padding: var(--space-2) var(--space-5);
+    border: 0;
+    border-radius: var(--radius);
+    background-color: var(--color-button-secondary);
+    color: var(--color-button-secondary-text);
+    font: inherit;
+    font-weight: var(--font-weight-bold);
+    cursor: pointer;
+  }
+  .copy.done .idle {
+    display: none;
+  }
+  .row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.6fr);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .row li {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-2) var(--space-6);
+    border-left: 1px solid var(--color-border);
+  }
+  .row li:first-child {
+    padding-left: 0;
+    border-left: 0;
+  }
+  .row li > :global(:first-child) {
+    margin-bottom: var(--space-3);
+  }
+  .label {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+  }
+  .value {
+    font-weight: var(--font-weight-bold);
+    overflow-wrap: anywhere;
+  }
+  a.value {
+    color: var(--color-text);
+  }
+  a.value:hover {
+    color: var(--color-link-hover);
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    align-items: start;
+    gap: var(--space-16);
+  }
+  .form-grid h2 {
+    margin: 0 0 var(--space-4);
+  }
+  .form-grid p {
+    margin: 0;
+  }
+  .card {
+    padding: var(--space-10);
+    border-radius: var(--radius);
+  }
+
+  @media screen and (max-width: 991px) {
+    .row {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      row-gap: var(--space-8);
+    }
+    .row li:last-child {
+      grid-column: 1 / -1;
+      padding-left: 0;
+      border-left: 0;
+    }
+    .form-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .address-big {
+      font-size: var(--font-size-display-2);
+    }
+    .mail {
+      margin: var(--space-8) 0 var(--space-10);
+    }
+    .row {
+      grid-template-columns: 1fr;
+      row-gap: 0;
+      border-top: 1px solid var(--color-border);
+    }
+    .row li,
+    .row li:first-child {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      column-gap: var(--space-4);
+      align-items: center;
+      padding: var(--space-4) 0;
+      border-left: 0;
+      border-bottom: 1px solid var(--color-border);
+    }
+    .row li > :global(:first-child) {
+      grid-row: span 2;
+      margin-bottom: 0;
+    }
+    .card {
+      padding: var(--space-6) var(--space-5);
+    }
+  }
+</style>
+
+<script>
+  for (const button of document.querySelectorAll<HTMLButtonElement>("[data-copy]")) {
+    const ok = button.querySelector(".ok")!;
+    button.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(button.dataset.copy ?? "");
+        ok.textContent = "Đã sao chép";
+      } catch {
+        ok.textContent = "Chưa sao chép được";
+      }
+      button.classList.add("done");
+      setTimeout(() => {
+        button.classList.remove("done");
+        ok.textContent = "";
+      }, 2000);
+    });
+  }
+</script>

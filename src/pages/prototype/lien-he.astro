@@ -1,0 +1,124 @@
+---
+// PROTOTYPE (throwaway, branch prototype/contact-redesign; dev only): two variants of the
+// redesigned Liên hệ page (issue #126), in the visual direction of the home variant A (#124)
+// and the Về chúng tôi variant B (#125). /prototype/lien-he/?variant=A | B, and &form=sending |
+// done | fail to show a state of the (stub) form. Both variants render; the bar shows one.
+// Content: email, address, Facebook, LinkedIn, YouTube and the form (map #118); the TrustBar
+// marquee leaves the page, as it left home.
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import VariantA from "../../sections/lien-he/prototype/VariantA.astro";
+import VariantB from "../../sections/lien-he/prototype/VariantB.astro";
+
+export function getStaticPaths() {
+  return import.meta.env.DEV ? [{ params: {} }] : [];
+}
+---
+
+<BaseLayout title="Liên hệ (prototype)" description="Prototype" noindex>
+  <div data-proto="A"><VariantA /></div>
+  <div data-proto="B" hidden><VariantB /></div>
+
+  <div class="proto-bar" role="toolbar" aria-label="Prototype variants">
+    <button type="button" data-step="-1" aria-label="Previous variant">←</button>
+    <span class="proto-label"></span>
+    <button type="button" data-step="1" aria-label="Next variant">→</button>
+    <label class="proto-state">
+      Form
+      <select>
+        <option value="">thường</option>
+        <option value="sending">đang gửi</option>
+        <option value="done">đã gửi</option>
+        <option value="fail">lỗi</option>
+      </select>
+    </label>
+  </div>
+</BaseLayout>
+
+<script>
+  const names: Record<string, string> = { A: "A · Một khung", B: "B · Thư" };
+  const keys = Object.keys(names);
+  const label = document.querySelector(".proto-label")!;
+  const select = document.querySelector<HTMLSelectElement>(".proto-state select")!;
+  const params = new URL(location.href).searchParams;
+  let current = params.get("variant")?.toUpperCase() ?? "A";
+  function setUrl(key: string, value: string) {
+    const url = new URL(location.href);
+    if (value) url.searchParams.set(key, value);
+    else url.searchParams.delete(key);
+    history.replaceState(null, "", url);
+  }
+  function show(v: string) {
+    if (!keys.includes(v)) v = "A";
+    current = v;
+    document.querySelectorAll<HTMLElement>("[data-proto]").forEach((el) => (el.hidden = el.dataset.proto !== v));
+    label.textContent = names[v];
+    setUrl("variant", v);
+  }
+  function formState(s: string) {
+    select.value = s;
+    document.querySelectorAll<HTMLElement>("[data-proto-form]").forEach((el) => {
+      if (s) el.dataset.state = s;
+      else delete el.dataset.state;
+    });
+    setUrl("form", s);
+  }
+  show(current);
+  formState(params.get("form") ?? "");
+  select.addEventListener("change", () => formState(select.value));
+  function step(d: number) {
+    const i = keys.indexOf(current);
+    show(keys[(i + d + keys.length) % keys.length]);
+    window.scrollTo(0, 0);
+  }
+  document.querySelectorAll<HTMLButtonElement>(".proto-bar [data-step]").forEach((b) => b.addEventListener("click", () => step(Number(b.dataset.step))));
+  document.addEventListener("keydown", (e) => {
+    const t = e.target as HTMLElement;
+    if (t.closest("input, textarea, select, [contenteditable]")) return;
+    if (e.key === "ArrowLeft") step(-1);
+    if (e.key === "ArrowRight") step(1);
+  });
+</script>
+
+<style>
+  /* The redesign drops scroll reveal animations site-wide (#124): show every section at once. */
+  :global([data-animate]) {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+  /* Prototype chrome, deliberately off-brand so it reads as not part of the design. */
+  .proto-bar {
+    position: fixed;
+    left: 50%;
+    bottom: var(--space-4);
+    transform: translateX(-50%);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius);
+    background: var(--black);
+    color: var(--white);
+    box-shadow: var(--shadow-dropdown);
+    font-size: var(--font-size-small);
+    font-weight: var(--font-weight-bold);
+    white-space: nowrap;
+  }
+  .proto-bar button {
+    background: none;
+    border: 0;
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+    font-size: var(--font-size-body);
+  }
+  .proto-label {
+    min-width: 7rem;
+    text-align: center;
+  }
+  .proto-state select {
+    margin-left: var(--space-1);
+    font: inherit;
+  }
+</style>
