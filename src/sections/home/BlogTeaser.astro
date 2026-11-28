@@ -1,5 +1,5 @@
 ---
-// BlogTeaser: "Bài viết mới nhất", the 3 newest published blog posts by date (blog.ts, so a new
+// BlogTeaser: "Bài viết mới nhất", the 3 newest published blog posts by date (blog-posts.ts, so a new
 // post shows here by itself), with "Tất cả bài viết" to /blog/. Used by index only.
 // A white card shows the post's cover whole in a square frame (covers run from square to
 // 2.6:1; a post without one shows the pale-lime logo block, as on /blog/), its date, title and
@@ -8,8 +8,8 @@ import { Image } from "astro:assets";
 import logo from "../../assets/logo/pima-logo-stacked-darkgreen.png";
 import Button from "../../components/Button.astro";
 import Section from "../../components/Section.astro";
-import { blogHref, postHref, postSummary, publishedPosts } from "../blog/blog";
-import { isoDate, postDate } from "../blog/post-text";
+import { blogHref, postHref, postSummary, publishedPosts } from "../blog-posts";
+import { isoDate, postDate } from "../post-text";
 
 const posts = (await publishedPosts()).slice(0, 3);
 ---

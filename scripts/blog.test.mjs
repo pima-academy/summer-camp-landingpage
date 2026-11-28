@@ -6,7 +6,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { existsSync, readFileSync } from "node:fs";
 import { join, relative } from "node:path";
-import { postDate, summaryOf } from "../src/sections/blog/post-text.ts";
+import { postDate, summaryOf } from "../src/sections/post-text.ts";
 import { blogPosts, builtHtmlFiles, dist, distSkip as skip, mainOf, publishedBlogPosts, readBuilt, root } from "./test-lib.mjs";
 
 // ---- Card summary and date ------------------------------------------------------------------

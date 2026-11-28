@@ -1,6 +1,6 @@
 // The text a blog post shows outside its own page: the card summary on /blog/ and the date in
-// dd/mm/yyyy (PostGrid, PostHeader). Plain, erasable TypeScript so `node --test` can import it
-// (scripts/blog.test.mjs).
+// dd/mm/yyyy (PostGrid, PostHeader, the home BlogTeaser). Plain, erasable TypeScript so
+// `node --test` can import it (scripts/blog.test.mjs).
 
 /** The longest summary, in characters, before it is cut at a word and ends in "…". */
 const SUMMARY_LENGTH = 180;
