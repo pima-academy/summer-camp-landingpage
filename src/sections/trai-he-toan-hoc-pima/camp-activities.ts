@@ -16,7 +16,7 @@ export const campActivities: CampActivity[] = [
     image: featureLessons,
     alt: "Trại sinh trong một buổi học Toán tại trại hè PiMA",
     title: "Các buổi học về Toán cao cấp, các mô hình ứng dụng và kỹ năng lập trình",
-    text: "Học sinh được học các môn Toán học nền tảng như đại số tuyến tính, tối ưu hóa, xác suất thống kê cùng lập trình và mô hình ứng dụng, dưới sự hướng dẫn của đội ngũ mentor từ các trường đại học hàng đầu thế giới.",
+    text: "Học sinh được học các môn Toán học nền tảng như đại số tuyến tính, tối ưu hóa, xác suất thống kê cùng lập trình và mô hình ứng dụng, dưới sự hướng dẫn của đội ngũ mentor từ các trường đại học trên thế giới.",
   },
   {
     image: featureTalks,

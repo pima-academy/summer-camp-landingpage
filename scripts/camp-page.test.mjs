@@ -53,6 +53,10 @@ test("the camp page says nowhere, in text or meta, that the camp is free or full
   assert.doesNotMatch(html, /miễn phí|hỗ trợ toàn bộ chi phí/i);
 });
 
+test("the camp page praises no one as \"hàng đầu\", in text or meta (spec #131)", { skip }, () => {
+  assert.doesNotMatch(html, /hàng đầu/i);
+});
+
 test("SummerCamp's lead follows report ch. 05.1: residential, 8–10 days, high-school students nationwide", { skip }, () => {
   const lead = text(section("summer-camp"));
   assert.match(lead, /8–10 ngày/);
