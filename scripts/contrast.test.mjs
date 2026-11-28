@@ -109,7 +109,8 @@ const CONTROL_ICONS = [
   ["/", 390, '[aria-controls="nav-menu"] svg'],
   ["/", 1440, '[aria-controls^="nav-dropdown-list-"] svg'],
   ["/", 1440, "[data-slider] [role=button] svg"],
-  ["/", 390, "[data-slider] [role=button] svg"],
+  // Home's single sliders hide their arrows at ≤ 767 px; the camp page's photo slider shows them.
+  ["/trai-he-toan-hoc-pima/", 390, "[data-slider] [role=button] svg"],
 ];
 
 test("every icon that is a control's only label has 3:1 against its background", { skip }, async () => {

@@ -3,8 +3,8 @@
 // the h1 (the impact report's slogan), the report's what-PiMA-is lead (ch. 02), a button to
 // #programs and a link to Về chúng tôi. Used by index only.
 // At right, bleeding off the band, the report's geodesic sphere line art: a white-on-transparent
-// PNG (src/assets/images/sphere-mask.png) used as a CSS mask over --color-text-accent, so its
-// colour stays a role token. Under the text at ≤ 991 px. No photo.
+// PNG (src/assets/images/sphere-mask.png) used as a CSS mask over currentColor, set to
+// --color-text-accent, so its colour stays a role token. Under the text at ≤ 991 px. No photo.
 import BrandName from "../../components/BrandName.astro";
 import Button from "../../components/Button.astro";
 import Kicker from "../../components/Kicker.astro";
@@ -60,10 +60,12 @@ import Section from "../../components/Section.astro";
     gap: var(--space-8);
   }
 
+  /* Line art in the accent colour, painted like an icon: in currentColor, through the mask. */
   .art {
     width: 150%;
     aspect-ratio: 1;
-    background-color: var(--color-text-accent);
+    color: var(--color-text-accent);
+    background-color: currentColor;
     mask: url("../../assets/images/sphere-mask.png") center / contain no-repeat;
   }
 
