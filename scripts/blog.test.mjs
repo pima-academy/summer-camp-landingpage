@@ -4,10 +4,10 @@
 // Most tests need a fresh `npm run build`; skipped when dist/ is missing.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { existsSync, readdirSync, readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { join, relative } from "node:path";
 import { postDate, summaryOf } from "../src/sections/blog/post-text.ts";
-import { builtHtmlFiles, dist, distSkip as skip, mainOf, readBuilt, root } from "./test-lib.mjs";
+import { blogPosts, builtHtmlFiles, dist, distSkip as skip, mainOf, publishedBlogPosts, readBuilt, root } from "./test-lib.mjs";
 
 // ---- Card summary and date ------------------------------------------------------------------
 
@@ -82,25 +82,8 @@ test("no built page links to /su-kien-blog/ or /detail-blog-event/", { skip }, (
 // ---- The posts, read from the content folder ------------------------------------------------
 
 const content = join(root, "src/content/blog");
-
-/** The scalar fields of a post's front matter (enough YAML for `key: value` lines). */
-function frontMatter(file) {
-  const yaml = readFileSync(file, "utf8").match(/^---\n([\s\S]*?)\n---/)?.[1] ?? "";
-  return Object.fromEntries(
-    [...yaml.matchAll(/^(\w+):\s*(.*?)\s*$/gm)].map(([, key, value]) => [key, value.replace(/^(["'])(.*)\1$/, "$2")]),
-  );
-}
-
-/** Every post: `<slug>/index.md` or `<slug>.md` (not the author guide, README.md). */
-const posts = (existsSync(content) ? readdirSync(content, { withFileTypes: true }) : [])
-  .map((e) =>
-    e.isDirectory()
-      ? { slug: e.name, file: join(content, e.name, "index.md") }
-      : { slug: e.name.replace(/\.md$/, ""), file: join(content, e.name) },
-  )
-  .filter(({ file }) => file.endsWith(".md") && !file.endsWith("README.md") && existsSync(file))
-  .map(({ slug, file }) => ({ slug, ...frontMatter(file) }));
-const published = posts.filter((p) => p.draft !== "true").sort((a, b) => b.date.localeCompare(a.date));
+const posts = blogPosts(content);
+const published = publishedBlogPosts();
 const drafts = posts.filter((p) => p.draft === "true");
 
 test("the content folder holds at least the 7 text-only Jekyll site posts and a draft", () => {

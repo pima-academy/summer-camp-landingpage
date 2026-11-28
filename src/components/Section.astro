@@ -20,7 +20,7 @@
             --color-text-heading, --color-text-accent, --color-text-muted, --color-link): every
             tone declares the full set (the dark-green tone the `-on-dark` values, the light
             tones the `-on-light` ones). A card inside a section takes a tone with the same
-            `data-tone` attribute (FoundingStory's founder card, the cover's campus tag), and
+            `data-tone` attribute (the home programme cards, the cover's campus tag), and
             gets its tone's roles whatever tone it sits in.
 
   `spacing="none"` is for sections whose content sets its own vertical padding.
@@ -108,7 +108,7 @@ const {
     background-color: var(--color-background-pale-lime);
   }
 
-  /* Dark-green tone (ve-chung-toi header, founder card): re-points the text roles for its
+  /* Dark-green tone (home hero, ve-chung-toi header): re-points the text roles for its
      descendants, down to a card of a light tone. */
   :global([data-tone="dark-green"]) {
     --color-text: var(--color-text-on-dark);

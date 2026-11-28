@@ -1,6 +1,7 @@
 ---
-// Press: "Báo chí nói về PiMA", a slider of press quotes (press.ts), one at a time, each with
-// the newspaper's logo linking to the article. Used by index only (old `section_press`).
+// Press: "Báo chí nói về PiMA", a slider of press quotes (press.ts), one at a time with 5 s
+// autoplay: the newspaper's logo, linking to the article, above its quote in typographic
+// quotes. Used by index only.
 import { Image } from "astro:assets";
 import Section from "../../components/Section.astro";
 import Slider from "../../components/Slider.astro";
@@ -13,16 +14,12 @@ import { pressQuotes } from "./press";
     {
       pressQuotes.map((item) => (
         <div>
-          <div class="quote">
-            <h3 class="text">"{item.quote}"</h3>
-            <div class="source">
-              <div class="client">
-                <a href={item.href} target="_blank" class="logo-link">
-                  <Image src={item.logo} alt={item.alt} width={96} densities={[1, 2]} class="logo-img" data-logo />
-                </a>
-              </div>
-            </div>
-          </div>
+          <figure class="quote">
+            <a href={item.href} target="_blank" class="logo-link">
+              <Image src={item.logo} alt={item.alt} width={112} densities={[1, 2]} class="logo" data-logo />
+            </a>
+            <blockquote>“{item.quote}”</blockquote>
+          </figure>
         </div>
       ))
     }
@@ -32,50 +29,29 @@ import { pressQuotes } from "./press";
 <style>
   .heading {
     margin-top: 0;
-    margin-bottom: 0;
+    margin-bottom: var(--space-8);
     text-align: center;
   }
 
   .quote {
-    max-width: 48rem;
-    height: 100%;
-    max-height: 100%;
-    margin-left: auto;
-    margin-right: auto;
+    max-width: var(--width-small);
+    margin: 0 auto;
     text-align: center;
-  }
-
-  .text {
-    color: var(--color-text);
-    font-size: var(--font-size-body);
-    font-weight: var(--font-weight-regular);
-    line-height: var(--line-height-body);
-  }
-
-  .source {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: var(--space-4);
-  }
-
-  .client {
-    margin-bottom: var(--space-2);
   }
 
   .logo-link {
     display: inline-block;
-    max-width: 100%;
   }
 
   /* A logo: square corners (base CSS, data-logo) and the whole of it in its box, never cropped. */
-  .logo-img {
+  .logo {
     display: block;
-    width: 6rem;
-    min-width: 4rem;
-    max-width: 100%;
+    width: 7rem;
     height: 3rem;
-    min-height: 4rem;
     object-fit: contain;
+  }
+
+  .quote blockquote {
+    margin: var(--space-4) 0 0;
   }
 </style>

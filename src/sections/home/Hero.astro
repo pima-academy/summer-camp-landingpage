@@ -1,103 +1,94 @@
 ---
-// Hero: the home page's opening section, "PiMA ACADEMY", the h1, the lead, a button to
-// the programs and the hero photo. Used by index only (old `section_homepage_hero`).
-// The hero photo loads eagerly (it is the LCP image).
-import { Image } from "astro:assets";
-import hero from "../../assets/images/hero-image-homepage.png";
+// Hero: the home page's opening section, on the dark-green tone: the "PiMA Academy" kicker,
+// the h1 (the impact report's slogan), the report's what-PiMA-is lead (ch. 02), a button to
+// #programs and a link to Về chúng tôi. Used by index only.
+// At right, bleeding off the band, the report's geodesic sphere line art: a white-on-transparent
+// PNG (src/assets/images/sphere-mask.png) used as a CSS mask over currentColor, set to
+// --color-text-accent, so its colour stays a role token. Under the text at ≤ 991 px. No photo.
 import BrandName from "../../components/BrandName.astro";
 import Button from "../../components/Button.astro";
 import Kicker from "../../components/Kicker.astro";
 import Section from "../../components/Section.astro";
-import { fluidWidths } from "../../lib/image-widths";
 ---
 
-<Section name="hero" width="large" spacing="medium">
-  <div class="layout">
-    <div class="intro">
-      <Kicker flush><BrandName /> ACADEMY</Kicker>
+<Section name="hero" tone="dark-green" width="large" spacing="large" class="hero">
+  <div class="grid">
+    <div class="text">
+      <Kicker flush><BrandName /> Academy</Kicker>
       <h1>Khám phá những biên giới mới của toán học và ứng dụng</h1>
       <p class="lead">
-        Biến đam mê toán học thành hành trình chinh phục trí tuệ nhân tạo, khoa học dữ liệu và công nghệ tương lai cùng
-        cộng đồng tài năng Việt Nam.
+        PiMA (Projects in Mathematics and Applications) là tổ chức giáo dục toán học và ứng dụng, được thành lập năm
+        2016 bởi các nhà toán học Việt Nam. PiMA là cầu nối giữa tri thức học thuật và các ứng dụng trong khoa học, công
+        nghệ và đời sống.
       </p>
       <div class="actions">
-        <Button href="#programs">Tìm hiểu thêm</Button>
+        <Button href="#programs" variant="on-dark">Xem các chương trình</Button>
+        <Button href="/ve-chung-toi/" variant="link">Về PiMA</Button>
       </div>
     </div>
-    <div class="photo">
-      <Image
-        src={hero}
-        alt="Học viên và giảng viên PiMA trong lớp học và các buổi thuyết trình"
-        widths={fluidWidths(hero)}
-        sizes="(max-width: 1155px) 90vw, 1040px"
-        loading="eager"
-        class="photo-img"
-      />
-    </div>
+    <div class="art" aria-hidden="true"></div>
   </div>
 </Section>
 
 <style>
-  .layout {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  /* The sphere is wider than its column and runs off the band's right edge. */
+  .hero {
+    overflow: clip;
   }
 
-  .intro {
-    width: 100%;
-    max-width: 56rem;
-    margin-bottom: var(--space-20);
-    text-align: center;
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    align-items: center;
+    gap: var(--space-12);
+  }
+
+  .text h1 {
+    margin-top: var(--space-6);
+    margin-bottom: var(--space-6);
   }
 
   .lead {
-    margin-bottom: var(--space-4);
-    color: var(--color-text);
+    max-width: 36rem;
+    margin-bottom: var(--space-8);
   }
 
-  /* Old `.button-group.is-center`. */
   .actions {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
     align-items: center;
-    gap: var(--space-2);
+    gap: var(--space-8);
   }
 
-  .photo {
-    overflow: hidden;
+  /* Line art in the accent colour, painted like an icon: in currentColor, through the mask. */
+  .art {
+    width: 150%;
+    aspect-ratio: 1;
+    color: var(--color-text-accent);
+    background-color: currentColor;
+    mask: url("../../assets/images/sphere-mask.png") center / contain no-repeat;
   }
 
-  .photo-img {
-    box-sizing: border-box;
-    width: 100%;
-    max-width: 100%;
-    height: 100%;
-    object-fit: none;
-  }
-
-  /* Defect fix: at ≤ 991 px the section's top padding is shorter than the 72 px fixed nav, so
-     the kicker sat under the nav (the old eyebrow was hidden there). Push the intro down until
-     the kicker clears the nav by 16-24 px. */
   @media screen and (max-width: 991px) {
-    .intro {
-      margin-bottom: var(--space-16);
+    .grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .art {
+      width: 100%;
+      max-width: 28rem;
+      margin: 0 auto;
+    }
+
+    /* The 72 px fixed nav is taller than the section's top padding here: the kicker clears it. */
+    .text {
       padding-top: var(--space-8);
     }
   }
 
   @media screen and (max-width: 767px) {
-    .intro {
-      margin-bottom: var(--space-12);
+    .text {
       padding-top: var(--space-10);
-    }
-  }
-
-  @media screen and (max-width: 479px) {
-    .actions {
-      flex-direction: column;
-      align-items: stretch;
     }
   }
 </style>
