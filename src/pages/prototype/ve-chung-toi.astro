@@ -6,6 +6,7 @@
 // They share the opening, the aims, the founder story and the plans; they differ where the
 // layout was left open: milestones, the talent network and the experts, and so where the
 // page's one bold dark-green moment sits.
+// Picked (#125): B with A's experts grid, so B now renders ExpertsA and the plans on white.
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import ContactSection from "../../sections/ContactSection.astro";
 import Opening from "../../sections/ve-chung-toi/prototype/Opening.astro";
@@ -41,8 +42,8 @@ export function getStaticPaths() {
     <Story />
     <MilestonesB />
     <NetworkB />
-    <ExpertsB />
-    <Plans tone="surface" />
+    <ExpertsA />
+    <Plans tone="white" />
     <ContactSection />
   </div>
 
