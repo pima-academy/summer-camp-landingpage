@@ -63,6 +63,9 @@ test("type, radius and shadow values must come through var(--…)", () => {
     "font-size: max(var(--font-size-h1), var(--font-size-display-2))",
     "letter-spacing: 0",
     "letter-spacing: normal",
+    // The larger (or smaller) of two tokens is still a token value: a display title never below h1.
+    "font-size: max(var(--font-size-h1), var(--font-size-display-2))",
+    "font-size: min(var(--font-size-h1), var(--font-size-display-2))",
   ]) {
     assert.deepEqual(check(good), [], good);
   }

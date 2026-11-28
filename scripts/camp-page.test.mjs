@@ -39,8 +39,26 @@ test("camp page markup carries no Webflow or utility class and no w-node id", { 
   assert.deepEqual(webflow, []);
 });
 
-test("both 'Định hướng học thuật' blocks stay", { skip }, () => {
-  assert.equal(html.match(/Định hướng học thuật, phát triển toàn diện/g)?.length, 2);
+const section = (name) => html.match(new RegExp(`<section[^>]*data-section="${name}"[\\s\\S]*?</section>`))?.[0] ?? "";
+const text = (markup) => markup.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ");
+
+test("CampActivity is headed 'Các hoạt động chính' and no longer repeats CampIntro", { skip }, () => {
+  const activity = section("camp-activity");
+  assert.match(activity, /<h2[^>]*>Các hoạt động chính<\/h2>/);
+  assert.equal(html.match(/Định hướng học thuật, phát triển toàn diện/g)?.length, 1, "only CampIntro keeps the heading");
+  assert.doesNotMatch(text(activity), /Trại hè PiMA là chương trình trại hè hàng năm/);
+});
+
+test("the camp page says nowhere, in text or meta, that the camp is free or fully funded", { skip }, () => {
+  assert.doesNotMatch(html, /miễn phí|hỗ trợ toàn bộ chi phí/i);
+});
+
+test("SummerCamp's lead follows report ch. 05.1: residential, 8–10 days, high-school students nationwide", { skip }, () => {
+  const lead = text(section("summer-camp"));
+  assert.match(lead, /8–10 ngày/);
+  assert.match(lead, /học tập và sinh hoạt tập trung/);
+  assert.match(lead, /học sinh THPT trên toàn quốc/);
+  assert.doesNotMatch(lead, /hàng đầu/);
 });
 
 test("camp history has a card per camp year, 2026 first, each linking its built year page", { skip }, () => {
@@ -48,7 +66,10 @@ test("camp history has a card per camp year, 2026 first, each linking its built 
   const years = cards.map((c) => c.match(/<h3[^>]*>(\d{4})<\/h3>/)?.[1]);
   assert.deepEqual(years, ["2026", "2025", "2024", "2023", "2021", "2019", "2018", "2017", "2016"]);
   for (const [i, c] of cards.entries()) {
-    const href = c.match(/<a[^>]*href="([^"]*)"[^>]*>\s*Xem chi tiết &gt;\s*<\/a>/)?.[1];
+    const link = c.match(/<a[^>]*href="([^"]*)"[^>]*>([\s\S]*?)<\/a>/);
+    const href = link?.[1];
+    assert.match(link?.[0] ?? "", /data-variant="link"/, `${years[i]}: "Xem chi tiết" is a Button variant="link"`);
+    assert.equal(text(link?.[2] ?? "").trim(), "Xem chi tiết", years[i]);
     assert.equal(href, `/trai-he-toan-hoc-pima/${years[i]}/`, years[i]);
     assert.ok(readBuilt(`trai-he-toan-hoc-pima/${years[i]}/index.html`), `${href} is built`);
   }

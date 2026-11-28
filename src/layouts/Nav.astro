@@ -412,6 +412,11 @@ const current = (href: string) => (isCurrent(href, pathname) ? ("page" as const)
     color: var(--color-text-muted);
   }
 
+  /* The text a visitor sees is the label's: hover turns it the link-hover colour, at every width. */
+  .link:hover .label {
+    color: var(--color-link-hover);
+  }
+
   .dropdown {
     z-index: 900;
     margin-left: auto;
@@ -554,10 +559,6 @@ const current = (href: string) => (isCurrent(href, pathname) ? ("page" as const)
     .sub-link {
       justify-content: space-between;
       font-size: var(--font-size-nav-menu);
-    }
-
-    .link:hover {
-      color: var(--color-text-accent);
     }
 
     .link[aria-current="page"]:hover {
