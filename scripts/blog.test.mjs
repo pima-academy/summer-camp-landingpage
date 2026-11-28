@@ -49,7 +49,10 @@ const between = (page, start, end) => {
 };
 const anchors = (s) => [...s.matchAll(/<a\b[^>]*>([\s\S]*?)<\/a>/g)];
 const href = (tag) => tag.match(/href="([^"]*)"/)?.[1];
-const text = (html) => html.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
+// Tags out, then the entities Astro escapes in text ("&" in a title) back to their characters.
+const ENTITIES = { "&amp;": "&", "&lt;": "<", "&gt;": ">", "&quot;": '"', "&#39;": "'" };
+const decode = (s) => s.replace(/&(?:amp|lt|gt|quot|#39);/g, (e) => ENTITIES[e]);
+const text = (html) => decode(html.replace(/<[^>]*>/g, "")).replace(/\s+/g, " ").trim();
 
 test("the main nav shows Blog, linking to /blog/", { skip }, () => {
   const nav = between(readBuilt("index.html"), "<header", "</header>");
@@ -261,13 +264,16 @@ test("a post page with formulas loads nothing from a third-party host (no KaTeX 
 
 // ---- Body images: figures, captions, alt -----------------------------------------------------
 
-/** A post's Markdown images, in order: `![alt](src "title")`, the title optional. */
+/** A post's Markdown images, in order: `![alt](src "title")`, the title optional. The alt may
+ *  hold balanced brackets one level deep, as Markdown allows (a matrix [9 5; 4 2], dist[i][j]). */
 const markdownImages = (file) =>
-  [...readFileSync(file, "utf8").matchAll(/!\[([^\]]*)\]\((\S+?)(?:\s+"([^"]*)")?\)/g)].map(([, alt, src, title]) => ({ alt, src, title }));
+  [...readFileSync(file, "utf8").matchAll(/!\[((?:[^[\]]|\[[^[\]]*\])*)\]\((\S+?)(?:\s+"([^"]*)")?\)/g)].map(([, alt, src, title]) => ({ alt, src, title }));
 const postFile = (slug) => [join(content, slug, "index.md"), join(content, `${slug}.md`)].find(existsSync);
 
 test("the 5 Jekyll site posts with images keep their images, each with non-empty alt text", () => {
-  const counts = { "toan-ung-dung-hang-khong": 1, "plato-1": 3, "plato-2": 4, "reinforcement-learning-1": 2, "reinforcement-learning-2": 1 };
+  // The two Plato posts were later redone from PiMA's Facebook page, which has one more photo
+  // for Phần 1 and shows Phần 2's first image as its cover.
+  const counts = { "toan-ung-dung-hang-khong": 1, "plato-1": 4, "plato-2": 3, "reinforcement-learning-1": 2, "reinforcement-learning-2": 1 };
   for (const [slug, n] of Object.entries(counts)) {
     const images = markdownImages(postFile(slug));
     assert.equal(images.length, n, `${slug}: images`);
@@ -289,7 +295,7 @@ test("every body image is a figure with non-empty alt; a Markdown title is its f
       const img = figures[k].match(/<img\b[^>]*>/)?.[0] ?? "";
       assert.match(img, /src="\/_astro\//, `${slug} image ${k + 1}: optimised by Astro`);
       assert.ok(alt.trim(), `${slug} image ${k + 1}: alt text (the README asks for it)`);
-      assert.equal(img.match(/\balt="([^"]*)"/)?.[1], alt, `${slug} image ${k + 1}: alt`);
+      assert.equal(decode(img.match(/\balt="([^"]*)"/)?.[1] ?? ""), alt, `${slug} image ${k + 1}: alt`);
       assert.doesNotMatch(img, /\btitle=/, `${slug} image ${k + 1}: no title attribute`);
       const caption = figures[k].match(/<figcaption\b[^>]*>([\s\S]*?)<\/figcaption>/)?.[1];
       assert.equal(caption === undefined ? undefined : text(caption), title, `${slug} image ${k + 1}: figcaption`);

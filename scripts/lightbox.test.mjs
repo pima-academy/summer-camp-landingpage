@@ -99,27 +99,25 @@ test("the cover opens its own set: both campuses in 2025, one photo without arro
 });
 
 test("a blog post's image opens the post's images at it; Esc closes and returns focus", { skip }, async () => {
-  const page = await open("/blog/plato-2/");
+  const page = await open("/blog/introduction-to-jupyter-and-python/");
   const images = page.locator("[data-section=post-body] figure button");
-  assert.equal(await images.count(), 4);
+  assert.equal(await images.count(), 2);
   const label = () => page.locator("dialog[open] .label").textContent();
 
-  const third = images.nth(2);
-  await third.click();
-  assert.equal((await shown(page)).count, "3 / 4");
-  assert.equal(await label(), "Cấu trúc tinh thể", "the image's caption");
-  assert.match((await shown(page)).src, /plato-7/);
+  const second = images.nth(1);
+  await second.click();
+  assert.equal((await shown(page)).count, "2 / 2");
+  assert.equal(await label(), "Giao diện danh sách tệp của Jupyter", "the image's caption");
+  assert.match((await shown(page)).src, /jupyter-1/);
 
   await page.keyboard.press("ArrowRight");
-  assert.equal((await shown(page)).count, "4 / 4");
-  assert.equal(await label(), "Cấu trúc vi khuẩn và vi rút");
-  await page.keyboard.press("ArrowRight");
-  assert.equal((await shown(page)).count, "1 / 4", "wraps around to the post's first image");
-  assert.match((await shown(page)).src, /plato-5/);
+  assert.equal((await shown(page)).count, "1 / 2", "wraps around to the post's first image");
+  assert.equal(await label(), "Lưu ý khi cài đặt Anaconda");
+  assert.match((await shown(page)).src, /anaconda-note/);
 
   await page.keyboard.press("Escape");
   assert.equal(await shown(page), null);
-  assert.ok(await third.evaluate((el) => el === document.activeElement), "focus is back on the image");
+  assert.ok(await second.evaluate((el) => el === document.activeElement), "focus is back on the image");
   await page.close();
 });
 

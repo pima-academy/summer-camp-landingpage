@@ -105,7 +105,7 @@ The part of pimavn.com that lists blog posts, newest first, and shows each one o
 _Avoid_: news, events & blog, articles
 
 **Blog post**:
-One piece of writing published on the blog ("bài viết"), with a title, a date and optionally an author and a cover photo. Its body may hold mathematical formulas. The posts of 2017-2019 came from the Jekyll site, with their text unchanged.
+One piece of writing published on the blog ("bài viết"), with a title, a date and optionally an author and a cover photo. Its body may hold mathematical formulas. The posts of 2017-2019 came from the Jekyll site, with their text unchanged. The posts of 2026 came from PiMA's Facebook page: each is one Facebook post, its own text and its photos' captions put in reading order, without the camp promotion and contact details around them.
 _Avoid_: article, news item, event, entry
 
 **Catalogue page**:
