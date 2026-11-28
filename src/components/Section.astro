@@ -31,7 +31,7 @@
     <Section name="press" class="press">…</Section>
     <style>.press { overflow: clip; }</style>
 
-  `name` is the section file's name in kebab case (FoundingStory.astro → "founding-story");
+  `name` is the section file's name in kebab case (FounderStory.astro → "founder-story");
   scripts/sections.test.mjs checks it. Tests find sections by `data-section`.
 */
 import type { HTMLAttributes } from "astro/types";
@@ -96,20 +96,20 @@ const {
     background-color: var(--color-background);
   }
 
-  /* Surface tone (milestones). */
+  /* Surface tone (page headers, founder story, programmes…). */
   :global([data-tone="surface"]) {
     background-color: var(--color-background-surface);
   }
 
-  /* Pale-lime tone (philosophy, testimonials, contact): its own icon-circle pair. */
+  /* Pale-lime tone (Về chúng tôi opening, testimonials, contact): its own icon-circle pair. */
   :global([data-tone="pale-lime"]) {
     --color-icon-circle: var(--color-icon-circle-on-pale-lime);
     --color-icon-circle-glyph: var(--color-icon-circle-glyph-on-pale-lime);
     background-color: var(--color-background-pale-lime);
   }
 
-  /* Dark-green tone (home hero, ve-chung-toi header): re-points the text roles for its
-     descendants, down to a card of a light tone. */
+  /* Dark-green tone (home hero, talent network, the Liên hệ page): re-points the text roles
+     for its descendants, down to a card of a light tone. */
   :global([data-tone="dark-green"]) {
     --color-text: var(--color-text-on-dark);
     --color-text-heading: var(--color-text-on-dark);

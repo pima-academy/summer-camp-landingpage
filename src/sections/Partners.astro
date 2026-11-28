@@ -1,22 +1,15 @@
 ---
 // Partners: "Những đơn vị đã đồng hành cùng PiMA", kicker and heading left, the partners right
 // as ruled rows (logo in a fixed box, name, role, years; partners.ts). Two columns, one at
-// ≤ 991 px. Used by index, ve-chung-toi and trai-he-toan-hoc-pima.
+// ≤ 991 px. Used by index and trai-he-toan-hoc-pima.
 import { Image } from "astro:assets";
 import BrandName from "../components/BrandName.astro";
 import Kicker from "../components/Kicker.astro";
 import Section from "../components/Section.astro";
 import { partners } from "./partners";
-
-interface Props {
-  /** Section id. "doi-tac" by default; ve-chung-toi passes its footer anchor instead. */
-  id?: string;
-}
-
-const { id = "doi-tac" } = Astro.props;
 ---
 
-<Section name="partners" width="large" spacing="medium" id={id}>
+<Section name="partners" width="large" spacing="medium">
   <div class="layout">
     <div>
       <Kicker>đối tác của <BrandName /></Kicker>

@@ -1,22 +1,14 @@
 ---
 // Impact: "Những con số nổi bật", the six cleared figures as one ruled row (6 / 3 / 2 columns)
 // with their source line, and the impact report as a wide surface card (real cover, text in
-// HTML, link to Issuu). Content in impact.ts. Used by index, ve-chung-toi and
-// trai-he-toan-hoc-pima.
+// HTML, link to Issuu). Content in impact.ts. Used by index and trai-he-toan-hoc-pima.
 import { Image } from "astro:assets";
 import Kicker from "../components/Kicker.astro";
 import Section from "../components/Section.astro";
 import { figures, figuresSource, report } from "./impact";
-
-interface Props {
-  /** Section id. "tac-dong" by default; ve-chung-toi passes its footer anchor instead. */
-  id?: string;
-}
-
-const { id = "tac-dong" } = Astro.props;
 ---
 
-<Section name="impact" width="large" spacing="medium" id={id}>
+<Section name="impact" width="large" spacing="medium">
   <div class="head">
     <div>
       <Kicker>tác động</Kicker>
