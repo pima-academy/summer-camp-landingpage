@@ -66,7 +66,6 @@ const SHARED = [
   "Partners",
   "Impact",
   "Testimonials",
-  "ProgramsOverview",
   "ContactSection",
   "PageHeader",
 ];

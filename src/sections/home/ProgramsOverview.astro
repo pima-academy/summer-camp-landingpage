@@ -1,17 +1,16 @@
 ---
 // ProgramsOverview: "Các chương trình của chúng tôi", PiMA's two programmes as twin white cards
 // on the surface tone: a photo on top, name, text, three activities, figures and a button to the
-// camp or the course page. Used by index and ve-chung-toi (Về chúng tôi drops it in #136; it then
-// moves to src/sections/home/).
+// camp or the course page. Used by index only.
 // id="programs" is the target of the home hero's in-page "#programs" link.
 import { Image } from "astro:assets";
-import group2025 from "../assets/camp-archive/2025/cover-tphcm.jpg";
-import blackboard from "../assets/images/dan-cristian-padure-h3kuhyuce9a-unsplash.avif";
-import BrandName from "../components/BrandName.astro";
-import Button from "../components/Button.astro";
-import Kicker from "../components/Kicker.astro";
-import Section from "../components/Section.astro";
-import { fluidWidths } from "../lib/image-widths";
+import group2025 from "../../assets/camp-archive/2025/cover-tphcm.jpg";
+import blackboard from "../../assets/images/dan-cristian-padure-h3kuhyuce9a-unsplash.avif";
+import BrandName from "../../components/BrandName.astro";
+import Button from "../../components/Button.astro";
+import Kicker from "../../components/Kicker.astro";
+import Section from "../../components/Section.astro";
+import { fluidWidths } from "../../lib/image-widths";
 
 // The camp from report ch. 05.1, the course from /khoa-hoc/; figures as of October 2026.
 const programs = [
