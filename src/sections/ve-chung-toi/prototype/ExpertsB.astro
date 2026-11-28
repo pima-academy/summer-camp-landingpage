@@ -1,0 +1,85 @@
+---
+// PROTOTYPE B · Mạng lưới (throwaway, #125): 6. "Các chuyên gia đồng hành" as a ruled list in two
+// columns on white: heading and lead left, then each expert a row with the activity photo small
+// on the left and name, role and topic on the right. Reads like a roll, not a gallery.
+import { Image } from "astro:assets";
+import Kicker from "../../../components/Kicker.astro";
+import Section from "../../../components/Section.astro";
+import { anchors, experts, expertsLead } from "./data";
+---
+
+<Section name="experts" width="large" spacing="medium" id={anchors.experts}>
+  <div class="layout">
+    <div class="head">
+      <Kicker>chuyên gia</Kicker>
+      <h2>Các chuyên gia đồng hành</h2>
+      <p>{expertsLead}</p>
+    </div>
+    <ul role="list" class="list">
+      {
+        experts.map((e) => (
+          <li>
+            <Image src={e.photo} alt={e.alt} widths={[320, 640]} sizes="(max-width: 767px) 7rem, 12rem" class="photo" />
+            <div>
+              <h3>{e.name}</h3>
+              <p class="role">{e.role}</p>
+              <p class="caption">{e.caption}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</Section>
+
+<style>
+  .layout {
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    gap: var(--space-16);
+  }
+  .list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .list li {
+    display: grid;
+    grid-template-columns: 12rem 1fr;
+    gap: var(--space-6);
+    padding: var(--space-6) 0;
+    border-top: 1px solid var(--color-border);
+  }
+  .list li:last-child {
+    border-bottom: 1px solid var(--color-border);
+  }
+  .photo {
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    height: auto;
+    object-fit: cover;
+  }
+  h3 {
+    margin: 0 0 var(--space-1);
+  }
+  .role {
+    margin: 0 0 var(--space-2);
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+  }
+  .caption {
+    margin: 0;
+  }
+  @media screen and (max-width: 991px) {
+    .layout {
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .list li {
+      grid-template-columns: 7rem 1fr;
+      gap: var(--space-4);
+    }
+  }
+</style>

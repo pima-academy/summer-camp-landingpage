@@ -1,0 +1,101 @@
+---
+// PROTOTYPE (throwaway, #125): 2. "Tầm nhìn, sứ mệnh và hành động", `VisionMission` absorbing
+// `Actions`. No accordion and no photos: the heading left, vision and mission side by side as
+// two statements at h3 size, then the three actions as ruled columns.
+import Kicker from "../../../components/Kicker.astro";
+import Section from "../../../components/Section.astro";
+import { aims, anchors } from "./data";
+---
+
+<Section name="aims" width="large" spacing="medium" id={anchors.aims}>
+  <div class="grid">
+    <div class="head">
+      <Kicker flush>định hướng</Kicker>
+      <h2>Tầm nhìn, sứ mệnh và hành động</h2>
+    </div>
+    <div class="statements">
+      <div>
+        <h3>Tầm nhìn</h3>
+        <p class="statement">{aims.vision}</p>
+      </div>
+      <div>
+        <h3>Sứ mệnh</h3>
+        <p class="statement">{aims.mission}</p>
+      </div>
+    </div>
+  </div>
+  <div class="grid actions-row">
+    <h3 class="actions-title">Hành động</h3>
+    <ul role="list" class="actions">
+      {
+        aims.actions.map((a) => (
+          <li>
+            <h4>{a.title}</h4>
+            <p>{a.text}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</Section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    gap: var(--space-12);
+  }
+  .head h2 {
+    margin-top: var(--space-4);
+  }
+  .statements {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-10);
+  }
+  .statements h3,
+  .actions-title {
+    margin: 0 0 var(--space-3);
+    color: var(--color-text-accent);
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+  }
+  .statement {
+    margin: 0;
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+  }
+  .actions-row {
+    margin-top: var(--space-16);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border);
+  }
+  .actions {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-10);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .actions h4 {
+    margin: 0 0 var(--space-2);
+    color: var(--color-text-heading);
+  }
+  .actions p {
+    margin: 0;
+  }
+  @media screen and (max-width: 991px) {
+    .grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .statements,
+    .actions {
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+    }
+  }
+</style>

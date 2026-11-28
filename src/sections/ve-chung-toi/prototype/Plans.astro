@@ -1,0 +1,100 @@
+---
+// PROTOTYPE (throwaway, #125): 7. "Kế hoạch tương lai", report ch. 10 without "hàng đầu". The goal
+// as h2 and lead, the three plans as ruled columns with their icons, and the report's closing
+// line (p. 37, today Philosophy's h2) set large at the end.
+import Icon from "../../../components/Icon.astro";
+import Kicker from "../../../components/Kicker.astro";
+import Section from "../../../components/Section.astro";
+import { anchors, plans } from "./data";
+
+interface Props {
+  tone: "white" | "surface";
+}
+const { tone } = Astro.props;
+---
+
+<Section name="plans" tone={tone} width="large" spacing="medium" id={anchors.plans}>
+  <div class="head">
+    <Kicker>kế hoạch tương lai</Kicker>
+    <h2>{plans.title}</h2>
+    <p>{plans.lead}</p>
+  </div>
+  <ul role="list" class="blocks">
+    {
+      plans.blocks.map((b) => (
+        <li>
+          <span class="glyph"><Icon name={b.icon} size="40" /></span>
+          <h3>{b.title}</h3>
+          <ul>
+            {b.items.map((t) => (
+              <li>{t}</li>
+            ))}
+          </ul>
+        </li>
+      ))
+    }
+  </ul>
+  <p class="closing">{plans.closing}</p>
+</Section>
+
+<style>
+  .head {
+    max-width: var(--width-small);
+    margin-bottom: var(--space-12);
+  }
+  .blocks {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .blocks > li {
+    padding: var(--space-2) var(--space-8);
+    border-left: 1px solid var(--color-border);
+  }
+  .blocks > li:first-child {
+    padding-left: 0;
+    border-left: 0;
+  }
+  .glyph {
+    display: block;
+    color: var(--color-icon-decorative);
+  }
+  .blocks h3 {
+    margin: var(--space-4) 0 var(--space-3);
+  }
+  .blocks ul {
+    margin: 0;
+    padding-left: var(--space-5);
+  }
+  .blocks ul li + li {
+    margin-top: var(--space-2);
+  }
+  .blocks ul li::marker {
+    color: var(--color-icon-decorative);
+  }
+  .closing {
+    margin: var(--space-16) 0 0;
+    color: var(--color-text-heading);
+    font-size: var(--font-size-display-2);
+    font-weight: var(--font-weight-black);
+    letter-spacing: var(--letter-spacing-display);
+    line-height: var(--line-height-display);
+  }
+  @media screen and (max-width: 767px) {
+    .blocks {
+      grid-template-columns: 1fr;
+      row-gap: var(--space-8);
+    }
+    .blocks > li {
+      padding: var(--space-8) 0 0;
+      border-left: 0;
+      border-top: 1px solid var(--color-border);
+    }
+    .blocks > li:first-child {
+      padding-top: 0;
+      border-top: 0;
+    }
+  }
+</style>

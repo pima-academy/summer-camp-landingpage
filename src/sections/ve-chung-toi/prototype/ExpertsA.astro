@@ -1,0 +1,86 @@
+---
+// PROTOTYPE A · Niên biểu (throwaway, #125): 6. "Các chuyên gia đồng hành" as a grid: six white
+// cards on a surface band, each the expert's 904 px activity photo, name with title, role and
+// what they talked about. All six visible at once, no slider.
+import { Image } from "astro:assets";
+import Kicker from "../../../components/Kicker.astro";
+import Section from "../../../components/Section.astro";
+import { fluidWidths } from "../../../lib/image-widths";
+import { anchors, experts, expertsLead } from "./data";
+---
+
+<Section name="experts" tone="surface" width="large" spacing="medium" id={anchors.experts}>
+  <div class="head">
+    <Kicker>chuyên gia</Kicker>
+    <h2>Các chuyên gia đồng hành</h2>
+    <p>{expertsLead}</p>
+  </div>
+  <ul role="list" class="grid">
+    {
+      experts.map((e) => (
+        <li class="card" data-tone="white">
+          <Image src={e.photo} alt={e.alt} widths={fluidWidths(e.photo)} sizes="(max-width: 767px) 90vw, (max-width: 991px) 45vw, 26rem" class="photo" />
+          <div class="body">
+            <h3>{e.name}</h3>
+            <p class="role">{e.role}</p>
+            <p class="caption">{e.caption}</p>
+          </div>
+        </li>
+      ))
+    }
+  </ul>
+</Section>
+
+<style>
+  .head {
+    max-width: var(--width-small);
+    margin-bottom: var(--space-12);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-8);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: var(--radius);
+  }
+  .photo {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    height: auto;
+    object-fit: cover;
+    border-radius: 0;
+  }
+  .body {
+    padding: var(--space-6);
+  }
+  .body h3 {
+    margin: 0 0 var(--space-2);
+  }
+  .role {
+    margin: 0 0 var(--space-4);
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+  }
+  .caption {
+    margin: 0;
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+  }
+  @media screen and (max-width: 991px) {
+    .grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

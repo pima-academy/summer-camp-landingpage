@@ -1,0 +1,243 @@
+---
+// PROTOTYPE A · Niên biểu (throwaway, #125): 5. "Mạng lưới nhân tài", quiet on white, in the
+// home Impact's grammar: heading and source line, the four network figures in one ruled row,
+// achievements as ruled number rows beside the two paragraphs from ch. 07, the places as two
+// text lists (no logos, no count), the report as a wide surface card.
+import { Image } from "astro:assets";
+import Kicker from "../../../components/Kicker.astro";
+import Section from "../../../components/Section.astro";
+import BrandName from "../../../components/BrandName.astro";
+import { anchors, network, reportCover } from "./data";
+---
+
+<Section name="network" width="large" spacing="medium" id={anchors.network}>
+  <div class="head">
+    <div>
+      <Kicker>cộng đồng <BrandName /></Kicker>
+      <h2>Mạng lưới nhân tài</h2>
+    </div>
+    <p class="muted">{network.source}</p>
+  </div>
+  <ul role="list" class="ruler">
+    {
+      network.figures.map((f) => (
+        <li>
+          <span class="value">{f.value}</span>
+          <span class="label">{f.label}</span>
+          <span class="muted">{f.detail}</span>
+        </li>
+      ))
+    }
+  </ul>
+
+  <div class="two">
+    <div>
+      <h3>Thành tích của các thành viên</h3>
+      <ul role="list" class="achievements">
+        {
+          network.achievements.map((a) => (
+            <li>
+              <span class="num">{a.value}</span>
+              <span>{a.label}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+    <div class="texts">
+      <h3>Mentor và cựu trại sinh</h3>
+      <p>{network.mentors}</p>
+      <p>{network.alumni}</p>
+    </div>
+  </div>
+
+  <div class="places">
+    <h3>Nơi các thành viên đang học tập và làm việc</h3>
+    <div class="place-lists">
+      <div>
+        <h4>Trường đại học và viện nghiên cứu</h4>
+        <ul role="list" class="names">{network.universities.map((n) => <li>{n}</li>)}</ul>
+      </div>
+      <div>
+        <h4>Công ty</h4>
+        <ul role="list" class="names">{network.companies.map((n) => <li>{n}</li>)}</ul>
+      </div>
+    </div>
+  </div>
+
+  <a href={network.report.href} class="report" data-tone="surface">
+    <Image src={reportCover} alt="" widths={[160, 320]} sizes="160px" class="report-cover" />
+    <span class="report-text">
+      <span class="report-title">{network.report.title}</span>
+      <span>{network.report.text}</span>
+      <span class="report-cta">{network.report.cta}</span>
+    </span>
+  </a>
+</Section>
+
+<style>
+  .head {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: var(--space-8);
+    margin-bottom: var(--space-10);
+  }
+  .head h2 {
+    margin: 0;
+  }
+  .muted {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+  }
+  .ruler {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    margin: 0 0 var(--space-16);
+    padding: 0;
+    list-style: none;
+  }
+  .ruler li {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    padding: var(--space-2) var(--space-6);
+    border-left: 1px solid var(--color-border);
+  }
+  .ruler li:first-child {
+    padding-left: 0;
+    border-left: 0;
+  }
+  .value {
+    color: var(--color-text-accent);
+    font-size: var(--font-size-big-number);
+    font-weight: var(--font-weight-black);
+    line-height: var(--line-height-display);
+    font-variant-numeric: tabular-nums;
+  }
+  .label {
+    font-weight: var(--font-weight-extrabold);
+  }
+  .two {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-16);
+    margin-bottom: var(--space-16);
+  }
+  h3 {
+    margin: 0 0 var(--space-4);
+  }
+  .achievements {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .achievements li {
+    display: grid;
+    grid-template-columns: 3.5rem 1fr;
+    align-items: baseline;
+    gap: var(--space-4);
+    padding: var(--space-3) 0;
+    border-top: 1px solid var(--color-border);
+  }
+  .achievements li:last-child {
+    border-bottom: 1px solid var(--color-border);
+  }
+  .num {
+    color: var(--color-text-accent);
+    font-size: var(--font-size-h2);
+    font-weight: var(--font-weight-black);
+    line-height: var(--line-height-display);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+  .texts p {
+    margin: 0 0 var(--space-4);
+  }
+  .places {
+    margin-bottom: var(--space-12);
+  }
+  .place-lists {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: var(--space-12);
+  }
+  h4 {
+    margin: 0 0 var(--space-3);
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+    line-height: var(--line-height-body);
+  }
+  .names {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    columns: 2;
+    column-gap: var(--space-8);
+  }
+  .place-lists > div:last-child .names {
+    columns: 1;
+  }
+  .names li {
+    padding: var(--space-2) 0;
+    border-top: 1px solid var(--color-border);
+    break-inside: avoid;
+    font-weight: var(--font-weight-semibold);
+  }
+  .report {
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+    padding: var(--space-6);
+    border-radius: var(--radius);
+    color: var(--color-text);
+    text-decoration: none;
+  }
+  .report-cover {
+    width: 6rem;
+    height: auto;
+    box-shadow: var(--shadow-dropdown);
+  }
+  .report-text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+  .report-title {
+    color: var(--color-text-heading);
+    font-size: var(--font-size-h3);
+    font-weight: var(--font-weight-extrabold);
+  }
+  .report-cta {
+    color: var(--color-link);
+    font-weight: var(--font-weight-bold);
+    text-decoration: underline;
+  }
+  @media screen and (max-width: 991px) {
+    .two,
+    .place-lists {
+      grid-template-columns: 1fr;
+      gap: var(--space-10);
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .head {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .ruler {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      row-gap: var(--space-8);
+    }
+    .ruler li:nth-child(odd) {
+      padding-left: 0;
+      border-left: 0;
+    }
+    .report {
+      align-items: flex-start;
+      gap: var(--space-4);
+      padding: var(--space-4);
+    }
+  }
+</style>

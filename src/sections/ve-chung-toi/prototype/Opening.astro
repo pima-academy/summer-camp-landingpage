@@ -1,0 +1,71 @@
+---
+// PROTOTYPE (throwaway, #125): 1. the opening, `Header` and `Intro` merged. Pale Lime band;
+// breadcrumb kicker and h1 left, the lead right; the team cut-out (pima-team.png, a transparent
+// PNG cut at the waist) stands on the band's bottom edge, so the people rest on the next section.
+import { Image } from "astro:assets";
+import BrandName from "../../../components/BrandName.astro";
+import Kicker from "../../../components/Kicker.astro";
+import Section from "../../../components/Section.astro";
+import { anchors, opening } from "./data";
+---
+
+<Section name="opening" tone="pale-lime" width="large" spacing="none" id={anchors.intro} class="opening">
+  <div class="head">
+    <div>
+      <Kicker flush><BrandName /> academy &gt; giới thiệu</Kicker>
+      <h1>Về chúng tôi</h1>
+    </div>
+    <p class="lead">{opening.lead}</p>
+  </div>
+  <Image
+    src={opening.photo.src}
+    alt={opening.photo.alt}
+    widths={[640, 1022]}
+    sizes="(max-width: 767px) 100vw, 64rem"
+    loading="eager"
+    class="team"
+  />
+</Section>
+
+<style>
+  .head {
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    align-items: end;
+    gap: var(--space-12);
+    padding-top: var(--space-32);
+    padding-bottom: var(--space-12);
+  }
+  .head h1 {
+    margin: var(--space-4) 0 0;
+    font-size: max(var(--font-size-h1), var(--font-size-display-2));
+    font-weight: var(--font-weight-black);
+    letter-spacing: var(--letter-spacing-display);
+    line-height: var(--line-height-display);
+  }
+  .lead {
+    max-width: 38rem;
+    margin: 0;
+  }
+  .team {
+    display: block;
+    width: 100%;
+    max-width: var(--width-medium);
+    height: auto;
+    margin: 0 auto;
+    border-radius: 0;
+  }
+  @media screen and (max-width: 991px) {
+    .head {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+      padding-top: var(--space-28);
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .head {
+      padding-top: var(--space-24);
+      padding-bottom: var(--space-8);
+    }
+  }
+</style>

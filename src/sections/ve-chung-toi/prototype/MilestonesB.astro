@@ -1,0 +1,127 @@
+---
+// PROTOTYPE B · Mạng lưới (throwaway, #125): 4. "Các cột mốc đáng nhớ" as the brand timeline
+// (docs/brand.md, "Timeline"): a thin PiMA Green axis with a dot per year, the years read left to
+// right in a row that scrolls sideways (snapping per year) on white. At ≤ 767 px the axis turns
+// vertical on the left. Quiet here: this variant spends its bold moment on the talent network.
+import Section from "../../../components/Section.astro";
+import { anchors, milestoneYears } from "./data";
+---
+
+<Section name="milestones" width="large" spacing="medium" id={anchors.milestones}>
+  <div class="head">
+    <h2>Các cột mốc đáng nhớ</h2>
+    <p class="hint">Kéo ngang để xem tiếp.</p>
+  </div>
+  <ol role="list" class="track" tabindex="0" aria-label="Các cột mốc từ 2016 đến 2026">
+    {
+      milestoneYears.map((y) => (
+        <li class="year-col">
+          <span class="dot" aria-hidden="true" />
+          <span class="year">{y.year}</span>
+          <ul role="list" class="entries">
+            {y.entries.map((e) => (
+              <li>
+                {e.month && <span class="month">{e.month}</span>}
+                <span>
+                  {e.text} {e.topic && <strong class="topic">{e.topic}</strong>}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </li>
+      ))
+    }
+  </ol>
+</Section>
+
+<style>
+  .head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-4);
+    margin-bottom: var(--space-10);
+  }
+  .head h2 {
+    margin: 0;
+  }
+  .hint {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+  }
+  .track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 17rem;
+    gap: var(--space-8);
+    margin: 0;
+    padding: 0 0 var(--space-6);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    list-style: none;
+    background: linear-gradient(var(--color-background-accent), var(--color-background-accent)) 0 0.5rem / 100% 2px no-repeat;
+  }
+  .year-col {
+    position: relative;
+    scroll-snap-align: start;
+  }
+  .dot {
+    display: block;
+    width: 1.125rem;
+    height: 1.125rem;
+    border-radius: var(--radius-circle);
+    background: var(--color-background-accent);
+  }
+  .year {
+    display: block;
+    margin: var(--space-4) 0 var(--space-3);
+    color: var(--color-text-heading);
+    font-size: var(--font-size-h2);
+    font-weight: var(--font-weight-black);
+    line-height: var(--line-height-display);
+    font-variant-numeric: tabular-nums;
+  }
+  .entries {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .entries li {
+    display: flex;
+    flex-direction: column;
+  }
+  .month {
+    color: var(--color-text-accent);
+    font-weight: var(--font-weight-extrabold);
+  }
+  .topic {
+    font-style: italic;
+    font-weight: var(--font-weight-bold);
+  }
+  @media screen and (max-width: 767px) {
+    .hint {
+      display: none;
+    }
+    .track {
+      grid-auto-flow: row;
+      grid-auto-columns: auto;
+      gap: var(--space-8);
+      padding: 0 0 0 var(--space-8);
+      overflow: visible;
+      background-position: 0.5rem 0;
+      background-size: 2px 100%;
+    }
+    .dot {
+      position: absolute;
+      left: calc(-1 * var(--space-8));
+      top: var(--space-1);
+    }
+    .year {
+      margin-top: 0;
+    }
+  }
+</style>

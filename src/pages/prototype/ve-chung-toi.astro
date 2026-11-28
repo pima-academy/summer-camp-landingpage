@@ -1,0 +1,122 @@
+---
+// PROTOTYPE (throwaway, branch prototype/about-redesign; dev only): two variants of the
+// redesigned Về chúng tôi page (issue #125), on the 8 sections decided in #123 and real content,
+// in the visual direction of the chosen home variant A (#124).
+// /prototype/ve-chung-toi/?variant=A | B. Both are rendered; the bar shows the one named by ?variant=.
+// They share the opening, the aims, the founder story and the plans; they differ where the
+// layout was left open: milestones, the talent network and the experts, and so where the
+// page's one bold dark-green moment sits.
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import ContactSection from "../../sections/ContactSection.astro";
+import Opening from "../../sections/ve-chung-toi/prototype/Opening.astro";
+import Aims from "../../sections/ve-chung-toi/prototype/Aims.astro";
+import Story from "../../sections/ve-chung-toi/prototype/Story.astro";
+import Plans from "../../sections/ve-chung-toi/prototype/Plans.astro";
+import MilestonesA from "../../sections/ve-chung-toi/prototype/MilestonesA.astro";
+import MilestonesB from "../../sections/ve-chung-toi/prototype/MilestonesB.astro";
+import NetworkA from "../../sections/ve-chung-toi/prototype/NetworkA.astro";
+import NetworkB from "../../sections/ve-chung-toi/prototype/NetworkB.astro";
+import ExpertsA from "../../sections/ve-chung-toi/prototype/ExpertsA.astro";
+import ExpertsB from "../../sections/ve-chung-toi/prototype/ExpertsB.astro";
+
+export function getStaticPaths() {
+  return import.meta.env.DEV ? [{ params: {} }] : [];
+}
+---
+
+<BaseLayout title="Về chúng tôi (prototype)" description="Prototype" noindex>
+  <div data-proto="A">
+    <Opening />
+    <Aims />
+    <Story />
+    <MilestonesA />
+    <NetworkA />
+    <ExpertsA />
+    <Plans tone="white" />
+    <ContactSection />
+  </div>
+  <div data-proto="B" hidden>
+    <Opening />
+    <Aims />
+    <Story />
+    <MilestonesB />
+    <NetworkB />
+    <ExpertsB />
+    <Plans tone="surface" />
+    <ContactSection />
+  </div>
+
+  <div class="proto-bar" role="toolbar" aria-label="Prototype variants">
+    <button type="button" data-step="-1" aria-label="Previous variant">←</button>
+    <span class="proto-label"></span>
+    <button type="button" data-step="1" aria-label="Next variant">→</button>
+  </div>
+</BaseLayout>
+
+<script>
+  const names: Record<string, string> = { A: "A · Niên biểu", B: "B · Mạng lưới" };
+  const keys = Object.keys(names);
+  const label = document.querySelector(".proto-label")!;
+  let current = new URL(location.href).searchParams.get("variant")?.toUpperCase() ?? "A";
+  function show(v: string) {
+    if (!keys.includes(v)) v = "A";
+    current = v;
+    document.querySelectorAll<HTMLElement>("[data-proto]").forEach((el) => (el.hidden = el.dataset.proto !== v));
+    label.textContent = names[v];
+    const url = new URL(location.href);
+    url.searchParams.set("variant", v);
+    history.replaceState(null, "", url);
+  }
+  show(current);
+  function step(d: number) {
+    const i = keys.indexOf(current);
+    show(keys[(i + d + keys.length) % keys.length]);
+    window.scrollTo(0, 0);
+  }
+  document.querySelectorAll<HTMLButtonElement>(".proto-bar button").forEach((b) => b.addEventListener("click", () => step(Number(b.dataset.step))));
+  document.addEventListener("keydown", (e) => {
+    const t = e.target as HTMLElement;
+    if (t.closest("input, textarea, select, [contenteditable]")) return;
+    if (e.key === "ArrowLeft") step(-1);
+    if (e.key === "ArrowRight") step(1);
+  });
+</script>
+
+<style>
+  /* The redesign drops scroll reveal animations site-wide (#124): show every section at once. */
+  :global([data-animate]) {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+  /* Prototype chrome, deliberately off-brand so it reads as not part of the design. */
+  .proto-bar {
+    position: fixed;
+    left: 50%;
+    bottom: var(--space-4);
+    transform: translateX(-50%);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius);
+    background: var(--black);
+    color: var(--white);
+    box-shadow: var(--shadow-dropdown);
+    font-size: var(--font-size-small);
+    font-weight: var(--font-weight-bold);
+  }
+  .proto-bar button {
+    background: none;
+    border: 0;
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+    font-size: var(--font-size-body);
+  }
+  .proto-label {
+    min-width: 8rem;
+    text-align: center;
+  }
+</style>
