@@ -1,0 +1,164 @@
+---
+// BlogTeaser: "Bài viết mới nhất", the 3 newest published blog posts by date (blog.ts, so a new
+// post shows here by itself), with "Tất cả bài viết" to /blog/. Used by index only.
+// A white card shows the post's cover whole in a square frame (covers run from square to
+// 2.6:1; a post without one shows the pale-lime logo block, as on /blog/), its date, title and
+// a three-line summary; at ≤ 767 px it is a row: a small cover left, date and title right.
+import { Image } from "astro:assets";
+import logo from "../../assets/logo/pima-logo-stacked-darkgreen.png";
+import Button from "../../components/Button.astro";
+import Section from "../../components/Section.astro";
+import { blogHref, postHref, postSummary, publishedPosts } from "../blog/blog";
+import { isoDate, postDate } from "../blog/post-text";
+
+const posts = (await publishedPosts()).slice(0, 3);
+---
+
+<Section name="blog-teaser" tone="surface" width="large" spacing="medium">
+  <div class="head">
+    <h2>Bài viết mới nhất</h2>
+    <Button href={blogHref} variant="link">Tất cả bài viết</Button>
+  </div>
+  <ul role="list" class="posts">
+    {
+      posts.map((post) => (
+        <li>
+          <a href={postHref(post)} class="post" data-tone="white">
+            {post.data.cover ? (
+              <Image
+                src={post.data.cover}
+                alt=""
+                widths={[96, 192, 400, 800]}
+                sizes="(max-width: 767px) 96px, 400px"
+                class="cover"
+                data-tone="surface"
+              />
+            ) : (
+              <div class="cover no-cover" data-tone="pale-lime">
+                <Image src={logo} alt="" width={64} densities={[1, 2]} data-logo />
+              </div>
+            )}
+            <span class="body">
+              <time datetime={isoDate(post.data.date)} class="date">
+                {postDate(post.data.date)}
+              </time>
+              <span class="title">{post.data.title}</span>
+              <span class="summary">{postSummary(post)}</span>
+            </span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</Section>
+
+<style>
+  .head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-4);
+    margin-bottom: var(--space-8);
+  }
+
+  .head h2 {
+    margin: 0;
+  }
+
+  .posts {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-8);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .post {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    border-radius: var(--radius);
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  /* The card's own corners clip the cover's top ones. */
+  .cover {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: contain;
+    border-radius: 0;
+  }
+
+  .no-cover {
+    display: grid;
+    place-items: center;
+  }
+
+  .body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-6);
+  }
+
+  .date {
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* A card title: text under the section's h2, at the h3 role's size. */
+  .title {
+    color: var(--color-text-heading);
+    font-size: var(--font-size-h3);
+    font-weight: var(--font-weight-extrabold);
+    line-height: var(--line-height-h3);
+  }
+
+  .post:hover .title {
+    color: var(--color-link);
+    text-decoration: underline;
+  }
+
+  .summary {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+
+  @media screen and (max-width: 767px) {
+    .head {
+      flex-direction: column;
+    }
+
+    .posts {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-4);
+    }
+
+    .post {
+      flex-direction: row;
+    }
+
+    .cover {
+      flex: none;
+      align-self: flex-start;
+      width: var(--space-24);
+      margin: var(--space-4) 0 var(--space-4) var(--space-4);
+      border-radius: var(--radius);
+    }
+
+    .body {
+      padding: var(--space-4);
+    }
+
+    .summary {
+      display: none;
+    }
+  }
+</style>
