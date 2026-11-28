@@ -60,14 +60,14 @@ PiMA Green appears as a fill: buttons, kicker rules, the timeline, the logo, dec
 
 ## Sections, buttons and footer
 
-`Section` takes a `tone`, which sets the background and the passing text colours on it. A section whose background is none of these takes the nearest one. A section never sets its own background, and neither does a card: a card with a fill of its own takes one of the four tones with the `data-tone` attribute (`surface` cards on white, `white` cards on Pale Lime, the founder card on `dark-green`). Every tone declares the full set of text, link, icon and focus roles, so a card reads as its tone wherever it sits (a Pale Lime tag on the dark-green cover keeps black text). Only small marks that are no tone keep a fill of their own, from a role token: the timeline's axis and dots. `scripts/sections.test.mjs` checks.
+`Section` takes a `tone`, which sets the background and the passing text colours on it. A section whose background is none of these takes the nearest one. A section never sets its own background, and neither does a card: a card with a fill of its own takes one of the four tones with the `data-tone` attribute (`surface` cards on white, `white` cards on Pale Lime or surface). Every tone declares the full set of text, link, icon and focus roles, so a card reads as its tone wherever it sits (a Pale Lime tag on the dark-green cover keeps black text). Only small marks that are no tone keep a fill of their own, from a role token: the timeline's axis and dots. `scripts/sections.test.mjs` checks.
 
 | `tone` | Background | Text | Used for |
 |---|---|---|---|
 | `white` (default) | `--white` | `--black`, headings `--pima-dark-green` | most sections |
 | `surface` | `--gray-5` | `--black`, headings `--pima-dark-green` | milestones |
 | `pale-lime` | `--pima-pale-lime` | `--black`, headings `--pima-dark-green` | philosophy, testimonials, contact |
-| `dark-green` | `--pima-dark-green` | `--white`, accents `--pima-pale-lime` | Về chúng tôi header, founder card |
+| `dark-green` | `--pima-dark-green` | `--white`, accents `--pima-pale-lime` | home hero, Về chúng tôi header |
 
 `Button` takes a `variant`. Every button has `--radius` corners and `--font-weight-bold` text.
 
