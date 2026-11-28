@@ -1,17 +1,13 @@
 ---
-// Liên hệ: contact facts, social links, trust bar and the message form (old
-// `site/lien-he.html`). Sections in src/sections/lien-he/ and src/sections/.
+// Liên hệ: the contact block as the page's only section (ContactSection's "page" variant:
+// dark-green, the breadcrumb and the h1, the channels and the form).
 import BaseLayout from "../layouts/BaseLayout.astro";
-import ContactFacts from "../sections/lien-he/ContactFacts.astro";
-import SocialLinks from "../sections/lien-he/SocialLinks.astro";
-import MessageForm from "../sections/lien-he/MessageForm.astro";
+import ContactSection from "../sections/ContactSection.astro";
 ---
 
 <BaseLayout
   title="Liên hệ với PiMA Academy"
   description="Liên hệ PiMA Academy qua Facebook, email contact@pimavn.com hoặc tại 35 Văn Chung, Thành phố Hồ Chí Minh, hoặc để lại lời nhắn để PiMA phản hồi bạn sớm nhất có thể."
 >
-  <ContactFacts />
-  <SocialLinks />
-  <MessageForm />
+  <ContactSection variant="page" />
 </BaseLayout>
