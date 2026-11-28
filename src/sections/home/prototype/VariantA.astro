@@ -3,7 +3,7 @@
 // The one bold move: the impact report's geodesic sphere line art, PiMA's own brand graphic,
 // large on a dark-green hero, drawn in Pale Lime through a CSS mask so its colour stays a token.
 // Everything after the hero is quiet white: figures as one ruled row, the two programmes as
-// twin cards (the course card takes the sphere too, since no course photo exists), proof as
+// twin cards (the course card takes the stock blackboard photo, the user's pick), proof as
 // one quote at a time, the blog as three cards.
 import { Image } from "astro:assets";
 import BrandName from "../../../components/BrandName.astro";
@@ -27,6 +27,7 @@ import {
   programsLead,
   report,
   reportCover,
+  stockBlackboard,
 
   testimonials,
 } from "./data";
@@ -101,7 +102,13 @@ const { posts } = Astro.props;
                 class="program-media"
               />
             ) : (
-              <div class="program-media program-art" data-tone="dark-green" aria-hidden="true" />
+              <Image
+                src={stockBlackboard}
+                alt="Bảng đen với các công thức toán"
+                widths={fluidWidths(stockBlackboard)}
+                sizes="(max-width: 767px) 90vw, 600px"
+                class="program-media"
+              />
             )}
             <div class="program-body">
               <h3>{p.name}</h3>
@@ -347,17 +354,6 @@ const { posts } = Astro.props;
     height: auto;
     object-fit: cover;
     border-radius: 0;
-  }
-  .program-art {
-    background-image: none;
-    position: relative;
-  }
-  .program-art::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-color: var(--color-text-accent);
-    mask: url("./sphere-mask.png") center / 70% no-repeat;
   }
   .program-body {
     display: flex;
