@@ -40,7 +40,6 @@ $$
 - Tính toán $P = N/e \approx 0.37N$.
 - Hẹn gặp mà từ chối $P$ người đầu tiên; những người này sẽ giúp bạn có được thang đo.
 - Tiếp tục hẹn những người còn lại, xem người nào là người đầu tiên tốt hơn $P$ người đầu tiên đó. Hãy chấp nhận liền. Đừng tham lam!
-- Đặt lịch khách sạn, nhà nghỉ,… các thứ chuẩn bị cho mùa Valentine ấm áp.
 
 Hãy học hỏi Phúc, các bạn nhé!
 
