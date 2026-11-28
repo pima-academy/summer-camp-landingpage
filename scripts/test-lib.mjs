@@ -39,6 +39,38 @@ export function readBuilt(path) {
   return existsSync(file) ? readFileSync(file, "utf8") : "";
 }
 
+// ---- The blog posts, read from the content folder (not through Astro) -----------------------
+
+/** The scalar fields of a post's front matter (enough YAML for `key: value` lines). */
+function frontMatter(file) {
+  const yaml = readFileSync(file, "utf8").match(/^---\n([\s\S]*?)\n---/)?.[1] ?? "";
+  return Object.fromEntries(
+    [...yaml.matchAll(/^(\w+):\s*(.*?)\s*$/gm)].map(([, key, value]) => [key, value.replace(/^(["'])(.*)\1$/, "$2")]),
+  );
+}
+
+/**
+ * Every post of src/content/blog/ (`<slug>/index.md` or `<slug>.md`, not the author guide
+ * README.md) as `{ slug, ...front matter }`, by slug.
+ */
+export function blogPosts(content = join(root, "src/content/blog")) {
+  return (existsSync(content) ? readdirSync(content, { withFileTypes: true }) : [])
+    .map((e) =>
+      e.isDirectory()
+        ? { slug: e.name, file: join(content, e.name, "index.md") }
+        : { slug: e.name.replace(/\.md$/, ""), file: join(content, e.name) },
+    )
+    .filter(({ file }) => file.endsWith(".md") && !file.endsWith("README.md") && existsSync(file))
+    .map(({ slug, file }) => ({ slug, ...frontMatter(file) }))
+    .sort((a, b) => a.slug.localeCompare(b.slug));
+}
+
+/** The non-draft posts, newest `date` first (posts of one day by slug). */
+export const publishedBlogPosts = () =>
+  blogPosts()
+    .filter((p) => p.draft !== "true")
+    .sort((a, b) => b.date.localeCompare(a.date));
+
 /** The content of the first <main> of a page. */
 export const mainOf = (html) => html.match(/<main[^>]*>([\s\S]*)<\/main>/)?.[1] ?? "";
 
