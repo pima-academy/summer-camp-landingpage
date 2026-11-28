@@ -96,6 +96,10 @@ _Avoid_: release notes, changelog (the file), diff
 A person from outside PiMA who taught, spoke or advised at a PiMA activity ("chuyên gia đồng hành"), named with the title and post they had then. The website names only experts PiMA knows agreed to be shown.
 _Avoid_: mentor (mentors are part of the camp team), speaker, advisor
 
+**Talent network**:
+PiMA's alumni, mentors and organizers taken together ("mạng lưới nhân tài"), wherever they now study or work. Experts are not part of it. The website speaks of it as a whole (its size, its members' achievements, where they are) and names none of its people.
+_Avoid_: community (also covers learners and followers), members, alumni (only one part of it)
+
 **Design defect**:
 A flaw in the site's design (not a bug, not missing content) noticed along the way and logged for the redesign rather than fixed.
 _Avoid_: design bug, UX issue
