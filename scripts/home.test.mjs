@@ -70,7 +70,6 @@ test("press slider: 5 slides (one quote each), 5 s autoplay, infinite, one slide
   assert.match(slider, /data-autoplay="5000"/);
   assert.match(slider, /data-infinite/);
   assert.match(slider, /data-layout="single"/);
-  assert.equal(press.match(/<h3\b/g)?.length, 5);
   for (const host of ["tuoitre.vn", "dantri.com.vn", "cafef.vn", "muctim.tuoitre.vn", "hoahoctro.tienphong.vn"]) {
     assert.ok(press.includes(`https://${host}/`), `press link to ${host}`);
   }
@@ -120,6 +119,35 @@ test("the blog teaser shows the 3 newest published posts by date, newest first, 
   // The sample draft is dated after every published post: newest by date, yet never shown.
   const drafts = blogPosts().filter((p) => p.draft === "true");
   for (const d of drafts) assert.ok(!teaser.includes(`/blog/${d.slug}/`), `draft ${d.slug} is not in the teaser`);
+});
+
+test("programs: the one-line lead and two cards, each a real photo, h3, three activities and its button", { skip }, () => {
+  const programs = sectionOf("programs-overview");
+  assert.match(programs, /data-tone="surface"/);
+  assert.ok(textOf(programs).includes("PiMA tổ chức hai chương trình chính: trại hè cho học sinh THPT và các khóa học trực tuyến."));
+  const cards = [...programs.matchAll(/<article\b[\s\S]*?<\/article>/g)].map((m) => m[0]);
+  const expected = [
+    ["Trại hè Toán học và Ứng dụng", "/trai-he-toan-hoc-pima/", "Tìm hiểu về trại hè", /alt="Trại sinh và ban tổ chức Trại hè PiMA 2025 tại TP.HCM"/],
+    ["Khóa học trực tuyến", "/khoa-hoc/", "Xem các khóa học", /alt="Bảng đen với các công thức toán"/],
+  ];
+  assert.equal(cards.length, 2);
+  for (const [card, [name, href, cta, photo]] of cards.map((c, i) => [c, expected[i]])) {
+    assert.equal(textOf(card.match(/<h3\b[^>]*>([\s\S]*?)<\/h3>/)?.[1] ?? ""), name);
+    assert.match(card, photo, `${name}: photo`);
+    assert.equal(card.match(/<li\b/g)?.length, 3, `${name}: three activities`);
+    assert.ok([...card.matchAll(/<a\b[^>]*href="([^"]*)"[^>]*>([\s\S]*?)<\/a>/g)].some(([, h, t]) => h === href && textOf(t) === cta), `${name}: button`);
+  }
+  assert.doesNotMatch(programs, /trai-he-toan-hoc\.|khoa-hoc-toan-mo-hinh\./, "no baked-text banner");
+});
+
+test("press: the outlet's logo, linking to the article, above its quote in typographic quotes", { skip }, () => {
+  const press = sectionOf("press");
+  const quotes = [...press.matchAll(/<figure\b[\s\S]*?<\/figure>/g)].map((m) => m[0]);
+  assert.equal(quotes.length, 5);
+  for (const q of quotes) {
+    assert.match(q, /<a\b[^>]*href="https:\/\/[^"]+"[^>]*>\s*<img\b[^>]*data-logo[\s\S]*?<\/a>\s*<blockquote\b/, "logo link above the quote");
+    assert.match(textOf(q.match(/<blockquote\b[\s\S]*?<\/blockquote>/)[0]), /^“[^"]+”$/, "typographic quotes, no straight ones");
+  }
 });
 
 test("internal links use the new routes", { skip }, () => {
