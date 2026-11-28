@@ -32,7 +32,7 @@ Một ma trận $A$ có kích thước $n \times n$, tức là số dòng và s�
 
 ## Phép nhân ma trận với số thực, nhân 2 ma trận
 
-![Ảnh 3: 2B = (4 6; −18 10; 20 12); công thức tích hai ma trận (AB)_{i,j} = Σₖ A_{i,k}B_{k,j} với ví dụ hàng (1 2 3) nhân cột (3 2 1) bằng 10; hệ phương trình tuyến tính a_{i,1}x₁ + … + a_{i,n}xₙ = yᵢ](./hinh-3.jpg)
+![Ảnh 3: 2B = (4 6; −18 10; 20 12); công thức tích hai ma trận (AB)ᵢⱼ = Σₖ Aᵢₖ·Bₖⱼ với ví dụ hàng (1 2 3) nhân cột (3 2 1) bằng 10; hệ phương trình tuyến tính a_{i,1}x₁ + … + a_{i,n}xₙ = yᵢ](./hinh-3.jpg)
 
 **Phép nhân một số với một ma trận:** Cho số thực $a$ và ma trận $A$ có kích thước $m \times n$. Ta định nghĩa $aA$ là ma trận có được bằng cách nhân tất cả các hệ số của $A$ với $a$.
 
