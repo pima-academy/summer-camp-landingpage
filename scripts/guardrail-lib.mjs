@@ -149,6 +149,8 @@ export function isTokenValue(prop, value) {
   for (let prev; prev !== rest; ) {
     prev = rest;
     rest = rest.replace(/var\(\s*--[\w-]+\s*(,[^()]*)?\)/g, "");
+    // max() or min() of tokens only: once its var()s are gone, nothing but commas is left.
+    rest = rest.replace(/\b(max|min)\(\s*(,\s*)*\)/g, "");
   }
   return rest !== v && /^[\s,]*$/.test(rest);
 }
