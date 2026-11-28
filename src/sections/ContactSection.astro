@@ -6,12 +6,12 @@
 // Two uses:
 //   variant "band" (default): index, ve-chung-toi, khoa-hoc, trai-he-toan-hoc-pima,
 //     blog/[slug] and the gap page detail-course: pale-lime, h2, a topic kicker.
-//   variant "page": lien-he, the page's only section: dark-green, the breadcrumb kicker and
-//     the page's h1 in display-2.
-import BrandName from "../components/BrandName.astro";
+//   variant "page": lien-he, the page's only section: dark-green, PageTitle (the breadcrumb
+//     and the page's h1 in display type).
 import ContactForm from "../components/ContactForm.astro";
 import Icon from "../components/Icon.astro";
 import Kicker from "../components/Kicker.astro";
+import PageTitle from "../components/PageTitle.astro";
 import Section from "../components/Section.astro";
 import { contact, social } from "../data/site";
 
@@ -21,7 +21,7 @@ interface Props {
 
 const { variant = "band" } = Astro.props;
 const isPage = variant === "page";
-const Heading = isPage ? "h1" : "h2";
+const title = "Liên hệ với PiMA";
 
 const channels = [
   { icon: "mail-filled", label: "Email", value: contact.email, href: contact.emailHref },
@@ -41,8 +41,16 @@ const channels = [
 >
   <div class="grid" data-variant={variant}>
     <div>
-      {isPage ? <Kicker flush><BrandName /> academy &gt; liên hệ</Kicker> : <Kicker flush>liên hệ</Kicker>}
-      <Heading class:list={["title", { display: isPage }]}>Liên hệ với PiMA</Heading>
+      {
+        isPage ? (
+          <PageTitle crumb="liên hệ">{title}</PageTitle>
+        ) : (
+          <>
+            <Kicker flush>liên hệ</Kicker>
+            <h2 class="title">{title}</h2>
+          </>
+        )
+      }
       <p class="lead">Gửi email, nhắn tin qua Facebook hoặc để lại lời nhắn cho PiMA.</p>
       <ul class="rows" data-channels>
         {
@@ -84,17 +92,14 @@ const channels = [
     margin: var(--space-4) 0 var(--space-6);
   }
 
-  /* The page's h1 is display type, never below the h1 size. */
-  .display {
-    font-size: max(var(--font-size-h1), var(--font-size-display-2));
-    font-weight: var(--font-weight-black);
-    letter-spacing: var(--letter-spacing-display);
-    line-height: var(--line-height-display);
-  }
-
   .lead {
     max-width: 30rem;
     margin: 0 0 var(--space-10);
+  }
+
+  /* PageTitle's h1 sets no bottom margin: the lead keeps the h2's --space-6 under the title. */
+  [data-variant="page"] .lead {
+    margin-top: var(--space-6);
   }
 
   .rows {

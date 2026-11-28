@@ -1,12 +1,11 @@
 ---
 // PageHeader: the page's opening on a surface band, in the grammar of the Về chúng tôi and
-// Liên hệ openings: the "PiMA academy > chương trình" breadcrumb kicker over the page title,
-// an h1 in display type (display-2, never below the h1 size). Used by khoa-hoc and
+// Liên hệ openings: PageTitle, the "PiMA academy > chương trình" breadcrumb over the page's
+// h1 in display type. Used by khoa-hoc and
 // trai-he-toan-hoc-pima (old `section_camp-header`). Besides the title,
 // trai-he-toan-hoc-pima asks for the camp years, linked under the title (CampYearNav).
-import BrandName from "../components/BrandName.astro";
 import CampYearNav from "../components/CampYearNav.astro";
-import Kicker from "../components/Kicker.astro";
+import PageTitle from "../components/PageTitle.astro";
 import Section from "../components/Section.astro";
 
 interface Props {
@@ -21,8 +20,7 @@ const { title, campYears } = Astro.props;
 
 <Section name="page-header" spacing="none" tone="surface">
   <div class="inner">
-    <Kicker flush><BrandName /> academy &gt; chương trình</Kicker>
-    <h1 class="title">{title}</h1>
+    <PageTitle crumb="chương trình">{title}</PageTitle>
     {
       campYears && (
         <div class="years">
@@ -38,16 +36,6 @@ const { title, campYears } = Astro.props;
   .inner {
     padding-top: var(--space-32);
     padding-bottom: var(--space-16);
-  }
-
-  /* Display type, not the h1 role: the page's one big moment (docs/brand.md, Display). */
-  .title {
-    margin: var(--space-4) 0 0;
-    color: var(--color-text-heading);
-    font-size: max(var(--font-size-h1), var(--font-size-display-2));
-    font-weight: var(--font-weight-black);
-    letter-spacing: var(--letter-spacing-display);
-    line-height: var(--line-height-display);
   }
 
   .years {

@@ -1,0 +1,40 @@
+---
+/*
+  Primitive: PageTitle, a page's opening title: the breadcrumb kicker
+  ("PiMA academy > <crumb>") over the page's h1 in display type. Used by PageHeader
+  (khoa-hoc, trai-he-toan-hoc-pima), the Về chúng tôi Opening and ContactSection's page
+  variant (lien-he).
+
+  Brand rule (docs/brand.md, Typography, Display): the title is display type,
+  --font-size-display-2 at --font-weight-black with the display tracking and leading, and
+  never below the h1 size (max() of the two tokens), so it stays the page's biggest type on a
+  phone. Its colour is the heading role of the tone around it. It renders the kicker and the
+  h1 with no wrapper, so the caller's layout places them; the h1 sits --space-4 under the
+  kicker and sets no bottom margin, so the caller spaces what follows.
+
+    <PageTitle crumb="giới thiệu">Về chúng tôi</PageTitle>
+*/
+import BrandName from "./BrandName.astro";
+import Kicker from "./Kicker.astro";
+
+interface Props {
+  /** The breadcrumb step after "PiMA academy >", lowercase (the kicker uppercases it). */
+  crumb: string;
+}
+
+const { crumb } = Astro.props;
+---
+
+<Kicker flush><BrandName /> academy &gt; {crumb}</Kicker>
+<h1 class="page-title"><slot /></h1>
+
+<style>
+  .page-title {
+    margin: var(--space-4) 0 0;
+    color: var(--color-text-heading);
+    font-size: max(var(--font-size-h1), var(--font-size-display-2));
+    font-weight: var(--font-weight-black);
+    letter-spacing: var(--letter-spacing-display);
+    line-height: var(--line-height-display);
+  }
+</style>

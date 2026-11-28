@@ -32,8 +32,8 @@ const booleanProps = (name) => [...propsOf(name).matchAll(/^\s*(\w+)\??:\s*boole
 
 const catalogue = existsSync(cataloguePage) ? readFileSync(cataloguePage, "utf8") : "";
 
-test("the primitives of ADR 0005 are marked as primitives", () => {
-  for (const name of ["Section", "Button", "Kicker", "BrandName"]) {
+test("the primitives of ADR 0005, and PageTitle, are marked as primitives", () => {
+  for (const name of ["Section", "Button", "Kicker", "BrandName", "Icon", "PageTitle"]) {
     assert.ok(primitives.includes(name), `${name}.astro's header comment starts with "Primitive:"`);
   }
 });

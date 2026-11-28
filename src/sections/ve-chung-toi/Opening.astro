@@ -4,8 +4,7 @@
 // (pima-team.png, a transparent PNG cut at the waist) stands on the band's bottom edge.
 // Used by ve-chung-toi only; carries the footer anchor "Giới thiệu".
 import { Image } from "astro:assets";
-import BrandName from "../../components/BrandName.astro";
-import Kicker from "../../components/Kicker.astro";
+import PageTitle from "../../components/PageTitle.astro";
 import Section from "../../components/Section.astro";
 import { aboutAnchors } from "../../data/site";
 import team from "../../assets/images/pima-team.png";
@@ -18,8 +17,7 @@ const lead =
 <Section name="opening" tone="pale-lime" width="large" spacing="none" id={aboutAnchors.intro}>
   <div class="head">
     <div>
-      <Kicker flush><BrandName /> academy &gt; giới thiệu</Kicker>
-      <h1>Về chúng tôi</h1>
+      <PageTitle crumb="giới thiệu">Về chúng tôi</PageTitle>
     </div>
     <p class="lead">{lead}</p>
   </div>
@@ -34,15 +32,6 @@ const lead =
     gap: var(--space-12);
     padding-top: var(--space-32);
     padding-bottom: var(--space-12);
-  }
-
-  /* A display heading that never drops below the h1 size. */
-  .head h1 {
-    margin: var(--space-4) 0 0;
-    font-size: max(var(--font-size-h1), var(--font-size-display-2));
-    font-weight: var(--font-weight-black);
-    letter-spacing: var(--letter-spacing-display);
-    line-height: var(--line-height-display);
   }
 
   .lead {
