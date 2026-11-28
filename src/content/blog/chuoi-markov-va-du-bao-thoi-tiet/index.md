@@ -78,11 +78,11 @@ Bạn đọc có thể tự kiểm chứng mệnh đề sau: Nếu $x_i = [x_{i1
 
 Tính toán trên dữ liệu trong khoảng thời gian 01/01/2009 - 31/12/2020, ta xác định được ma trận $T$ như đã mô tả. Sau đó sử dụng ma trận này để xác định nhiệt độ cao nhất từng ngày trong khoảng thời gian 02/01/2021 - 18/06/2021. Để nhận dự báo từ chuỗi Markov đã xây dựng về nhiệt độ cao nhất ngày 02/01/2021, ta làm như sau:
 
-**B1.** Xác định nhiệt độ cao nhất ngày 01/01/2021 là 19°C. Ta tạo véctơ $x_0 = [0 \; \ldots \; 0 \; 1 \; 0 \; \ldots \; 0 \; 0]$ có vị trí thứ 17 (tương ứng với 19°C) bằng 1, các vị trí còn lại bằng 0.
+**B1.** Xác định nhiệt độ cao nhất ngày 01/01/2021 là 19°C. Ta tạo véctơ $x_0 = [0 \; \ldots \; 0 \; 1 \; 0 \; \ldots \; 0 \; 0]$ có vị trí thứ 18 (tương ứng với 19°C) bằng 1, các vị trí còn lại bằng 0.
 
-**B2.** Tính $x_0 T$, giá trị nhận được chính là dòng 17 của $T$.
+**B2.** Tính $x_0 T$, giá trị nhận được chính là dòng 18 của $T$.
 
-**B3.** Chọn ngẫu nhiên một giá trị nhiệt độ với xác suất tương ứng (trong dòng 17) và dự đoán đó là nhiệt độ cao nhất ngày 02/01/2021, gọi giá trị đó là $x_1$.
+**B3.** Chọn ngẫu nhiên một giá trị nhiệt độ với xác suất tương ứng (trong dòng 18) và dự đoán đó là nhiệt độ cao nhất ngày 02/01/2021, gọi giá trị đó là $x_1$.
 
 Các bước tương tự cũng được áp dụng để dự đoán nhiệt độ cao nhất của các ngày tiếp theo.
 

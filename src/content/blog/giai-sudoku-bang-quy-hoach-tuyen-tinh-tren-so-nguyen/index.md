@@ -6,7 +6,7 @@ cover: ./cover.jpg
 
 Sudoku là một trò chơi giải đố kinh điển và được nhiều người biết đến, các câu đố này có thể được giải trên các tạp chí hoặc các thiết bị điện tử. Với lịch sử xuất phát từ ông Howard Garns vào năm 1979 và được phổ biến bởi công ty trò chơi Nikoli tại Nhật Bản, đã có nhiều chiến thuật được thiết kế để giải các câu đố Sudoku này. Một số chiến thuật để giải Sudoku cơ bản bao gồm xác định các số có thể được điền vào các ô trống dễ nhận thấy trước bằng cách loại trừ. Trên máy tính, các bảng Sudoku có thể được giải rất nhanh bằng cách quay lui.
 
-Bài viết này xin được giới thiệu đến các bạn đọc cách sử dụng máy tính để giải một câu đố Sudoku tiêu chuẩn bằng cách giải một bài toán quy hoạch tuyến tính (trên số nguyên) tương ứng.
+Nhân dịp chủ đề của trại hè PiMA 2024 về Quy hoạch tuyến tính, xin được giới thiệu đến các bạn đọc cách sử dụng máy tính để giải một câu đố Sudoku tiêu chuẩn bằng cách giải một bài toán quy hoạch tuyến tính (trên số nguyên) tương ứng.
 
 ## Luật chơi Sudoku và thiết lập bài toán quy hoạch tuyến tính tương ứng
 
@@ -39,4 +39,4 @@ Ràng buộc của các biến $a_{ijk}$: thay vì là các biến số thực, 
 
 Sử dụng một phần mềm giải các bài toán quy hoạch tổng quát (chẳng hạn như Gurobi, có mặt trong các ngôn ngữ lập trình tính toán như Python 3 hay Julia) ta sẽ tìm được một bộ giá trị $a_{ijk}$ thỏa mãn các ràng buộc. Từ bộ giá trị này, ta sẽ điền lần lượt các số trở lại bảng Sudoku: điền số $k$ vào ô ở hàng $i$ và cột $j$ nếu $a_{ijk} = 1$.
 
-Các bạn hứng thú với việc lập trình có thể tìm hiểu cách sử dụng Gurobi qua [hướng dẫn của Gurobi](https://support.gurobi.com/hc/en-us/articles/17278438215313-Tutorial-Getting-Started-with-the-Gurobi-Python-API).
+Các bạn hứng thú với việc lập trình có thể tìm hiểu cách sử dụng Gurobi ([hướng dẫn của Gurobi](https://support.gurobi.com/hc/en-us/articles/17278438215313-Tutorial-Getting-Started-with-the-Gurobi-Python-API)) cho dự án cuối trại và chia sẻ với các bạn khác vào ngày thuyết trình đề tài của nhóm.

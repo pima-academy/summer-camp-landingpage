@@ -38,7 +38,7 @@ Cách tính toán ở Bước 1 được gọi là Phương pháp Trung bình m�
 
 ![Bộ đề xuất chọn sản phẩm có độ phù hợp cao nhất với xác suất 1 - ε, và mỗi sản phẩm còn lại với xác suất ε/(n - 1)](./hinh-4.jpg)
 
-“Lần này, bài toán đã được giải quyết trọn vẹn”, có thể bạn sẽ nghĩ như vậy. Tuy nhiên, có một vấn đề quan trọng khác mà chúng ta vẫn chưa xét đến: sở thích của một người luôn có thể thay đổi theo thời gian. Như vậy chúng ta vẫn cần thêm những giải pháp mới.
+“Lần này, bài toán đã được giải quyết trọn vẹn”, có thể bạn sẽ nghĩ như vậy. Tuy nhiên, có một vấn đề quan trọng khác mà chúng ta vẫn chưa xét đến: sở thích của một người luôn có thể thay đổi theo thời gian. Như vậy chúng ta vẫn cần thêm những giải pháp mới, và những giải pháp đó vẫn đang chờ đợi để được chính bạn khám phá tại Trại hè Toán học và Ứng dụng PiMA năm nay!
 
 ## Tài liệu tham khảo
 
