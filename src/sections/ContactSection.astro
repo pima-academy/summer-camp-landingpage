@@ -1,114 +1,174 @@
 ---
-// ContactSection: "Liên hệ với PiMA" section, the contact channels and the ContactForm.
-// Used by index, ve-chung-toi, khoa-hoc, trai-he-toan-hoc-pima, blog/[slug] and the gap page
-// detail-course (old `section_contact-form`). Facebook and email stay
-// plain text here, as on the old site; facts come from site.ts.
+// ContactSection: the contact block, "Liên hệ với PiMA". Left, a kicker, the heading, a lead
+// and the channels as ruled rows (email, Facebook, LinkedIn and YouTube as links, the address
+// as text); right, a white card with the ContactForm. A 5/7 grid, one column at ≤ 991 px with
+// the card after the channels. Facts come from site.ts; no phone number (spec #131).
+// Two uses:
+//   variant "band" (default): index, ve-chung-toi, khoa-hoc, trai-he-toan-hoc-pima,
+//     blog/[slug] and the gap page detail-course: pale-lime, h2, a topic kicker.
+//   variant "page": lien-he, the page's only section: dark-green, the breadcrumb kicker and
+//     the page's h1 in display-2.
+import BrandName from "../components/BrandName.astro";
 import ContactForm from "../components/ContactForm.astro";
 import Icon from "../components/Icon.astro";
+import Kicker from "../components/Kicker.astro";
 import Section from "../components/Section.astro";
 import { contact, social } from "../data/site";
+
+interface Props {
+  variant?: "band" | "page";
+}
+
+const { variant = "band" } = Astro.props;
+const isPage = variant === "page";
+const Heading = isPage ? "h1" : "h2";
+
+const channels = [
+  { icon: "mail-filled", label: "Email", value: contact.email, href: contact.emailHref },
+  { icon: "brand-facebook-filled", label: "Facebook", value: social.facebook.display, href: social.facebook.href },
+  { icon: "brand-linkedin-filled", label: "LinkedIn", value: "PiMA Academy", href: social.linkedin.href },
+  { icon: "brand-youtube-filled", label: "YouTube", value: "@pimavn", href: social.youtube.href },
+  { icon: "map-pin-filled", label: "Địa chỉ", value: contact.address },
+] as const;
 ---
 
-<Section name="contact-section" spacing="small" tone="pale-lime" id="contact-form">
-  <div class="panel">
-    <h3 class="head">Liên hệ với PiMA</h3>
-    <div class="info">
-      <div>
-        <div class="icon-cell"><Icon name="brand-facebook-filled" size="40" circle /></div>
-        <div>
-          <div class="label">Facebook</div>
-          <div>{social.facebook.display}</div>
-        </div>
-      </div>
-      <div>
-        <div class="icon-cell"><Icon name="mail-filled" size="40" circle /></div>
-        <div>
-          <div class="label">Email</div>
-          <div>{contact.email}</div>
-        </div>
-      </div>
-      {/* Unlike the two cells above, the old address cell had its icon spacing on the whole cell. */}
-      <div class="icon-cell">
-        <Icon name="map-pin-filled" size="40" circle />
-        <div class="label">Địa chỉ</div>
-        <div>{contact.address}</div>
-      </div>
+<Section
+  name="contact-section"
+  tone={isPage ? "dark-green" : "pale-lime"}
+  width="large"
+  spacing={isPage ? "large" : "medium"}
+  id="contact-form"
+>
+  <div class="grid" data-variant={variant}>
+    <div>
+      {isPage ? <Kicker flush><BrandName /> academy &gt; liên hệ</Kicker> : <Kicker flush>liên hệ</Kicker>}
+      <Heading class:list={["title", { display: isPage }]}>Liên hệ với PiMA</Heading>
+      <p class="lead">Gửi email, nhắn tin qua Facebook hoặc để lại lời nhắn cho PiMA.</p>
+      <ul class="rows" data-channels>
+        {
+          channels.map((c) => (
+            <li>
+              <Icon name={c.icon} size="40" circle />
+              <div>
+                <div class="label">{c.label}</div>
+                {"href" in c ? (
+                  <a class="value" href={c.href}>
+                    {c.value}
+                  </a>
+                ) : (
+                  <div class="value">{c.value}</div>
+                )}
+              </div>
+            </li>
+          ))
+        }
+      </ul>
     </div>
-    <div class="form-area">
-      <div class="form-intro">
-        <h4>Hoặc để lại lời nhắn</h4>
-        <div class="note">PiMA sẽ phản hồi bạn sớm nhất có thể!</div>
-      </div>
+    <div class="card" data-tone="white">
+      <h2 class="card-title">Gửi lời nhắn cho PiMA</h2>
+      <p class="note">PiMA sẽ phản hồi bạn sớm nhất có thể.</p>
       <ContactForm />
     </div>
   </div>
 </Section>
 
 <style>
-  .panel {
-    padding: var(--space-4) var(--space-16) var(--space-8);
-  }
-
-  /* The heading's margin plus the old 1rem spacer below it. */
-  .head {
-    margin-bottom: var(--space-6);
-    text-align: center;
-  }
-
-  /* The old spacer (1rem) is below the info block's own 1rem padding. */
-  .info {
+  .grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: var(--space-4);
-    padding-bottom: var(--space-8);
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+    align-items: start;
+    gap: var(--space-16);
   }
 
-  .icon-cell {
-    margin-bottom: var(--space-1);
+  .title {
+    margin: var(--space-4) 0 var(--space-6);
+  }
+
+  /* The page's h1 is display type, never below the h1 size. */
+  .display {
+    font-size: max(var(--font-size-h1), var(--font-size-display-2));
+    font-weight: var(--font-weight-black);
+    letter-spacing: var(--letter-spacing-display);
+    line-height: var(--line-height-display);
+  }
+
+  .lead {
+    max-width: 30rem;
+    margin: 0 0 var(--space-10);
+  }
+
+  .rows {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--color-border-rule-accent);
+  }
+
+  /* On dark green the rules are Pale Lime, as the accent text. */
+  [data-variant="page"] .rows,
+  [data-variant="page"] .rows li {
+    border-color: var(--color-border-accent);
+  }
+
+  /* Every row places its icon the same way, the address included (#46). */
+  .rows li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-4) 0;
+    border-bottom: 1px solid var(--color-border-rule-accent);
   }
 
   .label {
-    font-weight: var(--font-weight-bold);
-  }
-
-  .form-area {
-    margin-bottom: var(--space-5);
-  }
-
-  /* 2rem below (the old spacer). */
-  .form-intro {
-    padding-bottom: var(--space-8);
-  }
-
-  .note {
+    color: var(--color-text-muted);
     font-size: var(--font-size-small);
   }
 
+  .value {
+    font-weight: var(--font-weight-bold);
+    overflow-wrap: anywhere;
+  }
+
+  a.value {
+    color: var(--color-text);
+    text-decoration-color: var(--color-text-accent);
+    text-underline-offset: 0.2em;
+  }
+
+  a.value:hover {
+    color: var(--color-text-accent);
+  }
+
+  .card {
+    padding: var(--space-10);
+    border-radius: var(--radius);
+  }
+
+  .card-title {
+    margin: 0 0 var(--space-2);
+  }
+
+  .note {
+    margin: 0 0 var(--space-8);
+    color: var(--color-text-muted);
+  }
+
   @media screen and (max-width: 991px) {
-    .form-intro {
-      padding-bottom: var(--space-6);
+    .grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-12);
     }
   }
 
   @media screen and (max-width: 767px) {
-    .panel {
-      padding-bottom: var(--space-12);
+    /* The section's 4rem top padding would put the breadcrumb under the 72 px fixed nav (#46):
+       it clears the nav by 24 px, as PageHeader's does. */
+    [data-variant="page"] {
+      padding-top: var(--space-8);
     }
 
-    .form-intro {
-      padding-bottom: var(--space-5);
-    }
-  }
-
-  @media screen and (max-width: 479px) {
-    .panel {
-      padding-left: 0;
-      padding-right: 0;
-    }
-
-    .info {
-      display: flex;
-      flex-direction: column;
+    .card {
+      padding: var(--space-6) var(--space-5);
     }
   }
 </style>
