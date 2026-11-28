@@ -1,8 +1,9 @@
 ---
 // PostGrid: the blog posts of /blog/ (src/pages/blog/index.astro), one grid of cards, newest
-// first (no featured post, no pagination). A card shows the post's cover, or a pale-lime block
-// with the PiMA logo at the same aspect ratio when it has none, then its date, title and summary
-// (post-text.ts); the whole card links to the post.
+// first (no featured post, no pagination). A card shows the post's cover, whole (covers run from
+// square to 2.6:1 and carry text to their edges, so none is cropped) and centred in a 3:2 surface
+// frame, or a pale-lime block with the PiMA logo in the same frame when it has none, then its
+// date, title and summary (post-text.ts); the whole card links to the post.
 import { Image } from "astro:assets";
 import Section from "../../components/Section.astro";
 import logo from "../../assets/logo/pima-logo-stacked-darkgreen.png";
@@ -25,7 +26,14 @@ const sizes = "(max-width: 767px) 90vw, (max-width: 991px) 45vw, 400px";
         <li>
           <a href={postHref(post)} class="card">
             {post.data.cover ? (
-              <Image src={post.data.cover} alt="" widths={fluidWidths(post.data.cover)} sizes={sizes} class="cover" />
+              <Image
+                src={post.data.cover}
+                alt=""
+                widths={fluidWidths(post.data.cover)}
+                sizes={sizes}
+                class="cover"
+                data-tone="surface"
+              />
             ) : (
               <div class="cover no-cover" data-tone="pale-lime">
                 <Image src={logo} alt="" width={96} densities={[1, 2]} data-logo />
@@ -68,7 +76,7 @@ const sizes = "(max-width: 767px) 90vw, (max-width: 991px) 45vw, 400px";
   .cover {
     width: 100%;
     aspect-ratio: 3 / 2;
-    object-fit: cover;
+    object-fit: contain;
     border-radius: var(--radius);
   }
 
