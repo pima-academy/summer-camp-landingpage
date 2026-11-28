@@ -23,7 +23,7 @@ Khoảng giá trị để ta không bác bỏ $H_0$ được gọi là vùng ch�
 - Type 1 error: Bác bỏ $H_0$ khi thực sự $H_0$ đúng.
 - Type 2 error: Không bác bỏ $H_0$ khi thực sự $H_0$ sai.
 
-Trong thực tế, người ta có thể kiểm soát xác suất để xảy ra type 1 error theo ý muốn (thông qua cách thiết kế thí nghiệm, điều chỉnh các thông số,…). Type 1 error càng thấp thường đòi hỏi kết quả khảo sát phải gần với giả thuyết hơn để không bị bác bỏ. Do đó, nếu ta điều chỉnh xác suất của type 1 error ở mức thấp, ta có thể tự tin hơn khi khảo sát cho kết quả bác bỏ $H_0$.
+Trong thực tế, người ta có thể kiểm soát xác suất để xảy ra type 1 error theo ý muốn (thông qua cách thiết kế thí nghiệm, điều chỉnh các thông số,…). Type 1 error càng thấp thường đòi hỏi kết quả khảo sát phải cách xa giả thuyết hơn thì mới bị bác bỏ. Do đó, nếu ta điều chỉnh xác suất của type 1 error ở mức thấp, ta có thể tự tin hơn khi khảo sát cho kết quả bác bỏ $H_0$.
 
 Sẽ có bạn đọc thắc mắc, chuyện gì xảy ra nếu mình thay đổi cách đặt $H_0$ và $H_1$? Thử xét 2 trường hợp thú vị như sau:
 
