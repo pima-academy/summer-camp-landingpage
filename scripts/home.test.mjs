@@ -26,12 +26,9 @@ test("home page sections are in the old order", { skip }, () => {
   const order = [
     'data-section="hero"',
     'data-section="partners"',
-    'data-section="philosophy"',
     'data-section="impact"',
     'data-section="programs-overview"',
     'data-section="founding-story"',
-    'data-section="milestone"',
-    'data-section="team"',
     'data-section="testimonials"',
     'data-section="summer-camp"',
     'data-section="press"',
@@ -68,7 +65,7 @@ test("press slider: 5 slides (one quote each), 5 s autoplay, infinite, one slide
   }
 });
 
-test("every image is an optimized asset; the hero and team photo are eager", { skip }, () => {
+test("every image is an optimized asset; the hero is eager", { skip }, () => {
   const imgs = [...main.matchAll(/<img\b[^>]*>/g)].map((m) => m[0]);
   assert.ok(imgs.length > 0);
   for (const img of imgs) {
@@ -77,9 +74,8 @@ test("every image is an optimized asset; the hero and team photo are eager", { s
     assert.match(img, /\bheight="\d+"/);
   }
   const eager = imgs.filter((i) => /loading="eager"/.test(i));
-  assert.equal(eager.length, 2, "two eager images");
-  assert.ok(eager.some((i) => /alt="Học viên và giảng viên PiMA/.test(i)), "hero is eager");
-  assert.ok(eager.some((i) => /alt="Đội ngũ PiMA"/.test(i)), "team photo is eager");
+  assert.equal(eager.length, 1, "one eager image");
+  assert.match(eager[0], /alt="Học viên và giảng viên PiMA/, "hero is eager");
 });
 
 test("internal links use the new routes", { skip }, () => {

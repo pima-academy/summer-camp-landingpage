@@ -67,9 +67,6 @@ const SHARED = [
   "Impact",
   "Testimonials",
   "ProgramsOverview",
-  "Philosophy",
-  "Milestone",
-  "Team",
   "SummerCamp",
   "ContactSection",
   "PageHeader",
@@ -108,7 +105,7 @@ test("a section file paints no background of its own; a card takes a tone with d
   for (const good of [
     ".card { border-radius: var(--radius); }",
     ".axis { background-color: var(--color-background-accent); }",
-    ".dot { background-color: color-mix(in srgb, var(--color-background-accent) calc(var(--p) * 100%), var(--color-background-timeline-dot-idle)); }",
+    ".dot { background-color: color-mix(in srgb, var(--color-background-accent) calc(var(--p) * 100%), transparent); }",
     ".card { background-color: transparent; }",
   ]) {
     assert.deepEqual(sectionFillProblems(path, file(good)), [], good);

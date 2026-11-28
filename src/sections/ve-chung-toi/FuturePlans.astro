@@ -1,96 +1,145 @@
 ---
-// FuturePlans: "Kế hoạch tương lai", the 3–5 year goal and three plans with icons. Used by
-// ve-chung-toi only (old `section_about-plan` / `layout264_*`); carries the footer anchor
-// "Kế hoạch tương lai".
+// FuturePlans: "Kế hoạch tương lai", report ch. 10 without "hàng đầu". Kicker, the goal as h2
+// and the lead; the three plans as ruled columns, each a 40 px decorative icon, h3 and the
+// report's bullets; the report's closing line (p. 37) in display-2 at the end. Used by
+// ve-chung-toi only; carries the footer anchor "Kế hoạch tương lai".
 import Icon from "../../components/Icon.astro";
 import Kicker from "../../components/Kicker.astro";
 import Section from "../../components/Section.astro";
 import { aboutAnchors } from "../../data/site";
+
+const lead =
+  "Trong 3–5 năm tới, PiMA đặt mục tiêu trở thành trung tâm đào tạo và nghiên cứu Toán học ứng dụng tại Việt Nam, mở rộng hợp tác quốc tế và hướng đến ứng dụng Toán học trong khởi nghiệp và công nghệ.";
+const plans = [
+  {
+    icon: "braces",
+    title: "Mở rộng đào tạo và nghiên cứu",
+    items: [
+      "Thêm các khóa học chuyên sâu về Toán học và ứng dụng, khoa học dữ liệu, trí tuệ nhân tạo và học máy",
+      "Tăng cường chương trình mentorship và hỗ trợ nghiên cứu",
+    ],
+  },
+  {
+    icon: "messages",
+    title: "Tăng cường hợp tác",
+    items: [
+      "Hợp tác đào tạo và nghiên cứu ứng dụng với các công ty công nghệ và tài chính để tạo cơ hội việc làm",
+      "Phát triển quỹ học bổng PiMA hỗ trợ học viên tài năng",
+    ],
+  },
+  {
+    icon: "book",
+    title: "Phát triển cộng đồng học thuật",
+    items: [
+      "Kết nối với giảng viên, cố vấn và doanh nghiệp trong và ngoài nước",
+      "Tổ chức hội thảo, tọa đàm và cuộc thi học thuật",
+      "Xây dựng diễn đàn và nội dung trực tuyến",
+    ],
+  },
+] as const;
 ---
 
-<Section name="future-plans" width="medium" spacing="large" tone="surface" id={aboutAnchors.futurePlans}>
-  <div class="intro">
+<Section name="future-plans" width="large" spacing="medium" id={aboutAnchors.futurePlans}>
+  <div class="head">
     <Kicker>kế hoạch tương lai</Kicker>
-    <h2>Hướng đến một trung tâm đào tạo Toán học ứng dụng hàng đầu</h2>
-    <p class="lead">Trong 3–5 năm tới, PiMA đặt mục tiêu trở thành trung tâm đào tạo và nghiên cứu Toán học ứng dụng hàng đầu tại Việt Nam, mở rộng hợp tác quốc tế và thúc đẩy ứng dụng Toán học trong khởi nghiệp, công nghệ và đổi mới sáng tạo.</p>
+    <h2>Hướng đến một trung tâm đào tạo và nghiên cứu Toán học ứng dụng tại Việt Nam</h2>
+    <p class="lead">{lead}</p>
   </div>
-  <div class="items">
-    <div>
-      <div class="glyph">
-        <Icon name="braces" size="48" />
-      </div>
-      <h3>Mở rộng đào tạo &amp; nghiên cứu</h3>
-      <p>Triển khai các khóa học chuyên sâu về Toán ứng dụng, khoa học dữ liệu, trí tuệ nhân tạo<br />Tăng cường chương trình mentorship và hỗ trợ nghiên cứu cho học viên</p>
-    </div>
-    <div>
-      <div class="glyph">
-        <Icon name="messages" size="48" />
-      </div>
-      <h3>Tăng cường hợp tác</h3>
-      <p>Kết nối với doanh nghiệp, tổ chức nghiên cứu và trường đại học trong – ngoài nước<br />Phát triển quỹ học bổng PiMA đồng hành cùng học viên tài năng</p>
-    </div>
-    <div>
-      <div class="glyph">
-        <Icon name="book" size="48" />
-      </div>
-      <h3>Phát triển cộng đồng học thuật</h3>
-      <p>Xây dựng diễn đàn online và nội dung học thuật chuyên sâu<br />Tổ chức hội thảo, toạ đàm, và các cuộc thi Toán ứng dụng quy mô mở rộng</p>
-    </div>
-  </div>
+  <ul role="list" class="plans">
+    {
+      plans.map((p) => (
+        <li>
+          <span class="glyph">
+            <Icon name={p.icon} size="40" />
+          </span>
+          <h3>{p.title}</h3>
+          <ul class="items">
+            {p.items.map((t) => (
+              <li>{t}</li>
+            ))}
+          </ul>
+        </li>
+      ))
+    }
+  </ul>
+  <p class="closing">Học viên là động lực và trọng tâm.</p>
 </Section>
 
 <style>
-  /* The old spacer under the text is the bottom padding. */
-  .intro {
-    width: 100%;
-    max-width: 56rem;
-    margin-left: auto;
-    margin-right: auto;
-    padding-bottom: var(--space-4);
-    text-align: center;
+  .head {
+    max-width: var(--width-small);
+    margin-bottom: var(--space-12);
   }
 
   .lead {
-    margin-bottom: var(--space-4);
-    color: var(--color-text);
+    margin-bottom: 0;
   }
 
-  .items {
-    position: relative;
-    z-index: 1;
+  .plans {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    place-items: start;
-    gap: var(--space-16) var(--space-12);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    margin: 0;
+    padding: 0;
+    list-style: none;
   }
 
-  .items > div {
-    width: 100%;
+  .plans > li {
+    padding: var(--space-2) var(--space-8);
+    border-left: 1px solid var(--color-border);
   }
 
-  /* The old icon was an inline box whose Webflow embed hack set it 17px down its line;
-     --space-4 is the nearest step. */
+  .plans > li:first-child {
+    padding-left: 0;
+    border-left: 0;
+  }
+
   .glyph {
-    display: flex;
-    margin-top: var(--space-4);
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 3rem;
-    height: 3rem;
+    display: block;
     color: var(--color-icon-decorative);
   }
 
-  @media screen and (max-width: 991px) {
-    .items {
-      column-gap: var(--space-8);
-    }
+  .plans h3 {
+    margin: var(--space-4) 0 var(--space-3);
+  }
+
+  .items {
+    margin: 0;
+    padding-left: var(--space-5);
+  }
+
+  .items li + li {
+    margin-top: var(--space-2);
+  }
+
+  .items li::marker {
+    color: var(--color-icon-decorative);
+  }
+
+  /* The closing line is display type, not a heading. */
+  .closing {
+    margin: var(--space-16) 0 0;
+    color: var(--color-text-heading);
+    font-size: var(--font-size-display-2);
+    font-weight: var(--font-weight-black);
+    letter-spacing: var(--letter-spacing-display);
+    line-height: var(--line-height-display);
   }
 
   @media screen and (max-width: 767px) {
-    .items {
+    .plans {
       grid-template-columns: 1fr;
-      row-gap: var(--space-12);
+      row-gap: var(--space-8);
+    }
+
+    .plans > li {
+      padding: var(--space-8) 0 0;
+      border-top: 1px solid var(--color-border);
+      border-left: 0;
+    }
+
+    .plans > li:first-child {
+      padding-top: 0;
+      border-top: 0;
     }
   }
 </style>

@@ -37,7 +37,7 @@ One of the small fixed set of building blocks that carry a brand rule and repeat
 _Avoid_: base component, atom, design-system component
 
 **Widget**:
-A reusable component with behaviour or a fixed structure of its own but no brand rule to carry (`Slider`, `Marquee`, `Accordion`, `ContactForm`, `ContentGap`). Lives next to the primitives, is not one.
+A reusable component with behaviour or a fixed structure of its own but no brand rule to carry (`Slider`, `Marquee`, `ContactForm`, `ContentGap`). Lives next to the primitives, is not one.
 _Avoid_: primitive (for these), plugin
 
 **Tone**:

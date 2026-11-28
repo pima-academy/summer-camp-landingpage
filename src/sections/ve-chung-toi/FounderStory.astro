@@ -1,75 +1,48 @@
 ---
-// FounderStory: "Câu chuyện của nhà sáng lập", the founders' photo (sticky on desktop) next
-// to a six-step timeline whose dots turn PiMA Green as they scroll past (`data-timeline-dot`, see
-// src/lib/timeline-dots.ts). Used by ve-chung-toi only (old `section_about-timeline` /
-// `timeline1_*`); carries the footer anchor "Câu chuyện nhà sáng lập".
+// FounderStory: "Câu chuyện của nhà sáng lập" as prose (report ch. 09, text and photos in
+// founder-story.ts). A 4/7 grid on a surface band: the heading, the founder's portrait and one
+// line from the chapter stick on the left while four chapters read down a ≤ 40rem column on
+// the right, with captioned photos between them. At ≤ 991 px the aside is a row (portrait
+// beside the line), not sticky. Used by ve-chung-toi only; carries the footer anchor
+// "Câu chuyện nhà sáng lập".
 import { Image } from "astro:assets";
 import Section from "../../components/Section.astro";
 import { aboutAnchors } from "../../data/site";
 import { fluidWidths } from "../../lib/image-widths";
-import founders from "../../assets/images/impact-report-no-q-111sdfs.avif";
-
-const timeline = [
-  {
-    title: "PIMA: Hành trình kiến tạo một cộng đồng Toán học và Ứng dụng tại Việt Nam",
-    text: "Năm 2016, từ ý tưởng nhỏ trong mùa hè, nhóm du học sinh Việt Nam đã quyết định tổ chức trại hè Toán học đầu tiên – miễn phí và tập trung vào ứng dụng thực tế.",
-  },
-  {
-    title: "Từ một ý tưởng mùa hè đến sứ mệnh ươm mầm nhân tài",
-    text: "Không chỉ dừng ở việc dạy Toán, PiMA mong muốn tạo cơ hội để học sinh được trải nghiệm nghiên cứu, làm việc nhóm và tiếp cận tư duy hiện đại trong môi trường học thuật thực tiễn.",
-  },
-  {
-    title: "Bài toán của giáo dục Toán học tại Việt Nam và một câu hỏi thôi thúc",
-    text: "Vấn đề lớn nhất không phải thiếu kiến thức – mà là thiếu môi trường, thiếu cơ hội cọ xát và truyền cảm hứng. PiMA được hình thành để giải bài toán đó.",
-  },
-  {
-    title: "Dùng học bổng cá nhân để mở trại hè miễn phí",
-    text: "Chương trình ban đầu được vận hành hoàn toàn từ học bổng cá nhân của sáng lập viên – với cam kết chất lượng cao, bài bản và phi lợi nhuận.",
-  },
-  {
-    title: "Từ một trại hè đến một tổ chức giáo dục chuyên nghiệp",
-    text: "Từ một chương trình thử nghiệm, PiMA phát triển thành tổ chức giáo dục có mạng lưới mentor toàn cầu, kết nối với đại học lớn và các trường phổ thông hàng đầu trong nước.",
-  },
-  {
-    title: "2025 – Bước chuyển mình quan trọng",
-    text: "Năm 2025, PiMA chính thức trở thành Công ty Cổ phần PiMA Academy – một bước ngoặt để mở rộng quy mô, hợp tác sâu với doanh nghiệp và trường đại học quốc tế, tiếp tục ươm mầm tài năng toán học Việt Nam ra thế giới.",
-  },
-];
+import { chapters, portrait, quote } from "./founder-story";
 ---
 
-<Section name="founder-story" width="medium" spacing="medium" id={aboutAnchors.founderStory}>
+<Section name="founder-story" tone="surface" width="large" spacing="medium" id={aboutAnchors.founderStory}>
   <div class="layout">
-    <div class="aside">
-      <div class="aside-inner">
-        <h2>Câu chuyện của nhà sáng lập</h2>
-        <div class="portrait">
-          <Image
-            src={founders}
-            width={387}
-            widths={fluidWidths(founders)}
-            sizes="(max-width: 767px) 90vw, (max-width: 991px) calc(45vw - 64px), 387px"
-            alt="Hai nhà đồng sáng lập PiMA: Trần Hoàng Bảo Linh và Cấn Trần Thành Trung"
-            class="portrait-img"
-          />
-          <p class="caption">Hai người bạn thân đồng sáng lập PiMA: Trần Hoàng Bảo Linh (trái) và Cấn Trần Thành Trung (phải)</p>
-        </div>
+    <aside>
+      <div class="aside">
+        <h2 class="title">Câu chuyện của nhà sáng lập</h2>
+        <figure class="portrait">
+          <Image src={portrait.src} alt={portrait.alt} widths={fluidWidths(portrait.src)} sizes="(max-width: 767px) 7rem, (max-width: 991px) 12rem, 18rem" />
+          <figcaption>{portrait.caption}</figcaption>
+        </figure>
+        <blockquote class="quote">“{quote}”</blockquote>
       </div>
-    </div>
-    <div class="rail">
-      <div class="line"></div>
-    </div>
-    <div class="entries">
+    </aside>
+    <div class="prose">
       {
-        timeline.map((row) => (
-          <div class="entry">
-            <div class="dot-cell">
-              <div class="dot" data-timeline-dot />
-            </div>
-            <div class="entry-body">
-              <h3>{row.title}</h3>
-              <p>{row.text}</p>
-            </div>
-          </div>
+        chapters.map((c) => (
+          <>
+            <h3>{c.title}</h3>
+            {c.paragraphs.map((t) => (
+              <p>{t}</p>
+            ))}
+            {c.photos && (
+              <div class:list={["photos", { pair: c.photos.length === 2 }]}>
+                {c.photos.map((ph) => (
+                  <figure>
+                    <Image src={ph.src} alt={ph.alt} widths={fluidWidths(ph.src)} sizes={c.photos!.length === 2 ? "(max-width: 767px) 90vw, 20rem" : "(max-width: 767px) 90vw, 40rem"} />
+                    <figcaption>{ph.caption}</figcaption>
+                  </figure>
+                ))}
+              </div>
+            )}
+          </>
         ))
       }
     </div>
@@ -77,151 +50,124 @@ const timeline = [
 </Section>
 
 <style>
-  /* Two columns with the green line absolutely positioned between them (centred by the
-     grid's justify-items); at ≤ 767 px one column with the line on the left of the entries. */
   .layout {
-    position: relative;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    place-items: start center;
-    gap: var(--space-32);
+    grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+    gap: var(--space-16);
   }
 
+  /* Sticks below the fixed nav while the story scrolls. */
   .aside {
     position: sticky;
-    top: var(--space-20);
-    padding-right: var(--space-4);
+    top: var(--space-28);
   }
 
-  .aside-inner {
+  .title {
+    margin-top: 0;
+  }
+
+  figure {
+    margin: 0;
+  }
+
+  figure img {
     width: 100%;
-    max-width: 56rem;
-    margin-left: auto;
-    margin-right: auto;
+    height: auto;
+    object-fit: cover;
+  }
+
+  figcaption {
+    margin-top: var(--space-2);
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
   }
 
   .portrait {
+    max-width: 18rem;
     margin-top: var(--space-8);
   }
 
-  .portrait-img {
-    object-fit: fill;
-    overflow: clip;
+  .portrait img {
+    aspect-ratio: 1;
   }
 
-  .caption {
-    font-size: var(--font-size-small);
-    font-weight: var(--font-weight-regular);
+  .quote {
+    margin: var(--space-8) 0 0;
+    padding-left: var(--space-4);
+    border-left: var(--border-width-rule-accent) solid var(--color-border-rule-accent);
+    color: var(--color-text-heading);
+    font-size: var(--font-size-h3);
+    font-weight: var(--font-weight-extrabold);
+    line-height: var(--line-height-h3);
   }
 
-  .rail {
-    position: absolute;
-    z-index: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 2rem;
-    height: 100%;
+  .prose {
+    max-width: 40rem;
   }
 
-  .line {
-    width: 3px;
-    height: 100%;
-    background-color: var(--color-background-accent);
+  .prose h3 {
+    margin: var(--space-10) 0 var(--space-3);
   }
 
-  .entries {
+  .prose h3:first-child {
+    margin-top: 0;
+  }
+
+  .prose p {
+    margin: 0 0 var(--space-4);
+  }
+
+  .photos {
+    margin: var(--space-8) 0;
+  }
+
+  .photos img {
+    aspect-ratio: 3 / 2;
+  }
+
+  .pair {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-20);
-  }
-
-  .entry {
-    position: relative;
-  }
-
-  /* The dot sits on the line: the cell reaches back over the column gap. */
-  .dot-cell {
-    position: absolute;
-    z-index: 1;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    width: 8rem;
-    height: 100%;
-    margin-left: calc(-1 * var(--space-32));
-  }
-
-  /* Idle grey until the page scrolls to it, then PiMA Green: src/lib/timeline-dots.ts sets
-     --timeline-dot-progress (0 to 1). Without the script the dot stays green. */
-  .dot {
-    --timeline-dot-progress: 1;
-    z-index: 2;
-    width: 0.9375rem;
-    height: 0.9375rem;
-    margin-top: var(--space-8);
-    border-radius: var(--radius-circle);
-    background-color: color-mix(
-      in srgb,
-      var(--color-background-accent) calc(var(--timeline-dot-progress) * 100%),
-      var(--color-background-timeline-dot-idle)
-    );
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-4);
   }
 
   @media screen and (max-width: 991px) {
     .layout {
-      gap: var(--space-24);
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
     }
 
-    .dot-cell {
-      width: 6rem;
-      margin-left: calc(-1 * var(--space-24));
+    .aside {
+      position: static;
+      display: grid;
+      grid-template-columns: 12rem 1fr;
+      column-gap: var(--space-6);
+      align-items: start;
+    }
+
+    .title {
+      grid-column: 1 / -1;
+    }
+
+    .portrait,
+    .quote {
+      margin-top: 0;
     }
   }
 
   @media screen and (max-width: 767px) {
-    .layout {
-      grid-template-columns: 1fr;
-      gap: var(--space-12);
-    }
-
     .aside {
-      position: relative;
-      top: 0;
-      z-index: 1;
-      padding-right: 0;
+      grid-template-columns: 7rem 1fr;
+      column-gap: var(--space-4);
     }
 
-    .rail {
-      grid-area: 2 / 1 / 3 / 2;
-      justify-self: start;
+    .quote {
+      font-size: var(--font-size-body);
+      line-height: var(--line-height-body);
     }
 
-    .entries {
-      gap: var(--space-12);
-    }
-
-    .dot-cell {
-      width: 2rem;
-      margin-left: 0;
-    }
-
-    .dot {
-      margin-top: var(--space-3);
-    }
-
-    .entry-body {
-      margin-left: var(--space-12);
-    }
-  }
-
-  @media screen and (max-width: 479px) {
-    .layout {
-      gap: var(--space-6);
-    }
-
-    .entries {
-      row-gap: var(--space-8);
+    .pair {
+      grid-template-columns: 1fr;
     }
   }
 </style>

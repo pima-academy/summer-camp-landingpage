@@ -1,106 +1,130 @@
 ---
-// VisionMission: "Xuất phát điểm / Tầm nhìn / Sứ mệnh" in an Accordion, each panel with a
-// photo. Used by ve-chung-toi only (old `about-feature` / `layout351_*`); carries the footer
-// anchor "Tầm nhìn & Sứ mệnh".
-import { Image } from "astro:assets";
-import Accordion from "../../components/Accordion.astro";
-import AccordionPanel from "../../components/AccordionPanel.astro";
+// VisionMission: "Tầm nhìn, sứ mệnh và hành động". A 4/8 grid: the heading left, vision and
+// mission side by side as statements at h3 size; under a rule, the three actions as columns.
+// No accordion, no photos. Wording from report ch. 02 as of October 2026, without "hàng đầu".
+// Used by ve-chung-toi only; carries the footer anchor "Tầm nhìn & Sứ mệnh".
 import Kicker from "../../components/Kicker.astro";
 import Section from "../../components/Section.astro";
 import { aboutAnchors } from "../../data/site";
-import { fluidWidths } from "../../lib/image-widths";
-import founders from "../../assets/images/impact-report-no-q-111sdfs.avif";
-import orientation2023 from "../../assets/images/481995832-1135445505045584-6318121554141229279-n.avif";
-import workshop from "../../assets/images/481775555-1135445305045604-7304032333989245886-n.avif";
 
-// Sizes measured on the old page at 390/820/1440.
-const photoSizes = "(max-width: 767px) calc(90vw - 36px), (max-width: 991px) 80vw, 708px";
+const vision =
+  "PiMA hướng đến việc trở thành một tổ chức giáo dục, nghiên cứu toán học và ứng dụng, nơi hội tụ và nuôi dưỡng các tài năng, giúp họ phát huy tối đa tiềm năng và đóng góp tích cực vào sự phát triển bền vững của xã hội.";
+const mission =
+  "PiMA được thành lập với sứ mệnh phát triển giáo dục toán học tại Việt Nam. Thông qua các chương trình giảng dạy tiên tiến, lấy người học làm trọng tâm, chúng tôi hướng tới việc giúp mọi người không chỉ hiểu sâu hơn về toán mà còn biết cách vận dụng nó để tạo ra những ứng dụng thực tiễn.";
+const actions = [
+  {
+    title: "Ươm mầm tài năng",
+    text: "Tìm kiếm, truyền cảm hứng và hỗ trợ các cá nhân có năng lực và đam mê toán học vươn tầm thế giới.",
+  },
+  {
+    title: "Kết nối cộng đồng",
+    text: "Xây dựng mạng lưới kết nối giáo dục, nghiên cứu và doanh nghiệp nhằm thúc đẩy việc hợp tác đào tạo và nghiên cứu ứng dụng của toán học tại Việt Nam.",
+  },
+  {
+    title: "Ứng dụng Toán học vào thực tiễn",
+    text: "Nghiên cứu các mô hình và thuật toán tối ưu cho trí tuệ nhân tạo, khoa học dữ liệu, tài chính, tin sinh học và nhiều lĩnh vực khác.",
+  },
+];
 ---
 
-<Section name="vision-mission" width="large" spacing="small" id={aboutAnchors.visionMission}>
-  <div class="panels">
-    <Accordion>
-      <AccordionPanel number="01" title="Xuất phát điểm" open>
-        <Kicker flush>Tầm nhìn, Sứ mệnh, Mục tiêu</Kicker>
-        <h3 class="heading">Xuất phát điểm</h3>
-        <p class="text">Với mong muốn giúp học sinh và sinh viên Việt Nam tiếp cận toán học không chỉ như một môn học trên lớp mà còn như một công cụ để khám phá thế giới, PiMA đã tổ chức trại hè đầu tiên vào năm 2016, đánh dấu bước khởi đầu cho hành trình đưa toán học đến gần hơn với thực tiễn.</p>
-        <div class="photo">
-          <Image src={founders} widths={fluidWidths(founders)} sizes={photoSizes} alt="Hai nhà đồng sáng lập PiMA" class="photo-img" />
-        </div>
-      </AccordionPanel>
-      <AccordionPanel number="02" title="Tầm nhìn">
-        <h3 class="heading">Tầm nhìn</h3>
-        <p class="text">Trở thành một tổ chức hàng đầu về giáo dục, nghiên cứu toán học và ứng dụng, nơi quy tụ và phát triển các tài năng trẻ, giúp họ phát huy tối đa tiềm năng và đóng góp vào sự phát triển bền vững của xã hội.</p>
-        <div class="photo">
-          <Image src={orientation2023} widths={fluidWidths(orientation2023)} sizes={photoSizes} alt="Học viên và ban tổ chức tại buổi định hướng Trại hè PiMA 2023" class="photo-img" />
-        </div>
-      </AccordionPanel>
-      <AccordionPanel number="03" title="Sứ mệnh">
-        <h3 class="heading">Xuất phát điểm</h3>
-        <p class="text">Phát triển giáo dục toán học tại Việt Nam thông qua các chương trình giảng dạy tiên tiến, lấy người học làm trọng tâm, và hướng tới việc giúp mọi người không chỉ hiểu sâu hơn về toán mà còn biết cách vận dụng để tạo ra những ứng dụng thực tiễn.</p>
-        <div class="photo">
-          <Image src={workshop} widths={fluidWidths(workshop)} sizes={photoSizes} alt="Mentor PiMA trao đổi với học viên trong một buổi workshop" class="photo-img" />
-        </div>
-      </AccordionPanel>
-    </Accordion>
+<Section name="vision-mission" width="large" spacing="medium" id={aboutAnchors.visionMission}>
+  <div class="grid">
+    <div>
+      <Kicker flush>định hướng</Kicker>
+      <h2 class="title">Tầm nhìn, sứ mệnh và hành động</h2>
+    </div>
+    <div class="statements">
+      <div>
+        <h3 class="label">Tầm nhìn</h3>
+        <p class="statement">{vision}</p>
+      </div>
+      <div>
+        <h3 class="label">Sứ mệnh</h3>
+        <p class="statement">{mission}</p>
+      </div>
+    </div>
+  </div>
+  <div class="grid actions-row">
+    <h3 class="label">Hành động</h3>
+    <ul role="list" class="actions">
+      {
+        actions.map((a) => (
+          <li>
+            <h4>{a.title}</h4>
+            <p>{a.text}</p>
+          </li>
+        ))
+      }
+    </ul>
   </div>
 </Section>
 
 <style>
-  /* The old empty heading block above the accordion left this gap. */
-  .panels {
-    padding-top: var(--space-20);
+  .grid {
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    gap: var(--space-12);
   }
 
-  .heading {
-    text-align: left;
+  .title {
+    margin-top: var(--space-4);
   }
 
-  .text {
-    margin-bottom: var(--space-4);
-    color: var(--color-text);
-    text-align: left;
+  .statements {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-10);
   }
 
-  .photo {
-    margin-bottom: var(--space-16);
+  /* Small accent labels: headings to the outline, not to the eye. */
+  .label {
+    margin: 0 0 var(--space-3);
+    color: var(--color-text-accent);
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
   }
 
-  .photo-img {
-    width: 130%;
-    max-width: none;
-    height: 100%;
-    object-fit: cover;
-    overflow: clip;
+  .statement {
+    margin: 0;
+    font-size: var(--font-size-h3);
+    line-height: var(--line-height-h3);
+  }
+
+  .actions-row {
+    margin-top: var(--space-16);
+    padding-top: var(--space-8);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .actions {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-10);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .actions h4 {
+    margin: 0 0 var(--space-2);
+  }
+
+  .actions p {
+    margin: 0;
   }
 
   @media screen and (max-width: 991px) {
-    .panels {
-      padding-top: var(--space-16);
-    }
-
-    .photo {
-      margin-bottom: 0;
-    }
-
-    .photo-img {
-      width: 100%;
+    .grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
     }
   }
 
   @media screen and (max-width: 767px) {
-    .panels {
-      padding-top: var(--space-12);
-    }
-
-    .photo-img {
-      height: 20rem;
-    }
-  }
-
-  @media screen and (max-width: 479px) {
-    .photo-img {
-      height: 12rem;
+    .statements,
+    .actions {
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
     }
   }
 </style>

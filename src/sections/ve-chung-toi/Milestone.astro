@@ -1,0 +1,144 @@
+---
+// Milestone: "Các cột mốc đáng nhớ", the brand timeline (docs/brand.md, "Timeline"): a thin
+// PiMA Green axis with a dot per year, one column per year read left to right in a row that
+// scrolls sideways, snapping per year. At ≤ 767 px the axis runs down the left and the years
+// stack. Entries in milestones.ts. Used by ve-chung-toi only; carries the footer anchor
+// "Các cột mốc".
+import Section from "../../components/Section.astro";
+import { aboutAnchors } from "../../data/site";
+import { milestoneYears } from "./milestones";
+---
+
+<Section name="milestone" width="large" spacing="medium" id={aboutAnchors.milestones}>
+  <div class="head">
+    <h2 class="title">Các cột mốc đáng nhớ</h2>
+    <p class="hint">Kéo ngang để xem tiếp.</p>
+  </div>
+  <ol role="list" class="track" tabindex="0" aria-label="Các cột mốc từ 2016 đến 2026">
+    {
+      milestoneYears.map((y) => (
+        <li class="year-col">
+          <span class="dot" aria-hidden="true" />
+          <span class="year">{y.year}</span>
+          <ul role="list" class="entries">
+            {y.entries.map((e) => (
+              <li>
+                {e.month && <span class="month">{e.month}</span>}
+                <span>
+                  {e.text} {e.topic && <strong class="topic">{e.topic}</strong>}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </li>
+      ))
+    }
+  </ol>
+</Section>
+
+<style>
+  .head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-4);
+    margin-bottom: var(--space-10);
+  }
+
+  .title {
+    margin: 0;
+  }
+
+  .hint {
+    margin: 0;
+    color: var(--color-text-muted);
+    font-size: var(--font-size-small);
+  }
+
+  /* The axis is a 2px line through the dots' centres, painted under the columns. */
+  .track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 17rem;
+    gap: var(--space-8);
+    margin: 0;
+    padding: 0 0 var(--space-6);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    list-style: none;
+    background: linear-gradient(var(--color-background-accent), var(--color-background-accent)) 0 0.5rem / 100% 2px no-repeat;
+  }
+
+  .year-col {
+    position: relative;
+    scroll-snap-align: start;
+  }
+
+  .dot {
+    display: block;
+    width: 1.125rem;
+    height: 1.125rem;
+    border-radius: var(--radius-circle);
+    background-color: var(--color-background-accent);
+  }
+
+  /* A date, not a heading: h2 size, black weight. */
+  .year {
+    display: block;
+    margin: var(--space-4) 0 var(--space-3);
+    color: var(--color-text-heading);
+    font-size: var(--font-size-h2);
+    font-weight: var(--font-weight-black);
+    line-height: var(--line-height-display);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .entries {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .entries li {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .month {
+    color: var(--color-text-accent);
+    font-weight: var(--font-weight-extrabold);
+  }
+
+  .topic {
+    font-style: italic;
+    font-weight: var(--font-weight-bold);
+  }
+
+  @media screen and (max-width: 767px) {
+    .hint {
+      display: none;
+    }
+
+    .track {
+      grid-auto-flow: row;
+      grid-auto-columns: auto;
+      padding: 0 0 0 var(--space-8);
+      overflow: visible;
+      background-position: 0.5rem 0;
+      background-size: 2px 100%;
+    }
+
+    .dot {
+      position: absolute;
+      left: calc(-1 * var(--space-8));
+      top: var(--space-1);
+    }
+
+    .year {
+      margin-top: 0;
+    }
+  }
+</style>
