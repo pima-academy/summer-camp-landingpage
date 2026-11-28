@@ -7,7 +7,7 @@ import assert from "node:assert/strict";
 import { existsSync, readFileSync } from "node:fs";
 import { join, relative } from "node:path";
 import { postDate, summaryOf } from "../src/sections/post-text.ts";
-import { blogPosts, builtHtmlFiles, dist, distSkip as skip, mainOf, publishedBlogPosts, readBuilt, root } from "./test-lib.mjs";
+import { blogPosts, builtHtmlFiles, dist, distSkip as skip, mainOf, publishedBlogPosts, readBuilt, root, sectionOf, textOf as text } from "./test-lib.mjs";
 
 // ---- Card summary and date ------------------------------------------------------------------
 
@@ -49,10 +49,6 @@ const between = (page, start, end) => {
 };
 const anchors = (s) => [...s.matchAll(/<a\b[^>]*>([\s\S]*?)<\/a>/g)];
 const href = (tag) => tag.match(/href="([^"]*)"/)?.[1];
-// Tags out, then the entities Astro escapes in text ("&" in a title) back to their characters.
-const ENTITIES = { "&amp;": "&", "&lt;": "<", "&gt;": ">", "&quot;": '"', "&#39;": "'" };
-const decode = (s) => s.replace(/&(?:amp|lt|gt|quot|#39);/g, (e) => ENTITIES[e]);
-const text = (html) => decode(html.replace(/<[^>]*>/g, "")).replace(/\s+/g, " ").trim();
 
 test("the main nav shows Blog, linking to /blog/", { skip }, () => {
   const nav = between(readBuilt("index.html"), "<header", "</header>");
@@ -104,8 +100,6 @@ test("/blog/ lists exactly the non-draft posts, newest first, each linking to /b
   assert.deepEqual(listed(), published.map((p) => `/blog/${p.slug}/`));
 });
 
-/** The markup of the section `name` of a built page ("" when missing). */
-const sectionOf = (html, name) => between(html, `data-section="${name}"`, "</section>");
 const ddmmyyyy = (iso) => iso.split("-").reverse().join("/");
 
 test("each /blog/ card shows a cover or the pale-lime logo block, the date, the title and a summary", { skip }, () => {
@@ -278,7 +272,7 @@ test("every body image is a figure with non-empty alt; a Markdown title is its f
       const img = figures[k].match(/<img\b[^>]*>/)?.[0] ?? "";
       assert.match(img, /src="\/_astro\//, `${slug} image ${k + 1}: optimised by Astro`);
       assert.ok(alt.trim(), `${slug} image ${k + 1}: alt text (the README asks for it)`);
-      assert.equal(decode(img.match(/\balt="([^"]*)"/)?.[1] ?? ""), alt, `${slug} image ${k + 1}: alt`);
+      assert.equal(text(img.match(/\balt="([^"]*)"/)?.[1] ?? ""), alt, `${slug} image ${k + 1}: alt`);
       assert.doesNotMatch(img, /\btitle=/, `${slug} image ${k + 1}: no title attribute`);
       const caption = figures[k].match(/<figcaption\b[^>]*>([\s\S]*?)<\/figcaption>/)?.[1];
       assert.equal(caption === undefined ? undefined : text(caption), title, `${slug} image ${k + 1}: figcaption`);

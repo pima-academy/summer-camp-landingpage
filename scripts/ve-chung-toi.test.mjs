@@ -3,7 +3,7 @@
 // Needs a fresh `npm run build`; skipped when the page is not built.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { distSkip as skip, mainOf, readBuilt } from "./test-lib.mjs";
+import { distSkip as skip, mainOf, readBuilt, sectionOf } from "./test-lib.mjs";
 
 const html = readBuilt("ve-chung-toi/index.html");
 
@@ -61,13 +61,8 @@ test("the footer's 'Về PiMA' column is the seven links, each landing on its se
   }
 });
 
-/** The part of the page from `data-section="<name>"` up to the next section. */
-const sectionHtml = (name) => {
-  const from = html.indexOf(`data-section="${name}"`);
-  if (from < 0) return "";
-  const next = html.indexOf("data-section=", from + 1);
-  return html.slice(from, next < 0 ? undefined : next);
-};
+/** The markup of the section `name` of the page. */
+const sectionHtml = (name) => sectionOf(html, name);
 
 test("the page makes none of the claims the redesign drops", { skip }, () => {
   const main = mainOf(html);

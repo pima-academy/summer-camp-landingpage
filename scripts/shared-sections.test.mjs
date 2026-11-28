@@ -4,26 +4,12 @@
 // Needs a fresh `npm run build`; skipped when dist/ is missing.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { distSkip as skip, mainOf, readBuilt } from "./test-lib.mjs";
+import { distSkip as skip, mainOf, readBuilt, sectionOf as sectionOfPage, textOf as text } from "./test-lib.mjs";
 
 const PAGES = ["index.html", "trai-he-toan-hoc-pima/index.html"];
 
-/** The markup of one section of a built page, from its data-section to the next one. */
-function sectionOf(page, name) {
-  const main = mainOf(readBuilt(page));
-  const start = main.indexOf(`data-section="${name}"`);
-  if (start < 0) return "";
-  const next = main.indexOf("data-section=", start + 1);
-  return main.slice(start, next < 0 ? undefined : next);
-}
-
-/** Visible text of a fragment: tags dropped, whitespace collapsed. */
-const text = (html) =>
-  html
-    .replace(/<[^>]+>/g, " ")
-    .replace(/&amp;/g, "&")
-    .replace(/\s+/g, " ")
-    .trim();
+/** The markup of one section of a built page. */
+const sectionOf = (page, name) => sectionOfPage(mainOf(readBuilt(page)), name);
 
 for (const page of PAGES) {
   test(`${page}: Impact shows the six cleared figures and their source line`, { skip }, () => {

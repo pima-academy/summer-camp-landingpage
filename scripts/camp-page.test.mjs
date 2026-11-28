@@ -2,7 +2,7 @@
 // Needs a fresh `npm run build`; skipped when dist/ is missing.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { distSkip as skip, mainOf, readBuilt } from "./test-lib.mjs";
+import { distSkip as skip, mainOf, readBuilt, sectionOf, textOf as text } from "./test-lib.mjs";
 
 const html = readBuilt("trai-he-toan-hoc-pima/index.html");
 
@@ -39,8 +39,7 @@ test("camp page markup carries no Webflow or utility class and no w-node id", { 
   assert.deepEqual(webflow, []);
 });
 
-const section = (name) => html.match(new RegExp(`<section[^>]*data-section="${name}"[\\s\\S]*?</section>`))?.[0] ?? "";
-const text = (markup) => markup.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ");
+const section = (name) => sectionOf(html, name);
 
 test("CampActivity is headed 'Các hoạt động chính' and no longer repeats CampIntro", { skip }, () => {
   const activity = section("camp-activity");

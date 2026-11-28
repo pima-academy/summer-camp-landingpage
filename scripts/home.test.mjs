@@ -5,17 +5,13 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { existsSync, readFileSync } from "node:fs";
 import { join } from "node:path";
-import { blogPosts, distSkip as skip, mainOf, publishedBlogPosts, readBuilt, root } from "./test-lib.mjs";
+import { blogPosts, distSkip as skip, mainOf, publishedBlogPosts, readBuilt, root, sectionOf as sectionOfPage, textOf } from "./test-lib.mjs";
 
 const html = readBuilt("index.html");
 const main = mainOf(html);
 
 /** The markup of the section `name` of the home page ("" when missing). */
-const sectionOf = (name) => {
-  const i = main.indexOf(`data-section="${name}"`);
-  return i < 0 ? "" : main.slice(i, main.indexOf("</section>", i));
-};
-const textOf = (s) => s.replace(/<[^>]*>/g, " ").replace(/&amp;/g, "&").replace(/\s+/g, " ").trim();
+const sectionOf = (name) => sectionOfPage(main, name);
 
 test("the page file is BaseLayout, its SEO data and the ordered list of its sections", () => {
   const page = readFileSync(join(root, "src/pages/index.astro"), "utf8");

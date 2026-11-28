@@ -74,6 +74,34 @@ export const publishedBlogPosts = () =>
 /** The content of the first <main> of a page. */
 export const mainOf = (html) => html.match(/<main[^>]*>([\s\S]*)<\/main>/)?.[1] ?? "";
 
+/**
+ * The markup of the section `name` of a page: its whole `<section data-section="name">` element,
+ * a <section> nested inside it included ("" when the page has none).
+ */
+export function sectionOf(html, name) {
+  const at = html.indexOf(`data-section="${name}"`);
+  const start = html.lastIndexOf("<section", at);
+  if (at < 0 || start < 0) return "";
+  const tags = /<(\/?)section\b[^>]*>/g;
+  tags.lastIndex = start;
+  for (let depth = 0, m; (m = tags.exec(html)); ) {
+    depth += m[1] ? -1 : 1;
+    if (depth === 0) return html.slice(start, tags.lastIndex);
+  }
+  return html.slice(start);
+}
+
+// The entities Astro escapes in text, back to their characters.
+const ENTITIES = { "&amp;": "&", "&lt;": "<", "&gt;": ">", "&quot;": '"', "&#39;": "'" };
+
+/** The visible text of a fragment: tags dropped, entities read back, whitespace collapsed. */
+export const textOf = (html) =>
+  html
+    .replace(/<[^>]*>/g, " ")
+    .replace(/&(?:amp|lt|gt|quot|#39);/g, (e) => ENTITIES[e])
+    .replace(/\s+/g, " ")
+    .trim();
+
 const TYPES = {
   ".html": "text/html; charset=utf-8",
   ".css": "text/css",
