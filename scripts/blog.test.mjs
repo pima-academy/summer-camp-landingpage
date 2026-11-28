@@ -267,7 +267,9 @@ const markdownImages = (file) =>
 const postFile = (slug) => [join(content, slug, "index.md"), join(content, `${slug}.md`)].find(existsSync);
 
 test("the 5 Jekyll site posts with images keep their images, each with non-empty alt text", () => {
-  const counts = { "toan-ung-dung-hang-khong": 1, "plato-1": 3, "plato-2": 4, "reinforcement-learning-1": 2, "reinforcement-learning-2": 1 };
+  // The two Plato posts were later redone from PiMA's Facebook page, which has one more photo
+  // for Phần 1 and shows Phần 2's first image as its cover.
+  const counts = { "toan-ung-dung-hang-khong": 1, "plato-1": 4, "plato-2": 3, "reinforcement-learning-1": 2, "reinforcement-learning-2": 1 };
   for (const [slug, n] of Object.entries(counts)) {
     const images = markdownImages(postFile(slug));
     assert.equal(images.length, n, `${slug}: images`);
