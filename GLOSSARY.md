@@ -88,6 +88,14 @@ _Avoid_: redesign, restyle, polish
 Any change to a page's structure: adding, removing or reordering sections, changing a layout grid, a new component or a new page. Deferred to a separate effort after brand alignment.
 _Avoid_: design tweak, cleanup
 
+**Change log**:
+The one GitHub issue, in Vietnamese, that tells PiMA in plain words what the redesign changed on each page compared with before, with screenshots before and after. Written for readers who are not developers.
+_Avoid_: release notes, changelog (the file), diff
+
+**Expert**:
+A person from outside PiMA who taught, spoke or advised at a PiMA activity ("chuyên gia đồng hành"), named with the title and post they had then. The website names only experts PiMA knows agreed to be shown.
+_Avoid_: mentor (mentors are part of the camp team), speaker, advisor
+
 **Design defect**:
 A flaw in the site's design (not a bug, not missing content) noticed along the way and logged for the redesign rather than fixed.
 _Avoid_: design bug, UX issue

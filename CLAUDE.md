@@ -2,7 +2,8 @@
 
 ## Language
 
-- All repo documentation (this file, `docs/`, ADRs, `GLOSSARY.md`, GitHub issues and PR bodies) is written in English. The one exception is the blog author guide, `src/content/blog/README.md`, in Vietnamese for the people who write posts.
+- All repo documentation (this file, `docs/`, ADRs, `GLOSSARY.md`, GitHub issues and PR bodies) is written in English. Two exceptions are in Vietnamese, for readers at PiMA who are not developers: the blog author guide, `src/content/blog/README.md`, and the redesign's change log issue (see `GLOSSARY.md`).
+- This repo is public: every issue, PR and branch is public. Facts from PiMA's partnership documents go on GitHub only when the user has cleared them for the website.
 - Website content in `site/` stays in Vietnamese. Don't translate it.
 
 ## Building UI
