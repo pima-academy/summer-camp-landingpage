@@ -30,7 +30,7 @@ Các ràng buộc đã có đủ, thế còn hàm mục tiêu thì sao (để nh
 
 ![Quy trình giải: lập hệ ràng buộc tuyến tính từ bảng Sudoku, đưa vào phần mềm Gurobi, đọc nghiệm tối ưu và diễn giải thành bảng Sudoku đã điền đầy đủ](./hinh-1.jpg)
 
-Có hai điểm khác biệt lớn giữa bài toán quy hoạch từ bảng Sudoku này so với các bài toán quy hoạch tuyến tính “bình thường” (như bài toán của bác nông dân trên đảo Chín Rồng đã được đề cập trước đó của PiMA):
+Có hai điểm khác biệt lớn giữa bài toán quy hoạch từ bảng Sudoku này so với các bài toán quy hoạch tuyến tính “bình thường” (như [bài toán của bác nông dân trên đảo Chín Rồng](/blog/thuat-toan-don-hinh/) đã được đề cập trước đó của PiMA):
 
 - Ta không biết trước miền nghiệm: Ở bài toán Sudoku này thì ta lại chưa biết trước các bộ giá trị nào thỏa mãn tất cả các ràng buộc.
 - Ta quan tâm đến sự tồn tại nghiệm vì mục tiêu cuối cùng của việc giải Sudoku là tìm các số chính xác để điền vào bảng, thay vì thực sự tối ưu một hàm mục tiêu $T$ được đặt một cách hình thức.

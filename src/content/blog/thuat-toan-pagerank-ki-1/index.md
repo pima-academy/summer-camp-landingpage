@@ -32,4 +32,4 @@ $$
 
 Dễ dàng giải được hệ trên với kết quả $(\mu_1, \mu_2, \mu_3, \mu_4) = (3, 2, 2, 2)$. Vậy trang $P_1$ có trọng lượng cao nhất.
 
-Một vấn đề đặt ra là trong thực tế, số trang web là rất lớn, việc giải hệ phương trình tuyến tính với hàng tỉ trang là điều không thể ngay cả với máy tính. Phải chăng tồn tại một công cụ có thể giải quyết bài toán trong trường hợp tổng quát với $n$ trang bất kì? Ở kì sau, chúng ta sẽ tiếp tục làm rõ vấn đề này.
+Một vấn đề đặt ra là trong thực tế, số trang web là rất lớn, việc giải hệ phương trình tuyến tính với hàng tỉ trang là điều không thể ngay cả với máy tính. Phải chăng tồn tại một công cụ có thể giải quyết bài toán trong trường hợp tổng quát với $n$ trang bất kì? Ở [kì sau](/blog/thuat-toan-pagerank-ki-2/), chúng ta sẽ tiếp tục làm rõ vấn đề này.

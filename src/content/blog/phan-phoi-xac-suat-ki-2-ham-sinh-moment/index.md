@@ -59,7 +59,7 @@ Thông qua hàm $M(t)$, ông chủ của A có thể dễ dàng tìm ra giá tr�
 
 ## Tài liệu tham khảo
 
-- Kỳ 1: <https://www.facebook.com/596923403806029/posts/1546956355469391/>
+- Kỳ 1: [Phân phối xác suất (kì 1)](/blog/phan-phoi-xac-suat-ki-1/)
 - Hogg, Tanis, and Zimmerman. Probability and Statistical Inference (9th edition)
 - <https://towardsdatascience.com/moment-generating-function-explained-27821a739035>
 - <https://dominhhai.github.io/vi/2017/10/prob-rand-var/>

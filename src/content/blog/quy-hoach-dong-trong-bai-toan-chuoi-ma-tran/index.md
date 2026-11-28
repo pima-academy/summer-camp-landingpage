@@ -10,7 +10,7 @@ Trong đó, ma trận được sử dụng khá phổ biến. Khi làm việc tr
 
 Liên quan tới phép nhân ma trận chính là bài toán nhân một chuỗi các ma trận. Hôm nay, PiMA sẽ cùng các bạn phân tích xem phương pháp quy hoạch động có thể tối ưu độ phức tạp của bài toán này không nhé!
 
-Trước đây, PiMA đã chia sẻ về Dynamic programming - Quy hoạch động. Đây là một phương pháp tối ưu nhiều vấn đề trong tin học và toán học. Các bạn có thể tìm hiểu qua [bài viết sau](https://www.facebook.com/pima.vn/posts/1041897819308583). Đồng thời, để dễ dàng tiếp cận bài toán của kỳ này, các bạn có thể xem qua [bài viết về ma trận của PiMA](https://www.facebook.com/pima.vn/posts/1506729086158785).
+Trước đây, PiMA đã chia sẻ về Dynamic programming - Quy hoạch động. Đây là một phương pháp tối ưu nhiều vấn đề trong tin học và toán học. Các bạn có thể tìm hiểu qua [bài viết sau](https://www.facebook.com/pima.vn/posts/1041897819308583). Đồng thời, để dễ dàng tiếp cận bài toán của kỳ này, các bạn có thể xem qua [bài viết về ma trận của PiMA](/blog/ma-tran/).
 
 ## 1. Bài toán
 

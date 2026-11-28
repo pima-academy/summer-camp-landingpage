@@ -28,7 +28,7 @@ Bài toán trên là một ví dụ của phân phối hình học (Geometric Di
 
 Một ví dụ của phân phối xác suất của biến ngẫu nhiên liên tục là phân phối mũ (exponential distribution). Cho thời gian chờ trung bình để xuất hiện tình huống A là $t$, ta có hàm mật độ xác suất của phân phối mũ để thời gian chờ $x > 0$ là $f(x) = \frac{1}{t} e^{-x/t}$.
 
-Ngoài việc tìm xác suất tại một điểm hay một khoảng bất kỳ trên tập giá trị của biến cố xác suất, nhiều bài toán trên thực tế yêu cầu chúng ta biểu diễn các phân phối xác suất một cách chi tiết và đầy đủ hơn. Trong kỳ sau, chúng ta sẽ cùng tìm hiểu kỹ hơn về những phương pháp.
+Ngoài việc tìm xác suất tại một điểm hay một khoảng bất kỳ trên tập giá trị của biến cố xác suất, nhiều bài toán trên thực tế yêu cầu chúng ta biểu diễn các phân phối xác suất một cách chi tiết và đầy đủ hơn. Trong [kỳ sau](/blog/phan-phoi-xac-suat-ki-2-ham-sinh-moment/), chúng ta sẽ cùng tìm hiểu kỹ hơn về những phương pháp.
 
 ## Tài liệu tham khảo
 

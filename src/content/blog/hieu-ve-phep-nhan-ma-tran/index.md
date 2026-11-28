@@ -4,7 +4,7 @@ date: 2020-04-17
 cover: ./cover.jpg
 ---
 
-Kì trước, chúng ta đã làm quen với ma trận và các phép toán của nó. Trong lần này, chúng ta sẽ cùng khám phá những góc nhìn khác nhau xoay quanh phép nhân 2 ma trận, một phép toán cực kì quan trọng và có rất nhiều ứng dụng thực tế nhé!
+[Kì trước](/blog/ma-tran/), chúng ta đã làm quen với ma trận và các phép toán của nó. Trong lần này, chúng ta sẽ cùng khám phá những góc nhìn khác nhau xoay quanh phép nhân 2 ma trận, một phép toán cực kì quan trọng và có rất nhiều ứng dụng thực tế nhé!
 
 Để phục vụ cho việc tìm hiểu dưới đây, ta cần hiểu một khái niệm quan trọng: tổ hợp tuyến tính.
 

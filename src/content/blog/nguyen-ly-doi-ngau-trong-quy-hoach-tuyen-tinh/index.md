@@ -6,7 +6,7 @@ cover: ./cover.jpg
 
 Đối ngẫu là một nguyên lý quan trọng trong tối ưu hóa nói chung và tối ưu hóa tuyến tính nói riêng. Dựa trên tính đối ngẫu, ta có thể xem xét một bài toán quy hoạch tuyến tính dưới hai khía cạnh: bài toán gốc và bài toán đối ngẫu của nó. Từ đó có thêm thông tin và hướng giải quyết cho vấn đề tối ưu ban đầu. Trong bài viết này, chúng ta sẽ cùng đi qua sơ lược cách một bài toán đối ngẫu được hình thành thông qua một tình huống thuận mua vừa bán giữa hai người nông dân.
 
-Chắc hẳn bạn đọc vẫn còn nhớ đến bài toán tối ưu mà anh Việt đã gặp phải (mời bạn tìm đọc lại bài viết về thuật toán đơn hình trên page). Ta có thể tóm tắt bài toán của anh Việt ngắn gọn như trong hình đầu bài.
+Chắc hẳn bạn đọc vẫn còn nhớ đến bài toán tối ưu mà anh Việt đã gặp phải (mời bạn tìm đọc lại [bài viết về thuật toán đơn hình trên page](/blog/thuat-toan-don-hinh/)). Ta có thể tóm tắt bài toán của anh Việt ngắn gọn như trong hình đầu bài.
 
 Trong đó, để sản xuất được một tấn lúa, ngô, lạc cần lần lượt 3, 4, 2 hectares đất; 400, 100, 200 kilograms phân bón; 200, 300, 100 tấn nước và anh Việt có thể sử dụng tối đa 8 ha đất, 1.1 tấn phân bón, 500 tấn nước mà mình đang có. Giá bán của mỗi 1 tấn lúa, 1 tấn ngô và 1 tấn lạc lần lượt là 5, 4 và 3 triệu đồng. Bài toán đặt ra là anh Việt cần phải tìm ra một phương án cho việc trồng bao nhiêu tấn lúa, ngô và lạc sao cho doanh thu từ việc bán nông sản là lớn nhất. Trong kỳ trước, anh Việt đã sử dụng những phép thế rất đơn giản để tìm ra lời giải tối ưu nhất cho vấn đề của mình. Cụ thể, nếu anh Việt trồng 2 tấn lúa, 1 tấn lạc và không trồng ngô thì sẽ được doanh thu lớn nhất là 13 triệu VND.
 

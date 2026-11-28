@@ -4,7 +4,7 @@ date: 2020-03-03
 cover: ./cover.jpg
 ---
 
-Ở kì trước, ta đã minh họa cách xác định trọng lượng của một trang web qua một ví dụ đơn giản với mô hình gồm 4 trang. Tuy nhiên, khi số trang rất lớn thì việc giải hệ phương trình tuyến tính là vô cùng khó khăn. Ở kì này, chúng ta cùng xây dựng mô hình tổng quát để xác định trọng lượng của $n$ trang bất kì.
+Ở [kì trước](/blog/thuat-toan-pagerank-ki-1/), ta đã minh họa cách xác định trọng lượng của một trang web qua một ví dụ đơn giản với mô hình gồm 4 trang. Tuy nhiên, khi số trang rất lớn thì việc giải hệ phương trình tuyến tính là vô cùng khó khăn. Ở kì này, chúng ta cùng xây dựng mô hình tổng quát để xác định trọng lượng của $n$ trang bất kì.
 
 Nhắc lại công thức hồi quy (1). Ta viết công thức trên dưới dạng ma trận:
 
@@ -46,4 +46,4 @@ Quay lại ví dụ trên, giả sử người lướt web xuất phát từ tra
 
 Ý tưởng ban đầu tưởng chừng hoàn hảo nhưng gặp phải một vấn đề: Nếu có một “hố đen” (trang không trỏ liên kết đến trang nào khác) thì phân bố dừng là $(\ldots, 1, \ldots)$ - một vị trí bằng 1, tất cả các vị trí còn lại bằng 0. Khi đó, mô hình đã định nghĩa ở trên không còn thỏa mãn.
 
-Để giải quyết vấn đề này, người ta đã thêm một tham số vào công thức hồi quy ban đầu, gọi là damping factor. Ở kì sau, chúng ta sẽ cùng nhau cải tiến thuật toán PageRank với tham số này.
+Để giải quyết vấn đề này, người ta đã thêm một tham số vào công thức hồi quy ban đầu, gọi là damping factor. Ở [kì sau](/blog/thuat-toan-pagerank-ki-cuoi/), chúng ta sẽ cùng nhau cải tiến thuật toán PageRank với tham số này.

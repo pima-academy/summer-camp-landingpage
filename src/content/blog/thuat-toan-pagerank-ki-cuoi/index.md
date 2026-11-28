@@ -4,7 +4,7 @@ date: 2020-03-12
 cover: ./cover.jpg
 ---
 
-Ở kì trước, ta đã tìm hiểu một phương pháp để tìm vector trọng lượng các trang web dựa trên phương diện xác suất, đó là tìm phân bố dừng của xích Markov. Tuy nhiên, có thể gặp một vấn đề là người lướt web không thể thoát ra khỏi trang web hiện tại (do không có liên kết đến trang nào khác). Nhằm khắc phục vấn đề trên, thuật toán PageRank điều chỉnh ý tưởng ban đầu bằng cách thêm một tham số $c$ ($0 \le c \le 1$) - damping factor:
+Ở [kì trước](/blog/thuat-toan-pagerank-ki-2/), ta đã tìm hiểu một phương pháp để tìm vector trọng lượng các trang web dựa trên phương diện xác suất, đó là tìm phân bố dừng của xích Markov. Tuy nhiên, có thể gặp một vấn đề là người lướt web không thể thoát ra khỏi trang web hiện tại (do không có liên kết đến trang nào khác). Nhằm khắc phục vấn đề trên, thuật toán PageRank điều chỉnh ý tưởng ban đầu bằng cách thêm một tham số $c$ ($0 \le c \le 1$) - damping factor:
 
 $$
 p'_i = \frac{c}{n} + \sum_{j \to i} \frac{1 - c}{l_j} p_j \tag{1}

@@ -59,4 +59,4 @@ $$
 
 Hệ phương trình trên có thể được biểu diễn dưới dạng ma trận: $A[x] = [y]$.
 
-Bằng một số phép toán cơ bản trên ma trận hệ phương trình trên còn được giải một cách rất dễ dàng. Ma trận hay đại số tuyến tính nói chung còn là công cụ cho rất nhiều ứng dụng thú vị khác như giảm số chiều dữ liệu, lý thuyết đồ thị, thuật toán Page-Rank.
+Bằng một số phép toán cơ bản trên ma trận hệ phương trình trên còn được giải một cách rất dễ dàng. Ma trận hay đại số tuyến tính nói chung còn là công cụ cho rất nhiều ứng dụng thú vị khác như giảm số chiều dữ liệu, lý thuyết đồ thị, [thuật toán Page-Rank](/blog/thuat-toan-pagerank-ki-1/).
