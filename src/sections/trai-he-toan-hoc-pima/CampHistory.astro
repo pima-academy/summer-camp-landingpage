@@ -97,6 +97,11 @@ const newestFirst = [...campYears].reverse();
     font-variant-numeric: tabular-nums;
   }
 
+  /* The link Button is a flex row: as wide as its text, so it sits left under the topic. */
+  .more {
+    width: fit-content;
+  }
+
   /* The link covers its card (positioned: sticky), so the whole card is the target. */
   .more::after {
     content: "";
